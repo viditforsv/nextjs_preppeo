@@ -258,6 +258,9 @@ export default function QuestionBankPage() {
   // Filter loading state
   const [loadingFilters, setLoadingFilters] = useState(true);
 
+  // Mobile filter sidebar state
+  const [showMobileFilters, setShowMobileFilters] = useState(false);
+
   // ===== FILTER STATE MANAGEMENT =====
 
   // Simple filters state - stores current filter selections
@@ -573,9 +576,9 @@ export default function QuestionBankPage() {
       {/* PAGE HEADER */}
       <div className="bg-white border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center py-6">
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center py-6 gap-4">
             <div>
-              <h1 className="text-3xl font-bold text-gray-900">
+              <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">
                 Question Bank
               </h1>
               <p className="mt-2 text-sm text-gray-600">
@@ -585,7 +588,7 @@ export default function QuestionBankPage() {
             {/* Add Question Button */}
             <Button
               onClick={() => router.push("/question-bank/new")}
-              className="bg-orange-600 hover:bg-orange-700 text-white rounded-sm"
+              className="bg-orange-600 hover:bg-orange-700 text-white rounded-sm w-full sm:w-auto"
             >
               <Plus className="w-4 h-4 mr-2" />
               Add Question
@@ -595,9 +598,26 @@ export default function QuestionBankPage() {
       </div>
 
       {/* MAIN CONTENT LAYOUT */}
-      <div className="flex">
+      <div className="flex flex-col lg:flex-row">
+        {/* Mobile Filter Toggle */}
+        <div className="lg:hidden bg-white border-b border-gray-200 p-4">
+          <Button
+            variant="outline"
+            className="w-full"
+            onClick={() => setShowMobileFilters(!showMobileFilters)}
+          >
+            <Filter className="w-4 h-4 mr-2" />
+            {showMobileFilters ? "Hide Filters" : "Show Filters"}
+          </Button>
+        </div>
+
         {/* FILTER SIDEBAR */}
-        <div className="w-80 bg-white border-r border-gray-200 p-4">
+        <div
+          className={`
+          w-full lg:w-80 bg-white border-r border-gray-200 p-4 lg:min-h-screen overflow-y-auto
+          ${showMobileFilters ? "block" : "hidden lg:block"}
+        `}
+        >
           <div className="space-y-4">
             {/* SEARCH SECTION */}
             <div>
@@ -1034,7 +1054,7 @@ export default function QuestionBankPage() {
             )}
 
             {/* Results Summary */}
-            <div className="mb-6 flex justify-between items-center">
+            <div className="mb-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
               <div className="flex items-center gap-4">
                 <div className="text-sm text-gray-600">
                   Showing {(pagination.page - 1) * pagination.limit + 1} to{" "}
@@ -1045,7 +1065,7 @@ export default function QuestionBankPage() {
                   of {pagination.total} {hasActiveFilters() ? "filtered " : ""}
                   questions
                   {hasActiveFilters() && totalQuestions > pagination.total && (
-                    <span className="text-gray-400 ml-1">
+                    <span className="text-gray-400 ml-1 hidden sm:inline">
                       (from {totalQuestions} total questions)
                     </span>
                   )}
@@ -1053,7 +1073,9 @@ export default function QuestionBankPage() {
               </div>
 
               <div className="flex items-center gap-2">
-                <span className="text-sm text-gray-600">Show:</span>
+                <span className="text-sm text-gray-600 hidden sm:inline">
+                  Show:
+                </span>
                 <Select
                   value={pagination.limit.toString()}
                   onValueChange={(value) => {
@@ -1234,10 +1256,11 @@ export default function QuestionBankPage() {
                               </span>
                             )}
                         </div>
-                        <div className="flex space-x-2">
+                        <div className="flex flex-col sm:flex-row gap-2">
                           <Button
                             size="sm"
                             variant="outline"
+                            className="w-full sm:w-auto"
                             onClick={() =>
                               window.open(
                                 `/question-bank/${question.id}`,
@@ -1245,11 +1268,13 @@ export default function QuestionBankPage() {
                               )
                             }
                           >
-                            <Eye className="w-4 h-4" />
+                            <Eye className="w-4 h-4 sm:mr-2" />
+                            <span className="hidden sm:inline">View</span>
                           </Button>
                           <Button
                             size="sm"
                             variant="outline"
+                            className="w-full sm:w-auto"
                             onClick={() =>
                               window.open(
                                 `/question-bank/${question.id}/edit`,
@@ -1257,7 +1282,8 @@ export default function QuestionBankPage() {
                               )
                             }
                           >
-                            <Edit className="w-4 h-4" />
+                            <Edit className="w-4 h-4 sm:mr-2" />
+                            <span className="hidden sm:inline">Edit</span>
                           </Button>
                         </div>
                       </div>
@@ -1269,18 +1295,19 @@ export default function QuestionBankPage() {
 
             {/* PAGINATION CONTROLS */}
             {pagination.totalPages > 1 && (
-              <div className="flex items-center justify-center space-x-2 mt-8">
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-8">
                 <Button
                   variant="outline"
                   size="sm"
                   onClick={() => goToPage(pagination.page - 1)}
                   disabled={pagination.page === 1}
+                  className="w-full sm:w-auto"
                 >
-                  <ChevronLeft className="w-4 h-4" />
+                  <ChevronLeft className="w-4 h-4 mr-2" />
                   Previous
                 </Button>
 
-                <div className="flex items-center space-x-1">
+                <div className="hidden sm:flex items-center space-x-1">
                   {(() => {
                     const totalPages = pagination.totalPages;
                     const currentPage = pagination.page;
@@ -1339,14 +1366,20 @@ export default function QuestionBankPage() {
                   })()}
                 </div>
 
+                {/* Mobile page indicator */}
+                <div className="sm:hidden text-sm text-gray-600">
+                  Page {pagination.page} of {pagination.totalPages}
+                </div>
+
                 <Button
                   variant="outline"
                   size="sm"
                   onClick={() => goToPage(pagination.page + 1)}
                   disabled={pagination.page === pagination.totalPages}
+                  className="w-full sm:w-auto"
                 >
                   Next
-                  <ChevronRight className="w-4 h-4" />
+                  <ChevronRight className="w-4 h-4 ml-2" />
                 </Button>
               </div>
             )}

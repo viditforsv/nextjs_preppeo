@@ -44,6 +44,7 @@ import { IBDPMathLessonPage } from "@/components/IBDPMathTemplate";
 import { UnifiedLessonPage } from "@/components/UnifiedLessonPage";
 import { UnifiedCourseStructure } from "@/components/UnifiedCourseStructure";
 import { renderMixedContent } from "@/components/MathRenderer";
+import { QuizPlayer } from "@/components/QuizPlayer";
 
 // Function to load questions for a lesson (client-side)
 function useQuestionsForLesson(lessonId: string) {
@@ -875,57 +876,58 @@ export default function DynamicLessonPage({
     return (
       <div className="min-h-screen bg-background">
         {/* Header - Matching CBSE Class 9 */}
-        <div className="bg-gradient-to-br from-white to-gray-50 border-b border-primary py-6 relative">
+        <div className="bg-gradient-to-br from-white to-gray-50 border-b border-primary py-4 md:py-6 relative">
           <div className="px-4">
-            <div className="flex items-center justify-between">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
               <div className="flex items-center space-x-4">
                 <Link
                   href={`/courses/${resolvedParams?.slug}`}
-                  className="inline-flex items-center text-muted-foreground hover:text-foreground transition-colors"
+                  className="inline-flex items-center text-muted-foreground hover:text-foreground transition-colors text-sm md:text-base"
                 >
                   <ArrowLeft className="w-4 h-4 mr-2" />
-                  Back to Course
+                  <span className="hidden sm:inline">Back to Course</span>
+                  <span className="sm:hidden">Back</span>
                 </Link>
               </div>
-              <div className="flex items-center space-x-2">
+              <div className="flex items-center space-x-2 w-full sm:w-auto">
                 <Button
                   variant="outline"
                   size="sm"
                   onClick={handleBookmarkToggle}
-                  className="rounded-sm"
+                  className="rounded-sm flex-1 sm:flex-none"
                 >
                   <Bookmark
-                    className={`w-4 h-4 mr-2 ${
-                      isBookmarked ? "fill-current" : ""
+                    className={`w-4 h-4 ${
+                      isBookmarked ? "fill-current mr-2" : "sm:mr-2"
                     }`}
                   />
-                  {isBookmarked ? "Bookmarked" : "Bookmark"}
+                  <span className="hidden sm:inline">{isBookmarked ? "Bookmarked" : "Bookmark"}</span>
                 </Button>
               </div>
             </div>
           </div>
         </div>
 
-        <div className="w-full px-0 py-8">
+        <div className="w-full px-0 py-4 md:py-8">
           {/* Course Breadcrumb - Matching CBSE Class 9 */}
-          <div className="mb-6 px-6">
-            <nav className="flex items-center space-x-2 text-sm text-muted-foreground">
-              <Link href="/courses/discover" className="hover:text-foreground">
+          <div className="mb-4 md:mb-6 px-4 md:px-6">
+            <nav className="flex items-center space-x-2 text-xs md:text-sm text-muted-foreground overflow-x-auto pb-2">
+              <Link href="/courses/discover" className="hover:text-foreground whitespace-nowrap">
                 Courses
               </Link>
               <span>/</span>
               <Link
                 href={`/courses/${resolvedParams?.slug}`}
-                className="hover:text-foreground"
+                className="hover:text-foreground whitespace-nowrap truncate max-w-[150px] md:max-w-none"
               >
                 {course.title}
               </Link>
               <span>/</span>
-              <span className="text-foreground">{lesson.title}</span>
+              <span className="text-foreground whitespace-nowrap truncate max-w-[150px] md:max-w-none">{lesson.title}</span>
             </nav>
           </div>
 
-          <div className="flex">
+          <div className="flex flex-col lg:flex-row">
             {/* Left Sidebar - Using CollapsibleSidebar like CBSE Class 9 */}
             <CollapsibleSidebar
               currentLessonSlug={lesson.slug}
@@ -937,7 +939,7 @@ export default function DynamicLessonPage({
             />
 
             {/* Main Content - Matching CBSE Class 9 layout */}
-            <div className="flex-1 px-6">
+            <div className="flex-1 px-4 md:px-6">
               <UnifiedLessonPage
                 lesson={{
                   id: lesson.id,
@@ -1140,57 +1142,58 @@ export default function DynamicLessonPage({
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
-      <div className="bg-gradient-to-br from-white to-gray-50 border-b border-primary py-6 relative">
+      <div className="bg-gradient-to-br from-white to-gray-50 border-b border-primary py-4 md:py-6 relative">
         <div className="px-4">
-          <div className="flex items-center justify-between">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
             <div className="flex items-center space-x-4">
               <Link
                 href={`/courses/${resolvedParams?.slug}`}
-                className="inline-flex items-center text-muted-foreground hover:text-foreground transition-colors"
+                className="inline-flex items-center text-muted-foreground hover:text-foreground transition-colors text-sm md:text-base"
               >
                 <ArrowLeft className="w-4 h-4 mr-2" />
-                Back to Course
+                <span className="hidden sm:inline">Back to Course</span>
+                <span className="sm:hidden">Back</span>
               </Link>
             </div>
-            <div className="flex items-center space-x-2">
+            <div className="flex items-center space-x-2 w-full sm:w-auto">
               <Button
                 variant="outline"
                 size="sm"
                 onClick={handleBookmarkToggle}
-                className="rounded-sm"
+                className="rounded-sm flex-1 sm:flex-none"
               >
                 <Bookmark
-                  className={`w-4 h-4 mr-2 ${
-                    isBookmarked ? "fill-current" : ""
+                  className={`w-4 h-4 ${
+                    isBookmarked ? "fill-current mr-2" : "sm:mr-2"
                   }`}
                 />
-                {isBookmarked ? "Bookmarked" : "Bookmark"}
+                <span className="hidden sm:inline">{isBookmarked ? "Bookmarked" : "Bookmark"}</span>
               </Button>
             </div>
           </div>
         </div>
       </div>
 
-      <div className="w-full px-0 py-8">
+      <div className="w-full px-0 py-4 md:py-8">
         {/* Course Breadcrumb */}
-        <div className="mb-6 px-6">
-          <nav className="flex items-center space-x-2 text-sm text-muted-foreground">
-            <Link href="/courses/discover" className="hover:text-foreground">
+        <div className="mb-4 md:mb-6 px-4 md:px-6">
+          <nav className="flex items-center space-x-2 text-xs md:text-sm text-muted-foreground overflow-x-auto pb-2">
+            <Link href="/courses/discover" className="hover:text-foreground whitespace-nowrap">
               Courses
             </Link>
             <span>/</span>
             <Link
               href={`/courses/${resolvedParams?.slug}`}
-              className="hover:text-foreground"
+              className="hover:text-foreground whitespace-nowrap truncate max-w-[150px] md:max-w-none"
             >
               {course.title}
             </Link>
             <span>/</span>
-            <span className="text-foreground">{lesson.title}</span>
+            <span className="text-foreground whitespace-nowrap truncate max-w-[150px] md:max-w-none">{lesson.title}</span>
           </nav>
         </div>
 
-        <div className="flex">
+        <div className="flex flex-col lg:flex-row">
           {/* Left Sidebar - Course Navigation */}
           <CollapsibleSidebar
             currentLessonSlug={lesson.slug}
@@ -1202,22 +1205,22 @@ export default function DynamicLessonPage({
           />
 
           {/* Main Content */}
-          <div className="flex-1 px-6">
+          <div className="flex-1 px-4 md:px-6">
             {/* Lesson Header */}
-            <div className="bg-white rounded-sm border border-gray-200 p-6 mb-6">
-              <div className="flex items-start justify-between mb-4">
-                <div>
-                  <Badge className="bg-primary text-white mb-2 rounded-sm">
+            <div className="bg-white rounded-sm border border-gray-200 p-4 md:p-6 mb-4 md:mb-6">
+              <div className="flex flex-col md:flex-row items-start justify-between mb-4 gap-3">
+                <div className="w-full md:w-auto">
+                  <Badge className="bg-primary text-white mb-2 rounded-sm text-xs md:text-sm">
                     Lesson {lesson.lesson_order}
                   </Badge>
-                  <h1 className="text-4xl font-bold text-foreground mb-2">
+                  <h1 className="text-2xl md:text-4xl font-bold text-foreground mb-2">
                     {lesson.title}
                   </h1>
                 </div>
-                <div className="flex items-center space-x-4">
+                <div className="flex items-center space-x-3 md:space-x-4 w-full md:w-auto justify-between md:justify-start">
                   <div className="flex items-center space-x-2">
                     <Clock className="w-4 h-4 text-muted-foreground" />
-                    <span className="text-base text-muted-foreground">
+                    <span className="text-sm md:text-base text-muted-foreground">
                       30 min
                     </span>
                   </div>
@@ -1225,12 +1228,12 @@ export default function DynamicLessonPage({
                     {lesson.is_preview ? (
                       <>
                         <Eye className="w-4 h-4 text-blue-600" />
-                        <span className="text-base text-blue-600">Preview</span>
+                        <span className="text-sm md:text-base text-blue-600">Preview</span>
                       </>
                     ) : (
                       <>
                         <Unlock className="w-4 h-4 text-green-600" />
-                        <span className="text-base text-green-600">
+                        <span className="text-sm md:text-base text-green-600">
                           Unlocked
                         </span>
                       </>
@@ -1270,24 +1273,24 @@ export default function DynamicLessonPage({
                 <TabsList className="grid w-full grid-cols-3 rounded-sm bg-gray-100 p-1 shadow-sm border border-gray-200">
                   <TabsTrigger
                     value="video"
-                    className="rounded-sm data-[state=active]:bg-primary data-[state=active]:text-white data-[state=active]:shadow-sm font-medium transition-all duration-200 hover:bg-gray-200 data-[state=inactive]:text-gray-600"
+                    className="rounded-sm data-[state=active]:bg-primary data-[state=active]:text-white data-[state=active]:shadow-sm font-medium transition-all duration-200 hover:bg-gray-200 data-[state=inactive]:text-gray-600 text-xs md:text-sm"
                   >
-                    <Play className="w-4 h-4 mr-2" />
-                    Video
+                    <Play className="w-4 h-4 md:mr-2" />
+                    <span className="hidden md:inline">Video</span>
                   </TabsTrigger>
                   <TabsTrigger
                     value="notes"
-                    className="rounded-sm data-[state=active]:bg-primary data-[state=active]:text-white data-[state=active]:shadow-sm font-medium transition-all duration-200 hover:bg-gray-200 data-[state=inactive]:text-gray-600"
+                    className="rounded-sm data-[state=active]:bg-primary data-[state=active]:text-white data-[state=active]:shadow-sm font-medium transition-all duration-200 hover:bg-gray-200 data-[state=inactive]:text-gray-600 text-xs md:text-sm"
                   >
-                    <FileText className="w-4 h-4 mr-2" />
-                    Notes
+                    <FileText className="w-4 h-4 md:mr-2" />
+                    <span className="hidden md:inline">Notes</span>
                   </TabsTrigger>
                   <TabsTrigger
                     value="quiz"
-                    className="rounded-sm data-[state=active]:bg-primary data-[state=active]:text-white data-[state=active]:shadow-sm font-medium transition-all duration-200 hover:bg-gray-200 data-[state=inactive]:text-gray-600"
+                    className="rounded-sm data-[state=active]:bg-primary data-[state=active]:text-white data-[state=active]:shadow-sm font-medium transition-all duration-200 hover:bg-gray-200 data-[state=inactive]:text-gray-600 text-xs md:text-sm"
                   >
-                    <BookOpen className="w-4 h-4 mr-2" />
-                    Quiz
+                    <BookOpen className="w-4 h-4 md:mr-2" />
+                    <span className="hidden md:inline">Quiz</span>
                   </TabsTrigger>
                 </TabsList>
               )}
@@ -1434,40 +1437,18 @@ export default function DynamicLessonPage({
 
               {/* Quiz Tab */}
               <TabsContent value="quiz" className="mt-6">
-                <Card className="rounded-sm">
-                  <CardHeader>
-                    <CardTitle className="flex items-center space-x-2">
-                      <BookOpen className="w-5 h-5 text-primary" />
-                      <span>Lesson Quiz</span>
-                    </CardTitle>
-                    <CardDescription>
-                      Test your understanding with these quiz questions
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent className="p-6">
-                    <div className="space-y-6">
-                      {lesson.quiz_id ? (
-                        <div className="prose prose-sm max-w-none">
-                          <h4 className="text-lg font-semibold text-foreground mb-3">
-                            ❓ Lesson Quiz:
-                          </h4>
-                          <p className="text-muted-foreground mb-4">
-                            Quiz ID: {lesson.quiz_id}
-                          </p>
-                          <p className="text-muted-foreground">
-                            Quiz questions will be loaded from the quizzes table
-                            using this ID.
-                          </p>
-                        </div>
-                      ) : (
-                        <div className="text-center py-8 text-muted-foreground">
-                          <BookOpen className="w-12 h-12 mx-auto mb-4 opacity-50" />
-                          <p>Quiz questions will be available soon</p>
-                        </div>
-                      )}
-                    </div>
-                  </CardContent>
-                </Card>
+                {lesson.quiz_id ? (
+                  <QuizPlayer quizId={lesson.quiz_id} />
+                ) : (
+                  <Card className="rounded-sm">
+                    <CardContent className="p-8">
+                      <div className="text-center py-8 text-muted-foreground">
+                        <BookOpen className="w-12 h-12 mx-auto mb-4 opacity-50" />
+                        <p>No quiz available for this lesson yet</p>
+                      </div>
+                    </CardContent>
+                  </Card>
+                )}
               </TabsContent>
 
               {/* Practice Tab */}
@@ -1573,7 +1554,7 @@ export default function DynamicLessonPage({
                     {lesson.pdf_url ? (
                       <div className="space-y-4">
                         {/* Assignment PDF Embedder - Try direct embedding first */}
-                        <div className="w-full h-[800px] border-2 border-gray-200 rounded-sm overflow-hidden bg-gray-50">
+                        <div className="w-full h-[500px] md:h-[800px] border-2 border-gray-200 rounded-sm overflow-hidden bg-gray-50">
                           <iframe
                             src={lesson.pdf_url}
                             className="w-full h-full"
@@ -1717,7 +1698,7 @@ export default function DynamicLessonPage({
                     {lesson.solution_url ? (
                       <div className="space-y-4">
                         {/* Solution PDF Embedder - Try direct embedding first */}
-                        <div className="w-full h-[800px] border-2 border-green-100 rounded-sm overflow-hidden bg-gray-50">
+                        <div className="w-full h-[500px] md:h-[800px] border-2 border-green-100 rounded-sm overflow-hidden bg-gray-50">
                           <iframe
                             src={lesson.solution_url}
                             className="w-full h-full"
@@ -1792,10 +1773,10 @@ export default function DynamicLessonPage({
             </Tabs>
 
             {/* Navigation */}
-            <div className="flex items-center justify-between mt-8">
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between mt-6 md:mt-8 gap-3">
               <Button
                 variant="outline"
-                className="rounded-sm"
+                className="rounded-sm w-full sm:w-auto"
                 onClick={getPreviousLesson}
                 disabled={
                   !allLessons.find(
@@ -1807,7 +1788,7 @@ export default function DynamicLessonPage({
                 Previous Lesson
               </Button>
               <Button
-                className="bg-primary hover:bg-primary/90 rounded-sm"
+                className="bg-primary hover:bg-primary/90 rounded-sm w-full sm:w-auto"
                 onClick={getNextLesson}
                 disabled={
                   !allLessons.find(

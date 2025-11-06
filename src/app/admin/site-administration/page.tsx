@@ -22,6 +22,8 @@ import {
   Plus,
   BarChart3,
   UserCheck,
+  ClipboardList,
+  ListChecks,
 } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -149,6 +151,18 @@ export default function SiteAdministrationPage() {
           href: "/question-bank",
           icon: FileText,
           description: "Manage question bank and questions",
+        },
+        {
+          name: "Quiz Creator",
+          href: "/admin/quiz-creator",
+          icon: ClipboardList,
+          description: "Create quizzes from question bank",
+        },
+        {
+          name: "Quiz Manager",
+          href: "/admin/quiz-manager",
+          icon: ListChecks,
+          description: "View and manage all quizzes",
         },
         {
           name: "Question Assignments",
