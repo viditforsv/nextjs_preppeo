@@ -205,9 +205,9 @@ export default function EnrolledCoursesPage() {
   };
 
   const getProgressColor = (percentage: number) => {
-    if (percentage >= 80) return "bg-green-500";
-    if (percentage >= 50) return "bg-yellow-500";
-    return "bg-red-500";
+    if (percentage >= 80) return "bg-primary";
+    if (percentage >= 50) return "bg-accent";
+    return "bg-orange-500";
   };
 
   // Calculate study streak from user activity
@@ -279,69 +279,87 @@ export default function EnrolledCoursesPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#fffefd] to-[#feefea]">
+    <div className="min-h-screen bg-gradient-to-br from-white via-green-50 to-emerald-50">
       <div className="container mx-auto px-4 py-8">
+        {/* Page Header */}
+        <div className="mb-8">
+          <h1 className="text-4xl font-bold text-foreground mb-2">
+            My Enrolled Courses
+          </h1>
+          <p className="text-lg text-muted-foreground">
+            Continue your learning journey and track your progress
+          </p>
+        </div>
+
         {/* Overall Stats */}
         {!isLoading && !error && enrolledCourses.length > 0 && (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-            <Card>
-              <CardContent className="p-4">
+            <Card className="border-0 bg-gradient-to-br from-primary/5 to-emerald-50 hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+              <CardContent className="p-6">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm text-muted-foreground">
+                    <p className="text-sm text-muted-foreground mb-1">
                       Courses Enrolled
                     </p>
-                    <p className="text-2xl font-bold">
+                    <p className="text-3xl font-bold text-primary">
                       {overallStats.totalCourses}
                     </p>
                   </div>
-                  <BookOpen className="w-8 h-8 text-orange-600" />
+                  <div className="w-14 h-14 bg-gradient-to-br from-primary to-emerald-600 rounded-xl flex items-center justify-center shadow-lg">
+                    <BookOpen className="w-7 h-7 text-white" />
+                  </div>
                 </div>
               </CardContent>
             </Card>
 
-            <Card>
-              <CardContent className="p-4">
+            <Card className="border-0 bg-gradient-to-br from-primary/5 to-emerald-50 hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+              <CardContent className="p-6">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm text-muted-foreground">
+                    <p className="text-sm text-muted-foreground mb-1">
                       Lessons Completed
                     </p>
-                    <p className="text-2xl font-bold">
+                    <p className="text-3xl font-bold text-primary">
                       {overallStats.totalLessonsCompleted}
                     </p>
                   </div>
-                  <CheckCircle2 className="w-8 h-8 text-green-600" />
+                  <div className="w-14 h-14 bg-gradient-to-br from-primary to-emerald-600 rounded-xl flex items-center justify-center shadow-lg">
+                    <CheckCircle2 className="w-7 h-7 text-white" />
+                  </div>
                 </div>
               </CardContent>
             </Card>
 
-            <Card>
-              <CardContent className="p-4">
+            <Card className="border-0 bg-gradient-to-br from-emerald-50 to-green-50 hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+              <CardContent className="p-6">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm text-muted-foreground">Time Spent</p>
-                    <p className="text-2xl font-bold">
+                    <p className="text-sm text-muted-foreground mb-1">Time Spent</p>
+                    <p className="text-3xl font-bold text-emerald-600">
                       {formatTime(overallStats.totalTimeSpent)}
                     </p>
                   </div>
-                  <Clock className="w-8 h-8 text-blue-600" />
+                  <div className="w-14 h-14 bg-gradient-to-br from-emerald-500 to-green-600 rounded-xl flex items-center justify-center shadow-lg">
+                    <Clock className="w-7 h-7 text-white" />
+                  </div>
                 </div>
               </CardContent>
             </Card>
 
-            <Card>
-              <CardContent className="p-4">
+            <Card className="border-0 bg-gradient-to-br from-amber-50 to-yellow-50 hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+              <CardContent className="p-6">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm text-muted-foreground">
+                    <p className="text-sm text-muted-foreground mb-1">
                       Study Streak
                     </p>
-                    <p className="text-2xl font-bold">
+                    <p className="text-3xl font-bold text-amber-600">
                       {overallStats.studyStreak} days
                     </p>
                   </div>
-                  <Award className="w-8 h-8 text-purple-600" />
+                  <div className="w-14 h-14 bg-gradient-to-br from-amber-500 to-yellow-500 rounded-xl flex items-center justify-center shadow-lg">
+                    <Award className="w-7 h-7 text-white" />
+                  </div>
                 </div>
               </CardContent>
             </Card>
@@ -351,7 +369,7 @@ export default function EnrolledCoursesPage() {
         {isLoading && (
           <div className="flex items-center justify-center py-12">
             <div className="text-center">
-              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#e27447] mx-auto mb-4"></div>
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
               <p className="text-muted-foreground">Loading your courses...</p>
             </div>
           </div>
@@ -389,7 +407,7 @@ export default function EnrolledCoursesPage() {
             {enrolledCourses.map((course) => (
               <Card
                 key={course.id}
-                className="hover:shadow-lg transition-shadow"
+                className="hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border-0 bg-white/80 backdrop-blur-sm"
               >
                 <CardHeader>
                   <div className="flex items-start justify-between">
@@ -457,7 +475,7 @@ export default function EnrolledCoursesPage() {
                         className="flex-1"
                       >
                         <Button
-                          className="w-full rounded-sm bg-[#e27447] hover:bg-[#d1653a]"
+                          className="w-full rounded-sm bg-primary hover:bg-primary/90"
                           size="sm"
                         >
                           <Play className="w-4 h-4 mr-2" />

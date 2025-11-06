@@ -357,7 +357,7 @@ const FAQPage = memo(function FAQPage() {
                     className="border-primary hover:bg-primary hover:text-white rounded-sm"
                     onClick={() =>
                       window.open(
-                        "mailto:contact@shrividhya.in?subject=Support Request",
+                        "mailto:contact@preppeo.com?subject=Support Request",
                         "_blank"
                       )
                     }

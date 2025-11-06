@@ -72,7 +72,7 @@ export async function middleware(req: NextRequest) {
     if (redirectPath) {
       const redirectUrl = new URL(redirectPath, req.url);
       if (redirectPath === "/auth") {
-        redirectUrl.searchParams.set("redirectTo", pathname);
+        redirectUrl.searchParams.set("redirect", pathname);
       }
       return NextResponse.redirect(redirectUrl);
     }

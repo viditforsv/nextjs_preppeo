@@ -40,7 +40,7 @@ export default function AuthPage() {
   useEffect(() => {
     if (!loading && user && profile) {
       // Check for redirect parameter first, then next parameter, then role-based default
-      const redirectParam = searchParams.get("redirect");
+      const redirectParam = searchParams.get("redirect") || searchParams.get("redirectTo");
       const roleBasedPath =
         profile.role === "student"
           ? "/student"
@@ -93,7 +93,7 @@ export default function AuthPage() {
             roleBasedPath
           );
           // Check for redirect parameter first, then next parameter, then role-based default
-          const redirectParam = searchParams.get("redirect");
+          const redirectParam = searchParams.get("redirect") || searchParams.get("redirectTo");
           const redirectUrl = redirectParam || next || roleBasedPath;
           router.push(redirectUrl);
         } catch (err) {

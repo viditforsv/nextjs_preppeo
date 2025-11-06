@@ -22,6 +22,7 @@ import { useAuth } from "@/contexts/AuthContext";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import { createClient } from "@/lib/supabase/client";
+import Image from "next/image";
 
 export default function Home() {
   const router = useRouter();
@@ -104,8 +105,23 @@ export default function Home() {
     return (
       <div className="min-h-screen">
         {/* Hero Section for Authenticated Users */}
-        <section className="bg-gradient-to-br from-white via-green-50 to-emerald-50 py-20">
-          <div className="container mx-auto px-4 text-center">
+        <section className="relative bg-gradient-to-br from-white via-green-50 to-emerald-50 py-20 overflow-hidden">
+          {/* Decorative elements */}
+          <div className="absolute top-0 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-0 left-0 w-96 h-96 bg-accent/10 rounded-full blur-3xl"></div>
+
+          <div className="container mx-auto px-4 text-center relative z-10">
+            {/* Subtle Logo */}
+            <div className="mb-6 flex justify-center">
+              <Image
+                src="/images/preppeo logo package/logo_color_wo_bg.png"
+                alt="Preppeo"
+                width={600}
+                height={180}
+                className="w-auto h-36 object-contain opacity-90"
+              />
+            </div>
+
             <h1 className="text-5xl font-bold text-foreground mb-6">
               Welcome back,{" "}
               {profile?.first_name || profile?.full_name || "Student"}!
@@ -114,7 +130,7 @@ export default function Home() {
               Continue your learning journey with personalized courses and
               progress tracking.
             </p>
-            <div className="flex gap-4 justify-center">
+            <div className="flex gap-4 justify-center flex-wrap">
               <Button
                 size="lg"
                 className="bg-primary hover:bg-primary/90 text-white shadow-lg"
@@ -142,7 +158,9 @@ export default function Home() {
               <h2 className="text-4xl font-bold text-foreground mb-4">
                 Your Learning Progress
               </h2>
-              <p className="text-lg text-muted-foreground">Track your journey to success</p>
+              <p className="text-lg text-muted-foreground">
+                Track your journey to success
+              </p>
             </div>
             {stats.loading ? (
               <div className="text-center py-12">
@@ -241,16 +259,42 @@ export default function Home() {
               <h2 className="text-4xl font-bold text-foreground mb-4">
                 Explore by Board
               </h2>
-              <p className="text-lg text-muted-foreground">Choose your curriculum and start learning today</p>
+              <p className="text-lg text-muted-foreground">
+                Choose your curriculum and start learning today
+              </p>
             </div>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
               {[
-                { name: "CBSE", color: "bg-blue-500", gradient: "from-blue-500 to-blue-600" },
-                { name: "ICSE", color: "bg-primary", gradient: "from-primary to-emerald-600" },
-                { name: "IBDP", color: "bg-purple-500", gradient: "from-purple-500 to-purple-600" },
-                { name: "IGCSE", color: "bg-orange-500", gradient: "from-orange-500 to-orange-600" },
-                { name: "GMAT", color: "bg-red-500", gradient: "from-red-500 to-red-600" },
-                { name: "SAT", color: "bg-indigo-500", gradient: "from-indigo-500 to-indigo-600" },
+                {
+                  name: "CBSE",
+                  color: "bg-blue-500",
+                  gradient: "from-blue-500 to-blue-600",
+                },
+                {
+                  name: "ICSE",
+                  color: "bg-primary",
+                  gradient: "from-primary to-emerald-600",
+                },
+                {
+                  name: "IBDP",
+                  color: "bg-purple-500",
+                  gradient: "from-purple-500 to-purple-600",
+                },
+                {
+                  name: "IGCSE",
+                  color: "bg-orange-500",
+                  gradient: "from-orange-500 to-orange-600",
+                },
+                {
+                  name: "GMAT",
+                  color: "bg-red-500",
+                  gradient: "from-red-500 to-red-600",
+                },
+                {
+                  name: "SAT",
+                  color: "bg-indigo-500",
+                  gradient: "from-indigo-500 to-indigo-600",
+                },
               ].map((board) => (
                 <Card
                   key={board.name}
@@ -260,7 +304,9 @@ export default function Home() {
                   }
                 >
                   <CardContent className="p-6 text-center relative">
-                    <div className={`w-14 h-14 bg-gradient-to-br ${board.gradient} rounded-xl flex items-center justify-center mx-auto mb-4 shadow-lg group-hover:scale-110 transition-transform`}>
+                    <div
+                      className={`w-14 h-14 bg-gradient-to-br ${board.gradient} rounded-xl flex items-center justify-center mx-auto mb-4 shadow-lg group-hover:scale-110 transition-transform`}
+                    >
                       <GraduationCap className="w-7 h-7 text-white" />
                     </div>
                     <h3 className="font-bold text-foreground text-lg">
@@ -284,20 +330,36 @@ export default function Home() {
         {/* Decorative elements */}
         <div className="absolute top-0 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl"></div>
         <div className="absolute bottom-0 left-0 w-96 h-96 bg-accent/10 rounded-full blur-3xl"></div>
-        
+
         <div className="container mx-auto px-4 text-center relative z-10">
-          <div className="inline-block mb-4 px-4 py-2 bg-primary/10 rounded-full">
-            <span className="text-primary font-semibold text-sm">🎓 Transform Your Learning Journey</span>
+          {/* Logo */}
+          <div className="mb-8 flex justify-center animate-fade-in">
+            <div className="relative group">
+              <Image
+                src="/images/preppeo logo package/logo_color_wo_bg.png"
+                alt="Preppeo Logo"
+                width={1200}
+                height={360}
+                priority
+                className="w-auto h-72 md:h-96 object-contain drop-shadow-2xl"
+              />
+            </div>
           </div>
-          <h1 className="text-6xl font-bold text-foreground mb-6 leading-tight">
-            Welcome to <span className="text-primary">Preppeo</span>
+
+          <div className="inline-block mb-4 px-4 py-2 bg-primary/10 rounded-full">
+            <span className="text-primary font-semibold text-sm">
+              🎓 Transform Your Learning Journey
+            </span>
+          </div>
+          <h1 className="text-5xl md:text-6xl font-bold text-foreground mb-6 leading-tight">
+            Welcome to Your Learning Platform
           </h1>
           <p className="text-xl text-muted-foreground mb-10 max-w-2xl mx-auto leading-relaxed">
             A modern learning management system designed to transform education
             with interactive courses, real-time collaboration, and personalized
             learning experiences.
           </p>
-          <div className="flex gap-4 justify-center">
+          <div className="flex gap-4 justify-center flex-wrap">
             <Button
               size="lg"
               className="bg-primary hover:bg-primary/90 text-white shadow-lg hover:shadow-xl transition-all px-8 py-6 text-lg"
@@ -386,16 +448,42 @@ export default function Home() {
             <h2 className="text-4xl font-bold text-foreground mb-4">
               Explore by Board
             </h2>
-            <p className="text-lg text-muted-foreground">Choose your curriculum and start learning today</p>
+            <p className="text-lg text-muted-foreground">
+              Choose your curriculum and start learning today
+            </p>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
             {[
-              { name: "CBSE", color: "bg-blue-500", gradient: "from-blue-500 to-blue-600" },
-              { name: "ICSE", color: "bg-primary", gradient: "from-primary to-emerald-600" },
-              { name: "IBDP", color: "bg-purple-500", gradient: "from-purple-500 to-purple-600" },
-              { name: "IGCSE", color: "bg-orange-500", gradient: "from-orange-500 to-orange-600" },
-              { name: "GMAT", color: "bg-red-500", gradient: "from-red-500 to-red-600" },
-              { name: "SAT", color: "bg-indigo-500", gradient: "from-indigo-500 to-indigo-600" },
+              {
+                name: "CBSE",
+                color: "bg-blue-500",
+                gradient: "from-blue-500 to-blue-600",
+              },
+              {
+                name: "ICSE",
+                color: "bg-primary",
+                gradient: "from-primary to-emerald-600",
+              },
+              {
+                name: "IBDP",
+                color: "bg-purple-500",
+                gradient: "from-purple-500 to-purple-600",
+              },
+              {
+                name: "IGCSE",
+                color: "bg-orange-500",
+                gradient: "from-orange-500 to-orange-600",
+              },
+              {
+                name: "GMAT",
+                color: "bg-red-500",
+                gradient: "from-red-500 to-red-600",
+              },
+              {
+                name: "SAT",
+                color: "bg-indigo-500",
+                gradient: "from-indigo-500 to-indigo-600",
+              },
             ].map((board) => (
               <Card
                 key={board.name}
@@ -405,7 +493,9 @@ export default function Home() {
                 }
               >
                 <CardContent className="p-6 text-center relative">
-                  <div className={`w-14 h-14 bg-gradient-to-br ${board.gradient} rounded-xl flex items-center justify-center mx-auto mb-4 shadow-lg group-hover:scale-110 transition-transform`}>
+                  <div
+                    className={`w-14 h-14 bg-gradient-to-br ${board.gradient} rounded-xl flex items-center justify-center mx-auto mb-4 shadow-lg group-hover:scale-110 transition-transform`}
+                  >
                     <GraduationCap className="w-7 h-7 text-white" />
                   </div>
                   <h3 className="font-bold text-foreground text-lg">
@@ -422,9 +512,16 @@ export default function Home() {
       <section className="relative py-20 bg-gradient-to-br from-primary to-emerald-600 overflow-hidden">
         {/* Decorative pattern */}
         <div className="absolute inset-0 opacity-10">
-          <div className="absolute top-0 left-0 w-full h-full" style={{backgroundImage: 'radial-gradient(circle, white 1px, transparent 1px)', backgroundSize: '50px 50px'}}></div>
+          <div
+            className="absolute top-0 left-0 w-full h-full"
+            style={{
+              backgroundImage:
+                "radial-gradient(circle, white 1px, transparent 1px)",
+              backgroundSize: "50px 50px",
+            }}
+          ></div>
         </div>
-        
+
         <div className="container mx-auto px-4 text-center relative z-10">
           <h2 className="text-4xl font-bold text-white mb-6">
             Ready to Start Learning?

@@ -14,7 +14,7 @@ import { Label } from "@/app/components-demo/ui/ui-components/label";
 import { useAuth } from "@/contexts/AuthContext";
 import { Mail, Lock } from "lucide-react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 export function SignInForm() {
   const [email, setEmail] = useState("");
@@ -28,6 +28,7 @@ export function SignInForm() {
     loading: authLoading,
   } = useAuth();
   const router = useRouter();
+  const searchParams = useSearchParams();
 
   // Redirect when user becomes authenticated - with better logging
   useEffect(() => {
@@ -37,19 +38,24 @@ export function SignInForm() {
       authLoading,
     });
     if (user && profile && !authLoading) {
-      // Redirect based on role
-      let redirectPath = "/courses/enrolled";
-      if (profile.role === "student") {
-        redirectPath = "/student";
-      } else if (profile.role === "teacher") {
-        redirectPath = "/teacher/dashboard";
-      } else if (profile.role === "admin") {
-        redirectPath = "/admin";
+      // Check for redirect parameter first
+      const redirectParam = searchParams.get("redirect") || searchParams.get("redirectTo") || searchParams.get("next");
+      
+      // Redirect based on parameter or role
+      let redirectPath = redirectParam || "/courses/enrolled";
+      if (!redirectParam) {
+        if (profile.role === "student") {
+          redirectPath = "/student";
+        } else if (profile.role === "teacher") {
+          redirectPath = "/teacher/dashboard";
+        } else if (profile.role === "admin") {
+          redirectPath = "/admin";
+        }
       }
       console.log(`✅ SignInForm - Redirecting to ${redirectPath}`);
       router.push(redirectPath);
     }
-  }, [user, profile, authLoading, router]);
+  }, [user, profile, authLoading, router, searchParams]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
