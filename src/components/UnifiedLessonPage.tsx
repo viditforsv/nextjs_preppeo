@@ -380,7 +380,10 @@ export function UnifiedLessonPage({
 
   // Debug logging for tabs
   useEffect(() => {
-    console.log("UnifiedLessonPage - Available tabs:", availableTabs.map(t => t.id));
+    console.log(
+      "UnifiedLessonPage - Available tabs:",
+      availableTabs.map((t) => t.id)
+    );
     console.log("UnifiedLessonPage - Default tab:", defaultTab);
   }, [availableTabs.length, defaultTab]);
 

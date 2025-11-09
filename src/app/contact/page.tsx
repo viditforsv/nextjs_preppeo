@@ -415,8 +415,7 @@ export default function ContactPage() {
               </Button>
               <Button
                 size="lg"
-                variant="outline"
-                className="border-2 border-white text-white hover:bg-white hover:text-primary rounded-lg px-8 py-6 text-lg"
+                className="bg-white hover:bg-gray-50 text-[#25D366] border-2 border-white rounded-lg px-8 py-6 text-lg shadow-lg font-semibold"
                 onClick={() =>
                   window.open(
                     "https://wa.me/918130711689?text=Hello! I would like to schedule a consultation.",
