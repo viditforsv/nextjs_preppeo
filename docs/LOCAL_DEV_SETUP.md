@@ -1,81 +1,67 @@
-# Local Development Environment Setup
+# Development Environment Setup (Separate Dev Supabase Project)
 
-## ✅ Supabase CLI Installed
-- **Version:** 2.31.8 (Update available: 2.54.11)
-- **Location:** `/opt/homebrew/bin/supabase`
+## 📌 Environment Overview
 
-## ✅ Supabase Initialized
-- **Branch:** `dev`
-- **Config:** `supabase/config.toml`
-- **Initial Migration:** `supabase/migrations/20241109000000_initial_schema.sql`
+You have **TWO separate Supabase projects**:
+
+| Environment | Branch | Supabase Project | Purpose |
+|------------|--------|------------------|---------|
+| **Development** | `dev` | Dev Supabase (Cloud) | Testing, new features, breaking changes |
+| **Production** | `main` | Production Supabase (Cloud) | Live user data, stable releases |
+
+**Note:** This setup uses **separate cloud-hosted Supabase projects** (not local Docker).
 
 ---
 
 ## 🚀 Quick Start Guide
 
-### Step 1: Create `.env.local` File
+### Step 1: Create `.env.local` for Development
 
-Create a `.env.local` file in the project root with these values for local development:
+When working on the **dev branch**, create `.env.local` with your dev Supabase credentials:
 
 ```bash
-# Supabase Local Development Configuration
-# When running `supabase start`, these values will be used
+# Copy the development template
+cp env.development.example .env.local
 
-# Supabase Local URLs
-NEXT_PUBLIC_SUPABASE_URL=http://127.0.0.1:54321
-NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZW1vIiwicm9sZSI6ImFub24iLCJleHAiOjE5ODM4MTI5OTZ9.CRXP1A7WOeoJeXxjNni43kdQwgnWNReilDMblYTn_I0
-SUPABASE_SERVICE_ROLE_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZW1vIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImV4cCI6MTk4MzgxMjk5Nn0.EGIM96RAZx35lJzdJsyH-qQwv8Hdp7fsn3W0YpN81IU
+# Edit .env.local and replace with your DEV Supabase project credentials:
+# Get these from: https://supabase.com/dashboard/project/YOUR_DEV_PROJECT/settings/api
+```
+
+Your `.env.local` should look like:
+
+```bash
+# Dev Supabase Project
+NEXT_PUBLIC_SUPABASE_URL=https://xxxxx.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbGc...your-dev-key
+SUPABASE_SERVICE_ROLE_KEY=eyJhbGc...your-dev-service-role-key
 
 # App Configuration
 NEXT_PUBLIC_APP_URL=http://localhost:3000
 NEXT_PUBLIC_SITE_URL=http://localhost:3000
 NODE_ENV=development
-
-# Razorpay (Use test keys)
-RAZORPAY_KEY_ID=your_test_key_here
-RAZORPAY_KEY_SECRET=your_test_secret_here
-NEXT_PUBLIC_RAZORPAY_KEY_ID=your_test_key_here
 ```
-
-**Note:** These are default Supabase local keys - safe for local dev, NEVER use in production.
 
 ---
 
-### Step 2: Start Supabase Local
-
-```bash
-supabase start
-```
-
-This will:
-- ✅ Start local PostgreSQL database (port 54322)
-- ✅ Start Supabase API (port 54321)
-- ✅ Start Supabase Studio (port 54323) - Database UI
-- ✅ Apply migrations from `supabase/migrations/`
-- ✅ Set up auth, storage, and realtime
-
-**First run takes 2-5 minutes** (downloads Docker images)
-
----
-
-### Step 3: Start Next.js App
+### Step 2: Start Next.js App
 
 ```bash
 npm run dev
 ```
 
-Your app will now use **local Supabase** (http://127.0.0.1:54321) instead of production!
+Your app will now use **Dev Supabase** for all database operations!
 
 ---
 
-### Step 4: Access Supabase Studio (Local Database UI)
+### Step 3: Access Supabase Studio (Cloud UI)
 
-Open: **http://localhost:54323**
+Open your **Dev Supabase Studio**: https://supabase.com/dashboard/project/YOUR_DEV_PROJECT
 
 - Browse tables
 - Run SQL queries
 - Manage data
 - View logs
+- Test auth flows
 
 ---
 
@@ -87,17 +73,15 @@ Open: **http://localhost:54323**
 # Make sure you're on dev branch
 git checkout dev
 
-# Start Supabase local
-supabase start
+# Ensure .env.local has DEV credentials
+cat .env.local | grep SUPABASE_URL
+# Should show your dev Supabase URL
 
 # Start Next.js
 npm run dev
 
-# Develop and test locally
-# ...
-
-# Stop Supabase when done
-supabase stop
+# Develop and test with dev database
+# All changes go to dev Supabase, not production!
 ```
 
 ### Creating Database Migrations:
