@@ -4,10 +4,10 @@
 
 You have **TWO separate Supabase projects**:
 
-| Environment | Branch | Supabase Project | Purpose |
-|------------|--------|------------------|---------|
-| **Development** | `dev` | Dev Supabase (Cloud) | Testing, new features, breaking changes |
-| **Production** | `main` | Production Supabase (Cloud) | Live user data, stable releases |
+| Environment     | Branch | Supabase Project            | Purpose                                 |
+| --------------- | ------ | --------------------------- | --------------------------------------- |
+| **Development** | `dev`  | Dev Supabase (Cloud)        | Testing, new features, breaking changes |
+| **Production**  | `main` | Production Supabase (Cloud) | Live user data, stable releases         |
 
 **Note:** This setup uses **separate cloud-hosted Supabase projects** (not local Docker).
 
@@ -157,12 +157,14 @@ supabase gen types typescript --local > src/types/supabase.ts
 ## 🌐 Environment Separation
 
 ### Local Development (Dev Branch):
+
 - **Supabase:** http://127.0.0.1:54321 (local Docker)
 - **App:** http://localhost:3000
 - **Database:** Isolated local PostgreSQL
 - **Branch:** `dev`
 
 ### Production (Main Branch):
+
 - **Supabase:** https://your-project.supabase.co
 - **App:** https://courses.preppeo.com
 - **Database:** Production Supabase
@@ -198,6 +200,7 @@ nextjs_preppeo/
 ## 🐛 Troubleshooting
 
 ### Supabase won't start:
+
 ```bash
 # Check Docker is running
 docker ps
@@ -208,13 +211,16 @@ supabase start
 ```
 
 ### Database changes not applying:
+
 ```bash
 # Hard reset database
 supabase db reset --debug
 ```
 
 ### Port conflicts:
+
 Check `supabase/config.toml` and change ports if needed:
+
 - API: 54321
 - DB: 54322
 - Studio: 54323
@@ -230,4 +236,3 @@ Check `supabase/config.toml` and change ports if needed:
 5. ✅ Start developing!
 
 **Your local dev environment is ready!** 🚀
-
