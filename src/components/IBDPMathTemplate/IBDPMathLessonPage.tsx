@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { Card, CardContent } from "@/app/components-demo/ui/ui-components/card";
 import { Button } from "@/app/components-demo/ui/ui-components/button";
 import { Badge } from "@/app/components-demo/ui/ui-components/badge";
 import { Input } from "@/app/components-demo/ui/ui-components/input";
@@ -22,7 +21,6 @@ import {
   RotateCcw,
   Play,
 } from "lucide-react";
-import { IBDPQuestionCard } from "./IBDPQuestionCard";
 import { IBDPQuestionSession } from "./IBDPQuestionSession";
 import { IBDPConceptsTab } from "./IBDPConceptsTab";
 
@@ -106,8 +104,8 @@ export function IBDPMathLessonPage({
   const [selectedTag, setSelectedTag] = useState<string | null>(null);
   const [lastLesson, setLastLesson] = useState<string | null>(null);
   const [lessonContent, setLessonContent] = useState<{
-    concepts: any[];
-    formulas: any[];
+    concepts: string[];
+    formulas: string[];
   }>({ concepts: [], formulas: [] });
 
   // Auto-expand current lesson's unit and chapter

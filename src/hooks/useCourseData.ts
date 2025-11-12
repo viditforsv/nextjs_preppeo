@@ -40,12 +40,10 @@ interface CourseContentSection {
 
 export function useCourseData(courseSlug: string) {
   const { user } = useAuth();
-  const [courseData, setCourseData] = useState<CourseData | null>(null);
-  const [lessons, setLessons] = useState<Lesson[]>([]);
-  const [courseContent, setCourseContent] = useState<CourseContentSection[]>(
-    []
-  );
-  const [courseProgress, setCourseProgress] = useState(0);
+  const [courseData] = useState<CourseData | null>(null);
+  const [lessons] = useState<Lesson[]>([]);
+  const [courseContent] = useState<CourseContentSection[]>([]);
+  const [courseProgress] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 

@@ -191,10 +191,7 @@ export class PaymentService {
   /**
    * Get recommended payment provider for user
    */
-  static getRecommendedProvider(
-    userCountry?: string,
-    currency: string = "INR"
-  ): PaymentProvider {
+  static getRecommendedProvider(): PaymentProvider {
     return getRecommendedPaymentProvider();
   }
 }
