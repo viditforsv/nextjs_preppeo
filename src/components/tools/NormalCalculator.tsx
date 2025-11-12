@@ -65,7 +65,7 @@ export function NormalCalculator() {
         probability = 1 - standardNormalCDF(z1);
         break;
 
-      case "between":
+      case "between": {
         if (!x2) {
           setError("Please enter the upper bound");
           return;
@@ -83,6 +83,7 @@ export function NormalCalculator() {
         let z2 = (numX2 - numMean) / numStdDev;
         probability = standardNormalCDF(z2) - standardNormalCDF(z1);
         break;
+      }
     }
 
     // Ensure probability is between 0 and 1

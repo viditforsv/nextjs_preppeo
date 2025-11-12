@@ -212,15 +212,6 @@ export function useCourseData(courseSlug: string) {
 
         setError("This hook needs to be updated");
         return;
-
-        // Organize lessons into sections (you can customize this logic)
-        // const sections = organizeLessonsIntoSections(courseLessons, isEnrolled);
-        // setCourseContent(sections);
-
-        // Simulate progress (replace with actual progress tracking)
-        if (user) {
-          setCourseProgress(35); // This should come from actual progress tracking
-        }
       } catch (err) {
         console.error("Error loading course data:", err);
         setError("Failed to load course data");

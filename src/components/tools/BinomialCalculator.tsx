@@ -87,7 +87,7 @@ export function BinomialCalculator() {
         }
         break;
 
-      case "between":
+      case "between": {
         const numX2 = parseInt(x2);
         if (!x2 || isNaN(numX2)) {
           setError("Please enter the upper bound");
@@ -106,6 +106,7 @@ export function BinomialCalculator() {
           probability += probabilityMass(numN, numP, i);
         }
         break;
+      }
     }
 
     // Round to 6 decimal places to avoid floating point precision issues
