@@ -494,8 +494,8 @@ export function LinearEquationSolver() {
 
         <div className="mt-6 p-4 bg-muted/50 rounded-sm">
           <p className="text-sm text-muted-foreground">
-            <strong>Methods:</strong> Uses Cramer's Rule for determinants and
-            Gaussian elimination
+            <strong>Methods:</strong> Uses Cramer&apos;s Rule for determinants
+            and Gaussian elimination
             <br />
             System must have unique solutions (non-zero determinant)
           </p>

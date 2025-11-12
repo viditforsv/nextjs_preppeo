@@ -339,7 +339,7 @@ export default function CoursePaymentPage() {
               {/* What's Included */}
               <div className="bg-blue-50 border border-blue-200 rounded-sm p-4">
                 <h4 className="font-semibold mb-3 text-blue-900">
-                  What's Included
+                  What&apos;s Included
                 </h4>
                 <ul className="space-y-2 text-sm text-blue-800">
                   <li className="flex items-center">

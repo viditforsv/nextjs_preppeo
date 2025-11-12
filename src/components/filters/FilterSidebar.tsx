@@ -144,7 +144,7 @@ export default function FilterSidebar({
                   variant="secondary"
                   className="flex items-center gap-1 w-fit"
                 >
-                  Search: "{searchTerm}"
+                  Search: &quot;{searchTerm}&quot;
                   <X
                     className="w-3 h-3 cursor-pointer hover:text-red-600"
                     onClick={() => onSearchChange("")}

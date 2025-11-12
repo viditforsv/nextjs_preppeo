@@ -501,15 +501,15 @@ export default function AdvancedFilterBuilder({
           <div className="text-sm text-gray-600 space-y-1">
             <p>
               • <strong>Difficulty of 9 OR difficulty of not 8:</strong> Add two
-              conditions: "difficulty equals 9" and "difficulty not equals 8"
+              conditions: &quot;difficulty equals 9&quot; and &quot;difficulty not equals 8&quot;
             </p>
             <p>
               • <strong>Questions with marks greater than 5:</strong> Add
-              condition: "total_marks greater than 5"
+              condition: &quot;total_marks greater than 5&quot;
             </p>
             <p>
               • <strong>PYQ from years 2020-2023:</strong> Add condition:
-              "pyq_year in 2020,2021,2022,2023"
+              &quot;pyq_year in 2020,2021,2022,2023&quot;
             </p>
           </div>
         </div>

@@ -512,7 +512,7 @@ export default function QuizEditorPage() {
               <CardContent>
                 {quizQuestions.length === 0 ? (
                   <div className="text-center py-8 text-muted-foreground">
-                    No questions in this quiz yet. Click "Add Questions" to get
+                    No questions in this quiz yet. Click &quot;Add Questions&quot; to get
                     started.
                   </div>
                 ) : (

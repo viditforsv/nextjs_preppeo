@@ -264,7 +264,7 @@ export function QuizPlayer({ quizId }: QuizPlayerProps) {
         <CardHeader>
           <CardTitle className="text-2xl">Quiz Results</CardTitle>
           <CardDescription>
-            Here's how you performed on this quiz
+            Here&apos;s how you performed on this quiz
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">

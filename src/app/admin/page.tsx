@@ -183,7 +183,7 @@ export default function AdminDashboard() {
                   Admin Dashboard
                 </h1>
                 <p className="text-muted-foreground mt-2">
-                  Welcome back, {profile?.full_name || "Administrator"}. Here's
+                  Welcome back, {profile?.full_name || "Administrator"}. Here&apos;s
                   your platform overview.
                 </p>
               </div>

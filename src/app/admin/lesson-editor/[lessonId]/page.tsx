@@ -518,7 +518,7 @@ export default function AdminLessonEditorPage({
                     className="rounded-sm"
                   />
                   <p className="text-xs text-muted-foreground mt-1">
-                    HTML or plain text. If empty, concept section won't appear.
+                    HTML or plain text. If empty, concept section won&apos;t appear.
                   </p>
                 </div>
               </CardContent>
@@ -563,7 +563,7 @@ export default function AdminLessonEditorPage({
                     className="rounded-sm font-mono"
                   />
                   <p className="text-xs text-muted-foreground mt-1">
-                    LaTeX, HTML, or plain text. If empty, formula section won't
+                    LaTeX, HTML, or plain text. If empty, formula section won&apos;t
                     appear.
                   </p>
                 </div>

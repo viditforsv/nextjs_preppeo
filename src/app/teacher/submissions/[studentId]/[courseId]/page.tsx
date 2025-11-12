@@ -241,7 +241,7 @@ export default function StudentSubmissionsPage({
                 No submissions found
               </h3>
               <p className="text-muted-foreground">
-                This student hasn't submitted any assignments yet.
+                This student hasn&apos;t submitted any assignments yet.
               </p>
             </div>
           </Card>
