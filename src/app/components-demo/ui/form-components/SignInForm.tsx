@@ -44,12 +44,12 @@ export function SignInForm() {
       // Redirect based on parameter or role
       let redirectPath = redirectParam || "/courses/enrolled";
       if (!redirectParam) {
-        if (profile.role === "student") {
-          redirectPath = "/student";
-        } else if (profile.role === "teacher") {
-          redirectPath = "/teacher/dashboard";
-        } else if (profile.role === "admin") {
-          redirectPath = "/admin";
+      if (profile.role === "student") {
+        redirectPath = "/student";
+      } else if (profile.role === "teacher") {
+        redirectPath = "/teacher/dashboard";
+      } else if (profile.role === "admin") {
+        redirectPath = "/admin";
         }
       }
       console.log(`✅ SignInForm - Redirecting to ${redirectPath}`);

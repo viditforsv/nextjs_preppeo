@@ -336,7 +336,12 @@ export function UnifiedLessonPage({
   );
 
   // Build tabs array dynamically
-  const availableTabs = [];
+  interface TabItem {
+    id: string;
+    label: string;
+    icon: React.ComponentType<{ className?: string }>;
+  }
+  const availableTabs: TabItem[] = [];
   // Questions tab - prioritize it as first tab if available
   if (hasQuestions) {
     availableTabs.push({

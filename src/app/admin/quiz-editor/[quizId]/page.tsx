@@ -330,7 +330,7 @@ export default function QuizEditorPage() {
         {/* Header */}
         <div className="mb-8">
           <Link href="/admin/quiz-manager">
-            <Button variant="ghost" className="mb-4">
+            <Button variant="outline" className="mb-4">
               <ArrowLeft className="w-4 h-4 mr-2" />
               Back to Quiz Manager
             </Button>
@@ -547,7 +547,7 @@ export default function QuizEditorPage() {
                             </div>
                           </div>
                           <Button
-                            variant="ghost"
+                            variant="outline"
                             size="sm"
                             onClick={() =>
                               handleRemoveQuestion(
@@ -572,7 +572,7 @@ export default function QuizEditorPage() {
                   <div className="flex items-center justify-between">
                     <CardTitle>Add Questions</CardTitle>
                     <Button
-                      variant="ghost"
+                      variant="outline"
                       size="sm"
                       onClick={() => setShowAddQuestions(false)}
                     >

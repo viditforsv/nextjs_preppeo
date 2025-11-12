@@ -62,7 +62,7 @@
     "zod": "^4.1.5"
   },
   "devDependencies": {
-    "@eslint/eslintrc": "^3",
+    "@eslint/eslintrc": "^2.1.4",
     "@tailwindcss/postcss": "^4",
     "@types/country-list": "^2.1.4",
     "@types/node": "^20",

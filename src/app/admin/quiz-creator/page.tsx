@@ -305,7 +305,7 @@ export default function QuizCreatorPage() {
         {/* Header */}
         <div className="mb-8">
           <Link href="/admin">
-            <Button variant="ghost" className="mb-4">
+            <Button variant="outline" className="mb-4">
               <ArrowLeft className="w-4 h-4 mr-2" />
               Back to Admin
             </Button>
@@ -493,7 +493,7 @@ export default function QuizCreatorPage() {
                 <CardTitle className="flex items-center justify-between">
                   <span>Search & Filter Questions</span>
                   <Button
-                    variant="ghost"
+                    variant="outline"
                     size="sm"
                     onClick={handleClearFilters}
                   >
@@ -717,7 +717,7 @@ export default function QuizCreatorPage() {
                         Question {index + 1}
                       </CardTitle>
                       <Button
-                        variant="ghost"
+                        variant="outline"
                         size="sm"
                         onClick={() => handleQuestionToggle(question.id)}
                       >
