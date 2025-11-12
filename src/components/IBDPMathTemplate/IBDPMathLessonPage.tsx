@@ -95,17 +95,22 @@ export function IBDPMathLessonPage({
   const [activeTab, setActiveTab] = useState<"questions" | "concepts">(
     "questions"
   );
-  const [completedQuestions, setCompletedQuestions] = useState<Set<string>>(
-    new Set()
-  );
-  const [reviewLaterQuestions, setReviewLaterQuestions] = useState<Set<string>>(
-    new Set()
-  );
-  const [selectedTag, setSelectedTag] = useState<string | null>(null);
+  const [completedQuestions] = useState<Set<string>>(new Set());
+  const [reviewLaterQuestions] = useState<Set<string>>(new Set());
+  const [selectedTag] = useState<string | null>(null);
   const [lastLesson, setLastLesson] = useState<string | null>(null);
   const [lessonContent, setLessonContent] = useState<{
-    concepts: string[];
-    formulas: string[];
+    concepts: Array<{
+      title: string;
+      content: string;
+      metadata?: { keyPoints?: string[] };
+    }>;
+    formulas: Array<{
+      id: string;
+      title: string;
+      content: string;
+      metadata?: { description?: string };
+    }>;
   }>({ concepts: [], formulas: [] });
 
   // Auto-expand current lesson's unit and chapter
@@ -183,41 +188,6 @@ export function IBDPMathLessonPage({
       }
       return newSet;
     });
-  };
-
-  const handleMarkDone = (
-    questionId: string,
-    timeSpent: number,
-    result: "correct" | "incorrect" | "skip"
-  ) => {
-    setCompletedQuestions((prev) => new Set([...prev, questionId]));
-
-    // TODO: Save to database
-    console.log("Question completed:", { questionId, timeSpent, result });
-
-    // Update progress
-    const progress = (completedQuestions.size + 1) / questions.length;
-    onProgressUpdate?.(currentLesson.id, progress * 100);
-  };
-
-  const handleReviewLater = (questionId: string) => {
-    setReviewLaterQuestions((prev) => {
-      const newSet = new Set(prev);
-      if (newSet.has(questionId)) {
-        newSet.delete(questionId);
-      } else {
-        newSet.add(questionId);
-      }
-      return newSet;
-    });
-
-    // TODO: Save to database
-    console.log("Review later toggled:", questionId);
-  };
-
-  const handleTagClick = (tag: string) => {
-    setSelectedTag(tag);
-    setActiveTab("concepts");
   };
 
   const filteredUnits = units.map((unit) => ({
