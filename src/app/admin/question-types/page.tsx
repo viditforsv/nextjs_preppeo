@@ -14,25 +14,17 @@ import { Input } from "@/app/components-demo/ui/ui-components/input";
 import { Breadcrumb } from "@/app/components-demo/ui/breadcrumb";
 import {
   Plus,
-  ChevronRight,
-  ChevronDown,
-  FileText,
   Edit,
   Trash2,
   BookOpen,
   ListChecks,
   CheckCircle,
-  GripVertical,
 } from "lucide-react";
 import {
-  DndContext,
-  closestCenter,
-  KeyboardSensor,
   PointerSensor,
   useSensor,
   useSensors,
   DragEndEvent,
-  DragOverlay,
   useDraggable,
   useDroppable,
 } from "@dnd-kit/core";

@@ -4,13 +4,18 @@ import { Button } from "@/app/components-demo/ui/ui-components/button";
 import {
   Card,
   CardContent,
-  CardDescription,
   CardHeader,
   CardTitle,
 } from "@/app/components-demo/ui/ui-components/card";
 import { Award, BookOpen, Globe, Target, Heart } from "lucide-react";
 import Link from "next/link";
 
+/**
+ * AboutPage is the main landing page for Preppeo LMS. It displays the Hero Section,
+
+ * Mission Section, Values Section, What We Offer Section, and CTA Section.
+ * @returns {JSX.Element} The rendered AboutPage component
+ */
 export default function AboutPage() {
   return (
     <div className="min-h-screen bg-background">
@@ -37,9 +42,9 @@ export default function AboutPage() {
                 Our Mission
               </h2>
               <p className="text-lg text-muted-foreground mb-6">
-                At Preppeo, our mission is to democratize education by
-                providing high-quality, curriculum-aligned learning resources to
-                students across India and beyond.
+                At Preppeo, our mission is to democratize education by providing
+                high-quality, curriculum-aligned learning resources to students
+                across India and beyond.
               </p>
               <p className="text-lg text-muted-foreground">
                 We believe every student deserves access to world-class
@@ -181,8 +186,8 @@ export default function AboutPage() {
               Ready to Start Learning?
             </h2>
             <p className="text-xl text-white/90 mb-8">
-              Join thousands of students who are already learning with
-              Preppeo LMS
+              Join thousands of students who are already learning with Preppeo
+              LMS
             </p>
             <div className="flex gap-4 justify-center">
               <Link href="/courses/discover">

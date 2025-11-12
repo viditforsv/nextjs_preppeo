@@ -1,6 +1,5 @@
 "use client";
 
-import { useAuth } from "@/contexts/AuthContext";
 import { AdminOnly } from "@/app/components-demo/ui/form-components/RoleGuard";
 import {
   Card,
@@ -37,8 +36,6 @@ import {
   Image as ImageIcon,
   Eye,
   CheckCircle2,
-  XCircle,
-  Clock,
   Search,
   Filter,
   Loader2,
@@ -79,7 +76,7 @@ interface FeedbackStats {
 }
 
 export default function LessonFeedbackPage() {
-  const { profile } = useAuth();
+  // const { profile } = useAuth();
   const [feedback, setFeedback] = useState<Feedback[]>([]);
   const [stats, setStats] = useState<FeedbackStats>({
     total: 0,

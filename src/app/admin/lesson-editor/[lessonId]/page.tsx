@@ -25,11 +25,9 @@ import {
   Save,
   FileText,
   Video,
-  FileCheck,
   Lightbulb,
   Calculator,
   BookOpen,
-  Hash,
 } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 
@@ -69,7 +67,7 @@ export default function AdminLessonEditorPage({
   params: Promise<{ lessonId: string }>;
 }) {
   const router = useRouter();
-  const { user, profile } = useAuth();
+  const { profile } = useAuth();
   const [lesson, setLesson] = useState<Lesson | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
@@ -165,7 +163,10 @@ export default function AdminLessonEditorPage({
     }
   };
 
-  const updateField = (field: keyof Lesson, value: any) => {
+  const updateField = (
+    field: keyof Lesson,
+    value: string | number | boolean
+  ) => {
     setLesson((prev) => (prev ? { ...prev, [field]: value } : null));
   };
 
@@ -518,7 +519,8 @@ export default function AdminLessonEditorPage({
                     className="rounded-sm"
                   />
                   <p className="text-xs text-muted-foreground mt-1">
-                    HTML or plain text. If empty, concept section won&apos;t appear.
+                    HTML or plain text. If empty, concept section won&apos;t
+                    appear.
                   </p>
                 </div>
               </CardContent>
@@ -563,8 +565,8 @@ export default function AdminLessonEditorPage({
                     className="rounded-sm font-mono"
                   />
                   <p className="text-xs text-muted-foreground mt-1">
-                    LaTeX, HTML, or plain text. If empty, formula section won&apos;t
-                    appear.
+                    LaTeX, HTML, or plain text. If empty, formula section
+                    won&apos;t appear.
                   </p>
                 </div>
               </CardContent>

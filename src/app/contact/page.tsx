@@ -16,18 +16,13 @@ import {
   Clock,
   Send,
   MessageCircle,
-  Users,
-  Award,
   BookOpen,
   ArrowRight,
-  CheckCircle,
-  Star,
   Globe,
   MessageSquare,
 } from "lucide-react";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import Image from "next/image";
 
 export default function ContactPage() {
   const router = useRouter();
@@ -400,8 +395,7 @@ export default function ContactPage() {
               Ready to Start Learning?
             </h2>
             <p className="text-xl text-white/90 mb-8">
-              Join thousands of students who are already learning with
-              Preppeo
+              Join thousands of students who are already learning with Preppeo
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button

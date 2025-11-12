@@ -501,7 +501,8 @@ export default function AdvancedFilterBuilder({
           <div className="text-sm text-gray-600 space-y-1">
             <p>
               • <strong>Difficulty of 9 OR difficulty of not 8:</strong> Add two
-              conditions: &quot;difficulty equals 9&quot; and &quot;difficulty not equals 8&quot;
+              conditions: &quot;difficulty equals 9&quot; and &quot;difficulty
+              not equals 8&quot;
             </p>
             <p>
               • <strong>Questions with marks greater than 5:</strong> Add

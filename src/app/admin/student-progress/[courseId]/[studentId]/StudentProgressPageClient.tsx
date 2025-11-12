@@ -24,15 +24,10 @@ import {
   BookOpen,
   CheckCircle,
   Clock,
-  Calendar,
   TrendingUp,
-  Award,
   Target,
   BarChart3,
   FileText,
-  Video,
-  HelpCircle,
-  Loader2,
 } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -195,7 +190,7 @@ export function StudentProgressPageClient({
           console.error("Error fetching lessons:", lessonsError);
         } else {
           const formattedLessons: Lesson[] = (lessonsData || []).map(
-            (lesson: any) => ({
+            (lesson: Lesson) => ({
               id: lesson.id,
               slug: lesson.slug,
               title: lesson.title,
@@ -217,15 +212,20 @@ export function StudentProgressPageClient({
         }
 
         // Debug: Check if user_progress table exists and has data
-        console.log("Fetching progress for student:", params.studentId, "course:", params.courseId);
-        
+        console.log(
+          "Fetching progress for student:",
+          params.studentId,
+          "course:",
+          params.courseId
+        );
+
         // First, let's check if there's any data in user_progress table
         const { data: debugData, error: debugError } = await supabase
           .from("user_progress")
           .select("lesson_id, user_id, course_id")
           .eq("user_id", params.studentId)
           .limit(5);
-          
+
         console.log("Debug query result:", debugData, "Error:", debugError);
 
         // Fetch student progress data
@@ -258,43 +258,50 @@ export function StudentProgressPageClient({
 
         if (progressError) {
           console.error("Error fetching progress:", progressError);
-          console.error("Progress error details:", JSON.stringify(progressError, null, 2));
-          
+          console.error(
+            "Progress error details:",
+            JSON.stringify(progressError, null, 2)
+          );
+
           // Fallback: Try a simpler query without joins
           console.log("Trying fallback query...");
           const { data: fallbackData, error: fallbackError } = await supabase
             .from("user_progress")
-            .select("lesson_id, is_completed, last_accessed_at, time_spent, completion_percentage, attempts")
+            .select(
+              "lesson_id, is_completed, last_accessed_at, time_spent, completion_percentage, attempts"
+            )
             .eq("user_id", params.studentId)
             .eq("course_id", params.courseId);
-            
+
           if (fallbackError) {
             console.error("Fallback query also failed:", fallbackError);
             setProgressData([]);
           } else {
             console.log("Fallback data received:", fallbackData);
             // Create basic progress data without lesson details
-            const basicProgress: ProgressData[] = (fallbackData || []).map((item: any) => ({
-              lesson_id: item.lesson_id,
-              lesson_slug: '',
-              lesson_title: 'Lesson ' + item.lesson_id,
-              is_completed: item.is_completed,
-              last_accessed_at: item.last_accessed_at,
-              time_spent: item.time_spent || 0,
-              completion_percentage: item.completion_percentage || 0,
-              attempts: item.attempts || 0,
-              chapter: undefined,
-            }));
+            const basicProgress: ProgressData[] = (fallbackData || []).map(
+              (item: { lesson: Lesson; [key: string]: any }) => ({
+                lesson_id: item.lesson_id,
+                lesson_slug: "",
+                lesson_title: "Lesson " + item.lesson_id,
+                is_completed: item.is_completed,
+                last_accessed_at: item.last_accessed_at,
+                time_spent: item.time_spent || 0,
+                completion_percentage: item.completion_percentage || 0,
+                attempts: item.attempts || 0,
+                chapter: undefined,
+              })
+            );
             setProgressData(basicProgress);
           }
         } else {
           console.log("Progress data received:", progressData);
           const formattedProgress: ProgressData[] = (progressData || [])
-            .filter((item: any) => item.lesson) // Filter out items where lesson is null
-            .map((item: any) => ({
+            .filter((item: { lesson: Lesson | null }) => item.lesson) // Filter out items where lesson is null
+            .map((item: { lesson: Lesson }) => ({
               lesson_id: item.lesson_id,
-              lesson_slug: item.lesson?.slug || '',
-              lesson_title: item.lesson?.title || 'Unknown Lesson',
+              lesson_slug: item.lesson?.slug || "",
+              lesson_title: item.lesson?.title || "Unknown Lesson",
               is_completed: item.is_completed,
               last_accessed_at: item.last_accessed_at,
               time_spent: item.time_spent || 0,

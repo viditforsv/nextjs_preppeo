@@ -4,13 +4,7 @@ import { useState, useEffect } from "react";
 import { useAuth } from "@/contexts/AuthContext";
 import { createClient } from "@/lib/supabase/client";
 import { Button } from "@/app/components-demo/ui/ui-components/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/app/components-demo/ui/ui-components/card";
+import { Card, CardContent } from "@/app/components-demo/ui/ui-components/card";
 import { Badge } from "@/app/components-demo/ui/ui-components/badge";
 import { Breadcrumb } from "@/app/components-demo/ui/breadcrumb";
 import { Input } from "@/app/components-demo/ui/ui-components/input";
@@ -24,13 +18,10 @@ import {
 import {
   Users,
   Search,
-  UserCheck,
   GraduationCap,
   BookOpen,
-  CheckCircle,
   RefreshCw,
 } from "lucide-react";
-import Link from "next/link";
 
 interface Teacher {
   id: string;

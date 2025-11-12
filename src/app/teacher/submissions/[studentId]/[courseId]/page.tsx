@@ -3,34 +3,11 @@
 import { useState, useEffect } from "react";
 import { useAuth } from "@/contexts/AuthContext";
 import { Button } from "@/app/components-demo/ui/ui-components/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/app/components-demo/ui/ui-components/card";
+import { Card, CardContent } from "@/app/components-demo/ui/ui-components/card";
 import { Breadcrumb } from "@/app/components-demo/ui/breadcrumb";
 import { Badge } from "@/app/components-demo/ui/ui-components/badge";
-import { Input } from "@/app/components-demo/ui/ui-components/input";
-import { Label } from "@/app/components-demo/ui/ui-components/label";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from "@/app/components-demo/ui/dialog";
-import { Textarea } from "@/app/components-demo/ui/textarea";
-import {
-  FileText,
-  Download,
-  Upload,
-  CheckCircle,
-  Clock,
-  ArrowLeft,
-} from "lucide-react";
+import {} from "@/app/components-demo/ui/dialog";
+import { FileText, Download, Upload, ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import { UploadGradedModal } from "@/components/teacher/UploadGradedModal";
 

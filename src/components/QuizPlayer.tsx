@@ -135,7 +135,7 @@ export function QuizPlayer({ quizId }: QuizPlayerProps) {
 
   const handleSubmit = () => {
     setSubmitted(true);
-    
+
     // Calculate score (simplified - checks if answer matches correct_answer)
     let correct = 0;
     let total = 0;
@@ -198,9 +198,7 @@ export function QuizPlayer({ quizId }: QuizPlayerProps) {
       <Card>
         <CardHeader>
           <CardTitle className="text-2xl">{quiz.title}</CardTitle>
-          <CardDescription>
-            Test your knowledge with this quiz
-          </CardDescription>
+          <CardDescription>Test your knowledge with this quiz</CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
           <div className="grid grid-cols-2 gap-4">
@@ -274,9 +272,7 @@ export function QuizPlayer({ quizId }: QuizPlayerProps) {
               <div className="inline-block p-8 bg-primary/10 rounded-full mb-4">
                 <Award className="w-16 h-16 text-primary" />
               </div>
-              <h3 className="text-4xl font-bold text-primary mb-2">
-                {score}%
-              </h3>
+              <h3 className="text-4xl font-bold text-primary mb-2">{score}%</h3>
               <p className="text-lg text-muted-foreground">
                 {score >= 80
                   ? "Excellent work!"
@@ -298,13 +294,17 @@ export function QuizPlayer({ quizId }: QuizPlayerProps) {
               const isCorrect = userAnswer === correctAnswer;
 
               return (
-                <Card key={q.id} className="border-l-4" style={{
-                  borderLeftColor: correctAnswer
-                    ? isCorrect
-                      ? "rgb(34, 197, 94)"
-                      : "rgb(239, 68, 68)"
-                    : "rgb(156, 163, 175)",
-                }}>
+                <Card
+                  key={q.id}
+                  className="border-l-4"
+                  style={{
+                    borderLeftColor: correctAnswer
+                      ? isCorrect
+                        ? "rgb(34, 197, 94)"
+                        : "rgb(239, 68, 68)"
+                      : "rgb(156, 163, 175)",
+                  }}
+                >
                   <CardContent className="p-4">
                     <div className="flex items-start gap-2 mb-3">
                       <Badge variant="outline">Q{index + 1}</Badge>
@@ -336,21 +336,33 @@ export function QuizPlayer({ quizId }: QuizPlayerProps) {
                       <div className="mt-3 space-y-2">
                         <p className="text-sm">
                           <span className="font-semibold">Your answer:</span>{" "}
-                          <span className={isCorrect ? "text-green-600" : "text-red-600"}>
+                          <span
+                            className={
+                              isCorrect ? "text-green-600" : "text-red-600"
+                            }
+                          >
                             {userAnswer || "Not answered"}
                           </span>
                         </p>
                         {!isCorrect && (
                           <p className="text-sm">
-                            <span className="font-semibold">Correct answer:</span>{" "}
-                            <span className="text-green-600">{correctAnswer}</span>
+                            <span className="font-semibold">
+                              Correct answer:
+                            </span>{" "}
+                            <span className="text-green-600">
+                              {correctAnswer}
+                            </span>
                           </p>
                         )}
                         {q.question_bank.explanation && (
                           <div className="mt-2 p-3 bg-blue-50 rounded-lg">
-                            <p className="text-sm font-semibold mb-1">Explanation:</p>
+                            <p className="text-sm font-semibold mb-1">
+                              Explanation:
+                            </p>
                             <div className="prose prose-sm max-w-none">
-                              {renderMultiPartQuestion(q.question_bank.explanation)}
+                              {renderMultiPartQuestion(
+                                q.question_bank.explanation
+                              )}
                             </div>
                           </div>
                         )}
@@ -363,11 +375,7 @@ export function QuizPlayer({ quizId }: QuizPlayerProps) {
           </div>
 
           <div className="flex gap-4">
-            <Button
-              variant="outline"
-              className="flex-1"
-              onClick={handleRetry}
-            >
+            <Button variant="outline" className="flex-1" onClick={handleRetry}>
               <RotateCcw className="w-4 h-4 mr-2" />
               Retry Quiz
             </Button>
@@ -417,8 +425,8 @@ export function QuizPlayer({ quizId }: QuizPlayerProps) {
               <div>
                 <CardTitle>Question {currentQuestionIndex + 1}</CardTitle>
                 <CardDescription>
-                  {currentQuestion.question_bank.total_marks} mark(s) • Difficulty:{" "}
-                  {currentQuestion.question_bank.difficulty}/10
+                  {currentQuestion.question_bank.total_marks} mark(s) •
+                  Difficulty: {currentQuestion.question_bank.difficulty}/10
                 </CardDescription>
               </div>
               <Badge variant="outline">
@@ -429,7 +437,9 @@ export function QuizPlayer({ quizId }: QuizPlayerProps) {
           <CardContent className="space-y-6">
             {/* Question Text */}
             <div className="prose prose-sm max-w-none">
-              {renderMultiPartQuestion(currentQuestion.question_bank.question_text)}
+              {renderMultiPartQuestion(
+                currentQuestion.question_bank.question_text
+              )}
             </div>
 
             {/* Answer Input */}
@@ -457,7 +467,10 @@ export function QuizPlayer({ quizId }: QuizPlayerProps) {
                             answers[currentQuestion.question_bank.id] === option
                           }
                           onCheckedChange={() =>
-                            handleAnswer(currentQuestion.question_bank.id, option)
+                            handleAnswer(
+                              currentQuestion.question_bank.id,
+                              option
+                            )
                           }
                         />
                         <span className="font-medium">{option}</span>
@@ -471,40 +484,54 @@ export function QuizPlayer({ quizId }: QuizPlayerProps) {
                 currentQuestion.question_bank.options.length > 0 ? (
                 // MCQ Options
                 <div className="space-y-2">
-                  {currentQuestion.question_bank.options.map((option: any, index: number) => (
-                    <div
-                      key={index}
-                      className={`p-3 border rounded-lg cursor-pointer transition-all ${
-                        answers[currentQuestion.question_bank.id] === option.value
-                          ? "border-primary bg-primary/5"
-                          : "border-gray-200 hover:border-primary/50"
-                      }`}
-                      onClick={() =>
-                        handleAnswer(currentQuestion.question_bank.id, option.value)
-                      }
-                    >
-                      <div className="flex items-center gap-3">
-                        <Checkbox
-                          checked={
-                            answers[currentQuestion.question_bank.id] === option.value
-                          }
-                          onCheckedChange={() =>
-                            handleAnswer(currentQuestion.question_bank.id, option.value)
-                          }
-                        />
-                        <span>{option.label || option.value}</span>
+                  {currentQuestion.question_bank.options.map(
+                    (option: any, index: number) => (
+                      <div
+                        key={index}
+                        className={`p-3 border rounded-lg cursor-pointer transition-all ${
+                          answers[currentQuestion.question_bank.id] ===
+                          option.value
+                            ? "border-primary bg-primary/5"
+                            : "border-gray-200 hover:border-primary/50"
+                        }`}
+                        onClick={() =>
+                          handleAnswer(
+                            currentQuestion.question_bank.id,
+                            option.value
+                          )
+                        }
+                      >
+                        <div className="flex items-center gap-3">
+                          <Checkbox
+                            checked={
+                              answers[currentQuestion.question_bank.id] ===
+                              option.value
+                            }
+                            onCheckedChange={() =>
+                              handleAnswer(
+                                currentQuestion.question_bank.id,
+                                option.value
+                              )
+                            }
+                          />
+                          <span>{option.label || option.value}</span>
+                        </div>
                       </div>
-                    </div>
-                  ))}
+                    )
+                  )}
                 </div>
-              ) : currentQuestion.question_bank.question_type === "fill_blank" ? (
+              ) : currentQuestion.question_bank.question_type ===
+                "fill_blank" ? (
                 // Fill in the Blank - Single line input
                 <Input
                   className="w-full p-3 text-lg"
                   placeholder="Type your answer here..."
                   value={answers[currentQuestion.question_bank.id] || ""}
                   onChange={(e) =>
-                    handleAnswer(currentQuestion.question_bank.id, e.target.value)
+                    handleAnswer(
+                      currentQuestion.question_bank.id,
+                      e.target.value
+                    )
                   }
                 />
               ) : (
@@ -514,7 +541,10 @@ export function QuizPlayer({ quizId }: QuizPlayerProps) {
                   placeholder="Type your answer here..."
                   value={answers[currentQuestion.question_bank.id] || ""}
                   onChange={(e) =>
-                    handleAnswer(currentQuestion.question_bank.id, e.target.value)
+                    handleAnswer(
+                      currentQuestion.question_bank.id,
+                      e.target.value
+                    )
                   }
                 />
               )}
@@ -588,4 +618,3 @@ export function QuizPlayer({ quizId }: QuizPlayerProps) {
     </div>
   );
 }
-

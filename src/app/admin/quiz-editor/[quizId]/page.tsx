@@ -120,10 +120,12 @@ export default function QuizEditorPage() {
         if (data.quizzes && data.quizzes.length > 0) {
           const quizData = data.quizzes[0];
           setQuiz(quizData);
-          
+
           // If quiz has a lesson, get the lesson details to find course_id
           if (quizData.lesson_id) {
-            const lessonResponse = await fetch(`/api/lessons/${quizData.lesson_id}`);
+            const lessonResponse = await fetch(
+              `/api/lessons/${quizData.lesson_id}`
+            );
             if (lessonResponse.ok) {
               const lessonData = await lessonResponse.json();
               if (lessonData.lesson) {
@@ -155,7 +157,9 @@ export default function QuizEditorPage() {
 
   const fetchLessons = async (courseId: string) => {
     try {
-      const response = await fetch(`/api/lessons?course_id=${courseId}&limit=1000`);
+      const response = await fetch(
+        `/api/lessons?course_id=${courseId}&limit=1000`
+      );
       if (response.ok) {
         const data = await response.json();
         setLessons(data.lessons || []);
@@ -512,8 +516,8 @@ export default function QuizEditorPage() {
               <CardContent>
                 {quizQuestions.length === 0 ? (
                   <div className="text-center py-8 text-muted-foreground">
-                    No questions in this quiz yet. Click &quot;Add Questions&quot; to get
-                    started.
+                    No questions in this quiz yet. Click &quot;Add
+                    Questions&quot; to get started.
                   </div>
                 ) : (
                   <div className="space-y-4">
@@ -621,7 +625,9 @@ export default function QuizEditorPage() {
                               />
                               <div className="flex-1 min-w-0">
                                 <div className="prose prose-sm max-w-none mb-2">
-                                  {renderMultiPartQuestion(question.question_text)}
+                                  {renderMultiPartQuestion(
+                                    question.question_text
+                                  )}
                                 </div>
                                 <div className="flex flex-wrap gap-2">
                                   <Badge variant="outline" className="text-xs">
@@ -656,4 +662,3 @@ export default function QuizEditorPage() {
     </div>
   );
 }
-
