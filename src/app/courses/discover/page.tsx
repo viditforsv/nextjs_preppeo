@@ -717,13 +717,12 @@ function CourseCard({ course, viewMode }: CourseCardProps) {
         <Card className="hover:shadow-md transition-shadow cursor-pointer">
           <CardContent className="p-6">
             <div className="flex gap-6">
-              <div className="w-64 h-32 rounded-lg flex items-center justify-center flex-shrink-0 overflow-hidden">
-                {thumbnailUrl.includes("/api/cdn-proxy") ? (
-                  <Image
+              <div className="w-64 h-32 rounded-lg flex items-center justify-center flex-shrink-0 overflow-hidden relative">
+                {thumbnailUrl.startsWith("data:") || thumbnailUrl.includes("/api/cdn-proxy") ? (
+                  // Use regular img tag for data URIs and proxy URLs (Next.js Image doesn't support query strings in local patterns)
+                  <img
                     src={thumbnailUrl}
                     alt={`${course.title} thumbnail`}
-                    width={256}
-                    height={128}
                     className="w-full h-full object-cover"
                     onError={(e) => {
                       // Fallback to gradient if image fails to load
@@ -750,7 +749,7 @@ function CourseCard({ course, viewMode }: CourseCardProps) {
                   />
                 )}
                 <div
-                  className="w-full h-full bg-gradient-to-br from-primary to-emerald-600 rounded-lg flex items-center justify-center"
+                  className="w-full h-full bg-gradient-to-br from-primary to-emerald-600 rounded-lg flex items-center justify-center absolute inset-0"
                   style={{ display: "none" }}
                 >
                   <BookOpen className="w-8 h-8 text-white" />
@@ -846,12 +845,11 @@ function CourseCard({ course, viewMode }: CourseCardProps) {
         <Card className="hover:shadow-md transition-shadow group cursor-pointer">
         <CardHeader className="pb-4">
           <div className="w-full h-32 rounded-lg flex items-center justify-center mb-4 overflow-hidden relative">
-            {thumbnailUrl.includes("/api/cdn-proxy") ? (
-              <Image
+            {thumbnailUrl.startsWith("data:") || thumbnailUrl.includes("/api/cdn-proxy") ? (
+              // Use regular img tag for data URIs and proxy URLs (Next.js Image doesn't support query strings in local patterns)
+              <img
                 src={thumbnailUrl}
                 alt={`${course.title} thumbnail`}
-                width={400}
-                height={128}
                 className="w-full h-full object-cover"
                 onError={(e) => {
                   // Fallback to gradient if image fails to load
