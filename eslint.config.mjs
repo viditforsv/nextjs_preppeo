@@ -37,6 +37,11 @@ export default [
       "jsx-a11y": jsxA11yPlugin,
       "@next/next": nextPlugin,
     },
+    settings: {
+      react: {
+        version: "detect",
+      },
+    },
     rules: {
       ...js.configs.recommended.rules,
       ...tsPlugin.configs.recommended.rules,
@@ -48,3 +53,4 @@ export default [
     },
   },
 ];
+

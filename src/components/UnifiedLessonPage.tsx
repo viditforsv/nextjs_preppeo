@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import Image from "next/image";
 import {
   Card,
   CardContent,
@@ -22,9 +23,6 @@ import {
   CheckCircle2,
   CheckCircle,
   Upload,
-  Clock,
-  Unlock,
-  Eye,
   ArrowLeft,
   ArrowRight,
   Lightbulb,
@@ -161,7 +159,6 @@ export function UnifiedLessonPage({
   const [currentMessage, setCurrentMessage] = useState("");
   const [isAITyping, setIsAITyping] = useState(false);
   const [isAssignmentTabActive, setIsAssignmentTabActive] = useState(false);
-  const [isSolutionTabActive, setIsSolutionTabActive] = useState(false);
 
   // Inline editing state for admins
   const [editingField, setEditingField] = useState<string | null>(null);
@@ -294,7 +291,7 @@ export function UnifiedLessonPage({
 
     // More comprehensive YouTube URL patterns
     const patterns = [
-      /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/|youtube\.com\/v\/)([^#&\?]{11})/,
+      /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/|youtube\.com\/v\/)([^#&?]{11})/,
       /^([a-zA-Z0-9_-]{11})$/,
     ];
 
@@ -390,13 +387,12 @@ export function UnifiedLessonPage({
       availableTabs.map((t) => t.id)
     );
     console.log("UnifiedLessonPage - Default tab:", defaultTab);
-  }, [availableTabs.length, defaultTab]);
+  }, [availableTabs, defaultTab]);
 
   // Initialize PDF tab states based on current tab
   useEffect(() => {
     const currentTab = activeTab || defaultTab;
     setIsAssignmentTabActive(currentTab === "assignment");
-    setIsSolutionTabActive(currentTab === "solution");
   }, [activeTab, defaultTab]);
 
   // Set default tab on mount
@@ -2097,9 +2093,11 @@ export function UnifiedLessonPage({
               ) : (
                 <div className="space-y-2">
                   <div className="relative border rounded-sm overflow-hidden">
-                    <img
+                    <Image
                       src={feedbackImagePreview}
                       alt="Feedback preview"
+                      width={800}
+                      height={192}
                       className="w-full h-48 object-contain bg-gray-50"
                     />
                     <Button

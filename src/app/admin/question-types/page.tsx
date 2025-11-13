@@ -20,15 +20,6 @@ import {
   ListChecks,
   CheckCircle,
 } from "lucide-react";
-import {
-  PointerSensor,
-  useSensor,
-  useSensors,
-  DragEndEvent,
-  useDraggable,
-  useDroppable,
-} from "@dnd-kit/core";
-import { CSS } from "@dnd-kit/utilities";
 
 interface QuestionType {
   id: string;
@@ -154,76 +145,11 @@ const DEFAULT_QUESTION_TYPES: QuestionType[] = [
   },
 ];
 
-// Draggable Item Component
-function DraggableItem({
-  id,
-  children,
-}: {
-  id: string;
-  children: React.ReactNode;
-}) {
-  const { attributes, listeners, setNodeRef, transform, isDragging } =
-    useDraggable({
-      id,
-    });
-
-  const style = {
-    transform: CSS.Translate.toString(transform),
-  };
-
-  return (
-    <div
-      ref={setNodeRef}
-      style={style}
-      {...attributes}
-      {...listeners}
-      className={`cursor-grab active:cursor-grabbing ${
-        isDragging ? "opacity-50" : ""
-      }`}
-    >
-      {children}
-    </div>
-  );
-}
-
-// Droppable Area Component
-function DroppableArea({
-  id,
-  children,
-  matched = false,
-}: {
-  id: string;
-  children: React.ReactNode;
-  matched?: boolean;
-}) {
-  const { setNodeRef, isOver } = useDroppable({
-    id,
-  });
-
-  return (
-    <div
-      ref={setNodeRef}
-      className={`p-3 border-2 rounded-sm transition-all ${
-        isOver
-          ? "border-blue-500 bg-blue-50"
-          : matched
-          ? "border-green-500 bg-green-50"
-          : "border-gray-300"
-      }`}
-    >
-      {children}
-    </div>
-  );
-}
-
 export default function QuestionTypesPage() {
   const [questionTypes, setQuestionTypes] = useState<QuestionType[]>(
     DEFAULT_QUESTION_TYPES
   );
   const [selectedType, setSelectedType] = useState<string>("1");
-  const [expandedSections, setExpandedSections] = useState<Set<string>>(
-    new Set(["all"])
-  );
   const [isAdding, setIsAdding] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [formData, setFormData] = useState({ name: "", description: "" });
@@ -244,30 +170,10 @@ export default function QuestionTypesPage() {
   ];
 
   const [matches, setMatches] = useState<Record<string, string>>({});
-  const [activeId, setActiveId] = useState<string | null>(null);
-
-  const sensors = useSensors(useSensor(PointerSensor));
-
-  // Correct answers mapping
-  const correctMatches: Record<string, string> = {
-    "left-1": "right-1", // Evaluate limits → L'Hospital's Rule
-    "left-2": "right-2", // Find roots → Intermediate Value Theorem
-    "left-3": "right-3", // Analyze behavior → Mean Value Theorem
-  };
 
   const selectedQuestionType = questionTypes.find(
     (type) => type.id === selectedType
   );
-
-  const toggleSection = (sectionId: string) => {
-    const newExpanded = new Set(expandedSections);
-    if (newExpanded.has(sectionId)) {
-      newExpanded.delete(sectionId);
-    } else {
-      newExpanded.add(sectionId);
-    }
-    setExpandedSections(newExpanded);
-  };
 
   const handleAdd = () => {
     if (!formData.name.trim()) return;
@@ -334,35 +240,6 @@ export default function QuestionTypesPage() {
       selected === question.exampleQuestion.answer ||
       (typeof selected === "string" &&
         question.exampleQuestion.answer?.includes(selected))
-    );
-  };
-
-  const handleDragStart = (event: DragEndEvent) => {
-    setActiveId(event.active.id as string);
-  };
-
-  const handleDragEnd = (event: DragEndEvent) => {
-    const { active, over } = event;
-    setActiveId(null);
-
-    if (!over) return;
-
-    // If dragging from left column to right column, create a match
-    if (
-      active.id.toString().startsWith("left-") &&
-      over.id.toString().startsWith("right-")
-    ) {
-      setMatches({
-        ...matches,
-        [active.id.toString()]: over.id.toString(),
-      });
-    }
-  };
-
-  const isItemMatched = (itemId: string) => {
-    return (
-      Object.keys(matches).includes(itemId) ||
-      Object.values(matches).includes(itemId)
     );
   };
 
@@ -693,9 +570,6 @@ export default function QuestionTypesPage() {
                               <div className="max-w-3xl">
                                 {leftItems.map((leftItem, idx) => {
                                   const matchId = matches[leftItem.id] || "";
-                                  const matchedRight = rightItems.find(
-                                    (r) => r.id === matchId
-                                  );
                                   const hasMatch = matchId !== "";
 
                                   return (

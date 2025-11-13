@@ -84,7 +84,7 @@ export default function LessonMapperPage() {
     };
 
     fetchCourses();
-  }, []);
+  }, [selectedCourseId, supabase]);
 
   // Fetch units, chapters, and lessons when course changes
   useEffect(() => {
@@ -145,7 +145,7 @@ export default function LessonMapperPage() {
     };
 
     fetchData();
-  }, [selectedCourseId]);
+  }, [selectedCourseId, supabase]);
 
   const updateLessonEdit = (
     lessonId: string,

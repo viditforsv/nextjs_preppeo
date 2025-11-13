@@ -16,6 +16,11 @@ export default defineConfig([
       react: pluginReact,
       "unused-imports": pluginUnusedImports,
     },
+    settings: {
+      react: {
+        version: "detect",
+      },
+    },
     extends: [
       js.configs.recommended,
       ...tseslint.configs.recommended,

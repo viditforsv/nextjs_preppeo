@@ -71,6 +71,18 @@ interface Question {
   tags: string[];
 }
 
+interface Course {
+  id: string;
+  title: string;
+}
+
+interface Lesson {
+  id: string;
+  title: string;
+  lesson_code: string;
+  course_id?: string;
+}
+
 export default function QuizEditorPage() {
   const router = useRouter();
   const params = useParams();
@@ -79,8 +91,8 @@ export default function QuizEditorPage() {
   // Quiz state
   const [quiz, setQuiz] = useState<Quiz | null>(null);
   const [quizQuestions, setQuizQuestions] = useState<QuizQuestion[]>([]);
-  const [courses, setCourses] = useState<any[]>([]);
-  const [lessons, setLessons] = useState<any[]>([]);
+  const [courses, setCourses] = useState<Course[]>([]);
+  const [lessons, setLessons] = useState<Lesson[]>([]);
   const [selectedCourseId, setSelectedCourseId] = useState<string>("");
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -95,24 +107,7 @@ export default function QuizEditorPage() {
   const [searchTerm, setSearchTerm] = useState("");
   const [loadingQuestions, setLoadingQuestions] = useState(false);
 
-  useEffect(() => {
-    if (quizId) {
-      fetchQuiz();
-      fetchQuizQuestions();
-      fetchCourses();
-    }
-  }, [quizId]);
-
-  // Fetch lessons when course is selected
-  useEffect(() => {
-    if (selectedCourseId) {
-      fetchLessons(selectedCourseId);
-    } else {
-      setLessons([]);
-    }
-  }, [selectedCourseId]);
-
-  const fetchQuiz = async () => {
+  const fetchQuiz = useCallback(async () => {
     try {
       const response = await fetch(`/api/quizzes?id=${quizId}`);
       if (response.ok) {
@@ -141,9 +136,9 @@ export default function QuizEditorPage() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [quizId]);
 
-  const fetchCourses = async () => {
+  const fetchCourses = useCallback(async () => {
     try {
       const response = await fetch("/api/courses");
       if (response.ok) {
@@ -153,9 +148,9 @@ export default function QuizEditorPage() {
     } catch (error) {
       console.error("Error fetching courses:", error);
     }
-  };
+  }, []);
 
-  const fetchLessons = async (courseId: string) => {
+  const fetchLessons = useCallback(async (courseId: string) => {
     try {
       const response = await fetch(
         `/api/lessons?course_id=${courseId}&limit=1000`
@@ -167,9 +162,9 @@ export default function QuizEditorPage() {
     } catch (error) {
       console.error("Error fetching lessons:", error);
     }
-  };
+  }, []);
 
-  const fetchQuizQuestions = async () => {
+  const fetchQuizQuestions = useCallback(async () => {
     try {
       const response = await fetch(`/api/quizzes/${quizId}/questions`);
       if (response.ok) {
@@ -179,9 +174,9 @@ export default function QuizEditorPage() {
     } catch (error) {
       console.error("Error fetching quiz questions:", error);
     }
-  };
+  }, [quizId]);
 
-  const fetchAvailableQuestions = async () => {
+  const fetchAvailableQuestions = useCallback(async () => {
     setLoadingQuestions(true);
     try {
       const params = new URLSearchParams();
@@ -206,13 +201,30 @@ export default function QuizEditorPage() {
     } finally {
       setLoadingQuestions(false);
     }
-  };
+  }, [searchTerm, quizQuestions]);
+
+  useEffect(() => {
+    if (quizId) {
+      fetchQuiz();
+      fetchQuizQuestions();
+      fetchCourses();
+    }
+  }, [quizId, fetchQuiz, fetchQuizQuestions, fetchCourses]);
+
+  // Fetch lessons when course is selected
+  useEffect(() => {
+    if (selectedCourseId) {
+      fetchLessons(selectedCourseId);
+    } else {
+      setLessons([]);
+    }
+  }, [selectedCourseId, fetchLessons]);
 
   useEffect(() => {
     if (showAddQuestions) {
       fetchAvailableQuestions();
     }
-  }, [showAddQuestions, searchTerm]);
+  }, [showAddQuestions, fetchAvailableQuestions]);
 
   const handleSaveQuiz = async () => {
     if (!quiz) return;

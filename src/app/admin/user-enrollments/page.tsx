@@ -7,9 +7,6 @@ import { Button } from "@/app/components-demo/ui/ui-components/button";
 import {
   Card,
   CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
 } from "@/app/components-demo/ui/ui-components/card";
 import { Badge } from "@/app/components-demo/ui/ui-components/badge";
 import { Breadcrumb } from "@/app/components-demo/ui/breadcrumb";
@@ -165,7 +162,14 @@ export default function UserEnrollmentsPage() {
       if (enrollmentsError) throw enrollmentsError;
 
       // Transform the data to match our interface
-      const transformedEnrollments = (enrollmentsData || []).map((e: any) => ({
+      interface EnrollmentData {
+        user?: User | User[];
+        course?: Course | Course[];
+        assigned_teacher?: User | User[];
+        [key: string]: unknown;
+      }
+
+      const transformedEnrollments = (enrollmentsData || []).map((e: EnrollmentData) => ({
         ...e,
         user: Array.isArray(e.user) ? e.user[0] : e.user,
         course: Array.isArray(e.course) ? e.course[0] : e.course,
