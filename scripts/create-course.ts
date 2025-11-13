@@ -16,7 +16,7 @@ import { resolve } from "path";
 // Load environment variables from .env.local
 config({ path: resolve(process.cwd(), ".env.local") });
 
-import { createClient } from "@supabase/supabase-js";
+import { createClient, SupabaseClient } from "@supabase/supabase-js";
 import { readFileSync } from "fs";
 import {
   getSupabaseUrl,
@@ -188,9 +188,10 @@ async function createCourse(courseData: CourseData, instructorId?: string, updat
 }
 
 async function createCourseStructure(
-  supabase: ReturnType<typeof createClient>,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  supabase: SupabaseClient<any>,
   courseId: string,
-  units: CourseData["template_data"]["units"]
+  units: NonNullable<CourseData["template_data"]>["units"]
 ) {
   if (!units) return;
 
