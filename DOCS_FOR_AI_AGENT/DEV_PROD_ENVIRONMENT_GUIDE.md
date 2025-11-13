@@ -23,6 +23,8 @@ Your project uses **two separate Supabase projects**:
 
 ## 🚀 Quick Start: Switch Environments
 
+**✨ NEW: Automatic Environment Detection** - The system now automatically selects dev or prod database based on environment variables. See [ENVIRONMENT_BASED_DATABASE_SETUP.md](./ENVIRONMENT_BASED_DATABASE_SETUP.md) for details.
+
 ### **Working on DEV Branch:**
 
 ```bash
@@ -32,9 +34,10 @@ git checkout dev
 # 2. Create .env.local file with your DEV Supabase credentials
 
 # 3. Edit .env.local and add your DEV Supabase credentials:
-# - NEXT_PUBLIC_SUPABASE_URL (from dev project)
-# - NEXT_PUBLIC_SUPABASE_ANON_KEY (from dev project)
-# - SUPABASE_SERVICE_ROLE_KEY (from dev project)
+# NEXT_PUBLIC_ENVIRONMENT=dev
+# NEXT_PUBLIC_SUPABASE_URL_DEV=https://your-dev-project.supabase.co
+# NEXT_PUBLIC_SUPABASE_ANON_KEY_DEV=your-dev-anon-key
+# SUPABASE_SERVICE_ROLE_KEY_DEV=your-dev-service-role-key
 
 # 4. Start development
 npm run dev
@@ -48,11 +51,17 @@ git checkout main
 
 # 2. Create .env.local file with your PRODUCTION Supabase credentials
 
-# 3. Edit .env.local and add your PRODUCTION Supabase credentials
+# 3. Edit .env.local and add your PRODUCTION Supabase credentials:
+# NEXT_PUBLIC_ENVIRONMENT=prod
+# NEXT_PUBLIC_SUPABASE_URL_PROD=https://your-prod-project.supabase.co
+# NEXT_PUBLIC_SUPABASE_ANON_KEY_PROD=your-prod-anon-key
+# SUPABASE_SERVICE_ROLE_KEY_PROD=your-prod-service-role-key
 
 # 4. Start development (testing production config locally)
 npm run dev
 ```
+
+**Note:** The system will automatically use the correct database based on `NEXT_PUBLIC_ENVIRONMENT` or `NODE_ENV`. See [ENVIRONMENT_BASED_DATABASE_SETUP.md](./ENVIRONMENT_BASED_DATABASE_SETUP.md) for full details.
 
 ---
 

@@ -3,6 +3,11 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { canAccessRoute, getRedirectPath } from "@/lib/access-control";
 import { UserRole } from "@/types/auth";
+import {
+  getSupabaseUrl,
+  getSupabaseAnonKey,
+  validateSupabaseConfig,
+} from "@/lib/supabase/env";
 
 export async function middleware(req: NextRequest) {
   const res = NextResponse.next();
@@ -17,9 +22,10 @@ export async function middleware(req: NextRequest) {
     return res;
   }
 
+  validateSupabaseConfig();
   const supabase = createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    getSupabaseUrl(),
+    getSupabaseAnonKey(),
     {
       auth: {
         flowType: "pkce",

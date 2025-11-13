@@ -1,11 +1,17 @@
 import { createClient } from "@supabase/supabase-js";
+import {
+  getSupabaseUrl,
+  getSupabaseAnonKey,
+  validateSupabaseConfig,
+} from "./supabase/env";
 
 let supabaseInstance: ReturnType<typeof createClient> | null = null;
 
 function getSupabase() {
   if (!supabaseInstance) {
-    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-    const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+    validateSupabaseConfig();
+    const supabaseUrl = getSupabaseUrl();
+    const supabaseAnonKey = getSupabaseAnonKey();
 
     if (!supabaseUrl || !supabaseAnonKey) {
       throw new Error("Missing Supabase environment variables");
