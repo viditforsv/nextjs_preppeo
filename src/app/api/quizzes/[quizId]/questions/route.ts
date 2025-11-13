@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { createClient } from "@supabase/supabase-js";
+import { createSupabaseApiClient } from "@/lib/supabase/api-client";
 
 // GET /api/quizzes/[quizId]/questions - Get all questions for a quiz
 export async function GET(
@@ -10,10 +10,7 @@ export async function GET(
     const resolvedParams = await params;
     const quizId = resolvedParams.quizId;
 
-    const supabase = createClient(
-      process.env.NEXT_PUBLIC_SUPABASE_URL!,
-      process.env.SUPABASE_SERVICE_ROLE_KEY!
-    );
+    const supabase = createSupabaseApiClient();
 
     const { data, error } = await supabase
       .from("quiz_questions")
@@ -72,10 +69,7 @@ export async function POST(
       );
     }
 
-    const supabase = createClient(
-      process.env.NEXT_PUBLIC_SUPABASE_URL!,
-      process.env.SUPABASE_SERVICE_ROLE_KEY!
-    );
+    const supabase = createSupabaseApiClient();
 
     // Get current max order
     const { data: existingQuestions } = await supabase
@@ -137,10 +131,7 @@ export async function DELETE(
       );
     }
 
-    const supabase = createClient(
-      process.env.NEXT_PUBLIC_SUPABASE_URL!,
-      process.env.SUPABASE_SERVICE_ROLE_KEY!
-    );
+    const supabase = createSupabaseApiClient();
 
     const { error } = await supabase
       .from("quiz_questions")
@@ -184,10 +175,7 @@ export async function PUT(
       );
     }
 
-    const supabase = createClient(
-      process.env.NEXT_PUBLIC_SUPABASE_URL!,
-      process.env.SUPABASE_SERVICE_ROLE_KEY!
-    );
+    const supabase = createSupabaseApiClient();
 
     // Update each question's order
     const updates = question_orders.map(({ question_id, question_order }) =>

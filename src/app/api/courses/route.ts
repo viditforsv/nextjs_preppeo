@@ -60,10 +60,14 @@ async function checkAdminAccess() {
 export async function GET(request: Request) {
   try {
     console.log("🔍 Starting courses fetch...");
+    // Environment check uses the environment utility
+    const { getCurrentEnvironment, getSupabaseUrl } = await import("@/lib/supabase/env");
+    const env = getCurrentEnvironment();
+    const url = getSupabaseUrl();
     console.log("Environment check:", {
-      hasUrl: !!process.env.NEXT_PUBLIC_SUPABASE_URL,
-      url: process.env.NEXT_PUBLIC_SUPABASE_URL?.substring(0, 30) + "...",
-      hasKey: !!process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
+      environment: env,
+      hasUrl: !!url,
+      url: url?.substring(0, 30) + "...",
     });
     
     const supabase = await createClient();

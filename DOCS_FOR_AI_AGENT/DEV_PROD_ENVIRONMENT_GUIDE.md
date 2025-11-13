@@ -1,13 +1,16 @@
 # Development & Production Environment Guide
 
-## 🌍 Two Environments Setup
+## 🌍 Three Environments Setup
 
-Your project uses **two separate Supabase projects**:
+Your project uses **three separate environments** with **two Supabase projects**:
 
-| Environment | Branch | Supabase Project | Domain |
-|------------|--------|------------------|---------|
-| **Production** | `main` | Production Supabase | https://courses.preppeo.com |
-| **Development** | `dev` | Dev Supabase | http://localhost:3000 |
+| Environment | Branch | Location | Supabase Project | Domain |
+|------------|--------|----------|------------------|---------|
+| **Local Dev** | `dev` | Local machine | Dev Supabase | http://localhost:3000 |
+| **Vercel Preview** | `dev` | Vercel | Dev Supabase | `*.vercel.app` |
+| **Vercel Production** | `main` | Vercel | Production Supabase | https://courses.preppeo.com |
+
+**Note:** Vercel Preview and Production require separate environment variable configuration. See [VERCEL_ENVIRONMENT_SETUP.md](./VERCEL_ENVIRONMENT_SETUP.md) for details.
 
 ---
 
@@ -125,7 +128,10 @@ npm run dev
 git push origin main
 
 # 5. Vercel will auto-deploy with prod env vars
+#    Make sure Production environment variables are set in Vercel
 ```
+
+**⚠️ Important:** See [VERCEL_ENVIRONMENT_SETUP.md](./VERCEL_ENVIRONMENT_SETUP.md) for detailed instructions on configuring Vercel environment variables for Production and Preview deployments.
 
 ---
 
