@@ -13,10 +13,39 @@ import {
 } from "@/app/components-demo/ui/ui-components/card";
 import { ArrowLeft, Check } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
+
+interface RazorpayOptions {
+  key: string;
+  amount: number;
+  currency: string;
+  name: string;
+  description: string;
+  order_id: string;
+  handler: (response: RazorpayResponse) => void | Promise<void>;
+  theme: {
+    color: string;
+  };
+  prefill?: {
+    name?: string;
+    email?: string;
+    contact?: string;
+  };
+}
+
+interface RazorpayResponse {
+  razorpay_payment_id: string;
+  razorpay_order_id: string;
+  razorpay_signature: string;
+}
+
+interface RazorpayInstance {
+  open: () => void;
+}
 
 declare global {
   interface Window {
-    Razorpay: any;
+    Razorpay: new (options: RazorpayOptions) => RazorpayInstance;
   }
 }
 
@@ -186,7 +215,7 @@ export default function CoursePaymentPage() {
         theme: {
           color: "#e27447",
         },
-        handler: async function (response: any) {
+        handler: async function (response: RazorpayResponse) {
           setStatus("Verifying payment...");
 
           try {
@@ -311,9 +340,11 @@ export default function CoursePaymentPage() {
               <div className="bg-gray-50 rounded-sm p-6 border">
                 <div className="flex items-start space-x-4">
                   {course.thumbnail && (
-                    <img
+                    <Image
                       src={course.thumbnail}
                       alt={course.title}
+                      width={96}
+                      height={96}
                       className="w-24 h-24 object-cover rounded-sm"
                     />
                   )}

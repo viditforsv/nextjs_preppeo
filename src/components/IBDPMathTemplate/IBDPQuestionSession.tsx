@@ -19,7 +19,7 @@ import {
   BookOpen,
   Target,
 } from "lucide-react";
-import { MathRenderer, renderMultiPartQuestion } from "@/components/MathRenderer";
+import { renderMultiPartQuestion } from "@/components/MathRenderer";
 
 interface Question {
   id: string;

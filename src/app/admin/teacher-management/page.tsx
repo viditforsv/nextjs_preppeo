@@ -34,6 +34,28 @@ export default function TeacherManagementPage() {
     "all" | "student" | "teacher" | "admin" | "content_manager"
   >("all");
 
+  const filterUsers = useCallback(() => {
+    let filtered = users;
+
+    // Filter by search term
+    if (searchTerm) {
+      const searchLower = searchTerm.toLowerCase();
+      filtered = filtered.filter(
+        (user) =>
+          user.email?.toLowerCase().includes(searchLower) ||
+          user.first_name?.toLowerCase().includes(searchLower) ||
+          user.last_name?.toLowerCase().includes(searchLower)
+      );
+    }
+
+    // Filter by role
+    if (filterRole !== "all") {
+      filtered = filtered.filter((user) => user.role === filterRole);
+    }
+
+    setFilteredUsers(filtered);
+  }, [users, searchTerm, filterRole]);
+
   useEffect(() => {
     if (currentUser && profile?.role === "admin") {
       loadUsers();
@@ -64,28 +86,6 @@ export default function TeacherManagementPage() {
       setIsLoading(false);
     }
   };
-
-  const filterUsers = useCallback(() => {
-    let filtered = users;
-
-    // Filter by search term
-    if (searchTerm) {
-      const searchLower = searchTerm.toLowerCase();
-      filtered = filtered.filter(
-        (user) =>
-          user.email?.toLowerCase().includes(searchLower) ||
-          user.first_name?.toLowerCase().includes(searchLower) ||
-          user.last_name?.toLowerCase().includes(searchLower)
-      );
-    }
-
-    // Filter by role
-    if (filterRole !== "all") {
-      filtered = filtered.filter((user) => user.role === filterRole);
-    }
-
-    setFilteredUsers(filtered);
-  }, [users, searchTerm, filterRole]);
 
   const handleToggleTeacherRole = async (
     userId: string,

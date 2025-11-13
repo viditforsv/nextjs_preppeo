@@ -104,7 +104,7 @@ export default function AuthPage() {
 
       handleOAuthCallback();
     }
-  }, [code, next, router]);
+  }, [code, next, router, searchParams]);
 
   // Show loading state while checking authentication
   if (loading) {

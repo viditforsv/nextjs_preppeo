@@ -16,7 +16,6 @@ import {
   TabsTrigger,
 } from "@/app/components-demo/ui/tabs";
 import { Input } from "@/app/components-demo/ui/ui-components/input";
-import { Textarea } from "@/app/components-demo/ui/textarea";
 import {
   BookOpen,
   MessageCircle,
@@ -27,7 +26,7 @@ import {
   ExternalLink,
   Download,
 } from "lucide-react";
-import { MathRenderer, renderMixedContent } from "@/components/MathRenderer";
+import { renderMixedContent } from "@/components/MathRenderer";
 
 interface Formula {
   id: string;

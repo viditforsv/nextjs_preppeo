@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useMemo } from "react";
 import Image from "next/image";
 import {
   Card,
@@ -338,45 +338,48 @@ export function UnifiedLessonPage({
     label: string;
     icon: React.ComponentType<{ className?: string }>;
   }
-  const availableTabs: TabItem[] = [];
-  // Questions tab - prioritize it as first tab if available
-  if (hasQuestions) {
-    availableTabs.push({
-      id: "questions",
-      label: "Questions",
-      icon: FileCheck,
-    });
-  }
-  if (hasConcepts || hasFormulas) {
-    availableTabs.push({
-      id: "content",
-      label: "Concepts & Formulas",
-      icon: BookOpen,
-    });
-  }
-  if (hasVideo) {
-    availableTabs.push({ id: "video", label: "Video", icon: Video });
-  }
-  if (hasNotes) {
-    availableTabs.push({ id: "notes", label: "Concepts", icon: FileText });
-  }
-  if (hasPDFAssignment) {
-    availableTabs.push({
-      id: "assignment",
-      label: "Assignment",
-      icon: FileText,
-    });
-  }
-  if (hasPDFSolution) {
-    availableTabs.push({
-      id: "solution",
-      label: "Solution",
-      icon: CheckCircle2,
-    });
-  }
-  if (hasQuiz) {
-    availableTabs.push({ id: "quiz", label: "Quiz", icon: FileCheck });
-  }
+  const availableTabs: TabItem[] = useMemo(() => {
+    const tabs: TabItem[] = [];
+    // Questions tab - prioritize it as first tab if available
+    if (hasQuestions) {
+      tabs.push({
+        id: "questions",
+        label: "Questions",
+        icon: FileCheck,
+      });
+    }
+    if (hasConcepts || hasFormulas) {
+      tabs.push({
+        id: "content",
+        label: "Concepts & Formulas",
+        icon: BookOpen,
+      });
+    }
+    if (hasVideo) {
+      tabs.push({ id: "video", label: "Video", icon: Video });
+    }
+    if (hasNotes) {
+      tabs.push({ id: "notes", label: "Concepts", icon: FileText });
+    }
+    if (hasPDFAssignment) {
+      tabs.push({
+        id: "assignment",
+        label: "Assignment",
+        icon: FileText,
+      });
+    }
+    if (hasPDFSolution) {
+      tabs.push({
+        id: "solution",
+        label: "Solution",
+        icon: CheckCircle2,
+      });
+    }
+    if (hasQuiz) {
+      tabs.push({ id: "quiz", label: "Quiz", icon: FileCheck });
+    }
+    return tabs;
+  }, [hasQuestions, hasConcepts, hasFormulas, hasVideo, hasNotes, hasPDFAssignment, hasPDFSolution, hasQuiz]);
 
   const defaultTab = availableTabs[0]?.id || "content";
 
@@ -690,7 +693,6 @@ export function UnifiedLessonPage({
             setActiveTab(value);
             // Force PDF iframes to reload when tab becomes active
             setIsAssignmentTabActive(value === "assignment");
-            setIsSolutionTabActive(value === "solution");
           }}
           className="w-full"
         >
@@ -976,7 +978,6 @@ export function UnifiedLessonPage({
                               className="rounded-sm w-full sm:w-auto"
                               onClick={() => {
                                 setActiveTab("solution");
-                                setIsSolutionTabActive(true);
                                 setIsAssignmentTabActive(false);
                               }}
                             >
@@ -1135,7 +1136,6 @@ export function UnifiedLessonPage({
                               onClick={() => {
                                 setActiveTab("assignment");
                                 setIsAssignmentTabActive(true);
-                                setIsSolutionTabActive(false);
                               }}
                             >
                               <FileText className="w-4 h-4 mr-2" />

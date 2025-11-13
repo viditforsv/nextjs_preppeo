@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { ChevronRight, ChevronDown, CheckCircle, BookOpen } from "lucide-react";
+import { ChevronRight, ChevronDown, BookOpen } from "lucide-react";
 import { Badge } from "@/app/components-demo/ui/ui-components/badge";
 
 interface Lesson {
@@ -86,12 +86,33 @@ export function UnifiedCourseStructure({
         if (!lessonsResponse.ok) {
           throw new Error("Failed to fetch lessons");
         }
+        interface LessonData {
+          id: string;
+          slug: string;
+          title: string;
+          lesson_order: number;
+          is_preview: boolean;
+          topic_number?: string;
+          topic_badge?: string;
+          chapter?: {
+            id: string;
+            chapter_name: string;
+            chapter_order: number;
+          };
+          [key: string]: unknown;
+        }
+
         const lessonsData = await lessonsResponse.json();
         const allLessons: Lesson[] = (lessonsData.lessons || []).map(
-          (lesson: any) => ({
-            ...lesson,
+          (lesson: LessonData) => ({
+            id: lesson.id,
+            slug: lesson.slug,
+            title: lesson.title,
+            lesson_order: lesson.lesson_order,
+            is_preview: lesson.is_preview,
             topic_number: lesson.topic_number,
             topic_badge: lesson.topic_badge,
+            chapter: lesson.chapter,
           })
         );
         setLessons(allLessons);

@@ -472,7 +472,7 @@ export default function NewQuestionPage() {
                       </div>
                     ) : (
                       <div className="space-y-3">
-                        {formData.options.map((option: any, index) => (
+                        {formData.options.map((option: Record<string, unknown>, index) => (
                           <div
                             key={index}
                             className="flex gap-2 items-start p-4 bg-white border-2 border-blue-100 rounded-lg hover:border-blue-300 transition-colors"

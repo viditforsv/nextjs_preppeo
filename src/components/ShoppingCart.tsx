@@ -4,8 +4,6 @@ import { useCart } from "@/contexts/CartContext";
 import {
   Card,
   CardContent,
-  CardHeader,
-  CardTitle,
 } from "@/app/components-demo/ui/ui-components/card";
 import { Button } from "@/app/components-demo/ui/ui-components/button";
 import { Badge } from "@/app/components-demo/ui/ui-components/badge";

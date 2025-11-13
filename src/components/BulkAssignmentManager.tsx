@@ -134,7 +134,7 @@ export default function BulkAssignmentManager() {
     } finally {
       setLoading(false);
     }
-  }, [selectedUser, filterPlugin.advancedFilters, filterPlugin.legacyFilters]);
+  }, [selectedUser, filterPlugin.advancedFilters, filterPlugin.legacyFilters, filterPlugin.config]);
 
   const handleBulkAssign = async () => {
     if (!selectedUser) {

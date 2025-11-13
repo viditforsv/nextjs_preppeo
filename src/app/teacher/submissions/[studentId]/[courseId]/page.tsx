@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useAuth } from "@/contexts/AuthContext";
 import { Button } from "@/app/components-demo/ui/ui-components/button";
 import { Card, CardContent } from "@/app/components-demo/ui/ui-components/card";
@@ -54,13 +54,7 @@ export default function StudentSubmissionsPage({
     params.then(setResolvedParams);
   }, [params]);
 
-  useEffect(() => {
-    if (resolvedParams && user) {
-      loadSubmissions();
-    }
-  }, [resolvedParams, user]);
-
-  const loadSubmissions = async () => {
+  const loadSubmissions = useCallback(async () => {
     try {
       setIsLoading(true);
       setError(null);
@@ -87,7 +81,13 @@ export default function StudentSubmissionsPage({
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [resolvedParams?.studentId, resolvedParams?.courseId]);
+
+  useEffect(() => {
+    if (resolvedParams && user) {
+      loadSubmissions();
+    }
+  }, [resolvedParams, user, loadSubmissions]);
 
   // Sanitize filename for display (remove UUIDs and timestamps)
   const sanitizeFileName = (fileName: string) => {

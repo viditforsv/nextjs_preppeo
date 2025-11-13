@@ -191,7 +191,14 @@ export async function PUT(request: NextRequest) {
       );
     }
 
-    const updates: any = {};
+    interface QuizUpdates {
+      lesson_id?: string | null;
+      title?: string;
+      difficulty?: string | null;
+      time_limit?: number | null;
+    }
+
+    const updates: QuizUpdates = {};
     if (lesson_id !== undefined) updates.lesson_id = lesson_id;
     if (title !== undefined) updates.title = title;
     if (difficulty !== undefined) updates.difficulty = difficulty;

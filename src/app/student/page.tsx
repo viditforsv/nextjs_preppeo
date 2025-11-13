@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from "react";
 import { useAuth } from "@/contexts/AuthContext";
-import { createClient } from "@/lib/supabase/client";
 import { Button } from "@/app/components-demo/ui/ui-components/button";
 import {
   Card,

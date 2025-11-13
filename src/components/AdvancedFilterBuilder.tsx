@@ -21,6 +21,8 @@ import {
 import { Plus, Trash2, Filter, X, RotateCcw, Save } from "lucide-react";
 
 // Types for advanced filtering
+type FilterValue = string | number | boolean | string[] | null;
+
 interface FilterCondition {
   field: string;
   operator:
@@ -36,7 +38,7 @@ interface FilterCondition {
     | "ilike"
     | "is"
     | "not";
-  value: any;
+  value: FilterValue;
   logic?: "AND" | "OR";
 }
 
@@ -144,7 +146,7 @@ export default function AdvancedFilterBuilder({
   const updateCondition = (
     index: number,
     field: keyof FilterCondition,
-    value: any
+    value: FilterValue
   ) => {
     const updatedFilters = [...filters];
     if (updatedFilters[index] && !("conditions" in updatedFilters[index])) {
@@ -214,8 +216,8 @@ export default function AdvancedFilterBuilder({
 
   const renderValueInput = (
     field: string,
-    value: any,
-    onChange: (value: any) => void
+    value: FilterValue,
+    onChange: (value: FilterValue) => void
   ) => {
     const fieldType = getFieldValueType(field);
 
@@ -246,7 +248,7 @@ export default function AdvancedFilterBuilder({
             </SelectContent>
           </Select>
         );
-      case "select":
+      case "select": {
         const options = getFieldOptions(field);
         return (
           <Select value={value || ""} onValueChange={onChange}>
@@ -262,6 +264,7 @@ export default function AdvancedFilterBuilder({
             </SelectContent>
           </Select>
         );
+      }
       default:
         return (
           <Input
@@ -313,9 +316,6 @@ export default function AdvancedFilterBuilder({
                   return null;
                 } else {
                   const condition = filter as FilterCondition;
-                  const operatorInfo = OPERATORS.find(
-                    (op) => op.value === condition.operator
-                  );
 
                   return (
                     <div
@@ -447,7 +447,7 @@ export default function AdvancedFilterBuilder({
                     onValueChange={(value) =>
                       setNewCondition({
                         ...newCondition,
-                        operator: value as any,
+                        operator: value as FilterCondition["operator"],
                       })
                     }
                   >

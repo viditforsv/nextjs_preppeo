@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Button } from "@/app/components-demo/ui/ui-components/button";
 import { Input } from "@/app/components-demo/ui/ui-components/input";
 import {
@@ -25,6 +25,11 @@ import {
 import { renderMultiPartQuestion } from "@/components/MathRenderer";
 import { Checkbox } from "@/app/components-demo/ui/ui-components/checkbox";
 
+interface QuizOption {
+  value: string;
+  label: string;
+}
+
 interface QuizQuestion {
   id: string;
   question_order: number;
@@ -38,7 +43,7 @@ interface QuizQuestion {
     subtopic: string;
     correct_answer?: string;
     explanation?: string;
-    options?: any[];
+    options?: QuizOption[];
   };
 }
 
@@ -64,29 +69,7 @@ export function QuizPlayer({ quizId }: QuizPlayerProps) {
   const [timeRemaining, setTimeRemaining] = useState<number | null>(null);
   const [score, setScore] = useState<number | null>(null);
 
-  useEffect(() => {
-    fetchQuizData();
-  }, [quizId]);
-
-  // Timer effect
-  useEffect(() => {
-    if (started && !submitted && timeRemaining !== null && timeRemaining > 0) {
-      const timer = setInterval(() => {
-        setTimeRemaining((prev) => {
-          if (prev === null || prev <= 1) {
-            clearInterval(timer);
-            handleSubmit(); // Auto-submit when time runs out
-            return 0;
-          }
-          return prev - 1;
-        });
-      }, 1000);
-
-      return () => clearInterval(timer);
-    }
-  }, [started, submitted, timeRemaining]);
-
-  const fetchQuizData = async () => {
+  const fetchQuizData = useCallback(async () => {
     try {
       setLoading(true);
 
@@ -113,7 +96,29 @@ export function QuizPlayer({ quizId }: QuizPlayerProps) {
     } finally {
       setLoading(false);
     }
-  };
+  }, [quizId]);
+
+  useEffect(() => {
+    fetchQuizData();
+  }, [fetchQuizData]);
+
+  // Timer effect
+  useEffect(() => {
+    if (started && !submitted && timeRemaining !== null && timeRemaining > 0) {
+      const timer = setInterval(() => {
+        setTimeRemaining((prev) => {
+          if (prev === null || prev <= 1) {
+            clearInterval(timer);
+            handleSubmit(); // Auto-submit when time runs out
+            return 0;
+          }
+          return prev - 1;
+        });
+      }, 1000);
+
+      return () => clearInterval(timer);
+    }
+  }, [started, submitted, timeRemaining, handleSubmit]);
 
   const handleStart = () => {
     setStarted(true);
@@ -133,7 +138,7 @@ export function QuizPlayer({ quizId }: QuizPlayerProps) {
     });
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = useCallback(() => {
     setSubmitted(true);
 
     // Calculate score (simplified - checks if answer matches correct_answer)
@@ -152,7 +157,7 @@ export function QuizPlayer({ quizId }: QuizPlayerProps) {
     if (total > 0) {
       setScore(Math.round((correct / total) * 100));
     }
-  };
+  }, [questions, answers]);
 
   const handleRetry = () => {
     setStarted(false);
@@ -484,8 +489,8 @@ export function QuizPlayer({ quizId }: QuizPlayerProps) {
                 currentQuestion.question_bank.options.length > 0 ? (
                 // MCQ Options
                 <div className="space-y-2">
-                  {currentQuestion.question_bank.options.map(
-                    (option: any, index: number) => (
+                  {currentQuestion.question_bank.options?.map(
+                    (option: QuizOption, index: number) => (
                       <div
                         key={index}
                         className={`p-3 border rounded-lg cursor-pointer transition-all ${
