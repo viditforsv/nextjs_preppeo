@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
-import { createClient as createAdminClient } from "@supabase/supabase-js";
+import { createSupabaseApiClient } from "@/lib/supabase/api-client";
 
 // GET /api/courses/hierarchy-stats - Get 5-tier hierarchy statistics for all courses
 export async function GET() {
@@ -29,10 +29,7 @@ export async function GET() {
     }
 
     // Use service role key to bypass RLS
-    const supabaseAdmin = createAdminClient(
-      process.env.NEXT_PUBLIC_SUPABASE_URL!,
-      process.env.SUPABASE_SERVICE_ROLE_KEY!
-    );
+    const supabaseAdmin = createSupabaseApiClient();
 
     // Fetch all courses
     const { data: courses, error: coursesError } = await supabaseAdmin

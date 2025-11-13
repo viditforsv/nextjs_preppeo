@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { createClient } from "@supabase/supabase-js";
+import { createSupabaseApiClient } from "@/lib/supabase/api-client";
 import { createClient as createServerClient } from "@/lib/supabase/server";
 
 // GET /api/courses/[slug]/stats - Get course enrollment statistics (admin only)
@@ -33,10 +33,7 @@ export async function GET(
     }
 
     // Use service role key to bypass RLS and get reliable counts
-    const supabaseAdmin = createClient(
-      process.env.NEXT_PUBLIC_SUPABASE_URL!,
-      process.env.SUPABASE_SERVICE_ROLE_KEY!
-    );
+    const supabaseAdmin = createSupabaseApiClient();
 
     // First, get the course ID from slug
     const { data: course, error: courseError } = await supabaseAdmin

@@ -49,6 +49,8 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY_PROD=your-prod-anon-key
 SUPABASE_SERVICE_ROLE_KEY_PROD=your-prod-service-role-key
 ```
 
+**⚠️ Important:** See [VERCEL_ENVIRONMENT_SETUP.md](./VERCEL_ENVIRONMENT_SETUP.md) for detailed instructions on setting up separate environment variables for Vercel Production and Preview environments.
+
 ## 🔄 Fallback Behavior
 
 If environment-specific variables are not found, the system falls back to:
