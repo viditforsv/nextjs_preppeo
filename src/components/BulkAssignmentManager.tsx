@@ -63,17 +63,6 @@ export default function BulkAssignmentManager() {
     },
   });
 
-  useEffect(() => {
-    fetchUsers();
-  }, []);
-
-  // Auto-preview when user is selected or filters change
-  useEffect(() => {
-    if (selectedUser) {
-      previewAssignment();
-    }
-  }, [selectedUser, previewAssignment]);
-
   const fetchUsers = async () => {
     try {
       const response = await fetch("/api/user-profiles");
@@ -135,6 +124,17 @@ export default function BulkAssignmentManager() {
       setLoading(false);
     }
   }, [selectedUser, filterPlugin.advancedFilters, filterPlugin.legacyFilters, filterPlugin.config]);
+
+  useEffect(() => {
+    fetchUsers();
+  }, []);
+
+  // Auto-preview when user is selected or filters change
+  useEffect(() => {
+    if (selectedUser) {
+      previewAssignment();
+    }
+  }, [selectedUser, previewAssignment]);
 
   const handleBulkAssign = async () => {
     if (!selectedUser) {

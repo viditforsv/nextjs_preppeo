@@ -102,6 +102,34 @@ export function QuizPlayer({ quizId }: QuizPlayerProps) {
     fetchQuizData();
   }, [fetchQuizData]);
 
+  const handleAnswer = (questionId: string, answer: string) => {
+    setAnswers({
+      ...answers,
+      [questionId]: answer,
+    });
+  };
+
+  const handleSubmit = useCallback(() => {
+    setSubmitted(true);
+
+    // Calculate score (simplified - checks if answer matches correct_answer)
+    let correct = 0;
+    let total = 0;
+
+    questions.forEach((q) => {
+      if (q.question_bank.correct_answer) {
+        total++;
+        if (answers[q.question_bank.id] === q.question_bank.correct_answer) {
+          correct++;
+        }
+      }
+    });
+
+    if (total > 0) {
+      setScore(Math.round((correct / total) * 100));
+    }
+  }, [questions, answers]);
+
   // Timer effect
   useEffect(() => {
     if (started && !submitted && timeRemaining !== null && timeRemaining > 0) {
@@ -130,34 +158,6 @@ export function QuizPlayer({ quizId }: QuizPlayerProps) {
       setTimeRemaining(quiz.time_limit * 60);
     }
   };
-
-  const handleAnswer = (questionId: string, answer: string) => {
-    setAnswers({
-      ...answers,
-      [questionId]: answer,
-    });
-  };
-
-  const handleSubmit = useCallback(() => {
-    setSubmitted(true);
-
-    // Calculate score (simplified - checks if answer matches correct_answer)
-    let correct = 0;
-    let total = 0;
-
-    questions.forEach((q) => {
-      if (q.question_bank.correct_answer) {
-        total++;
-        if (answers[q.question_bank.id] === q.question_bank.correct_answer) {
-          correct++;
-        }
-      }
-    });
-
-    if (total > 0) {
-      setScore(Math.round((correct / total) * 100));
-    }
-  }, [questions, answers]);
 
   const handleRetry = () => {
     setStarted(false);

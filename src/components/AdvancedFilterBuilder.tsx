@@ -150,7 +150,8 @@ export default function AdvancedFilterBuilder({
   ) => {
     const updatedFilters = [...filters];
     if (updatedFilters[index] && !("conditions" in updatedFilters[index])) {
-      (updatedFilters[index] as FilterCondition)[field] = value;
+      const condition = updatedFilters[index] as FilterCondition;
+      (condition as unknown as Record<string, FilterValue>)[field] = value;
       setFilters(updatedFilters);
     }
   };
@@ -226,7 +227,7 @@ export default function AdvancedFilterBuilder({
         return (
           <Input
             type="number"
-            value={value || ""}
+            value={typeof value === "number" ? value : ""}
             onChange={(e) =>
               onChange(e.target.value ? parseInt(e.target.value) : "")
             }
@@ -251,7 +252,7 @@ export default function AdvancedFilterBuilder({
       case "select": {
         const options = getFieldOptions(field);
         return (
-          <Select value={value || ""} onValueChange={onChange}>
+          <Select value={typeof value === "string" ? value : ""} onValueChange={onChange}>
             <SelectTrigger>
               <SelectValue placeholder={`Select ${field}`} />
             </SelectTrigger>
@@ -269,7 +270,7 @@ export default function AdvancedFilterBuilder({
         return (
           <Input
             type="text"
-            value={value || ""}
+            value={typeof value === "string" ? value : ""}
             onChange={(e) => onChange(e.target.value)}
             placeholder="Enter value"
           />

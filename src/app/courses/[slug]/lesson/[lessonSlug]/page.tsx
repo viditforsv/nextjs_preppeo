@@ -244,7 +244,7 @@ export default function DynamicLessonPage({
         }
 
         // 4. Fetch all lessons with unit/chapter structure
-        let { data: lessonsData, error: lessonsError } = await supabase
+        const { data: rawLessonsData, error: lessonsError } = await supabase
           .from("courses_lessons")
           .select(
             `
@@ -271,6 +271,9 @@ export default function DynamicLessonPage({
           )
           .eq("course_id", course.id)
           .order("lesson_order");
+        
+        // Type assertion for lessonsData - Supabase returns a more specific type
+        let lessonsData: Lesson[] | null = rawLessonsData as unknown as Lesson[] | null;
 
         // Fallback: If nested query doesn't return chapter data, fetch separately
         if (!lessonsError && lessonsData && lessonsData.length > 0) {
@@ -338,7 +341,7 @@ export default function DynamicLessonPage({
                 chapter: lesson.chapter_id
                   ? chaptersMap.get(lesson.chapter_id) || null
                   : null,
-              }));
+              })) as unknown as Lesson[];
               console.log("✅ Manually joined chapter/unit data to lessons", {
                 chaptersMapSize: chaptersMap.size,
               });

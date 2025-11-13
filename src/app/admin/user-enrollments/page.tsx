@@ -163,14 +163,25 @@ export default function UserEnrollmentsPage() {
 
       // Transform the data to match our interface
       interface EnrollmentData {
+        id: string;
+        student_id: string;
+        course_id: string;
+        is_active: boolean;
+        enrolled_at: string;
+        assigned_teacher_id?: string;
         user?: User | User[];
         course?: Course | Course[];
         assigned_teacher?: User | User[];
         [key: string]: unknown;
       }
 
-      const transformedEnrollments = (enrollmentsData || []).map((e: EnrollmentData) => ({
-        ...e,
+      const transformedEnrollments: Enrollment[] = (enrollmentsData || []).map((e: EnrollmentData) => ({
+        id: e.id,
+        student_id: e.student_id,
+        course_id: e.course_id,
+        is_active: e.is_active,
+        enrolled_at: e.enrolled_at,
+        assigned_teacher_id: e.assigned_teacher_id,
         user: Array.isArray(e.user) ? e.user[0] : e.user,
         course: Array.isArray(e.course) ? e.course[0] : e.course,
         assigned_teacher: Array.isArray(e.assigned_teacher)

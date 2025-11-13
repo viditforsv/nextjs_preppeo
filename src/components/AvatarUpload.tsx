@@ -98,7 +98,6 @@ export function AvatarUpload({
         currentAvatar={avatar}
         userName={userName}
         userId={userId}
-        userEmail={userEmail}
         googleAvatar={googleAvatar}
         onAvatarUpdate={(newAvatar) => {
           setAvatar(newAvatar);

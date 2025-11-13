@@ -484,7 +484,7 @@ export default function NewQuestionPage() {
                                     Value
                                   </Label>
                                   <Input
-                                    value={option.value || ""}
+                                    value={typeof option.value === "string" ? option.value : ""}
                                     onChange={(e) =>
                                       updateOption(
                                         index,
@@ -501,7 +501,7 @@ export default function NewQuestionPage() {
                                     Option Text (LaTeX supported)
                                   </Label>
                                   <Textarea
-                                    value={option.label || ""}
+                                    value={typeof option.label === "string" ? option.label : ""}
                                     onChange={(e) =>
                                       updateOption(
                                         index,

@@ -35,8 +35,6 @@ import { useRouter } from "next/navigation";
 import { RenderedCourse, CourseTemplate } from "@/types/course-templates";
 import { DynamicCourseRenderer } from "@/components/DynamicCourseRenderer";
 import { createClient } from "@/lib/supabase/client";
-
-// @ts-expect-error - TypeScript module resolution issue
 import { IBDPCourseStructure } from "@/components/IBDPCourseStructure";
 import { UnifiedCourseStructure } from "@/components/UnifiedCourseStructure";
 import { useCart } from "@/contexts/CartContext";
