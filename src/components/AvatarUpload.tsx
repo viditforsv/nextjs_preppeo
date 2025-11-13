@@ -30,6 +30,8 @@ export function AvatarUpload({
   onAvatarUpdate,
   size = "lg",
 }: AvatarUploadProps) {
+  // userEmail is part of the interface but not currently used
+  void userEmail;
   const [avatar, setAvatar] = useState<string | null>(currentAvatar || null);
   const [showPicker, setShowPicker] = useState(false);
 
