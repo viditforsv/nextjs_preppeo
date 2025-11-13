@@ -720,6 +720,7 @@ function CourseCard({ course, viewMode }: CourseCardProps) {
               <div className="w-64 h-32 rounded-lg flex items-center justify-center flex-shrink-0 overflow-hidden relative">
                 {thumbnailUrl.startsWith("data:") || thumbnailUrl.includes("/api/cdn-proxy") ? (
                   // Use regular img tag for data URIs and proxy URLs (Next.js Image doesn't support query strings in local patterns)
+                  // eslint-disable-next-line @next/next/no-img-element
                   <img
                     src={thumbnailUrl}
                     alt={`${course.title} thumbnail`}
@@ -847,6 +848,7 @@ function CourseCard({ course, viewMode }: CourseCardProps) {
           <div className="w-full h-32 rounded-lg flex items-center justify-center mb-4 overflow-hidden relative">
             {thumbnailUrl.startsWith("data:") || thumbnailUrl.includes("/api/cdn-proxy") ? (
               // Use regular img tag for data URIs and proxy URLs (Next.js Image doesn't support query strings in local patterns)
+              // eslint-disable-next-line @next/next/no-img-element
               <img
                 src={thumbnailUrl}
                 alt={`${course.title} thumbnail`}

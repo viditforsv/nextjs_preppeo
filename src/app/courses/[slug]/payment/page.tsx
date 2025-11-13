@@ -15,32 +15,10 @@ import { ArrowLeft, Check } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 
-interface RazorpayOptions {
-  key: string;
-  amount: number;
-  currency: string;
-  name: string;
-  description: string;
-  order_id: string;
-  handler: (response: RazorpayResponse) => void | Promise<void>;
-  theme: {
-    color: string;
-  };
-  prefill?: {
-    name?: string;
-    email?: string;
-    contact?: string;
-  };
-}
-
 interface RazorpayResponse {
   razorpay_payment_id: string;
   razorpay_order_id: string;
   razorpay_signature: string;
-}
-
-interface RazorpayInstance {
-  open: () => void;
 }
 
 declare global {
