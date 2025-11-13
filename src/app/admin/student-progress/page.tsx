@@ -97,31 +97,6 @@ export default function StudentProgressDashboard() {
     "overview" | "students" | "tags"
   >("overview");
 
-  useEffect(() => {
-    fetchCourses();
-  }, []);
-
-  useEffect(() => {
-    if (selectedCourse) {
-      fetchAnalytics();
-    }
-  }, [selectedCourse, fetchAnalytics]);
-
-  const fetchCourses = async () => {
-    try {
-      const response = await fetch("/api/courses");
-      if (response.ok) {
-        const data = await response.json();
-        setCourses(data.courses || []);
-        if (data.courses && data.courses.length > 0) {
-          setSelectedCourse(data.courses[0].id);
-        }
-      }
-    } catch (error) {
-      console.error("Error fetching courses:", error);
-    }
-  };
-
   const fetchAnalytics = useCallback(async () => {
     setLoading(true);
     try {
@@ -149,6 +124,31 @@ export default function StudentProgressDashboard() {
       setLoading(false);
     }
   }, [selectedCourse]);
+
+  useEffect(() => {
+    fetchCourses();
+  }, []);
+
+  useEffect(() => {
+    if (selectedCourse) {
+      fetchAnalytics();
+    }
+  }, [selectedCourse, fetchAnalytics]);
+
+  const fetchCourses = async () => {
+    try {
+      const response = await fetch("/api/courses");
+      if (response.ok) {
+        const data = await response.json();
+        setCourses(data.courses || []);
+        if (data.courses && data.courses.length > 0) {
+          setSelectedCourse(data.courses[0].id);
+        }
+      }
+    } catch (error) {
+      console.error("Error fetching courses:", error);
+    }
+  };
 
   const fetchStudentProfiles = async (studentIds: string[]) => {
     try {
