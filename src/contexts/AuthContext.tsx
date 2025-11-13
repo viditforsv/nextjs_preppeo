@@ -796,20 +796,29 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const signInWithGoogle = useCallback(async () => {
     // Automatically detect environment and use appropriate URL
+    // Always use window.location.origin when available (client-side)
+    // This ensures we use the actual deployed URL, not localhost
     let siteUrl: string;
 
     if (typeof window !== "undefined") {
-      // Client-side: use current origin
+      // Client-side: always use current origin (works for localhost, preview, and production)
       siteUrl = window.location.origin;
     } else {
-      // Server-side: use environment variable or fallback
-      siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+      // Server-side: use environment variable (should match the deployment URL)
+      siteUrl = 
+        process.env.NEXT_PUBLIC_APP_URL || 
+        process.env.NEXT_PUBLIC_SITE_URL || 
+        "http://localhost:3000";
     }
 
     // Debug logging
     console.log("AuthContext - Site URL:", siteUrl);
     console.log(
-      "AuthContext - Environment variable:",
+      "AuthContext - Environment variable (APP_URL):",
+      process.env.NEXT_PUBLIC_APP_URL
+    );
+    console.log(
+      "AuthContext - Environment variable (SITE_URL):",
       process.env.NEXT_PUBLIC_SITE_URL
     );
     console.log(
@@ -817,11 +826,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       typeof window !== "undefined" ? window.location.origin : "server"
     );
 
+    const redirectUrl = `${siteUrl}/auth/callback`;
+    console.log("AuthContext - Redirect URL:", redirectUrl);
+
     // Use the newer auth method that handles PKCE automatically
     const { data, error } = await supabase.auth.signInWithOAuth({
       provider: "google",
       options: {
-        redirectTo: `${siteUrl}/auth/callback`,
+        redirectTo: redirectUrl,
       },
     });
 

@@ -13,7 +13,10 @@
     "audit": "npm audit",
     "audit:fix": "npm audit fix",
     "clean": "rm -rf .next out node_modules/.cache",
-    "setup": "npm install && npm run type-check && npm run lint"
+    "setup": "npm install && npm run type-check && npm run lint",
+    "create-course": "npx tsx scripts/create-course.ts",
+    "verify-env": "npx tsx scripts/verify-env.ts",
+    "cleanup-duplicates": "npx tsx scripts/cleanup-duplicates.ts"
   },
   "dependencies": {
     "@dnd-kit/core": "^6.3.1",
