@@ -13,10 +13,18 @@ interface Lesson {
   is_preview: boolean;
   topic_number?: string;
   topic_badge?: string;
+  topic_id?: string;
   chapter?: {
     id: string;
     chapter_name: string;
     chapter_order: number;
+  };
+  topic?: {
+    id: string;
+    topic_name: string;
+    topic_order: number;
+    topic_number?: string;
+    chapter_id: string;
   };
 }
 
@@ -79,9 +87,9 @@ export function UnifiedCourseStructure({
           setChapters(chaptersData.chapters || []);
         }
 
-        // Fetch lessons with topic_number
+        // Fetch lessons with topic_number (fetch all lessons, no pagination)
         const lessonsResponse = await fetch(
-          `/api/lessons?course_slug=${courseSlug}`
+          `/api/lessons?course_slug=${courseSlug}&limit=1000`
         );
         if (!lessonsResponse.ok) {
           throw new Error("Failed to fetch lessons");
@@ -94,10 +102,18 @@ export function UnifiedCourseStructure({
           is_preview: boolean;
           topic_number?: string;
           topic_badge?: string;
+          topic_id?: string;
           chapter?: {
             id: string;
             chapter_name: string;
             chapter_order: number;
+          };
+          topic?: {
+            id: string;
+            topic_name: string;
+            topic_order: number;
+            topic_number?: string;
+            chapter_id: string;
           };
           [key: string]: unknown;
         }
@@ -112,7 +128,9 @@ export function UnifiedCourseStructure({
             is_preview: lesson.is_preview,
             topic_number: lesson.topic_number,
             topic_badge: lesson.topic_badge,
+            topic_id: lesson.topic_id,
             chapter: lesson.chapter,
+            topic: lesson.topic,
           })
         );
         setLessons(allLessons);
