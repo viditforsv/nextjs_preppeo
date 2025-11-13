@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import Image from "next/image";
 import katex from "katex";
 import "katex/dist/katex.min.css";
 
@@ -271,20 +272,25 @@ function renderMathContent(content: string, baseIndex: number) {
       const imageIndex = parseInt(imagePlaceholderMatch[1]);
       const image = images[imageIndex];
       if (image) {
+        const imageWidth = image.options.includes("width")
+          ? image.options.match(/width=([^,}]+)/)?.[1] || "auto"
+          : "auto";
+        
         return (
           <div key={`${baseIndex}-${index}`} className="my-4 text-center">
-            <img
+            <Image
               src={image.url}
               alt="Question diagram"
+              width={imageWidth === "auto" ? 800 : parseInt(imageWidth) || 800}
+              height={600}
               className="max-w-full h-auto"
               style={{
-                width: image.options.includes("width")
-                  ? image.options.match(/width=([^,}]+)/)?.[1] || "auto"
-                  : "auto",
+                width: imageWidth,
               }}
               onError={(e) => {
                 console.error("Image failed to load:", image.url);
-                e.currentTarget.style.display = "none";
+                const target = e.target as HTMLImageElement;
+                target.style.display = "none";
               }}
             />
           </div>

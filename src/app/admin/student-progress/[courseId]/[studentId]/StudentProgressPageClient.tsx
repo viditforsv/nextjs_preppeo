@@ -24,15 +24,10 @@ import {
   BookOpen,
   CheckCircle,
   Clock,
-  Calendar,
   TrendingUp,
-  Award,
   Target,
   BarChart3,
   FileText,
-  Video,
-  HelpCircle,
-  Loader2,
 } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -195,37 +190,63 @@ export function StudentProgressPageClient({
           console.error("Error fetching lessons:", lessonsError);
         } else {
           const formattedLessons: Lesson[] = (lessonsData || []).map(
-            (lesson: any) => ({
-              id: lesson.id,
-              slug: lesson.slug,
-              title: lesson.title,
-              lesson_order: lesson.lesson_order,
-              is_preview: lesson.is_preview,
-              chapter: lesson.chapter
-                ? {
-                    id: lesson.chapter.id,
-                    chapter_name: lesson.chapter.chapter_name,
-                    chapter_order: lesson.chapter.chapter_order,
-                    unit: Array.isArray(lesson.chapter.unit)
-                      ? lesson.chapter.unit[0]
-                      : lesson.chapter.unit,
-                  }
-                : undefined,
-            })
+            (lesson: {
+              id: string;
+              slug: string;
+              title: string;
+              lesson_order: number;
+              is_preview: boolean;
+              chapter: Array<{
+                id: string;
+                chapter_name: string;
+                chapter_order: number;
+                unit: Array<{
+                  id: string;
+                  unit_name: string;
+                  unit_order: number;
+                }>;
+              }> | null;
+            }) => {
+              const chapterObj = Array.isArray(lesson.chapter)
+                ? lesson.chapter[0]
+                : lesson.chapter;
+              return {
+                id: lesson.id,
+                slug: lesson.slug,
+                title: lesson.title,
+                lesson_order: lesson.lesson_order,
+                is_preview: lesson.is_preview,
+                chapter: chapterObj
+                  ? {
+                      id: chapterObj.id,
+                      chapter_name: chapterObj.chapter_name,
+                      chapter_order: chapterObj.chapter_order,
+                      unit: Array.isArray(chapterObj.unit)
+                        ? chapterObj.unit[0]
+                        : chapterObj.unit,
+                    }
+                  : undefined,
+              };
+            }
           );
           setLessons(formattedLessons);
         }
 
         // Debug: Check if user_progress table exists and has data
-        console.log("Fetching progress for student:", params.studentId, "course:", params.courseId);
-        
+        console.log(
+          "Fetching progress for student:",
+          params.studentId,
+          "course:",
+          params.courseId
+        );
+
         // First, let's check if there's any data in user_progress table
         const { data: debugData, error: debugError } = await supabase
           .from("user_progress")
           .select("lesson_id, user_id, course_id")
           .eq("user_id", params.studentId)
           .limit(5);
-          
+
         console.log("Debug query result:", debugData, "Error:", debugError);
 
         // Fetch student progress data
@@ -258,58 +279,107 @@ export function StudentProgressPageClient({
 
         if (progressError) {
           console.error("Error fetching progress:", progressError);
-          console.error("Progress error details:", JSON.stringify(progressError, null, 2));
-          
+          console.error(
+            "Progress error details:",
+            JSON.stringify(progressError, null, 2)
+          );
+
           // Fallback: Try a simpler query without joins
           console.log("Trying fallback query...");
           const { data: fallbackData, error: fallbackError } = await supabase
             .from("user_progress")
-            .select("lesson_id, is_completed, last_accessed_at, time_spent, completion_percentage, attempts")
+            .select(
+              "lesson_id, is_completed, last_accessed_at, time_spent, completion_percentage, attempts"
+            )
             .eq("user_id", params.studentId)
             .eq("course_id", params.courseId);
-            
+
           if (fallbackError) {
             console.error("Fallback query also failed:", fallbackError);
             setProgressData([]);
           } else {
             console.log("Fallback data received:", fallbackData);
             // Create basic progress data without lesson details
-            const basicProgress: ProgressData[] = (fallbackData || []).map((item: any) => ({
-              lesson_id: item.lesson_id,
-              lesson_slug: '',
-              lesson_title: 'Lesson ' + item.lesson_id,
-              is_completed: item.is_completed,
-              last_accessed_at: item.last_accessed_at,
-              time_spent: item.time_spent || 0,
-              completion_percentage: item.completion_percentage || 0,
-              attempts: item.attempts || 0,
-              chapter: undefined,
-            }));
+            const basicProgress: ProgressData[] = (fallbackData || []).map(
+              (item: {
+                lesson_id: string;
+                is_completed: boolean;
+                last_accessed_at: string;
+                time_spent: number;
+                completion_percentage: number;
+                attempts: number;
+              }) => ({
+                lesson_id: item.lesson_id,
+                lesson_slug: "",
+                lesson_title: "Lesson " + item.lesson_id,
+                is_completed: item.is_completed,
+                last_accessed_at: item.last_accessed_at,
+                time_spent: item.time_spent || 0,
+                completion_percentage: item.completion_percentage || 0,
+                attempts: item.attempts || 0,
+                chapter: undefined,
+              })
+            );
             setProgressData(basicProgress);
           }
         } else {
           console.log("Progress data received:", progressData);
           const formattedProgress: ProgressData[] = (progressData || [])
-            .filter((item: any) => item.lesson) // Filter out items where lesson is null
-            .map((item: any) => ({
-              lesson_id: item.lesson_id,
-              lesson_slug: item.lesson?.slug || '',
-              lesson_title: item.lesson?.title || 'Unknown Lesson',
-              is_completed: item.is_completed,
-              last_accessed_at: item.last_accessed_at,
-              time_spent: item.time_spent || 0,
-              completion_percentage: item.completion_percentage || 0,
-              attempts: item.attempts || 0,
-              chapter: item.lesson?.chapter
-                ? {
-                    id: item.lesson.chapter.id,
-                    chapter_name: item.lesson.chapter.chapter_name,
-                    unit: Array.isArray(item.lesson.chapter.unit)
-                      ? item.lesson.chapter.unit[0]
-                      : item.lesson.chapter.unit,
-                  }
-                : undefined,
-            }));
+            .filter(
+              (
+                item: unknown
+              ): item is {
+                lesson_id: string;
+                is_completed: boolean;
+                last_accessed_at: string;
+                time_spent: number;
+                completion_percentage: number;
+                attempts: number;
+                lesson: Lesson | Lesson[];
+              } => {
+                if (
+                  typeof item === "object" &&
+                  item !== null &&
+                  "lesson" in item &&
+                  item.lesson
+                ) {
+                  const lesson = Array.isArray(item.lesson)
+                    ? item.lesson[0]
+                    : item.lesson;
+                  return lesson && typeof lesson.id === "string";
+                }
+                return false;
+              }
+            )
+            .map((item) => {
+              const lesson = Array.isArray(item.lesson)
+                ? item.lesson[0]
+                : item.lesson;
+              return {
+                lesson_id: item.lesson_id,
+                lesson_slug: lesson?.slug || "",
+                lesson_title: lesson?.title || "Unknown Lesson",
+                is_completed: item.is_completed,
+                last_accessed_at: item.last_accessed_at,
+                time_spent: item.time_spent || 0,
+                completion_percentage: item.completion_percentage || 0,
+                attempts: item.attempts || 0,
+                chapter: lesson?.chapter
+                  ? (() => {
+                      const chapter = Array.isArray(lesson.chapter)
+                        ? lesson.chapter[0]
+                        : lesson.chapter;
+                      return {
+                        id: chapter.id,
+                        chapter_name: chapter.chapter_name,
+                        unit: Array.isArray(chapter.unit)
+                          ? chapter.unit[0]
+                          : chapter.unit,
+                      };
+                    })()
+                  : undefined,
+              };
+            });
           setProgressData(formattedProgress);
 
           // Calculate statistics

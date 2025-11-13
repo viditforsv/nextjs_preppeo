@@ -16,7 +16,6 @@ import {
   Search,
   ChevronDown,
   ChevronUp,
-  MessageCircle,
   Mail,
   Phone,
   BookOpen,

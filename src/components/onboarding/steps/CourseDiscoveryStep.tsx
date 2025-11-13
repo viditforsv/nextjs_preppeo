@@ -1,14 +1,8 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Button } from "@/app/components-demo/ui/ui-components/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/app/components-demo/ui/ui-components/card";
+import { Card, CardContent } from "@/app/components-demo/ui/ui-components/card";
 import { Badge } from "@/app/components-demo/ui/ui-components/badge";
 import {
   BookOpen,
@@ -19,7 +13,6 @@ import {
   GraduationCap,
   Briefcase,
 } from "lucide-react";
-import { createClient } from "@/lib/supabase/client";
 import { OnboardingStepProps } from "../../OnboardingFlow";
 
 interface Course {
@@ -38,8 +31,6 @@ interface Course {
 }
 
 export function CourseDiscoveryStep({ onNext }: OnboardingStepProps) {
-  const [courses, setCourses] = useState<Course[]>([]);
-  const [loading, setLoading] = useState(true);
   const [selectedCourses, setSelectedCourses] = useState<string[]>([]);
   const [educationalBackground, setEducationalBackground] =
     useState<string>("");
@@ -259,15 +250,6 @@ export function CourseDiscoveryStep({ onNext }: OnboardingStepProps) {
       return allCourses.filter((course) => course.exam === selectedExam);
     }
   };
-
-  useEffect(() => {
-    // Simulate API delay
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 1000);
-
-    return () => clearTimeout(timer);
-  }, []);
 
   const handleCourseSelect = async (courseId: string) => {
     const newSelectedCourses = selectedCourses.includes(courseId)

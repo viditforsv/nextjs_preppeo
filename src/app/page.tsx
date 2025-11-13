@@ -330,7 +330,7 @@ export default function Home() {
         {/* Decorative elements */}
         <div className="absolute top-0 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl"></div>
         <div className="absolute bottom-0 left-0 w-96 h-96 bg-accent/10 rounded-full blur-3xl"></div>
-
+        
         <div className="container mx-auto px-4 text-center relative z-10">
           {/* Logo */}
           <div className="mb-8 flex justify-center animate-fade-in">
@@ -521,7 +521,7 @@ export default function Home() {
             }}
           ></div>
         </div>
-
+        
         <div className="container mx-auto px-4 text-center relative z-10">
           <h2 className="text-4xl font-bold text-white mb-6">
             Ready to Start Learning?

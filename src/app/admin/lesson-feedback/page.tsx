@@ -1,6 +1,7 @@
 "use client";
 
-import { useAuth } from "@/contexts/AuthContext";
+import Image from "next/image";
+import { useCallback } from "react";
 import { AdminOnly } from "@/app/components-demo/ui/form-components/RoleGuard";
 import {
   Card,
@@ -37,8 +38,6 @@ import {
   Image as ImageIcon,
   Eye,
   CheckCircle2,
-  XCircle,
-  Clock,
   Search,
   Filter,
   Loader2,
@@ -79,7 +78,7 @@ interface FeedbackStats {
 }
 
 export default function LessonFeedbackPage() {
-  const { profile } = useAuth();
+  // const { profile } = useAuth();
   const [feedback, setFeedback] = useState<Feedback[]>([]);
   const [stats, setStats] = useState<FeedbackStats>({
     total: 0,
@@ -105,10 +104,13 @@ export default function LessonFeedbackPage() {
   const [totalPages, setTotalPages] = useState(1);
 
   useEffect(() => {
-    fetchFeedback();
+    if (fetchFeedback) {
+      fetchFeedback();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filterStatus, filterType, filterCourse, page]);
 
-  const fetchFeedback = async () => {
+  const fetchFeedback = useCallback(async () => {
     setLoading(true);
     try {
       const params = new URLSearchParams({
@@ -133,7 +135,7 @@ export default function LessonFeedbackPage() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [filterStatus, filterType, filterCourse, page]);
 
   const calculateStats = (feedbackList: Feedback[]) => {
     const newStats: FeedbackStats = {
@@ -620,9 +622,11 @@ export default function LessonFeedbackPage() {
                           rel="noopener noreferrer"
                           className="block"
                         >
-                          <img
+                          <Image
                             src={selectedFeedback.image_url}
                             alt="Feedback attachment"
+                            width={500}
+                            height={400}
                             className="max-w-full h-auto rounded-sm border"
                           />
                         </a>

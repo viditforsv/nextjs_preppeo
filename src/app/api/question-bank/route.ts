@@ -679,7 +679,10 @@ export async function POST(request: NextRequest) {
     if (error) {
       console.error("Error creating question:", error);
       return NextResponse.json(
-        { error: "Failed to create question" },
+        { 
+          error: error.message || "Failed to create question",
+          details: error.details || error.hint || "Check server logs for details"
+        },
         { status: 500 }
       );
     }

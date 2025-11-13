@@ -195,7 +195,7 @@ export function SeparatePDFLessonPage({
         throw new Error(errorData.error || "Upload failed");
       }
 
-      const result = await response.json();
+      await response.json();
 
       setUploadProgress(100);
       setIsUploading(false);

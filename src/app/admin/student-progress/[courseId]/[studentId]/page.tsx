@@ -6,7 +6,7 @@ export async function generateMetadata({
 }: {
   params: Promise<{ courseId: string; studentId: string }>;
 }): Promise<Metadata> {
-  const { courseId, studentId } = await params;
+  await params;
 
   return {
     title: "Student Progress - Admin Dashboard",

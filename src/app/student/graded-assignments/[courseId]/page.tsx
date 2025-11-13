@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useAuth } from "@/contexts/AuthContext";
 import { Button } from "@/app/components-demo/ui/ui-components/button";
 import {
@@ -15,11 +15,7 @@ import { Badge } from "@/app/components-demo/ui/ui-components/badge";
 import {
   FileText,
   Download,
-  CheckCircle,
-  Clock,
-  ArrowLeft,
 } from "lucide-react";
-import Link from "next/link";
 import { createClient } from "@/lib/supabase/client";
 
 interface GradedSubmission {
@@ -43,8 +39,14 @@ export default function GradedAssignmentsPage({
   const [resolvedParams, setResolvedParams] = useState<{
     courseId: string;
   } | null>(null);
+  interface Course {
+    id: string;
+    title: string;
+    slug: string;
+  }
+
   const [submissions, setSubmissions] = useState<GradedSubmission[]>([]);
-  const [course, setCourse] = useState<any>(null);
+  const [course, setCourse] = useState<Course | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -52,13 +54,7 @@ export default function GradedAssignmentsPage({
     params.then(setResolvedParams);
   }, [params]);
 
-  useEffect(() => {
-    if (resolvedParams && user) {
-      loadData();
-    }
-  }, [resolvedParams, user]);
-
-  const loadData = async () => {
+  const loadData = useCallback(async () => {
     try {
       setIsLoading(true);
       setError(null);
@@ -92,7 +88,13 @@ export default function GradedAssignmentsPage({
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [resolvedParams?.courseId]);
+
+  useEffect(() => {
+    if (resolvedParams && user) {
+      loadData();
+    }
+  }, [resolvedParams, user, loadData]);
 
   const handleDownload = async (submission: GradedSubmission) => {
     if (submission.graded_download_url) {

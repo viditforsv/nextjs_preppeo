@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Sparkles } from "lucide-react";
 import { Button } from "@/app/components-demo/ui/ui-components/button";
 import {
@@ -98,7 +98,6 @@ export function AvatarUpload({
         currentAvatar={avatar}
         userName={userName}
         userId={userId}
-        userEmail={userEmail}
         googleAvatar={googleAvatar}
         onAvatarUpdate={(newAvatar) => {
           setAvatar(newAvatar);

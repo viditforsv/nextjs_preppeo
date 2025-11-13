@@ -13,9 +13,39 @@ import {
 } from "@/app/components-demo/ui/ui-components/card";
 import { ArrowLeft, Check } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
+
+interface RazorpayOptions {
+  key: string;
+  amount: number;
+  currency: string;
+  name: string;
+  description: string;
+  order_id: string;
+  handler: (response: RazorpayResponse) => void | Promise<void>;
+  theme: {
+    color: string;
+  };
+  prefill?: {
+    name?: string;
+    email?: string;
+    contact?: string;
+  };
+}
+
+interface RazorpayResponse {
+  razorpay_payment_id: string;
+  razorpay_order_id: string;
+  razorpay_signature: string;
+}
+
+interface RazorpayInstance {
+  open: () => void;
+}
 
 declare global {
   interface Window {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     Razorpay: any;
   }
 }
@@ -186,7 +216,7 @@ export default function CoursePaymentPage() {
         theme: {
           color: "#e27447",
         },
-        handler: async function (response: any) {
+        handler: async function (response: RazorpayResponse) {
           setStatus("Verifying payment...");
 
           try {
@@ -311,9 +341,11 @@ export default function CoursePaymentPage() {
               <div className="bg-gray-50 rounded-sm p-6 border">
                 <div className="flex items-start space-x-4">
                   {course.thumbnail && (
-                    <img
+                    <Image
                       src={course.thumbnail}
                       alt={course.title}
+                      width={96}
+                      height={96}
                       className="w-24 h-24 object-cover rounded-sm"
                     />
                   )}
@@ -339,7 +371,7 @@ export default function CoursePaymentPage() {
               {/* What's Included */}
               <div className="bg-blue-50 border border-blue-200 rounded-sm p-4">
                 <h4 className="font-semibold mb-3 text-blue-900">
-                  What's Included
+                  What&apos;s Included
                 </h4>
                 <ul className="space-y-2 text-sm text-blue-800">
                   <li className="flex items-center">

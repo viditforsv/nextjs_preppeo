@@ -30,7 +30,6 @@ import {
   Search,
   Plus,
   X,
-  Check,
   Loader2,
   BookOpen,
   ArrowLeft,
@@ -66,6 +65,13 @@ interface Lesson {
   course_id: string;
 }
 
+interface Course {
+  id: string;
+  title: string;
+  slug?: string;
+  description?: string;
+}
+
 interface QuizFormData {
   title: string;
   lesson_id: string | null;
@@ -89,9 +95,8 @@ export default function QuizCreatorPage() {
     new Set()
   );
   const [questions, setQuestions] = useState<Question[]>([]);
-  const [filteredQuestions, setFilteredQuestions] = useState<Question[]>([]);
   const [lessons, setLessons] = useState<Lesson[]>([]);
-  const [courses, setCourses] = useState<any[]>([]);
+  const [courses, setCourses] = useState<Course[]>([]);
 
   // Filter state
   const [searchTerm, setSearchTerm] = useState("");
@@ -137,6 +142,7 @@ export default function QuizCreatorPage() {
   // Fetch questions with filters
   useEffect(() => {
     fetchQuestions();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     page,
     searchTerm,
@@ -160,7 +166,9 @@ export default function QuizCreatorPage() {
 
   const fetchLessons = async (courseId: string) => {
     try {
-      const response = await fetch(`/api/lessons?course_id=${courseId}&limit=1000`);
+      const response = await fetch(
+        `/api/lessons?course_id=${courseId}&limit=1000`
+      );
       if (response.ok) {
         const data = await response.json();
         setLessons(data.lessons || []);
@@ -179,7 +187,8 @@ export default function QuizCreatorPage() {
 
       if (searchTerm) params.set("search", searchTerm);
       if (subjectFilter !== "any") params.set("subject", subjectFilter);
-      if (difficultyFilter !== "any") params.set("difficulty", difficultyFilter);
+      if (difficultyFilter !== "any")
+        params.set("difficulty", difficultyFilter);
       if (questionTypeFilter !== "any")
         params.set("question_type", questionTypeFilter);
       if (topicFilter) params.set("topic", topicFilter);
@@ -188,7 +197,6 @@ export default function QuizCreatorPage() {
       if (response.ok) {
         const data = await response.json();
         setQuestions(data.questions || []);
-        setFilteredQuestions(data.questions || []);
         setTotalQuestions(data.total || 0);
         setTotalPages(data.totalPages || 0);
 
@@ -305,7 +313,7 @@ export default function QuizCreatorPage() {
         {/* Header */}
         <div className="mb-8">
           <Link href="/admin">
-            <Button variant="ghost" className="mb-4">
+            <Button variant="outline" className="mb-4">
               <ArrowLeft className="w-4 h-4 mr-2" />
               Back to Admin
             </Button>
@@ -337,9 +345,7 @@ export default function QuizCreatorPage() {
             <Card className="sticky top-4">
               <CardHeader>
                 <CardTitle>Quiz Details</CardTitle>
-                <CardDescription>
-                  Configure your quiz settings
-                </CardDescription>
+                <CardDescription>Configure your quiz settings</CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
                 {/* Quiz Title */}
@@ -493,7 +499,7 @@ export default function QuizCreatorPage() {
                 <CardTitle className="flex items-center justify-between">
                   <span>Search & Filter Questions</span>
                   <Button
-                    variant="ghost"
+                    variant="outline"
                     size="sm"
                     onClick={handleClearFilters}
                   >
@@ -597,11 +603,7 @@ export default function QuizCreatorPage() {
                       {totalQuestions} questions found
                     </CardDescription>
                   </div>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={handleSelectAll}
-                  >
+                  <Button variant="outline" size="sm" onClick={handleSelectAll}>
                     {selectedQuestions.size === questions.length
                       ? "Deselect All"
                       : "Select All"}
@@ -612,7 +614,9 @@ export default function QuizCreatorPage() {
                 {loading ? (
                   <div className="text-center py-12">
                     <Loader2 className="w-8 h-8 animate-spin mx-auto mb-4 text-primary" />
-                    <p className="text-muted-foreground">Loading questions...</p>
+                    <p className="text-muted-foreground">
+                      Loading questions...
+                    </p>
                   </div>
                 ) : questions.length === 0 ? (
                   <div className="text-center py-12">
@@ -717,7 +721,7 @@ export default function QuizCreatorPage() {
                         Question {index + 1}
                       </CardTitle>
                       <Button
-                        variant="ghost"
+                        variant="outline"
                         size="sm"
                         onClick={() => handleQuestionToggle(question.id)}
                       >
@@ -748,4 +752,3 @@ export default function QuizCreatorPage() {
     </div>
   );
 }
-

@@ -19,7 +19,6 @@ import {
   Calendar,
   ArrowRight,
   Play,
-  TrendingUp,
   CheckCircle2,
   Award,
   Target,
@@ -55,7 +54,7 @@ interface OverallStats {
 }
 
 export default function EnrolledCoursesPage() {
-  const { user, profile } = useAuth();
+  const { user } = useAuth();
   const [enrolledCourses, setEnrolledCourses] = useState<EnrolledCourse[]>([]);
   const [overallStats, setOverallStats] = useState<OverallStats>({
     totalCourses: 0,
@@ -204,14 +203,11 @@ export default function EnrolledCoursesPage() {
     return hours > 0 ? `${hours}h ${mins}m` : `${mins}m`;
   };
 
-  const getProgressColor = (percentage: number) => {
-    if (percentage >= 80) return "bg-primary";
-    if (percentage >= 50) return "bg-accent";
-    return "bg-orange-500";
-  };
-
   // Calculate study streak from user activity
-  const calculateStudyStreak = async (userId: string, supabase: any) => {
+  const calculateStudyStreak = async (
+    userId: string,
+    supabase: ReturnType<typeof createClient>
+  ) => {
     try {
       // Get all last_accessed_at dates from user_progress
       const { data: progressData } = await supabase
@@ -222,9 +218,13 @@ export default function EnrolledCoursesPage() {
 
       if (!progressData || progressData.length === 0) return 0;
 
+      interface ProgressItem {
+        last_accessed_at: string;
+      }
+
       // Get unique dates (convert to date strings to group by day)
       const uniqueDates = new Set(
-        progressData.map((item: any) =>
+        progressData.map((item: ProgressItem) =>
           new Date(item.last_accessed_at).toDateString()
         )
       );

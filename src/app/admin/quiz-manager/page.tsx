@@ -121,7 +121,7 @@ export default function QuizManagerPage() {
         {/* Header */}
         <div className="mb-8">
           <Link href="/admin">
-            <Button variant="ghost" className="mb-4">
+            <Button variant="outline" className="mb-4">
               <ArrowLeft className="w-4 h-4 mr-2" />
               Back to Admin
             </Button>
@@ -229,8 +229,7 @@ export default function QuizManagerPage() {
 
                     {/* Created Date */}
                     <p className="text-sm text-muted-foreground">
-                      Created:{" "}
-                      {new Date(quiz.created_at).toLocaleDateString()}
+                      Created: {new Date(quiz.created_at).toLocaleDateString()}
                     </p>
 
                     {/* Actions */}
@@ -283,8 +282,8 @@ export default function QuizManagerPage() {
             <DialogHeader>
               <DialogTitle>Delete Quiz</DialogTitle>
               <DialogDescription>
-                Are you sure you want to delete "{selectedQuiz?.title}"? This
-                action cannot be undone.
+                Are you sure you want to delete &quot;{selectedQuiz?.title}
+                &quot;? This action cannot be undone.
               </DialogDescription>
             </DialogHeader>
             <div className="flex justify-end gap-3 mt-4">
@@ -309,4 +308,3 @@ export default function QuizManagerPage() {
     </div>
   );
 }
-

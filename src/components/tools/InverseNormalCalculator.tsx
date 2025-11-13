@@ -87,7 +87,7 @@ export function InverseNormalCalculator() {
           return;
         }
         break;
-      case "centralTail":
+      case "centralTail": {
         // Central area (area in the middle)
         // For central area, we need to find x1 and x2 such that P(x1 < X < x2) = probValue
         // This means each tail has area = (1 - probValue) / 2
@@ -108,6 +108,7 @@ export function InverseNormalCalculator() {
         // Store as array [lower, upper]
         setResult([x1, x2]);
         return;
+      }
     }
 
     // Calculate inverse standard normal

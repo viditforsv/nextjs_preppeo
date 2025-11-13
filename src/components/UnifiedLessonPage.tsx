@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useMemo } from "react";
+import Image from "next/image";
 import {
   Card,
   CardContent,
@@ -22,9 +23,6 @@ import {
   CheckCircle2,
   CheckCircle,
   Upload,
-  Clock,
-  Unlock,
-  Eye,
   ArrowLeft,
   ArrowRight,
   Lightbulb,
@@ -161,7 +159,6 @@ export function UnifiedLessonPage({
   const [currentMessage, setCurrentMessage] = useState("");
   const [isAITyping, setIsAITyping] = useState(false);
   const [isAssignmentTabActive, setIsAssignmentTabActive] = useState(false);
-  const [isSolutionTabActive, setIsSolutionTabActive] = useState(false);
 
   // Inline editing state for admins
   const [editingField, setEditingField] = useState<string | null>(null);
@@ -294,7 +291,7 @@ export function UnifiedLessonPage({
 
     // More comprehensive YouTube URL patterns
     const patterns = [
-      /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/|youtube\.com\/v\/)([^#&\?]{11})/,
+      /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/|youtube\.com\/v\/)([^#&?]{11})/,
       /^([a-zA-Z0-9_-]{11})$/,
     ];
 
@@ -336,59 +333,69 @@ export function UnifiedLessonPage({
   );
 
   // Build tabs array dynamically
-  const availableTabs = [];
-  // Questions tab - prioritize it as first tab if available
-  if (hasQuestions) {
-    availableTabs.push({
-      id: "questions",
-      label: "Questions",
-      icon: FileCheck,
-    });
+  interface TabItem {
+    id: string;
+    label: string;
+    icon: React.ComponentType<{ className?: string }>;
   }
-  if (hasConcepts || hasFormulas) {
-    availableTabs.push({
-      id: "content",
-      label: "Concepts & Formulas",
-      icon: BookOpen,
-    });
-  }
-  if (hasVideo) {
-    availableTabs.push({ id: "video", label: "Video", icon: Video });
-  }
-  if (hasNotes) {
-    availableTabs.push({ id: "notes", label: "Concepts", icon: FileText });
-  }
-  if (hasPDFAssignment) {
-    availableTabs.push({
-      id: "assignment",
-      label: "Assignment",
-      icon: FileText,
-    });
-  }
-  if (hasPDFSolution) {
-    availableTabs.push({
-      id: "solution",
-      label: "Solution",
-      icon: CheckCircle2,
-    });
-  }
-  if (hasQuiz) {
-    availableTabs.push({ id: "quiz", label: "Quiz", icon: FileCheck });
-  }
+  const availableTabs: TabItem[] = useMemo(() => {
+    const tabs: TabItem[] = [];
+    // Questions tab - prioritize it as first tab if available
+    if (hasQuestions) {
+      tabs.push({
+        id: "questions",
+        label: "Questions",
+        icon: FileCheck,
+      });
+    }
+    if (hasConcepts || hasFormulas) {
+      tabs.push({
+        id: "content",
+        label: "Concepts & Formulas",
+        icon: BookOpen,
+      });
+    }
+    if (hasVideo) {
+      tabs.push({ id: "video", label: "Video", icon: Video });
+    }
+    if (hasNotes) {
+      tabs.push({ id: "notes", label: "Concepts", icon: FileText });
+    }
+    if (hasPDFAssignment) {
+      tabs.push({
+        id: "assignment",
+        label: "Assignment",
+        icon: FileText,
+      });
+    }
+    if (hasPDFSolution) {
+      tabs.push({
+        id: "solution",
+        label: "Solution",
+        icon: CheckCircle2,
+      });
+    }
+    if (hasQuiz) {
+      tabs.push({ id: "quiz", label: "Quiz", icon: FileCheck });
+    }
+    return tabs;
+  }, [hasQuestions, hasConcepts, hasFormulas, hasVideo, hasNotes, hasPDFAssignment, hasPDFSolution, hasQuiz]);
 
   const defaultTab = availableTabs[0]?.id || "content";
 
   // Debug logging for tabs
   useEffect(() => {
-    console.log("UnifiedLessonPage - Available tabs:", availableTabs.map(t => t.id));
+    console.log(
+      "UnifiedLessonPage - Available tabs:",
+      availableTabs.map((t) => t.id)
+    );
     console.log("UnifiedLessonPage - Default tab:", defaultTab);
-  }, [availableTabs.length, defaultTab]);
+  }, [availableTabs, defaultTab]);
 
   // Initialize PDF tab states based on current tab
   useEffect(() => {
     const currentTab = activeTab || defaultTab;
     setIsAssignmentTabActive(currentTab === "assignment");
-    setIsSolutionTabActive(currentTab === "solution");
   }, [activeTab, defaultTab]);
 
   // Set default tab on mount
@@ -686,7 +693,6 @@ export function UnifiedLessonPage({
             setActiveTab(value);
             // Force PDF iframes to reload when tab becomes active
             setIsAssignmentTabActive(value === "assignment");
-            setIsSolutionTabActive(value === "solution");
           }}
           className="w-full"
         >
@@ -972,7 +978,6 @@ export function UnifiedLessonPage({
                               className="rounded-sm w-full sm:w-auto"
                               onClick={() => {
                                 setActiveTab("solution");
-                                setIsSolutionTabActive(true);
                                 setIsAssignmentTabActive(false);
                               }}
                             >
@@ -1131,7 +1136,6 @@ export function UnifiedLessonPage({
                               onClick={() => {
                                 setActiveTab("assignment");
                                 setIsAssignmentTabActive(true);
-                                setIsSolutionTabActive(false);
                               }}
                             >
                               <FileText className="w-4 h-4 mr-2" />
@@ -2089,9 +2093,11 @@ export function UnifiedLessonPage({
               ) : (
                 <div className="space-y-2">
                   <div className="relative border rounded-sm overflow-hidden">
-                    <img
+                    <Image
                       src={feedbackImagePreview}
                       alt="Feedback preview"
+                      width={800}
+                      height={192}
                       className="w-full h-48 object-contain bg-gray-50"
                     />
                     <Button

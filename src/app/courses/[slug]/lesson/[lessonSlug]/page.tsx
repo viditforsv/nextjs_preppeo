@@ -32,7 +32,6 @@ import {
   MessageCircle,
   Eye,
   Upload,
-  Download,
   Loader2,
 } from "lucide-react";
 import { VideoResource } from "@/app/components-demo/ui/youtube-video";
@@ -42,7 +41,6 @@ import { useAuth } from "@/contexts/AuthContext";
 import { createClient } from "@/lib/supabase/client";
 import { IBDPMathLessonPage } from "@/components/IBDPMathTemplate";
 import { UnifiedLessonPage } from "@/components/UnifiedLessonPage";
-import { UnifiedCourseStructure } from "@/components/UnifiedCourseStructure";
 import { renderMixedContent } from "@/components/MathRenderer";
 import { QuizPlayer } from "@/components/QuizPlayer";
 
@@ -157,10 +155,9 @@ export default function DynamicLessonPage({
   >("idle");
   const [submissionError, setSubmissionError] = useState<string>("");
   const [uploadedFile, setUploadedFile] = useState<File | null>(null);
-  const [submissionHistory, setSubmissionHistory] = useState<any[]>([]);
 
   // Load questions for the lesson
-  const { questions, loading: questionsLoading } = useQuestionsForLesson(
+  const { questions } = useQuestionsForLesson(
     lesson?.id || ""
   );
 
@@ -247,7 +244,7 @@ export default function DynamicLessonPage({
         }
 
         // 4. Fetch all lessons with unit/chapter structure
-        let { data: lessonsData, error: lessonsError } = await supabase
+        const { data: rawLessonsData, error: lessonsError } = await supabase
           .from("courses_lessons")
           .select(
             `
@@ -274,6 +271,9 @@ export default function DynamicLessonPage({
           )
           .eq("course_id", course.id)
           .order("lesson_order");
+        
+        // Type assertion for lessonsData - Supabase returns a more specific type
+        let lessonsData: Lesson[] | null = rawLessonsData as unknown as Lesson[] | null;
 
         // Fallback: If nested query doesn't return chapter data, fetch separately
         if (!lessonsError && lessonsData && lessonsData.length > 0) {
@@ -341,7 +341,7 @@ export default function DynamicLessonPage({
                 chapter: lesson.chapter_id
                   ? chaptersMap.get(lesson.chapter_id) || null
                   : null,
-              })) as any;
+              })) as unknown as Lesson[];
               console.log("✅ Manually joined chapter/unit data to lessons", {
                 chaptersMapSize: chaptersMap.size,
               });
@@ -637,7 +637,7 @@ export default function DynamicLessonPage({
         throw new Error(errorData.error || "Upload failed");
       }
 
-      const result = await response.json();
+      await response.json();
       setSubmissionStatus("success");
       setUploadedFile(null);
 
@@ -932,7 +932,7 @@ export default function DynamicLessonPage({
             <CollapsibleSidebar
               currentLessonSlug={lesson.slug}
               courseSlug={resolvedParams?.slug || ""}
-              lessons={allLessons as any}
+              lessons={allLessons}
               isEnrolled={isEnrolled}
               completedLessonIds={completedLessonIds}
               courseId={course?.id}

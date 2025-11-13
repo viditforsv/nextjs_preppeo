@@ -35,8 +35,6 @@ import { useRouter } from "next/navigation";
 import { RenderedCourse, CourseTemplate } from "@/types/course-templates";
 import { DynamicCourseRenderer } from "@/components/DynamicCourseRenderer";
 import { createClient } from "@/lib/supabase/client";
-
-// @ts-ignore - TypeScript module resolution issue
 import { IBDPCourseStructure } from "@/components/IBDPCourseStructure";
 import { UnifiedCourseStructure } from "@/components/UnifiedCourseStructure";
 import { useCart } from "@/contexts/CartContext";
@@ -489,7 +487,15 @@ export function CoursePageClient({
         }
         if (!chaptersError && chaptersData) {
           // Transform chapters data to match our interface
-          const transformedChapters: Chapter[] = (chaptersData as any[]).map(
+          interface ChapterData {
+            id: string;
+            chapter_name: string;
+            chapter_order: number;
+            unit_id: string;
+            unit?: Unit | Unit[];
+          }
+
+          const transformedChapters: Chapter[] = (chaptersData as ChapterData[]).map(
             (chapter) => ({
               id: chapter.id,
               chapter_name: chapter.chapter_name,

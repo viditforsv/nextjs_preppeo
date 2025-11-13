@@ -168,11 +168,9 @@ Sl. No.,Unit,Chapter,Topics,Lesson ID,Lessons,Tags
 
 ---
 
-#### Step 5: Generate SQL Files Using Python Script
+#### Step 5: Generate SQL Files
 
-**Create the Generator Script:**
-
-Save this as `scripts/generate-course-sql.py`:
+**Note:** You'll need to create SQL INSERT statements manually or use a script to generate them from your CSV file. The SQL should follow this pattern:
 
 ```python
 #!/usr/bin/env python3
@@ -541,6 +539,16 @@ This 5-tier system allows you to:
 
 *Last Updated: November 5, 2025*
 *Version: 1.0*
+
+
+
+
+
+
+
+
+
+
 
 
 

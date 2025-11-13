@@ -13,7 +13,6 @@ import {
   BookOpen,
   FileText,
   CheckCircle,
-  Clock,
   Lock,
   Unlock,
   Play,

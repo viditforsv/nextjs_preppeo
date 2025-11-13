@@ -98,9 +98,24 @@ const combinators = [
   { name: "or", label: "OR" },
 ];
 
+// Query structure types for react-querybuilder
+interface QueryRule {
+  field: string;
+  operator: string;
+  value: string | number | boolean | null;
+}
+
+interface QueryGroup {
+  combinator: string;
+  rules: (QueryRule | QueryGroup)[];
+  not?: boolean;
+}
+
+type Query = QueryGroup;
+
 interface QuestionBankQueryBuilderProps {
-  onQueryChange: (query: any) => void;
-  initialQuery?: any;
+  onQueryChange: (query: Query) => void;
+  initialQuery?: Query;
 }
 
 export default function QuestionBankQueryBuilder({
@@ -126,22 +141,9 @@ export default function QuestionBankQueryBuilder({
     setIsClient(true);
   }, []);
 
-  const handleQueryChange = (newQuery: any) => {
+  const handleQueryChange = (newQuery: Query) => {
     setQuery(newQuery);
     onQueryChange(newQuery);
-  };
-
-  // Convert React Query Builder query to API parameters
-  const convertQueryToApiParams = (query: any): Record<string, string> => {
-    const params: Record<string, string> = {};
-
-    try {
-      params.advanced_filters = JSON.stringify(query);
-      return params;
-    } catch (error) {
-      console.error("Error converting query:", error);
-      return {};
-    }
   };
 
   const formatOutput = (format: string) => {

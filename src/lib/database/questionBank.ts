@@ -1,4 +1,8 @@
 import { createClient } from "@supabase/supabase-js";
+import {
+  getSupabaseUrl,
+  getSupabaseServiceRoleKey,
+} from "../supabase/env";
 
 // Types for question bank data
 export interface QuestionBankRow {
@@ -32,10 +36,17 @@ export interface QuestionBankRow {
 
 // Database client for direct access
 function getSupabaseClient() {
-  return createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.SUPABASE_SERVICE_ROLE_KEY!
-  );
+  const url = getSupabaseUrl();
+  const serviceRoleKey = getSupabaseServiceRoleKey();
+  
+  if (!url || !serviceRoleKey) {
+    throw new Error(
+      "Missing Supabase service role key. Required: SUPABASE_SERVICE_ROLE_KEY_DEV or SUPABASE_SERVICE_ROLE_KEY_PROD " +
+      "(or fallback to SUPABASE_SERVICE_ROLE_KEY)"
+    );
+  }
+  
+  return createClient(url, serviceRoleKey);
 }
 
 // Direct database access functions

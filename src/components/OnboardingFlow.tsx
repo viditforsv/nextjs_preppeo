@@ -104,12 +104,11 @@ const steps = [
 
 export function OnboardingFlow() {
   const router = useRouter();
-  const { user, profile } = useAuth();
+  const { user } = useAuth();
   const {
     data,
     isLoading,
     updateStep,
-    completeStep,
     skipStep,
     completeOnboarding,
   } = useOnboarding();

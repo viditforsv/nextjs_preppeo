@@ -71,6 +71,18 @@ interface Question {
   tags: string[];
 }
 
+interface Course {
+  id: string;
+  title: string;
+}
+
+interface Lesson {
+  id: string;
+  title: string;
+  lesson_code: string;
+  course_id?: string;
+}
+
 export default function QuizEditorPage() {
   const router = useRouter();
   const params = useParams();
@@ -79,8 +91,8 @@ export default function QuizEditorPage() {
   // Quiz state
   const [quiz, setQuiz] = useState<Quiz | null>(null);
   const [quizQuestions, setQuizQuestions] = useState<QuizQuestion[]>([]);
-  const [courses, setCourses] = useState<any[]>([]);
-  const [lessons, setLessons] = useState<any[]>([]);
+  const [courses, setCourses] = useState<Course[]>([]);
+  const [lessons, setLessons] = useState<Lesson[]>([]);
   const [selectedCourseId, setSelectedCourseId] = useState<string>("");
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -95,24 +107,7 @@ export default function QuizEditorPage() {
   const [searchTerm, setSearchTerm] = useState("");
   const [loadingQuestions, setLoadingQuestions] = useState(false);
 
-  useEffect(() => {
-    if (quizId) {
-      fetchQuiz();
-      fetchQuizQuestions();
-      fetchCourses();
-    }
-  }, [quizId]);
-
-  // Fetch lessons when course is selected
-  useEffect(() => {
-    if (selectedCourseId) {
-      fetchLessons(selectedCourseId);
-    } else {
-      setLessons([]);
-    }
-  }, [selectedCourseId]);
-
-  const fetchQuiz = async () => {
+  const fetchQuiz = useCallback(async () => {
     try {
       const response = await fetch(`/api/quizzes?id=${quizId}`);
       if (response.ok) {
@@ -120,10 +115,12 @@ export default function QuizEditorPage() {
         if (data.quizzes && data.quizzes.length > 0) {
           const quizData = data.quizzes[0];
           setQuiz(quizData);
-          
+
           // If quiz has a lesson, get the lesson details to find course_id
           if (quizData.lesson_id) {
-            const lessonResponse = await fetch(`/api/lessons/${quizData.lesson_id}`);
+            const lessonResponse = await fetch(
+              `/api/lessons/${quizData.lesson_id}`
+            );
             if (lessonResponse.ok) {
               const lessonData = await lessonResponse.json();
               if (lessonData.lesson) {
@@ -139,9 +136,9 @@ export default function QuizEditorPage() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [quizId]);
 
-  const fetchCourses = async () => {
+  const fetchCourses = useCallback(async () => {
     try {
       const response = await fetch("/api/courses");
       if (response.ok) {
@@ -151,11 +148,13 @@ export default function QuizEditorPage() {
     } catch (error) {
       console.error("Error fetching courses:", error);
     }
-  };
+  }, []);
 
-  const fetchLessons = async (courseId: string) => {
+  const fetchLessons = useCallback(async (courseId: string) => {
     try {
-      const response = await fetch(`/api/lessons?course_id=${courseId}&limit=1000`);
+      const response = await fetch(
+        `/api/lessons?course_id=${courseId}&limit=1000`
+      );
       if (response.ok) {
         const data = await response.json();
         setLessons(data.lessons || []);
@@ -163,9 +162,9 @@ export default function QuizEditorPage() {
     } catch (error) {
       console.error("Error fetching lessons:", error);
     }
-  };
+  }, []);
 
-  const fetchQuizQuestions = async () => {
+  const fetchQuizQuestions = useCallback(async () => {
     try {
       const response = await fetch(`/api/quizzes/${quizId}/questions`);
       if (response.ok) {
@@ -175,9 +174,9 @@ export default function QuizEditorPage() {
     } catch (error) {
       console.error("Error fetching quiz questions:", error);
     }
-  };
+  }, [quizId]);
 
-  const fetchAvailableQuestions = async () => {
+  const fetchAvailableQuestions = useCallback(async () => {
     setLoadingQuestions(true);
     try {
       const params = new URLSearchParams();
@@ -202,13 +201,30 @@ export default function QuizEditorPage() {
     } finally {
       setLoadingQuestions(false);
     }
-  };
+  }, [searchTerm, quizQuestions]);
+
+  useEffect(() => {
+    if (quizId) {
+      fetchQuiz();
+      fetchQuizQuestions();
+      fetchCourses();
+    }
+  }, [quizId, fetchQuiz, fetchQuizQuestions, fetchCourses]);
+
+  // Fetch lessons when course is selected
+  useEffect(() => {
+    if (selectedCourseId) {
+      fetchLessons(selectedCourseId);
+    } else {
+      setLessons([]);
+    }
+  }, [selectedCourseId, fetchLessons]);
 
   useEffect(() => {
     if (showAddQuestions) {
       fetchAvailableQuestions();
     }
-  }, [showAddQuestions, searchTerm]);
+  }, [showAddQuestions, fetchAvailableQuestions]);
 
   const handleSaveQuiz = async () => {
     if (!quiz) return;
@@ -330,7 +346,7 @@ export default function QuizEditorPage() {
         {/* Header */}
         <div className="mb-8">
           <Link href="/admin/quiz-manager">
-            <Button variant="ghost" className="mb-4">
+            <Button variant="outline" className="mb-4">
               <ArrowLeft className="w-4 h-4 mr-2" />
               Back to Quiz Manager
             </Button>
@@ -512,8 +528,8 @@ export default function QuizEditorPage() {
               <CardContent>
                 {quizQuestions.length === 0 ? (
                   <div className="text-center py-8 text-muted-foreground">
-                    No questions in this quiz yet. Click "Add Questions" to get
-                    started.
+                    No questions in this quiz yet. Click &quot;Add
+                    Questions&quot; to get started.
                   </div>
                 ) : (
                   <div className="space-y-4">
@@ -547,7 +563,7 @@ export default function QuizEditorPage() {
                             </div>
                           </div>
                           <Button
-                            variant="ghost"
+                            variant="outline"
                             size="sm"
                             onClick={() =>
                               handleRemoveQuestion(
@@ -572,7 +588,7 @@ export default function QuizEditorPage() {
                   <div className="flex items-center justify-between">
                     <CardTitle>Add Questions</CardTitle>
                     <Button
-                      variant="ghost"
+                      variant="outline"
                       size="sm"
                       onClick={() => setShowAddQuestions(false)}
                     >
@@ -621,7 +637,9 @@ export default function QuizEditorPage() {
                               />
                               <div className="flex-1 min-w-0">
                                 <div className="prose prose-sm max-w-none mb-2">
-                                  {renderMultiPartQuestion(question.question_text)}
+                                  {renderMultiPartQuestion(
+                                    question.question_text
+                                  )}
                                 </div>
                                 <div className="flex flex-wrap gap-2">
                                   <Badge variant="outline" className="text-xs">
@@ -656,4 +674,3 @@ export default function QuizEditorPage() {
     </div>
   );
 }
-

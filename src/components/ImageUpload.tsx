@@ -21,7 +21,6 @@ export default function ImageUpload({
   label,
   value,
   onChange,
-  placeholder = "No image uploaded",
   disabled = false,
   className = "",
 }: ImageUploadProps) {

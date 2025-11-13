@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Button } from "@/app/components-demo/ui/ui-components/button";
 import { Input } from "@/app/components-demo/ui/ui-components/input";
 import { Label } from "@/app/components-demo/ui/ui-components/label";
@@ -87,7 +87,7 @@ export default function QuestionAssignmentManager({
   const [notes, setNotes] = useState("");
 
   // Fetch assignments
-  const fetchAssignments = async () => {
+  const fetchAssignments = useCallback(async () => {
     try {
       const params = new URLSearchParams();
       if (questionId) params.append("question_id", questionId);
@@ -101,7 +101,7 @@ export default function QuestionAssignmentManager({
     } catch (error) {
       console.error("Error fetching assignments:", error);
     }
-  };
+  }, [questionId, userId]);
 
   // Fetch available questions
   const fetchQuestions = async () => {
@@ -142,7 +142,7 @@ export default function QuestionAssignmentManager({
     };
 
     loadData();
-  }, [questionId, userId]);
+  }, [questionId, userId, fetchAssignments]);
 
   // Create new assignment
   const handleCreateAssignment = async () => {

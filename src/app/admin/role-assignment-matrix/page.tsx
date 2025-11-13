@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import Link from "next/link";
+
 import {
   Card,
   CardContent,
@@ -24,7 +24,6 @@ import {
   ChevronDown,
   ChevronRight,
   Loader2,
-  ArrowLeft,
   Shield,
   Users,
   Settings,

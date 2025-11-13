@@ -11,7 +11,6 @@ import {
   CardTitle,
 } from "@/app/components-demo/ui/ui-components/card";
 import { Button } from "@/app/components-demo/ui/ui-components/button";
-import { Badge } from "@/app/components-demo/ui/ui-components/badge";
 import { X, ShoppingCart, ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import { PaymentFlow } from "@/components/payments/PaymentFlow";

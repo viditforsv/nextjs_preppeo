@@ -29,7 +29,7 @@ export async function GET(request: Request) {
         .single();
 
       targetUserId = profile?.role === "admin" && userId ? userId : user.id;
-    } catch (profileError) {
+    } catch {
       console.log("Profile fetch failed, using user ID:", user.id);
       // If profile fetch fails, just use the user's own ID
       targetUserId = user.id;

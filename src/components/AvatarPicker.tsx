@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Image from "next/image";
 import { createClient } from "@/lib/supabase/client";
 import { X, User, Mail, Sparkles } from "lucide-react";
 import { Button } from "@/app/components-demo/ui/ui-components/button";
@@ -21,7 +22,6 @@ interface AvatarPickerProps {
   currentAvatar?: string | null;
   userName: string;
   userId: string;
-  userEmail?: string;
   googleAvatar?: string | null;
   onAvatarUpdate?: (avatarUrl: string) => void;
   size?: "sm" | "md" | "lg";
@@ -102,7 +102,6 @@ export function AvatarPicker({
   currentAvatar,
   userName,
   userId,
-  userEmail,
   googleAvatar,
   onAvatarUpdate,
   size = "md",
@@ -174,15 +173,6 @@ export function AvatarPicker({
     }
   };
 
-  // Handle selection for each option type
-  const handleOptionSelect = (
-    type: "default" | "google" | "dicebear",
-    value: string
-  ) => {
-    setSelectedAvatar(value);
-    setPreviewUrl(value);
-    setError(null);
-  };
 
   const [success, setSuccess] = useState<string | null>(null);
 
@@ -416,9 +406,11 @@ export function AvatarPicker({
                             "ring-2 ring-[#e27447] border-[#e27447]"
                         )}
                       >
-                        <img
+                        <Image
                           src={`https://api.dicebear.com/7.x/micah/svg?seed=${seed}`}
                           alt={seed}
+                          width={64}
+                          height={64}
                           className="w-full h-full object-cover"
                           loading="lazy"
                         />

@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useMemo } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import {
   Card,
   CardContent,
@@ -31,7 +32,6 @@ import {
   SortAsc,
   SortDesc,
 } from "lucide-react";
-import Image from "next/image";
 import { useAuth } from "@/contexts/AuthContext";
 // import { getAllCourses } from '@/lib/course-config'
 // import { CourseConfig } from '@/lib/course-config'
@@ -658,10 +658,15 @@ interface CourseCardProps {
   viewMode: "grid" | "list";
 }
 
+interface CourseConfigWithThumbnail extends CourseConfig {
+  thumbnail_url?: string;
+}
+
 // Helper function to get thumbnail URL with fallback
 function getThumbnailUrl(course: CourseConfig): string {
   // Check both thumbnail and thumbnail_url fields (API inconsistency)
-  const thumbnailUrl = course.thumbnail || (course as any).thumbnail_url;
+  const courseWithThumbnail = course as CourseConfigWithThumbnail;
+  const thumbnailUrl = course.thumbnail || courseWithThumbnail.thumbnail_url;
 
   // If course has a thumbnail, use it
   if (thumbnailUrl && thumbnailUrl !== "/images/courses/default.jpg") {
@@ -712,8 +717,9 @@ function CourseCard({ course, viewMode }: CourseCardProps) {
         <Card className="hover:shadow-md transition-shadow cursor-pointer">
           <CardContent className="p-6">
             <div className="flex gap-6">
-              <div className="w-64 h-32 rounded-lg flex items-center justify-center flex-shrink-0 overflow-hidden">
-                {thumbnailUrl.includes("/api/cdn-proxy") ? (
+              <div className="w-64 h-32 rounded-lg flex items-center justify-center flex-shrink-0 overflow-hidden relative">
+                {thumbnailUrl.startsWith("data:") || thumbnailUrl.includes("/api/cdn-proxy") ? (
+                  // Use regular img tag for data URIs and proxy URLs (Next.js Image doesn't support query strings in local patterns)
                   <img
                     src={thumbnailUrl}
                     alt={`${course.title} thumbnail`}
@@ -743,7 +749,7 @@ function CourseCard({ course, viewMode }: CourseCardProps) {
                   />
                 )}
                 <div
-                  className="w-full h-full bg-gradient-to-br from-primary to-emerald-600 rounded-lg flex items-center justify-center"
+                  className="w-full h-full bg-gradient-to-br from-primary to-emerald-600 rounded-lg flex items-center justify-center absolute inset-0"
                   style={{ display: "none" }}
                 >
                   <BookOpen className="w-8 h-8 text-white" />
@@ -836,10 +842,11 @@ function CourseCard({ course, viewMode }: CourseCardProps) {
 
   return (
     <Link href={`/courses/${course.slug}`} className="block">
-      <Card className="hover:shadow-md transition-shadow group cursor-pointer">
+        <Card className="hover:shadow-md transition-shadow group cursor-pointer">
         <CardHeader className="pb-4">
           <div className="w-full h-32 rounded-lg flex items-center justify-center mb-4 overflow-hidden relative">
-            {thumbnailUrl.includes("/api/cdn-proxy") ? (
+            {thumbnailUrl.startsWith("data:") || thumbnailUrl.includes("/api/cdn-proxy") ? (
+              // Use regular img tag for data URIs and proxy URLs (Next.js Image doesn't support query strings in local patterns)
               <img
                 src={thumbnailUrl}
                 alt={`${course.title} thumbnail`}

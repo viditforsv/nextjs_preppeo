@@ -59,7 +59,16 @@ async function checkAdminAccess() {
 // GET /api/courses - Get all courses or single course by ID
 export async function GET(request: Request) {
   try {
+    console.log("🔍 Starting courses fetch...");
+    console.log("Environment check:", {
+      hasUrl: !!process.env.NEXT_PUBLIC_SUPABASE_URL,
+      url: process.env.NEXT_PUBLIC_SUPABASE_URL?.substring(0, 30) + "...",
+      hasKey: !!process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
+    });
+    
     const supabase = await createClient();
+    console.log("✅ Supabase client created");
+    
     const { searchParams } = new URL(request.url);
     const id = searchParams.get("id");
     const status = searchParams.get("status");
@@ -99,19 +108,10 @@ export async function GET(request: Request) {
     }
 
     // Otherwise, fetch all courses
+    // Start with simple query - profiles join can be added later if needed
     let query = supabase
       .from("courses")
-      .select(
-        `
-        *,
-        profiles:instructor_id (
-          id,
-          first_name,
-          last_name,
-          email
-        )
-      `
-      )
+      .select("*")
       .order("created_at", { ascending: false });
 
     if (status) {
@@ -130,13 +130,41 @@ export async function GET(request: Request) {
       }
     }
 
+    console.log("📊 Executing query...");
     const { data: courses, error } = await query;
 
     if (error) {
-      return NextResponse.json({ error: error.message }, { status: 500 });
+      console.error("❌ Supabase query error:", {
+        message: error.message,
+        details: error.details,
+        hint: error.hint,
+        code: error.code,
+        fullError: JSON.stringify(error, null, 2)
+      });
+      
+      // Try a simple test query to verify connection
+      console.log("🔧 Testing basic connection...");
+      const { data: testData, error: testError } = await supabase
+        .from("courses")
+        .select("id")
+        .limit(1);
+      
+      console.log("Test query result:", { testData, testError });
+      
+      return NextResponse.json(
+        { 
+          error: error.message || "Failed to fetch courses",
+          details: error.details,
+          hint: error.hint,
+          code: error.code,
+          testQuery: testError ? testError.message : "Connection OK"
+        }, 
+        { status: 500 }
+      );
     }
 
-    return NextResponse.json({ courses });
+    console.log(`✅ Successfully fetched ${courses?.length || 0} courses`);
+    return NextResponse.json({ courses: courses || [] });
   } catch (error) {
     return NextResponse.json(
       {

@@ -5,7 +5,6 @@ import { AdminOnly } from "@/app/components-demo/ui/form-components/RoleGuard";
 import {
   Card,
   CardContent,
-  CardDescription,
   CardHeader,
   CardTitle,
 } from "@/app/components-demo/ui/ui-components/card";

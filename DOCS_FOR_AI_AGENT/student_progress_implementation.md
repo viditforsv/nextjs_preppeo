@@ -199,10 +199,11 @@ The dashboard tracks:
 
 ### 1. Deploy Database Schema
 
-Run the SQL script:
+Run the SQL script in your Supabase SQL Editor or via psql:
 
 ```bash
-psql -f scripts/create_student_progress_tables.sql
+# Run the SQL migration in Supabase Studio SQL Editor
+# Or use psql with your SQL file
 ```
 
 ### 2. Track Question Attempts
@@ -261,7 +262,7 @@ Navigate to `/admin/student-progress` and select a course to see:
 
 ### Database
 
-- `scripts/create_student_progress_tables.sql`
+- SQL migration files should be created and run in Supabase Studio
 
 ### API Routes
 
@@ -278,4 +279,4 @@ Navigate to `/admin/student-progress` and select a course to see:
 
 ### Documentation
 
-- `docs/V2 Plan/student_progress_implementation.md`
+- This file contains the complete implementation guide

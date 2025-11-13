@@ -3,7 +3,7 @@ import { createClient } from "@/lib/supabase/server";
 import { createClient as createAdminClient } from "@supabase/supabase-js";
 
 // GET /api/courses/hierarchy-stats - Get 5-tier hierarchy statistics for all courses
-export async function GET(request: Request) {
+export async function GET() {
   try {
     const supabase = await createClient();
 
