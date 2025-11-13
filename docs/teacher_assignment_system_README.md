@@ -122,3 +122,4 @@ All UI components follow the existing design system:
 - File size limit: 10MB
 - Teachers can only access submissions from their assigned students
 - Students can only view their own graded submissions
+

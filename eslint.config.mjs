@@ -15,7 +15,6 @@ export default [
       ".next/**/*",
       "node_modules/**/*",
       "out/**/*",
-      "supabase/**/*",
       ".backup/**/*",
       "next.config.ts",
     ],
