@@ -821,6 +821,14 @@ export function CoursePageClient({
                 </div>
               )}
               <div className="flex items-center flex-wrap gap-2">
+                {course.status === "draft" && (
+                  <Badge
+                    variant="outline"
+                    className="border-blue-500 text-blue-700 bg-blue-50"
+                  >
+                    Upcoming
+                  </Badge>
+                )}
                 {isEnrolled && (
                   <Badge
                     variant="default"
@@ -1291,10 +1299,12 @@ export function CoursePageClient({
                                             {chapterLessons
                                               .sort((a, b) => a.order - b.order)
                                               .map((lesson) => {
-                                                const canAccess =
-                                                  isEnrolled ||
-                                                  lesson.isPreview ||
-                                                  course?.price === 0;
+                                                // For draft (upcoming) courses, only enrolled users can access
+                                                const canAccess = course?.status === "draft"
+                                                  ? isEnrolled
+                                                  : (isEnrolled ||
+                                                      lesson.isPreview ||
+                                                      course?.price === 0);
 
                                                 return (
                                                   <Link

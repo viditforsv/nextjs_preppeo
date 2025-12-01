@@ -1,24 +1,23 @@
-# Complete Course Structure Setup Guide
-## 5-Tier Hierarchy System
+# Course Structure Setup Guide
 
-This guide documents the complete process for setting up courses using our 5-tier hierarchical structure.
+Reference guide for the 5-tier course hierarchy system.
 
----
+## Quick Start
 
-## 📊 The 5-Tier System
+**For importing from Google Sheets master map:** See [COURSE_IMPORT_FROM_MASTER_MAP.md](./COURSE_IMPORT_FROM_MASTER_MAP.md)
+
+## Database Structure
 
 ```
 Course
-  └── Units (e.g., Algebra, Geometry)
-      └── Chapters (e.g., Linear Equations, Quadratic Equations)
-          └── Topics (e.g., Solving for single variable, Systems of equations)
-              └── Lessons (e.g., Isolation techniques, Elimination method)
-                  └── Tags (e.g., algebra, linear-equations, solving)
+  └── Units (courses_units)
+      └── Chapters (courses_chapters)
+          └── Topics (courses_topics)
+              └── Lessons (courses_lessons)
+                  └── Tags (lesson_tags)
 ```
 
----
-
-## 🗄️ Database Tables
+## Database Tables
 
 1. **`courses`** - Main course information
 2. **`courses_units`** - Course units/modules
@@ -27,19 +26,14 @@ Course
 5. **`courses_lessons`** - Individual lessons
 6. **`lesson_tags`** - Tags for searchability
 
----
+## Automated Setup (Recommended)
 
-## 📝 Setup Process Overview
+Use the import script for bulk imports from CSV:
+```bash
+npx tsx scripts/import-cbse-maths-course.ts [course-slug-or-id]
+```
 
-### Phase 1: Manual Setup (One-time)
-1. Create the Course (draft status)
-2. Create Units
-3. Create Chapters
-
-### Phase 2: Automated Setup (From CSV)
-4. Create Topics (from CSV)
-5. Create Lessons (from CSV)
-6. Create Tags (from CSV)
+See [COURSE_IMPORT_FROM_MASTER_MAP.md](./COURSE_IMPORT_FROM_MASTER_MAP.md) for details.
 
 ---
 

@@ -704,11 +704,53 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         throw error;
       }
 
+      if (!data.user) {
+        throw new Error("User creation failed - no user data returned");
+      }
+
       console.log("✅ signUp - Auth user created successfully:", {
-        userId: data.user?.id,
-        email: data.user?.email,
+        userId: data.user.id,
+        email: data.user.email,
         needsConfirmation: !data.session,
       });
+
+      // Create profile immediately using API route (bypasses RLS with service role)
+      try {
+        console.log("🔵 signUp - Creating profile via API...");
+        const profileResponse = await fetch("/api/profiles/create", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            userId: data.user.id,
+            email: data.user.email || email,
+            firstName: firstName,
+            lastName: lastName,
+            role: role,
+          }),
+        });
+
+        if (!profileResponse.ok) {
+          const errorData = await profileResponse.json();
+          console.error("❌ signUp - Profile creation error:", errorData);
+          // Don't throw - profile might already exist or will be created later
+          // The profile will be created when user confirms email and signs in
+        } else {
+          const profileData = await profileResponse.json();
+          console.log("✅ signUp - Profile created successfully:", profileData);
+        }
+      } catch (profileError) {
+        console.error("❌ signUp - Error calling profile API:", profileError);
+        // Don't throw - profile creation is not critical for signup success
+        // It will be created when user confirms email and signs in
+      }
+
+      return {
+        user: data.user,
+        session: data.session,
+        needsConfirmation: !data.session,
+      };
     },
     [supabase]
   );

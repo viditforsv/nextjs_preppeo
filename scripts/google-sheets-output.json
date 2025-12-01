@@ -1,0 +1,1556 @@
+{
+  "headers": [
+    "slug",
+    "pdf_url",
+    "solution_url"
+  ],
+  "data": [
+    {
+      "slug": "cbse_maths_10_001",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_001_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_001_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_002",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_002_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_002_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_003",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_003_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_003_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_004",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_004_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_004_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_005",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_005_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_005_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_006",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_006_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_006_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_007",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_007_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_007_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_008",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_008_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_008_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_009",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_009_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_009_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_010",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_010_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_010_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_011",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_011_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_011_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_012",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_012_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_012_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_013",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_013_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_013_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_014",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_014_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_014_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_015",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_015_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_015_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_016",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_016_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_016_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_017",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_017_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_017_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_018",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_018_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_018_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_019",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_019_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_019_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_020",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_020_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_020_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_021",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_021_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_021_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_022",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_022_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_022_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_023",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_023_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_023_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_024",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_024_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_024_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_025",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_025_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_025_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_026",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_026_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_026_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_027",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_027_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_027_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_028",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_028_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_028_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_029",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_029_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_029_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_030",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_030_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_030_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_031",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_031_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_031_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_032",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_032_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_032_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_033",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_033_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_033_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_034",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_034_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_034_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_035",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_035_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_035_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_036",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_036_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_036_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_037",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_037_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_037_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_038",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_038_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_038_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_039",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_039_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_039_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_040",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_040_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_040_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_041",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_041_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_041_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_042",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_042_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_042_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_043",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_043_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_043_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_044",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_044_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_044_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_045",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_045_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_045_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_046",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_046_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_046_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_047",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_047_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_047_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_048",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_048_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_048_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_049",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_049_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_049_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_050",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_050_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_050_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_051",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_051_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_051_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_052",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_052_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_052_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_053",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_053_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_053_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_054",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_054_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_054_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_055",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_055_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_055_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_056",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_056_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_056_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_057",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_057_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_057_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_058",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_058_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_058_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_059",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_059_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_059_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_060",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_060_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_060_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_061",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_061_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_061_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_062",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_062_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_062_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_063",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_063_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_063_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_064",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_064_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_064_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_065",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_065_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_065_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_066",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_066_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_066_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_067",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_067_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_067_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_068",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_068_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_068_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_069",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_069_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_069_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_070",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_070_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_070_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_071",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_071_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_071_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_072",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_072_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_072_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_073",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_073_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_073_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_074",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_074_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_074_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_075",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_075_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_075_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_076",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_076_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_076_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_077",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_077_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_077_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_078",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_078_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_078_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_079",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_079_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_079_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_080",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_080_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_080_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_081",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_081_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_081_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_082",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_082_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_082_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_083",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_083_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_083_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_084",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_084_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_084_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_085",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_085_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_085_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_086",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_086_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_086_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_087",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_087_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_087_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_088",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_088_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_088_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_089",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_089_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_089_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_090",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_090_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_090_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_091",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_091_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_091_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_092",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_092_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_092_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_093",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_093_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_093_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_094",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_094_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_094_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_095",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_095_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_095_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_096",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_096_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_096_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_097",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_097_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_097_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_098",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_098_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_098_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_099",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_099_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_099_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_100",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_100_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_100_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_101",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_101_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_101_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_102",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_102_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_102_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_103",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_103_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_103_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_104",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_104_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_104_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_105",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_105_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_105_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_106",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_106_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_106_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_107",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_107_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_107_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_108",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_108_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_108_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_109",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_109_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_109_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_110",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_110_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_110_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_111",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_111_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_111_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_112",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_112_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_112_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_113",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_113_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_113_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_114",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_114_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_114_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_115",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_115_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_115_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_116",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_116_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_116_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_117",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_117_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_117_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_118",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_118_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_118_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_119",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_119_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_119_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_120",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_120_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_120_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_121",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_121_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_121_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_122",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_122_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_122_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_123",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_123_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_123_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_124",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_124_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_124_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_125",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_125_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_125_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_126",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_126_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_126_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_127",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_127_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_127_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_128",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_128_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_128_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_129",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_129_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_129_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_130",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_130_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_130_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_131",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_131_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_131_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_132",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_132_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_132_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_133",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_133_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_133_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_134",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_134_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_134_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_135",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_135_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_135_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_136",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_136_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_136_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_137",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_137_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_137_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_138",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_138_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_138_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_139",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_139_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_139_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_140",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_140_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_140_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_141",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_141_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_141_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_142",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_142_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_142_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_143",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_143_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_143_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_144",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_144_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_144_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_145",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_145_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_145_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_146",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_146_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_146_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_147",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_147_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_147_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_148",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_148_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_148_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_149",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_149_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_149_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_150",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_150_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_150_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_151",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_151_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_151_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_152",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_152_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_152_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_153",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_153_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_153_with_solutions.html"
+    },
+    {
+      "slug": "cbse_maths_10_154",
+      "pdf_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_154_without_solutions.html",
+      "solution_url": "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_154_with_solutions.html"
+    }
+  ],
+  "raw": [
+    [
+      "slug",
+      "pdf_url",
+      "solution_url"
+    ],
+    [
+      "cbse_maths_10_001",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_001_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_001_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_002",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_002_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_002_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_003",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_003_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_003_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_004",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_004_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_004_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_005",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_005_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_005_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_006",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_006_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_006_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_007",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_007_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_007_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_008",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_008_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_008_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_009",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_009_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_009_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_010",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_010_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_010_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_011",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_011_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_011_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_012",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_012_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_012_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_013",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_013_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_013_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_014",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_014_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_014_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_015",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_015_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_015_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_016",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_016_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_016_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_017",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_017_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_017_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_018",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_018_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_018_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_019",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_019_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_019_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_020",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_020_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_020_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_021",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_021_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_021_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_022",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_022_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_022_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_023",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_023_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_023_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_024",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_024_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_024_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_025",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_025_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_025_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_026",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_026_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_026_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_027",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_027_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_027_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_028",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_028_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_028_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_029",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_029_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_029_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_030",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_030_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_030_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_031",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_031_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_031_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_032",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_032_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_032_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_033",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_033_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_033_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_034",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_034_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_034_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_035",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_035_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_035_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_036",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_036_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_036_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_037",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_037_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_037_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_038",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_038_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_038_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_039",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_039_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_039_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_040",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_040_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_040_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_041",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_041_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_041_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_042",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_042_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_042_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_043",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_043_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_043_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_044",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_044_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_044_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_045",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_045_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_045_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_046",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_046_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_046_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_047",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_047_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_047_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_048",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_048_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_048_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_049",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_049_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_049_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_050",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_050_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_050_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_051",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_051_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_051_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_052",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_052_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_052_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_053",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_053_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_053_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_054",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_054_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_054_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_055",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_055_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_055_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_056",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_056_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_056_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_057",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_057_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_057_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_058",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_058_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_058_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_059",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_059_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_059_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_060",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_060_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_060_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_061",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_061_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_061_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_062",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_062_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_062_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_063",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_063_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_063_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_064",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_064_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_064_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_065",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_065_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_065_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_066",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_066_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_066_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_067",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_067_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_067_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_068",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_068_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_068_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_069",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_069_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_069_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_070",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_070_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_070_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_071",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_071_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_071_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_072",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_072_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_072_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_073",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_073_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_073_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_074",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_074_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_074_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_075",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_075_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_075_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_076",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_076_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_076_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_077",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_077_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_077_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_078",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_078_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_078_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_079",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_079_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_079_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_080",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_080_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_080_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_081",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_081_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_081_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_082",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_082_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_082_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_083",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_083_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_083_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_084",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_084_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_084_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_085",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_085_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_085_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_086",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_086_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_086_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_087",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_087_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_087_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_088",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_088_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_088_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_089",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_089_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_089_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_090",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_090_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_090_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_091",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_091_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_091_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_092",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_092_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_092_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_093",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_093_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_093_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_094",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_094_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_094_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_095",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_095_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_095_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_096",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_096_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_096_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_097",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_097_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_097_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_098",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_098_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_098_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_099",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_099_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_099_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_100",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_100_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_100_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_101",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_101_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_101_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_102",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_102_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_102_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_103",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_103_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_103_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_104",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_104_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_104_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_105",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_105_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_105_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_106",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_106_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_106_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_107",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_107_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_107_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_108",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_108_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_108_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_109",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_109_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_109_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_110",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_110_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_110_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_111",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_111_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_111_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_112",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_112_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_112_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_113",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_113_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_113_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_114",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_114_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_114_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_115",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_115_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_115_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_116",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_116_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_116_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_117",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_117_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_117_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_118",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_118_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_118_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_119",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_119_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_119_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_120",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_120_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_120_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_121",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_121_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_121_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_122",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_122_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_122_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_123",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_123_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_123_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_124",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_124_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_124_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_125",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_125_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_125_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_126",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_126_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_126_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_127",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_127_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_127_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_128",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_128_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_128_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_129",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_129_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_129_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_130",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_130_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_130_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_131",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_131_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_131_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_132",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_132_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_132_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_133",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_133_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_133_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_134",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_134_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_134_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_135",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_135_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_135_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_136",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_136_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_136_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_137",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_137_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_137_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_138",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_138_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_138_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_139",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_139_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_139_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_140",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_140_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_140_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_141",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_141_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_141_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_142",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_142_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_142_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_143",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_143_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_143_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_144",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_144_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_144_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_145",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_145_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_145_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_146",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_146_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_146_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_147",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_147_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_147_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_148",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_148_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_148_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_149",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_149_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_149_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_150",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_150_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_150_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_151",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_151_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_151_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_152",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_152_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_152_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_153",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_153_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_153_with_solutions.html"
+    ],
+    [
+      "cbse_maths_10_154",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_154_without_solutions.html",
+      "https://shrividhyaclasses.b-cdn.net/cbse10_maths_course_with_pyq/html_for_pdfs/cbse_maths_10_154_with_solutions.html"
+    ]
+  ]
+}

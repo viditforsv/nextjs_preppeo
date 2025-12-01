@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils";
 
 interface CollapsibleProps {
   open?: boolean;
+  defaultOpen?: boolean;
   onOpenChange?: (open: boolean) => void;
   children: React.ReactNode;
 }
@@ -27,8 +28,8 @@ const CollapsibleContext = React.createContext<{
 });
 
 const Collapsible = React.forwardRef<HTMLDivElement, CollapsibleProps>(
-  ({ open, onOpenChange, children, ...props }, ref) => {
-    const [internalOpen, setInternalOpen] = React.useState(false);
+  ({ open, defaultOpen = false, onOpenChange, children, ...props }, ref) => {
+    const [internalOpen, setInternalOpen] = React.useState(defaultOpen);
     const isOpen = open !== undefined ? open : internalOpen;
     const handleOpenChange = onOpenChange || setInternalOpen;
 

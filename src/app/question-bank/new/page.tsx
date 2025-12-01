@@ -31,6 +31,7 @@ import {
 import { Label } from "@/app/components-demo/ui/ui-components/label";
 import { Switch } from "@/app/components-demo/ui/switch";
 import ImageUpload from "@/components/ImageUpload";
+import { SUBJECTS } from "@/lib/constants/subjects";
 
 interface QuestionForm {
   question_number: string;
@@ -786,6 +787,27 @@ export default function NewQuestionPage() {
                       }
                       placeholder="e.g., Derivatives, Integration"
                     />
+                  </div>
+
+                  <div>
+                    <Label htmlFor="subject">Subject</Label>
+                    <Select
+                      value={formData.subject}
+                      onValueChange={(value) =>
+                        handleInputChange("subject", value)
+                      }
+                    >
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select subject" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {SUBJECTS.map((subject) => (
+                          <SelectItem key={subject} value={subject}>
+                            {subject}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
                   </div>
 
                   <div>

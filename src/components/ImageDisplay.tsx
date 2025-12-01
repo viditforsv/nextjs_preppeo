@@ -29,7 +29,30 @@ export default function ImageDisplay({
   const [imageError, setImageError] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
 
-  if (!src || imageError) {
+  // Validate URL before rendering
+  const isValidUrl = (url: string): boolean => {
+    if (!url || !url.trim()) return false;
+    // Accept valid URL patterns: http/https URLs, relative paths, data URIs
+    if (
+      url.startsWith("http://") ||
+      url.startsWith("https://") ||
+      url.startsWith("/") ||
+      url.startsWith("data:") ||
+      url.startsWith("./") ||
+      url.startsWith("../")
+    ) {
+      return true;
+    }
+    // For absolute URLs without protocol, try to validate
+    try {
+      new URL(url, "http://localhost"); // Use dummy base for validation
+      return true;
+    } catch {
+      return false;
+    }
+  };
+
+  if (!src || !isValidUrl(src) || imageError) {
     return (
       <Card className={`border border-gray-200 ${className}`}>
         <CardContent className="p-4 text-center">

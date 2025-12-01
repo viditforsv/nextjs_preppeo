@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState, useCallback } from 'react'
 import * as pdfjsLib from 'pdfjs-dist'
+import { useScreenshotPrevention } from '@/hooks/useScreenshotPrevention'
 
 // Set up PDF.js worker - use a more reliable CDN
 pdfjsLib.GlobalWorkerOptions.workerSrc = `//cdn.jsdelivr.net/npm/pdfjs-dist@${pdfjsLib.version}/build/pdf.worker.min.js`
@@ -27,6 +28,9 @@ export function PDFViewer({ url, title = "PDF Document", className = "", height 
   const [useIframe, setUseIframe] = useState(useIframeFallback)
   const [adobeViewerReady, setAdobeViewerReady] = useState(false)
   const adobeContainerRef = useRef<HTMLDivElement>(null)
+
+  // Screenshot prevention for PDF viewer
+  const pdfContainerRef = useScreenshotPrevention(true)
 
   // Security: Prevent common download methods
   useEffect(() => {
@@ -288,7 +292,11 @@ export function PDFViewer({ url, title = "PDF Document", className = "", height 
   // Adobe PDF Embed API viewer
   if (useAdobeEmbed) {
     return (
-      <div className={`border rounded-sm bg-white ${className}`} style={{ height }}>
+      <div 
+        ref={pdfContainerRef}
+        className={`border rounded-sm bg-white ${className}`} 
+        style={{ height }}
+      >
         {/* Header */}
         <div className="flex items-center justify-between p-4 border-b bg-gray-50">
           <h3 className="font-semibold text-gray-900">{title}</h3>
@@ -322,7 +330,11 @@ export function PDFViewer({ url, title = "PDF Document", className = "", height 
   // Iframe fallback for external PDFs
   if (useIframe) {
     return (
-      <div className={`border rounded-sm bg-white ${className}`} style={{ height }}>
+      <div 
+        ref={pdfContainerRef}
+        className={`border rounded-sm bg-white ${className}`} 
+        style={{ height }}
+      >
         {/* Header */}
         <div className="flex items-center justify-between p-4 border-b bg-gray-50">
           <h3 className="font-semibold text-gray-900">{title}</h3>
@@ -356,6 +368,7 @@ export function PDFViewer({ url, title = "PDF Document", className = "", height 
 
   return (
     <div 
+      ref={pdfContainerRef}
       className={`border rounded-sm bg-white ${className}`} 
       style={{ height }}
       onContextMenu={(e) => e.preventDefault()}

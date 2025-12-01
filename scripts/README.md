@@ -62,6 +62,89 @@ npx tsx scripts/verify-env.ts
 
 ---
 
+### `sync-google-sheets.ts`
+
+Syncs local CSV file with Google Sheets using service account authentication.
+
+**Usage:**
+```bash
+# Using npm script
+npm run sync-google-sheets
+
+# Direct execution
+npx tsx scripts/sync-google-sheets.ts
+```
+
+**Prerequisites:**
+1. **Service Account Authentication (choose one method):**
+   - **Method 1:** Set `GOOGLE_SERVICE_ACCOUNT_JSON` environment variable with the full JSON key content
+   - **Method 2:** Set `GOOGLE_APPLICATION_CREDENTIALS` environment variable with path to JSON key file
+   - **Method 3:** Set `GOOGLE_SERVICE_ACCOUNT_KEY` environment variable with path to JSON key file
+   - **Method 4:** Place JSON key file as `google-service-account-key.json` in project root
+
+2. **Share Google Sheet with Service Account:**
+   - Open your Google Sheet
+   - Click "Share" button
+   - Add the service account email: `question-bank-manager@svi-question-bank-manager.iam.gserviceaccount.com`
+   - Give it "Editor" permissions
+
+3. **Environment Variables (optional):**
+   - `GOOGLE_SERVICE_ACCOUNT_JSON` - Full JSON key content as string (recommended for CI/CD)
+   - `GOOGLE_APPLICATION_CREDENTIALS` - Path to service account JSON key file (standard Google env var)
+   - `GOOGLE_SERVICE_ACCOUNT_KEY` - Path to service account JSON key file (custom env var)
+   - `GOOGLE_SHEETS_URL` - Full Google Sheets URL (default: uses the URL from your request)
+
+**What it does:**
+- Reads `Docs for me/master_map sheets/gre_quant.csv`
+- Extracts spreadsheet ID and sheet ID from the Google Sheets URL
+- Authenticates using the service account
+- Clears existing data in the sheet
+- Updates the sheet with CSV data (headers + rows)
+
+**Features:**
+- ✅ Automatic spreadsheet ID extraction from URL
+- ✅ Supports specific sheet tabs (via gid parameter)
+- ✅ Clears old data before syncing
+- ✅ Preserves CSV structure (slug, pdf_url, solution_url)
+
+**Example Output:**
+```
+🔄 Starting Google Sheets sync...
+
+📄 Reading CSV from: /path/to/gre_quant.csv
+   Found 83 rows
+
+🔐 Authenticating with Google Sheets...
+   Service Account Key: google-service-account-key.json
+   ✅ Authenticated successfully
+
+📋 Using sheet: Sheet1
+
+📊 Syncing 83 rows to Google Sheets...
+   Spreadsheet ID: 1Xezvw0_BXHTzZxw6lh4_4A1ybktAiZTwBFkgwx6bk8k
+   Sheet Name: Sheet1
+✅ Successfully synced CSV to Google Sheets!
+   Updated 83 data rows (plus header row)
+
+✨ Sync completed successfully!
+```
+
+**Troubleshooting:**
+
+- **"No service account credentials found"**
+  - Set one of the environment variables: `GOOGLE_SERVICE_ACCOUNT_JSON`, `GOOGLE_APPLICATION_CREDENTIALS`, or `GOOGLE_SERVICE_ACCOUNT_KEY`
+  - Or place the key file at `google-service-account-key.json` in the project root
+
+- **"The caller does not have permission"**
+  - Share the Google Sheet with the service account email: `question-bank-manager@svi-question-bank-manager.iam.gserviceaccount.com`
+  - Give it "Editor" permissions
+
+- **"Invalid Google Sheets URL"**
+  - Ensure the URL format is: `https://docs.google.com/spreadsheets/d/SPREADSHEET_ID/...`
+  - Or set `GOOGLE_SHEETS_URL` environment variable
+
+---
+
 ## 📝 Course JSON Structure
 
 ```json

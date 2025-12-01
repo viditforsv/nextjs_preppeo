@@ -55,6 +55,7 @@ import {
   DialogTitle,
 } from "@/app/components-demo/ui/dialog";
 import { QuizPlayer } from "@/components/QuizPlayer";
+import { useScreenshotPrevention } from "@/hooks/useScreenshotPrevention";
 
 interface LessonContent {
   id: string;
@@ -159,6 +160,9 @@ export function UnifiedLessonPage({
   const [currentMessage, setCurrentMessage] = useState("");
   const [isAITyping, setIsAITyping] = useState(false);
   const [isAssignmentTabActive, setIsAssignmentTabActive] = useState(false);
+
+  // Screenshot prevention for PDF viewer
+  const pdfContainerRef = useScreenshotPrevention(!!lesson.pdf_url && isAssignmentTabActive);
 
   // Inline editing state for admins
   const [editingField, setEditingField] = useState<string | null>(null);
@@ -881,7 +885,10 @@ export function UnifiedLessonPage({
                   ) : lesson.pdf_url ? (
                     <div className="space-y-4">
                       {/* Assignment PDF Embedder - Full height like CBSE Class 9 */}
-                      <div className="w-full h-[500px] md:h-[800px] border-2 border-[#feefea] rounded-sm overflow-hidden bg-gray-50">
+                      <div 
+                        ref={pdfContainerRef}
+                        className="w-full h-[500px] md:h-[800px] border-2 border-[#feefea] rounded-sm overflow-hidden bg-gray-50"
+                      >
                         {isAssignmentTabActive && (
                           <iframe
                             key={`assignment-${lesson.id}-${lesson.pdf_url}`}

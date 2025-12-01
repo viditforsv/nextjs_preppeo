@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
+import { createSupabaseApiClient } from "@/lib/supabase/api-client";
 import { z } from "zod";
 
 // Validation schemas
@@ -70,8 +71,35 @@ export async function GET(request: Request) {
       url: url?.substring(0, 30) + "...",
     });
     
-    const supabase = await createClient();
-    console.log("✅ Supabase client created");
+    // Try to use service role client first, fallback to regular client if service role key is missing
+    // Since RLS is disabled, either client should work
+    let supabase;
+    try {
+      supabase = createSupabaseApiClient();
+      console.log("✅ Supabase API client created (service role)");
+    } catch (clientError) {
+      console.warn("⚠️ Service role client failed, trying regular client:", clientError instanceof Error ? clientError.message : String(clientError));
+      try {
+        // Fallback to regular client if service role key is missing (RLS is disabled anyway)
+        supabase = await createClient();
+        console.log("✅ Supabase regular client created (fallback)");
+      } catch (fallbackError) {
+        console.error("❌ Both Supabase clients failed:", {
+          serviceRoleError: clientError instanceof Error ? clientError.message : String(clientError),
+          regularClientError: fallbackError instanceof Error ? fallbackError.message : String(fallbackError),
+        });
+        return NextResponse.json(
+          {
+            error: "Failed to initialize database connection",
+            details: {
+              serviceRoleError: clientError instanceof Error ? clientError.message : String(clientError),
+              regularClientError: fallbackError instanceof Error ? fallbackError.message : String(fallbackError),
+            },
+          },
+          { status: 500 }
+        );
+      }
+    }
     
     const { searchParams } = new URL(request.url);
     const id = searchParams.get("id");
@@ -135,6 +163,68 @@ export async function GET(request: Request) {
     }
 
     console.log("📊 Executing query...");
+    console.log("Query details:", {
+      table: "courses",
+      filters: { status, curriculum, isFreeParam },
+      orderBy: "created_at",
+      orderDirection: "desc"
+    });
+    
+    // First, verify the Supabase client is working with a simple test
+    console.log("🔧 Testing Supabase connection...");
+    const { data: testData, error: testError } = await supabase
+      .from("courses")
+      .select("id")
+      .limit(1);
+    
+    if (testError) {
+      console.error("❌ Test query failed:", {
+        message: testError.message,
+        details: testError.details,
+        hint: testError.hint,
+        code: testError.code,
+      });
+      
+      // Check if it's a table not found error
+      if (testError.code === "PGRST116" || testError.message?.includes("relation") || testError.message?.includes("does not exist")) {
+        return NextResponse.json(
+          { 
+            error: "Courses table not found",
+            details: "The 'courses' table does not exist in the database. Please check your database schema.",
+            hint: testError.hint,
+            code: testError.code,
+          }, 
+          { status: 500 }
+        );
+      }
+      
+      // Check if it's an authentication/connection error
+      if (testError.code === "PGRST301" || testError.message?.includes("JWT") || testError.message?.includes("authentication")) {
+        return NextResponse.json(
+          { 
+            error: "Database authentication failed",
+            details: "Unable to authenticate with Supabase. Please check your API keys.",
+            hint: testError.hint,
+            code: testError.code,
+          }, 
+          { status: 500 }
+        );
+      }
+      
+      return NextResponse.json(
+        { 
+          error: "Database connection failed",
+          details: testError.message || "Unable to connect to database",
+          hint: testError.hint,
+          code: testError.code,
+        }, 
+        { status: 500 }
+      );
+    }
+    
+    console.log("✅ Test query successful, table exists");
+    
+    // Now execute the actual query
     const { data: courses, error } = await query;
 
     if (error) {
@@ -146,34 +236,34 @@ export async function GET(request: Request) {
         fullError: JSON.stringify(error, null, 2)
       });
       
-      // Try a simple test query to verify connection
-      console.log("🔧 Testing basic connection...");
-      const { data: testData, error: testError } = await supabase
-        .from("courses")
-        .select("id")
-        .limit(1);
-      
-      console.log("Test query result:", { testData, testError });
-      
       return NextResponse.json(
         { 
           error: error.message || "Failed to fetch courses",
           details: error.details,
           hint: error.hint,
           code: error.code,
-          testQuery: testError ? testError.message : "Connection OK"
         }, 
         { status: 500 }
       );
     }
 
     console.log(`✅ Successfully fetched ${courses?.length || 0} courses`);
+    console.log("Sample course data:", courses?.[0] ? {
+      id: courses[0].id,
+      title: courses[0].title,
+      slug: courses[0].slug,
+      status: courses[0].status,
+      hasThumbnail: !!courses[0].thumbnail_url
+    } : "No courses found");
+    
     return NextResponse.json({ courses: courses || [] });
   } catch (error) {
+    console.error("❌ Unexpected error in GET /api/courses:", error);
     return NextResponse.json(
       {
         error:
           error instanceof Error ? error.message : "Failed to fetch courses",
+        details: error instanceof Error ? error.stack : undefined,
       },
       { status: 500 }
     );

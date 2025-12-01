@@ -32,6 +32,7 @@ import {
 import { useAuth } from "@/contexts/AuthContext";
 import { PDFAssignmentSidebar } from "@/components/PDFAssignmentSidebar";
 import { createClient } from "@/lib/supabase/client";
+import { useScreenshotPrevention } from "@/hooks/useScreenshotPrevention";
 import {
   Sheet,
   SheetContent,
@@ -73,6 +74,9 @@ export function SeparatePDFLessonPage({
   const [isUploading, setIsUploading] = useState(false);
   const [showPDFViewer, setShowPDFViewer] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(true);
+
+  // Screenshot prevention for PDF viewer
+  const pdfContainerRef = useScreenshotPrevention(showPDFViewer && !!currentAssignment?.pdfUrl);
   const [submissionStatus, setSubmissionStatus] = useState<
     "idle" | "uploading" | "success" | "error"
   >("idle");
@@ -435,7 +439,10 @@ export function SeparatePDFLessonPage({
                   </div>
 
                   {showPDFViewer && (
-                    <div className="border rounded-lg p-4">
+                    <div 
+                      ref={pdfContainerRef}
+                      className="border rounded-lg p-4"
+                    >
                       <iframe
                         src={currentAssignment.pdfUrl}
                         width="100%"

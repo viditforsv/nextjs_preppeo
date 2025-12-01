@@ -7,6 +7,14 @@ import { Input } from "@/app/components-demo/ui/ui-components/input";
 import { Textarea } from "@/app/components-demo/ui/textarea";
 import { Badge } from "@/app/components-demo/ui/ui-components/badge";
 import { Label } from "@/app/components-demo/ui/ui-components/label";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/app/components-demo/ui/select";
+import { SUBJECTS } from "@/lib/constants/subjects";
 import { ArrowLeft, Save, Edit, Trash2, Copy } from "lucide-react";
 import { Skeleton } from "@/app/components-demo/ui/ui-components/skeleton";
 import { renderMultiPartQuestion } from "@/components/MathRenderer";
@@ -579,14 +587,23 @@ export default function QuestionDetailPage() {
                   <Label htmlFor="subject" className="text-sm">
                     Subject
                   </Label>
-                  <Input
-                    id="subject"
+                  <Select
                     value={question.subject || ""}
-                    onChange={(e) =>
-                      setQuestion({ ...question, subject: e.target.value })
+                    onValueChange={(value) =>
+                      setQuestion({ ...question, subject: value })
                     }
-                    className="mt-1"
-                  />
+                  >
+                    <SelectTrigger className="mt-1">
+                      <SelectValue placeholder="Select subject" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {SUBJECTS.map((subject) => (
+                        <SelectItem key={subject} value={subject}>
+                          {subject}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
                 </div>
                 <div>
                   <Label htmlFor="board" className="text-sm">
@@ -939,7 +956,7 @@ export default function QuestionDetailPage() {
               <h3 className="font-medium mb-2 text-gray-900">Question</h3>
 
               {/* Question Image */}
-              {question.image_url && (
+              {question.image_url && question.image_url.trim() && (
                 <div className="mb-4">
                   <ImageDisplay
                     src={question.image_url}
@@ -962,7 +979,7 @@ export default function QuestionDetailPage() {
                 <h3 className="font-medium mb-2 text-gray-900">Solution</h3>
 
                 {/* Solution Image */}
-                {question.solution_image && (
+                {question.solution_image && question.solution_image.trim() && (
                   <div className="mb-4">
                     <ImageDisplay
                       src={question.solution_image}

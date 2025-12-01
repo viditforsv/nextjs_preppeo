@@ -43,6 +43,7 @@ import { IBDPMathLessonPage } from "@/components/IBDPMathTemplate";
 import { UnifiedLessonPage } from "@/components/UnifiedLessonPage";
 import { renderMixedContent } from "@/components/MathRenderer";
 import { QuizPlayer } from "@/components/QuizPlayer";
+import { useScreenshotPrevention } from "@/hooks/useScreenshotPrevention";
 
 // Function to load questions for a lesson (client-side)
 function useQuestionsForLesson(lessonId: string) {
@@ -81,6 +82,7 @@ interface Course {
   created_at: string;
   template_data?: Record<string, unknown>;
   template_id?: string;
+  status?: string;
   profiles?: {
     first_name: string;
     last_name: string;
@@ -161,6 +163,9 @@ export default function DynamicLessonPage({
     lesson?.id || ""
   );
 
+  // Screenshot prevention for PDF viewer
+  const pdfContainerRef = useScreenshotPrevention(!!lesson?.pdf_url && activeTab === "assignment");
+
   // Resolve params
   useEffect(() => {
     params.then(setResolvedParams);
@@ -214,6 +219,7 @@ export default function DynamicLessonPage({
           created_at: courseData.created_at,
           template_data: courseData.template_data || {},
           template_id: courseData.template_id,
+          status: courseData.status,
           profiles: {
             first_name: "System",
             last_name: "Admin",
@@ -222,6 +228,7 @@ export default function DynamicLessonPage({
         setCourse(course);
 
         // 2. Check enrollment status
+        let enrollmentStatus = false;
         if (user) {
           const { data: enrollmentData } = await supabase
             .from("courses_enrollments")
@@ -231,9 +238,17 @@ export default function DynamicLessonPage({
             .eq("is_active", true)
             .maybeSingle();
 
-          setIsEnrolled(!!enrollmentData);
+          enrollmentStatus = !!enrollmentData;
+          setIsEnrolled(enrollmentStatus);
         } else {
           setIsEnrolled(false);
+        }
+
+        // 3. Check if course is draft (upcoming) - prevent lesson access unless enrolled
+        if (courseData.status === "draft" && profile?.role !== "admin") {
+          if (!enrollmentStatus) {
+            throw new Error("This course is upcoming. Please enroll to access lessons when the course is published.");
+          }
         }
 
         // 3. Set default tab based on template
@@ -463,6 +478,11 @@ export default function DynamicLessonPage({
     // Admin has access to everything
     if (profile?.role === "admin") {
       return true;
+    }
+
+    // If course is draft (upcoming), only enrolled users can access
+    if (course?.status === "draft") {
+      return isEnrolled;
     }
 
     const isFree = course?.price === 0;
@@ -1554,7 +1574,10 @@ export default function DynamicLessonPage({
                     {lesson.pdf_url ? (
                       <div className="space-y-4">
                         {/* Assignment PDF Embedder - Try direct embedding first */}
-                        <div className="w-full h-[500px] md:h-[800px] border-2 border-gray-200 rounded-sm overflow-hidden bg-gray-50">
+                        <div 
+                          ref={pdfContainerRef}
+                          className="w-full h-[500px] md:h-[800px] border-2 border-gray-200 rounded-sm overflow-hidden bg-gray-50"
+                        >
                           <iframe
                             src={lesson.pdf_url}
                             className="w-full h-full"

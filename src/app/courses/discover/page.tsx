@@ -111,17 +111,83 @@ export default function CourseDiscoveryPage() {
       try {
         console.log("Fetching courses from API...");
         const response = await fetch("/api/courses");
-        console.log("Response status:", response.status);
+        
+        console.log("Response received:", {
+          status: response.status,
+          statusText: response.statusText,
+          ok: response.ok,
+          headers: Object.fromEntries(response.headers.entries()),
+        });
+        
         if (response.ok) {
-          const data = await response.json();
-          console.log("Courses data:", data);
-          setCourses(data.courses || []);
+          const contentType = response.headers.get("content-type");
+          console.log("Content-Type:", contentType);
+          
+          if (contentType && contentType.includes("application/json")) {
+            const data = await response.json();
+            console.log("Courses data:", data);
+            setCourses(data.courses || []);
+          } else {
+            const text = await response.text();
+            console.error("Unexpected content type. Response:", text.substring(0, 200));
+            setCourses([]);
+          }
         } else {
-          console.error("Failed to fetch courses:", response.statusText);
+          // Try to get error details from response
+          const contentType = response.headers.get("content-type");
+          let errorData: any = {};
+          let errorText = "";
+          
+          console.log("Error response content-type:", contentType);
+          
+          try {
+            if (contentType && contentType.includes("application/json")) {
+              errorText = await response.text();
+              if (errorText) {
+                try {
+                  errorData = JSON.parse(errorText);
+                } catch (parseError) {
+                  console.error("Failed to parse JSON:", parseError);
+                  errorData = { error: errorText, raw: errorText };
+                }
+              }
+            } else {
+              // Try to read as text for non-JSON responses
+              errorText = await response.text();
+              errorData = { 
+                error: errorText || `HTTP ${response.status}: ${response.statusText}`,
+                raw: errorText 
+              };
+            }
+          } catch (readError) {
+            console.error("Could not read error response:", readError);
+            errorData = { 
+              error: `HTTP ${response.status}: ${response.statusText}`,
+              readError: readError instanceof Error ? readError.message : String(readError)
+            };
+          }
+          
+          console.error("Failed to fetch courses:", {
+            status: response.status,
+            statusText: response.statusText,
+            contentType,
+            error: errorData.error || errorData.message || "Unknown error",
+            details: errorData.details,
+            hint: errorData.hint,
+            code: errorData.code,
+            fullError: errorData,
+            rawResponse: errorText || "No response body",
+          });
           setCourses([]);
         }
       } catch (error) {
-        console.error("Error fetching courses:", error);
+        // Network error or fetch failed entirely
+        console.error("Network error fetching courses:", {
+          error,
+          name: error instanceof Error ? error.name : "Unknown",
+          message: error instanceof Error ? error.message : "Unknown error",
+          stack: error instanceof Error ? error.stack : undefined,
+        });
         setCourses([]);
       }
     };
@@ -202,9 +268,9 @@ export default function CourseDiscoveryPage() {
   // Filter and sort courses
   const filteredCourses = useMemo(() => {
     const filtered = courses.filter((course) => {
-      // Only show published courses for non-admins
-      // Admins can see both published and draft courses
-      if (!isAdmin && course.status !== "published") {
+      // Show published and draft courses to all users
+      // Draft courses will be shown as "upcoming"
+      if (course.status === "archived") {
         return false;
       }
 
@@ -771,9 +837,9 @@ function CourseCard({ course, viewMode }: CourseCardProps) {
                       {course.status === "draft" && (
                         <Badge
                           variant="outline"
-                          className="border-yellow-500 text-yellow-700 bg-yellow-50"
+                          className="border-blue-500 text-blue-700 bg-blue-50"
                         >
-                          Draft
+                          Upcoming
                         </Badge>
                       )}
                     </div>
@@ -895,9 +961,9 @@ function CourseCard({ course, viewMode }: CourseCardProps) {
               {course.status === "draft" && (
                 <Badge
                   variant="outline"
-                  className="border-yellow-500 text-yellow-700 bg-yellow-50"
+                  className="border-blue-500 text-blue-700 bg-blue-50"
                 >
-                  Draft
+                  Upcoming
                 </Badge>
               )}
             </div>
