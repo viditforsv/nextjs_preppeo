@@ -95,13 +95,14 @@ async function main() {
     console.log(`📦 Processing batch ${batchNum}/${totalBatches} (${batch.length} records)...`);
     
     try {
-      let result;
+      let result: { error: { message: string } | null; data: unknown };
       
       if (mode === "upsert") {
         // Upsert: insert or update based on primary key
-        result = await supabase
+        const upsertResult = await supabase
           .from(tableName)
           .upsert(batch, { onConflict: "id", ignoreDuplicates: false });
+        result = { error: upsertResult.error, data: upsertResult.data };
       } else if (mode === "update") {
         // Update: only update existing records
         const updates = await Promise.all(
@@ -120,9 +121,10 @@ async function main() {
         }
       } else {
         // Insert: fails on duplicates
-        result = await supabase
+        const insertResult = await supabase
           .from(tableName)
           .insert(batch);
+        result = { error: insertResult.error, data: insertResult.data };
       }
       
       if (result.error) {
@@ -130,9 +132,9 @@ async function main() {
         errorCount += batch.length;
         errors.push(`Batch ${batchNum}: ${result.error.message}`);
       } else {
-        const inserted = result.data?.length || batch.length;
-        successCount += inserted;
-        console.log(`   ✅ Batch ${batchNum} completed: ${inserted} records`);
+        const dataLength = Array.isArray(result.data) ? result.data.length : batch.length;
+        successCount += dataLength;
+        console.log(`   ✅ Batch ${batchNum} completed: ${dataLength} records`);
       }
     } catch (error) {
       console.error(`   ❌ Batch ${batchNum} error: ${error instanceof Error ? error.message : error}`);

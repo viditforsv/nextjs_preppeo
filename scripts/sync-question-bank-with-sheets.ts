@@ -112,7 +112,7 @@ async function getSheetName(sheets: any, spreadsheetId: string, gid: number | nu
   return { name: "Sheet1", sheetId: 0 };
 }
 
-async function importFromSheets(supabase: ReturnType<typeof createClient>, sheets: any, spreadsheetId: string, sheetName: string) {
+async function importFromSheets(supabase: ReturnType<typeof createClient<any, "public">>, sheets: any, spreadsheetId: string, sheetName: string) {
   console.log(`\n📥 Importing questions from Google Sheets to Supabase...`);
   
   try {
@@ -195,7 +195,7 @@ async function importFromSheets(supabase: ReturnType<typeof createClient>, sheet
               const options = value.split(/[,;]/).map((opt: string) => ({
                 value: opt.trim(),
                 label: opt.trim(),
-              })).filter(opt => opt.value);
+              })).filter((opt: { value: string; label: string }) => opt.value);
               questionData.options = options;
               console.log(`   ✅ Row ${i + 2}: Using comma-separated format, created ${options.length} options`);
             }
@@ -329,10 +329,11 @@ async function importFromSheets(supabase: ReturnType<typeof createClient>, sheet
       // Use upsert: update if ID exists, insert if not
       if (questionId) {
         questionData.id = questionId;
-        const { error, data } = await supabase
+        const result = await supabase
           .from("question_bank")
-          .upsert([questionData], { onConflict: "id" })
+          .upsert([questionData] as never, { onConflict: "id" })
           .select();
+        const { error, data } = result as { error: { message: string } | null; data: Array<{ options?: unknown }> | null };
         
         if (error) {
           console.log(`   ❌ Row ${i + 2}: ${error.message}`);
@@ -348,9 +349,10 @@ async function importFromSheets(supabase: ReturnType<typeof createClient>, sheet
         }
       } else {
         // No ID provided, insert as new
-        const { error } = await supabase
+        const result = await supabase
           .from("question_bank")
-          .insert([questionData]);
+          .insert([questionData] as never);
+        const { error } = result as { error: { message: string } | null };
 
         if (error) {
           console.log(`   ❌ Row ${i + 2}: ${error.message}`);
@@ -373,7 +375,7 @@ async function importFromSheets(supabase: ReturnType<typeof createClient>, sheet
   }
 }
 
-async function exportToSheets(supabase: ReturnType<typeof createClient>, sheets: any, spreadsheetId: string, sheetName: string) {
+async function exportToSheets(supabase: ReturnType<typeof createClient<any, "public">>, sheets: any, spreadsheetId: string, sheetName: string) {
   console.log(`\n📤 Exporting questions from Supabase to Google Sheets...`);
   
   try {
