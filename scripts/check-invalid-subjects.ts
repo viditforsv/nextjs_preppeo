@@ -48,13 +48,13 @@ async function checkInvalidSubjects() {
   });
 
   // Check which subjects are valid
-  const validSubjects = new Set(SUBJECTS);
+  const validSubjects = new Set<string>(SUBJECTS);
   const invalidSubjects: Array<{ subject: string; count: number }> = [];
   const validSubjectsFound: Array<{ subject: string; count: number }> = [];
 
   uniqueSubjects.forEach((subject) => {
     const count = subjectCounts.get(subject) || 0;
-    if (validSubjects.has(subject)) {
+    if (validSubjects.has(subject as string)) {
       validSubjectsFound.push({ subject, count });
     } else {
       invalidSubjects.push({ subject, count });

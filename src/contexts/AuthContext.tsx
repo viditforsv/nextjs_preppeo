@@ -29,7 +29,7 @@ interface AuthContextType {
     password: string,
     fullName: string,
     role?: UserRole
-  ) => Promise<void>;
+  ) => Promise<{ user: User; session: Session | null; needsConfirmation: boolean }>;
   signOut: () => Promise<void>;
   signInWithGoogle: () => Promise<void>;
   resetPassword: (email: string) => Promise<void>;

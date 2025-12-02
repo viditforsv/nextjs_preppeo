@@ -258,7 +258,10 @@ async function main() {
     console.log("\n📄 Sheet Data:");
     console.log("=".repeat(80));
     
-    if (result.data.length > 0) {
+    // Check if result is an array (empty) or an object with data
+    if (Array.isArray(result)) {
+      console.log("\n⚠️  No data found in sheet");
+    } else if (result.data && result.data.length > 0) {
       // Display first few rows as preview
       const previewRows = Math.min(5, result.data.length);
       console.log("\nHeaders:", result.headers.join(" | "));

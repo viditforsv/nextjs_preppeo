@@ -51,8 +51,8 @@ export function MultiSelect({
     }
   };
 
-  const handleRemove = (value: string, e: React.MouseEvent) => {
-    e.stopPropagation();
+  const handleRemove = (value: string, e?: React.MouseEvent | React.KeyboardEvent) => {
+    e?.stopPropagation();
     onChange(selected.filter((item) => item !== value));
   };
 

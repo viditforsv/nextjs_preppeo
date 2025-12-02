@@ -301,9 +301,10 @@ export async function POST(request: NextRequest) {
       }
     }
 
+    const options = Array.isArray(questionData.options) ? questionData.options : [];
     console.log("💾 Inserting question with options:", {
-      options_count: questionData.options.length,
-      options: questionData.options,
+      options_count: options.length,
+      options: options,
     });
 
     // Insert the question
