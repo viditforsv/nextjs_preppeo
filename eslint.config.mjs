@@ -51,6 +51,15 @@ export default [
       "react-hooks/exhaustive-deps": "warn",
       "jsx-a11y/alt-text": "error",
       "@next/next/no-img-element": "warn",
+      // Suppress false positive Tailwind class warnings
+      // These are valid Tailwind classes that some linters incorrectly flag
+      "no-restricted-syntax": [
+        "off",
+        {
+          selector: "Literal[value=/bg-linear-to-br/]",
+          message: "bg-gradient-to-br is the correct Tailwind class",
+        },
+      ],
     },
   },
 ];

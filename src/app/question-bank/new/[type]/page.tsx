@@ -783,7 +783,7 @@ export default function NewQuestionTypePage() {
                                 </div>
 
                                 {/* Option letter/value */}
-                                <div className="flex-shrink-0 w-12">
+                                <div className="shrink-0 w-12">
                                   <Label className="text-xs font-semibold text-gray-600 mb-1 block">
                                     Option
                                   </Label>
@@ -829,7 +829,7 @@ export default function NewQuestionTypePage() {
                                   variant="outline"
                                   size="sm"
                                   onClick={() => removeOption(index)}
-                                  className="text-red-600 hover:text-red-700 hover:bg-red-50 flex-shrink-0 mt-6"
+                                  className="text-red-600 hover:text-red-700 hover:bg-red-50 shrink-0 mt-6"
                                 >
                                   <Trash2 className="w-4 h-4" />
                                 </Button>
