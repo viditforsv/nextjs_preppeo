@@ -19,7 +19,10 @@
     "cleanup-duplicates": "npx tsx scripts/cleanup-duplicates.ts",
     "sync-google-sheets": "npx tsx scripts/sync-google-sheets.ts",
     "migrate:prod": "npx tsx scripts/migrate-to-prod.ts",
-    "export:dev": "npx tsx scripts/export-dev-data.ts"
+    "export:dev": "npx tsx scripts/export-dev-data.ts",
+    "import:prod": "npx tsx scripts/import-prod-data.ts",
+    "sync:questions:sheets": "npx tsx scripts/sync-question-bank-with-sheets.ts",
+    "populate:questions": "npx tsx scripts/populate-questions.ts"
   },
   "dependencies": {
     "@dnd-kit/core": "^6.3.1",

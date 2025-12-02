@@ -474,8 +474,8 @@ export default function QuizCreatorPage() {
                                     key={lesson.id}
                                     className="flex items-center px-2 py-1.5 text-sm cursor-pointer hover:bg-accent hover:text-accent-foreground"
                                     onClick={() => {
-                                      setQuizForm({
-                                        ...quizForm,
+                        setQuizForm({
+                          ...quizForm,
                                         lesson_id: lesson.id,
                                       });
                                       setLessonPopoverOpen(false);
@@ -489,9 +489,9 @@ export default function QuizCreatorPage() {
                                           : "opacity-0"
                                       }`}
                                     />
-                                    {lesson.lesson_code}: {lesson.title}
+                            {lesson.lesson_code}: {lesson.title}
                                   </div>
-                                ))}
+                        ))}
                             </>
                           )}
                         </div>

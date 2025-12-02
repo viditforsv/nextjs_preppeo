@@ -819,14 +819,38 @@ export function QuizPlayer({ quizId }: QuizPlayerProps) {
                     </div>
                     )}
                 </div>
-              ) : currentQuestion.question_bank.question_type === "mcq" &&
-                currentQuestion.question_bank.options &&
-                Array.isArray(currentQuestion.question_bank.options) &&
-                currentQuestion.question_bank.options.length > 0 ? (
+              ) : (() => {
+                // Parse options if they come as a string (JSONB might be stringified)
+                let options = currentQuestion.question_bank.options;
+                if (options && typeof options === "string") {
+                  try {
+                    options = JSON.parse(options);
+                  } catch (e) {
+                    console.error("Failed to parse options:", e);
+                    return false;
+                  }
+                }
+                return currentQuestion.question_bank.question_type === "mcq" &&
+                  options &&
+                  Array.isArray(options) &&
+                  options.length > 0;
+              })() ? (
                 // MCQ Options with Check Answer button pattern
                 <div className="space-y-4">
                 <div className="space-y-2">
-                  {currentQuestion.question_bank.options?.map(
+                  {(() => {
+                    // Parse options if needed
+                    let options = currentQuestion.question_bank.options;
+                    if (options && typeof options === "string") {
+                      try {
+                        options = JSON.parse(options);
+                      } catch (e) {
+                        console.error("Failed to parse options:", e);
+                        return [];
+                      }
+                    }
+                    return Array.isArray(options) ? options : [];
+                  })().map(
                       (option: QuizOption, index: number) => {
                         const questionId = currentQuestion.question_bank.id;
                         const isSelected =

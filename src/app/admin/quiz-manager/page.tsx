@@ -242,10 +242,10 @@ export default function QuizManagerPage() {
                           variant="outline"
                           size="sm"
                           className="w-full"
-                        >
-                          <Eye className="w-4 h-4 mr-2" />
+                      >
+                        <Eye className="w-4 h-4 mr-2" />
                           Preview
-                        </Button>
+                      </Button>
                       </Link>
                       <Button
                         variant="outline"
