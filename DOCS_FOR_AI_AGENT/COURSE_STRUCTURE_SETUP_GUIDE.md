@@ -28,12 +28,12 @@ Course
 
 ## Automated Setup (Recommended)
 
-Use the import script for bulk imports from CSV:
+Use the sync script for bulk imports from CSV:
 ```bash
-npx tsx scripts/import-cbse-maths-course.ts [course-slug-or-id]
+npx tsx scripts/sync-cbse-course-from-csv.ts <course-uuid>
 ```
 
-See [COURSE_IMPORT_FROM_MASTER_MAP.md](./COURSE_IMPORT_FROM_MASTER_MAP.md) for details.
+**Note:** The sync script requires a course UUID. Use `npx tsx scripts/find-cbse-courses.ts` to find existing courses.
 
 ---
 

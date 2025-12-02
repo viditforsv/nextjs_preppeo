@@ -29,6 +29,9 @@ export default function ImageDisplay({
   const [imageError, setImageError] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
 
+  // Trim the src to remove any trailing/leading spaces (Next.js requirement)
+  const trimmedSrc = src?.trim() || "";
+
   // Validate URL before rendering
   const isValidUrl = (url: string): boolean => {
     if (!url || !url.trim()) return false;
@@ -52,7 +55,7 @@ export default function ImageDisplay({
     }
   };
 
-  if (!src || !isValidUrl(src) || imageError) {
+  if (!trimmedSrc || !isValidUrl(trimmedSrc) || imageError) {
     return (
       <Card className={`border border-gray-200 ${className}`}>
         <CardContent className="p-4 text-center">
@@ -63,17 +66,17 @@ export default function ImageDisplay({
   }
 
   const openInNewTab = () => {
-    window.open(src, "_blank");
+    window.open(trimmedSrc, "_blank");
   };
 
   const downloadImage = async () => {
     try {
-      const response = await fetch(src);
+      const response = await fetch(trimmedSrc);
       const blob = await response.blob();
       const url = window.URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url;
-      a.download = src.split("/").pop() || "image";
+      a.download = trimmedSrc.split("/").pop() || "image";
       document.body.appendChild(a);
       a.click();
       window.URL.revokeObjectURL(url);
@@ -96,7 +99,7 @@ export default function ImageDisplay({
             <div className="relative group">
               <div className="relative overflow-hidden rounded-sm">
                 <Image
-                  src={src}
+                  src={trimmedSrc}
                   alt={alt}
                   width={maxWidth}
                   height={maxHeight}
@@ -195,7 +198,7 @@ export default function ImageDisplay({
               ✕
             </Button>
             <Image
-              src={src}
+              src={trimmedSrc}
               alt={alt}
               width={1200}
               height={800}

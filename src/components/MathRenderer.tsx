@@ -272,6 +272,12 @@ function renderMathContent(content: string, baseIndex: number) {
       const imageIndex = parseInt(imagePlaceholderMatch[1]);
       const image = images[imageIndex];
       if (image) {
+        // Trim the image URL to prevent Next.js errors about trailing spaces
+        const trimmedUrl = image.url.trim();
+        if (!trimmedUrl) {
+          return null; // Skip if URL is empty after trimming
+        }
+        
         const imageWidth = image.options.includes("width")
           ? image.options.match(/width=([^,}]+)/)?.[1] || "auto"
           : "auto";
@@ -279,7 +285,7 @@ function renderMathContent(content: string, baseIndex: number) {
         return (
           <div key={`${baseIndex}-${index}`} className="my-4 text-center">
             <Image
-              src={image.url}
+              src={trimmedUrl}
               alt="Question diagram"
               width={imageWidth === "auto" ? 800 : parseInt(imageWidth) || 800}
               height={600}
@@ -288,7 +294,7 @@ function renderMathContent(content: string, baseIndex: number) {
                 width: imageWidth,
               }}
               onError={(e) => {
-                console.error("Image failed to load:", image.url);
+                console.error("Image failed to load:", trimmedUrl);
                 const target = e.target as HTMLImageElement;
                 target.style.display = "none";
               }}
@@ -398,11 +404,13 @@ function processIncludegraphics(content: string): {
   const processedContent = content.replace(
     includegraphicsPattern,
     (match, options, url) => {
+      // Trim the URL to prevent Next.js errors about trailing spaces
+      const trimmedUrl = url.trim();
       const imageIndex = images.length;
-      images.push({ url, options: options || "" });
+      images.push({ url: trimmedUrl, options: options || "" });
 
       console.log(
-        `🖼️ Found includegraphics: ${url} with options: ${options || "none"}`
+        `🖼️ Found includegraphics: ${trimmedUrl} with options: ${options || "none"}`
       );
 
       // Replace with a placeholder that we'll handle in the renderer

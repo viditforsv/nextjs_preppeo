@@ -23,7 +23,8 @@ export async function GET(request: NextRequest) {
           courses_lessons!quizzes_lesson_id_fkey (
             id,
             title,
-            lesson_code
+            lesson_code,
+            course_id
           )
         `
         )
@@ -52,7 +53,8 @@ export async function GET(request: NextRequest) {
         courses_lessons!quizzes_lesson_id_fkey (
           id,
           title,
-          lesson_code
+          lesson_code,
+          course_id
         )
       `,
         { count: "exact" }

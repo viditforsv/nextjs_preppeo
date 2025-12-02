@@ -21,6 +21,8 @@ import {
   Award,
   ChevronLeft,
   ChevronRight,
+  ChevronDown,
+  ChevronUp,
 } from "lucide-react";
 import { renderMultiPartQuestion } from "@/components/MathRenderer";
 import { Checkbox } from "@/app/components-demo/ui/ui-components/checkbox";
@@ -52,6 +54,13 @@ interface Quiz {
   title: string;
   difficulty: string;
   time_limit: number | null;
+  lesson_id?: string | null;
+  courses_lessons?: {
+    id: string;
+    title: string;
+    lesson_code: string;
+    course_id?: string;
+  } | null;
 }
 
 interface QuizPlayerProps {
@@ -68,6 +77,12 @@ export function QuizPlayer({ quizId }: QuizPlayerProps) {
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const [timeRemaining, setTimeRemaining] = useState<number | null>(null);
   const [score, setScore] = useState<number | null>(null);
+  const [questionStartTimes, setQuestionStartTimes] = useState<Record<string, number>>({});
+  const [recordedAttempts, setRecordedAttempts] = useState<Set<string>>(new Set());
+  const [quizSessionId] = useState<string>(`quiz_${quizId}_${Date.now()}`);
+  const [checkedAnswers, setCheckedAnswers] = useState<Record<string, boolean>>({});
+  const [currentQuestionTime, setCurrentQuestionTime] = useState<number>(0);
+  const [showExplanations, setShowExplanations] = useState<Record<string, boolean>>({});
 
   const fetchQuizData = useCallback(async () => {
     try {
@@ -102,11 +117,153 @@ export function QuizPlayer({ quizId }: QuizPlayerProps) {
     fetchQuizData();
   }, [fetchQuizData]);
 
+  // Track when a question is viewed to measure time spent
+  useEffect(() => {
+    if (started && !submitted && questions.length > 0 && currentQuestionIndex >= 0) {
+      const currentQuestion = questions[currentQuestionIndex];
+      if (currentQuestion) {
+        const startTime = Date.now();
+        setQuestionStartTimes((prev) => ({
+          ...prev,
+          [currentQuestion.question_bank.id]: startTime,
+        }));
+        setCurrentQuestionTime(0); // Reset timer for new question
+      }
+    }
+  }, [currentQuestionIndex, started, submitted, questions]);
+
+  // Update current question timer every second
+  useEffect(() => {
+    if (started && !submitted && questions.length > 0 && currentQuestionIndex >= 0) {
+      const currentQuestion = questions[currentQuestionIndex];
+      if (currentQuestion) {
+        const startTime = questionStartTimes[currentQuestion.question_bank.id];
+        if (startTime) {
+          const interval = setInterval(() => {
+            const elapsed = Math.floor((Date.now() - startTime) / 1000);
+            setCurrentQuestionTime(elapsed);
+          }, 1000);
+
+          return () => clearInterval(interval);
+        }
+      }
+    }
+  }, [started, submitted, currentQuestionIndex, questions, questionStartTimes]);
+
+  const recordQuestionAttempt = useCallback(async (
+    questionId: string,
+    selectedAnswer: string,
+    correctAnswer: string | undefined
+  ) => {
+    // Don't record if no correct answer
+    if (!correctAnswer) {
+      return;
+    }
+
+    // Check if already recorded and mark as recording
+    setRecordedAttempts((prev) => {
+      if (prev.has(questionId)) {
+        return prev; // Already recorded, return same set
+      }
+      // Mark as recording immediately to prevent duplicates
+      return new Set(prev).add(questionId);
+    });
+
+    // Get time taken
+    const startTime = questionStartTimes[questionId] || Date.now();
+    const timeTaken = Math.max(1, Math.floor((Date.now() - startTime) / 1000));
+    const isCorrect = selectedAnswer === correctAnswer;
+
+    try {
+      const response = await fetch("/api/student-progress/attempts", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          question_id: questionId,
+          lesson_id: quiz?.lesson_id || null,
+          course_id: quiz?.courses_lessons?.course_id || null,
+          time_taken_seconds: timeTaken,
+          is_correct: isCorrect,
+          hint_used: false,
+          session_id: quizSessionId,
+          session_order: questions.findIndex(q => q.question_bank.id === questionId) + 1,
+        }),
+      });
+
+      if (response.ok) {
+        console.log(`✅ Recorded attempt: ${isCorrect ? "Correct" : "Incorrect"} (${timeTaken}s)`);
+      } else {
+        const errorData = await response.json();
+        console.error("Error recording attempt:", errorData);
+        // Remove from recorded set if failed
+        setRecordedAttempts((prev) => {
+          const newSet = new Set(prev);
+          newSet.delete(questionId);
+          return newSet;
+        });
+      }
+    } catch (error) {
+      console.error("Error recording attempt:", error);
+      // Remove from recorded set if failed
+      setRecordedAttempts((prev) => {
+        const newSet = new Set(prev);
+        newSet.delete(questionId);
+        return newSet;
+      });
+    }
+  }, [questionStartTimes, quiz, quizSessionId, questions]);
+
   const handleAnswer = (questionId: string, answer: string) => {
     setAnswers({
       ...answers,
       [questionId]: answer,
     });
+    
+    // If answer was already checked and user is changing it, clear checked state
+    // (but only if the previous answer was wrong - if correct, it stays locked)
+    if (checkedAnswers[questionId]) {
+      const currentQuestion = questions.find(
+        (q) => q.question_bank.id === questionId
+      );
+      const wasCorrect = 
+        currentQuestion?.question_bank.correct_answer &&
+        answers[questionId] === currentQuestion.question_bank.correct_answer;
+      
+      // Only clear if the previous answer was wrong
+      if (!wasCorrect) {
+        setCheckedAnswers({
+          ...checkedAnswers,
+          [questionId]: false,
+        });
+      }
+    }
+  };
+
+  const handleCheckAnswer = (questionId: string) => {
+    setCheckedAnswers({
+      ...checkedAnswers,
+      [questionId]: true,
+    });
+
+    // Record attempt when answer is checked (for MCQ and True/False)
+    const currentQuestion = questions.find(
+      (q) => q.question_bank.id === questionId
+    );
+    
+    if (
+      (currentQuestion?.question_bank.question_type === "mcq" ||
+        currentQuestion?.question_bank.question_type === "true_false") &&
+      currentQuestion?.question_bank.correct_answer &&
+      answers[questionId]
+    ) {
+      recordQuestionAttempt(
+        questionId,
+        answers[questionId],
+        currentQuestion.question_bank.correct_answer
+      );
+    }
   };
 
   const handleSubmit = useCallback(() => {
@@ -154,6 +311,9 @@ export function QuizPlayer({ quizId }: QuizPlayerProps) {
     setAnswers({});
     setScore(null);
     setCurrentQuestionIndex(0);
+    setRecordedAttempts(new Set());
+    setQuestionStartTimes({});
+    setCheckedAnswers({});
     if (quiz?.time_limit) {
       setTimeRemaining(quiz.time_limit * 60);
     }
@@ -165,6 +325,9 @@ export function QuizPlayer({ quizId }: QuizPlayerProps) {
     setAnswers({});
     setScore(null);
     setCurrentQuestionIndex(0);
+    setRecordedAttempts(new Set());
+    setQuestionStartTimes({});
+    setCheckedAnswers({});
     if (quiz?.time_limit) {
       setTimeRemaining(quiz.time_limit * 60);
     }
@@ -427,102 +590,428 @@ export function QuizPlayer({ quizId }: QuizPlayerProps) {
         <Card>
           <CardHeader>
             <div className="flex items-start justify-between">
-              <div>
+              <div className="flex-1">
                 <CardTitle>Question {currentQuestionIndex + 1}</CardTitle>
                 <CardDescription>
                   {currentQuestion.question_bank.total_marks} mark(s) •
                   Difficulty: {currentQuestion.question_bank.difficulty}/10
                 </CardDescription>
               </div>
+              <div className="flex items-center gap-3">
+                {/* Question Timer */}
+                {started && !submitted && (
+                  <div className="flex items-center gap-2">
+                    <Clock className="w-4 h-4 text-muted-foreground" />
+                    <span
+                      className={`font-semibold ${
+                        currentQuestionTime >= 90
+                          ? "text-red-600"
+                          : currentQuestionTime >= 70
+                          ? "text-yellow-600"
+                          : "text-foreground"
+                      }`}
+                    >
+                      {formatTime(currentQuestionTime)}
+                    </span>
+                  </div>
+                )}
               <Badge variant="outline">
                 {currentQuestion.question_bank.question_type}
               </Badge>
+              </div>
             </div>
           </CardHeader>
           <CardContent className="space-y-6">
             {/* Question Text */}
-            <div className="prose prose-sm max-w-none">
+            <div className="mb-6">
+              <div className="prose prose-base max-w-none text-foreground">
               {renderMultiPartQuestion(
                 currentQuestion.question_bank.question_text
               )}
+              </div>
             </div>
 
-            {/* Answer Input */}
+            {/* Answer Options */}
             <div className="space-y-4">
-              <label className="text-sm font-semibold">Your Answer:</label>
 
               {currentQuestion.question_bank.question_type === "true_false" ? (
-                // True/False Options
+                // True/False Options with Check Answer button
+                <div className="space-y-4">
                 <div className="space-y-2">
-                  {["True", "False"].map((option) => (
-                    <div
-                      key={option}
-                      className={`p-4 border-2 rounded-lg cursor-pointer transition-all ${
-                        answers[currentQuestion.question_bank.id] === option
-                          ? "border-primary bg-primary/5"
-                          : "border-gray-200 hover:border-primary/50"
-                      }`}
-                      onClick={() =>
-                        handleAnswer(currentQuestion.question_bank.id, option)
+                    {["True", "False"].map((option) => {
+                      const questionId = currentQuestion.question_bank.id;
+                      const isSelected = answers[questionId] === option;
+                      const correctAnswer =
+                        currentQuestion.question_bank.correct_answer;
+                      const isCorrect = option === correctAnswer;
+                      const isChecked = checkedAnswers[questionId] || false;
+                      const isAnswerCorrect = isChecked && answers[questionId] === correctAnswer;
+
+                      let optionClassName = "w-full flex items-center space-x-2 p-4 border-2 rounded-lg transition-all cursor-pointer ";
+                      if (isChecked) {
+                        if (isAnswerCorrect && isCorrect) {
+                          // Correct answer - only show in green if user got it right
+                          optionClassName +=
+                            "bg-green-50 border-green-500";
+                        } else if (isSelected && !isAnswerCorrect) {
+                          // Selected but wrong - show in red
+                          optionClassName +=
+                            "bg-red-50 border-red-500";
+                        } else {
+                          // Not selected, not correct - normal styling
+                          optionClassName +=
+                            "border-gray-200 hover:bg-gray-50";
+                        }
+                      } else if (isSelected) {
+                        optionClassName += "bg-blue-50 border-blue-500";
+                      } else {
+                        optionClassName +=
+                          "border-gray-200 hover:border-primary/50";
                       }
+
+                      // Only disable if answer is correct
+                      if (isChecked && isAnswerCorrect) {
+                        optionClassName += " cursor-not-allowed";
+                      }
+
+                      return (
+                        <button
+                          key={option}
+                          onClick={() => {
+                            // Allow changing answer if wrong, but not if correct
+                            if (!(isChecked && isAnswerCorrect)) {
+                              handleAnswer(questionId, option);
+                            }
+                          }}
+                          disabled={isChecked && isAnswerCorrect}
+                          className={optionClassName}
+                        >
+                          <Checkbox
+                            checked={isSelected}
+                            disabled={isChecked && isAnswerCorrect}
+                          />
+                          <span className="font-medium flex-1 text-left">
+                            {option}
+                          </span>
+                          {isChecked && isAnswerCorrect && isCorrect && (
+                            <CheckCircle className="w-5 h-5 text-green-600" />
+                          )}
+                          {isChecked && isSelected && !isAnswerCorrect && (
+                            <XCircle className="w-5 h-5 text-red-600" />
+                          )}
+                        </button>
+                      );
+                    })}
+                  </div>
+
+                  {/* Check Answer Button */}
+                  <div className="flex gap-2">
+                    {answers[currentQuestion.question_bank.id] &&
+                      !(checkedAnswers[currentQuestion.question_bank.id] &&
+                        answers[currentQuestion.question_bank.id] ===
+                          currentQuestion.question_bank.correct_answer) && (
+                        <Button
+                          onClick={() =>
+                            handleCheckAnswer(currentQuestion.question_bank.id)
+                          }
+                          className="bg-primary hover:bg-primary/90"
+                        >
+                          {checkedAnswers[currentQuestion.question_bank.id]
+                            ? "Check Answer Again"
+                            : "Check Answer"}
+                        </Button>
+                      )}
+                    <Button
+                      variant="outline"
+                      onClick={() => {
+                        const questionId = currentQuestion.question_bank.id;
+                        setAnswers({
+                          ...answers,
+                          [questionId]: "",
+                        });
+                        setCheckedAnswers({
+                          ...checkedAnswers,
+                          [questionId]: false,
+                        });
+                        setShowExplanations((prev) => ({
+                          ...prev,
+                          [questionId]: false,
+                        }));
+                      }}
                     >
-                      <div className="flex items-center gap-3">
-                        <Checkbox
-                          checked={
-                            answers[currentQuestion.question_bank.id] === option
-                          }
-                          onCheckedChange={() =>
-                            handleAnswer(
-                              currentQuestion.question_bank.id,
-                              option
-                            )
-                          }
-                        />
-                        <span className="font-medium">{option}</span>
+                      Reset
+                    </Button>
+                  </div>
+
+                  {/* Answer Feedback */}
+                  {checkedAnswers[currentQuestion.question_bank.id] &&
+                    currentQuestion.question_bank.correct_answer && (
+                      <div
+                        className={`p-3 border rounded-sm ${
+                          answers[currentQuestion.question_bank.id] ===
+                          currentQuestion.question_bank.correct_answer
+                            ? "bg-green-50 border-green-200"
+                            : "bg-red-50 border-red-200"
+                        }`}
+                      >
+                        <p
+                          className={`text-sm font-medium mb-1 ${
+                            answers[currentQuestion.question_bank.id] ===
+                            currentQuestion.question_bank.correct_answer
+                              ? "text-green-800"
+                              : "text-red-800"
+                          }`}
+                        >
+                          {answers[currentQuestion.question_bank.id] ===
+                          currentQuestion.question_bank.correct_answer
+                            ? "✓ Correct!"
+                            : "✗ Incorrect"}
+                        </p>
+                        {answers[currentQuestion.question_bank.id] ===
+                          currentQuestion.question_bank.correct_answer && (
+                          <p className="text-sm text-green-700">
+                            <span className="font-medium">Correct Answer: </span>
+                            {currentQuestion.question_bank.correct_answer}
+                          </p>
+                        )}
                       </div>
+                    )}
+
+                  {/* Show explanation toggle if available and answer is checked */}
+                  {checkedAnswers[currentQuestion.question_bank.id] &&
+                    currentQuestion.question_bank.explanation && (
+                      <div className="mt-4">
+                        <Button
+                          variant="outline"
+                          className="w-full justify-between"
+                          onClick={() => {
+                            const questionId = currentQuestion.question_bank.id;
+                            setShowExplanations((prev) => ({
+                              ...prev,
+                              [questionId]: !prev[questionId],
+                            }));
+                          }}
+                        >
+                          <span className="text-sm font-medium">
+                            {showExplanations[currentQuestion.question_bank.id]
+                              ? "Hide Explanation"
+                              : "Show Explanation"}
+                          </span>
+                          {showExplanations[currentQuestion.question_bank.id] ? (
+                            <ChevronUp className="w-4 h-4" />
+                          ) : (
+                            <ChevronDown className="w-4 h-4" />
+                          )}
+                        </Button>
+                        {showExplanations[currentQuestion.question_bank.id] && (
+                          <div className="mt-3 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+                            <p className="text-sm font-semibold mb-2 text-blue-900">
+                              Explanation:
+                            </p>
+                            <div className="prose prose-sm max-w-none text-blue-800">
+                              {renderMultiPartQuestion(
+                                currentQuestion.question_bank.explanation
+                              )}
+                            </div>
+                          </div>
+                        )}
                     </div>
-                  ))}
+                    )}
                 </div>
               ) : currentQuestion.question_bank.question_type === "mcq" &&
                 currentQuestion.question_bank.options &&
                 Array.isArray(currentQuestion.question_bank.options) &&
                 currentQuestion.question_bank.options.length > 0 ? (
-                // MCQ Options
+                // MCQ Options with Check Answer button pattern
+                <div className="space-y-4">
                 <div className="space-y-2">
                   {currentQuestion.question_bank.options?.map(
-                    (option: QuizOption, index: number) => (
-                      <div
-                        key={index}
-                        className={`p-3 border rounded-lg cursor-pointer transition-all ${
-                          answers[currentQuestion.question_bank.id] ===
-                          option.value
-                            ? "border-primary bg-primary/5"
-                            : "border-gray-200 hover:border-primary/50"
-                        }`}
-                        onClick={() =>
-                          handleAnswer(
-                            currentQuestion.question_bank.id,
-                            option.value
-                          )
+                      (option: QuizOption, index: number) => {
+                        const questionId = currentQuestion.question_bank.id;
+                        const isSelected =
+                          answers[questionId] === option.value;
+                        const correctAnswer =
+                          currentQuestion.question_bank.correct_answer;
+                        const isCorrect = option.value === correctAnswer;
+                        const isChecked = checkedAnswers[questionId] || false;
+
+                        // Determine styling based on selection and checked state
+                        const isAnswerCorrect = isChecked && answers[questionId] === correctAnswer;
+                        let optionClassName = "w-full flex items-center space-x-2 p-3 border rounded-sm transition-all cursor-pointer ";
+                        if (isChecked) {
+                          if (isAnswerCorrect && isCorrect) {
+                            // Correct answer - only show in green if user got it right
+                            optionClassName +=
+                              "bg-green-50 border-green-500 border-2";
+                          } else if (isSelected && !isAnswerCorrect) {
+                            // Selected but wrong - show in red
+                            optionClassName +=
+                              "bg-red-50 border-red-500 border-2";
+                          } else {
+                            // Not selected, not correct - normal styling
+                            optionClassName +=
+                              "border-gray-200 hover:bg-gray-50";
+                          }
+                        } else if (isSelected) {
+                          optionClassName += "bg-blue-50 border-blue-500";
+                        } else {
+                          optionClassName +=
+                            "border-gray-200 hover:bg-gray-50";
                         }
+
+                        // Only disable if answer is correct
+                        if (isChecked && isAnswerCorrect) {
+                          optionClassName += " cursor-not-allowed";
+                        }
+
+                        return (
+                          <button
+                            key={index}
+                            onClick={() => {
+                              // Allow changing answer if wrong, but not if correct
+                              if (!(isChecked && isAnswerCorrect)) {
+                                handleAnswer(questionId, option.value);
+                              }
+                            }}
+                            disabled={isChecked && isAnswerCorrect}
+                            className={optionClassName}
+                          >
+                            <div
+                              className={`w-6 h-6 flex items-center justify-center border-2 rounded-sm text-sm font-medium ${
+                                isSelected || (isChecked && isAnswerCorrect && isCorrect)
+                                  ? "bg-primary border-primary text-white"
+                                  : "border-primary text-primary"
+                              }`}
+                            >
+                              {String.fromCharCode(65 + index)}
+                            </div>
+                            <span className="flex-1 text-left">
+                              {option.label || option.value}
+                            </span>
+                            {isChecked && isAnswerCorrect && isCorrect && (
+                              <CheckCircle className="w-5 h-5 text-green-600" />
+                            )}
+                            {isChecked && isSelected && !isAnswerCorrect && (
+                              <XCircle className="w-5 h-5 text-red-600" />
+                            )}
+                          </button>
+                        );
+                      }
+                    )}
+                  </div>
+
+                  {/* Check Answer Button */}
+                  <div className="flex gap-2">
+                    {answers[currentQuestion.question_bank.id] &&
+                      !(checkedAnswers[currentQuestion.question_bank.id] &&
+                        answers[currentQuestion.question_bank.id] ===
+                          currentQuestion.question_bank.correct_answer) && (
+                        <Button
+                          onClick={() =>
+                            handleCheckAnswer(currentQuestion.question_bank.id)
+                          }
+                          className="bg-primary hover:bg-primary/90"
+                        >
+                          {checkedAnswers[currentQuestion.question_bank.id]
+                            ? "Check Answer Again"
+                            : "Check Answer"}
+                        </Button>
+                      )}
+                    <Button
+                      variant="outline"
+                      onClick={() => {
+                        const questionId = currentQuestion.question_bank.id;
+                        setAnswers({
+                          ...answers,
+                          [questionId]: "",
+                        });
+                        setCheckedAnswers({
+                          ...checkedAnswers,
+                          [questionId]: false,
+                        });
+                        setShowExplanations((prev) => ({
+                          ...prev,
+                          [questionId]: false,
+                        }));
+                      }}
+                    >
+                      Reset
+                    </Button>
+                  </div>
+
+                  {/* Answer Feedback */}
+                  {checkedAnswers[currentQuestion.question_bank.id] &&
+                    currentQuestion.question_bank.correct_answer && (
+                      <div
+                        className={`p-3 border rounded-sm ${
+                          answers[currentQuestion.question_bank.id] ===
+                          currentQuestion.question_bank.correct_answer
+                            ? "bg-green-50 border-green-200"
+                            : "bg-red-50 border-red-200"
+                        }`}
                       >
-                        <div className="flex items-center gap-3">
-                          <Checkbox
-                            checked={
+                        <p
+                          className={`text-sm font-medium mb-1 ${
                               answers[currentQuestion.question_bank.id] ===
-                              option.value
-                            }
-                            onCheckedChange={() =>
-                              handleAnswer(
-                                currentQuestion.question_bank.id,
-                                option.value
-                              )
-                            }
-                          />
-                          <span>{option.label || option.value}</span>
-                        </div>
+                            currentQuestion.question_bank.correct_answer
+                              ? "text-green-800"
+                              : "text-red-800"
+                          }`}
+                        >
+                          {answers[currentQuestion.question_bank.id] ===
+                          currentQuestion.question_bank.correct_answer
+                            ? "✓ Correct!"
+                            : "✗ Incorrect"}
+                        </p>
+                        {answers[currentQuestion.question_bank.id] ===
+                          currentQuestion.question_bank.correct_answer && (
+                          <p className="text-sm text-green-700">
+                            <span className="font-medium">Correct Answer: </span>
+                            {currentQuestion.question_bank.correct_answer}
+                          </p>
+                        )}
                       </div>
-                    )
+                    )}
+
+                  {/* Show explanation toggle if available and answer is checked */}
+                  {checkedAnswers[currentQuestion.question_bank.id] &&
+                    currentQuestion.question_bank.explanation && (
+                      <div className="mt-4">
+                        <Button
+                          variant="outline"
+                          className="w-full justify-between"
+                          onClick={() => {
+                            const questionId = currentQuestion.question_bank.id;
+                            setShowExplanations((prev) => ({
+                              ...prev,
+                              [questionId]: !prev[questionId],
+                            }));
+                          }}
+                        >
+                          <span className="text-sm font-medium">
+                            {showExplanations[currentQuestion.question_bank.id]
+                              ? "Hide Explanation"
+                              : "Show Explanation"}
+                          </span>
+                          {showExplanations[currentQuestion.question_bank.id] ? (
+                            <ChevronUp className="w-4 h-4" />
+                          ) : (
+                            <ChevronDown className="w-4 h-4" />
+                          )}
+                        </Button>
+                        {showExplanations[currentQuestion.question_bank.id] && (
+                          <div className="mt-3 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+                            <p className="text-sm font-semibold mb-2 text-blue-900">
+                              Explanation:
+                            </p>
+                            <div className="prose prose-sm max-w-none text-blue-800">
+                              {renderMultiPartQuestion(
+                                currentQuestion.question_bank.explanation
+                              )}
+                            </div>
+                        </div>
+                        )}
+                      </div>
                   )}
                 </div>
               ) : currentQuestion.question_bank.question_type ===

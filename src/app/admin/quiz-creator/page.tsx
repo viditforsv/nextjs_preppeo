@@ -27,6 +27,11 @@ import {
   DialogTitle,
 } from "@/app/components-demo/ui/dialog";
 import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/app/components-demo/ui/popover";
+import {
   Search,
   Plus,
   X,
@@ -35,6 +40,8 @@ import {
   ArrowLeft,
   ChevronLeft,
   ChevronRight,
+  Check,
+  ChevronDown,
 } from "lucide-react";
 import { Checkbox } from "@/app/components-demo/ui/ui-components/checkbox";
 import { renderMultiPartQuestion } from "@/components/MathRenderer";
@@ -106,6 +113,10 @@ export default function QuizCreatorPage() {
   const [topicFilter, setTopicFilter] = useState("");
   const [courseFilter, setCourseFilter] = useState("any");
 
+  // Lesson search state
+  const [lessonSearch, setLessonSearch] = useState("");
+  const [lessonPopoverOpen, setLessonPopoverOpen] = useState(false);
+
   // Pagination state
   const [page, setPage] = useState(1);
   const [limit] = useState(10);
@@ -125,9 +136,10 @@ export default function QuizCreatorPage() {
     questionTypes: [] as string[],
   });
 
-  // Fetch courses and lessons
+  // Fetch courses, lessons, and filter options
   useEffect(() => {
     fetchCourses();
+    fetchFilterOptions();
   }, []);
 
   // Fetch lessons when course is selected
@@ -137,6 +149,11 @@ export default function QuizCreatorPage() {
     } else {
       setLessons([]);
     }
+    // Reset lesson selection and search when course changes
+    setQuizForm({ ...quizForm, lesson_id: null });
+    setLessonSearch("");
+    setLessonPopoverOpen(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [courseFilter]);
 
   // Fetch questions with filters
@@ -178,6 +195,22 @@ export default function QuizCreatorPage() {
     }
   };
 
+  const fetchFilterOptions = async () => {
+    try {
+      const response = await fetch("/api/question-bank/filters");
+      if (response.ok) {
+        const data = await response.json();
+        setFilterOptions({
+          subjects: data.subjects || [],
+          difficulties: data.difficulties || [],
+          questionTypes: data.question_types || [],
+        });
+      }
+    } catch (error) {
+      console.error("Error fetching filter options:", error);
+    }
+  };
+
   const fetchQuestions = useCallback(async () => {
     setLoading(true);
     try {
@@ -199,25 +232,6 @@ export default function QuizCreatorPage() {
         setQuestions(data.questions || []);
         setTotalQuestions(data.total || 0);
         setTotalPages(data.totalPages || 0);
-
-        // Extract filter options from questions
-        if (data.questions && data.questions.length > 0) {
-          const subjects = [
-            ...new Set(data.questions.map((q: Question) => q.subject)),
-          ];
-          const difficulties = [
-            ...new Set(data.questions.map((q: Question) => q.difficulty)),
-          ];
-          const questionTypes = [
-            ...new Set(data.questions.map((q: Question) => q.question_type)),
-          ];
-
-          setFilterOptions({
-            subjects: subjects as string[],
-            difficulties: difficulties as number[],
-            questionTypes: questionTypes as string[],
-          });
-        }
       }
     } catch (error) {
       console.error("Error fetching questions:", error);
@@ -385,27 +399,104 @@ export default function QuizCreatorPage() {
                 {courseFilter && courseFilter !== "any" && (
                   <div className="space-y-2">
                     <Label htmlFor="lesson">Lesson (Optional)</Label>
-                    <Select
-                      value={quizForm.lesson_id || "none"}
-                      onValueChange={(value) =>
-                        setQuizForm({
-                          ...quizForm,
-                          lesson_id: value === "none" ? null : value,
-                        })
-                      }
-                    >
-                      <SelectTrigger id="lesson">
-                        <SelectValue placeholder="Select lesson" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="none">No Lesson</SelectItem>
-                        {lessons.map((lesson) => (
-                          <SelectItem key={lesson.id} value={lesson.id}>
-                            {lesson.lesson_code}: {lesson.title}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
+                    <Popover open={lessonPopoverOpen} onOpenChange={setLessonPopoverOpen}>
+                      <PopoverTrigger asChild>
+                        <Button
+                          variant="outline"
+                          role="combobox"
+                          className="w-full justify-between"
+                          id="lesson"
+                        >
+                          <span className="truncate">
+                            {(() => {
+                              if (!quizForm.lesson_id) return "No Lesson";
+                              const selectedLesson = lessons.find(
+                                (l) => l.id === quizForm.lesson_id
+                              );
+                              return selectedLesson
+                                ? `${selectedLesson.lesson_code}: ${selectedLesson.title}`
+                                : "Select lesson...";
+                            })()}
+                          </span>
+                          <ChevronDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                        </Button>
+                      </PopoverTrigger>
+                      <PopoverContent className="w-[var(--radix-popover-trigger-width)] p-0">
+                        <div className="p-2">
+                          <div className="relative">
+                            <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
+                            <Input
+                              placeholder="Search lessons..."
+                              value={lessonSearch}
+                              onChange={(e) => setLessonSearch(e.target.value)}
+                              className="pl-8"
+                            />
+                          </div>
+                        </div>
+                        <div className="max-h-[300px] overflow-auto">
+                          {lessons
+                            .filter((lesson) =>
+                              `${lesson.lesson_code} ${lesson.title}`
+                                .toLowerCase()
+                                .includes(lessonSearch.toLowerCase())
+                            )
+                            .length === 0 ? (
+                            <div className="p-4 text-center text-sm text-muted-foreground">
+                              No lessons found
+                            </div>
+                          ) : (
+                            <>
+                              <div
+                                className="flex items-center px-2 py-1.5 text-sm cursor-pointer hover:bg-accent hover:text-accent-foreground"
+                                onClick={() => {
+                                  setQuizForm({ ...quizForm, lesson_id: null });
+                                  setLessonPopoverOpen(false);
+                                  setLessonSearch("");
+                                }}
+                              >
+                                <Check
+                                  className={`mr-2 h-4 w-4 ${
+                                    !quizForm.lesson_id
+                                      ? "opacity-100"
+                                      : "opacity-0"
+                                  }`}
+                                />
+                                No Lesson
+                              </div>
+                              {lessons
+                                .filter((lesson) =>
+                                  `${lesson.lesson_code} ${lesson.title}`
+                                    .toLowerCase()
+                                    .includes(lessonSearch.toLowerCase())
+                                )
+                                .map((lesson) => (
+                                  <div
+                                    key={lesson.id}
+                                    className="flex items-center px-2 py-1.5 text-sm cursor-pointer hover:bg-accent hover:text-accent-foreground"
+                                    onClick={() => {
+                                      setQuizForm({
+                                        ...quizForm,
+                                        lesson_id: lesson.id,
+                                      });
+                                      setLessonPopoverOpen(false);
+                                      setLessonSearch("");
+                                    }}
+                                  >
+                                    <Check
+                                      className={`mr-2 h-4 w-4 ${
+                                        quizForm.lesson_id === lesson.id
+                                          ? "opacity-100"
+                                          : "opacity-0"
+                                      }`}
+                                    />
+                                    {lesson.lesson_code}: {lesson.title}
+                                  </div>
+                                ))}
+                            </>
+                          )}
+                        </div>
+                      </PopoverContent>
+                    </Popover>
                   </div>
                 )}
 

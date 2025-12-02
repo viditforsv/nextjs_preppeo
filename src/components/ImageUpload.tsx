@@ -70,7 +70,8 @@ export default function ImageUpload({
       const result = await response.json();
       
       if (result.success && result.url) {
-        onChange(result.url);
+        // Trim the URL to prevent Next.js errors about trailing spaces
+        onChange(result.url.trim());
         console.log("✅ Image uploaded successfully:", result.url);
       } else {
         throw new Error("Upload response missing URL");
@@ -202,7 +203,7 @@ export default function ImageUpload({
           type="url"
           placeholder="https://your-cdn.com/image.png"
           value={value}
-          onChange={(e) => onChange(e.target.value)}
+          onChange={(e) => onChange(e.target.value.trim())}
           disabled={disabled}
           className="text-sm"
         />

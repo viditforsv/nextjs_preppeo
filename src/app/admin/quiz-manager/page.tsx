@@ -234,18 +234,19 @@ export default function QuizManagerPage() {
 
                     {/* Actions */}
                     <div className="flex gap-2 pt-2">
-                      <Button
-                        variant="outline"
-                        size="sm"
+                      <Link
+                        href={`/admin/quiz-preview/${quiz.id}`}
                         className="flex-1"
-                        onClick={() => {
-                          // TODO: Implement view quiz
-                          console.log("View quiz:", quiz.id);
-                        }}
                       >
-                        <Eye className="w-4 h-4 mr-2" />
-                        View
-                      </Button>
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          className="w-full"
+                        >
+                          <Eye className="w-4 h-4 mr-2" />
+                          Preview
+                        </Button>
+                      </Link>
                       <Button
                         variant="outline"
                         size="sm"

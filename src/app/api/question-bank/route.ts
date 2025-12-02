@@ -231,3 +231,103 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
   }
 }
+
+export async function POST(request: NextRequest) {
+  try {
+    const supabase = createSupabaseApiClient();
+    const body = await request.json();
+
+    console.log("📝 POST /api/question-bank - Received data:", {
+      question_type: body.question_type,
+      has_question_text: !!body.question_text,
+      options_count: Array.isArray(body.options) ? body.options.length : 0,
+      has_correct_answer: !!body.correct_answer,
+    });
+
+    // Validate required fields
+    if (!body.question_text || !body.question_type) {
+      return NextResponse.json(
+        { error: "question_text and question_type are required" },
+        { status: 400 }
+      );
+    }
+
+    // Prepare the question data
+    const questionData: Record<string, unknown> = {
+      question_text: body.question_text,
+      question_type: body.question_type,
+      subject: body.subject || "IBDP Mathematics AA HL",
+      difficulty: body.difficulty || 5,
+      total_marks: body.total_marks || 1,
+      grade: body.grade || "12",
+      topic: body.topic || null,
+      subtopic: body.subtopic || null,
+      tags: body.tags || [],
+      boards: body.boards || [],
+      course_types: body.course_types || [],
+      levels: body.levels || [],
+      is_pyq: body.is_pyq || false,
+      pyq_year: body.pyq_year || null,
+      month: body.month || null,
+      paper_number: body.paper_number || null,
+      "Time Zone": body["Time Zone"] || null,
+      explanation: body.explanation || null,
+      correct_answer: body.correct_answer || null,
+      calculator: body.calculator || null,
+      solution_image: body.solution_image || null,
+      image_url: body.image_url || null,
+      question_number: body.question_number || null,
+      source: body.source || "IBDP",
+      paper_type: body.paper_type || null,
+      year: body.year || null,
+      // Handle options - ensure it's properly formatted as JSONB array
+      // Options should be an array of objects with 'value' and 'label' properties
+      options: Array.isArray(body.options) ? body.options : [],
+    };
+
+    // For MCQ questions, validate that options are provided
+    if (body.question_type === "mcq") {
+      if (!Array.isArray(body.options) || body.options.length === 0) {
+        return NextResponse.json(
+          { error: "MCQ questions require at least one option" },
+          { status: 400 }
+        );
+      }
+      if (!body.correct_answer) {
+        return NextResponse.json(
+          { error: "MCQ questions require a correct_answer" },
+          { status: 400 }
+        );
+      }
+    }
+
+    console.log("💾 Inserting question with options:", {
+      options_count: questionData.options.length,
+      options: questionData.options,
+    });
+
+    // Insert the question
+    const { data, error } = await supabase
+      .from("question_bank")
+      .insert([questionData])
+      .select()
+      .single();
+
+    if (error) {
+      console.error("❌ Supabase Insert Error:", error);
+      return NextResponse.json(
+        { error: error.message || "Failed to create question", details: error },
+        { status: 500 }
+      );
+    }
+
+    console.log("✅ Question created successfully:", data.id);
+    return NextResponse.json(data, { status: 201 });
+  } catch (error) {
+    console.error("❌ API Error:", error);
+    return NextResponse.json(
+      { error: error instanceof Error ? error.message : "Internal Server Error" },
+      { status: 500 }
+    );
+  }
+}

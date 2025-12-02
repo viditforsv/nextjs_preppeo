@@ -26,7 +26,10 @@ export async function GET(
           total_marks,
           tags,
           topic,
-          subtopic
+          subtopic,
+          options,
+          correct_answer,
+          explanation
         )
       `
       )

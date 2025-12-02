@@ -31,7 +31,8 @@ interface Question {
   difficulty: number;
   tags: string[];
   subject: string;
-  board: string;
+  board?: string;
+  boards?: string[];
   grade: string;
   topic: string;
   subtopic: string;
@@ -181,6 +182,14 @@ export default function QuestionDetailPage() {
       // Remove QA fields before sending to question-bank API
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { qa_status, qa_priority, qa_flagged, ...questionData } = question;
+
+      // Trim image URLs to prevent Next.js errors about trailing spaces
+      if (questionData.image_url) {
+        questionData.image_url = questionData.image_url.trim();
+      }
+      if (questionData.solution_image) {
+        questionData.solution_image = questionData.solution_image.trim();
+      }
 
       const response = await fetch(`/api/question-bank/${questionId}`, {
         method: "PUT",
@@ -379,12 +388,26 @@ export default function QuestionDetailPage() {
               <h1 className="text-3xl font-bold text-gray-900">
                 {question.human_readable_id ||
                   (() => {
-                    const board =
-                      question.board === "IBDP" ? "IBDP" : question.board;
-                    const subject =
-                      question.subject === "HL"
-                        ? "aahl"
-                        : question.subject.toLowerCase();
+                    // Handle boards as array or string
+                    let boardValue: string;
+                    if ((question as any).boards && Array.isArray((question as any).boards) && (question as any).boards.length > 0) {
+                      boardValue = (question as any).boards[0];
+                    } else if (question.board) {
+                      boardValue = question.board;
+                    } else {
+                      boardValue = question.source || "UNKNOWN";
+                    }
+                    
+                    const board = boardValue === "IBDP" ? "IBDP" : boardValue;
+                    
+                    // Handle subject - convert to lowercase and replace spaces with underscores
+                    let subject = question.subject || "unknown";
+                    if (subject === "HL") {
+                      subject = "aahl";
+                    } else {
+                      subject = subject.toLowerCase().replace(/\s+/g, "_");
+                    }
+                    
                     const type = question.is_pyq ? "pyq" : "prac";
 
                     let number;
@@ -472,12 +495,26 @@ export default function QuestionDetailPage() {
           <span className="text-gray-900 font-medium">
             {question.human_readable_id ||
               (() => {
-                const board =
-                  question.board === "IBDP" ? "IBDP" : question.board;
-                const subject =
-                  question.subject === "HL"
-                    ? "aahl"
-                    : question.subject.toLowerCase();
+                // Handle boards as array or string
+                let boardValue: string;
+                if (question.boards && Array.isArray(question.boards) && question.boards.length > 0) {
+                  boardValue = question.boards[0];
+                } else if (question.board) {
+                  boardValue = question.board;
+                } else {
+                  boardValue = question.source || "UNKNOWN";
+                }
+                
+                const board = boardValue === "IBDP" ? "IBDP" : boardValue;
+                
+                // Handle subject - convert to lowercase and replace spaces with underscores
+                let subject = question.subject || "unknown";
+                if (subject === "HL") {
+                  subject = "aahl";
+                } else {
+                  subject = subject.toLowerCase().replace(/\s+/g, "_");
+                }
+                
                 const type = question.is_pyq ? "pyq" : "prac";
 
                 let number;
@@ -627,7 +664,11 @@ export default function QuestionDetailPage() {
                 </div>
                 <div className="flex justify-between">
                   <span className="text-gray-600">Board:</span>
-                  <span className="font-medium">{question.board}</span>
+                  <span className="font-medium">
+                    {question.boards && Array.isArray(question.boards) && question.boards.length > 0
+                      ? question.boards.join(", ")
+                      : question.board || question.source || "N/A"}
+                  </span>
                 </div>
               </div>
             )}
@@ -959,7 +1000,7 @@ export default function QuestionDetailPage() {
               {question.image_url && question.image_url.trim() && (
                 <div className="mb-4">
                   <ImageDisplay
-                    src={question.image_url}
+                    src={question.image_url.trim()}
                     alt="Question diagram"
                     caption="Question diagram"
                     maxWidth={600}
@@ -982,7 +1023,7 @@ export default function QuestionDetailPage() {
                 {question.solution_image && question.solution_image.trim() && (
                   <div className="mb-4">
                     <ImageDisplay
-                      src={question.solution_image}
+                      src={question.solution_image.trim()}
                       alt="Solution diagram"
                       caption="Solution diagram"
                       maxWidth={600}
