@@ -911,7 +911,7 @@ export function QuizPlayer({ quizId }: QuizPlayerProps) {
                               {String.fromCharCode(65 + index)}
                             </div>
                             <span className="flex-1 text-left">
-                              {option.label || option.value}
+                              {option.value}
                             </span>
                             {isChecked && isAnswerCorrect && isCorrect && (
                               <CheckCircle className="w-5 h-5 text-green-600" />
