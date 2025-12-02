@@ -19,7 +19,6 @@ import {
   ListOrdered,
   Subscript as SubscriptIcon,
   Superscript as SuperscriptIcon,
-  Minus,
 } from "lucide-react";
 
 interface RichTextEditorProps {
@@ -32,7 +31,6 @@ interface RichTextEditorProps {
 export function RichTextEditor({
   content,
   onChange,
-  placeholder = "Start typing...",
   className = "",
 }: RichTextEditorProps) {
   // Convert plain text with LaTeX to HTML for editing

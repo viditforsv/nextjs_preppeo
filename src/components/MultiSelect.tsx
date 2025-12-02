@@ -56,13 +56,6 @@ export function MultiSelect({
     onChange(selected.filter((item) => item !== value));
   };
 
-  const displayText =
-    selected.length === 0
-      ? placeholder
-      : selected.length === 1
-      ? selected[0]
-      : `${selected.length} selected`;
-
   return (
     <div className={cn("w-full", className)}>
       {label && (
@@ -101,7 +94,7 @@ export function MultiSelect({
                         if (e.key === "Enter" || e.key === " ") {
                           e.preventDefault();
                           e.stopPropagation();
-                          handleRemove(value, e as any);
+                          handleRemove(value, e);
                         }
                       }}
                     >
@@ -125,7 +118,7 @@ export function MultiSelect({
                         if (e.key === "Enter" || e.key === " ") {
                           e.preventDefault();
                           e.stopPropagation();
-                          handleRemove(selected[0], e as any);
+                          handleRemove(selected[0], e);
                         }
                       }}
                     >

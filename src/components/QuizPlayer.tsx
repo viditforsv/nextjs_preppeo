@@ -78,6 +78,7 @@ export function QuizPlayer({ quizId }: QuizPlayerProps) {
   const [timeRemaining, setTimeRemaining] = useState<number | null>(null);
   const [score, setScore] = useState<number | null>(null);
   const [questionStartTimes, setQuestionStartTimes] = useState<Record<string, number>>({});
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [recordedAttempts, setRecordedAttempts] = useState<Set<string>>(new Set());
   const [quizSessionId] = useState<string>(`quiz_${quizId}_${Date.now()}`);
   const [checkedAnswers, setCheckedAnswers] = useState<Record<string, boolean>>({});
@@ -676,7 +677,7 @@ export function QuizPlayer({ quizId }: QuizPlayerProps) {
 
                       return (
                         <button
-                          key={option}
+                      key={option}
                           onClick={() => {
                             // Allow changing answer if wrong, but not if correct
                             if (!(isChecked && isAnswerCorrect)) {
@@ -686,7 +687,7 @@ export function QuizPlayer({ quizId }: QuizPlayerProps) {
                           disabled={isChecked && isAnswerCorrect}
                           className={optionClassName}
                         >
-                          <Checkbox
+                        <Checkbox
                             checked={isSelected}
                             disabled={isChecked && isAnswerCorrect}
                           />
@@ -702,7 +703,7 @@ export function QuizPlayer({ quizId }: QuizPlayerProps) {
                         </button>
                       );
                     })}
-                  </div>
+                      </div>
 
                   {/* Check Answer Button */}
                   <div className="flex gap-2">
@@ -741,7 +742,7 @@ export function QuizPlayer({ quizId }: QuizPlayerProps) {
                     >
                       Reset
                     </Button>
-                  </div>
+                    </div>
 
                   {/* Answer Feedback */}
                   {checkedAnswers[currentQuestion.question_bank.id] &&
@@ -866,7 +867,7 @@ export function QuizPlayer({ quizId }: QuizPlayerProps) {
 
                         return (
                           <button
-                            key={index}
+                        key={index}
                             onClick={() => {
                               // Allow changing answer if wrong, but not if correct
                               if (!(isChecked && isAnswerCorrect)) {
@@ -907,7 +908,7 @@ export function QuizPlayer({ quizId }: QuizPlayerProps) {
                         answers[currentQuestion.question_bank.id] ===
                           currentQuestion.question_bank.correct_answer) && (
                         <Button
-                          onClick={() =>
+                        onClick={() =>
                             handleCheckAnswer(currentQuestion.question_bank.id)
                           }
                           className="bg-primary hover:bg-primary/90"
@@ -944,7 +945,7 @@ export function QuizPlayer({ quizId }: QuizPlayerProps) {
                     currentQuestion.question_bank.correct_answer && (
                       <div
                         className={`p-3 border rounded-sm ${
-                          answers[currentQuestion.question_bank.id] ===
+                              answers[currentQuestion.question_bank.id] ===
                           currentQuestion.question_bank.correct_answer
                             ? "bg-green-50 border-green-200"
                             : "bg-red-50 border-red-200"
@@ -970,7 +971,7 @@ export function QuizPlayer({ quizId }: QuizPlayerProps) {
                             {currentQuestion.question_bank.correct_answer}
                           </p>
                         )}
-                      </div>
+                        </div>
                     )}
 
                   {/* Show explanation toggle if available and answer is checked */}
@@ -1008,7 +1009,7 @@ export function QuizPlayer({ quizId }: QuizPlayerProps) {
                               {renderMultiPartQuestion(
                                 currentQuestion.question_bank.explanation
                               )}
-                            </div>
+                      </div>
                         </div>
                         )}
                       </div>

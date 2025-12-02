@@ -172,7 +172,7 @@ export async function GET(request: Request) {
     
     // First, verify the Supabase client is working with a simple test
     console.log("🔧 Testing Supabase connection...");
-    const { data: testData, error: testError } = await supabase
+    const { error: testError } = await supabase
       .from("courses")
       .select("id")
       .limit(1);

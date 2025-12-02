@@ -1,6 +1,6 @@
 "use client";
 
-import { useParams, useRouter } from "next/navigation";
+import { useParams } from "next/navigation";
 import { Button } from "@/app/components-demo/ui/ui-components/button";
 import { QuizPlayer } from "@/components/QuizPlayer";
 import { ArrowLeft } from "lucide-react";
@@ -8,7 +8,6 @@ import Link from "next/link";
 
 export default function QuizPreviewPage() {
   const params = useParams();
-  const router = useRouter();
   const quizId = params.quizId as string;
 
   return (

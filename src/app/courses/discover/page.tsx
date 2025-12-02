@@ -32,7 +32,6 @@ import {
   SortAsc,
   SortDesc,
 } from "lucide-react";
-import { useAuth } from "@/contexts/AuthContext";
 // import { getAllCourses } from '@/lib/course-config'
 // import { CourseConfig } from '@/lib/course-config'
 
@@ -74,9 +73,6 @@ interface FilterState {
 }
 
 export default function CourseDiscoveryPage() {
-  const { profile } = useAuth();
-  const isAdmin = profile?.role === "admin";
-
   const [filters, setFilters] = useState<FilterState>({
     search: "",
     curriculum: "all",
@@ -135,7 +131,7 @@ export default function CourseDiscoveryPage() {
         } else {
           // Try to get error details from response
           const contentType = response.headers.get("content-type");
-          let errorData: any = {};
+          let errorData: Record<string, unknown> = {};
           let errorText = "";
           
           console.log("Error response content-type:", contentType);
@@ -403,7 +399,7 @@ export default function CourseDiscoveryPage() {
     });
 
     return filtered;
-  }, [courses, filters, isAdmin]);
+  }, [courses, filters]);
 
   const updateFilter = (key: keyof FilterState, value: string) => {
     setFilters((prev) => ({ ...prev, [key]: value }));

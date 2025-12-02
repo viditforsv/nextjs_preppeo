@@ -390,8 +390,8 @@ export default function QuestionDetailPage() {
                   (() => {
                     // Handle boards as array or string
                     let boardValue: string;
-                    if ((question as any).boards && Array.isArray((question as any).boards) && (question as any).boards.length > 0) {
-                      boardValue = (question as any).boards[0];
+                    if (question.boards && Array.isArray(question.boards) && question.boards.length > 0) {
+                      boardValue = question.boards[0];
                     } else if (question.board) {
                       boardValue = question.board;
                     } else {
