@@ -93,20 +93,50 @@ async function authenticateGoogleSheets() {
 }
 
 async function getSheetName(sheets: any, spreadsheetId: string, gid: number | null, specifiedName?: string): Promise<{ name: string; sheetId: number }> {
+  const spreadsheet = await sheets.spreadsheets.get({ spreadsheetId });
+  
+  // List available sheets for debugging
+  const availableSheets = spreadsheet.data.sheets?.map((s: any) => ({
+    name: s.properties?.title,
+    sheetId: s.properties?.sheetId,
+    gid: s.properties?.sheetId,
+  })) || [];
+  console.log(`   Available sheets: ${availableSheets.map((s: any) => s.name).join(", ")}`);
+  
   if (specifiedName) {
-    const spreadsheet = await sheets.spreadsheets.get({ spreadsheetId });
     const sheet = spreadsheet.data.sheets?.find((s: any) => s.properties?.title === specifiedName);
     if (sheet) {
       return { name: specifiedName, sheetId: sheet.properties?.sheetId || 0 };
     }
+    // Sheet doesn't exist, create it
+    console.log(`   Creating new sheet: ${specifiedName}`);
+    const addSheetResponse = await sheets.spreadsheets.batchUpdate({
+      spreadsheetId,
+      requestBody: {
+        requests: [{
+          addSheet: {
+            properties: {
+              title: specifiedName,
+            },
+          },
+        }],
+      },
+    });
+    const newSheetId = addSheetResponse.data.replies[0].addSheet?.properties?.sheetId || 0;
+    return { name: specifiedName, sheetId: newSheetId };
   }
 
-  if (gid) {
-    const spreadsheet = await sheets.spreadsheets.get({ spreadsheetId });
+  if (gid !== null && gid !== undefined) {
     const sheet = spreadsheet.data.sheets?.find((s: any) => s.properties?.sheetId === gid);
     if (sheet) {
       return { name: sheet.properties?.title || "Sheet1", sheetId: gid };
     }
+  }
+
+  // Default to first sheet if no gid specified
+  const firstSheet = spreadsheet.data.sheets?.[0];
+  if (firstSheet) {
+    return { name: firstSheet.properties?.title || "Sheet1", sheetId: firstSheet.properties?.sheetId || 0 };
   }
 
   return { name: "Sheet1", sheetId: 0 };

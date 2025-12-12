@@ -52,10 +52,8 @@ const DEFAULT_QUESTION_TYPES: QuestionType[] = [
     description: "Open-ended questions requiring written responses",
     count: 234,
     exampleQuestion: {
-      question:
-        "Explain the concept of limits in calculus with a practical example.",
-      answer:
-        "A limit describes the value that a function approaches as the input approaches a particular point. For example, as x approaches 0, the limit of sin(x)/x is 1.",
+      question: "2x + 4 = 0, what is the value of x?",
+      answer: "-2",
     },
   },
   {
@@ -458,10 +456,36 @@ export default function QuestionTypesPage() {
                         </CardDescription>
                       </CardHeader>
                       <CardContent className="space-y-4">
-                        <div className="p-4 bg-muted rounded-sm">
+                        <div className="p-4 bg-background rounded-sm border">
                           <p className="font-medium mb-3">
                             {selectedQuestionType.exampleQuestion.question}
                           </p>
+
+                          {/* Subjective/Short Answer Input */}
+                          {selectedQuestionType.id === "2" && (
+                            <div className="space-y-3">
+                              <Input
+                                type="number"
+                                step="any"
+                                value={
+                                  (selectedAnswers[selectedType] as string) ||
+                                  ""
+                                }
+                                onChange={(e) =>
+                                  handleAnswerSelect(
+                                    selectedType,
+                                    e.target.value
+                                  )
+                                }
+                                placeholder="Enter your answer (integer or decimal)"
+                                className="rounded-sm"
+                                disabled={showAnswer[selectedType]}
+                              />
+                              <p className="text-xs text-muted-foreground">
+                                Enter an integer or decimal value.
+                              </p>
+                            </div>
+                          )}
 
                           {/* Fill in the Blank Input */}
                           {selectedQuestionType.id === "4" && (
@@ -758,25 +782,37 @@ export default function QuestionTypesPage() {
                             selectedQuestionType.exampleQuestion.answer && (
                               <div
                                 className={`mt-4 p-3 border rounded-sm ${
-                                  isAnswerCorrect(selectedType)
+                                  selectedQuestionType.id === "2"
+                                    ? "bg-blue-50 border-blue-200"
+                                    : isAnswerCorrect(selectedType)
                                     ? "bg-green-50 border-green-200"
                                     : "bg-red-50 border-red-200"
                                 }`}
                               >
+                                {selectedQuestionType.id !== "2" && (
+                                  <p
+                                    className={`text-sm font-medium mb-1 ${
+                                      isAnswerCorrect(selectedType)
+                                        ? "text-green-800"
+                                        : "text-red-800"
+                                    }`}
+                                  >
+                                    {isAnswerCorrect(selectedType)
+                                      ? "✓ Correct!"
+                                      : "✗ Incorrect"}
+                                  </p>
+                                )}
                                 <p
-                                  className={`text-sm font-medium mb-1 ${
-                                    isAnswerCorrect(selectedType)
-                                      ? "text-green-800"
-                                      : "text-red-800"
+                                  className={`text-sm whitespace-pre-line ${
+                                    selectedQuestionType.id === "2"
+                                      ? "text-blue-700"
+                                      : "text-green-700"
                                   }`}
                                 >
-                                  {isAnswerCorrect(selectedType)
-                                    ? "✓ Correct!"
-                                    : "✗ Incorrect"}
-                                </p>
-                                <p className="text-sm text-green-700 whitespace-pre-line">
                                   <span className="font-medium">
-                                    Correct Answer:{" "}
+                                    {selectedQuestionType.id === "2"
+                                      ? "Sample Answer: "
+                                      : "Correct Answer: "}
                                   </span>
                                   {selectedQuestionType.exampleQuestion.answer}
                                 </p>
