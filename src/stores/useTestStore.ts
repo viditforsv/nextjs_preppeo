@@ -18,7 +18,7 @@ interface TestState {
   isReviewScreenOpen: boolean;
   
   // Actions
-  initTest: (test: GRETest) => void;
+  initTest: (test: GRETest, sectionType?: 'verbal' | 'quantitative') => void;
   setAnswer: (questionId: string, answer: string | number | string[] | null) => void;
   toggleFlag: (questionId: string) => void;
   toggleCalculator: () => void;
@@ -40,12 +40,29 @@ export const useTestStore = create<TestState>()(
       isCalculatorOpen: false,
       isReviewScreenOpen: false,
 
-      initTest: (test) => set({
-        test,
-        currentSectionId: test.startingSectionId,
-        currentQuestionIndex: 0,
-        timeLeft: test.sections.find(s => s.id === test.startingSectionId)?.durationSeconds || 0
-      }),
+      initTest: (test, sectionType) => {
+        let startingSectionId = test.startingSectionId;
+        
+        // If sectionType is provided, find the appropriate starting section
+        if (sectionType) {
+          const section = test.sections.find(
+            s => s.sectionType === sectionType && s.id.includes('medium')
+          );
+          if (section) {
+            startingSectionId = section.id;
+          }
+        }
+        
+        const startingSection = test.sections.find(s => s.id === startingSectionId);
+        set({
+          test,
+          currentSectionId: startingSectionId,
+          currentQuestionIndex: 0,
+          timeLeft: startingSection?.durationSeconds || 0,
+          answers: {},
+          flags: {}
+        });
+      },
 
       setAnswer: (qId, val) => set((state) => ({
         answers: { ...state.answers, [qId]: val }
