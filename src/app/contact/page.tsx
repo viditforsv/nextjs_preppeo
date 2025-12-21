@@ -1,14 +1,14 @@
 "use client";
 
-import { Button } from "@/app/components-demo/ui/ui-components/button";
+import { Button } from "@/design-system/components/ui/button";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/app/components-demo/ui/ui-components/card";
-import { Badge } from "@/app/components-demo/ui/ui-components/badge";
+} from "@/design-system/components/ui/card";
+import { Badge } from "@/design-system/components/ui/badge";
 import {
   Mail,
   Phone,
@@ -119,7 +119,7 @@ export default function ContactPage() {
               </div>
 
               <div className="space-y-6">
-                <Card className="p-6 hover:shadow-xl transition-all duration-300 border-0">
+                <Card className="p-6 ">
                   <div className="flex items-start space-x-4">
                     <div className="w-12 h-12 bg-gradient-to-br from-primary to-emerald-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg">
                       <Mail className="w-6 h-6 text-white" />
@@ -138,7 +138,7 @@ export default function ContactPage() {
                   </div>
                 </Card>
 
-                <Card className="p-6 hover:shadow-xl transition-all duration-300 border-0">
+                <Card className="p-6 ">
                   <div className="flex items-start space-x-4">
                     <div className="w-12 h-12 bg-gradient-to-br from-amber-500 to-yellow-500 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg">
                       <Phone className="w-6 h-6 text-white" />
@@ -157,7 +157,7 @@ export default function ContactPage() {
                   </div>
                 </Card>
 
-                <Card className="p-6 hover:shadow-xl transition-all duration-300 border-0">
+                <Card className="p-6 ">
                   <div className="flex items-start space-x-4">
                     <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg">
                       <MapPin className="w-6 h-6 text-white" />
@@ -177,7 +177,7 @@ export default function ContactPage() {
                   </div>
                 </Card>
 
-                <Card className="p-6 hover:shadow-xl transition-all duration-300 border-0">
+                <Card className="p-6 ">
                   <div className="flex items-start space-x-4">
                     <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg">
                       <Clock className="w-6 h-6 text-white" />
@@ -323,7 +323,7 @@ export default function ContactPage() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
-            <Card className="p-6 hover:shadow-xl transition-all duration-300 border-0">
+            <Card className="p-6 ">
               <CardHeader>
                 <CardTitle className="text-lg text-foreground flex items-center">
                   <MessageSquare className="w-5 h-5 text-primary mr-2" />
@@ -339,7 +339,7 @@ export default function ContactPage() {
               </CardContent>
             </Card>
 
-            <Card className="p-6 hover:shadow-xl transition-all duration-300 border-0">
+            <Card className="p-6 ">
               <CardHeader>
                 <CardTitle className="text-lg text-foreground flex items-center">
                   <Clock className="w-5 h-5 text-primary mr-2" />
@@ -354,7 +354,7 @@ export default function ContactPage() {
               </CardContent>
             </Card>
 
-            <Card className="p-6 hover:shadow-xl transition-all duration-300 border-0">
+            <Card className="p-6 ">
               <CardHeader>
                 <CardTitle className="text-lg text-foreground flex items-center">
                   <Globe className="w-5 h-5 text-primary mr-2" />
@@ -370,7 +370,7 @@ export default function ContactPage() {
               </CardContent>
             </Card>
 
-            <Card className="p-6 hover:shadow-xl transition-all duration-300 border-0">
+            <Card className="p-6 ">
               <CardHeader>
                 <CardTitle className="text-lg text-foreground flex items-center">
                   <MessageCircle className="w-5 h-5 text-primary mr-2" />

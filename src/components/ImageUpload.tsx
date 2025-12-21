@@ -1,11 +1,11 @@
 "use client";
 
 import { useState, useRef } from "react";
-import { Button } from "@/app/components-demo/ui/ui-components/button";
-import { Input } from "@/app/components-demo/ui/ui-components/input";
-import { Label } from "@/app/components-demo/ui/ui-components/label";
-import { Card, CardContent } from "@/app/components-demo/ui/ui-components/card";
-import { Badge } from "@/app/components-demo/ui/ui-components/badge";
+import { Button } from "@/design-system/components/ui/button";
+import { Input } from "@/design-system/components/ui/input";
+import { Label } from "@/design-system/components/ui/label";
+import { Card, CardContent } from "@/design-system/components/ui/card";
+import { Badge } from "@/design-system/components/ui/badge";
 import { Upload, X, Image as ImageIcon, ExternalLink } from "lucide-react";
 
 interface ImageUploadProps {

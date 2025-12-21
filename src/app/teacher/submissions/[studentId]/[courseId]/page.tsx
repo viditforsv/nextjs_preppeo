@@ -2,11 +2,11 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { useAuth } from "@/contexts/AuthContext";
-import { Button } from "@/app/components-demo/ui/ui-components/button";
-import { Card, CardContent } from "@/app/components-demo/ui/ui-components/card";
-import { Breadcrumb } from "@/app/components-demo/ui/breadcrumb";
-import { Badge } from "@/app/components-demo/ui/ui-components/badge";
-import {} from "@/app/components-demo/ui/dialog";
+import { Button } from "@/design-system/components/ui/button";
+import { Card, CardContent } from "@/design-system/components/ui/card";
+import { Breadcrumb } from "@/design-system/components/breadcrumb";
+import { Badge } from "@/design-system/components/ui/badge";
+import {} from "@/design-system/components/dialog";
 import { FileText, Download, Upload, ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import { UploadGradedModal } from "@/components/teacher/UploadGradedModal";

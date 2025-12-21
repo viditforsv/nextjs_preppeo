@@ -1,12 +1,12 @@
 "use client";
 
-import { Button } from "@/app/components-demo/ui/ui-components/button";
+import { Button } from "@/design-system/components/ui/button";
 import {
   Card,
   CardContent,
   CardHeader,
   CardTitle,
-} from "@/app/components-demo/ui/ui-components/card";
+} from "@/design-system/components/ui/card";
 import { Award, BookOpen, Globe, Target, Heart } from "lucide-react";
 import Link from "next/link";
 
@@ -68,7 +68,7 @@ export default function AboutPage() {
             Our Values
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <Card className="text-center p-8 hover:shadow-xl transition-all duration-300">
+            <Card className="text-center p-8 ">
               <CardHeader>
                 <div className="w-16 h-16 bg-gradient-to-br from-primary to-emerald-600 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
                   <Heart className="w-8 h-8 text-white" />
@@ -83,7 +83,7 @@ export default function AboutPage() {
               </CardContent>
             </Card>
 
-            <Card className="text-center p-8 hover:shadow-xl transition-all duration-300">
+            <Card className="text-center p-8 ">
               <CardHeader>
                 <div className="w-16 h-16 bg-gradient-to-br from-amber-500 to-yellow-500 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
                   <Award className="w-8 h-8 text-white" />
@@ -98,7 +98,7 @@ export default function AboutPage() {
               </CardContent>
             </Card>
 
-            <Card className="text-center p-8 hover:shadow-xl transition-all duration-300">
+            <Card className="text-center p-8 ">
               <CardHeader>
                 <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
                   <BookOpen className="w-8 h-8 text-white" />
@@ -121,7 +121,7 @@ export default function AboutPage() {
             What We Offer
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <Card className="text-center p-6 hover:shadow-xl transition-all duration-300">
+            <Card className="text-center p-6 ">
               <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
                 <Target className="w-8 h-8 text-white" />
               </div>
@@ -135,7 +135,7 @@ export default function AboutPage() {
               </CardContent>
             </Card>
 
-            <Card className="text-center p-6 hover:shadow-xl transition-all duration-300">
+            <Card className="text-center p-6 ">
               <div className="w-16 h-16 bg-gradient-to-br from-primary to-emerald-600 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
                 <BookOpen className="w-8 h-8 text-white" />
               </div>
@@ -149,7 +149,7 @@ export default function AboutPage() {
               </CardContent>
             </Card>
 
-            <Card className="text-center p-6 hover:shadow-xl transition-all duration-300">
+            <Card className="text-center p-6 ">
               <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
                 <Globe className="w-8 h-8 text-white" />
               </div>
@@ -163,7 +163,7 @@ export default function AboutPage() {
               </CardContent>
             </Card>
 
-            <Card className="text-center p-6 hover:shadow-xl transition-all duration-300">
+            <Card className="text-center p-6 ">
               <div className="w-16 h-16 bg-gradient-to-br from-orange-500 to-orange-600 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
                 <Award className="w-8 h-8 text-white" />
               </div>

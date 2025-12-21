@@ -1,17 +1,17 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-import { Button } from "@/app/components-demo/ui/ui-components/button";
-import { Input } from "@/app/components-demo/ui/ui-components/input";
+import { Button } from "@/design-system/components/ui/button";
+import { Input } from "@/design-system/components/ui/input";
 import {
   Card,
   CardContent,
   CardHeader,
   CardTitle,
   CardDescription,
-} from "@/app/components-demo/ui/ui-components/card";
-import { Badge } from "@/app/components-demo/ui/ui-components/badge";
-import { Progress } from "@/app/components-demo/ui/ui-components/progress";
+} from "@/design-system/components/ui/card";
+import { Badge } from "@/design-system/components/ui/badge";
+import { Progress } from "@/design-system/components/ui/progress";
 import {
   Clock,
   CheckCircle,
@@ -25,7 +25,7 @@ import {
   ChevronUp,
 } from "lucide-react";
 import { renderMultiPartQuestion } from "@/components/MathRenderer";
-import { Checkbox } from "@/app/components-demo/ui/ui-components/checkbox";
+import { Checkbox } from "@/design-system/components/ui/checkbox";
 
 interface QuizOption {
   value: string;

@@ -9,10 +9,10 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/app/components-demo/ui/ui-components/card";
-import { Button } from "@/app/components-demo/ui/ui-components/button";
-import { Badge } from "@/app/components-demo/ui/ui-components/badge";
-import { Progress } from "@/app/components-demo/ui/ui-components/progress";
+} from "@/design-system/components/ui/card";
+import { Button } from "@/design-system/components/ui/button";
+import { Badge } from "@/design-system/components/ui/badge";
+import { Progress } from "@/design-system/components/ui/progress";
 import {
   BookOpen,
   Clock,
@@ -294,7 +294,7 @@ export default function EnrolledCoursesPage() {
         {/* Overall Stats */}
         {!isLoading && !error && enrolledCourses.length > 0 && (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-            <Card className="border-0 bg-gradient-to-br from-primary/5 to-emerald-50 hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+            <Card className="border-0 bg-gradient-to-br from-primary/5 to-emerald-50 hover:-translate-y-1">
               <CardContent className="p-6">
                 <div className="flex items-center justify-between">
                   <div>
@@ -312,7 +312,7 @@ export default function EnrolledCoursesPage() {
               </CardContent>
             </Card>
 
-            <Card className="border-0 bg-gradient-to-br from-primary/5 to-emerald-50 hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+            <Card className="border-0 bg-gradient-to-br from-primary/5 to-emerald-50 hover:-translate-y-1">
               <CardContent className="p-6">
                 <div className="flex items-center justify-between">
                   <div>
@@ -330,7 +330,7 @@ export default function EnrolledCoursesPage() {
               </CardContent>
             </Card>
 
-            <Card className="border-0 bg-gradient-to-br from-emerald-50 to-green-50 hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+            <Card className="border-0 bg-gradient-to-br from-emerald-50 to-green-50 hover:-translate-y-1">
               <CardContent className="p-6">
                 <div className="flex items-center justify-between">
                   <div>
@@ -346,7 +346,7 @@ export default function EnrolledCoursesPage() {
               </CardContent>
             </Card>
 
-            <Card className="border-0 bg-gradient-to-br from-amber-50 to-yellow-50 hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+            <Card className="border-0 bg-gradient-to-br from-amber-50 to-yellow-50 hover:-translate-y-1">
               <CardContent className="p-6">
                 <div className="flex items-center justify-between">
                   <div>
@@ -407,7 +407,7 @@ export default function EnrolledCoursesPage() {
             {enrolledCourses.map((course) => (
               <Card
                 key={course.id}
-                className="hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border-0 bg-white/80 backdrop-blur-sm"
+                className=""
               >
                 <CardHeader>
                   <div className="flex items-start justify-between">

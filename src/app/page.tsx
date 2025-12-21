@@ -1,14 +1,14 @@
 "use client";
 
 // Removed unused imports
-import { Button } from "@/app/components-demo/ui/ui-components/button";
+import { Button } from "@/design-system/components/ui/button";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/app/components-demo/ui/ui-components/card";
+} from "@/design-system/components/ui/card";
 import {
   BookOpen,
   Award,
@@ -169,7 +169,7 @@ export default function Home() {
               </div>
             ) : (
               <div className="grid md:grid-cols-3 gap-6">
-                <Card className="text-center hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 rounded-lg border-0 bg-gradient-to-br from-primary/5 to-emerald-50">
+                <Card className="text-center ">
                   <CardHeader>
                     <div className="w-16 h-16 bg-gradient-to-br from-primary to-emerald-600 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
                       <BookOpen className="w-8 h-8 text-white" />
@@ -188,7 +188,7 @@ export default function Home() {
                   </CardContent>
                 </Card>
 
-                <Card className="text-center hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 rounded-lg border-0 bg-gradient-to-br from-amber-50 to-yellow-50">
+                <Card className="text-center ">
                   <CardHeader>
                     <div className="w-16 h-16 bg-gradient-to-br from-amber-500 to-yellow-500 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
                       <Award className="w-8 h-8 text-white" />
@@ -207,7 +207,7 @@ export default function Home() {
                   </CardContent>
                 </Card>
 
-                <Card className="text-center hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 rounded-lg border-0 bg-gradient-to-br from-blue-50 to-indigo-50">
+                <Card className="text-center ">
                   <CardHeader>
                     <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
                       <TrendingUp className="w-8 h-8 text-white" />
@@ -298,7 +298,7 @@ export default function Home() {
               ].map((board) => (
                 <Card
                   key={board.name}
-                  className="cursor-pointer hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 rounded-lg border-0 overflow-hidden group"
+                  className="cursor-pointer "
                   onClick={() =>
                     router.push(`/courses/discover?curriculum=${board.name}`)
                   }
@@ -362,7 +362,7 @@ export default function Home() {
           <div className="flex gap-4 justify-center flex-wrap">
             <Button
               size="lg"
-              className="bg-primary hover:bg-primary/90 text-white shadow-lg hover:shadow-xl transition-all px-8 py-6 text-lg"
+              className="bg-primary hover:bg-primary/90 text-white shadow-lg "
               onClick={() => router.push("/courses/discover")}
             >
               Browse Courses
@@ -487,7 +487,7 @@ export default function Home() {
             ].map((board) => (
               <Card
                 key={board.name}
-                className="cursor-pointer hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 rounded-lg border-0 overflow-hidden group"
+                className="cursor-pointer "
                 onClick={() =>
                   router.push(`/courses/discover?curriculum=${board.name}`)
                 }
@@ -509,7 +509,7 @@ export default function Home() {
       </section>
 
       {/* CTA Section */}
-      <section className="relative py-20 bg-gradient-to-br from-primary to-emerald-600 overflow-hidden">
+      <section className="relative py-20 bg-primary overflow-hidden">
         {/* Decorative pattern */}
         <div className="absolute inset-0 opacity-10">
           <div
@@ -540,8 +540,7 @@ export default function Home() {
             </Button>
             <Button
               size="lg"
-              variant="outline"
-              className="border-2 border-white text-white hover:bg-white hover:text-primary px-8 py-6 text-lg"
+              className="bg-white/10 backdrop-blur-sm border-2 border-white text-white hover:bg-white hover:text-primary px-8 py-6 text-lg"
               onClick={() => router.push("/courses/discover")}
             >
               Browse Courses

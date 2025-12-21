@@ -1,7 +1,7 @@
 "use client";
 
-import { Button } from "@/app/components-demo/ui/ui-components/button";
-import { Card, CardContent } from "@/app/components-demo/ui/ui-components/card";
+import { Button } from "@/design-system/components/ui/button";
+import { Card, CardContent } from "@/design-system/components/ui/card";
 import { BookOpen, Users, Award, Clock, ArrowRight } from "lucide-react";
 import { OnboardingStepProps } from "../../OnboardingFlow";
 

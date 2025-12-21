@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { X } from "lucide-react";
-import { Badge } from "@/app/components-demo/ui/ui-components/badge";
+import { Badge } from "@/design-system/components/ui/badge";
 import { cn } from "@/lib/utils";
 
 interface FilterChip {

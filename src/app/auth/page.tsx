@@ -7,10 +7,10 @@ import {
   TabsContent,
   TabsList,
   TabsTrigger,
-} from "@/app/components-demo/ui/tabs";
-import { Card, CardHeader } from "@/app/components-demo/ui/ui-components/card";
-import { SignInForm } from "@/app/components-demo/ui/form-components/SignInForm";
-import { SignUpForm } from "@/app/components-demo/ui/form-components/SignUpForm";
+} from "@/design-system/components/tabs";
+import { Card, CardHeader } from "@/design-system/components/ui/card";
+import { SignInForm } from "@/design-system/components/form-components/SignInForm";
+import { SignUpForm } from "@/design-system/components/form-components/SignUpForm";
 import { unstable_noStore as noStore } from "next/cache";
 import Image from "next/image";
 import { createClient } from "@/lib/supabase/client";

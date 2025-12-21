@@ -7,13 +7,13 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/app/components-demo/ui/ui-components/card";
-import { Badge } from "@/app/components-demo/ui/ui-components/badge";
+} from "@/design-system/components/ui/card";
+import { Badge } from "@/design-system/components/ui/badge";
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from "@/app/components-demo/ui/ui-components/collapsible";
+} from "@/design-system/components/ui/collapsible";
 import { Play, ChevronRight, ChevronDown, BookOpen, Clock } from "lucide-react";
 
 interface Lesson {

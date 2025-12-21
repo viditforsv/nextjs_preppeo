@@ -9,17 +9,17 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/app/components-demo/ui/ui-components/card";
-import { Button } from "@/app/components-demo/ui/ui-components/button";
-import { Badge } from "@/app/components-demo/ui/ui-components/badge";
-import { Input } from "@/app/components-demo/ui/ui-components/input";
+} from "@/design-system/components/ui/card";
+import { Button } from "@/design-system/components/ui/button";
+import { Badge } from "@/design-system/components/ui/badge";
+import { Input } from "@/design-system/components/ui/input";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/app/components-demo/ui/select";
+} from "@/design-system/components/select";
 import {
   Search,
   Filter,
@@ -776,7 +776,7 @@ function CourseCard({ course, viewMode }: CourseCardProps) {
   if (viewMode === "list") {
     return (
       <Link href={`/courses/${course.slug}`} className="block">
-        <Card className="hover:shadow-md transition-shadow cursor-pointer">
+        <Card className="">
           <CardContent className="p-6">
             <div className="flex gap-6">
               <div className="w-64 h-32 rounded-lg flex items-center justify-center flex-shrink-0 overflow-hidden relative">
@@ -905,7 +905,7 @@ function CourseCard({ course, viewMode }: CourseCardProps) {
 
   return (
     <Link href={`/courses/${course.slug}`} className="block">
-        <Card className="hover:shadow-md transition-shadow group cursor-pointer">
+        <Card className="">
         <CardHeader className="pb-4">
           <div className="w-full h-32 rounded-lg flex items-center justify-center mb-4 overflow-hidden relative">
             {thumbnailUrl.startsWith("data:") || thumbnailUrl.includes("/api/cdn-proxy") ? (

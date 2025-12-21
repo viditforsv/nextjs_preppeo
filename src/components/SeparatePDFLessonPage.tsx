@@ -2,19 +2,19 @@
 
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { Button } from "@/app/components-demo/ui/ui-components/button";
+import { Button } from "@/design-system/components/ui/button";
 import {
   Card,
   CardContent,
   CardHeader,
   CardTitle,
-} from "@/app/components-demo/ui/ui-components/card";
-import { Badge } from "@/app/components-demo/ui/ui-components/badge";
-import { Progress } from "@/app/components-demo/ui/ui-components/progress";
+} from "@/design-system/components/ui/card";
+import { Badge } from "@/design-system/components/ui/badge";
+import { Progress } from "@/design-system/components/ui/progress";
 import {
   Alert,
   AlertDescription,
-} from "@/app/components-demo/ui/ui-components/alert";
+} from "@/design-system/components/ui/alert";
 import {
   Download,
   Upload,
@@ -37,7 +37,7 @@ import {
   Sheet,
   SheetContent,
   SheetTrigger,
-} from "@/app/components-demo/ui/sheet";
+} from "@/design-system/components/sheet";
 
 interface PDFAssignment {
   id: string;

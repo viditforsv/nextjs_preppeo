@@ -1,8 +1,8 @@
 "use client";
 
 import * as React from "react";
-import { Label } from "@/app/components-demo/ui/ui-components/label";
-import { Input } from "@/app/components-demo/ui/ui-components/input";
+import { Label } from "@/design-system/components/ui/label";
+import { Input } from "@/design-system/components/ui/input";
 import { cn } from "@/lib/utils";
 
 interface DifficultyRangeSliderProps {

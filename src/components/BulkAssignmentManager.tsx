@@ -1,24 +1,24 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-import { Button } from "@/app/components-demo/ui/ui-components/button";
+import { Button } from "@/design-system/components/ui/button";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/app/components-demo/ui/ui-components/card";
+} from "@/design-system/components/ui/card";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/app/components-demo/ui/select";
-import { Input } from "@/app/components-demo/ui/ui-components/input";
-import { Label } from "@/app/components-demo/ui/ui-components/label";
-import { Textarea } from "@/app/components-demo/ui/textarea";
+} from "@/design-system/components/select";
+import { Input } from "@/design-system/components/ui/input";
+import { Label } from "@/design-system/components/ui/label";
+import { Textarea } from "@/design-system/components/textarea";
 import { Loader2, Users, Filter, CheckCircle } from "lucide-react";
 import {
   useAdvancedFilterPlugin,

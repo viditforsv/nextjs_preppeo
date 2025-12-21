@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { Button } from "@/app/components-demo/ui/ui-components/button";
-import { Card, CardContent } from "@/app/components-demo/ui/ui-components/card";
+import { Button } from "@/design-system/components/ui/button";
+import { Card, CardContent } from "@/design-system/components/ui/card";
 import { Settings, Target, Clock, BookOpen, ArrowRight } from "lucide-react";
 import { useOnboarding } from "@/contexts/OnboardingContext";
 import { OnboardingStepProps } from "../../OnboardingFlow";

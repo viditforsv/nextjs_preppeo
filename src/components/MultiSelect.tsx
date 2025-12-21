@@ -3,14 +3,14 @@
 import * as React from "react";
 import { X, Check, ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { Badge } from "@/app/components-demo/ui/ui-components/badge";
+import { Badge } from "@/design-system/components/ui/badge";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/app/components-demo/ui/popover";
-import { Input } from "@/app/components-demo/ui/ui-components/input";
-import { Label } from "@/app/components-demo/ui/ui-components/label";
+} from "@/design-system/components/popover";
+import { Input } from "@/design-system/components/ui/input";
+import { Label } from "@/design-system/components/ui/label";
 
 interface MultiSelectProps {
   options: string[];

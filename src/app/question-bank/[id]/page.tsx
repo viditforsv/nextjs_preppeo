@@ -2,21 +2,21 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { useRouter, useParams } from "next/navigation";
-import { Button } from "@/app/components-demo/ui/ui-components/button";
-import { Input } from "@/app/components-demo/ui/ui-components/input";
-import { Textarea } from "@/app/components-demo/ui/textarea";
-import { Badge } from "@/app/components-demo/ui/ui-components/badge";
-import { Label } from "@/app/components-demo/ui/ui-components/label";
+import { Button } from "@/design-system/components/ui/button";
+import { Input } from "@/design-system/components/ui/input";
+import { Textarea } from "@/design-system/components/textarea";
+import { Badge } from "@/design-system/components/ui/badge";
+import { Label } from "@/design-system/components/ui/label";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/app/components-demo/ui/select";
+} from "@/design-system/components/select";
 import { SUBJECTS } from "@/lib/constants/subjects";
 import { ArrowLeft, Save, Edit, Trash2, Copy } from "lucide-react";
-import { Skeleton } from "@/app/components-demo/ui/ui-components/skeleton";
+import { Skeleton } from "@/design-system/components/ui/skeleton";
 import { renderMultiPartQuestion } from "@/components/MathRenderer";
 import QAManagement from "@/components/QAManagement";
 import { QAStatusBadge, QAPriorityBadge } from "@/components/QAComponents";

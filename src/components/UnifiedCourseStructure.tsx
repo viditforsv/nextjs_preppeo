@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { ChevronRight, ChevronDown, BookOpen } from "lucide-react";
-import { Badge } from "@/app/components-demo/ui/ui-components/badge";
+import { Badge } from "@/design-system/components/ui/badge";
 
 interface Lesson {
   id: string;

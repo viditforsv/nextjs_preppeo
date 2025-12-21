@@ -9,15 +9,15 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/app/components-demo/ui/ui-components/card";
-import { Button } from "@/app/components-demo/ui/ui-components/button";
-import { Badge } from "@/app/components-demo/ui/ui-components/badge";
+} from "@/design-system/components/ui/card";
+import { Button } from "@/design-system/components/ui/button";
+import { Badge } from "@/design-system/components/ui/badge";
 import {
   Tabs,
   TabsContent,
   TabsList,
   TabsTrigger,
-} from "@/app/components-demo/ui/tabs";
+} from "@/design-system/components/tabs";
 import {
   BookOpen,
   Play,
@@ -34,8 +34,8 @@ import {
   Upload,
   Loader2,
 } from "lucide-react";
-import { VideoResource } from "@/app/components-demo/ui/youtube-video";
-import { CollapsibleSidebar } from "@/app/components-demo/ui/layout-components/collapsible-sidebar";
+import { VideoResource } from "@/design-system/components/youtube-video";
+import { CollapsibleSidebar } from "@/design-system/components/layout-components/collapsible-sidebar";
 import { LessonPageSkeleton } from "@/components/skeletons";
 import { useAuth } from "@/contexts/AuthContext";
 import { createClient } from "@/lib/supabase/client";

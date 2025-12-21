@@ -4,18 +4,18 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import { createClient } from "@/lib/supabase/client";
 import { X, User, Mail, Sparkles } from "lucide-react";
-import { Button } from "@/app/components-demo/ui/ui-components/button";
+import { Button } from "@/design-system/components/ui/button";
 import {
   Avatar,
   AvatarImage,
   AvatarFallback,
-} from "@/app/components-demo/ui/avatar";
+} from "@/design-system/components/avatar";
 import {
   Tabs,
   TabsList,
   TabsTrigger,
   TabsContent,
-} from "@/app/components-demo/ui/tabs";
+} from "@/design-system/components/tabs";
 import { cn } from "@/lib/utils";
 
 interface AvatarPickerProps {

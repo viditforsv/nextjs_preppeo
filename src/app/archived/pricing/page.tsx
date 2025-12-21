@@ -1,8 +1,8 @@
 'use client'
 
-import { Button } from "@/app/components-demo/ui/ui-components/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/app/components-demo/ui/ui-components/card"
-import { Badge } from "@/app/components-demo/ui/ui-components/badge"
+import { Button } from "@/design-system/components/ui/button"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/design-system/components/ui/card"
+import { Badge } from "@/design-system/components/ui/badge"
 import { Check } from "lucide-react"
 import Link from "next/link"
 import { useState } from "react"
@@ -53,7 +53,7 @@ export default function PricingPage() {
         <section className="mb-20">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
             {/* Free Plan */}
-            <Card className="relative p-8 hover:shadow-lg transition-shadow duration-300">
+            <Card className="relative p-8">
               <CardHeader className="text-center pb-6">
                 <CardTitle className="text-2xl text-[#1e293b]">Free</CardTitle>
                 <CardDescription className="text-muted-foreground">
@@ -92,7 +92,7 @@ export default function PricingPage() {
             </Card>
 
             {/* Student Plan */}
-            <Card className="relative p-8 border-2 border-[#e27447] hover:shadow-lg transition-shadow duration-300 transform scale-105">
+            <Card className="relative p-8 border-2 border-[#e27447] transform scale-105">
               <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
                 <Badge className="bg-[#e27447] text-white border-0 px-4 py-2">
                   Most Popular
@@ -146,7 +146,7 @@ export default function PricingPage() {
             </Card>
 
             {/* Premium Plan */}
-            <Card className="relative p-8 hover:shadow-lg transition-shadow duration-300">
+            <Card className="relative p-8">
               <CardHeader className="text-center pb-6">
                 <CardTitle className="text-2xl text-[#1e293b]">Premium</CardTitle>
                 <CardDescription className="text-muted-foreground">

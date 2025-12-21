@@ -2,22 +2,22 @@
 
 import { useState, useEffect } from "react";
 import { useRouter, useParams } from "next/navigation";
-import { Button } from "@/app/components-demo/ui/ui-components/button";
-import { Input } from "@/app/components-demo/ui/ui-components/input";
-import { Textarea } from "@/app/components-demo/ui/textarea";
+import { Button } from "@/design-system/components/ui/button";
+import { Input } from "@/design-system/components/ui/input";
+import { Textarea } from "@/design-system/components/textarea";
 import {
   Card,
   CardContent,
   CardHeader,
   CardTitle,
-} from "@/app/components-demo/ui/ui-components/card";
+} from "@/design-system/components/ui/card";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/app/components-demo/ui/select";
+} from "@/design-system/components/select";
 import {
   ArrowLeft,
   Save,
@@ -28,8 +28,8 @@ import {
   HelpCircle,
   Type,
 } from "lucide-react";
-import { Label } from "@/app/components-demo/ui/ui-components/label";
-import { Switch } from "@/app/components-demo/ui/switch";
+import { Label } from "@/design-system/components/ui/label";
+import { Switch } from "@/design-system/components/switch";
 import ImageUpload from "@/components/ImageUpload";
 import { RichTextEditor } from "@/components/RichTextEditor";
 import { SUBJECTS } from "@/lib/constants/subjects";
@@ -37,7 +37,7 @@ import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/app/components-demo/ui/popover";
+} from "@/design-system/components/popover";
 import { Search, Check, ChevronDown } from "lucide-react";
 
 interface QuestionForm {

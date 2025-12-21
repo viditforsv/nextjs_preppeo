@@ -8,13 +8,13 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/app/components-demo/ui/ui-components/card";
+} from "@/design-system/components/ui/card";
 import {
   Tabs,
   TabsContent,
   TabsList,
   TabsTrigger,
-} from "@/app/components-demo/ui/tabs";
+} from "@/design-system/components/tabs";
 import {
   BookOpen,
   FileText,
@@ -37,14 +37,14 @@ import {
   Flag,
   Image as ImageIcon,
 } from "lucide-react";
-import { Input } from "@/app/components-demo/ui/ui-components/input";
-import { Textarea } from "@/app/components-demo/ui/textarea";
-import { Badge } from "@/app/components-demo/ui/ui-components/badge";
-import { Button } from "@/app/components-demo/ui/ui-components/button";
-import { VideoResource } from "@/app/components-demo/ui/youtube-video";
+import { Input } from "@/design-system/components/ui/input";
+import { Textarea } from "@/design-system/components/textarea";
+import { Badge } from "@/design-system/components/ui/badge";
+import { Button } from "@/design-system/components/ui/button";
+import { VideoResource } from "@/design-system/components/youtube-video";
 import { renderMixedContent } from "@/components/MathRenderer";
-import { Switch } from "@/app/components-demo/ui/switch";
-import { Label } from "@/app/components-demo/ui/ui-components/label";
+import { Switch } from "@/design-system/components/switch";
+import { Label } from "@/design-system/components/ui/label";
 import { IBDPQuestionSession } from "@/components/IBDPMathTemplate/IBDPQuestionSession";
 import {
   Dialog,
@@ -53,7 +53,7 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from "@/app/components-demo/ui/dialog";
+} from "@/design-system/components/dialog";
 import { QuizPlayer } from "@/components/QuizPlayer";
 import { useScreenshotPrevention } from "@/hooks/useScreenshotPrevention";
 

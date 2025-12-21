@@ -2,16 +2,16 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { useAuth } from "@/contexts/AuthContext";
-import { Button } from "@/app/components-demo/ui/ui-components/button";
+import { Button } from "@/design-system/components/ui/button";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/app/components-demo/ui/ui-components/card";
-import { Breadcrumb } from "@/app/components-demo/ui/breadcrumb";
-import { Badge } from "@/app/components-demo/ui/ui-components/badge";
+} from "@/design-system/components/ui/card";
+import { Breadcrumb } from "@/design-system/components/breadcrumb";
+import { Badge } from "@/design-system/components/ui/badge";
 import {
   FileText,
   Download,
@@ -176,7 +176,7 @@ export default function GradedAssignmentsPage({
             {submissions.map((submission) => (
               <Card
                 key={submission.id}
-                className="rounded-sm hover:shadow-md transition-shadow"
+                className="rounded-sm "
               >
                 <CardHeader>
                   <div className="flex items-center justify-between">

@@ -1,20 +1,20 @@
 "use client";
 
-import { Label } from "@/app/components-demo/ui/ui-components/label";
-import { Input } from "@/app/components-demo/ui/ui-components/input";
+import { Label } from "@/design-system/components/ui/label";
+import { Input } from "@/design-system/components/ui/input";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/app/components-demo/ui/select";
+} from "@/design-system/components/select";
 import {
   Card,
   CardContent,
   CardHeader,
   CardTitle,
-} from "@/app/components-demo/ui/ui-components/card";
+} from "@/design-system/components/ui/card";
 import { Filter } from "lucide-react";
 
 type FilterField = {

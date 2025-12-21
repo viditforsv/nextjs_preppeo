@@ -1,34 +1,19 @@
 import type { Metadata } from "next";
-import { Nunito_Sans, Merriweather_Sans } from "next/font/google";
-import "./globals.css";
+import { Inter } from "next/font/google";
+import "@/design-system/globals.css";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { CartProvider } from "@/contexts/CartContext";
-import { Header } from "@/app/components-demo/ui/header";
-import { Footer } from "@/app/components-demo/ui/footer";
+import { Header } from "@/design-system/components/header";
+import { Footer } from "@/design-system/components/footer";
 
 // Force dynamic rendering to prevent static generation issues
 export const dynamic = "force-dynamic";
 
-// Nunito Sans for headers and subheaders
-const nunitoSans = Nunito_Sans({
+// Inter font for the entire application
+const inter = Inter({
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800"],
-  variable: "--font-nunito-sans",
-  display: "swap",
-  fallback: [
-    "system-ui",
-    "-apple-system",
-    "BlinkMacSystemFont",
-    "Segoe UI",
-    "sans-serif",
-  ],
-});
-
-// Merriweather Sans for body text
-const merriweatherSans = Merriweather_Sans({
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
-  variable: "--font-merriweather-sans",
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-inter",
   display: "swap",
   fallback: [
     "system-ui",
@@ -98,7 +83,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${merriweatherSans.className} ${nunitoSans.variable} ${merriweatherSans.variable}`}
+        className={`${inter.variable} ${inter.className}`}
         suppressHydrationWarning={true}
       >
         <AuthProvider>

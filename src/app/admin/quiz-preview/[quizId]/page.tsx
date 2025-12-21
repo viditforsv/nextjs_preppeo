@@ -1,7 +1,7 @@
 "use client";
 
 import { useParams } from "next/navigation";
-import { Button } from "@/app/components-demo/ui/ui-components/button";
+import { Button } from "@/design-system/components/ui/button";
 import { QuizPlayer } from "@/components/QuizPlayer";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";

@@ -2,24 +2,24 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { useRouter, useParams } from "next/navigation";
-import { Button } from "@/app/components-demo/ui/ui-components/button";
-import { Input } from "@/app/components-demo/ui/ui-components/input";
+import { Button } from "@/design-system/components/ui/button";
+import { Input } from "@/design-system/components/ui/input";
 import {
   Card,
   CardContent,
   CardHeader,
   CardTitle,
   CardDescription,
-} from "@/app/components-demo/ui/ui-components/card";
-import { Badge } from "@/app/components-demo/ui/ui-components/badge";
-import { Label } from "@/app/components-demo/ui/ui-components/label";
+} from "@/design-system/components/ui/card";
+import { Badge } from "@/design-system/components/ui/badge";
+import { Label } from "@/design-system/components/ui/label";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/app/components-demo/ui/select";
+} from "@/design-system/components/select";
 import {
   ArrowLeft,
   Loader2,
@@ -31,7 +31,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { renderMultiPartQuestion } from "@/components/MathRenderer";
-import { Checkbox } from "@/app/components-demo/ui/ui-components/checkbox";
+import { Checkbox } from "@/design-system/components/ui/checkbox";
 
 interface Quiz {
   id: string;

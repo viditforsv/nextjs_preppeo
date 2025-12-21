@@ -1,11 +1,11 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { Button } from "@/app/components-demo/ui/ui-components/button";
+import { Button } from "@/design-system/components/ui/button";
 import {
   Card,
   CardContent,
-} from "@/app/components-demo/ui/ui-components/card";
+} from "@/design-system/components/ui/card";
 import {
   ArrowLeft,
   FileQuestion,
@@ -98,7 +98,7 @@ export default function NewQuestionPage() {
             {questionTypes.map((type) => (
               <Card
                 key={type.value}
-                className="cursor-pointer hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border-0 bg-white/80 backdrop-blur-sm overflow-hidden group"
+                className="cursor-pointer "
                 onClick={() => handleSelectType(type.value)}
               >
                 <CardContent className="p-8">

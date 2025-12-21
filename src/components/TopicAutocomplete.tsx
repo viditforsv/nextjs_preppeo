@@ -1,13 +1,13 @@
 "use client";
 
 import * as React from "react";
-import { Input } from "@/app/components-demo/ui/ui-components/input";
-import { Label } from "@/app/components-demo/ui/ui-components/label";
+import { Input } from "@/design-system/components/ui/input";
+import { Label } from "@/design-system/components/ui/label";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/app/components-demo/ui/popover";
+} from "@/design-system/components/popover";
 import { cn } from "@/lib/utils";
 
 interface TopicAutocompleteProps {

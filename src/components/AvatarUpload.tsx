@@ -2,12 +2,12 @@
 
 import { useState, useEffect } from "react";
 import { Sparkles } from "lucide-react";
-import { Button } from "@/app/components-demo/ui/ui-components/button";
+import { Button } from "@/design-system/components/ui/button";
 import {
   Avatar,
   AvatarImage,
   AvatarFallback,
-} from "@/app/components-demo/ui/avatar";
+} from "@/design-system/components/avatar";
 import { cn } from "@/lib/utils";
 import { AvatarPicker } from "./AvatarPicker";
 

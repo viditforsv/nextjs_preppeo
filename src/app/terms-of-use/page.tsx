@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Breadcrumb } from "@/app/components-demo/ui/breadcrumb";
+import { Breadcrumb } from "@/design-system/components/breadcrumb";
 
 export const metadata: Metadata = {
   title: "Terms of Use | Preppeo",

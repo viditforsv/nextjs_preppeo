@@ -87,30 +87,30 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/navigation";
-import { Button } from "@/app/components-demo/ui/ui-components/button";
-import { Input } from "@/app/components-demo/ui/ui-components/input";
+import { Button } from "@/design-system/components/ui/button";
+import { Input } from "@/design-system/components/ui/input";
 import {
   Card,
   CardContent,
   CardHeader,
   CardTitle,
-} from "@/app/components-demo/ui/ui-components/card";
-import { Badge } from "@/app/components-demo/ui/ui-components/badge";
-import { Label } from "@/app/components-demo/ui/ui-components/label";
+} from "@/design-system/components/ui/card";
+import { Badge } from "@/design-system/components/ui/badge";
+import { Label } from "@/design-system/components/ui/label";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/app/components-demo/ui/select";
+} from "@/design-system/components/select";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/app/components-demo/ui/dialog";
+} from "@/design-system/components/dialog";
 import {
   ChevronLeft,
   ChevronRight,
@@ -123,7 +123,7 @@ import {
   X,
 } from "lucide-react";
 import { QAStatusBadge, QAPriorityBadge } from "@/components/QAComponents";
-import { Skeleton } from "@/app/components-demo/ui/ui-components/skeleton";
+import { Skeleton } from "@/design-system/components/ui/skeleton";
 import { renderMultiPartQuestion } from "@/components/MathRenderer";
 import { MultiSelect } from "@/components/MultiSelect";
 import { TopicAutocomplete } from "@/components/TopicAutocomplete";
@@ -134,7 +134,7 @@ import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from "@/app/components-demo/ui/ui-components/collapsible";
+} from "@/design-system/components/ui/collapsible";
 // import QuestionBankQueryBuilder from "@/components/QuestionBankQueryBuilder";
 
 /**
@@ -1382,7 +1382,7 @@ export default function QuestionBankPage() {
                 {questions.map((question, index) => (
                   <Card
                     key={question.id}
-                    className="hover:shadow-lg transition-shadow"
+                    className=""
                   >
                     <CardHeader>
                       <div className="flex items-start justify-between">

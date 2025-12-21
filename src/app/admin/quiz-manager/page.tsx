@@ -2,15 +2,15 @@
 
 import { useState, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Button } from "@/app/components-demo/ui/ui-components/button";
+import { Button } from "@/design-system/components/ui/button";
 import {
   Card,
   CardContent,
   CardHeader,
   CardTitle,
   CardDescription,
-} from "@/app/components-demo/ui/ui-components/card";
-import { Badge } from "@/app/components-demo/ui/ui-components/badge";
+} from "@/design-system/components/ui/card";
+import { Badge } from "@/design-system/components/ui/badge";
 import {
   ArrowLeft,
   Plus,
@@ -28,7 +28,7 @@ import {
   DialogDescription,
   DialogHeader,
   DialogTitle,
-} from "@/app/components-demo/ui/dialog";
+} from "@/design-system/components/dialog";
 
 interface Quiz {
   id: string;

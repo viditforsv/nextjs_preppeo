@@ -2,13 +2,13 @@
 
 import { useState, useEffect } from "react";
 import { QueryBuilder, formatQuery } from "react-querybuilder";
-import { Button } from "@/app/components-demo/ui/ui-components/button";
+import { Button } from "@/design-system/components/ui/button";
 import {
   Card,
   CardContent,
   CardHeader,
   CardTitle,
-} from "@/app/components-demo/ui/ui-components/card";
+} from "@/design-system/components/ui/card";
 
 // Field definitions for question bank
 const fields = [
