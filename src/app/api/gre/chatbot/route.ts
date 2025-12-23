@@ -21,7 +21,7 @@ interface ChatbotRequestBody {
  */
 export async function POST(request: NextRequest) {
   let body: ChatbotRequestBody;
-  let message: string;
+  let message: string = '';
   let context: ChatbotContext | undefined;
   
   try {
