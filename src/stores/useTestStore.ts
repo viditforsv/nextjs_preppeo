@@ -2,6 +2,13 @@ import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { GRETest } from '../types/gre-test';
 
+export interface FlashcardData {
+  masteryLevel: number;
+  lastReviewed: number;
+  nextReview: number;
+  reviewCount: number;
+}
+
 interface TestState {
   // Data
   test: GRETest | null;
@@ -24,7 +31,7 @@ interface TestState {
   // Study Mode Features
   bookmarks: Record<string, boolean>; // questionId -> isBookmarked
   notes: Record<string, string>; // questionId -> note
-  flashcardProgress: Record<string, { mastered: boolean; reviewed: number }>; // questionId -> progress
+  flashcardProgress: Record<string, FlashcardData>; // questionId -> progress
   questionTimes: Record<string, number>; // questionId -> time spent in seconds
   sectionResults: Record<string, { correct: number; total: number; percentage: number }>; // sectionId -> results
   
@@ -43,7 +50,7 @@ interface TestState {
   resetTest: () => void;
   toggleBookmark: (questionId: string) => void;
   setNote: (questionId: string, note: string) => void;
-  updateFlashcardProgress: (questionId: string, progress: { mastered: boolean; reviewed: number }) => void;
+  updateFlashcardProgress: (questionId: string, progress: FlashcardData) => void;
   updateQuestionTime: (questionId: string, timeSpent: number) => void;
 }
 
