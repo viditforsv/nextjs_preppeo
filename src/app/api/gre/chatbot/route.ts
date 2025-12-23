@@ -1,4 +1,18 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { Question } from '@/types/gre-test';
+
+interface ChatbotContext {
+  question?: Question;
+  sectionType?: 'verbal' | 'quantitative';
+  userAnswer?: string | number | string[] | null;
+  questionPrompt?: string;
+  correctAnswer?: string | string[];
+}
+
+interface ChatbotRequestBody {
+  message: string;
+  context?: ChatbotContext;
+}
 
 /**
  * POST /api/gre/chatbot
@@ -6,9 +20,9 @@ import { NextRequest, NextResponse } from 'next/server';
  * Provides context-aware explanations and help for GRE questions using Google Gemini
  */
 export async function POST(request: NextRequest) {
-  let body: any;
+  let body: ChatbotRequestBody;
   let message: string;
-  let context: any;
+  let context: ChatbotContext | undefined;
   
   try {
     body = await request.json();
@@ -37,7 +51,6 @@ export async function POST(request: NextRequest) {
 
     // Extract context
     const {
-      question,
       sectionType,
       userAnswer,
       questionPrompt,
@@ -139,7 +152,7 @@ Guidelines:
  * Generate a mock AI response based on the user's message and context
  * This should be replaced with actual AI service integration
  */
-function generateMockResponse(message: string, context: any): string {
+function generateMockResponse(message: string, context?: ChatbotContext): string {
   const lowerMessage = message.toLowerCase();
   const { question, sectionType, userAnswer, correctAnswer } = context || {};
 

@@ -1,12 +1,11 @@
 "use client";
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { useTestStore } from '@/stores/useTestStore';
 import { GRETest } from '@/types/gre-test';
 import { Button } from '@/design-system/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/design-system/components/ui/card';
 import { Clock, Calculator as CalculatorIcon, Flag, Eye, ChevronLeft, ChevronRight, CheckCircle2, XCircle, BookOpen, FileText, Target } from 'lucide-react';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/design-system/components/ui/dialog';
 import { Input } from '@/design-system/components/ui/input';
 import { renderMixedContent } from '@/components/MathRenderer';
 import { ResultsScreen } from '@/components/gre/ResultsScreen';
@@ -34,8 +33,6 @@ export default function GREStudyPage() {
     practiceMode,
     showResults,
     testCompleted,
-    sectionResults,
-    questionTimes,
     updateQuestionTime,
     initTest,
     setAnswer,
@@ -45,7 +42,6 @@ export default function GREStudyPage() {
     togglePracticeMode,
     navigateQuestion,
     tickTimer,
-    completeSection,
     hideResultsScreen,
     resetTest,
     mode,
@@ -60,10 +56,9 @@ export default function GREStudyPage() {
 
   const [testStarted, setTestStarted] = useState(false);
   const [selectedSectionType, setSelectedSectionType] = useState<'verbal' | 'quantitative' | null>(null);
-  const [showCompletionDialog, setShowCompletionDialog] = useState(false);
   const [currentQuestionStartTime, setCurrentQuestionStartTime] = useState<number>(0);
   const [showShortcutsHelp, setShowShortcutsHelp] = useState(false);
-  const [pendingAnswer, setPendingAnswer] = useState<string | number | null>(null);
+  const [, setPendingAnswer] = useState<string | number | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [fetchedTest, setFetchedTest] = useState<GRETest | null>(null);
@@ -144,15 +139,6 @@ export default function GREStudyPage() {
     const mins = Math.floor(seconds / 60);
     const secs = seconds % 60;
     return `${mins}:${secs.toString().padStart(2, '0')}`;
-  };
-
-  const handleCompleteSection = () => {
-    setShowCompletionDialog(true);
-  };
-
-  const confirmCompleteSection = () => {
-    setShowCompletionDialog(false);
-    completeSection();
   };
 
   // Track question time
@@ -266,7 +252,7 @@ export default function GREStudyPage() {
 
     window.addEventListener('keydown', handleKeyPress);
     return () => window.removeEventListener('keydown', handleKeyPress);
-  }, [testStarted, test, currentSectionId, currentQuestionIndex, navigateQuestion, toggleFlag, toggleReviewScreen, toggleCalculator, isReviewScreenOpen, isCalculatorOpen, isNotesPanelOpen, showShortcutsHelp, setPendingAnswer]);
+  }, [testStarted, test, currentSectionId, currentQuestionIndex, navigateQuestion, toggleFlag, toggleReviewScreen, toggleCalculator, isReviewScreenOpen, isCalculatorOpen, isNotesPanelOpen, showShortcutsHelp]);
 
   // Loading state
   if (loading) {
@@ -526,7 +512,6 @@ export default function GREStudyPage() {
           
           {/* Study Mode Features */}
           <BookmarkButton
-            questionId={currentQuestion.id}
             isBookmarked={!!bookmarks[currentQuestion.id]}
             onToggle={() => toggleBookmark(currentQuestion.id)}
           />
@@ -757,14 +742,21 @@ export default function GREStudyPage() {
 
       {/* Enhanced Review Screen Modal */}
       <EnhancedReviewScreen
+        key={`review-${currentSectionId}`}
         sectionId={currentSectionId || ''}
         isOpen={isReviewScreenOpen && !!currentSectionId}
-        onClose={toggleReviewScreen}
-        onNavigateToQuestion={(idx) => {
+        onClose={useCallback(() => {
+          // #region agent log
+          fetch('http://127.0.0.1:7242/ingest/e6346042-1cb4-4e6f-b174-4c1a9e96fc9e',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'gre-study/page.tsx:762',message:'onClose callback called',data:{isReviewScreenOpen},timestamp:Date.now(),sessionId:'debug-session',runId:'run2',hypothesisId:'F'})}).catch(()=>{});
+          // #endregion
+          toggleReviewScreen();
+        }, [toggleReviewScreen, isReviewScreenOpen])}
+        onNavigateToQuestion={useCallback((idx: number) => {
+          // #region agent log
+          fetch('http://127.0.0.1:7242/ingest/e6346042-1cb4-4e6f-b174-4c1a9e96fc9e',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'gre-study/page.tsx:770',message:'onNavigateToQuestion called',data:{idx,currentIndex:currentQuestionIndex},timestamp:Date.now(),sessionId:'debug-session',runId:'run2',hypothesisId:'E'})}).catch(()=>{});
+          // #endregion
           navigateQuestion(idx);
-          setPendingAnswer(null);
-          // navigateQuestion already closes the review screen, so we don't need to call toggleReviewScreen again
-        }}
+        }, [navigateQuestion, currentQuestionIndex])}
       />
 
       {/* Study Mode Features */}

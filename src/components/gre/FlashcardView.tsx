@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/design-system/components/ui/card';
 import { Button } from '@/design-system/components/ui/button';
-import { ChevronLeft, ChevronRight, RotateCcw, Eye, EyeOff } from 'lucide-react';
+import { ChevronLeft, ChevronRight, RotateCcw, Eye } from 'lucide-react';
 import { renderMixedContent } from '@/components/MathRenderer';
 import { Question } from '@/types/gre-test';
 import { FlashcardData } from '@/stores/useTestStore';
@@ -22,15 +22,13 @@ export function FlashcardView({
   onClose
 }: FlashcardViewProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [isFlipped, setIsFlipped] = useState(false);
   const [showAnswer, setShowAnswer] = useState(false);
 
   const currentQuestion = questions[currentIndex];
   const currentProgress = currentQuestion ? flashcardProgress[currentQuestion.id] : null;
 
-  // Reset flip state when question changes
+  // Reset answer state when question changes
   useEffect(() => {
-    setIsFlipped(false);
     setShowAnswer(false);
   }, [currentIndex]);
 
@@ -176,7 +174,6 @@ export function FlashcardView({
             <Button
               variant="outline"
               onClick={() => {
-                setIsFlipped(false);
                 setShowAnswer(false);
               }}
             >

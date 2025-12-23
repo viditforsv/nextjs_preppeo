@@ -3,7 +3,7 @@
 import { useTestStore } from '@/stores/useTestStore';
 import { Card, CardContent, CardHeader, CardTitle } from '@/design-system/components/ui/card';
 import { Button } from '@/design-system/components/ui/button';
-import { CheckCircle2, RotateCcw, Eye, Trophy, BarChart3 } from 'lucide-react';
+import { RotateCcw, Eye, Trophy, BarChart3 } from 'lucide-react';
 
 interface TestCompletionScreenProps {
   onRetake: () => void;
@@ -89,7 +89,7 @@ export function TestCompletionScreen({
             Test Complete!
           </CardTitle>
           <p className="text-sm text-gray-600 mt-2">
-            You've completed the GRE practice test
+            You&apos;ve completed the GRE practice test
           </p>
         </CardHeader>
         <CardContent className="pt-6">

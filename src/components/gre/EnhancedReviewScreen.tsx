@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import { useTestStore } from '@/stores/useTestStore';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/design-system/components/ui/dialog';
 import { Button } from '@/design-system/components/ui/button';
@@ -19,13 +19,56 @@ export function EnhancedReviewScreen({
   onClose,
   onNavigateToQuestion,
 }: EnhancedReviewScreenProps) {
-  const { test, answers, flags, currentQuestionIndex } = useTestStore();
+  // #region agent log
+  const renderCount = useRef(0);
+  useEffect(() => {
+    renderCount.current += 1;
+    fetch('http://127.0.0.1:7242/ingest/e6346042-1cb4-4e6f-b174-4c1a9e96fc9e',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'EnhancedReviewScreen.tsx:30',message:'Component render',data:{renderCount:renderCount.current,isOpen,sectionId},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'A,B,C,D,E'})}).catch(()=>{});
+  });
+  // #endregion
+
+  // Use selectors to prevent unnecessary re-renders - only subscribe to needed values
+  const test = useTestStore((state) => state.test);
+  const answers = useTestStore((state) => state.answers);
+  const flags = useTestStore((state) => state.flags);
+  const currentQuestionIndex = useTestStore((state) => state.currentQuestionIndex);
+  const isReviewScreenOpen = useTestStore((state) => state.isReviewScreenOpen);
+  const currentSectionId = useTestStore((state) => state.currentSectionId);
+
+  // #region agent log
+  useEffect(() => {
+    fetch('http://127.0.0.1:7242/ingest/e6346042-1cb4-4e6f-b174-4c1a9e96fc9e',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'EnhancedReviewScreen.tsx:35',message:'Store values after useTestStore',data:{hasTest:!!test,answersCount:Object.keys(answers).length,flagsCount:Object.keys(flags).length,currentQuestionIndex},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'D'})}).catch(()=>{});
+  }, [test, answers, flags, currentQuestionIndex]);
+  // #endregion
+
+  // #region agent log
+  const prevIsOpen = useRef(isOpen);
+  const prevIsReviewScreenOpen = useRef(isReviewScreenOpen);
+  const prevCurrentSectionId = useRef(currentSectionId);
+  useEffect(() => {
+    const isOpenChanged = prevIsOpen.current !== isOpen;
+    const reviewOpenChanged = prevIsReviewScreenOpen.current !== isReviewScreenOpen;
+    const sectionIdChanged = prevCurrentSectionId.current !== currentSectionId;
+    if (isOpenChanged || reviewOpenChanged || sectionIdChanged) {
+      fetch('http://127.0.0.1:7242/ingest/e6346042-1cb4-4e6f-b174-4c1a9e96fc9e',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'EnhancedReviewScreen.tsx:52',message:'Props/state changed',data:{isOpenChanged,reviewOpenChanged,sectionIdChanged,prevIsOpen:prevIsOpen.current,currentIsOpen:isOpen,prevReviewOpen:prevIsReviewScreenOpen.current,currentReviewOpen:isReviewScreenOpen,prevSectionId:prevCurrentSectionId.current,currentSectionId},timestamp:Date.now(),sessionId:'debug-session',runId:'run2',hypothesisId:'B,F'})}).catch(()=>{});
+      prevIsOpen.current = isOpen;
+      prevIsReviewScreenOpen.current = isReviewScreenOpen;
+      prevCurrentSectionId.current = currentSectionId;
+    }
+  }, [isOpen, isReviewScreenOpen, currentSectionId]);
+  // #endregion
 
   const handleOpenChange = useCallback((open: boolean) => {
+    // #region agent log
+    fetch('http://127.0.0.1:7242/ingest/e6346042-1cb4-4e6f-b174-4c1a9e96fc9e',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'EnhancedReviewScreen.tsx:50',message:'handleOpenChange called',data:{open},timestamp:Date.now(),sessionId:'debug-session',runId:'post-fix',hypothesisId:'A'})}).catch(()=>{});
+    // #endregion
     if (!open) {
+      // #region agent log
+      fetch('http://127.0.0.1:7242/ingest/e6346042-1cb4-4e6f-b174-4c1a9e96fc9e',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'EnhancedReviewScreen.tsx:54',message:'Calling onClose',data:{},timestamp:Date.now(),sessionId:'debug-session',runId:'post-fix',hypothesisId:'A,C'})}).catch(()=>{});
+      // #endregion
       onClose();
     }
-  }, [onClose]);
+  }, [onClose]); // isOpen not needed - callback receives 'open' as parameter
 
   if (!test) return null;
 
@@ -102,6 +145,9 @@ export function EnhancedReviewScreen({
         return 'Unanswered';
     }
   };
+
+  // Prevent Dialog from rendering if not needed to avoid infinite loops
+  if (!isOpen && !test) return null;
 
   return (
     <Dialog open={isOpen} onOpenChange={handleOpenChange}>

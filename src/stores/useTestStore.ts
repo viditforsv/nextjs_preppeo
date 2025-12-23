@@ -102,9 +102,30 @@ export const useTestStore = create<TestState>()(
 
       toggleCalculator: () => set((state) => ({ isCalculatorOpen: !state.isCalculatorOpen })),
 
-      toggleReviewScreen: () => set((state) => ({ isReviewScreenOpen: !state.isReviewScreenOpen })),
+      toggleReviewScreen: () => {
+        // #region agent log
+        fetch('http://127.0.0.1:7242/ingest/e6346042-1cb4-4e6f-b174-4c1a9e96fc9e',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'useTestStore.ts:77',message:'toggleReviewScreen called',data:{currentState:get().isReviewScreenOpen},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'C'})}).catch(()=>{});
+        // #endregion
+        return set((state) => {
+          const newState = !state.isReviewScreenOpen;
+          // #region agent log
+          fetch('http://127.0.0.1:7242/ingest/e6346042-1cb4-4e6f-b174-4c1a9e96fc9e',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'useTestStore.ts:82',message:'toggleReviewScreen state update',data:{oldState:state.isReviewScreenOpen,newState},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'C'})}).catch(()=>{});
+          // #endregion
+          return { isReviewScreenOpen: newState };
+        });
+      },
 
-      navigateQuestion: (idx) => set({ currentQuestionIndex: idx, isReviewScreenOpen: false }),
+      navigateQuestion: (idx) => {
+        // #region agent log
+        fetch('http://127.0.0.1:7242/ingest/e6346042-1cb4-4e6f-b174-4c1a9e96fc9e',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'useTestStore.ts:79',message:'navigateQuestion called',data:{idx,currentIndex:get().currentQuestionIndex,currentIsReviewOpen:get().isReviewScreenOpen},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'E'})}).catch(()=>{});
+        // #endregion
+        return set((state) => {
+          // #region agent log
+          fetch('http://127.0.0.1:7242/ingest/e6346042-1cb4-4e6f-b174-4c1a9e96fc9e',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'useTestStore.ts:85',message:'navigateQuestion state update',data:{oldIndex:state.currentQuestionIndex,newIndex:idx,oldReviewOpen:state.isReviewScreenOpen},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'E'})}).catch(()=>{});
+          // #endregion
+          return { currentQuestionIndex: idx, isReviewScreenOpen: false };
+        });
+      },
 
       tickTimer: () => set((state) => ({ timeLeft: state.timeLeft > 0 ? state.timeLeft - 1 : 0 })),
 

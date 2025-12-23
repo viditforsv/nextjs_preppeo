@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { Button } from '@/design-system/components/ui/button';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/design-system/components/ui/dialog';
-import { Lightbulb, X } from 'lucide-react';
+import { Lightbulb } from 'lucide-react';
 import { renderMixedContent } from '@/components/MathRenderer';
 import { Question } from '@/types/gre-test';
 

@@ -2,7 +2,6 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { Button } from '@/design-system/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/design-system/components/ui/card';
 import { Input } from '@/design-system/components/ui/input';
 import { X, Minimize2, Maximize2, Send } from 'lucide-react';
 import Image from 'next/image';

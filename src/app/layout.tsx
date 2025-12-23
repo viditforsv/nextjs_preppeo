@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Lato } from "next/font/google";
 import "@/design-system/globals.css";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { CartProvider } from "@/contexts/CartContext";
@@ -22,6 +22,14 @@ const inter = Inter({
     "Segoe UI",
     "sans-serif",
   ],
+});
+
+// Lato font for specific components
+const lato = Lato({
+  subsets: ["latin"],
+  weight: ["400", "700"],
+  variable: "--font-lato",
+  display: "swap",
 });
 
 // Get the base URL for Open Graph images
@@ -83,7 +91,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${inter.variable} ${inter.className}`}
+        className={`${inter.variable} ${lato.variable} ${inter.className}`}
         suppressHydrationWarning={true}
       >
         <AuthProvider>

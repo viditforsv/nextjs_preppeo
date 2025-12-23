@@ -4,12 +4,11 @@ import { Button } from '@/design-system/components/ui/button';
 import { Bookmark, BookmarkCheck } from 'lucide-react';
 
 interface BookmarkButtonProps {
-  questionId: string;
   isBookmarked: boolean;
   onToggle: () => void;
 }
 
-export function BookmarkButton({ questionId, isBookmarked, onToggle }: BookmarkButtonProps) {
+export function BookmarkButton({ isBookmarked, onToggle }: BookmarkButtonProps) {
   return (
     <Button
       variant="outline"

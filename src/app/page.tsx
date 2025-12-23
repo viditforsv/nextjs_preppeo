@@ -309,7 +309,10 @@ export default function Home() {
                     >
                       <GraduationCap className="w-7 h-7 text-white" />
                     </div>
-                    <h3 className="font-bold text-foreground text-lg">
+                    <h3 
+                      className="font-bold text-foreground text-lg"
+                      style={board.name === "IGCSE" ? { fontFamily: "var(--font-lato)" } : undefined}
+                    >
                       {board.name}
                     </h3>
                   </CardContent>
@@ -498,7 +501,10 @@ export default function Home() {
                   >
                     <GraduationCap className="w-7 h-7 text-white" />
                   </div>
-                  <h3 className="font-bold text-foreground text-lg">
+                  <h3 
+                    className="font-bold text-foreground text-lg"
+                    style={board.name === "IGCSE" ? { fontFamily: "var(--font-lato)" } : undefined}
+                  >
                     {board.name}
                   </h3>
                 </CardContent>
@@ -513,7 +519,7 @@ export default function Home() {
         {/* Decorative pattern */}
         <div className="absolute inset-0 opacity-10">
           <div
-            className="absolute top-0 left-0 w-full h-full"
+            className="absolute top-0 left-0 w-full bottom-8"
             style={{
               backgroundImage:
                 "radial-gradient(circle, white 1px, transparent 1px)",

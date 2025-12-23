@@ -5,6 +5,7 @@ import { useTestStore } from '@/stores/useTestStore';
 import { mockGRETest } from '@/lib/mock-gre-data';
 import { Button } from '@/design-system/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/design-system/components/ui/card';
+import { Input } from '@/design-system/components/ui/input';
 import { Clock, Calculator, Flag, Eye, ChevronLeft, ChevronRight, CheckCircle2 } from 'lucide-react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/design-system/components/ui/dialog';
 
@@ -209,6 +210,36 @@ export default function GRETestPage() {
                       <span className="flex-1 text-gray-800">{option.text}</span>
                     </label>
                   ))}
+                </div>
+              )}
+
+              {currentQuestion.type === 'text-select' && (
+                <div className="space-y-3">
+                  <Input
+                    type="text"
+                    placeholder="Enter your answer"
+                    value={answers[currentQuestion.id] || ''}
+                    onChange={(e) => {
+                      setAnswer(currentQuestion.id, e.target.value);
+                    }}
+                    className="text-lg p-4"
+                  />
+                  <p className="text-sm text-gray-500">Type your answer in the text field above</p>
+                </div>
+              )}
+
+              {currentQuestion.type === 'numeric-entry' && (
+                <div className="space-y-3">
+                  <Input
+                    type="number"
+                    placeholder="Enter your answer"
+                    value={answers[currentQuestion.id] || ''}
+                    onChange={(e) => {
+                      setAnswer(currentQuestion.id, e.target.value);
+                    }}
+                    className="text-lg p-4"
+                  />
+                  <p className="text-sm text-gray-500">Enter a numeric value</p>
                 </div>
               )}
             </CardContent>

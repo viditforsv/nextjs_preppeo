@@ -6,7 +6,7 @@ import { createClient } from '@/lib/supabase/server';
  * GET /api/gre/bookmarks
  * Fetch user's bookmarked questions
  */
-export async function GET(request: NextRequest) {
+export async function GET() {
   try {
     const supabase = await createClient();
     const { data: { user }, error: authError } = await supabase.auth.getUser();
