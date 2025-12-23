@@ -7,6 +7,9 @@ export interface Question {
   passageId?: string; // If linked to a reading passage
   options?: { id: string; text: string }[]; // For choice/select types
   correctAnswer: string | string[]; // Array for multi-select
+  explanation?: string; // Optional explanation for the answer
+  topics?: string[]; // Optional related topics
+  hints?: string[]; // Optional hints for the question
 }
 
 export interface Passage {

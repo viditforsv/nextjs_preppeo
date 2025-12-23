@@ -31,7 +31,7 @@ export function HintButton({ question, onHintUsed }: HintButtonProps) {
 
   const handleShowAnswer = () => {
     // Reveal all hints and mark as answer shown
-    setRevealedHints(new Set(question.hints!.map((_, i) => i)));
+    setRevealedHints(new Set(question.hints!.map((_: string, i: number) => i)));
     onHintUsed?.(question.hints!.length);
   };
 
@@ -57,7 +57,7 @@ export function HintButton({ question, onHintUsed }: HintButtonProps) {
           </DialogHeader>
 
           <div className="space-y-4 mt-4">
-            {question.hints.map((hint, index) => (
+            {question.hints.map((hint: string, index: number) => (
               <div
                 key={index}
                 className={`p-4 border rounded-lg ${

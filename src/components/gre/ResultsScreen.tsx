@@ -40,7 +40,7 @@ export function ResultsScreen({
         const userAnswerArray = Array.isArray(userAnswer) ? userAnswer : [userAnswer];
         isCorrect = 
           userAnswerArray.length === q.correctAnswer.length &&
-          userAnswerArray.every(ans => q.correctAnswer.includes(ans));
+          userAnswerArray.every(ans => q.correctAnswer.includes(String(ans)));
       } else {
         isCorrect = userAnswer === q.correctAnswer;
       }

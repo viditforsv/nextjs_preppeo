@@ -205,14 +205,14 @@ What would you like to know?`,
         </div>
         <div className="flex gap-1">
           <Button
-            variant="ghost"
+            variant="outline"
             size="sm"
             onClick={() => setIsMinimized(!isMinimized)}
             className="h-6 w-6 p-0"
           >
             {isMinimized ? <Maximize2 className="w-3 h-3" /> : <Minimize2 className="w-3 h-3" />}
           </Button>
-          <Button variant="ghost" size="sm" onClick={onToggle} className="h-6 w-6 p-0">
+          <Button variant="outline" size="sm" onClick={onToggle} className="h-6 w-6 p-0">
             <X className="w-3 h-3" />
           </Button>
         </div>

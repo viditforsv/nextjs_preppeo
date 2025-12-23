@@ -31,7 +31,7 @@ export function ExplanationPanel({ question, isSubmitted }: ExplanationPanelProp
             <CardTitle className="text-sm font-medium text-gray-900">Explanation</CardTitle>
           </div>
           <Button
-            variant="ghost"
+            variant="outline"
             size="sm"
             onClick={(e) => {
               e.stopPropagation();
@@ -56,7 +56,7 @@ export function ExplanationPanel({ question, isSubmitted }: ExplanationPanelProp
             <div className="mt-4 pt-4 border-t border-gray-200">
               <p className="text-xs text-gray-600 mb-2">Related Topics:</p>
               <div className="flex flex-wrap gap-2">
-                {question.topics.map((topic, idx) => (
+                {question.topics.map((topic: string, idx: number) => (
                   <span
                     key={idx}
                     className="px-2 py-1 bg-gray-100 text-gray-700 text-xs rounded"
