@@ -299,11 +299,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         });
 
         if (error) {
-          console.error("❌ fetchProfile - Error:", {
-            code: error.code,
-            message: error.message,
+          // Log error with safe property access
+          const errorInfo = {
+            code: error.code || "NO_CODE",
+            message: error.message || "NO_MESSAGE",
             fullError: error,
-          });
+            errorType: error.constructor?.name || typeof error,
+          };
+          console.error("❌ fetchProfile - Error:", errorInfo);
 
           // Handle RLS policy errors (empty error object)
           if (!error.code && !error.message) {
