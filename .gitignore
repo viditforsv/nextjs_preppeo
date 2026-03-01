@@ -27,6 +27,7 @@
 # Google service account keys
 google-service-account-key.json
 *service-account*.json
+credentials.json
 
 # debug
 npm-debug.log*

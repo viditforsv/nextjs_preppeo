@@ -252,38 +252,23 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Board Cards Section */}
+        {/* Exam Cards Section */}
         <section className="py-20 bg-gradient-to-b from-white to-gray-50">
           <div className="container mx-auto px-4">
             <div className="text-center mb-12">
               <h2 className="text-4xl font-bold text-foreground mb-4">
-                Explore by Board
+                Explore by Exam
               </h2>
               <p className="text-lg text-muted-foreground">
-                Choose your curriculum and start learning today
+                Choose your test and start preparing today
               </p>
             </div>
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-2xl mx-auto">
               {[
                 {
-                  name: "CBSE",
-                  color: "bg-blue-500",
-                  gradient: "from-blue-500 to-blue-600",
-                },
-                {
-                  name: "ICSE",
-                  color: "bg-primary",
-                  gradient: "from-primary to-emerald-600",
-                },
-                {
-                  name: "IBDP",
-                  color: "bg-purple-500",
-                  gradient: "from-purple-500 to-purple-600",
-                },
-                {
-                  name: "IGCSE",
-                  color: "bg-orange-500",
-                  gradient: "from-orange-500 to-orange-600",
+                  name: "SAT",
+                  color: "bg-indigo-500",
+                  gradient: "from-indigo-500 to-indigo-600",
                 },
                 {
                   name: "GMAT",
@@ -291,9 +276,9 @@ export default function Home() {
                   gradient: "from-red-500 to-red-600",
                 },
                 {
-                  name: "SAT",
-                  color: "bg-indigo-500",
-                  gradient: "from-indigo-500 to-indigo-600",
+                  name: "GRE",
+                  color: "bg-purple-500",
+                  gradient: "from-purple-500 to-purple-600",
                 },
               ].map((board) => (
                 <Card
@@ -309,10 +294,7 @@ export default function Home() {
                     >
                       <GraduationCap className="w-7 h-7 text-white" />
                     </div>
-                    <h3 
-                      className="font-bold text-foreground text-lg"
-                      style={board.name === "IGCSE" ? { fontFamily: "var(--font-lato)" } : undefined}
-                    >
+                    <h3 className="font-bold text-foreground text-lg">
                       {board.name}
                     </h3>
                   </CardContent>
@@ -444,38 +426,23 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Board Cards Section */}
+      {/* Exam Cards Section */}
       <section className="py-20 bg-gradient-to-b from-white to-gray-50">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="text-4xl font-bold text-foreground mb-4">
-              Explore by Board
+              Explore by Exam
             </h2>
             <p className="text-lg text-muted-foreground">
-              Choose your curriculum and start learning today
+              Choose your test and start preparing today
             </p>
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-2xl mx-auto">
             {[
               {
-                name: "CBSE",
-                color: "bg-blue-500",
-                gradient: "from-blue-500 to-blue-600",
-              },
-              {
-                name: "ICSE",
-                color: "bg-primary",
-                gradient: "from-primary to-emerald-600",
-              },
-              {
-                name: "IBDP",
-                color: "bg-purple-500",
-                gradient: "from-purple-500 to-purple-600",
-              },
-              {
-                name: "IGCSE",
-                color: "bg-orange-500",
-                gradient: "from-orange-500 to-orange-600",
+                name: "SAT",
+                color: "bg-indigo-500",
+                gradient: "from-indigo-500 to-indigo-600",
               },
               {
                 name: "GMAT",
@@ -483,9 +450,9 @@ export default function Home() {
                 gradient: "from-red-500 to-red-600",
               },
               {
-                name: "SAT",
-                color: "bg-indigo-500",
-                gradient: "from-indigo-500 to-indigo-600",
+                name: "GRE",
+                color: "bg-purple-500",
+                gradient: "from-purple-500 to-purple-600",
               },
             ].map((board) => (
               <Card
@@ -501,10 +468,7 @@ export default function Home() {
                   >
                     <GraduationCap className="w-7 h-7 text-white" />
                   </div>
-                  <h3 
-                    className="font-bold text-foreground text-lg"
-                    style={board.name === "IGCSE" ? { fontFamily: "var(--font-lato)" } : undefined}
-                  >
+                  <h3 className="font-bold text-foreground text-lg">
                     {board.name}
                   </h3>
                 </CardContent>

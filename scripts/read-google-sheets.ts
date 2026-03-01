@@ -69,20 +69,27 @@ async function authenticateGoogleSheets() {
     credentials = JSON.parse(readFileSync(keyPath, "utf-8"));
     console.log(`   Using credentials from GOOGLE_SERVICE_ACCOUNT_KEY: ${keyPath}`);
   }
-  // Method 4: Default file path
+  // Method 4: Check for credentials.json in root
   else {
-    const defaultPath = resolve(process.cwd(), "google-service-account-key.json");
-    if (existsSync(defaultPath)) {
-      credentials = JSON.parse(readFileSync(defaultPath, "utf-8"));
-      console.log(`   Using credentials from default path: ${defaultPath}`);
+    const credentialsPath = resolve(process.cwd(), "credentials.json");
+    if (existsSync(credentialsPath)) {
+      credentials = JSON.parse(readFileSync(credentialsPath, "utf-8"));
+      console.log(`   Using credentials from: ${credentialsPath}`);
     } else {
-      throw new Error(
-        "No service account credentials found. Set one of:\n" +
-        "  - GOOGLE_SERVICE_ACCOUNT_JSON (JSON content)\n" +
-        "  - GOOGLE_APPLICATION_CREDENTIALS (file path)\n" +
-        "  - GOOGLE_SERVICE_ACCOUNT_KEY (file path)\n" +
-        "  - Or place key file at: google-service-account-key.json"
-      );
+      // Method 5: Default file path
+      const defaultPath = resolve(process.cwd(), "google-service-account-key.json");
+      if (existsSync(defaultPath)) {
+        credentials = JSON.parse(readFileSync(defaultPath, "utf-8"));
+        console.log(`   Using credentials from default path: ${defaultPath}`);
+      } else {
+        throw new Error(
+          "No service account credentials found. Set one of:\n" +
+          "  - GOOGLE_SERVICE_ACCOUNT_JSON (JSON content)\n" +
+          "  - GOOGLE_APPLICATION_CREDENTIALS (file path)\n" +
+          "  - GOOGLE_SERVICE_ACCOUNT_KEY (file path)\n" +
+          "  - Or place key file at: credentials.json or google-service-account-key.json"
+        );
+      }
     }
   }
 

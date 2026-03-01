@@ -70,12 +70,34 @@ async function updateLessonUrlsFromJson(jsonFilePath: string, dryRun: boolean = 
       continue;
     }
 
-    // Find lesson by slug
-    const { data: lesson, error: fetchError } = await supabase
+    // Convert underscores to hyphens for slug matching (e.g., gre_lid_001 -> gre-lid-001)
+    const normalizedSlug = slug.replace(/_/g, "-");
+
+    // Try to find lesson by slug (try both formats)
+    let lesson;
+    let fetchError;
+    
+    // First try the normalized slug (hyphens)
+    let result = await supabase
       .from("courses_lessons")
       .select("id, slug, title, pdf_url, solution_url")
-      .eq("slug", slug)
+      .eq("slug", normalizedSlug)
       .single();
+    
+    lesson = result.data;
+    fetchError = result.error;
+
+    // If not found, try the original slug (underscores)
+    if (fetchError || !lesson) {
+      result = await supabase
+        .from("courses_lessons")
+        .select("id, slug, title, pdf_url, solution_url")
+        .eq("slug", slug)
+        .single();
+      
+      lesson = result.data;
+      fetchError = result.error;
+    }
 
     if (fetchError || !lesson) {
       console.log(`❌ Lesson not found: ${slug}`);

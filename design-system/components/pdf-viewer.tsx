@@ -102,29 +102,112 @@ export function PDFViewer({ url, title = "PDF Document", className = "", height 
     }
   }, [useAdobeEmbed])
 
-  // Initialize Adobe PDF viewer
+  // Initialize Adobe PDF viewer with retry mechanism
   useEffect(() => {
-    if (!useAdobeEmbed || !adobeViewerReady || !adobeContainerRef.current) return
+    if (!useAdobeEmbed || !adobeViewerReady) return
 
-    try {
-      const adobeDCView = new window.AdobeDC.View({ 
-        clientId,
-        divId: adobeContainerRef.current?.id || 'adobe-pdf-viewer'
-      })
-      
-      adobeDCView.previewFile({
-        content: { location: { url } },
-        metaData: { fileName: title }
-      }, {
-        embedMode: 'IN_LINE',
-        showDownloadPDF: false,
-        showPrintPDF: false,
-        showLeftHandPanel: false,
-        showAnnotationTools: false
-      })
-    } catch (error) {
-      console.error('Error initializing Adobe PDF viewer:', error)
-      setError('Failed to load Adobe PDF viewer')
+    let retryCount = 0
+    const maxRetries = 5
+    const retryDelay = 500
+    let timeoutId: NodeJS.Timeout | null = null
+    let isMounted = true
+
+    const initializeAdobeViewer = async () => {
+      // Wait for window.onload if not already loaded
+      if (document.readyState !== 'complete') {
+        await new Promise<void>((resolve) => {
+          if (document.readyState === 'complete') {
+            resolve()
+          } else {
+            const handleLoad = () => {
+              window.removeEventListener('load', handleLoad)
+              resolve()
+            }
+            window.addEventListener('load', handleLoad)
+          }
+        })
+      }
+
+      // Small delay to ensure DOM is ready and BunnyCDN edge has responded
+      await new Promise(resolve => setTimeout(resolve, 100))
+
+      if (!isMounted) return
+
+      // Verify container exists and has dimensions
+      if (!adobeContainerRef.current) {
+        if (retryCount < maxRetries) {
+          retryCount++
+          timeoutId = setTimeout(initializeAdobeViewer, retryDelay)
+          return
+        }
+        if (isMounted) {
+          setError('PDF container not found after retries')
+        }
+        return
+      }
+
+      // Verify container is visible and has dimensions
+      const rect = adobeContainerRef.current.getBoundingClientRect()
+      if (rect.width === 0 || rect.height === 0) {
+        if (retryCount < maxRetries) {
+          retryCount++
+          timeoutId = setTimeout(initializeAdobeViewer, retryDelay)
+          return
+        }
+        if (isMounted) {
+          setError('PDF container has no dimensions')
+        }
+        return
+      }
+
+      // Verify AdobeDC is available
+      if (!window.AdobeDC || !window.AdobeDC.View) {
+        if (retryCount < maxRetries) {
+          retryCount++
+          timeoutId = setTimeout(initializeAdobeViewer, retryDelay)
+          return
+        }
+        if (isMounted) {
+          setError('Adobe PDF SDK not loaded')
+        }
+        return
+      }
+
+      try {
+        const containerId = adobeContainerRef.current.id || 'adobe-pdf-viewer'
+        const adobeDCView = new window.AdobeDC.View({ 
+          clientId,
+          divId: containerId
+        })
+        
+        adobeDCView.previewFile({
+          content: { location: { url } },
+          metaData: { fileName: title }
+        }, {
+          embedMode: 'IN_LINE',
+          showDownloadPDF: false,
+          showPrintPDF: false,
+          showLeftHandPanel: false,
+          showAnnotationTools: false
+        })
+      } catch (error) {
+        console.error('Error initializing Adobe PDF viewer:', error)
+        if (retryCount < maxRetries) {
+          retryCount++
+          timeoutId = setTimeout(initializeAdobeViewer, retryDelay)
+        } else if (isMounted) {
+          setError('Failed to load Adobe PDF viewer after retries')
+        }
+      }
+    }
+
+    initializeAdobeViewer()
+
+    return () => {
+      isMounted = false
+      if (timeoutId) {
+        clearTimeout(timeoutId)
+      }
     }
   }, [useAdobeEmbed, adobeViewerReady, url, title, clientId])
 
