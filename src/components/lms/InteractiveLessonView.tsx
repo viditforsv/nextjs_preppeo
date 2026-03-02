@@ -20,6 +20,8 @@ export interface InteractiveQuizItem {
   options: string[];
   answer: number;
   explanation: string;
+  /** Optional difficulty for pill styling (Easy / Medium / Hard) */
+  difficulty?: "Easy" | "Medium" | "Hard";
 }
 
 interface InteractiveLessonViewProps {

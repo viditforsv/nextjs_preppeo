@@ -60,6 +60,14 @@ function renderSimpleMd(text: string) {
     .replace(/\n/g, "<br/>");
 }
 
+// comm.md-style difficulty colors (Easy / Medium / Hard)
+const DIFF = {
+  Easy: { text: "#15803d", bg: "#f0fdf4", border: "#86efac" },
+  Medium: { text: "#b45309", bg: "#fffbeb", border: "#fcd34d" },
+  Hard: { text: "#dc2626", bg: "#fef2f2", border: "#fca5a5" },
+} as const;
+type DiffKey = keyof typeof DIFF;
+
 export function LMSLessonView({
   courseSlug,
   courseId,
@@ -241,6 +249,11 @@ export function LMSLessonView({
                 }`}
               >
                 <Pencil className="h-4 w-4" /> Practice Questions
+                {activeTab === "questions" && quiz.length > 0 && (
+                  <span className="ml-1.5 rounded-full bg-[#fff8ee] px-2 py-0.5 text-xs font-bold tabular-nums text-[#b45309]">
+                    {Object.values(submittedQuestions).filter(Boolean).length}/{quiz.length} correct
+                  </span>
+                )}
               </button>
             </div>
 
@@ -320,7 +333,53 @@ export function LMSLessonView({
                   ) : (
                     <div className="flex min-h-0 flex-1">
                       <PracticeQuestionsSidebar
-                        items={practiceQuestionsData?.questions ?? []}
+                        items={
+                          (practiceQuestionsData?.questions?.length ?? 0) > 0
+                            ? practiceQuestionsData!.questions.map((item) => {
+                                const idx = item.order - 1;
+                                const hasSession =
+                                  submittedQuestions[idx] !== undefined || skippedQuestions[idx];
+                                return {
+                                  ...item,
+                                  question: item.question ?? quiz[idx]?.question ?? null,
+                                  ...(hasSession
+                                    ? {
+                                        lastAttempt: {
+                                          time_taken_seconds: 0,
+                                          is_correct: !!submittedQuestions[idx],
+                                          skipped: !!skippedQuestions[idx],
+                                        },
+                                      }
+                                    : {}),
+                                };
+                              })
+                            : quiz.map((_, idx) => {
+                                const qItem = quiz[idx];
+                                const diffNum =
+                                  qItem?.difficulty === "Easy"
+                                    ? 2
+                                    : qItem?.difficulty === "Medium"
+                                      ? 5
+                                      : qItem?.difficulty === "Hard"
+                                        ? 8
+                                        : null;
+                                return {
+                                order: idx + 1,
+                                question_id: null,
+                                difficulty: diffNum,
+                                topic: null,
+                                question: qItem?.question ?? null,
+                                lastAttempt:
+                                  submittedQuestions[idx] !== undefined || skippedQuestions[idx]
+                                    ? {
+                                        time_taken_seconds: 0,
+                                        is_correct: !!submittedQuestions[idx],
+                                        skipped: !!skippedQuestions[idx],
+                                      }
+                                    : undefined,
+                              };
+                            })
+                        }
                         currentIndex={practiceQuestionIndex}
                         onSelectQuestion={(order) => setPracticeQuestionIndex(order - 1)}
                         filters={practiceFilters}
@@ -329,54 +388,10 @@ export function LMSLessonView({
                         onRefresh={fetchPracticeQuestions}
                         collapsed={questionsSidebarCollapsed}
                         onToggleCollapsed={() => setQuestionsSidebarCollapsed((c) => !c)}
+                        scoreCorrect={Object.values(submittedQuestions).filter(Boolean).length}
+                        scoreTotal={quiz.length}
                       />
                       <div className="flex flex-1 flex-col gap-4 overflow-y-auto p-5">
-                        {/* Score summary */}
-                      {Object.keys(submittedQuestions).length > 0 && (
-                        <div className="mb-2 flex items-center gap-3 rounded-xl border border-[#eae8e2] bg-white p-3">
-                          <span className="text-xl">📊</span>
-                          <div>
-                            <div className="text-sm font-bold text-[#1a1a2e]">
-                              {Object.values(submittedQuestions).filter(Boolean).length} / {Object.keys(submittedQuestions).length} correct
-                            </div>
-                            <div className="text-xs text-[#8b8880]">
-                              {quiz.length - Object.keys(submittedQuestions).length} questions remaining
-                            </div>
-                          </div>
-                          <div className="ml-auto flex gap-1">
-                            {quiz.map((_, qi) => {
-                              const sub = submittedQuestions[qi];
-                              const skipped = skippedQuestions[qi];
-                              const bg = skipped
-                                ? "#d4d0c8"
-                                : sub === undefined
-                                  ? "#d4d0c8"
-                                  : sub
-                                    ? "#22c55e"
-                                    : "#ef4444";
-                              const title = skipped
-                                ? "Skipped"
-                                : sub === undefined
-                                  ? "Not answered"
-                                  : sub
-                                    ? "Correct"
-                                    : "Incorrect";
-                              return (
-                                <div
-                                  key={qi}
-                                  className="h-2 w-2 rounded-full"
-                                  style={{
-                                    background: bg,
-                                    opacity: skipped ? 0.6 : 1,
-                                  }}
-                                  title={title}
-                                />
-                              );
-                            })}
-                          </div>
-                        </div>
-                      )}
-
                       {(() => {
                         const i = Math.min(practiceQuestionIndex, quiz.length - 1);
                         const q = quiz[i];
@@ -391,63 +406,101 @@ export function LMSLessonView({
                         const optionLabel = (oi: number) => String.fromCharCode(65 + oi);
                         const optionText = (opt: string) =>
                           /^[A-D]\)\s*/.test(opt) ? opt.replace(/^[A-D]\)\s*/, "") : opt;
+                        const difficulty: DiffKey = q.difficulty ?? "Medium";
+                        const diffStyle = DIFF[difficulty];
 
                         return (
                           <div
                             key={i}
-                            className="rounded-xl border border-[#eae8e2] bg-white p-5 transition-shadow hover:shadow-lg"
+                            className="rounded-xl border border-[#ebe8e1] bg-white p-5 transition-shadow"
                             style={{
-                              borderColor: submitted ? (isCorrect ? "#bbf7d0" : "#fecaca") : undefined,
+                              borderColor: submitted ? (isCorrect ? "#86efac" : "#fca5a5") : undefined,
                             }}
                           >
-                            <div className="mb-2 flex items-center gap-2">
-                              <span className="text-xs font-bold text-[#8b8880]">
+                            {/* Meta row: Q counter, timer (warn when >90s), difficulty pill, result badge — comm.md */}
+                            <div className="mb-3 flex flex-wrap items-center gap-2">
+                              <span className="text-[11.5px] font-bold text-[#9a9690]">
                                 Q{i + 1} of {quiz.length}
                               </span>
-                              <span className="text-xs text-[#8b8880] tabular-nums">
-                                {Math.floor(elapsedSeconds / 60)}:{String(elapsedSeconds % 60).padStart(2, "0")}
+                              {!submitted && (
+                                <span
+                                  className={`font-mono text-[11px] rounded-md border px-2 py-1 flex items-center gap-1 ${
+                                    elapsedSeconds > 90
+                                      ? "text-[#dc2626] border-[#fca5a5] bg-[#fef2f2]"
+                                      : "text-[#9a9690] border-[#ebe8e1] bg-white"
+                                  }`}
+                                >
+                                  ⏱ {Math.floor(elapsedSeconds / 60)}:{String(elapsedSeconds % 60).padStart(2, "0")}
+                                </span>
+                              )}
+                              <span
+                                className="rounded-[20px] border px-2 py-0.5 text-[10px] font-extrabold"
+                                style={{ background: diffStyle.bg, color: diffStyle.text, borderColor: diffStyle.border }}
+                              >
+                                {difficulty}
                               </span>
                               {submitted && (
                                 <span
-                                  className="ml-auto flex items-center gap-1 text-xs font-bold"
+                                  className="ml-auto flex items-center gap-1 rounded-[20px] border px-2.5 py-1 text-[11.5px] font-bold"
                                   style={{
-                                    color: skipped ? "#8b8880" : isCorrect ? "#16a34a" : "#dc2626",
+                                    background: skipped ? "#f5f4f1" : isCorrect ? "#f0fdf4" : "#fef2f2",
+                                    color: skipped ? "#6b6966" : isCorrect ? "#15803d" : "#dc2626",
+                                    borderColor: skipped ? "#e0ddd6" : isCorrect ? "#86efac" : "#fca5a5",
                                   }}
                                 >
-                                  {skipped ? "Skipped" : isCorrect ? "✓ Correct" : "✗ Incorrect"}
+                                  {skipped ? "Skipped" : isCorrect ? "✓ Correct!" : "✗ Incorrect"}
                                 </span>
                               )}
                             </div>
 
-                            <p className="mb-3 text-sm font-semibold leading-snug text-[#1a1a2e]">
+                            <p className="mb-5 text-[15.5px] font-semibold leading-relaxed text-[#1c1b1f] tracking-tight">
                               {q.question}
                             </p>
 
-                            {/* SAT-style MCQ options */}
-                            <div className="mb-3 flex flex-col gap-2">
+                            {/* Options — comm.md: white bg, rounded-square letter 28×28, hover translateX(3px), dim non-selected after submit */}
+                            <div className="mb-4 flex flex-col gap-2">
                               {opts.map((opt, oi) => {
-                                let bg = "#f4f3f0";
-                                let border = "#eae8e2";
-                                let color = "#3a3840";
-                                let fw = "500";
-                                if (!submitted && selected === oi) {
-                                  bg = "#fff8ee";
-                                  border = "#f59207";
-                                  color = "#92400e";
-                                  fw = "600";
+                                const isSelected = !submitted && selected === oi;
+                                const isCorrectOpt = submitted && oi === correctIndex;
+                                const isWrongOpt = submitted && oi === selected && oi !== correctIndex;
+                                const dim = submitted && oi !== correctIndex && oi !== selected;
+                                let rowBg = "#fff";
+                                let rowBorder = "#e0ddd6";
+                                let rowShadow = "0 0 0 transparent";
+                                let letterBg = "#f5f4f1";
+                                let letterColor = "#6b6966";
+                                let letterBorder = "#e0ddd6";
+                                let textColor = "#2c2a28";
+                                let textFw = "500";
+                                if (isSelected) {
+                                  rowBg = "#fffbf0";
+                                  rowBorder = "#f59207";
+                                  rowShadow = "0 0 0 3px rgba(245,146,7,0.08)";
+                                  letterBg = "#f59207";
+                                  letterColor = "#fff";
+                                  letterBorder = "#f59207";
+                                  textColor = "#92400e";
+                                  textFw = "600";
                                 }
-                                if (submitted) {
-                                  if (oi === correctIndex) {
-                                    bg = "#f0fdf4";
-                                    border = "#86efac";
-                                    color = "#15803d";
-                                    fw = "700";
-                                  } else if (oi === selected && oi !== correctIndex) {
-                                    bg = "#fef2f2";
-                                    border = "#fca5a5";
-                                    color = "#dc2626";
-                                    fw = "600";
-                                  }
+                                if (isCorrectOpt) {
+                                  rowBg = "#f0fdf4";
+                                  rowBorder = "#22c55e";
+                                  rowShadow = "0 0 0 3px rgba(34,197,94,0.09)";
+                                  letterBg = "#22c55e";
+                                  letterColor = "#fff";
+                                  letterBorder = "#22c55e";
+                                  textColor = "#15803d";
+                                  textFw = "600";
+                                }
+                                if (isWrongOpt) {
+                                  rowBg = "#fef2f2";
+                                  rowBorder = "#ef4444";
+                                  rowShadow = "0 0 0 3px rgba(239,68,68,0.09)";
+                                  letterBg = "#ef4444";
+                                  letterColor = "#fff";
+                                  letterBorder = "#ef4444";
+                                  textColor = "#dc2626";
+                                  textFw = "600";
                                 }
                                 return (
                                   <button
@@ -457,19 +510,22 @@ export function LMSLessonView({
                                     onClick={() =>
                                       !submitted && setSelectedOptions((s) => ({ ...s, [i]: oi }))
                                     }
-                                    className="flex w-full items-center gap-2.5 rounded-lg border px-3.5 py-2.5 text-left text-[13px] transition-[border-color,background-color,color]"
+                                    className="flex w-full items-center gap-3 rounded-[11px] border-[1.5px] px-4 py-3 text-left text-[13.5px] transition-all duration-150 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#f59207] focus-visible:ring-offset-2 disabled:pointer-events-none disabled:cursor-default hover:border-[#c8b87a] hover:bg-[#fdfcfa] hover:shadow-[0_2px_8px_rgba(0,0,0,0.04)] hover:translate-x-[3px]"
                                     style={{
-                                      background: bg,
-                                      borderWidth: "1.5px",
-                                      borderColor: border,
-                                      color,
-                                      fontWeight: fw,
+                                      background: rowBg,
+                                      borderColor: rowBorder,
+                                      boxShadow: rowShadow,
+                                      opacity: dim ? 0.45 : 1,
                                       cursor: submitted ? "default" : "pointer",
                                     }}
                                   >
                                     <span
-                                      className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full border-[1.5px] bg-white text-[11px] font-bold"
-                                      style={{ borderColor: border, color }}
+                                      className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg border-[1.5px] text-xs font-extrabold"
+                                      style={{
+                                        background: letterBg,
+                                        color: letterColor,
+                                        borderColor: letterBorder,
+                                      }}
                                     >
                                       {submitted && oi === correctIndex
                                         ? "✓"
@@ -477,20 +533,28 @@ export function LMSLessonView({
                                           ? "✗"
                                           : optionLabel(oi)}
                                     </span>
-                                    {optionText(opt)}
+                                    <span className="flex-1 font-medium" style={{ color: textColor, fontWeight: textFw }}>
+                                      {optionText(opt)}
+                                    </span>
                                   </button>
                                 );
                               })}
                             </div>
 
-                            {/* Action row */}
-                            <div className="flex flex-wrap gap-2">
+                            {/* Action row — comm.md .abtn styles */}
+                            <div className="flex flex-wrap items-center gap-2">
                               {!submitted && (
                                 <>
-                                  <Button
-                                    size="sm"
+                                  <button
+                                    type="button"
                                     disabled={selected === undefined}
-                                    className="rounded-lg bg-[#f59207] text-white hover:bg-[#e08a00] disabled:opacity-45"
+                                    className="inline-flex items-center gap-1.5 rounded-lg border-[1.5px] px-3.5 py-2 text-xs font-semibold transition-all active:scale-[0.97] disabled:cursor-not-allowed disabled:shadow-none"
+                                    style={{
+                                      background: selected === undefined ? "#e0ddd6" : "#f59207",
+                                      borderColor: selected === undefined ? "#e0ddd6" : "#f59207",
+                                      color: selected === undefined ? "#b8b5ae" : "#fff",
+                                      boxShadow: selected === undefined ? "none" : "0 2px 6px rgba(245,146,7,0.16)",
+                                    }}
                                     onClick={async () => {
                                       if (selected !== undefined) {
                                         const timeTaken = getElapsedForRecording();
@@ -515,11 +579,10 @@ export function LMSLessonView({
                                     }}
                                   >
                                     ✓ Submit Answer
-                                  </Button>
-                                  <Button
-                                    variant="outline"
-                                    size="sm"
-                                    className="rounded-lg border-[#d4d0c8] bg-[#f4f3f0] text-[#5a5860] hover:bg-[#eae8e2]"
+                                  </button>
+                                  <button
+                                    type="button"
+                                    className="inline-flex items-center gap-1.5 rounded-lg border-[1.5px] border-[#e0ddd6] bg-white px-3.5 py-2 text-xs font-semibold text-[#6b6966] transition-all hover:bg-[#f5f4f1] active:scale-[0.97]"
                                     onClick={async () => {
                                       const timeTaken = getElapsedForRecording();
                                       if (q.id) {
@@ -537,50 +600,46 @@ export function LMSLessonView({
                                     }}
                                   >
                                     Skip
-                                  </Button>
+                                  </button>
                                 </>
                               )}
-                              <Button
-                                variant="outline"
-                                size="sm"
-                                className="rounded-lg border-[#d4d0c8] bg-[#f4f3f0] text-[#5a5860] hover:bg-[#eae8e2]"
+                              <button
+                                type="button"
+                                className="inline-flex items-center gap-1.5 rounded-lg border-[1.5px] border-[#fde9b8] bg-[#fffbf0] px-3.5 py-2 text-xs font-semibold text-[#b45309] transition-all hover:bg-[#fef3c7] active:scale-[0.97]"
                                 onClick={() => setRevealedHints((h) => ({ ...h, [i]: !h[i] }))}
                               >
                                 💡 {revealedHints[i] ? "Hide Hint" : "Hint"}
-                              </Button>
+                              </button>
                               {submitted && (
-                                <Button
-                                  variant="outline"
-                                  size="sm"
-                                  className="rounded-lg border-[#d4d0c8] bg-[#f4f3f0] text-[#5a5860] hover:bg-[#eae8e2]"
+                                <button
+                                  type="button"
+                                  className="inline-flex items-center gap-1.5 rounded-lg border-[1.5px] border-[#86efac] bg-[#f0fdf4] px-3.5 py-2 text-xs font-semibold text-[#15803d] transition-all hover:bg-[#dcfce7] active:scale-[0.97]"
                                   onClick={() =>
                                     setRevealedExplanations((e) => ({ ...e, [i]: !e[i] }))
                                   }
                                 >
                                   📖 {revealedExplanations[i] ? "Hide" : "Explanation"}
-                                </Button>
+                                </button>
                               )}
-                              <Button
-                                variant="outline"
-                                size="sm"
-                                className="rounded-lg border-[#c7d2fe] bg-[#eef2ff] text-[#4338ca] hover:bg-[#e0e7ff]"
+                              <button
+                                type="button"
+                                className="inline-flex items-center gap-1.5 rounded-lg border-[1.5px] border-[#c7d2fe] bg-[#eef2ff] px-3.5 py-2 text-xs font-semibold text-[#4338ca] transition-all hover:bg-[#e0e7ff] active:scale-[0.97]"
                                 onClick={() => {
                                   const optsText =
                                     opts.length > 0
                                       ? opts.map((o, oi) => `${optionLabel(oi)}) ${optionText(o)}`).join(", ")
                                       : "";
                                   onAskAI?.(
-                                    `Can you walk me through this SAT problem step by step?\n\n"${q.question}"\n\nOptions: ${optsText}`
+                                    `Walk me through this SAT question:\n"${q.question}"\nOptions: ${optsText}`
                                   );
                                 }}
                               >
                                 🤖 Ask AI
-                              </Button>
+                              </button>
                               {submitted && (
-                                <Button
-                                  variant="outline"
-                                  size="sm"
-                                  className="rounded-lg border-[#d4d0c8] bg-[#f4f3f0] text-[#5a5860] hover:bg-[#eae8e2]"
+                                <button
+                                  type="button"
+                                  className="inline-flex items-center gap-1.5 rounded-lg border-[1.5px] border-[#e0ddd6] bg-white px-3.5 py-2 text-xs font-semibold text-[#6b6966] transition-all hover:bg-[#f5f4f1] active:scale-[0.97]"
                                   onClick={() => {
                                     setSubmittedQuestions((s) => {
                                       const n = { ...s };
@@ -610,79 +669,101 @@ export function LMSLessonView({
                                   }}
                                 >
                                   ↺ Retry
-                                </Button>
+                                </button>
                               )}
                             </div>
 
                             {revealedHints[i] && (
-                              <div className="mt-3 rounded-lg border border-[#d4d0c8] bg-[#f4f3f0] p-3 text-sm font-medium text-[#5a5860]">
-                                💡 {q.explanation}
+                              <div className="mt-3 rounded-[10px] border border-[#fde9b8] bg-[#fffbf0] p-3 text-[12.5px] leading-relaxed text-[#78350f] [&_strong]:text-[#1c1b1f]">
+                                💡 <strong>Hint:</strong> {q.explanation}
                               </div>
                             )}
                             {revealedExplanations[i] && (
-                              <div className="mt-3 rounded-lg border border-[#bbf7d0] bg-[#f0fdf4] p-3 text-sm leading-relaxed text-[#15803d] [&_strong]:text-[#1a1a2e]">
-                                📖 {q.explanation}
+                              <div className="mt-3 rounded-[10px] border border-[#86efac] bg-[#f0fdf4] p-3 text-[12.5px] leading-relaxed text-[#14532d] [&_strong]:text-[#1c1b1f]">
+                                📖 <strong>Explanation:</strong> {q.explanation}
                               </div>
+                            )}
+
+                            {/* Use empty space: prompt to use AI tutor */}
+                            {!revealedHints[i] && !revealedExplanations[i] && (
+                              <p className="mt-4 text-center text-xs text-[#8b8880]">
+                                Stuck?{" "}
+                                <button
+                                  type="button"
+                                  onClick={() => {
+                                    const optsText =
+                                      opts.length > 0
+                                        ? opts.map((o, oi) => `${optionLabel(oi)}) ${optionText(o)}`).join(", ")
+                                        : "";
+                                    onAskAI?.(
+                                      `Can you walk me through this problem step by step?\n\n"${q.question}"\n\nOptions: ${optsText}`
+                                    );
+                                  }}
+                                  className="font-semibold text-[#f59207] hover:text-[#e08a00] hover:underline"
+                                >
+                                  Ask the AI tutor →
+                                </button>
+                              </p>
                             )}
                           </div>
                         );
                       })()}
 
-                      {/* Previous / Next at bottom of question */}
+                      {/* Footer — comm.md: Previous | dots (8px, active scale 1.3) | Next */}
                       {quiz.length > 1 && (
-                        <div className="mt-4 flex items-center justify-between gap-2">
-                          <Button
-                            variant="outline"
-                            size="default"
-                            className="rounded-lg border-2 border-[#f59207] bg-white text-[#f59207] font-semibold hover:bg-[#fff8ee] hover:border-[#e08a00] hover:text-[#e08a00] disabled:opacity-50 disabled:border-[#eae8e2] disabled:text-[#8b8880]"
+                        <div className="mt-4 flex shrink-0 items-center justify-between gap-2 border-t border-[#ebe8e1] bg-white px-6 py-3">
+                          <button
+                            type="button"
                             disabled={practiceQuestionIndex === 0}
+                            className="inline-flex items-center gap-1.5 rounded-lg border-[1.5px] border-[#e0ddd6] bg-white px-4 py-2 text-xs font-semibold text-[#6b6966] transition-all hover:bg-[#f5f4f1] disabled:opacity-40 disabled:cursor-not-allowed"
                             onClick={() =>
                               setPracticeQuestionIndex((idx) => Math.max(0, idx - 1))
                             }
                           >
-                            <ChevronLeft className="h-4 w-4 mr-1" /> Previous
-                          </Button>
-                          <div className="flex items-center gap-1.5">
+                            <ChevronLeft className="h-4 w-4" /> Previous
+                          </button>
+                          <div className="flex items-center gap-2">
                             {quiz.map((_, qi) => {
                               const skipped = skippedQuestions[qi];
                               const sub = submittedQuestions[qi];
-                              const bg =
-                                qi === practiceQuestionIndex
-                                  ? "#f59207"
-                                  : skipped
-                                    ? "#d4d0c8"
-                                    : sub === true
-                                      ? "#22c55e"
-                                      : sub === false
-                                        ? "#ef4444"
-                                        : "#d4d0c8";
+                              const isActive = qi === practiceQuestionIndex;
+                              const bg = isActive
+                                ? "#f59207"
+                                : skipped
+                                  ? "#e0ddd6"
+                                  : sub === true
+                                    ? "#22c55e"
+                                    : sub === false
+                                      ? "#ef4444"
+                                      : "#e0ddd6";
                               return (
                                 <button
                                   key={qi}
                                   type="button"
-                                  aria-label={`Question ${qi + 1}${skipped ? ", Skipped" : sub === true ? ", Correct" : sub === false ? ", Incorrect" : ""}`}
+                                  aria-label={`Question ${qi + 1}`}
                                   onClick={() => setPracticeQuestionIndex(qi)}
-                                  className="h-2.5 w-2.5 rounded-full transition-[transform,background] hover:scale-110"
+                                  className="h-2 w-2 rounded-full transition-all duration-150 hover:opacity-80"
                                   style={{
                                     background: bg,
                                     opacity: skipped ? 0.7 : 1,
+                                    transform: isActive ? "scale(1.3)" : "scale(1)",
                                   }}
                                 />
                               );
                             })}
                           </div>
-                          <Button
-                            size="default"
-                            className="rounded-lg bg-[#f59207] text-white font-semibold hover:bg-[#e08a00] disabled:opacity-50"
+                          <button
+                            type="button"
                             disabled={practiceQuestionIndex >= quiz.length - 1}
+                            className="inline-flex items-center gap-1.5 rounded-lg border-[1.5px] border-[#f59207] bg-[#f59207] px-4 py-2 text-xs font-semibold text-white transition-all hover:bg-[#e08a00] disabled:border-[#e0ddd6] disabled:bg-[#e0ddd6] disabled:cursor-not-allowed disabled:text-[#b8b5ae]"
                             onClick={() =>
                               setPracticeQuestionIndex((idx) =>
                                 Math.min(quiz.length - 1, idx + 1)
                               )
                             }
                           >
-                            Next <ChevronRight className="h-4 w-4 ml-1" />
-                          </Button>
+                            Next <ChevronRight className="h-4 w-4" />
+                          </button>
                         </div>
                       )}
                       </div>
@@ -703,6 +784,25 @@ export function LMSLessonView({
               embedded={true}
               messageToSend={askAIMessage}
               onMessageSent={onAskAISent}
+              activePracticeLabel={quiz.length > 0 ? `Help with Q${practiceQuestionIndex + 1}` : undefined}
+              onAskAboutPractice={
+                quiz.length > 0 && onAskAI
+                  ? () => {
+                      const q = quiz[practiceQuestionIndex];
+                      if (!q) return;
+                      const opts = q.options?.length ? q.options : [];
+                      const optsText = opts
+                        .map((o, oi) => {
+                          const text = /^[A-D]\)\s*/.test(o) ? o.replace(/^[A-D]\)\s*/, "") : o;
+                          return `${String.fromCharCode(65 + oi)}) ${text}`;
+                        })
+                        .join("  ");
+                      onAskAI(
+                        `Walk me through this SAT question:\n"${q.question}"\nOptions: ${optsText}`
+                      );
+                    }
+                  : undefined
+              }
             />
           </div>
         </div>

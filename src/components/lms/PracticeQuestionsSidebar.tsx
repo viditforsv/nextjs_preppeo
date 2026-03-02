@@ -9,6 +9,7 @@ export interface PracticeQuestionSidebarItem {
   question_id: string | null;
   difficulty: number | null;
   topic: string | null;
+  question?: string | null;
   lastAttempt?: {
     time_taken_seconds: number;
     is_correct: boolean;
@@ -36,6 +37,9 @@ interface PracticeQuestionsSidebarProps {
   onRefresh?: () => void;
   collapsed?: boolean;
   onToggleCollapsed?: () => void;
+  /** comm.md: score bar (X/Y correct) when showing in-lesson quiz */
+  scoreCorrect?: number;
+  scoreTotal?: number;
 }
 
 function getStatus(
@@ -56,6 +60,13 @@ function getDifficultyLabel(d: number | null): string {
   return "Hard";
 }
 
+// comm.md: difficulty color coding for visual engagement (Easy / Medium / Hard)
+const DIFF_COLORS: Record<string, { text: string; bg: string; border: string }> = {
+  Easy: { text: "#15803d", bg: "#f0fdf4", border: "#86efac" },
+  Medium: { text: "#b45309", bg: "#fffbeb", border: "#fcd34d" },
+  Hard: { text: "#dc2626", bg: "#fef2f2", border: "#fca5a5" },
+};
+
 export function PracticeQuestionsSidebar({
   items,
   currentIndex,
@@ -65,12 +76,14 @@ export function PracticeQuestionsSidebar({
   chapterName,
   collapsed = false,
   onToggleCollapsed,
+  scoreCorrect = 0,
+  scoreTotal = 0,
 }: PracticeQuestionsSidebarProps) {
   const [filterOpen, setFilterOpen] = useState(false);
 
   if (collapsed) {
     return (
-      <div className="flex w-10 shrink-0 flex-col items-center border-r border-[#eae8e2] bg-white py-2">
+      <div className="flex w-10 shrink-0 flex-col items-center border-r border-[#ebe8e1] bg-white py-2">
         <Button
           variant="outline"
           size="sm"
@@ -85,36 +98,48 @@ export function PracticeQuestionsSidebar({
   }
 
   return (
-    <div className="flex w-[240px] shrink-0 flex-col border-r border-[#eae8e2] bg-white">
-      <div className="flex items-center justify-between border-b border-[#eae8e2] p-2">
-        <span className="text-sm font-semibold text-[#1a1a2e]">
-          Questions
-        </span>
-        {onToggleCollapsed && (
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={onToggleCollapsed}
-            className="h-8 w-8 rounded-lg p-0"
-            aria-label="Collapse questions list"
-          >
-            <ChevronLeft className="h-4 w-4 text-[#5a5860]" />
-          </Button>
+    <div className="flex w-[176px] shrink-0 flex-col border-r border-[#ebe8e1] bg-white overflow-hidden">
+      <div className="shrink-0 border-b border-[#f0ede6] px-3 pt-3 pb-2">
+        <div className="mb-2 flex items-center justify-between gap-1">
+          <span className="text-xs font-bold text-[#1c1b1f]">Questions</span>
+          <div className="flex items-center gap-0.5">
+            <button
+              type="button"
+              onClick={() => setFilterOpen((o) => !o)}
+              className="flex items-center gap-1 rounded-md border border-[#ebe8e1] px-1.5 py-0.5 text-[10px] font-semibold text-[#9a9690] transition-colors hover:bg-[#f5f4f1]"
+            >
+              <Filter className="h-2.5 w-2.5" />
+              Filters
+            </button>
+            {onToggleCollapsed && (
+              <button
+                type="button"
+                onClick={onToggleCollapsed}
+                className="rounded p-0.5 text-[#9a9690] hover:bg-[#f5f4f1]"
+                aria-label="Collapse questions"
+              >
+                <ChevronLeft className="h-3.5 w-3.5" />
+              </button>
+            )}
+          </div>
+        </div>
+        {scoreTotal > 0 && (
+          <div className="flex items-center gap-1.5">
+            <div className="flex-1 h-1 rounded-sm bg-[#ebe8e1] overflow-hidden">
+              <div
+                className="h-full rounded-sm bg-linear-to-r from-[#22c55e] to-[#4ade80] transition-[width] duration-300"
+                style={{ width: `${(scoreCorrect / scoreTotal) * 100}%` }}
+              />
+            </div>
+            <span className="text-[10px] font-bold text-[#22c55e] tabular-nums">
+              {scoreCorrect}/{scoreTotal}
+            </span>
+          </div>
         )}
       </div>
 
-      {/* Filters */}
-      <div className="border-b border-[#eae8e2] p-2">
-        <button
-          type="button"
-          onClick={() => setFilterOpen((o) => !o)}
-          className="flex w-full items-center gap-2 rounded-lg px-2 py-1.5 text-xs font-medium text-[#5a5860] hover:bg-[#f4f3f0]"
-        >
-          <Filter className="h-3.5 w-3.5" />
-          Filters
-        </button>
-        {filterOpen && (
-          <div className="mt-2 space-y-2 rounded-lg bg-[#f9f8f5] p-2">
+      {filterOpen && (
+          <div className="border-b border-[#f0ede6] space-y-2 px-2 pb-2 pt-1">
             <div>
               <label className="mb-1 block text-[10px] font-semibold uppercase text-[#8b8880]">
                 Difficulty
@@ -181,65 +206,66 @@ export function PracticeQuestionsSidebar({
             )}
           </div>
         )}
-      </div>
 
-      <div className="flex-1 overflow-y-auto p-2">
+      <div className="min-h-0 flex-1 overflow-y-auto p-1.5">
         {items.length === 0 ? (
-          <p className="text-xs text-[#8b8880]">No questions match filters.</p>
+          <p className="text-[10px] text-[#9a9690] px-1">No questions match filters.</p>
         ) : (
-          <ul className="space-y-1">
+          <ul className="space-y-0.5">
             {items.map((item) => {
               const status = getStatus(item);
               const isCurrent = currentIndex === item.order - 1;
-              const bg =
-                status === "wrong"
-                  ? "bg-red-50 border-red-200"
-                  : status === "slow"
-                    ? "bg-amber-50 border-amber-200"
-                    : status === "skipped" || status === "none"
-                      ? "bg-[#f4f3f0] border-[#eae8e2] opacity-75"
-                      : "bg-green-50/80 border-green-200";
+              const isOk = status === "correct";
+              const isBad = status === "wrong" || status === "slow";
+              const isSkipped = status === "skipped";
+              const diffLabel = getDifficultyLabel(item.difficulty);
+              const diffColors = diffLabel ? DIFF_COLORS[diffLabel] : null;
+              const base = "flex items-center gap-1.5 w-full rounded-lg border-[1.5px] pl-2 pr-2 py-2 text-left transition-all cursor-pointer border-l-4";
+              const active = isCurrent ? "bg-[#fffbf0] border-[#fde9b8]" : "";
+              const ok = isOk ? "border-[#86efac] bg-[#f0fdf4]" : "";
+              const bad = isBad ? "border-[#fca5a5] bg-[#fef2f2]" : "";
+              const skip = isSkipped ? "border-[#fcd34d] bg-[#fffbeb]" : "";
+              const idle = !active && !ok && !bad && !skip ? "border-transparent hover:bg-[#fdfcfa] hover:border-[#ebe8e1]" : "";
+              const leftBorderStyle = diffColors
+                ? { borderLeftColor: diffColors.border }
+                : { borderLeftColor: "transparent" };
+              const statusIcon = isOk ? "✅" : isBad ? "❌" : isSkipped ? "⏭" : isCurrent ? "▶" : "";
+              const qNumColor = isBad ? "text-[#dc2626]" : isOk ? "text-[#15803d]" : isSkipped ? "text-[#b45309]" : isCurrent ? "text-[#f59207]" : "text-[#9a9690]";
+              const labelColor = isBad ? "text-[#dc2626] font-semibold" : isOk ? "text-[#15803d] font-semibold" : isSkipped ? "text-[#b45309]" : isCurrent ? "text-[#1c1b1f] font-semibold" : "text-[#6b6966]";
               return (
                 <li key={item.order}>
                   <button
                     type="button"
                     onClick={() => onSelectQuestion(item.order)}
-                    className={`w-full rounded-lg border px-2.5 py-2 text-left transition-colors hover:opacity-90 ${bg} ${
-                      isCurrent ? "ring-2 ring-[#f59207] ring-offset-1" : ""
-                    }`}
-                    aria-label={`Question ${item.order}${
-                      status === "wrong"
-                        ? ", incorrect"
-                        : status === "slow"
-                          ? ", took over 90 seconds"
-                          : status === "skipped"
-                            ? ", skipped"
-                            : status === "correct"
-                              ? ", correct"
-                              : ""
-                    }`}
+                    className={`${base} ${active} ${ok} ${bad} ${skip} ${idle}`}
+                    style={leftBorderStyle}
+                    aria-label={`Question ${item.order}`}
                   >
-                    <div className="flex items-center justify-between gap-1">
-                      <span className="text-sm font-medium text-[#1a1a2e]">
-                        Q{item.order}
+                    <span className={`text-[11px] font-bold w-5 shrink-0 ${qNumColor}`}>
+                      Q{item.order}
+                    </span>
+                    {item.topic || item.question ? (
+                      <span className={`text-[11px] flex-1 line-clamp-2 min-w-0 ${labelColor}`}>
+                        {item.topic ?? item.question}
                       </span>
-                      {item.difficulty != null && (
-                        <span className="text-[10px] text-[#8b8880]">
-                          {getDifficultyLabel(item.difficulty)}
-                        </span>
-                      )}
-                    </div>
-                    {item.lastAttempt != null && !item.lastAttempt.skipped && (
-                      <span className="mt-0.5 block text-[10px] text-[#8b8880]">
-                        {item.lastAttempt.time_taken_seconds}s
-                        {item.lastAttempt.is_correct ? " ✓" : " ✗"}
+                    ) : (
+                      <span className={`text-[11px] flex-1 min-w-0 ${labelColor}`}>
+                        Question {item.order}
                       </span>
                     )}
-                    {item.topic && (
-                      <span className="mt-0.5 block truncate text-[10px] text-[#6b6870]">
-                        {item.topic}
+                    {diffLabel && (
+                      <span
+                        className="shrink-0 rounded-full px-1.5 py-0.5 text-[9px] font-bold border"
+                        style={{
+                          color: diffColors!.text,
+                          backgroundColor: diffColors!.bg,
+                          borderColor: diffColors!.border,
+                        }}
+                      >
+                        {diffLabel}
                       </span>
                     )}
+                    <span className="text-[13px] shrink-0">{statusIcon}</span>
                   </button>
                 </li>
               );

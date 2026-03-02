@@ -1,39 +1,41 @@
 import { useState, useRef, useEffect } from "react";
 
+// ─── Data ────────────────────────────────────────────────────────────────────
+
 const COURSE_DATA = [
   {
-    id: "algebra", title: "Algebra", icon: "∑", count: 13, expanded: true,
+    id: "algebra", title: "Algebra", icon: "∑", count: 13,
     sections: [
       {
-        id: "linear", title: "Linear Equations", count: 6, expanded: true,
+        id: "linear", title: "Linear Equations", count: 6,
         lessons: [
-          { id: "l1", title: "Solving Linear Equations", done: true, active: true },
-          { id: "l2", title: "Linear Equation Word Problems", done: false },
-          { id: "l3", title: "Number of Solutions (Zero, One, Infinite)", done: false },
-          { id: "l4", title: "Slope-Intercept & Standard Form", done: false },
-          { id: "l5", title: "Graphing Linear Equations", done: false },
-          { id: "l6", title: "Interpreting Linear Models", done: false },
+          { id: "l1", title: "Solving Linear Equations", done: true },
+          { id: "l2", title: "Linear Equation Word Problems", done: false, locked: true },
+          { id: "l3", title: "Number of Solutions (Zero, One, Infinite)", done: false, locked: true },
+          { id: "l4", title: "Slope-Intercept & Standard Form", done: false, locked: true },
+          { id: "l5", title: "Graphing Linear Equations", done: false, locked: true },
+          { id: "l6", title: "Interpreting Linear Models", done: false, locked: true },
         ]
       },
       {
-        id: "systems", title: "Systems of Equations", count: 4, expanded: false,
+        id: "systems", title: "Systems of Equations", count: 4,
         lessons: [
-          { id: "s1", title: "Solving by Substitution", done: false },
-          { id: "s2", title: "Solving by Elimination", done: false },
-          { id: "s3", title: "Word Problems with Systems", done: false },
-          { id: "s4", title: "No/Infinite Solutions", done: false },
+          { id: "s1", title: "Solving by Substitution", done: false, locked: true },
+          { id: "s2", title: "Solving by Elimination", done: false, locked: true },
+          { id: "s3", title: "Word Problems with Systems", done: false, locked: true },
+          { id: "s4", title: "No/Infinite Solutions", done: false, locked: true },
         ]
       }
     ]
   },
   {
-    id: "geometry", title: "Geometry", icon: "△", count: 11, expanded: false,
+    id: "geometry", title: "Geometry", icon: "△", count: 11,
     sections: [
       {
-        id: "triangles", title: "Triangles", count: 5, expanded: false,
+        id: "triangles", title: "Triangles", count: 5,
         lessons: [
-          { id: "g1", title: "Triangle Properties", done: false },
-          { id: "g2", title: "Pythagorean Theorem", done: false },
+          { id: "g1", title: "Triangle Properties", done: false, locked: true },
+          { id: "g2", title: "Pythagorean Theorem", done: false, locked: true },
         ]
       }
     ]
@@ -42,11 +44,7 @@ const COURSE_DATA = [
 
 const THEORY = {
   title: "Solving Linear Equations",
-  concept: `A **linear equation** is an equation where the variable appears to the first power. The goal is always to isolate the variable on one side.
-
-**Standard form:** ax + b = c
-
-**Key principle:** Whatever you do to one side of the equation, you must do to the other side.`,
+  concept: `A **linear equation** is an equation where the variable appears to the first power. The goal is always to isolate the variable on one side.\n\n**Standard form:** ax + b = c\n\n**Key principle:** Whatever you do to one side of the equation, you must do to the other side.`,
   steps: [
     { step: 1, title: "Simplify both sides", desc: "Distribute and combine like terms on each side." },
     { step: 2, title: "Move variable terms", desc: "Add or subtract to get all variable terms on one side." },
@@ -59,86 +57,126 @@ const THEORY = {
 const QUESTIONS = [
   {
     id: "q1", difficulty: "Easy",
-    text: "If 2x + 4 = 12, what is the value of x?",
-    options: ["A) 2", "B) 4", "C) 6", "D) 8"],
-    correctIndex: 1,
+    text: "Solve for x: 2x + 4 = 12",
+    options: ["x = 4", "x = 6", "x = 8", "x = 3"],
+    correctIndex: 0,
     hint: "Subtract 4 from both sides first, then divide by 2.",
-    explanation: "Subtract 4 from both sides: 2x = 8. Then divide by 2: x = 4. The answer is (B)."
+    explanation: "Subtract 4 from both sides: 2x = 8. Then divide by 2: x = 4."
   },
   {
-    id: "q2", difficulty: "Easy",
-    text: "Which value of x satisfies the equation 3x − 9 = 0?",
-    options: ["A) −3", "B) 0", "C) 3", "D) 9"],
+    id: "q2", difficulty: "Medium",
+    text: "Solve: 5x − 3 = 2x + 9",
+    options: ["x = 2", "x = 3", "x = 4", "x = 5"],
     correctIndex: 2,
-    hint: "Add 9 to both sides, then divide by 3.",
-    explanation: "Add 9: 3x = 9. Divide by 3: x = 3. The answer is (C)."
+    hint: "Move variable terms to one side and constants to the other.",
+    explanation: "Move variable terms: 5x − 2x = 9 + 3, so 3x = 12. Divide by 3: x = 4."
   },
   {
     id: "q3", difficulty: "Medium",
-    text: "If 5x − 3 = 2x + 9, what is the value of x?",
-    options: ["A) 2", "B) 3", "C) 4", "D) 6"],
-    correctIndex: 2,
-    hint: "Move all x-terms to the left and constants to the right.",
-    explanation: "Subtract 2x from both sides: 3x − 3 = 9. Add 3: 3x = 12. Divide by 3: x = 4. The answer is (C)."
-  },
-  {
-    id: "q4", difficulty: "Medium",
-    text: "If 3(x + 2) = 21, what is the value of x + 2?",
-    options: ["A) 5", "B) 6", "C) 7", "D) 9"],
-    correctIndex: 2,
-    hint: "Don't expand — divide both sides by 3 directly to find (x + 2).",
-    explanation: "Divide both sides by 3: x + 2 = 7. Notice the question asks for x + 2, not x. The answer is (C)."
-  },
-  {
-    id: "q5", difficulty: "Hard",
-    text: "In the equation ax + 3 = 2x + b, if x = 5 is the only solution, which of the following must be true?",
-    options: ["A) a = 2 and b = 3", "B) a ≠ 2 and b = 5a − 7", "C) a = 2 and b ≠ 3", "D) a ≠ 2 and b = 5(a − 2) + 3"],
-    correctIndex: 3,
-    hint: "For a unique solution, coefficients of x must differ (a ≠ 2). Then plug x = 5 to find the relationship between a and b.",
-    explanation: "For a unique solution: a ≠ 2 (otherwise infinite or no solutions). Plug x = 5: 5a + 3 = 10 + b → b = 5a − 7 = 5(a−2) + 3. The answer is (D)."
-  },
-  {
-    id: "q6", difficulty: "Hard",
-    text: "A store sells notebooks for $3 each and pens for $1.50 each. Maya spent $18 total and bought twice as many pens as notebooks. How many notebooks did she buy?",
-    options: ["A) 2", "B) 3", "C) 4", "D) 6"],
+    text: "If 3(x + 2) = 21, find x.",
+    options: ["x = 3", "x = 5", "x = 6", "x = 7"],
     correctIndex: 1,
-    hint: "Let n = notebooks. Then pens = 2n. Write the equation: 3n + 1.5(2n) = 18.",
-    explanation: "Let n = notebooks, 2n = pens. Equation: 3n + 1.5(2n) = 18 → 3n + 3n = 18 → 6n = 18 → n = 3. The answer is (B)."
+    hint: "Divide both sides by 3 first, then subtract 2.",
+    explanation: "Distribute: 3x + 6 = 21. Subtract 6: 3x = 15. Divide by 3: x = 5."
+  },
+  {
+    id: "q4", difficulty: "Hard",
+    text: "Solve: (2x + 1)/3 = (x − 4)/2",
+    options: ["x = −14", "x = 10", "x = 14", "x = −10"],
+    correctIndex: 0,
+    hint: "Cross-multiply to clear the fractions.",
+    explanation: "Cross-multiply: 2(2x + 1) = 3(x − 4) → 4x + 2 = 3x − 12. So x = −14."
   },
 ];
 
-const DIFF_COLOR = { Easy: "#22c55e", Medium: "#f59e0b", Hard: "#ef4444" };
+const DIFF = {
+  Easy:   { text: "#15803d", bg: "#f0fdf4", border: "#86efac" },
+  Medium: { text: "#b45309", bg: "#fffbeb", border: "#fcd34d" },
+  Hard:   { text: "#dc2626", bg: "#fef2f2", border: "#fca5a5" },
+};
 
 const INITIAL_MESSAGES = [
-  { role: "assistant", content: "Hi! I'm your AI tutor for **Solving Linear Equations**. Ask me anything — I can explain concepts, walk through problems step by step, or quiz you. What would you like to explore?" }
+  { role: "assistant", content: `Hi! I'm your **AI Tutor** for SAT Quant (Learn).\n\nI can help you with **Solving Linear Equations** — ask me to explain a concept, walk through any question step by step, or share a quick tip. What would you like help with?` }
 ];
 
-export default function App() {
-  const [courseData, setCourseData] = useState(COURSE_DATA);
-  const [activeLesson, setActiveLesson] = useState("l1");
-  const [sidebarOpen, setSidebarOpen] = useState(true);
-  const [activeTab, setActiveTab] = useState("theory"); // theory | questions
-  const [selectedOptions, setSelectedOptions] = useState({});
-  const [submittedQuestions, setSubmittedQuestions] = useState({});
-  const [revealedHints, setRevealedHints] = useState({});
-  const [revealedExplanations, setRevealedExplanations] = useState({});
-  const [messages, setMessages] = useState(INITIAL_MESSAGES);
-  const [input, setInput] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [expandedCategories, setExpandedCategories] = useState({ algebra: true });
-  const [expandedSections, setExpandedSections] = useState({ linear: true });
-  const chatEndRef = useRef(null);
-  const inputRef = useRef(null);
+function renderMd(text) {
+  if (!text) return "";
+  return text.replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>").replace(/\n/g, "<br/>");
+}
 
-  useEffect(() => { chatEndRef.current?.scrollIntoView({ behavior: "smooth" }); }, [messages]);
+// ─── App ──────────────────────────────────────────────────────────────────────
+
+export default function App() {
+  const [activeLesson, setActiveLesson]       = useState("l1");
+  const [sidebarOpen, setSidebarOpen]         = useState(true);
+  const [activeTab, setActiveTab]             = useState("questions");
+  const [activeQIdx, setActiveQIdx]           = useState(0);
+  const [selectedOpts, setSelectedOpts]       = useState({});
+  const [submittedQ, setSubmittedQ]           = useState({});
+  const [skippedQ, setSkippedQ]               = useState({});
+  const [hints, setHints]                     = useState({});
+  const [explanations, setExplanations]       = useState({});
+  const [messages, setMessages]               = useState(INITIAL_MESSAGES);
+  const [input, setInput]                     = useState("");
+  const [loading, setLoading]                 = useState(false);
+  const [expandedCat, setExpandedCat]         = useState({ algebra: true });
+  const [expandedSec, setExpandedSec]         = useState({ linear: true });
+  const [elapsed, setElapsed]                 = useState(0);
+  const chatEndRef = useRef(null);
+  const timerRef   = useRef(null);
+
+  const q         = QUESTIONS[activeQIdx];
+  const selected  = selectedOpts[q.id];
+  const submitted = submittedQ[q.id] !== undefined;
+  const correct   = submittedQ[q.id] === true;
+  const totalDone    = Object.keys(submittedQ).length;
+  const totalCorrect = Object.values(submittedQ).filter(Boolean).length;
+  const totalSkipped = Object.keys(skippedQ).filter(id => submittedQ[id] === undefined).length;
+
+  useEffect(() => {
+    setElapsed(0);
+    clearInterval(timerRef.current);
+    if (!submittedQ[QUESTIONS[activeQIdx].id]) {
+      timerRef.current = setInterval(() => setElapsed(e => e + 1), 1000);
+    }
+    return () => clearInterval(timerRef.current);
+  }, [activeQIdx]);
+
+  useEffect(() => {
+    if (submitted) clearInterval(timerRef.current);
+  }, [submitted]);
+
+  useEffect(() => { chatEndRef.current?.scrollIntoView({ behavior: "smooth" }); }, [messages, loading]);
+
+  function fmtTime(s) {
+    const m = Math.floor(s/60), sec = s%60;
+    return `${m}:${String(sec).padStart(2,"0")}`;
+  }
+
+  function submitAnswer() {
+    if (selected === undefined) return;
+    clearInterval(timerRef.current);
+    const ok = selected === q.correctIndex;
+    setSubmittedQ(s => ({...s,[q.id]:ok}));
+    if (!ok) setExplanations(e => ({...e,[q.id]:true}));
+  }
+
+  function retryQ() {
+    ["submittedQ","selectedOpts","explanations","hints"].forEach(() => {});
+    setSubmittedQ(s => { const n={...s}; delete n[q.id]; return n; });
+    setSelectedOpts(s => { const n={...s}; delete n[q.id]; return n; });
+    setExplanations(e => { const n={...e}; delete n[q.id]; return n; });
+    setHints(h => { const n={...h}; delete n[q.id]; return n; });
+    setSkippedQ(s => { const n={...s}; delete n[q.id]; return n; });
+    setElapsed(0);
+    timerRef.current = setInterval(() => setElapsed(e => e+1), 1000);
+  }
 
   async function sendMessage(text) {
     if (!text.trim() || loading) return;
     const userMsg = { role: "user", content: text };
     setMessages(m => [...m, userMsg]);
-    setInput("");
-    setLoading(true);
-
+    setInput(""); setLoading(true);
     try {
       const res = await fetch("https://api.anthropic.com/v1/messages", {
         method: "POST",
@@ -146,365 +184,308 @@ export default function App() {
         body: JSON.stringify({
           model: "claude-sonnet-4-20250514",
           max_tokens: 1000,
-          system: `You are an expert SAT math tutor helping a student with "${THEORY.title}". Be concise, encouraging, and pedagogically sound. Use simple examples. Format math expressions clearly. Keep responses focused and under 200 words unless the student needs a detailed walkthrough.`,
+          system: `You are a concise, encouraging SAT Math tutor for the lesson "${THEORY.title}". Keep replies under 160 words. Use numbered steps when walking through problems. Be warm but efficient.`,
           messages: [...messages, userMsg].map(m => ({ role: m.role, content: m.content }))
         })
       });
       const data = await res.json();
-      const reply = data.content?.[0]?.text ?? "Sorry, I couldn't process that. Try again!";
-      setMessages(m => [...m, { role: "assistant", content: reply }]);
+      setMessages(m => [...m, { role: "assistant", content: data.content?.[0]?.text ?? "Sorry, try again." }]);
     } catch {
-      setMessages(m => [...m, { role: "assistant", content: "Connection issue. Please try again." }]);
+      setMessages(m => [...m, { role: "assistant", content: "Connection issue — please retry." }]);
     }
     setLoading(false);
   }
 
-  function quickPrompt(p) { sendMessage(p); }
+  const SB_W = sidebarOpen ? 256 : 0;
 
-  function renderMd(text) {
-    return text
-      .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
-      .replace(/\n/g, '<br/>');
-  }
+  const css = `
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap');
+    *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+    html,body,#root { height:100%; overflow:hidden; }
+    body { font-family:'Plus Jakarta Sans',sans-serif; background:#f5f4f1; color:#1c1b1f; font-size:13px; }
+    ::-webkit-scrollbar{width:4px} ::-webkit-scrollbar-thumb{background:#d8d5ce;border-radius:4px}
 
-  const progress = 1;
-  const total = 52;
+    .root { display:flex; height:100vh; }
+
+    /* SIDEBAR */
+    .sb { width:${SB_W}px; min-width:${SB_W}px; background:#fff; border-right:1px solid #ebe8e1; display:flex; flex-direction:column; overflow:hidden; transition:width .22s,min-width .22s; flex-shrink:0; position:relative; }
+    .sb-inner { width:256px; height:100%; display:flex; flex-direction:column; }
+    .sb-top { padding:12px 14px 10px; border-bottom:1px solid #f0ede6; flex-shrink:0; }
+    .sb-back { display:flex; align-items:center; gap:5px; font-size:11px; color:#9a9690; cursor:pointer; margin-bottom:9px; transition:color .12s; }
+    .sb-back:hover { color:#1c1b1f; }
+    .sb-search { display:flex; align-items:center; gap:7px; background:#f5f4f1; border:1px solid #ebe8e1; border-radius:7px; padding:6px 10px; margin-bottom:9px; }
+    .sb-search input { background:none; border:none; outline:none; font-family:inherit; font-size:12px; width:100%; color:#1c1b1f; }
+    .sb-search input::placeholder { color:#b8b5ae; }
+    .sb-prog { background:#fdfcfa; border:1px solid #ebe8e1; border-radius:9px; padding:9px 11px; }
+    .sb-prog-top { display:flex; justify-content:space-between; margin-bottom:5px; }
+    .sb-prog-top span:first-child { font-size:11.5px; font-weight:600; }
+    .sb-prog-pct { font-size:11.5px; font-weight:800; color:#f59207; }
+    .sb-prog-track { height:4px; background:#ebe8e1; border-radius:3px; overflow:hidden; }
+    .sb-prog-fill { height:100%; background:linear-gradient(90deg,#f59207,#fbbf24); border-radius:3px; }
+    .sb-prog-sub { display:flex; align-items:center; gap:4px; font-size:10.5px; color:#9a9690; margin-top:5px; }
+    .sb-expand { display:flex; align-items:center; justify-content:center; gap:5px; margin:6px 12px; padding:6px; border-radius:7px; border:1px solid #ebe8e1; background:#fafaf8; font-size:11px; font-weight:600; color:#6b6966; cursor:pointer; transition:all .12s; }
+    .sb-expand:hover { background:#f0ede6; }
+    .sb-lessons { flex:1; overflow-y:auto; }
+    .cat-hdr { display:flex; align-items:center; gap:8px; padding:7px 14px; cursor:pointer; }
+    .cat-hdr:hover { background:#fdfcfa; }
+    .cat-icon { width:22px; height:22px; border-radius:6px; background:#fff3e0; display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:800; color:#f59207; flex-shrink:0; }
+    .cat-title { font-size:12px; font-weight:700; flex:1; }
+    .cat-count { background:#f0ede6; border-radius:4px; padding:1px 5px; font-size:10px; font-weight:700; color:#9a9690; }
+    .chev { color:#c0bdb6; font-size:9px; transition:transform .18s; }
+    .chev.open { transform:rotate(90deg); }
+    .sec-hdr { display:flex; align-items:center; gap:7px; padding:5px 14px 5px 28px; cursor:pointer; }
+    .sec-hdr:hover { background:#fdfcfa; }
+    .sec-title { font-size:11px; font-weight:600; color:#6b6966; flex:1; }
+    .les-row { display:flex; align-items:flex-start; gap:8px; padding:6px 14px 6px 42px; cursor:pointer; position:relative; transition:background .12s; }
+    .les-row:hover { background:#fdfcfa; }
+    .les-row.act { background:#fffbf0; }
+    .les-row.act::before { content:''; position:absolute; left:0; top:0; bottom:0; width:3px; background:#f59207; border-radius:0 2px 2px 0; }
+    .les-dot { width:14px; height:14px; border-radius:50%; border:1.5px solid #d8d5ce; flex-shrink:0; margin-top:1px; display:flex; align-items:center; justify-content:center; font-size:7px; }
+    .les-dot.done { background:#22c55e; border-color:#22c55e; color:#fff; font-size:8px; }
+    .les-dot.act { border-color:#f59207; }
+    .les-title { font-size:11.5px; color:#3c3a38; line-height:1.35; font-weight:500; }
+    .les-title.act { color:#c47c00; font-weight:600; }
+    .les-num { font-size:10px; color:#b8b5ae; margin-top:1px; }
+    .sb-toggle { position:absolute; right:-13px; top:50%; transform:translateY(-50%); width:26px; height:26px; background:#fff; border:1px solid #ebe8e1; border-radius:50%; display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:11px; color:#9a9690; z-index:20; box-shadow:0 1px 4px #00000010; transition:all .12s; }
+    .sb-toggle:hover { color:#1c1b1f; }
+
+    /* MAIN */
+    .main { flex:1; display:flex; flex-direction:column; overflow:hidden; min-width:0; }
+
+    /* TOPBAR */
+    .topbar { height:44px; display:flex; align-items:center; padding:0 18px; background:#fff; border-bottom:1px solid #ebe8e1; flex-shrink:0; gap:0; }
+    .breadcrumb { display:flex; align-items:center; gap:5px; font-size:11.5px; color:#9a9690; flex:1; min-width:0; overflow:hidden; white-space:nowrap; }
+    .breadcrumb b { color:#1c1b1f; font-weight:700; }
+    .bc-sep { color:#ccc; margin:0 1px; }
+    .topbar-nav { display:flex; gap:7px; flex-shrink:0; }
+    .tnav-btn { display:flex; align-items:center; gap:4px; padding:5px 13px; border-radius:8px; font-family:inherit; font-size:12px; font-weight:600; cursor:pointer; transition:all .12s; }
+    .tnav-prev { background:#fff; border:1px solid #ebe8e1; color:#6b6966; }
+    .tnav-prev:hover { background:#f5f4f1; }
+    .tnav-next { background:#f59207; border:1px solid #f59207; color:#fff; box-shadow:0 2px 8px #f5920730; }
+    .tnav-next:hover { background:#e08a00; }
+
+    /* TABBAR */
+    .tabbar { display:flex; align-items:stretch; background:#fff; border-bottom:1px solid #ebe8e1; flex-shrink:0; height:42px; }
+    .tab { display:flex; align-items:center; justify-content:center; gap:6px; padding:0 20px; font-size:13px; font-weight:600; color:#9a9690; cursor:pointer; border-bottom:2px solid transparent; transition:all .15s; white-space:nowrap; }
+    .tab:hover { color:#1c1b1f; background:#fdfcfa; }
+    .tab.act { color:#f59207; border-bottom-color:#f59207; }
+    .tabbar-sep { width:1px; background:#ebe8e1; margin:8px 0; }
+
+    /* CONTENT */
+    .content { flex:1; display:flex; overflow:hidden; }
+
+    /* THEORY */
+    .theory { flex:1; overflow-y:auto; padding:24px 28px; }
+    .th-h1 { font-size:21px; font-weight:800; letter-spacing:-.02em; margin-bottom:16px; }
+    .th-concept { background:#fff; border:1px solid #ebe8e1; border-radius:12px; padding:16px 18px; margin-bottom:16px; font-size:13.5px; line-height:1.7; color:#3c3a38; }
+    .th-stitle { font-size:10px; font-weight:800; text-transform:uppercase; letter-spacing:.08em; color:#9a9690; margin-bottom:9px; }
+    .th-steps { display:flex; flex-direction:column; gap:7px; margin-bottom:18px; }
+    .th-step { display:flex; align-items:flex-start; gap:11px; background:#fff; border:1px solid #ebe8e1; border-radius:10px; padding:11px 13px; }
+    .th-badge { width:25px; height:25px; border-radius:50%; background:#f59207; color:#fff; font-size:11px; font-weight:800; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+    .th-step-txt h4 { font-size:12.5px; font-weight:700; margin-bottom:2px; }
+    .th-step-txt p { font-size:12px; color:#6b6966; }
+    .th-example { background:linear-gradient(135deg,#fffbf0,#fff); border:1px solid #fde9b8; border-radius:12px; padding:16px 18px; }
+    .th-ex-tag { font-size:10px; font-weight:800; text-transform:uppercase; letter-spacing:.1em; color:#f59207; margin-bottom:8px; }
+    .th-ex-prob { font-family:'Fira Code',monospace; font-size:17px; font-weight:600; margin-bottom:10px; }
+    .th-ex-steps { display:flex; flex-direction:column; gap:4px; }
+    .th-ex-step { font-family:'Fira Code',monospace; font-size:12.5px; padding:4px 10px; background:#fff; border-radius:6px; border-left:3px solid #f59207; color:#3c3a38; }
+
+    /* Q PANEL */
+    .q-panel { display:flex; flex:1; overflow:hidden; }
+
+    /* Q NAV */
+    .q-nav { width:176px; flex-shrink:0; background:#fff; border-right:1px solid #ebe8e1; display:flex; flex-direction:column; overflow:hidden; }
+    .q-nav-hdr { padding:11px 13px 8px; border-bottom:1px solid #f0ede6; flex-shrink:0; }
+    .q-nav-title { font-size:12px; font-weight:700; margin-bottom:7px; display:flex; align-items:center; justify-content:space-between; }
+    .q-filter-icon { display:flex; align-items:center; gap:4px; font-size:10px; font-weight:600; color:#9a9690; cursor:pointer; padding:2px 7px; border-radius:5px; border:1px solid #ebe8e1; transition:all .12s; }
+    .q-filter-icon:hover { background:#f5f4f1; }
+    .q-score-row { display:flex; align-items:center; gap:6px; }
+    .q-score-bar { flex:1; height:3px; background:#ebe8e1; border-radius:3px; overflow:hidden; }
+    .q-score-fill { height:100%; background:linear-gradient(90deg,#22c55e,#4ade80); border-radius:3px; transition:width .4s; }
+    .q-score-txt { font-size:10px; font-weight:700; color:#22c55e; }
+    .q-diff-filters { display:flex; gap:4px; padding:7px 10px; border-bottom:1px solid #f0ede6; flex-wrap:wrap; }
+    .diff-tag { padding:2px 7px; border-radius:20px; font-size:10px; font-weight:700; cursor:pointer; transition:all .12s; border:1px solid; }
+    .q-list { flex:1; overflow-y:auto; padding:6px; }
+    .q-item { display:flex; align-items:center; gap:7px; padding:8px 9px; border-radius:8px; cursor:pointer; border:1.5px solid transparent; transition:all .12s; margin-bottom:2px; }
+    .q-item:hover { background:#fdfcfa; border-color:#ebe8e1; }
+    .q-item.qi-act { background:#fffbf0; border-color:#fde9b8; }
+    .q-item.qi-ok { border-color:#86efac; background:#f0fdf4; }
+    .q-item.qi-bad { border-color:#fca5a5; background:#fef2f2; }
+    .q-item.qi-skip { border-color:#fcd34d; background:#fffbeb; }
+    .qi-num { font-size:11px; font-weight:700; color:#9a9690; width:20px; flex-shrink:0; }
+    .q-item.qi-act .qi-num { color:#f59207; }
+    .q-item.qi-ok .qi-num { color:#15803d; }
+    .q-item.qi-bad .qi-num { color:#dc2626; }
+    .q-item.qi-skip .qi-num { color:#b45309; }
+    .qi-label { font-size:11px; color:#6b6966; flex:1; line-height:1.3; overflow:hidden; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; }
+    .q-item.qi-act .qi-label { color:#1c1b1f; font-weight:600; }
+    .q-item.qi-ok .qi-label { color:#15803d; font-weight:600; }
+    .q-item.qi-bad .qi-label { color:#dc2626; font-weight:600; }
+    .q-item.qi-skip .qi-label { color:#b45309; }
+    .qi-status { font-size:13px; flex-shrink:0; }
+
+    /* Q VIEWER */
+    .q-viewer { flex:1; display:flex; flex-direction:column; overflow:hidden; background:#f5f4f1; min-width:0; }
+    .q-viewer-scroll { flex:1; overflow-y:auto; padding:22px 26px; }
+
+    .q-meta-row { display:flex; align-items:center; gap:8px; margin-bottom:14px; flex-wrap:wrap; }
+    .q-counter { font-size:11.5px; font-weight:700; color:#9a9690; }
+    .q-timer { font-family:'Fira Code',monospace; font-size:11px; color:#9a9690; background:#fff; border:1px solid #ebe8e1; padding:3px 8px; border-radius:6px; display:flex; align-items:center; gap:4px; }
+    .q-timer.warn { color:#dc2626; border-color:#fca5a5; background:#fef2f2; }
+    .q-dpill { padding:2px 8px; border-radius:20px; font-size:10px; font-weight:800; border:1px solid; }
+    .q-result { display:flex; align-items:center; gap:4px; padding:4px 10px; border-radius:20px; font-size:11.5px; font-weight:700; margin-left:auto; border:1px solid; }
+
+    .q-text { font-size:15.5px; font-weight:600; color:#1c1b1f; line-height:1.6; margin-bottom:20px; letter-spacing:-.01em; }
+
+    /* OPTIONS */
+    .options { display:flex; flex-direction:column; gap:9px; margin-bottom:18px; }
+    .opt {
+      display:flex; align-items:center; gap:12px;
+      padding:13px 16px; border-radius:11px;
+      border:1.5px solid #e0ddd6; background:#fff;
+      cursor:pointer; transition:all .15s;
+      position:relative;
+    }
+    .opt:hover:not(.opt-locked) { border-color:#c8b87a; background:#fdfcfa; transform:translateX(3px); box-shadow:0 2px 8px #0000000a; }
+    .opt.opt-sel { border-color:#f59207; background:#fffbf0; box-shadow:0 0 0 3px #f5920715; }
+    .opt.opt-correct { border-color:#22c55e; background:#f0fdf4; box-shadow:0 0 0 3px #22c55e18; }
+    .opt.opt-wrong { border-color:#ef4444; background:#fef2f2; box-shadow:0 0 0 3px #ef444418; }
+    .opt.opt-locked { cursor:default; }
+    .opt.opt-dim { opacity:.45; }
+    .opt-letter {
+      width:28px; height:28px; border-radius:8px; flex-shrink:0;
+      display:flex; align-items:center; justify-content:center;
+      font-size:12px; font-weight:800;
+      background:#f5f4f1; color:#6b6966; border:1.5px solid #e0ddd6;
+      transition:all .15s;
+    }
+    .opt.opt-sel .opt-letter { background:#f59207; color:#fff; border-color:#f59207; }
+    .opt.opt-correct .opt-letter { background:#22c55e; color:#fff; border-color:#22c55e; }
+    .opt.opt-wrong .opt-letter { background:#ef4444; color:#fff; border-color:#ef4444; }
+    .opt-text { font-size:13.5px; font-weight:500; color:#2c2a28; transition:color .15s; }
+    .opt.opt-sel .opt-text { color:#92400e; font-weight:600; }
+    .opt.opt-correct .opt-text { color:#15803d; font-weight:600; }
+    .opt.opt-wrong .opt-text { color:#dc2626; font-weight:600; }
+
+    /* ACTIONS */
+    .actions { display:flex; align-items:center; gap:7px; flex-wrap:wrap; }
+    .abtn { display:flex; align-items:center; gap:5px; padding:8px 14px; border-radius:9px; font-family:inherit; font-size:12px; font-weight:600; cursor:pointer; transition:all .12s; border:1.5px solid; white-space:nowrap; }
+    .abtn:active { transform:scale(.97); }
+    .a-submit { background:#f59207; border-color:#f59207; color:#fff; box-shadow:0 2px 6px #f5920728; }
+    .a-submit:hover:not(:disabled) { background:#e08a00; box-shadow:0 3px 10px #f5920740; }
+    .a-submit:disabled { background:#e0ddd6; border-color:#e0ddd6; color:#b8b5ae; cursor:not-allowed; box-shadow:none; }
+    .a-skip { background:#fff; border-color:#e0ddd6; color:#6b6966; }
+    .a-skip:hover { background:#f5f4f1; }
+    .a-hint { background:#fffbf0; border-color:#fde9b8; color:#b45309; }
+    .a-hint:hover { background:#fef3c7; }
+    .a-explain { background:#f0fdf4; border-color:#86efac; color:#15803d; }
+    .a-explain:hover { background:#dcfce7; }
+    .a-ai { background:#eef2ff; border-color:#c7d2fe; color:#4338ca; }
+    .a-ai:hover { background:#e0e7ff; }
+    .a-retry { background:#fff; border-color:#e0ddd6; color:#6b6966; }
+    .a-retry:hover { background:#f5f4f1; }
+
+    /* INFO BOXES */
+    .ibox { border-radius:10px; padding:11px 14px; margin-top:11px; font-size:12.5px; line-height:1.65; animation:slideDown .18s ease; }
+    @keyframes slideDown { from{opacity:0;transform:translateY(-5px)} to{opacity:1;transform:translateY(0)} }
+    .ibox-hint { background:#fffbf0; border:1px solid #fde9b8; color:#78350f; }
+    .ibox-expl { background:#f0fdf4; border:1px solid #86efac; color:#14532d; }
+
+    /* FOOTER */
+    .q-footer { flex-shrink:0; display:flex; align-items:center; justify-content:space-between; padding:11px 26px; background:#fff; border-top:1px solid #ebe8e1; }
+    .qf-btn { display:flex; align-items:center; gap:5px; padding:7px 15px; border-radius:9px; font-family:inherit; font-size:12px; font-weight:600; cursor:pointer; transition:all .12s; border:1.5px solid; }
+    .qf-prev { background:#fff; border-color:#e0ddd6; color:#6b6966; }
+    .qf-prev:hover:not(:disabled) { background:#f5f4f1; }
+    .qf-prev:disabled { opacity:.4; cursor:not-allowed; }
+    .qf-next { background:#f59207; border-color:#f59207; color:#fff; }
+    .qf-next:hover:not(:disabled) { background:#e08a00; }
+    .qf-next:disabled { background:#e0ddd6; border-color:#e0ddd6; color:#b8b5ae; cursor:not-allowed; }
+    .dots { display:flex; gap:7px; align-items:center; }
+    .dot { width:8px; height:8px; border-radius:50%; cursor:pointer; transition:all .15s; }
+    .dot-idle { background:#e0ddd6; }
+    .dot-act { background:#f59207; transform:scale(1.3); }
+    .dot-ok { background:#22c55e; }
+    .dot-bad { background:#ef4444; }
+    .dot-skip { background:#f59e0b; }
+
+    /* AI PANEL */
+    .ai { width:288px; flex-shrink:0; background:#fff; border-left:1px solid #ebe8e1; display:flex; flex-direction:column; overflow:hidden; }
+    .ai-hdr { padding:11px 13px; border-bottom:1px solid #f0ede6; display:flex; align-items:center; gap:9px; flex-shrink:0; }
+    .ai-av { width:28px; height:28px; border-radius:50%; background:linear-gradient(135deg,#f59207,#fbbf24); display:flex; align-items:center; justify-content:center; font-size:13px; flex-shrink:0; }
+    .ai-hdr-txt h3 { font-size:12.5px; font-weight:700; }
+    .ai-hdr-txt p { font-size:10px; color:#9a9690; }
+    .ai-dot { width:7px; height:7px; border-radius:50%; background:#22c55e; box-shadow:0 0 0 2px #dcfce7; margin-left:auto; }
+    .ai-msgs { flex:1; overflow-y:auto; padding:11px; display:flex; flex-direction:column; gap:9px; }
+    .ai-msg { display:flex; gap:6px; align-items:flex-start; animation:slideDown .18s ease; }
+    .ai-msg.user { flex-direction:row-reverse; }
+    .ai-msg-av { width:22px; height:22px; border-radius:50%; flex-shrink:0; display:flex; align-items:center; justify-content:center; font-size:10px; font-weight:700; margin-top:2px; }
+    .bot-av { background:linear-gradient(135deg,#f59207,#fbbf24); color:#fff; font-size:11px; }
+    .user-av { background:#1c1b1f; color:#fff; }
+    .ai-bubble { max-width:90%; padding:8px 11px; border-radius:11px; font-size:12px; line-height:1.65; }
+    .ai-msg.assistant .ai-bubble { background:#f5f4f1; border-radius:3px 11px 11px 11px; }
+    .ai-msg.user .ai-bubble { background:#1c1b1f; color:#fff; border-radius:11px 3px 11px 11px; }
+    .typing-wrap { display:flex; gap:6px; align-items:flex-start; }
+    .typing { display:flex; align-items:center; gap:3px; padding:9px 11px; background:#f5f4f1; border-radius:3px 11px 11px 11px; }
+    .typing span { width:5px; height:5px; border-radius:50%; background:#c8c5be; animation:typeBounce .8s infinite; }
+    .typing span:nth-child(2) { animation-delay:.12s; }
+    .typing span:nth-child(3) { animation-delay:.24s; }
+    @keyframes typeBounce { 0%,60%,100%{transform:translateY(0)} 30%{transform:translateY(-5px)} }
+    .ai-quick { padding:7px 9px; display:flex; flex-wrap:wrap; gap:4px; border-top:1px solid #f0ede6; flex-shrink:0; }
+    .ai-chip { display:flex; align-items:center; gap:3px; padding:4px 8px; border-radius:20px; border:1px solid #e0ddd6; background:#fdfcfa; font-size:10.5px; font-weight:600; color:#6b6966; cursor:pointer; transition:all .12s; white-space:nowrap; }
+    .ai-chip:hover { background:#fffbf0; border-color:#fde9b8; color:#b45309; }
+    .ai-input-row { padding:9px 11px; border-top:1px solid #f0ede6; display:flex; gap:6px; align-items:flex-end; flex-shrink:0; }
+    .ai-input { flex:1; background:#f5f4f1; border:1px solid #e0ddd6; border-radius:8px; padding:8px 10px; font-family:inherit; font-size:12px; color:#1c1b1f; outline:none; resize:none; min-height:34px; max-height:80px; transition:border-color .15s; line-height:1.4; }
+    .ai-input:focus { border-color:#f59207; background:#fff; }
+    .ai-input::placeholder { color:#b8b5ae; }
+    .ai-send { width:32px; height:32px; border-radius:8px; border:none; background:#f59207; color:#fff; font-size:13px; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:all .12s; flex-shrink:0; }
+    .ai-send:hover:not(:disabled) { background:#e08a00; }
+    .ai-send:disabled { background:#e0ddd6; cursor:not-allowed; }
+  `;
 
   return (
     <>
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap');
-        *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
-        body { font-family:'Plus Jakarta Sans',sans-serif; background:#f4f3f0; color:#1a1a2e; height:100vh; overflow:hidden; }
-        ::-webkit-scrollbar { width:4px; height:4px; }
-        ::-webkit-scrollbar-track { background:transparent; }
-        ::-webkit-scrollbar-thumb { background:#d4d0c8; border-radius:2px; }
-
-        .root { display:flex; height:100vh; overflow:hidden; }
-
-        /* ── SIDEBAR ── */
-        .sidebar {
-          width:${sidebarOpen ? 268 : 0}px;
-          min-width:${sidebarOpen ? 268 : 0}px;
-          background:#fff;
-          border-right:1px solid #eae8e2;
-          display:flex; flex-direction:column;
-          transition:width .25s ease, min-width .25s ease;
-          overflow:hidden; flex-shrink:0;
-        }
-        .sidebar-inner { width:268px; display:flex; flex-direction:column; height:100%; }
-
-        .sidebar-top {
-          padding:16px 16px 12px;
-          border-bottom:1px solid #f0ede8;
-          flex-shrink:0;
-        }
-        .back-link {
-          display:flex; align-items:center; gap:6px;
-          font-size:12px; color:#8b8880; cursor:pointer;
-          margin-bottom:12px; transition:color .12s;
-        }
-        .back-link:hover { color:#1a1a2e; }
-
-        .sidebar-search {
-          display:flex; align-items:center; gap:8px;
-          background:#f4f3f0; border:1px solid #eae8e2; border-radius:8px;
-          padding:8px 10px; margin-bottom:12px;
-        }
-        .sidebar-search input {
-          background:none; border:none; outline:none;
-          font-family:'Plus Jakarta Sans',sans-serif; font-size:12px; color:#1a1a2e; width:100%;
-        }
-        .sidebar-search input::placeholder { color:#aaa; }
-
-        .progress-box {
-          background:#faf9f6; border:1px solid #eae8e2; border-radius:10px; padding:10px 12px;
-        }
-        .progress-top { display:flex; justify-content:space-between; align-items:center; margin-bottom:6px; }
-        .progress-top span:first-child { font-size:12px; font-weight:600; color:#1a1a2e; }
-        .progress-top span:last-child { font-size:12px; font-weight:700; color:#f59207; }
-        .progress-track { height:4px; background:#eae8e2; border-radius:2px; overflow:hidden; }
-        .progress-fill { height:100%; background:linear-gradient(90deg,#f59207,#fbbf24); border-radius:2px; }
-        .progress-sub { font-size:11px; color:#8b8880; margin-top:5px; display:flex; align-items:center; gap:4px; }
-
-        .sidebar-lessons { flex:1; overflow-y:auto; padding:8px 0; }
-
-        .cat-header {
-          display:flex; align-items:center; gap:8px;
-          padding:8px 16px; cursor:pointer;
-          font-size:13px; font-weight:700; color:#1a1a2e;
-          transition:background .12s; user-select:none;
-        }
-        .cat-header:hover { background:#faf9f6; }
-        .cat-icon { width:24px; height:24px; border-radius:6px; background:#fff3e0; display:flex; align-items:center; justify-content:center; font-size:13px; font-weight:700; color:#f59207; flex-shrink:0; }
-        .cat-count { margin-left:auto; background:#f4f3f0; border-radius:4px; padding:2px 6px; font-size:11px; color:#8b8880; font-weight:600; }
-        .chevron { color:#8b8880; font-size:10px; transition:transform .2s; }
-        .chevron.open { transform:rotate(90deg); }
-
-        .section-header {
-          display:flex; align-items:center; gap:8px;
-          padding:6px 16px 6px 32px; cursor:pointer;
-          font-size:12px; font-weight:600; color:#5a5860;
-          transition:background .12s; user-select:none;
-        }
-        .section-header:hover { background:#faf9f6; }
-        .section-count { margin-left:auto; font-size:11px; color:#aaa; }
-
-        .lesson-item {
-          display:flex; align-items:flex-start; gap:8px;
-          padding:7px 16px 7px 44px; cursor:pointer;
-          transition:background .12s; position:relative;
-        }
-        .lesson-item:hover { background:#faf9f6; }
-        .lesson-item.active { background:#fff8ee; }
-        .lesson-item.active::before {
-          content:''; position:absolute; left:0; top:0; bottom:0; width:3px;
-          background:#f59207; border-radius:0 2px 2px 0;
-        }
-        .lesson-dot { width:14px; height:14px; border-radius:50%; border:1.5px solid #d4d0c8; flex-shrink:0; margin-top:2px; display:flex; align-items:center; justify-content:center; }
-        .lesson-dot.done { background:#22c55e; border-color:#22c55e; }
-        .lesson-dot.done::after { content:'✓'; color:#fff; font-size:8px; font-weight:700; }
-        .lesson-dot.active { border-color:#f59207; background:#fff8ee; }
-        .lesson-title { font-size:12px; color:#3a3840; line-height:1.4; font-weight:500; }
-        .lesson-title.active { color:#f59207; font-weight:600; }
-        .lesson-num { font-size:10px; color:#aaa; margin-top:2px; }
-
-        .toggle-sidebar {
-          position:absolute; top:50%; transform:translateY(-50%);
-          left:${sidebarOpen ? 254 : 4}px;
-          width:24px; height:48px; background:#fff; border:1px solid #eae8e2;
-          border-radius:0 8px 8px 0; display:flex; align-items:center; justify-content:center;
-          cursor:pointer; font-size:11px; color:#8b8880; z-index:10;
-          transition:left .25s ease; box-shadow:2px 0 8px #0000000a;
-        }
-        .toggle-sidebar:hover { background:#faf9f6; color:#1a1a2e; }
-
-        /* ── MAIN ── */
-        .main { flex:1; display:flex; flex-direction:column; overflow:hidden; min-width:0; }
-
-        .topbar {
-          height:50px; display:flex; align-items:center; gap:0;
-          padding:0 20px; background:#fff; border-bottom:1px solid #eae8e2;
-          flex-shrink:0;
-        }
-        .topbar-title { font-size:15px; font-weight:700; color:#1a1a2e; margin-right:auto; }
-        .topbar-breadcrumb { font-size:12px; color:#8b8880; display:flex; align-items:center; gap:6px; margin-right:auto; }
-        .topbar-breadcrumb span { color:#1a1a2e; font-weight:600; }
-
-        /* ── CONTENT PANELS ── */
-        .panels { flex:1; display:flex; overflow:hidden; gap:0; }
-
-        /* LEFT PANEL */
-        .left-panel {
-          flex:1.1; display:flex; flex-direction:column;
-          border-right:1px solid #eae8e2; overflow:hidden; min-width:0;
-          background:#f9f8f5;
-        }
-
-        .panel-tabs {
-          display:flex; border-bottom:1px solid #eae8e2; background:#fff; flex-shrink:0;
-        }
-        .panel-tab {
-          flex:1; padding:13px 16px; font-size:13px; font-weight:600;
-          color:#8b8880; cursor:pointer; text-align:center;
-          border-bottom:2px solid transparent; transition:all .15s;
-          display:flex; align-items:center; justify-content:center; gap:6px;
-        }
-        .panel-tab:hover { color:#1a1a2e; background:#faf9f6; }
-        .panel-tab.active { color:#f59207; border-bottom-color:#f59207; background:#fff; }
-
-        .left-content { flex:1; overflow-y:auto; padding:20px; }
-
-        /* Theory */
-        .theory-title { font-size:20px; font-weight:800; color:#1a1a2e; margin-bottom:16px; letter-spacing:-.02em; }
-        .concept-box {
-          background:#fff; border:1px solid #eae8e2; border-radius:12px;
-          padding:18px 20px; margin-bottom:16px; line-height:1.7;
-          font-size:13.5px; color:#3a3840;
-        }
-        .concept-box strong { color:#1a1a2e; }
-
-        .steps-title { font-size:13px; font-weight:700; color:#1a1a2e; margin-bottom:10px; text-transform:uppercase; letter-spacing:.06em; }
-        .steps-list { display:flex; flex-direction:column; gap:8px; margin-bottom:20px; }
-        .step-card {
-          display:flex; align-items:flex-start; gap:12px;
-          background:#fff; border:1px solid #eae8e2; border-radius:10px; padding:12px 14px;
-        }
-        .step-num {
-          width:26px; height:26px; border-radius:50%; background:#f59207;
-          color:#fff; font-size:12px; font-weight:800;
-          display:flex; align-items:center; justify-content:center; flex-shrink:0;
-        }
-        .step-body h4 { font-size:13px; font-weight:700; color:#1a1a2e; margin-bottom:2px; }
-        .step-body p { font-size:12px; color:#6b6870; }
-
-        .example-box {
-          background:linear-gradient(135deg,#fff8ee,#fff);
-          border:1px solid #fde9b8; border-radius:12px; padding:18px 20px;
-        }
-        .example-label { font-size:11px; font-weight:700; color:#f59207; text-transform:uppercase; letter-spacing:.08em; margin-bottom:10px; }
-        .example-problem { font-size:18px; font-weight:800; color:#1a1a2e; font-family:'Fira Code',monospace; margin-bottom:12px; }
-        .solution-steps { display:flex; flex-direction:column; gap:4px; }
-        .sol-step { font-family:'Fira Code',monospace; font-size:13px; color:#3a3840; padding:4px 10px; background:#fff; border-radius:6px; border-left:2px solid #f59207; }
-
-        /* Questions */
-        .questions-list { display:flex; flex-direction:column; gap:14px; }
-        .question-card {
-          background:#fff; border:1px solid #eae8e2; border-radius:12px;
-          padding:18px 20px; transition:box-shadow .15s;
-        }
-        .question-card:hover { box-shadow:0 4px 20px #0000000a; }
-        .question-top { display:flex; align-items:center; gap:8px; margin-bottom:10px; }
-        .diff-badge { font-size:11px; font-weight:700; padding:3px 8px; border-radius:20px; }
-        .question-num { font-size:11px; color:#8b8880; font-weight:600; }
-        .question-text { font-size:14px; font-weight:600; color:#1a1a2e; margin-bottom:14px; line-height:1.5; }
-        .question-actions { display:flex; gap:8px; }
-        .q-btn {
-          padding:7px 14px; border-radius:8px; font-family:'Plus Jakarta Sans',sans-serif;
-          font-size:12px; font-weight:600; cursor:pointer; transition:all .12s; border:1px solid;
-        }
-        .q-btn.hint { background:#f4f3f0; border-color:#d4d0c8; color:#5a5860; }
-        .q-btn.hint:hover { background:#eae8e2; }
-        .q-btn.answer { background:#f59207; border-color:#f59207; color:#fff; }
-        .q-btn.answer:hover { background:#e08a00; }
-        .q-btn.ask-ai { background:#eef2ff; border-color:#c7d2fe; color:#4338ca; }
-        .q-btn.ask-ai:hover { background:#e0e7ff; }
-        .reveal-box {
-          margin-top:12px; padding:10px 14px; border-radius:8px;
-          font-size:13px; font-weight:600; font-family:'Fira Code',monospace;
-          animation:fadeSlide .2s ease;
-        }
-        .reveal-hint { background:#f4f3f0; color:#5a5860; border:1px solid #d4d0c8; }
-        .reveal-answer { background:#f0fdf4; color:#16a34a; border:1px solid #bbf7d0; }
-        @keyframes fadeSlide { from { opacity:0; transform:translateY(-6px); } to { opacity:1; transform:translateY(0); } }
-
-        /* ── RIGHT PANEL (Chat) ── */
-        .right-panel {
-          width:360px; min-width:320px; display:flex; flex-direction:column;
-          background:#fff; overflow:hidden; flex-shrink:0;
-        }
-
-        .chat-header {
-          padding:14px 20px; border-bottom:1px solid #eae8e2; flex-shrink:0;
-          display:flex; align-items:center; gap:10px;
-        }
-        .chat-avatar {
-          width:32px; height:32px; border-radius:50%; background:linear-gradient(135deg,#f59207,#fbbf24);
-          display:flex; align-items:center; justify-content:center; font-size:14px; flex-shrink:0;
-        }
-        .chat-header-info h3 { font-size:14px; font-weight:700; color:#1a1a2e; }
-        .chat-header-info p { font-size:11px; color:#8b8880; }
-        .online-dot { width:8px; height:8px; border-radius:50%; background:#22c55e; margin-left:auto; box-shadow:0 0 0 2px #dcfce7; }
-
-        .chat-messages { flex:1; overflow-y:auto; padding:16px; display:flex; flex-direction:column; gap:12px; }
-
-        .msg { display:flex; gap:8px; align-items:flex-start; animation:fadeSlide .2s ease; }
-        .msg.user { flex-direction:row-reverse; }
-        .msg-avatar { width:26px; height:26px; border-radius:50%; flex-shrink:0; display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:700; margin-top:2px; }
-        .msg-ai-av { background:linear-gradient(135deg,#f59207,#fbbf24); color:#fff; }
-        .msg-user-av { background:#1a1a2e; color:#fff; }
-        .msg-bubble {
-          max-width:82%; padding:10px 13px; border-radius:14px;
-          font-size:13px; line-height:1.6; color:#1a1a2e;
-        }
-        .msg.assistant .msg-bubble { background:#f4f3f0; border-radius:4px 14px 14px 14px; }
-        .msg.user .msg-bubble { background:#1a1a2e; color:#fff; border-radius:14px 4px 14px 14px; }
-
-        .typing { display:flex; align-items:center; gap:4px; padding:12px 14px; }
-        .typing span { width:6px; height:6px; border-radius:50%; background:#d4d0c8; animation:bounce .9s infinite; }
-        .typing span:nth-child(2) { animation-delay:.15s; }
-        .typing span:nth-child(3) { animation-delay:.3s; }
-        @keyframes bounce { 0%,60%,100%{transform:translateY(0)} 30%{transform:translateY(-6px)} }
-
-        .quick-prompts { padding:0 16px 10px; display:flex; flex-wrap:wrap; gap:6px; flex-shrink:0; }
-        .quick-chip {
-          padding:5px 11px; border-radius:20px; font-size:11px; font-weight:600;
-          background:#fff8ee; border:1px solid #fde9b8; color:#b45309;
-          cursor:pointer; transition:all .12s; white-space:nowrap;
-        }
-        .quick-chip:hover { background:#fde9b8; }
-
-        .chat-input-area {
-          padding:12px 16px; border-top:1px solid #eae8e2; flex-shrink:0;
-          display:flex; align-items:flex-end; gap:8px;
-        }
-        .chat-input {
-          flex:1; background:#f4f3f0; border:1px solid #eae8e2; border-radius:10px;
-          padding:10px 12px; font-family:'Plus Jakarta Sans',sans-serif; font-size:13px;
-          color:#1a1a2e; outline:none; resize:none; min-height:40px; max-height:100px;
-          transition:border-color .15s; line-height:1.4;
-        }
-        .chat-input:focus { border-color:#f59207; background:#fff; }
-        .chat-input::placeholder { color:#aaa; }
-        .send-btn {
-          width:38px; height:38px; border-radius:10px; border:none;
-          background:#f59207; color:#fff; font-size:16px; cursor:pointer;
-          display:flex; align-items:center; justify-content:center;
-          transition:all .12s; flex-shrink:0;
-        }
-        .send-btn:hover { background:#e08a00; transform:scale(1.05); }
-        .send-btn:disabled { background:#d4d0c8; cursor:default; transform:none; }
-      `}</style>
-
-      <div className="root" style={{ position: "relative" }}>
-        {/* Toggle button */}
-        <div className="toggle-sidebar" onClick={() => setSidebarOpen(o => !o)}>
-          {sidebarOpen ? "‹" : "›"}
-        </div>
+      <style>{css}</style>
+      <div className="root">
 
         {/* ── SIDEBAR ── */}
-        <div className="sidebar">
-          <div className="sidebar-inner">
-            <div className="sidebar-top">
-              <div className="back-link">
-                ← Back to SAT Quant (Learn)
+        <div className="sb">
+          <div className="sb-inner">
+            <div className="sb-top">
+              <div className="sb-back">← Back to SAT Quant (Learn)</div>
+              <div className="sb-search">
+                <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="#b8b5ae" strokeWidth="2"><circle cx="6.5" cy="6.5" r="5"/><path d="M11 11l3 3"/></svg>
+                <input placeholder="Search lessons…"/>
               </div>
-              <div className="sidebar-search">
-                <span style={{fontSize:12, color:"#aaa"}}>🔍</span>
-                <input placeholder="Search lessons…" />
-              </div>
-              <div className="progress-box">
-                <div className="progress-top">
-                  <span>Course Progress</span>
-                  <span>{Math.round((progress/total)*100)}%</span>
-                </div>
-                <div className="progress-track">
-                  <div className="progress-fill" style={{width:`${(progress/total)*100}%`}} />
-                </div>
-                <div className="progress-sub">
-                  <span style={{color:"#22c55e"}}>✓</span>
-                  {progress} / {total} completed
-                </div>
+              <div className="sb-prog">
+                <div className="sb-prog-top"><span>Course Progress</span><span className="sb-prog-pct">2%</span></div>
+                <div className="sb-prog-track"><div className="sb-prog-fill" style={{width:"2%"}}/></div>
+                <div className="sb-prog-sub"><span style={{color:"#22c55e",fontSize:11}}>✓</span> 1 / 52 completed</div>
               </div>
             </div>
-
-            <div className="sidebar-lessons">
+            <button className="sb-expand">⊞ Expand All</button>
+            <div className="sb-lessons">
               {COURSE_DATA.map(cat => (
                 <div key={cat.id}>
-                  <div className="cat-header" onClick={() => setExpandedCategories(e => ({...e,[cat.id]:!e[cat.id]}))}>
-                    <span className="cat-icon">{cat.icon}</span>
-                    {cat.title}
+                  <div className="cat-hdr" onClick={() => setExpandedCat(e => ({...e,[cat.id]:!e[cat.id]}))}>
+                    <div className="cat-icon">{cat.icon}</div>
+                    <span className="cat-title">{cat.title}</span>
                     <span className="cat-count">{cat.count}</span>
-                    <span className={`chevron ${expandedCategories[cat.id]?"open":""}`}>▶</span>
+                    <span className={`chev ${expandedCat[cat.id]?"open":""}`}>▶</span>
                   </div>
-                  {expandedCategories[cat.id] && cat.sections.map(sec => (
+                  {expandedCat[cat.id] && cat.sections.map(sec => (
                     <div key={sec.id}>
-                      <div className="section-header" onClick={() => setExpandedSections(e => ({...e,[sec.id]:!e[sec.id]}))}>
-                        <span style={{fontSize:11}}>📄</span>
-                        {sec.title}
-                        <span className="section-count">{sec.count}</span>
-                        <span className={`chevron ${expandedSections[sec.id]?"open":""}`}>▶</span>
+                      <div className="sec-hdr" onClick={() => setExpandedSec(e => ({...e,[sec.id]:!e[sec.id]}))}>
+                        <span style={{fontSize:10}}>📄</span>
+                        <span className="sec-title">{sec.title}</span>
+                        <span style={{fontSize:10,color:"#b8b5ae",marginLeft:"auto"}}>{sec.count}</span>
+                        <span className={`chev ${expandedSec[sec.id]?"open":""}`}>▶</span>
                       </div>
-                      {expandedSections[sec.id] && sec.lessons.map((les, i) => (
-                        <div
-                          key={les.id}
-                          className={`lesson-item ${les.id === activeLesson ? "active" : ""}`}
-                          onClick={() => setActiveLesson(les.id)}
-                        >
-                          <div className={`lesson-dot ${les.done?"done":les.id===activeLesson?"active":""}`} />
+                      {expandedSec[sec.id] && sec.lessons.map((les,i) => (
+                        <div key={les.id} className={`les-row ${les.id===activeLesson?"act":""}`} onClick={() => !les.locked && setActiveLesson(les.id)}>
+                          <div className={`les-dot ${les.done?"done":les.id===activeLesson?"act":""}`}>{les.done?"✓":les.locked?"🔒":""}</div>
                           <div>
-                            <div className={`lesson-title ${les.id===activeLesson?"active":""}`}>{les.title}</div>
-                            <div className="lesson-num">Lesson {i+1}</div>
+                            <div className={`les-title ${les.id===activeLesson?"act":""}`}>{les.title}</div>
+                            <div className="les-num">Lesson {i+1}</div>
                           </div>
                         </div>
                       ))}
@@ -514,244 +495,229 @@ export default function App() {
               ))}
             </div>
           </div>
+          <div className="sb-toggle" onClick={() => setSidebarOpen(o=>!o)}>{sidebarOpen?"‹":"›"}</div>
         </div>
 
         {/* ── MAIN ── */}
         <div className="main">
           <div className="topbar">
-            <div className="topbar-breadcrumb">
-              Algebra &rsaquo; Linear Equations &rsaquo; <span>Solving Linear Equations</span>
+            <div className="breadcrumb">
+              SAT Quant (Learn) <span className="bc-sep">›</span> Algebra <span className="bc-sep">›</span> Linear Equations <span className="bc-sep">›</span> <b>Solving Linear Equations</b>
             </div>
-            <div style={{display:"flex",gap:8}}>
-              <button style={{padding:"6px 14px",borderRadius:8,border:"1px solid #eae8e2",background:"#f4f3f0",fontSize:12,fontWeight:600,color:"#5a5860",cursor:"pointer",fontFamily:"'Plus Jakarta Sans',sans-serif"}}>‹ Prev</button>
-              <button style={{padding:"6px 14px",borderRadius:8,border:"none",background:"#f59207",fontSize:12,fontWeight:600,color:"#fff",cursor:"pointer",fontFamily:"'Plus Jakarta Sans',sans-serif"}}>Next ›</button>
+            <div className="topbar-nav">
+              <button className="tnav-btn tnav-prev">‹ Prev</button>
+              <button className="tnav-btn tnav-next">Next ›</button>
             </div>
           </div>
 
-          <div className="panels">
-            {/* ── LEFT PANEL ── */}
-            <div className="left-panel">
-              <div className="panel-tabs">
-                <div className={`panel-tab ${activeTab==="theory"?"active":""}`} onClick={() => setActiveTab("theory")}>
-                  📖 Theory
+          <div className="tabbar">
+            <div className={`tab ${activeTab==="theory"?"act":""}`} onClick={()=>setActiveTab("theory")}>
+              📖 Theory
+            </div>
+            <div className="tabbar-sep"/>
+            <div className={`tab ${activeTab==="questions"?"act":""}`} onClick={()=>setActiveTab("questions")}>
+              ✏️ Practice Questions
+            </div>
+          </div>
+
+          <div className="content">
+            {activeTab==="theory" ? (
+              /* ── THEORY ── */
+              <div className="theory">
+                <div className="th-h1">{THEORY.title}</div>
+                <div className="th-concept" dangerouslySetInnerHTML={{__html:renderMd(THEORY.concept)}}/>
+                <div className="th-stitle">Step-by-Step Method</div>
+                <div className="th-steps">
+                  {THEORY.steps.map(s=>(
+                    <div key={s.step} className="th-step">
+                      <div className="th-badge">{s.step}</div>
+                      <div className="th-step-txt"><h4>{s.title}</h4><p>{s.desc}</p></div>
+                    </div>
+                  ))}
                 </div>
-                <div className={`panel-tab ${activeTab==="questions"?"active":""}`} onClick={() => setActiveTab("questions")}>
-                  ✏️ Practice Questions
+                <div className="th-example">
+                  <div className="th-ex-tag">Worked Example</div>
+                  <div className="th-ex-prob">{THEORY.example.problem}</div>
+                  <div className="th-ex-steps">
+                    {THEORY.example.solution.map((s,i)=><div key={i} className="th-ex-step">{s}</div>)}
+                  </div>
                 </div>
               </div>
-
-              <div className="left-content">
-                {activeTab === "theory" ? (
-                  <>
-                    <div className="theory-title">{THEORY.title}</div>
-                    <div className="concept-box" dangerouslySetInnerHTML={{__html: renderMd(THEORY.concept)}} />
-
-                    <div className="steps-title">Step-by-step method</div>
-                    <div className="steps-list">
-                      {THEORY.steps.map(s => (
-                        <div key={s.step} className="step-card">
-                          <div className="step-num">{s.step}</div>
-                          <div className="step-body">
-                            <h4>{s.title}</h4>
-                            <p>{s.desc}</p>
-                          </div>
-                        </div>
-                      ))}
+            ) : (
+              /* ── QUESTIONS ── */
+              <div className="q-panel">
+                {/* Q NAV */}
+                <div className="q-nav">
+                  <div className="q-nav-hdr">
+                    <div className="q-nav-title">
+                      Questions
+                      <span className="q-filter-icon">
+                        <svg width="10" height="10" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2"><path d="M2 4h12M4 8h8M6 12h4"/></svg>
+                        Filters
+                      </span>
                     </div>
-
-                    <div className="example-box">
-                      <div className="example-label">Worked Example</div>
-                      <div className="example-problem">{THEORY.example.problem}</div>
-                      <div className="solution-steps">
-                        {THEORY.example.solution.map((s,i) => (
-                          <div key={i} className="sol-step">{s}</div>
-                        ))}
+                    <div className="q-score-row">
+                      <div className="q-score-bar">
+                        <div className="q-score-fill" style={{width:`${(totalCorrect/QUESTIONS.length)*100}%`}}/>
                       </div>
+                      <span className="q-score-txt">{totalCorrect}/{QUESTIONS.length}</span>
+                      {totalSkipped > 0 && <span style={{fontSize:10,fontWeight:700,color:"#b45309"}}>⏭{totalSkipped}</span>}
                     </div>
-                  </>
-                ) : (
-                  <div className="questions-list">
-                    {/* Score summary */}
-                    {Object.keys(submittedQuestions).length > 0 && (
-                      <div style={{background:"#fff",border:"1px solid #eae8e2",borderRadius:12,padding:"12px 16px",marginBottom:4,display:"flex",alignItems:"center",gap:12}}>
-                        <span style={{fontSize:20}}>📊</span>
-                        <div>
-                          <div style={{fontSize:13,fontWeight:700,color:"#1a1a2e"}}>
-                            {Object.values(submittedQuestions).filter(v=>v).length} / {Object.keys(submittedQuestions).length} correct
-                          </div>
-                          <div style={{fontSize:11,color:"#8b8880"}}>{QUESTIONS.length - Object.keys(submittedQuestions).length} questions remaining</div>
-                        </div>
-                        <div style={{marginLeft:"auto",display:"flex",gap:4}}>
-                          {QUESTIONS.map(q => {
-                            const sub = submittedQuestions[q.id];
-                            return <div key={q.id} style={{width:8,height:8,borderRadius:"50%",background: sub===undefined?"#d4d0c8":sub?"#22c55e":"#ef4444"}} />;
-                          })}
-                        </div>
-                      </div>
-                    )}
-
-                    {QUESTIONS.map((q, i) => {
-                      const selected = selectedOptions[q.id];
-                      const submitted = submittedQuestions[q.id] !== undefined;
-                      const isCorrect = submittedQuestions[q.id] === true;
-
+                  </div>
+                  <div className="q-diff-filters">
+                    {["Easy","Medium","Hard"].map(d=>(
+                      <span key={d} className="diff-tag" style={{background:DIFF[d].bg,color:DIFF[d].text,borderColor:DIFF[d].border}}>{d}</span>
+                    ))}
+                  </div>
+                  <div className="q-list">
+                    {QUESTIONS.map((qq,i)=>{
+                      const st = submittedQ[qq.id];
+                      const skipped = skippedQ[qq.id];
+                      const cls = `q-item ${i===activeQIdx?"qi-act":""} ${st===true?"qi-ok":st===false?"qi-bad":skipped?"qi-skip":""}`;
                       return (
-                        <div key={q.id} className="question-card" style={submitted ? {borderColor: isCorrect?"#bbf7d0":"#fecaca"} : {}}>
-                          <div className="question-top">
-                            <span className="diff-badge" style={{background:DIFF_COLOR[q.difficulty]+"18", color:DIFF_COLOR[q.difficulty]}}>
-                              {q.difficulty}
-                            </span>
-                            <span className="question-num">Q{i+1} of {QUESTIONS.length}</span>
-                            {submitted && (
-                              <span style={{marginLeft:"auto",fontSize:12,fontWeight:700,color:isCorrect?"#16a34a":"#dc2626",display:"flex",alignItems:"center",gap:4}}>
-                                {isCorrect ? "✓ Correct" : "✗ Incorrect"}
-                              </span>
-                            )}
-                          </div>
-
-                          <div className="question-text">{q.text}</div>
-
-                          {/* MCQ Options */}
-                          <div style={{display:"flex",flexDirection:"column",gap:8,marginBottom:14}}>
-                            {q.options.map((opt, oi) => {
-                              let bg = "#f4f3f0", border = "#eae8e2", color = "#3a3840", fw = "500";
-                              if (!submitted && selected === oi) { bg="#fff8ee"; border="#f59207"; color="#92400e"; fw="600"; }
-                              if (submitted) {
-                                if (oi === q.correctIndex) { bg="#f0fdf4"; border="#86efac"; color="#15803d"; fw="700"; }
-                                else if (oi === selected && oi !== q.correctIndex) { bg="#fef2f2"; border="#fca5a5"; color="#dc2626"; fw="600"; }
-                              }
-                              return (
-                                <div
-                                  key={oi}
-                                  onClick={() => !submitted && setSelectedOptions(s => ({...s,[q.id]:oi}))}
-                                  style={{
-                                    display:"flex",alignItems:"center",gap:10,
-                                    padding:"10px 14px",borderRadius:10,
-                                    border:`1.5px solid ${border}`,background:bg,
-                                    cursor:submitted?"default":"pointer",
-                                    transition:"all .12s",color,fontWeight:fw,fontSize:13,
-                                  }}
-                                >
-                                  <div style={{
-                                    width:22,height:22,borderRadius:"50%",flexShrink:0,
-                                    border:`1.5px solid ${border}`,
-                                    display:"flex",alignItems:"center",justifyContent:"center",
-                                    fontSize:11,fontWeight:700,background:"#fff",color,
-                                  }}>
-                                    {submitted && oi === q.correctIndex ? "✓" : submitted && oi === selected && oi !== q.correctIndex ? "✗" : String.fromCharCode(65+oi)}
-                                  </div>
-                                  {opt.substring(3)} {/* strip "A) " prefix */}
-                                </div>
-                              );
-                            })}
-                          </div>
-
-                          {/* Action row */}
-                          <div className="question-actions" style={{flexWrap:"wrap",gap:6}}>
-                            {!submitted && (
-                              <button
-                                className="q-btn answer"
-                                style={{opacity:selected===undefined?0.45:1,cursor:selected===undefined?"not-allowed":"pointer"}}
-                                disabled={selected===undefined}
-                                onClick={() => {
-                                  if (selected !== undefined) {
-                                    setSubmittedQuestions(s => ({...s,[q.id]:selected===q.correctIndex}));
-                                    if (selected !== q.correctIndex) setRevealedExplanations(e => ({...e,[q.id]:true}));
-                                  }
-                                }}
-                              >
-                                ✓ Submit Answer
-                              </button>
-                            )}
-                            <button className="q-btn hint" onClick={() => setRevealedHints(h => ({...h,[q.id]:!h[q.id]}))}>
-                              💡 {revealedHints[q.id] ? "Hide Hint" : "Hint"}
-                            </button>
-                            {submitted && (
-                              <button className="q-btn hint" onClick={() => setRevealedExplanations(e => ({...e,[q.id]:!e[q.id]}))}>
-                                📖 {revealedExplanations[q.id] ? "Hide" : "Explanation"}
-                              </button>
-                            )}
-                            <button className="q-btn ask-ai" onClick={() => sendMessage(`Can you walk me through this SAT problem step by step?\n\n"${q.text}"\n\nOptions: ${q.options.join(", ")}`)}>
-                              🤖 Ask AI
-                            </button>
-                            {submitted && (
-                              <button
-                                className="q-btn"
-                                style={{background:"#f4f3f0",borderColor:"#d4d0c8",color:"#5a5860"}}
-                                onClick={() => {
-                                  setSubmittedQuestions(s => { const n={...s}; delete n[q.id]; return n; });
-                                  setSelectedOptions(s => { const n={...s}; delete n[q.id]; return n; });
-                                  setRevealedExplanations(e => { const n={...e}; delete n[q.id]; return n; });
-                                  setRevealedHints(h => { const n={...h}; delete n[q.id]; return n; });
-                                }}
-                              >
-                                ↺ Retry
-                              </button>
-                            )}
-                          </div>
-
-                          {revealedHints[q.id] && <div className="reveal-box reveal-hint" style={{marginTop:10}}>💡 {q.hint}</div>}
-                          {revealedExplanations[q.id] && <div className="reveal-box reveal-answer" style={{marginTop:8,fontFamily:"'Plus Jakarta Sans',sans-serif",fontWeight:500,lineHeight:1.6}}>📖 {q.explanation}</div>}
+                        <div key={qq.id} className={cls} onClick={()=>setActiveQIdx(i)}>
+                          <span className="qi-num">Q{i+1}</span>
+                          <span className="qi-label">{qq.text}</span>
+                          <span className="qi-status">{st===true?"✅":st===false?"❌":skipped?"⏭":i===activeQIdx?"▶":""}</span>
                         </div>
                       );
                     })}
                   </div>
-                )}
-              </div>
-            </div>
-
-            {/* ── RIGHT PANEL (AI Chat) ── */}
-            <div className="right-panel">
-              <div className="chat-header">
-                <div className="chat-avatar">🎓</div>
-                <div className="chat-header-info">
-                  <h3>AI Tutor</h3>
-                  <p>Preppeo · SAT Math</p>
                 </div>
-                <div className="online-dot" />
-              </div>
 
-              <div className="chat-messages">
-                {messages.map((m, i) => (
-                  <div key={i} className={`msg ${m.role}`}>
-                    <div className={`msg-avatar ${m.role==="assistant"?"msg-ai-av":"msg-user-av"}`}>
-                      {m.role==="assistant" ? "🎓" : "VA"}
+                {/* Q VIEWER */}
+                <div className="q-viewer">
+                  <div className="q-viewer-scroll" key={`q-${activeQIdx}`}>
+                    {/* Meta */}
+                    <div className="q-meta-row">
+                      <span className="q-counter">Q{activeQIdx+1} of {QUESTIONS.length}</span>
+                      {!submitted && (
+                        <span className={`q-timer ${elapsed>90?"warn":""}`}>⏱ {fmtTime(elapsed)}</span>
+                      )}
+                      <span className="q-dpill" style={{background:DIFF[q.difficulty].bg,color:DIFF[q.difficulty].text,borderColor:DIFF[q.difficulty].border}}>
+                        {q.difficulty}
+                      </span>
+                      {submitted && (
+                        <div className="q-result" style={{background:correct?"#f0fdf4":"#fef2f2",color:correct?"#15803d":"#dc2626",borderColor:correct?"#86efac":"#fca5a5"}}>
+                          {correct?"✓ Correct!":"✗ Incorrect"}
+                        </div>
+                      )}
                     </div>
-                    <div className="msg-bubble" dangerouslySetInnerHTML={{__html: renderMd(m.content)}} />
+
+                    {/* Question */}
+                    <div className="q-text">{q.text}</div>
+
+                    {/* Options */}
+                    <div className="options">
+                      {q.options.map((opt,oi)=>{
+                        let cls = "opt";
+                        if (submitted) {
+                          cls += " opt-locked";
+                          if (oi===q.correctIndex) cls += " opt-correct";
+                          else if (oi===selected) cls += " opt-wrong";
+                          else cls += " opt-dim";
+                        } else {
+                          if (oi===selected) cls += " opt-sel";
+                        }
+                        return (
+                          <div key={oi} className={cls} onClick={()=>!submitted&&setSelectedOpts(s=>({...s,[q.id]:oi}))}>
+                            <div className="opt-letter">
+                              {submitted&&oi===q.correctIndex?"✓"
+                               :submitted&&oi===selected&&oi!==q.correctIndex?"✗"
+                               :String.fromCharCode(65+oi)}
+                            </div>
+                            <span className="opt-text">{opt}</span>
+                          </div>
+                        );
+                      })}
+                    </div>
+
+                    {/* Action bar */}
+                    <div className="actions">
+                      {!submitted ? (
+                        <>
+                          <button className="abtn a-submit" disabled={selected===undefined} onClick={submitAnswer}>✓ Submit Answer</button>
+                          <button className="abtn a-skip" onClick={()=>{ setSkippedQ(s=>({...s,[q.id]:true})); setActiveQIdx(i=>Math.min(i+1,QUESTIONS.length-1)); }}>Skip</button>
+                        </>
+                      ) : (
+                        <button className="abtn a-retry" onClick={retryQ}>↺ Retry</button>
+                      )}
+                      <button className="abtn a-hint" onClick={()=>setHints(h=>({...h,[q.id]:!h[q.id]}))}>
+                        💡 {hints[q.id]?"Hide Hint":"Hint"}
+                      </button>
+                      {submitted && (
+                        <button className="abtn a-explain" onClick={()=>setExplanations(e=>({...e,[q.id]:!e[q.id]}))}>
+                          📖 {explanations[q.id]?"Hide":"Explanation"}
+                        </button>
+                      )}
+                      <button
+                        className="abtn a-ai"
+                        onClick={()=>{
+                          sendMessage(`Walk me through this SAT question:\n"${q.text}"\nOptions: ${q.options.map((o,i)=>String.fromCharCode(65+i)+") "+o).join("  ")}`);
+                        }}
+                      >
+                        🤖 Ask AI
+                      </button>
+                    </div>
+
+                    {hints[q.id] && <div className="ibox ibox-hint">💡 <strong>Hint:</strong> {q.hint}</div>}
+                    {explanations[q.id] && <div className="ibox ibox-expl">📖 <strong>Explanation:</strong> {q.explanation}</div>}
+                  </div>
+
+                  {/* Footer */}
+                  <div className="q-footer">
+                    <button className="qf-btn qf-prev" disabled={activeQIdx===0} onClick={()=>setActiveQIdx(i=>Math.max(i-1,0))}>‹ Previous</button>
+                    <div className="dots">
+                      {QUESTIONS.map((_,i)=>{
+                        const st = submittedQ[QUESTIONS[i].id];
+                        const sk = skippedQ[QUESTIONS[i].id];
+                        const cls = `dot ${i===activeQIdx?"dot-act":st===true?"dot-ok":st===false?"dot-bad":sk?"dot-skip":"dot-idle"}`;
+                        return <div key={i} className={cls} onClick={()=>setActiveQIdx(i)} title={`Q${i+1}`}/>;
+                      })}
+                    </div>
+                    <button className="qf-btn qf-next" disabled={activeQIdx===QUESTIONS.length-1} onClick={()=>setActiveQIdx(i=>Math.min(i+1,QUESTIONS.length-1))}>Next ›</button>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* ── AI PANEL ── */}
+            <div className="ai">
+              <div className="ai-hdr">
+                <div className="ai-av">🎓</div>
+                <div className="ai-hdr-txt"><h3>AI Tutor</h3><p>Preppeo · SAT Math</p></div>
+                <div className="ai-dot"/>
+              </div>
+              <div className="ai-msgs">
+                {messages.map((m,i)=>(
+                  <div key={i} className={`ai-msg ${m.role}`}>
+                    <div className={`ai-msg-av ${m.role==="assistant"?"bot-av":"user-av"}`}>{m.role==="assistant"?"🎓":"VA"}</div>
+                    <div className="ai-bubble" dangerouslySetInnerHTML={{__html:renderMd(m.content)}}/>
                   </div>
                 ))}
                 {loading && (
-                  <div className="msg assistant">
-                    <div className="msg-avatar msg-ai-av">🎓</div>
-                    <div className="msg-bubble" style={{padding:"6px 12px"}}>
-                      <div className="typing">
-                        <span/><span/><span/>
-                      </div>
-                    </div>
+                  <div className="typing-wrap">
+                    <div className="ai-msg-av bot-av" style={{width:22,height:22,borderRadius:"50%",flexShrink:0,display:"flex",alignItems:"center",justifyContent:"center",fontSize:11,background:"linear-gradient(135deg,#f59207,#fbbf24)",color:"#fff"}}>🎓</div>
+                    <div className="typing"><span/><span/><span/></div>
                   </div>
                 )}
-                <div ref={chatEndRef} />
+                <div ref={chatEndRef}/>
               </div>
-
-              <div className="quick-prompts">
-                {["Explain this concept", "Give me an example", "What's the formula?", "I'm confused about…"].map(p => (
-                  <div key={p} className="quick-chip" onClick={() => quickPrompt(p)}>{p}</div>
+              <div className="ai-quick">
+                {[{i:"📖",l:"Explain this"},{i:"💡",l:"Give a tip"},{i:"📐",l:"The formula?"},{i:"✏️",l:`Help with Q${activeQIdx+1}`}].map(p=>(
+                  <div key={p.l} className="ai-chip" onClick={()=>sendMessage(p.l=== `Help with Q${activeQIdx+1}` ? `Can you walk me through Question ${activeQIdx+1}? "${q.text}" Options: ${q.options.map((o,i)=>String.fromCharCode(65+i)+") "+o).join("  ")}` : p.l)}>{p.i} {p.l}</div>
                 ))}
               </div>
-
-              <div className="chat-input-area">
+              <div className="ai-input-row">
                 <textarea
-                  ref={inputRef}
-                  className="chat-input"
-                  placeholder="Ask anything about this lesson…"
+                  className="ai-input"
+                  placeholder="Ask anything…"
                   value={input}
-                  onChange={e => setInput(e.target.value)}
-                  onKeyDown={e => { if(e.key==="Enter" && !e.shiftKey) { e.preventDefault(); sendMessage(input); } }}
+                  onChange={e=>setInput(e.target.value)}
+                  onKeyDown={e=>{if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();sendMessage(input);}}}
                   rows={1}
                 />
-                <button className="send-btn" onClick={() => sendMessage(input)} disabled={!input.trim() || loading}>
-                  ➤
-                </button>
+                <button className="ai-send" onClick={()=>sendMessage(input)} disabled={!input.trim()||loading}>➤</button>
               </div>
             </div>
           </div>

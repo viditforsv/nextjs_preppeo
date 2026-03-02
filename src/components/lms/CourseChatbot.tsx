@@ -21,6 +21,9 @@ interface CourseChatbotProps {
   /** When set, send this message and then call onMessageSent. Used e.g. for "Ask AI" from practice. */
   messageToSend?: string | null;
   onMessageSent?: () => void;
+  /** comm.md: show "Help with Q{N}" chip when in practice; on click parent should set messageToSend. */
+  activePracticeLabel?: string;
+  onAskAboutPractice?: () => void;
 }
 
 export function CourseChatbot({
@@ -31,6 +34,8 @@ export function CourseChatbot({
   embedded = false,
   messageToSend,
   onMessageSent,
+  activePracticeLabel,
+  onAskAboutPractice,
 }: CourseChatbotProps) {
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
@@ -115,13 +120,34 @@ export function CourseChatbot({
   }
 
   const panelClass = embedded
-    ? "flex-1 min-w-0 min-h-0 flex flex-col bg-background border-l border-border h-full"
+    ? "flex-1 min-w-0 min-h-0 flex flex-col border-l border-[#eae8e2] h-full bg-[#faf9f6]"
     : "fixed bottom-6 right-6 w-[380px] max-w-[calc(100vw-2rem)] h-[480px] max-h-[70vh] flex flex-col bg-background border rounded-lg shadow-xl z-50";
+
+  const quickPrompts = lessonTitle
+    ? [
+        { icon: "📖", label: "Explain this" },
+        { icon: "💡", label: "Give a tip" },
+        { icon: "📐", label: "The formula?" },
+      ]
+    : [
+        { icon: "📖", label: "Summarize this course" },
+        { icon: "💡", label: "What will I learn?" },
+        { icon: "✏️", label: "Give me a practice question" },
+      ];
+  const showQuickPrompts = embedded && messages.length <= 1 && !isAITyping;
+  const showPracticeChip = embedded && activePracticeLabel && onAskAboutPractice;
 
   return (
     <div className={panelClass}>
-      <header className="flex shrink-0 items-center justify-between border-b p-3">
-        <span className="font-semibold text-sm">AI Tutor</span>
+      <header className="flex shrink-0 items-center justify-between border-b border-[#eae8e2] bg-white px-4 py-3">
+        <div className="flex items-center gap-2">
+          <span className="font-semibold text-sm text-[#1a1a2e]">AI Tutor</span>
+          {embedded && lessonTitle && (
+            <span className="text-xs text-[#8b8880] truncate max-w-[140px]" title={lessonTitle}>
+              · {lessonTitle}
+            </span>
+          )}
+        </div>
         {!embedded && (
           <Button variant="outline" size="sm" onClick={onToggle} aria-label="Close">
             <X className="w-4 h-4" />
@@ -135,10 +161,10 @@ export function CourseChatbot({
             className={`flex ${m.role === "user" ? "justify-end" : "justify-start"}`}
           >
             <div
-              className={`max-w-[85%] rounded-lg px-3 py-2 text-sm ${
+              className={`max-w-[85%] rounded-xl px-3.5 py-2.5 text-sm shadow-sm ${
                 m.role === "user"
-                  ? "bg-primary text-primary-foreground"
-                  : "bg-muted"
+                  ? "bg-[#f59207] text-white"
+                  : "bg-white border border-[#eae8e2] text-[#1a1a2e]"
               }`}
             >
               {m.content}
@@ -147,16 +173,39 @@ export function CourseChatbot({
         ))}
         {isAITyping && (
           <div className="flex justify-start">
-            <div className="rounded-lg px-3 py-2 bg-muted text-sm text-muted-foreground">
+            <div className="rounded-xl px-3.5 py-2.5 bg-white border border-[#eae8e2] text-sm text-[#8b8880] shadow-sm">
               Thinking...
             </div>
           </div>
         )}
+        {showQuickPrompts && (
+          <div className="flex flex-wrap gap-1.5 pt-2 border-t border-[#f0ede6] px-2 pt-2">
+            {quickPrompts.map((p) => (
+              <button
+                key={p.label}
+                type="button"
+                onClick={() => sendText(p.label)}
+                className="inline-flex items-center gap-1 rounded-[20px] border border-[#e0ddd6] bg-[#fdfcfa] px-2 py-1 text-[10.5px] font-semibold text-[#6b6966] transition-colors hover:border-[#fde9b8] hover:bg-[#fffbf0] hover:text-[#b45309]"
+              >
+                {p.icon} {p.label}
+              </button>
+            ))}
+            {showPracticeChip && (
+              <button
+                type="button"
+                onClick={onAskAboutPractice}
+                className="inline-flex items-center gap-1 rounded-[20px] border border-[#e0ddd6] bg-[#fdfcfa] px-2 py-1 text-[10.5px] font-semibold text-[#6b6966] transition-colors hover:border-[#fde9b8] hover:bg-[#fffbf0] hover:text-[#b45309]"
+              >
+                ✏️ {activePracticeLabel}
+              </button>
+            )}
+          </div>
+        )}
         <div ref={messagesEndRef} />
       </div>
-      <div className="flex shrink-0 flex-wrap items-end gap-2 border-t bg-background p-3">
+      <div className="flex shrink-0 flex-wrap items-end gap-2 border-t border-[#eae8e2] bg-white p-3">
         <Input
-          placeholder="Ask about the course..."
+          placeholder={embedded && lessonTitle ? "Ask about this lesson…" : "Ask about the course…"}
           value={currentMessage}
           onChange={(e) => setCurrentMessage(e.target.value)}
           onKeyDown={(e) => e.key === "Enter" && !e.shiftKey && handleSend()}
