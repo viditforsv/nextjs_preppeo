@@ -4,8 +4,8 @@ import { useEffect, useRef, useState, useCallback } from 'react'
 import * as pdfjsLib from 'pdfjs-dist'
 import { useScreenshotPrevention } from '@/hooks/useScreenshotPrevention'
 
-// Set up PDF.js worker - use a more reliable CDN
-pdfjsLib.GlobalWorkerOptions.workerSrc = `//cdn.jsdelivr.net/npm/pdfjs-dist@${pdfjsLib.version}/build/pdf.worker.min.js`
+// Set up PDF.js worker from same origin (avoids CDN fetch/CORS failures)
+pdfjsLib.GlobalWorkerOptions.workerSrc = '/pdf.worker.min.mjs'
 
 interface PDFViewerProps {
   url: string

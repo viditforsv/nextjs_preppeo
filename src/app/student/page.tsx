@@ -45,6 +45,7 @@ interface DashboardStats {
       curriculum: string;
       subject: string;
       grade: string;
+      courses_templates?: { slug?: string } | null;
     };
   }>;
   assignments: Array<{
@@ -317,7 +318,11 @@ export default function StudentDashboard() {
                   {stats.enrollments.slice(0, 3).map((enrollment) => (
                     <Link
                       key={enrollment.id}
-                      href={`/courses/${enrollment.courses.slug}`}
+                      href={
+                        enrollment.courses.courses_templates?.slug === "lms-interactive"
+                          ? `/learn/${enrollment.courses.slug}`
+                          : `/courses/${enrollment.courses.slug}`
+                      }
                     >
                       <div className="flex items-center gap-3 p-3 border rounded-sm hover:bg-primary/10 transition-colors cursor-pointer">
                         <div className="w-12 h-12 bg-[#e27447]/10 rounded-sm flex items-center justify-center">

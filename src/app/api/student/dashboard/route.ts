@@ -42,7 +42,8 @@ export async function GET() {
           curriculum,
           subject,
           grade,
-          status
+          status,
+          courses_templates (slug)
         )
       `
       )

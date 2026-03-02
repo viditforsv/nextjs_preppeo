@@ -33,6 +33,7 @@ interface EnrolledCourse {
   slug: string | null;
   price: number;
   created_at: string;
+  courses_templates?: { slug?: string } | null;
   enrollment: {
     id: string;
     enrolled_at: string;
@@ -85,7 +86,7 @@ export default function EnrolledCoursesPage() {
           .select(
             `
             *,
-            courses (*)
+            courses (*, courses_templates (slug))
           `
           )
           .eq("student_id", user.id)
@@ -471,7 +472,11 @@ export default function EnrolledCoursesPage() {
                     {/* Action Buttons */}
                     <div className="flex gap-2">
                       <Link
-                        href={`/courses/${course.slug || course.id}`}
+                        href={
+                          course.courses_templates?.slug === "lms-interactive"
+                            ? `/learn/${course.slug || course.id}`
+                            : `/courses/${course.slug || course.id}`
+                        }
                         className="flex-1"
                       >
                         <Button
