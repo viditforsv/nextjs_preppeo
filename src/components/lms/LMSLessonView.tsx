@@ -1,8 +1,8 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import Link from "next/link";
-import { ChevronLeft, ChevronRight, BookOpen, FileText, ExternalLink, Pencil } from "lucide-react";
+import { ChevronLeft, ChevronRight, BookOpen, FileText, ExternalLink, Pencil, MessageCircle } from "lucide-react";
 import { CollapsibleSidebar } from "@/design-system/components/layout-components/collapsible-sidebar";
 import { VideoResource } from "@/design-system/components/youtube-video";
 import { CourseChatbot } from "./CourseChatbot";
@@ -95,6 +95,9 @@ export function LMSLessonView({
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const { recordAttempt } = useQuestionAttempt();
   const [questionsSidebarCollapsed, setQuestionsSidebarCollapsed] = useState(false);
+  const [aiPanelCollapsed, setAiPanelCollapsed] = useState(false);
+  const [stepsDone, setStepsDone] = useState<Record<number, boolean>>({});
+  const [showConfetti, setShowConfetti] = useState(false);
   const [practiceFilters, setPracticeFilters] = useState<PracticeQuestionsFilters>({
     difficulty: "",
     timeBucket: "",
@@ -141,6 +144,19 @@ export function LMSLessonView({
   const getElapsedForRecording = () =>
     Math.floor((Date.now() - questionStartRef.current) / 1000);
 
+  // Derive completion state
+  const scoreCorrect = Object.values(submittedQuestions).filter(Boolean).length;
+  const allAnswered =
+    quiz.length > 0 &&
+    quiz.every((_, idx) => submittedQuestions[idx] !== undefined || !!skippedQuestions[idx]);
+  const allCorrect = allAnswered && scoreCorrect === quiz.length;
+
+  // Hint = first sentence of explanation (partial clue, not full answer)
+  const getHintText = (explanation: string) => {
+    const match = explanation.match(/^[^.!?]+[.!?]/);
+    return match ? match[0].trim() : explanation;
+  };
+
   const fetchPracticeQuestions = async () => {
     if (!lesson.id || quiz.length === 0) return;
     try {
@@ -170,6 +186,70 @@ export function LMSLessonView({
       setPracticeQuestionsData(null);
     }
   }, [activeTab, lesson.id, practiceFilters.difficulty, practiceFilters.timeBucket, practiceFilters.topic, practiceFilters.chapter]);
+
+  // Confetti when all correct
+  useEffect(() => {
+    if (allCorrect) {
+      setShowConfetti(true);
+      const t = setTimeout(() => setShowConfetti(false), 3000);
+      return () => clearTimeout(t);
+    }
+  }, [allCorrect]);
+
+  // Keyboard shortcuts for practice questions
+  const handleKeyDown = useCallback(
+    (e: KeyboardEvent) => {
+      if (activeTab !== "questions" || quiz.length === 0) return;
+      // Ignore when typing in inputs
+      const target = e.target as HTMLElement;
+      if (target.tagName === "INPUT" || target.tagName === "TEXTAREA") return;
+
+      const i = Math.min(practiceQuestionIndex, quiz.length - 1);
+      const submitted = submittedQuestions[i] !== undefined || !!skippedQuestions[i];
+
+      if (!submitted) {
+        const q = quiz[i];
+        const opts = q?.options?.length ? q.options : [];
+        if (e.key === "a" || e.key === "A") setSelectedOptions((s) => ({ ...s, [i]: 0 }));
+        else if (e.key === "b" || e.key === "B") setSelectedOptions((s) => ({ ...s, [i]: 1 }));
+        else if (e.key === "c" || e.key === "C") setSelectedOptions((s) => ({ ...s, [i]: opts.length > 2 ? 2 : s[i] }));
+        else if (e.key === "d" || e.key === "D") setSelectedOptions((s) => ({ ...s, [i]: opts.length > 3 ? 3 : s[i] }));
+        else if (e.key === "h" || e.key === "H") setRevealedHints((h) => ({ ...h, [i]: !h[i] }));
+        else if (e.key === "Enter") {
+          const sel = selectedOptions[i];
+          if (sel !== undefined && q) {
+            const correctIndex = Math.min(q.answer ?? 0, opts.length - 1);
+            (async () => {
+              const timeTaken = getElapsedForRecording();
+              if (q.id) {
+                await recordAttempt({
+                  questionId: q.id,
+                  lessonId: lesson.id,
+                  courseId,
+                  timeSpentSeconds: timeTaken,
+                  isCorrect: sel === correctIndex,
+                  skipped: false,
+                });
+                fetchPracticeQuestions();
+              }
+              setSubmittedQuestions((s) => ({ ...s, [i]: sel === correctIndex }));
+              if (sel !== correctIndex) setRevealedExplanations((ex) => ({ ...ex, [i]: true }));
+            })();
+          }
+        }
+      }
+
+      if (e.key === "ArrowRight") setPracticeQuestionIndex((idx) => Math.min(quiz.length - 1, idx + 1));
+      else if (e.key === "ArrowLeft") setPracticeQuestionIndex((idx) => Math.max(0, idx - 1));
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [activeTab, quiz, practiceQuestionIndex, submittedQuestions, skippedQuestions, selectedOptions]
+  );
+
+  useEffect(() => {
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [handleKeyDown]);
 
   return (
     <div className="flex h-screen overflow-hidden bg-[#f4f3f0]" data-template="lms-interactive">
@@ -249,9 +329,9 @@ export function LMSLessonView({
                 }`}
               >
                 <Pencil className="h-4 w-4" /> Practice Questions
-                {activeTab === "questions" && quiz.length > 0 && (
+                {quiz.length > 0 && (
                   <span className="ml-1.5 rounded-full bg-[#fff8ee] px-2 py-0.5 text-xs font-bold tabular-nums text-[#b45309]">
-                    {Object.values(submittedQuestions).filter(Boolean).length}/{quiz.length} correct
+                    {scoreCorrect}/{quiz.length} correct
                   </span>
                 )}
               </button>
@@ -274,15 +354,32 @@ export function LMSLessonView({
                         {steps.map((s, i) => (
                           <div
                             key={i}
-                            className="flex items-start gap-3 rounded-lg border border-[#eae8e2] bg-white p-3"
+                            className={`flex items-start gap-3 rounded-lg border p-3 transition-colors ${
+                              stepsDone[i]
+                                ? "border-[#86efac] bg-[#f0fdf4]"
+                                : "border-[#eae8e2] bg-white"
+                            }`}
                           >
-                            <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#f59207] text-xs font-extrabold text-white">
-                              {i + 1}
+                            <div
+                              className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-xs font-extrabold text-white ${
+                                stepsDone[i] ? "bg-[#22c55e]" : "bg-[#f59207]"
+                              }`}
+                            >
+                              {stepsDone[i] ? "✓" : i + 1}
                             </div>
-                            <div>
+                            <div className="flex-1 min-w-0">
                               <h4 className="text-sm font-bold text-[#1a1a2e]">{s.title}</h4>
                               <p className="text-xs text-[#6b6870]">{s.content}</p>
                             </div>
+                            {!stepsDone[i] && (
+                              <button
+                                type="button"
+                                onClick={() => setStepsDone((d) => ({ ...d, [i]: true }))}
+                                className="shrink-0 rounded-md border border-[#eae8e2] bg-white px-2 py-1 text-[10px] font-semibold text-[#9a9690] hover:border-[#86efac] hover:bg-[#f0fdf4] hover:text-[#15803d] transition-colors"
+                              >
+                                Got it ✓
+                              </button>
+                            )}
                           </div>
                         ))}
                       </div>
@@ -324,6 +421,17 @@ export function LMSLessonView({
                   )}
                   {!conceptHtml && steps.length === 0 && !lesson.formula_content && !lesson.video_url && (
                     <p className="text-sm text-[#8b8880]">No theory content for this lesson yet.</p>
+                  )}
+                  {quiz.length > 0 && (
+                    <div className="mt-6 flex justify-end">
+                      <button
+                        type="button"
+                        onClick={() => setActiveTab("questions")}
+                        className="inline-flex items-center gap-2 rounded-xl border-2 border-[#f59207] bg-[#f59207] px-5 py-2.5 text-sm font-bold text-white shadow-sm transition-all hover:bg-[#e08a00] hover:shadow-md active:scale-[0.97]"
+                      >
+                        Ready to practice <ChevronRight className="h-4 w-4" />
+                      </button>
+                    </div>
                   )}
                 </>
               ) : (
@@ -392,7 +500,103 @@ export function LMSLessonView({
                         scoreTotal={quiz.length}
                       />
                       <div className="flex flex-1 flex-col gap-4 overflow-y-auto p-5">
-                      {(() => {
+                      {/* Confetti overlay */}
+                      {showConfetti && (
+                        <div className="pointer-events-none fixed inset-0 z-50 overflow-hidden">
+                          {Array.from({ length: 24 }).map((_, ci) => (
+                            <div
+                              key={ci}
+                              className="absolute top-0 animate-confetti-fall"
+                              style={{
+                                left: `${Math.random() * 100}%`,
+                                animationDelay: `${Math.random() * 1.5}s`,
+                                animationDuration: `${1.5 + Math.random() * 1.5}s`,
+                                fontSize: `${12 + Math.random() * 10}px`,
+                              }}
+                            >
+                              {["🎉", "⭐", "🌟", "✨", "🎊"][ci % 5]}
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                      {/* Completion card when all questions answered */}
+                      {allAnswered ? (
+                        <div className="rounded-xl border-2 border-[#86efac] bg-linear-to-br from-[#f0fdf4] to-white p-6 text-center shadow-sm">
+                          <div className="mb-3 text-4xl">
+                            {allCorrect ? "🎉" : scoreCorrect >= Math.ceil(quiz.length / 2) ? "👍" : "💪"}
+                          </div>
+                          <h3 className="mb-1 text-lg font-extrabold text-[#15803d]">
+                            {allCorrect
+                              ? "Perfect score!"
+                              : scoreCorrect >= Math.ceil(quiz.length / 2)
+                              ? "Good work!"
+                              : "Keep going!"}
+                          </h3>
+                          <p className="mb-5 text-sm text-[#6b6966]">
+                            You got <strong className="text-[#1c1b1f]">{scoreCorrect} out of {quiz.length}</strong> correct
+                            {quiz.length - scoreCorrect - Object.values(skippedQuestions).filter(Boolean).length > 0
+                              ? ` · ${quiz.length - scoreCorrect - Object.values(skippedQuestions).filter(Boolean).length} wrong`
+                              : ""}
+                            {Object.values(skippedQuestions).filter(Boolean).length > 0
+                              ? ` · ${Object.values(skippedQuestions).filter(Boolean).length} skipped`
+                              : ""}
+                          </p>
+                          <div className="flex flex-wrap justify-center gap-2">
+                            {scoreCorrect < quiz.length && (
+                              <button
+                                type="button"
+                                onClick={() => {
+                                  const firstWrong = quiz.findIndex(
+                                    (_, idx) => submittedQuestions[idx] === false || !!skippedQuestions[idx]
+                                  );
+                                  if (firstWrong >= 0) setPracticeQuestionIndex(firstWrong);
+                                  // Clear wrong/skipped so user can retry
+                                  const newSubmitted = { ...submittedQuestions };
+                                  const newSkipped = { ...skippedQuestions };
+                                  quiz.forEach((_, idx) => {
+                                    if (submittedQuestions[idx] === false || skippedQuestions[idx]) {
+                                      delete newSubmitted[idx];
+                                      delete newSkipped[idx];
+                                    }
+                                  });
+                                  setSubmittedQuestions(newSubmitted);
+                                  setSkippedQuestions(newSkipped);
+                                  setSelectedOptions({});
+                                  setRevealedExplanations({});
+                                  setRevealedHints({});
+                                }}
+                                className="inline-flex items-center gap-1.5 rounded-lg border-2 border-[#f59207] px-4 py-2 text-xs font-bold text-[#f59207] transition-all hover:bg-[#fff8ee] active:scale-[0.97]"
+                              >
+                                ↺ Review wrong answers
+                              </button>
+                            )}
+                            <button
+                              type="button"
+                              onClick={() => {
+                                const optsText = quiz
+                                  .map((qq, qi) => {
+                                    const correct = submittedQuestions[qi] === true;
+                                    const skipped = !!skippedQuestions[qi];
+                                    return `Q${qi + 1}: ${correct ? "✓" : skipped ? "–" : "✗"} ${qq.question}`;
+                                  })
+                                  .join("\n");
+                                onAskAI?.(`I just finished the practice questions for "${lesson.title}". Score: ${scoreCorrect}/${quiz.length}. Can you give me a quick recap of the key concepts?\n\n${optsText}`);
+                              }}
+                              className="inline-flex items-center gap-1.5 rounded-lg border-2 border-[#c7d2fe] bg-[#eef2ff] px-4 py-2 text-xs font-bold text-[#4338ca] transition-all hover:bg-[#e0e7ff] active:scale-[0.97]"
+                            >
+                              🤖 Ask AI to recap
+                            </button>
+                            {nextLesson && (
+                              <Button size="sm" asChild className="rounded-lg bg-[#f59207] text-white hover:bg-[#e08a00]">
+                                <Link href={`/learn/${courseSlug}/lesson/${nextLesson.slug}`}>
+                                  Next lesson <ChevronRight className="h-4 w-4 ml-1" />
+                                </Link>
+                              </Button>
+                            )}
+                          </div>
+                        </div>
+                      ) : null}
+                      {!allAnswered && (() => {
                         const i = Math.min(practiceQuestionIndex, quiz.length - 1);
                         const q = quiz[i];
                         if (!q) return null;
@@ -675,7 +879,7 @@ export function LMSLessonView({
 
                             {revealedHints[i] && (
                               <div className="mt-3 rounded-[10px] border border-[#fde9b8] bg-[#fffbf0] p-3 text-[12.5px] leading-relaxed text-[#78350f] [&_strong]:text-[#1c1b1f]">
-                                💡 <strong>Hint:</strong> {q.explanation}
+                                💡 <strong>Hint:</strong> {getHintText(q.explanation ?? "")}
                               </div>
                             )}
                             {revealedExplanations[i] && (
@@ -709,7 +913,7 @@ export function LMSLessonView({
                         );
                       })()}
 
-                      {/* Footer — comm.md: Previous | dots (8px, active scale 1.3) | Next */}
+                      {/* Footer — Previous | dots | Next */}
                       {quiz.length > 1 && (
                         <div className="mt-4 flex shrink-0 items-center justify-between gap-2 border-t border-[#ebe8e1] bg-white px-6 py-3">
                           <button
@@ -730,7 +934,7 @@ export function LMSLessonView({
                               const bg = isActive
                                 ? "#f59207"
                                 : skipped
-                                  ? "#e0ddd6"
+                                  ? "#fcd34d"
                                   : sub === true
                                     ? "#22c55e"
                                     : sub === false
@@ -740,13 +944,13 @@ export function LMSLessonView({
                                 <button
                                   key={qi}
                                   type="button"
+                                  title={`Q${qi + 1}${sub === true ? " · Correct" : sub === false ? " · Incorrect" : skipped ? " · Skipped" : ""}`}
                                   aria-label={`Question ${qi + 1}`}
                                   onClick={() => setPracticeQuestionIndex(qi)}
-                                  className="h-2 w-2 rounded-full transition-all duration-150 hover:opacity-80"
+                                  className="h-3 w-3 rounded-full transition-all duration-150 hover:opacity-80 hover:scale-125"
                                   style={{
                                     background: bg,
-                                    opacity: skipped ? 0.7 : 1,
-                                    transform: isActive ? "scale(1.3)" : "scale(1)",
+                                    transform: isActive ? "scale(1.4)" : "scale(1)",
                                   }}
                                 />
                               );
@@ -774,7 +978,25 @@ export function LMSLessonView({
             </div>
           </div>
 
-          {/* Right panel: embedded AI chat — responsive width, full height, input at bottom */}
+          {/* Right panel: embedded AI chat — collapsible */}
+          {aiPanelCollapsed ? (
+            <div className="flex w-10 shrink-0 flex-col items-center border-l border-[#eae8e2] bg-white py-3 gap-2">
+              <button
+                type="button"
+                onClick={() => setAiPanelCollapsed(false)}
+                title="Open AI Tutor"
+                className="rounded-lg p-1.5 text-[#8b8880] hover:bg-[#f5f4f1] hover:text-[#1a1a2e] transition-colors"
+              >
+                <MessageCircle className="h-4 w-4" />
+              </button>
+              <span
+                className="text-[9px] font-bold uppercase tracking-wider text-[#c8c5bf] select-none"
+                style={{ writingMode: "vertical-rl", transform: "rotate(180deg)" }}
+              >
+                AI Tutor
+              </span>
+            </div>
+          ) : (
           <div className="flex h-full min-h-0 w-[280px] min-w-[260px] max-w-full flex-col shrink-0 overflow-hidden bg-white sm:w-[300px] md:w-[320px] lg:w-[360px]">
             <CourseChatbot
               courseTitle={courseTitle}
@@ -803,8 +1025,10 @@ export function LMSLessonView({
                     }
                   : undefined
               }
+              onCollapsePanel={() => setAiPanelCollapsed(true)}
             />
           </div>
+          )}
         </div>
       </div>
     </div>

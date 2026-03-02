@@ -57,19 +57,19 @@ const THEORY = {
 const QUESTIONS = [
   {
     id: "q1", difficulty: "Easy",
-    text: "Solve for x: 2x + 4 = 12",
-    options: ["x = 4", "x = 6", "x = 8", "x = 3"],
-    correctIndex: 0,
+    text: "If 2x + 4 = 12, what is the value of x?",
+    options: ["2", "4", "6", "8"],
+    correctIndex: 1,
     hint: "Subtract 4 from both sides first, then divide by 2.",
-    explanation: "Subtract 4 from both sides: 2x = 8. Then divide by 2: x = 4."
+    explanation: "Subtract 4 from both sides: 2x = 8. Then divide by 2: x = 4. Answer: (B)."
   },
   {
-    id: "q2", difficulty: "Medium",
-    text: "Solve: 5x − 3 = 2x + 9",
-    options: ["x = 2", "x = 3", "x = 4", "x = 5"],
+    id: "q2", difficulty: "Easy",
+    text: "Which value of x satisfies 3x − 9 = 0?",
+    options: ["−3", "0", "3", "9"],
     correctIndex: 2,
-    hint: "Move variable terms to one side and constants to the other.",
-    explanation: "Move variable terms: 5x − 2x = 9 + 3, so 3x = 12. Divide by 3: x = 4."
+    hint: "Add 9 to both sides, then divide by 3.",
+    explanation: "Add 9: 3x = 9. Divide by 3: x = 3. Answer: (C)."
   },
   {
     id: "q3", difficulty: "Medium",
@@ -77,15 +77,31 @@ const QUESTIONS = [
     options: ["x = 3", "x = 5", "x = 6", "x = 7"],
     correctIndex: 1,
     hint: "Divide both sides by 3 first, then subtract 2.",
-    explanation: "Distribute: 3x + 6 = 21. Subtract 6: 3x = 15. Divide by 3: x = 5."
+    explanation: "Divide by 3: x + 2 = 7. Subtract 2: x = 5. Answer: (B)."
   },
   {
-    id: "q4", difficulty: "Hard",
-    text: "Solve: (2x + 1)/3 = (x − 4)/2",
-    options: ["x = −14", "x = 10", "x = 14", "x = −10"],
-    correctIndex: 0,
-    hint: "Cross-multiply to clear the fractions.",
-    explanation: "Cross-multiply: 2(2x + 1) = 3(x − 4) → 4x + 2 = 3x − 12. So x = −14."
+    id: "q4", difficulty: "Medium",
+    text: "If 5x − 3 = 2x + 9, what is the value of x?",
+    options: ["2", "3", "4", "6"],
+    correctIndex: 2,
+    hint: "Move all x-terms to the left and constants to the right.",
+    explanation: "Subtract 2x: 3x − 3 = 9. Add 3: 3x = 12. Divide by 3: x = 4. Answer: (C)."
+  },
+  {
+    id: "q5", difficulty: "Hard",
+    text: "In ax + 3 = 2x + b, if x = 5 is the only solution, which must be true?",
+    options: ["a = 2 and b = 3", "a ≠ 2 and b = 5a − 7", "a = 2 and b ≠ 3", "a ≠ 2 and b = 5(a−2)+3"],
+    correctIndex: 3,
+    hint: "For a unique solution, coefficients of x must differ (a ≠ 2). Then plug x = 5.",
+    explanation: "Need a ≠ 2 for a unique solution. Plugging x=5: 5a+3=10+b → b=5a−7=5(a−2)+3. Answer: (D)."
+  },
+  {
+    id: "q6", difficulty: "Hard",
+    text: "Maya buys notebooks ($3 each) and pens ($1.50 each), spending $18 total with twice as many pens as notebooks. How many notebooks did she buy?",
+    options: ["2", "3", "4", "6"],
+    correctIndex: 1,
+    hint: "Let n = notebooks, pens = 2n. Write: 3n + 1.5(2n) = 18.",
+    explanation: "3n + 3n = 18 → 6n = 18 → n = 3. Answer: (B)."
   },
 ];
 
@@ -314,14 +330,8 @@ export default function App() {
     .q-item.qi-skip { border-color:#fcd34d; background:#fffbeb; }
     .qi-num { font-size:11px; font-weight:700; color:#9a9690; width:20px; flex-shrink:0; }
     .q-item.qi-act .qi-num { color:#f59207; }
-    .q-item.qi-ok .qi-num { color:#15803d; }
-    .q-item.qi-bad .qi-num { color:#dc2626; }
-    .q-item.qi-skip .qi-num { color:#b45309; }
     .qi-label { font-size:11px; color:#6b6966; flex:1; line-height:1.3; overflow:hidden; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; }
     .q-item.qi-act .qi-label { color:#1c1b1f; font-weight:600; }
-    .q-item.qi-ok .qi-label { color:#15803d; font-weight:600; }
-    .q-item.qi-bad .qi-label { color:#dc2626; font-weight:600; }
-    .q-item.qi-skip .qi-label { color:#b45309; }
     .qi-status { font-size:13px; flex-shrink:0; }
 
     /* Q VIEWER */

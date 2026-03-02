@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect } from "react";
 import { Button } from "@/design-system/components/ui/button";
 import { Input } from "@/design-system/components/ui/input";
-import { MessageCircle, X, Send } from "lucide-react";
+import { MessageCircle, X, Send, ChevronRight } from "lucide-react";
 
 interface ChatMessage {
   role: "user" | "assistant";
@@ -24,6 +24,17 @@ interface CourseChatbotProps {
   /** comm.md: show "Help with Q{N}" chip when in practice; on click parent should set messageToSend. */
   activePracticeLabel?: string;
   onAskAboutPractice?: () => void;
+  /** When set, collapse the AI panel to icon strip. */
+  onCollapsePanel?: () => void;
+}
+
+function renderSimpleMd(text: string) {
+  return text
+    .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
+    .replace(/`(.+?)`/g, "<code class=\"rounded bg-[#f0ede6] px-1 text-[11px]\">$1</code>")
+    .replace(/^(\d+)\.\s+/gm, "<span class=\"font-semibold text-[#f59207]\">$1.</span> ")
+    .replace(/^[-•]\s+/gm, "• ")
+    .replace(/\n/g, "<br/>");
 }
 
 export function CourseChatbot({
@@ -36,6 +47,7 @@ export function CourseChatbot({
   onMessageSent,
   activePracticeLabel,
   onAskAboutPractice,
+  onCollapsePanel,
 }: CourseChatbotProps) {
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
@@ -143,16 +155,29 @@ export function CourseChatbot({
         <div className="flex items-center gap-2">
           <span className="font-semibold text-sm text-[#1a1a2e]">AI Tutor</span>
           {embedded && lessonTitle && (
-            <span className="text-xs text-[#8b8880] truncate max-w-[140px]" title={lessonTitle}>
+            <span className="text-xs text-[#8b8880] truncate max-w-[120px]" title={lessonTitle}>
               · {lessonTitle}
             </span>
           )}
         </div>
-        {!embedded && (
-          <Button variant="outline" size="sm" onClick={onToggle} aria-label="Close">
-            <X className="w-4 h-4" />
-          </Button>
-        )}
+        <div className="flex items-center gap-1">
+          {embedded && onCollapsePanel && (
+            <button
+              type="button"
+              onClick={onCollapsePanel}
+              title="Collapse AI panel"
+              className="rounded-md p-1 text-[#8b8880] hover:bg-[#f5f4f1] hover:text-[#1a1a2e] transition-colors"
+              aria-label="Collapse AI panel"
+            >
+              <ChevronRight className="w-4 h-4" />
+            </button>
+          )}
+          {!embedded && (
+            <Button variant="outline" size="sm" onClick={onToggle} aria-label="Close">
+              <X className="w-4 h-4" />
+            </Button>
+          )}
+        </div>
       </header>
       <div className="min-h-0 flex-1 overflow-y-auto p-3 space-y-3">
         {messages.map((m, i) => (
@@ -164,10 +189,16 @@ export function CourseChatbot({
               className={`max-w-[85%] rounded-xl px-3.5 py-2.5 text-sm shadow-sm ${
                 m.role === "user"
                   ? "bg-[#f59207] text-white"
-                  : "bg-white border border-[#eae8e2] text-[#1a1a2e]"
+                  : "bg-white border border-[#eae8e2] text-[#1a1a2e] [&_strong]:font-bold [&_code]:font-mono"
               }`}
             >
-              {m.content}
+              {m.role === "assistant" ? (
+                <span
+                  dangerouslySetInnerHTML={{ __html: renderSimpleMd(m.content) }}
+                />
+              ) : (
+                m.content
+              )}
             </div>
           </div>
         ))}

@@ -60,11 +60,11 @@ function getDifficultyLabel(d: number | null): string {
   return "Hard";
 }
 
-// comm.md: difficulty color coding for visual engagement (Easy / Medium / Hard)
+// comm.md: difficulty color coding — muted tones for sidebar
 const DIFF_COLORS: Record<string, { text: string; bg: string; border: string }> = {
-  Easy: { text: "#15803d", bg: "#f0fdf4", border: "#86efac" },
-  Medium: { text: "#b45309", bg: "#fffbeb", border: "#fcd34d" },
-  Hard: { text: "#dc2626", bg: "#fef2f2", border: "#fca5a5" },
+  Easy: { text: "#4b9e6a", bg: "#f5fbf7", border: "#bbddc9" },
+  Medium: { text: "#a07830", bg: "#fdf9f0", border: "#e8d5a0" },
+  Hard: { text: "#b85555", bg: "#fdf5f5", border: "#e8b8b8" },
 };
 
 export function PracticeQuestionsSidebar({
@@ -144,39 +144,54 @@ export function PracticeQuestionsSidebar({
               <label className="mb-1 block text-[10px] font-semibold uppercase text-[#8b8880]">
                 Difficulty
               </label>
-              <select
-                value={filters.difficulty}
-                onChange={(e) =>
-                  onFilterChange({
-                    difficulty: e.target.value as DifficultyFilter,
-                  })
-                }
-                className="w-full rounded border border-[#eae8e2] bg-white px-2 py-1.5 text-xs text-[#1a1a2e]"
-              >
-                <option value="">All</option>
-                <option value="easy">Easy</option>
-                <option value="medium">Medium</option>
-                <option value="hard">Hard</option>
-              </select>
+              <div className="flex gap-1 flex-wrap">
+                {(["", "easy", "medium", "hard"] as DifficultyFilter[]).map((val) => {
+                  const label = val === "" ? "All" : val.charAt(0).toUpperCase() + val.slice(1);
+                  const active = filters.difficulty === val;
+                  const color =
+                    val === "easy"
+                      ? active ? "bg-[#15803d] text-white border-[#15803d]" : "border-[#bbddc9] text-[#4b9e6a] hover:bg-[#f5fbf7]"
+                      : val === "medium"
+                      ? active ? "bg-[#b45309] text-white border-[#b45309]" : "border-[#e8d5a0] text-[#a07830] hover:bg-[#fdf9f0]"
+                      : val === "hard"
+                      ? active ? "bg-[#dc2626] text-white border-[#dc2626]" : "border-[#e8b8b8] text-[#b85555] hover:bg-[#fdf5f5]"
+                      : active ? "bg-[#1a1a2e] text-white border-[#1a1a2e]" : "border-[#e0ddd6] text-[#9a9690] hover:bg-[#f5f4f1]";
+                  return (
+                    <button
+                      key={val}
+                      type="button"
+                      onClick={() => onFilterChange({ difficulty: val })}
+                      className={`rounded-full border px-2 py-0.5 text-[9.5px] font-semibold transition-colors ${color}`}
+                    >
+                      {label}
+                    </button>
+                  );
+                })}
+              </div>
             </div>
             <div>
               <label className="mb-1 block text-[10px] font-semibold uppercase text-[#8b8880]">
                 Time
               </label>
-              <select
-                value={filters.timeBucket}
-                onChange={(e) =>
-                  onFilterChange({
-                    timeBucket: e.target.value as TimeBucketFilter,
-                  })
-                }
-                className="w-full rounded border border-[#eae8e2] bg-white px-2 py-1.5 text-xs text-[#1a1a2e]"
-              >
-                <option value="">All</option>
-                <option value="<30">Under 30s</option>
-                <option value="30-90">30–90s</option>
-                <option value=">90">Over 90s</option>
-              </select>
+              <div className="flex gap-1 flex-wrap">
+                {([["", "All"], ["<30", "<30s"], ["30-90", "30–90s"], [">90", ">90s"]] as [TimeBucketFilter, string][]).map(([val, label]) => {
+                  const active = filters.timeBucket === val;
+                  return (
+                    <button
+                      key={val}
+                      type="button"
+                      onClick={() => onFilterChange({ timeBucket: val })}
+                      className={`rounded-full border px-2 py-0.5 text-[9.5px] font-semibold transition-colors ${
+                        active
+                          ? "bg-[#4338ca] text-white border-[#4338ca]"
+                          : "border-[#c7d2fe] text-[#4338ca] hover:bg-[#eef2ff]"
+                      }`}
+                    >
+                      {label}
+                    </button>
+                  );
+                })}
+              </div>
             </div>
             <div>
               <label className="mb-1 block text-[10px] font-semibold uppercase text-[#8b8880]">
@@ -220,18 +235,18 @@ export function PracticeQuestionsSidebar({
               const isSkipped = status === "skipped";
               const diffLabel = getDifficultyLabel(item.difficulty);
               const diffColors = diffLabel ? DIFF_COLORS[diffLabel] : null;
-              const base = "flex items-center gap-1.5 w-full rounded-lg border-[1.5px] pl-2 pr-2 py-2 text-left transition-all cursor-pointer border-l-4";
-              const active = isCurrent ? "bg-[#fffbf0] border-[#fde9b8]" : "";
-              const ok = isOk ? "border-[#86efac] bg-[#f0fdf4]" : "";
-              const bad = isBad ? "border-[#fca5a5] bg-[#fef2f2]" : "";
-              const skip = isSkipped ? "border-[#fcd34d] bg-[#fffbeb]" : "";
+              const base = "flex items-center gap-1.5 w-full rounded-lg border border-l-[3px] pl-2 pr-2 py-2 text-left transition-all cursor-pointer";
+              const active = isCurrent ? "bg-[#fdfaf4] border-[#f0e6c8]" : "";
+              const ok = isOk ? "border-[#c8e6d4] bg-[#f8fcfa]" : "";
+              const bad = isBad ? "border-[#e8c8c8] bg-[#fdf8f8]" : "";
+              const skip = isSkipped ? "border-[#e8d8a0] bg-[#fdfaf0]" : "";
               const idle = !active && !ok && !bad && !skip ? "border-transparent hover:bg-[#fdfcfa] hover:border-[#ebe8e1]" : "";
               const leftBorderStyle = diffColors
                 ? { borderLeftColor: diffColors.border }
                 : { borderLeftColor: "transparent" };
-              const statusIcon = isOk ? "✅" : isBad ? "❌" : isSkipped ? "⏭" : isCurrent ? "▶" : "";
-              const qNumColor = isBad ? "text-[#dc2626]" : isOk ? "text-[#15803d]" : isSkipped ? "text-[#b45309]" : isCurrent ? "text-[#f59207]" : "text-[#9a9690]";
-              const labelColor = isBad ? "text-[#dc2626] font-semibold" : isOk ? "text-[#15803d] font-semibold" : isSkipped ? "text-[#b45309]" : isCurrent ? "text-[#1c1b1f] font-semibold" : "text-[#6b6966]";
+              const statusIcon = isOk ? "✓" : isBad ? "✗" : isSkipped ? "–" : isCurrent ? "▶" : "";
+              const qNumColor = isBad ? "text-[#b85555]" : isOk ? "text-[#4b9e6a]" : isSkipped ? "text-[#a07830]" : isCurrent ? "text-[#f59207]" : "text-[#9a9690]";
+              const labelColor = isBad ? "text-[#b85555]" : isOk ? "text-[#4b9e6a]" : isSkipped ? "text-[#a07830]" : isCurrent ? "text-[#1c1b1f] font-semibold" : "text-[#6b6966]";
               return (
                 <li key={item.order}>
                   <button
@@ -253,19 +268,13 @@ export function PracticeQuestionsSidebar({
                         Question {item.order}
                       </span>
                     )}
-                    {diffLabel && (
-                      <span
-                        className="shrink-0 rounded-full px-1.5 py-0.5 text-[9px] font-bold border"
-                        style={{
-                          color: diffColors!.text,
-                          backgroundColor: diffColors!.bg,
-                          borderColor: diffColors!.border,
-                        }}
-                      >
-                        {diffLabel}
-                      </span>
-                    )}
-                    <span className="text-[13px] shrink-0">{statusIcon}</span>
+                    <span
+                      className={`text-[10px] font-semibold shrink-0 ${
+                        isOk ? "text-[#4b9e6a]" : isBad ? "text-[#b85555]" : isSkipped ? "text-[#a07830]" : isCurrent ? "text-[#c8a84a]" : "text-transparent"
+                      }`}
+                    >
+                      {statusIcon}
+                    </span>
                   </button>
                 </li>
               );
