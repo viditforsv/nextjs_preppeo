@@ -50,7 +50,11 @@ interface CollapsibleSidebarProps {
   isEnrolled?: boolean;
   completedLessonIds?: Set<string>;
   courseId?: string;
+  /** Base path for lesson links, e.g. "/learn" or "/courses". Default "/courses". */
+  basePath?: string;
 }
+
+const DEFAULT_BASE_PATH = "/courses";
 
 export function CollapsibleSidebar({
   currentLessonSlug,
@@ -59,7 +63,9 @@ export function CollapsibleSidebar({
   isEnrolled = false,
   completedLessonIds = new Set(),
   courseId,
+  basePath = DEFAULT_BASE_PATH,
 }: CollapsibleSidebarProps) {
+  const lessonHref = (slug: string) => `${basePath}/${courseSlug}/lesson/${slug}`;
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [courseProgress, setCourseProgress] = useState({
@@ -165,21 +171,6 @@ export function CollapsibleSidebar({
     acc[unit][chapter].push(lesson);
     return acc;
   }, {} as Record<string, Record<string, Lesson[]>>);
-
-  // Debug logging to check lesson data structure
-  console.log("📋 CollapsibleSidebar - Lessons data:", {
-    totalLessons: lessons.length,
-    filteredLessons: filteredLessons.length,
-    sampleLesson: filteredLessons[0]
-      ? {
-          title: filteredLessons[0].title,
-          chapter: filteredLessons[0].chapter,
-          hasChapter: !!filteredLessons[0].chapter,
-          hasUnit: !!filteredLessons[0].chapter?.unit,
-        }
-      : "No lessons",
-    groupedLessons,
-  });
 
   // Sort units and chapters by their order
   const sortedGroupedLessons = Object.keys(groupedLessons)
@@ -341,7 +332,7 @@ export function CollapsibleSidebar({
           {lessons.slice(0, 5).map((lesson) => (
             <Link
               key={lesson.id}
-              href={`/courses/${courseSlug}/lesson/${lesson.slug}`}
+              href={lessonHref(lesson.slug)}
               className="block p-2 hover:bg-primary/10/40 rounded-sm transition-colors"
               title={lesson.title}
             >
@@ -499,7 +490,7 @@ export function CollapsibleSidebar({
                               return (
                                 <Link
                                   key={lesson.id}
-                                  href={`/courses/${courseSlug}/lesson/${lesson.slug}`}
+                                  href={lessonHref(lesson.slug)}
                                   className={`block p-3 pl-16 transition-colors ${
                                     status === "completed"
                                       ? "bg-green-50/50 hover:bg-green-100"

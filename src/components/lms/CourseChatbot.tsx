@@ -16,6 +16,11 @@ interface CourseChatbotProps {
   lessonTitle?: string;
   isOpen: boolean;
   onToggle: () => void;
+  /** When true, render inline (e.g. in a side panel) with no FAB or fixed positioning. */
+  embedded?: boolean;
+  /** When set, send this message and then call onMessageSent. Used e.g. for "Ask AI" from practice. */
+  messageToSend?: string | null;
+  onMessageSent?: () => void;
 }
 
 export function CourseChatbot({
@@ -23,6 +28,9 @@ export function CourseChatbot({
   lessonTitle,
   isOpen,
   onToggle,
+  embedded = false,
+  messageToSend,
+  onMessageSent,
 }: CourseChatbotProps) {
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
@@ -39,25 +47,21 @@ export function CourseChatbot({
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
-  const handleSend = async () => {
-    if (!currentMessage.trim()) return;
-
+  const sendText = async (text: string) => {
+    if (!text.trim()) return;
     const userMsg: ChatMessage = {
       role: "user",
-      content: currentMessage,
+      content: text.trim(),
       timestamp: new Date(),
     };
     setMessages((prev) => [...prev, userMsg]);
-    const text = currentMessage;
-    setCurrentMessage("");
     setIsAITyping(true);
-
     try {
       const res = await fetch("/api/courses/chatbot", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          message: text,
+          message: text.trim(),
           course_title: courseTitle,
           lesson_title: lessonTitle || undefined,
         }),
@@ -84,7 +88,20 @@ export function CourseChatbot({
     }
   };
 
-  if (!isOpen) {
+  const handleSend = async () => {
+    if (!currentMessage.trim()) return;
+    const text = currentMessage;
+    setCurrentMessage("");
+    await sendText(text);
+  };
+
+  useEffect(() => {
+    if (messageToSend?.trim()) {
+      sendText(messageToSend).then(() => onMessageSent?.());
+    }
+  }, [messageToSend]);
+
+  if (!embedded && !isOpen) {
     return (
       <Button
         onClick={onToggle}
@@ -97,15 +114,21 @@ export function CourseChatbot({
     );
   }
 
+  const panelClass = embedded
+    ? "flex-1 min-w-0 min-h-0 flex flex-col bg-background border-l border-border h-full"
+    : "fixed bottom-6 right-6 w-[380px] max-w-[calc(100vw-2rem)] h-[480px] max-h-[70vh] flex flex-col bg-background border rounded-lg shadow-xl z-50";
+
   return (
-    <div className="fixed bottom-6 right-6 w-[380px] max-w-[calc(100vw-2rem)] h-[480px] max-h-[70vh] flex flex-col bg-background border rounded-lg shadow-xl z-50">
-      <div className="flex items-center justify-between p-3 border-b">
+    <div className={panelClass}>
+      <header className="flex shrink-0 items-center justify-between border-b p-3">
         <span className="font-semibold text-sm">AI Tutor</span>
-        <Button variant="outline" size="sm" onClick={onToggle} aria-label="Close">
-          <X className="w-4 h-4" />
-        </Button>
-      </div>
-      <div className="flex-1 overflow-y-auto p-3 space-y-3">
+        {!embedded && (
+          <Button variant="outline" size="sm" onClick={onToggle} aria-label="Close">
+            <X className="w-4 h-4" />
+          </Button>
+        )}
+      </header>
+      <div className="min-h-0 flex-1 overflow-y-auto p-3 space-y-3">
         {messages.map((m, i) => (
           <div
             key={i}
@@ -131,20 +154,20 @@ export function CourseChatbot({
         )}
         <div ref={messagesEndRef} />
       </div>
-      <div className="p-3 border-t flex gap-2">
+      <div className="flex shrink-0 flex-wrap items-end gap-2 border-t bg-background p-3">
         <Input
           placeholder="Ask about the course..."
           value={currentMessage}
           onChange={(e) => setCurrentMessage(e.target.value)}
           onKeyDown={(e) => e.key === "Enter" && !e.shiftKey && handleSend()}
           disabled={isAITyping}
-          className="flex-1"
+          className="min-w-0 flex-1"
         />
         <Button
           size="icon"
           onClick={handleSend}
           disabled={!currentMessage.trim() || isAITyping}
-          className="bg-primary text-primary-foreground hover:bg-primary/90"
+          className="shrink-0 bg-primary text-primary-foreground hover:bg-primary/90"
         >
           <Send className="w-4 h-4" />
         </Button>

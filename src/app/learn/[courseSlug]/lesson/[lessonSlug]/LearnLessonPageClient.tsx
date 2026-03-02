@@ -5,7 +5,6 @@ import Link from "next/link";
 import { useAuth } from "@/contexts/AuthContext";
 import { createClient } from "@/lib/supabase/client";
 import { LMSLessonView } from "@/components/lms/LMSLessonView";
-import { CourseChatbot } from "@/components/lms/CourseChatbot";
 import { Button } from "@/design-system/components/ui/button";
 import type { InteractiveStep, InteractiveQuizItem } from "@/components/lms/InteractiveLessonView";
 
@@ -20,6 +19,12 @@ interface Lesson {
   video_url?: string | null;
   pdf_url?: string | null;
   lesson_type?: string | null;
+  content?: string | null;
+  solution_url?: string | null;
+  concept_title?: string | null;
+  concept_content?: string | null;
+  formula_title?: string | null;
+  formula_content?: string | null;
   chapter?: {
     id: string;
     chapter_name: string;
@@ -48,7 +53,7 @@ export function LearnLessonPageClient({
   } | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [notFound, setNotFound] = useState(false);
-  const [chatbotOpen, setChatbotOpen] = useState(false);
+  const [askAIMessage, setAskAIMessage] = useState<string | null>(null);
 
   useEffect(() => {
     if (!courseSlug || !lessonSlug) return;
@@ -102,6 +107,7 @@ export function LearnLessonPageClient({
           .select(
             `
             id, title, slug, lesson_order, is_preview, video_url, pdf_url, lesson_type,
+            content, solution_url, concept_title, concept_content, formula_title, formula_content,
             chapter:courses_chapters(id, chapter_name, chapter_order, unit:courses_units(id, unit_name, unit_order))
           `
           )
@@ -204,24 +210,19 @@ export function LearnLessonPageClient({
   }
 
   return (
-    <>
-      <LMSLessonView
-        courseSlug={courseSlug}
-        courseId={course.id}
-        courseTitle={course.title}
-        lesson={lesson}
-        allLessons={allLessons}
-        isEnrolled={isEnrolled}
-        completedLessonIds={completedLessonIds}
-        interactiveContent={interactiveContent}
-        onMarkComplete={handleMarkComplete}
-      />
-      <CourseChatbot
-        courseTitle={course.title}
-        lessonTitle={lesson.title}
-        isOpen={chatbotOpen}
-        onToggle={() => setChatbotOpen((o) => !o)}
-      />
-    </>
+    <LMSLessonView
+      courseSlug={courseSlug}
+      courseId={course.id}
+      courseTitle={course.title}
+      lesson={lesson}
+      allLessons={allLessons}
+      isEnrolled={isEnrolled}
+      completedLessonIds={completedLessonIds}
+      interactiveContent={interactiveContent}
+      onMarkComplete={handleMarkComplete}
+      askAIMessage={askAIMessage}
+      onAskAISent={() => setAskAIMessage(null)}
+      onAskAI={(msg) => setAskAIMessage(msg)}
+    />
   );
 }
