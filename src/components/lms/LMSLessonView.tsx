@@ -1,13 +1,19 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
-import { ChevronLeft, ChevronRight, BookOpen, FileText, ExternalLink } from "lucide-react";
+import { ChevronLeft, ChevronRight, BookOpen, FileText, ExternalLink, Pencil } from "lucide-react";
 import { CollapsibleSidebar } from "@/design-system/components/layout-components/collapsible-sidebar";
 import { VideoResource } from "@/design-system/components/youtube-video";
 import { CourseChatbot } from "./CourseChatbot";
 import type { InteractiveStep, InteractiveQuizItem } from "./InteractiveLessonView";
 import { Button } from "@/design-system/components/ui/button";
+import { useQuestionAttempt } from "@/hooks/useQuestionAttempt";
+import {
+  PracticeQuestionsSidebar,
+  type PracticeQuestionSidebarItem,
+  type PracticeQuestionsFilters,
+} from "./PracticeQuestionsSidebar";
 
 interface Lesson {
   id: string;
@@ -73,8 +79,24 @@ export function LMSLessonView({
   const [revealedAnswers, setRevealedAnswers] = useState<Record<number, boolean>>({});
   const [selectedOptions, setSelectedOptions] = useState<Record<number, number>>({});
   const [submittedQuestions, setSubmittedQuestions] = useState<Record<number, boolean>>({});
+  const [skippedQuestions, setSkippedQuestions] = useState<Record<number, boolean>>({});
   const [revealedExplanations, setRevealedExplanations] = useState<Record<number, boolean>>({});
   const [practiceQuestionIndex, setPracticeQuestionIndex] = useState(0);
+  const [elapsedSeconds, setElapsedSeconds] = useState(0);
+  const questionStartRef = useRef<number>(Date.now());
+  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const { recordAttempt } = useQuestionAttempt();
+  const [questionsSidebarCollapsed, setQuestionsSidebarCollapsed] = useState(false);
+  const [practiceFilters, setPracticeFilters] = useState<PracticeQuestionsFilters>({
+    difficulty: "",
+    timeBucket: "",
+    topic: "",
+    chapter: "",
+  });
+  const [practiceQuestionsData, setPracticeQuestionsData] = useState<{
+    questions: PracticeQuestionSidebarItem[];
+    chapterName: string | null;
+  } | null>(null);
 
   const isInteractive =
     lesson.lesson_type === "interactive" &&
@@ -93,6 +115,53 @@ export function LMSLessonView({
     lesson.concept_content ||
     (interactiveContent?.intro ?? "");
   const conceptTitle = lesson.concept_title || lesson.title;
+
+  // Per-question timer: reset when question index changes
+  useEffect(() => {
+    questionStartRef.current = Date.now();
+    setElapsedSeconds(0);
+    if (timerRef.current) clearInterval(timerRef.current);
+    timerRef.current = setInterval(() => {
+      setElapsedSeconds((s) => s + 1);
+    }, 1000);
+    return () => {
+      if (timerRef.current) clearInterval(timerRef.current);
+      timerRef.current = null;
+    };
+  }, [practiceQuestionIndex]);
+
+  const getElapsedForRecording = () =>
+    Math.floor((Date.now() - questionStartRef.current) / 1000);
+
+  const fetchPracticeQuestions = async () => {
+    if (!lesson.id || quiz.length === 0) return;
+    try {
+      const params = new URLSearchParams();
+      if (practiceFilters.difficulty) params.set("difficulty", practiceFilters.difficulty);
+      if (practiceFilters.timeBucket) params.set("timeBucket", practiceFilters.timeBucket);
+      if (practiceFilters.topic) params.set("topic", practiceFilters.topic);
+      if (practiceFilters.chapter) params.set("chapter", practiceFilters.chapter);
+      const res = await fetch(
+        `/api/lessons/${lesson.id}/practice-questions?${params.toString()}`
+      );
+      if (!res.ok) return;
+      const data = await res.json();
+      setPracticeQuestionsData({
+        questions: data.questions ?? [],
+        chapterName: data.chapterName ?? null,
+      });
+    } catch {
+      setPracticeQuestionsData({ questions: [], chapterName: null });
+    }
+  };
+
+  useEffect(() => {
+    if (activeTab === "questions" && lesson.id && quiz.length > 0) {
+      fetchPracticeQuestions();
+    } else {
+      setPracticeQuestionsData(null);
+    }
+  }, [activeTab, lesson.id, practiceFilters.difficulty, practiceFilters.timeBucket, practiceFilters.topic, practiceFilters.chapter]);
 
   return (
     <div className="flex h-screen overflow-hidden bg-[#f4f3f0]" data-template="lms-interactive">
@@ -171,7 +240,7 @@ export function LMSLessonView({
                     : "text-[#8b8880] hover:bg-[#faf9f6] hover:text-[#1a1a2e]"
                 }`}
               >
-                <FileText className="h-4 w-4" /> Practice Questions
+                <Pencil className="h-4 w-4" /> Practice Questions
               </button>
             </div>
 
@@ -245,12 +314,24 @@ export function LMSLessonView({
                   )}
                 </>
               ) : (
-                <div className="flex flex-col gap-4">
+                <div className="flex min-h-0 flex-1 flex-col">
                   {quiz.length === 0 ? (
                     <p className="text-sm text-[#8b8880]">No practice questions for this lesson yet.</p>
                   ) : (
-                    <>
-                      {/* Score summary */}
+                    <div className="flex min-h-0 flex-1">
+                      <PracticeQuestionsSidebar
+                        items={practiceQuestionsData?.questions ?? []}
+                        currentIndex={practiceQuestionIndex}
+                        onSelectQuestion={(order) => setPracticeQuestionIndex(order - 1)}
+                        filters={practiceFilters}
+                        onFilterChange={(f) => setPracticeFilters((prev) => ({ ...prev, ...f }))}
+                        chapterName={practiceQuestionsData?.chapterName ?? lesson.chapter?.chapter_name ?? null}
+                        onRefresh={fetchPracticeQuestions}
+                        collapsed={questionsSidebarCollapsed}
+                        onToggleCollapsed={() => setQuestionsSidebarCollapsed((c) => !c)}
+                      />
+                      <div className="flex flex-1 flex-col gap-4 overflow-y-auto p-5">
+                        {/* Score summary */}
                       {Object.keys(submittedQuestions).length > 0 && (
                         <div className="mb-2 flex items-center gap-3 rounded-xl border border-[#eae8e2] bg-white p-3">
                           <span className="text-xl">📊</span>
@@ -265,70 +346,34 @@ export function LMSLessonView({
                           <div className="ml-auto flex gap-1">
                             {quiz.map((_, qi) => {
                               const sub = submittedQuestions[qi];
+                              const skipped = skippedQuestions[qi];
+                              const bg = skipped
+                                ? "#d4d0c8"
+                                : sub === undefined
+                                  ? "#d4d0c8"
+                                  : sub
+                                    ? "#22c55e"
+                                    : "#ef4444";
+                              const title = skipped
+                                ? "Skipped"
+                                : sub === undefined
+                                  ? "Not answered"
+                                  : sub
+                                    ? "Correct"
+                                    : "Incorrect";
                               return (
                                 <div
                                   key={qi}
-                                  className="h-2 w-2 rounded-full bg-[#d4d0c8]"
+                                  className="h-2 w-2 rounded-full"
                                   style={{
-                                    background:
-                                      sub === undefined ? "#d4d0c8" : sub ? "#22c55e" : "#ef4444",
+                                    background: bg,
+                                    opacity: skipped ? 0.6 : 1,
                                   }}
-                                  title={sub === undefined ? "Not answered" : sub ? "Correct" : "Incorrect"}
+                                  title={title}
                                 />
                               );
                             })}
                           </div>
-                        </div>
-                      )}
-
-                      {/* One question at a time: navigation */}
-                      {quiz.length > 1 && (
-                        <div className="mb-3 flex items-center justify-between gap-2">
-                          <Button
-                            variant="outline"
-                            size="sm"
-                            className="rounded-lg border-[#eae8e2] bg-white text-[#5a5860] hover:bg-[#f4f3f0] disabled:opacity-50"
-                            disabled={practiceQuestionIndex === 0}
-                            onClick={() =>
-                              setPracticeQuestionIndex((idx) => Math.max(0, idx - 1))
-                            }
-                          >
-                            <ChevronLeft className="h-4 w-4 mr-1" /> Previous
-                          </Button>
-                          <div className="flex items-center gap-1.5">
-                            {quiz.map((_, qi) => (
-                              <button
-                                key={qi}
-                                type="button"
-                                aria-label={`Question ${qi + 1}`}
-                                onClick={() => setPracticeQuestionIndex(qi)}
-                                className="h-2.5 w-2.5 rounded-full transition-[transform,background] hover:scale-110"
-                                style={{
-                                  background:
-                                    qi === practiceQuestionIndex
-                                      ? "#f59207"
-                                      : submittedQuestions[qi] === true
-                                        ? "#22c55e"
-                                        : submittedQuestions[qi] === false
-                                          ? "#ef4444"
-                                          : "#d4d0c8",
-                                }}
-                              />
-                            ))}
-                          </div>
-                          <Button
-                            variant="outline"
-                            size="sm"
-                            className="rounded-lg border-[#eae8e2] bg-white text-[#5a5860] hover:bg-[#f4f3f0] disabled:opacity-50"
-                            disabled={practiceQuestionIndex >= quiz.length - 1}
-                            onClick={() =>
-                              setPracticeQuestionIndex((idx) =>
-                                Math.min(quiz.length - 1, idx + 1)
-                              )
-                            }
-                          >
-                            Next <ChevronRight className="h-4 w-4 ml-1" />
-                          </Button>
                         </div>
                       )}
 
@@ -337,7 +382,8 @@ export function LMSLessonView({
                         const q = quiz[i];
                         if (!q) return null;
                         const selected = selectedOptions[i];
-                        const submitted = submittedQuestions[i] !== undefined;
+                        const skipped = skippedQuestions[i];
+                        const submitted = submittedQuestions[i] !== undefined || skipped;
                         const isCorrect = submittedQuestions[i] === true;
                         const opts = q.options?.length ? q.options : ["No options"];
                         const correctIndex = Math.min(q.answer ?? 0, opts.length - 1);
@@ -358,14 +404,17 @@ export function LMSLessonView({
                               <span className="text-xs font-bold text-[#8b8880]">
                                 Q{i + 1} of {quiz.length}
                               </span>
+                              <span className="text-xs text-[#8b8880] tabular-nums">
+                                {Math.floor(elapsedSeconds / 60)}:{String(elapsedSeconds % 60).padStart(2, "0")}
+                              </span>
                               {submitted && (
                                 <span
                                   className="ml-auto flex items-center gap-1 text-xs font-bold"
                                   style={{
-                                    color: isCorrect ? "#16a34a" : "#dc2626",
+                                    color: skipped ? "#8b8880" : isCorrect ? "#16a34a" : "#dc2626",
                                   }}
                                 >
-                                  {isCorrect ? "✓ Correct" : "✗ Incorrect"}
+                                  {skipped ? "Skipped" : isCorrect ? "✓ Correct" : "✗ Incorrect"}
                                 </span>
                               )}
                             </div>
@@ -437,23 +486,59 @@ export function LMSLessonView({
                             {/* Action row */}
                             <div className="flex flex-wrap gap-2">
                               {!submitted && (
-                                <Button
-                                  size="sm"
-                                  disabled={selected === undefined}
-                                  className="rounded-lg bg-[#f59207] text-white hover:bg-[#e08a00] disabled:opacity-45"
-                                  onClick={() => {
-                                    if (selected !== undefined) {
-                                      setSubmittedQuestions((s) => ({
-                                        ...s,
-                                        [i]: selected === correctIndex,
-                                      }));
-                                      if (selected !== correctIndex)
-                                        setRevealedExplanations((e) => ({ ...e, [i]: true }));
-                                    }
-                                  }}
-                                >
-                                  ✓ Submit Answer
-                                </Button>
+                                <>
+                                  <Button
+                                    size="sm"
+                                    disabled={selected === undefined}
+                                    className="rounded-lg bg-[#f59207] text-white hover:bg-[#e08a00] disabled:opacity-45"
+                                    onClick={async () => {
+                                      if (selected !== undefined) {
+                                        const timeTaken = getElapsedForRecording();
+                                        if (q.id) {
+                                          await recordAttempt({
+                                            questionId: q.id,
+                                            lessonId: lesson.id,
+                                            courseId,
+                                            timeSpentSeconds: timeTaken,
+                                            isCorrect: selected === correctIndex,
+                                            skipped: false,
+                                          });
+                                          fetchPracticeQuestions();
+                                        }
+                                        setSubmittedQuestions((s) => ({
+                                          ...s,
+                                          [i]: selected === correctIndex,
+                                        }));
+                                        if (selected !== correctIndex)
+                                          setRevealedExplanations((e) => ({ ...e, [i]: true }));
+                                      }
+                                    }}
+                                  >
+                                    ✓ Submit Answer
+                                  </Button>
+                                  <Button
+                                    variant="outline"
+                                    size="sm"
+                                    className="rounded-lg border-[#d4d0c8] bg-[#f4f3f0] text-[#5a5860] hover:bg-[#eae8e2]"
+                                    onClick={async () => {
+                                      const timeTaken = getElapsedForRecording();
+                                      if (q.id) {
+                                        await recordAttempt({
+                                          questionId: q.id,
+                                          lessonId: lesson.id,
+                                          courseId,
+                                          timeSpentSeconds: timeTaken,
+                                          isCorrect: false,
+                                          skipped: true,
+                                        });
+                                        fetchPracticeQuestions();
+                                      }
+                                      setSkippedQuestions((s) => ({ ...s, [i]: true }));
+                                    }}
+                                  >
+                                    Skip
+                                  </Button>
+                                </>
                               )}
                               <Button
                                 variant="outline"
@@ -502,6 +587,11 @@ export function LMSLessonView({
                                       delete n[i];
                                       return n;
                                     });
+                                    setSkippedQuestions((s) => {
+                                      const n = { ...s };
+                                      delete n[i];
+                                      return n;
+                                    });
                                     setSelectedOptions((s) => {
                                       const n = { ...s };
                                       delete n[i];
@@ -537,7 +627,66 @@ export function LMSLessonView({
                           </div>
                         );
                       })()}
-                    </>
+
+                      {/* Previous / Next at bottom of question */}
+                      {quiz.length > 1 && (
+                        <div className="mt-4 flex items-center justify-between gap-2">
+                          <Button
+                            variant="outline"
+                            size="default"
+                            className="rounded-lg border-2 border-[#f59207] bg-white text-[#f59207] font-semibold hover:bg-[#fff8ee] hover:border-[#e08a00] hover:text-[#e08a00] disabled:opacity-50 disabled:border-[#eae8e2] disabled:text-[#8b8880]"
+                            disabled={practiceQuestionIndex === 0}
+                            onClick={() =>
+                              setPracticeQuestionIndex((idx) => Math.max(0, idx - 1))
+                            }
+                          >
+                            <ChevronLeft className="h-4 w-4 mr-1" /> Previous
+                          </Button>
+                          <div className="flex items-center gap-1.5">
+                            {quiz.map((_, qi) => {
+                              const skipped = skippedQuestions[qi];
+                              const sub = submittedQuestions[qi];
+                              const bg =
+                                qi === practiceQuestionIndex
+                                  ? "#f59207"
+                                  : skipped
+                                    ? "#d4d0c8"
+                                    : sub === true
+                                      ? "#22c55e"
+                                      : sub === false
+                                        ? "#ef4444"
+                                        : "#d4d0c8";
+                              return (
+                                <button
+                                  key={qi}
+                                  type="button"
+                                  aria-label={`Question ${qi + 1}${skipped ? ", Skipped" : sub === true ? ", Correct" : sub === false ? ", Incorrect" : ""}`}
+                                  onClick={() => setPracticeQuestionIndex(qi)}
+                                  className="h-2.5 w-2.5 rounded-full transition-[transform,background] hover:scale-110"
+                                  style={{
+                                    background: bg,
+                                    opacity: skipped ? 0.7 : 1,
+                                  }}
+                                />
+                              );
+                            })}
+                          </div>
+                          <Button
+                            size="default"
+                            className="rounded-lg bg-[#f59207] text-white font-semibold hover:bg-[#e08a00] disabled:opacity-50"
+                            disabled={practiceQuestionIndex >= quiz.length - 1}
+                            onClick={() =>
+                              setPracticeQuestionIndex((idx) =>
+                                Math.min(quiz.length - 1, idx + 1)
+                              )
+                            }
+                          >
+                            Next <ChevronRight className="h-4 w-4 ml-1" />
+                          </Button>
+                        </div>
+                      )}
+                      </div>
+                    </div>
                   )}
                 </div>
               )}

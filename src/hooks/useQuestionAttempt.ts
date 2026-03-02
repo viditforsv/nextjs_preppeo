@@ -7,6 +7,7 @@ interface RecordAttemptParams {
   timeSpentSeconds: number;
   isCorrect: boolean;
   hintUsed?: boolean;
+  skipped?: boolean;
   sessionId?: string;
   sessionOrder?: number;
 }
@@ -48,6 +49,7 @@ export function useQuestionAttempt() {
           time_taken_seconds: params.timeSpentSeconds,
           is_correct: params.isCorrect,
           hint_used: params.hintUsed || false,
+          skipped: params.skipped ?? false,
           session_id: params.sessionId,
           session_order: params.sessionOrder,
         }),

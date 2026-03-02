@@ -14,6 +14,7 @@ export async function POST(request: NextRequest) {
       time_taken_seconds,
       is_correct,
       hint_used = false,
+      skipped = false,
       session_id,
       session_order,
     } = body;
@@ -74,6 +75,7 @@ export async function POST(request: NextRequest) {
         attempt_number: (attemptCount || 0) + 1,
         time_taken_seconds,
         is_correct,
+        skipped,
         difficulty_level: question.difficulty,
         hint_used,
         session_order,

@@ -14,6 +14,8 @@ export interface InteractiveStep {
 }
 
 export interface InteractiveQuizItem {
+  /** Optional link to question_bank for attempt tracking and metadata */
+  id?: string;
   question: string;
   options: string[];
   answer: number;
