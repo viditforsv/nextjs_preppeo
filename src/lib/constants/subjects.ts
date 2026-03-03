@@ -43,6 +43,7 @@ export const SUBJECTS = [
   "ICSE Computer Science",
   "IGCSE Computer Science",
   "GRE Math",
+  "SAT Math",
 ] as const;
 
 export type Subject = (typeof SUBJECTS)[number];

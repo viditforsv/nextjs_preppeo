@@ -67,6 +67,10 @@ const DIFF_COLORS: Record<string, { text: string; bg: string; border: string }> 
   Hard: { text: "#b85555", bg: "#fdf5f5", border: "#e8b8b8" },
 };
 
+function stripMath(text: string): string {
+  return text.replace(/\$\$?([^$]+)\$\$?/g, "$1").trim();
+}
+
 export function PracticeQuestionsSidebar({
   items,
   currentIndex,
@@ -259,9 +263,13 @@ export function PracticeQuestionsSidebar({
                     <span className={`text-[11px] font-bold w-5 shrink-0 ${qNumColor}`}>
                       Q{item.order}
                     </span>
-                    {item.topic || item.question ? (
+                    {item.question ? (
                       <span className={`text-[11px] flex-1 line-clamp-2 min-w-0 ${labelColor}`}>
-                        {item.topic ?? item.question}
+                        {stripMath(item.question)}
+                      </span>
+                    ) : item.topic ? (
+                      <span className={`text-[11px] flex-1 line-clamp-2 min-w-0 ${labelColor}`}>
+                        {item.topic}
                       </span>
                     ) : (
                       <span className={`text-[11px] flex-1 min-w-0 ${labelColor}`}>

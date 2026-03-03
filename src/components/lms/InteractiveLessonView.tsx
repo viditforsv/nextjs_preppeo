@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Button } from "@/design-system/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/design-system/components/ui/card";
 import { ChevronLeft, CheckCircle, XCircle } from "lucide-react";
+import { renderMixedContent } from "@/components/MathRenderer";
 
 export interface InteractiveStep {
   title: string;
@@ -194,7 +195,7 @@ export function InteractiveLessonView({
             <CardTitle className="text-lg">Question {quizIndex + 1} of {quiz.length}</CardTitle>
           </CardHeader>
           <CardContent className="flex flex-col flex-1 space-y-4">
-            <p className="font-medium">{currentQuizItem.question}</p>
+            <p className="font-medium">{renderMixedContent(currentQuizItem.question)}</p>
             <p className="text-sm text-muted-foreground">Select one option:</p>
             <ul className="space-y-2" role="listbox" aria-label="Answer options">
               {(currentQuizItem.options && currentQuizItem.options.length > 0
@@ -218,7 +219,7 @@ export function InteractiveLessonView({
                       className={`w-full rounded-lg p-3 text-left transition font-medium ${style}`}
                     >
                       <span className="font-semibold mr-2 opacity-90">{optionLabel}.</span>
-                      {opt}
+                      {renderMixedContent(opt)}
                     </button>
                   </li>
                 );
@@ -252,7 +253,7 @@ export function InteractiveLessonView({
                 </div>
                 <div>
                   <p className="text-sm font-medium text-muted-foreground mb-1">Explanation</p>
-                  <p className="text-sm">{currentQuizItem.explanation}</p>
+                  <p className="text-sm">{renderMixedContent(currentQuizItem.explanation)}</p>
                 </div>
                 <p className="text-xs text-muted-foreground pt-2 border-t">
                   Relevant context from this lesson: use this to reinforce the concept before moving on.

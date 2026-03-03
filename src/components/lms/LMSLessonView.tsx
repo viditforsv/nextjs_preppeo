@@ -7,6 +7,7 @@ import { CollapsibleSidebar } from "@/design-system/components/layout-components
 import { VideoResource } from "@/design-system/components/youtube-video";
 import { CourseChatbot } from "./CourseChatbot";
 import type { InteractiveStep, InteractiveQuizItem } from "./InteractiveLessonView";
+import { renderMixedContent } from "@/components/MathRenderer";
 import { Button } from "@/design-system/components/ui/button";
 import { useQuestionAttempt } from "@/hooks/useQuestionAttempt";
 import {
@@ -658,7 +659,7 @@ export function LMSLessonView({
                             </div>
 
                             <p className="mb-5 text-[15.5px] font-semibold leading-relaxed text-[#1c1b1f] tracking-tight">
-                              {q.question}
+                              {renderMixedContent(q.question)}
                             </p>
 
                             {/* Options — comm.md: white bg, rounded-square letter 28×28, hover translateX(3px), dim non-selected after submit */}
@@ -738,7 +739,7 @@ export function LMSLessonView({
                                           : optionLabel(oi)}
                                     </span>
                                     <span className="flex-1 font-medium" style={{ color: textColor, fontWeight: textFw }}>
-                                      {optionText(opt)}
+                                      {renderMixedContent(optionText(opt))}
                                     </span>
                                   </button>
                                 );
@@ -879,12 +880,12 @@ export function LMSLessonView({
 
                             {revealedHints[i] && (
                               <div className="mt-3 rounded-[10px] border border-[#fde9b8] bg-[#fffbf0] p-3 text-[12.5px] leading-relaxed text-[#78350f] [&_strong]:text-[#1c1b1f]">
-                                💡 <strong>Hint:</strong> {getHintText(q.explanation ?? "")}
+                                💡 <strong>Hint:</strong> {renderMixedContent(getHintText(q.explanation ?? ""))}
                               </div>
                             )}
                             {revealedExplanations[i] && (
                               <div className="mt-3 rounded-[10px] border border-[#86efac] bg-[#f0fdf4] p-3 text-[12.5px] leading-relaxed text-[#14532d] [&_strong]:text-[#1c1b1f]">
-                                📖 <strong>Explanation:</strong> {q.explanation}
+                                📖 <strong>Explanation:</strong> {renderMixedContent(q.explanation ?? "")}
                               </div>
                             )}
 
