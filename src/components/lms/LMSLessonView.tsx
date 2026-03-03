@@ -101,9 +101,7 @@ export function LMSLessonView({
   const [showConfetti, setShowConfetti] = useState(false);
   const [practiceFilters, setPracticeFilters] = useState<PracticeQuestionsFilters>({
     difficulty: "",
-    timeBucket: "",
-    topic: "",
-    chapter: "",
+    status: "",
   });
   const [practiceQuestionsData, setPracticeQuestionsData] = useState<{
     questions: PracticeQuestionSidebarItem[];
@@ -163,9 +161,7 @@ export function LMSLessonView({
     try {
       const params = new URLSearchParams();
       if (practiceFilters.difficulty) params.set("difficulty", practiceFilters.difficulty);
-      if (practiceFilters.timeBucket) params.set("timeBucket", practiceFilters.timeBucket);
-      if (practiceFilters.topic) params.set("topic", practiceFilters.topic);
-      if (practiceFilters.chapter) params.set("chapter", practiceFilters.chapter);
+      if (practiceFilters.status) params.set("status", practiceFilters.status);
       const res = await fetch(
         `/api/lessons/${lesson.id}/practice-questions?${params.toString()}`
       );
@@ -186,7 +182,7 @@ export function LMSLessonView({
     } else {
       setPracticeQuestionsData(null);
     }
-  }, [activeTab, lesson.id, practiceFilters.difficulty, practiceFilters.timeBucket, practiceFilters.topic, practiceFilters.chapter]);
+  }, [activeTab, lesson.id, practiceFilters.difficulty, practiceFilters.status]);
 
   // Confetti when all correct
   useEffect(() => {
@@ -229,6 +225,7 @@ export function LMSLessonView({
                   courseId,
                   timeSpentSeconds: timeTaken,
                   isCorrect: sel === correctIndex,
+                  hintUsed: !!revealedHints[i],
                   skipped: false,
                 });
                 fetchPracticeQuestions();
@@ -457,6 +454,7 @@ export function LMSLessonView({
                                           time_taken_seconds: 0,
                                           is_correct: !!submittedQuestions[idx],
                                           skipped: !!skippedQuestions[idx],
+                                          hint_used: false,
                                         },
                                       }
                                     : {}),
@@ -484,6 +482,7 @@ export function LMSLessonView({
                                         time_taken_seconds: 0,
                                         is_correct: !!submittedQuestions[idx],
                                         skipped: !!skippedQuestions[idx],
+                                        hint_used: false,
                                       }
                                     : undefined,
                               };
@@ -770,6 +769,7 @@ export function LMSLessonView({
                                             courseId,
                                             timeSpentSeconds: timeTaken,
                                             isCorrect: selected === correctIndex,
+                                            hintUsed: !!revealedHints[i],
                                             skipped: false,
                                           });
                                           fetchPracticeQuestions();

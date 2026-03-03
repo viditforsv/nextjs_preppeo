@@ -7,11 +7,13 @@ const DIFFICULTY_BANDS = {
   hard: { min: 7, max: 10 },
 } as const;
 
-function getTimeBucket(seconds: number): "<30" | "30-90" | ">90" {
-  if (seconds < 30) return "<30";
-  if (seconds <= 90) return "30-90";
-  return ">90";
-}
+export type AttemptStatusFilter =
+  | "unattempted"
+  | "correct"
+  | "hint"
+  | "wrong"
+  | "skipped"
+  | "";
 
 export interface PracticeQuestionItem {
   order: number;
@@ -23,6 +25,7 @@ export interface PracticeQuestionItem {
     time_taken_seconds: number;
     is_correct: boolean;
     skipped: boolean;
+    hint_used: boolean;
   };
 }
 
@@ -41,18 +44,13 @@ export async function GET(
 
     const supabase = await createClient();
     const { searchParams } = new URL(request.url);
+
     const difficultyFilter = searchParams.get("difficulty") as
       | "easy"
       | "medium"
       | "hard"
       | null;
-    const timeBucketFilter = searchParams.get("timeBucket") as
-      | "<30"
-      | "30-90"
-      | ">90"
-      | null;
-    const topicFilter = searchParams.get("topic")?.trim() || null;
-    const chapterFilter = searchParams.get("chapter")?.trim() || null;
+    const statusFilter = searchParams.get("status") as AttemptStatusFilter | null;
 
     const {
       data: { user },
@@ -80,10 +78,7 @@ export async function GET(
       .map((item: { id?: string }) => item?.id)
       .filter((id): id is string => typeof id === "string" && id.length > 0);
 
-    let questionBankMap: Record<
-      string,
-      { difficulty: number; topic: string | null }
-    > = {};
+    let questionBankMap: Record<string, { difficulty: number; topic: string | null }> = {};
     if (questionIds.length > 0) {
       const { data: questions } = await supabase
         .from("question_bank")
@@ -105,11 +100,11 @@ export async function GET(
 
     let attemptsMap: Record<
       string,
-      { time_taken_seconds: number; is_correct: boolean; skipped: boolean }
+      { time_taken_seconds: number; is_correct: boolean; skipped: boolean; hint_used: boolean }
     > = {};
     const { data: attempts } = await supabase
       .from("student_performance_log")
-      .select("question_id, time_taken_seconds, is_correct, skipped, created_at")
+      .select("question_id, time_taken_seconds, is_correct, skipped, hint_used, created_at")
       .eq("student_id", user.id)
       .eq("lesson_id", lessonId)
       .order("created_at", { ascending: false });
@@ -123,6 +118,7 @@ export async function GET(
             time_taken_seconds: a.time_taken_seconds ?? 0,
             is_correct: a.is_correct ?? false,
             skipped: a.skipped ?? false,
+            hint_used: a.hint_used ?? false,
           };
         }
       }
@@ -145,13 +141,16 @@ export async function GET(
     }
 
     const items: PracticeQuestionItem[] = quiz.map(
-      (item: {
-        id?: string;
-        question?: string;
-        options?: string[];
-        answer?: number;
-        explanation?: string;
-      }, index: number) => {
+      (
+        item: {
+          id?: string;
+          question?: string;
+          options?: string[];
+          answer?: number;
+          explanation?: string;
+        },
+        index: number
+      ) => {
         const qId = item?.id ?? null;
         const meta = qId ? questionBankMap[qId] : null;
         const lastAttempt = qId ? attemptsMap[qId] : undefined;
@@ -171,32 +170,28 @@ export async function GET(
     if (difficultyFilter && DIFFICULTY_BANDS[difficultyFilter]) {
       const { min, max } = DIFFICULTY_BANDS[difficultyFilter];
       filtered = filtered.filter(
-        (i) =>
-          i.difficulty !== null && i.difficulty >= min && i.difficulty <= max
+        (i) => i.difficulty !== null && i.difficulty >= min && i.difficulty <= max
       );
     }
 
-    if (timeBucketFilter) {
+    if (statusFilter) {
       filtered = filtered.filter((i) => {
-        const t = i.lastAttempt?.time_taken_seconds;
-        if (t === undefined) return false;
-        return getTimeBucket(t) === timeBucketFilter;
+        const a = i.lastAttempt;
+        switch (statusFilter) {
+          case "unattempted":
+            return a === undefined;
+          case "correct":
+            return a !== undefined && a.is_correct && !a.hint_used;
+          case "hint":
+            return a !== undefined && a.is_correct && a.hint_used;
+          case "wrong":
+            return a !== undefined && !a.is_correct && !a.skipped;
+          case "skipped":
+            return a !== undefined && a.skipped;
+          default:
+            return true;
+        }
       });
-    }
-
-    if (topicFilter) {
-      filtered = filtered.filter(
-        (i) =>
-          i.topic &&
-          i.topic.toLowerCase().includes(topicFilter.toLowerCase())
-      );
-    }
-
-    if (chapterFilter && chapterName) {
-      const match =
-        chapterName.toLowerCase().includes(chapterFilter.toLowerCase()) ||
-        chapterFilter.toLowerCase().includes(chapterName.toLowerCase());
-      if (!match) filtered = [];
     }
 
     return NextResponse.json({
