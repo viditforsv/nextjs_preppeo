@@ -91,6 +91,7 @@ export function LMSLessonView({
   const [skippedQuestions, setSkippedQuestions] = useState<Record<number, boolean>>({});
   const [revealedExplanations, setRevealedExplanations] = useState<Record<number, boolean>>({});
   const [practiceQuestionIndex, setPracticeQuestionIndex] = useState(0);
+  const [jumpInput, setJumpInput] = useState<string>("1");
   const [elapsedSeconds, setElapsedSeconds] = useState(0);
   const questionStartRef = useRef<number>(Date.now());
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
@@ -138,6 +139,11 @@ export function LMSLessonView({
       if (timerRef.current) clearInterval(timerRef.current);
       timerRef.current = null;
     };
+  }, [practiceQuestionIndex]);
+
+  // Keep jump input in sync with navigation
+  useEffect(() => {
+    setJumpInput(String(practiceQuestionIndex + 1));
   }, [practiceQuestionIndex]);
 
   const getElapsedForRecording = () =>
@@ -499,7 +505,8 @@ export function LMSLessonView({
                         scoreCorrect={Object.values(submittedQuestions).filter(Boolean).length}
                         scoreTotal={quiz.length}
                       />
-                      <div className="flex flex-1 flex-col gap-4 overflow-y-auto p-5">
+                      <div className="flex flex-1 flex-col min-h-0">
+                      <div className="flex-1 overflow-y-auto p-5 flex flex-col gap-4">
                       {/* Confetti overlay */}
                       {showConfetti && (
                         <div className="pointer-events-none fixed inset-0 z-50 overflow-hidden">
@@ -914,7 +921,7 @@ export function LMSLessonView({
                         );
                       })()}
 
-                      {/* Footer — Previous | dots | Next */}
+                      {/* Footer — Previous | jump input | Next */}
                       {quiz.length > 1 && (
                         <div className="mt-4 flex shrink-0 items-center justify-between gap-2 border-t border-[#ebe8e1] bg-white px-6 py-3">
                           <button
@@ -927,35 +934,36 @@ export function LMSLessonView({
                           >
                             <ChevronLeft className="h-4 w-4" /> Previous
                           </button>
-                          <div className="flex items-center gap-2">
-                            {quiz.map((_, qi) => {
-                              const skipped = skippedQuestions[qi];
-                              const sub = submittedQuestions[qi];
-                              const isActive = qi === practiceQuestionIndex;
-                              const bg = isActive
-                                ? "#f59207"
-                                : skipped
-                                  ? "#fcd34d"
-                                  : sub === true
-                                    ? "#22c55e"
-                                    : sub === false
-                                      ? "#ef4444"
-                                      : "#e0ddd6";
-                              return (
-                                <button
-                                  key={qi}
-                                  type="button"
-                                  title={`Q${qi + 1}${sub === true ? " · Correct" : sub === false ? " · Incorrect" : skipped ? " · Skipped" : ""}`}
-                                  aria-label={`Question ${qi + 1}`}
-                                  onClick={() => setPracticeQuestionIndex(qi)}
-                                  className="h-3 w-3 rounded-full transition-all duration-150 hover:opacity-80 hover:scale-125"
-                                  style={{
-                                    background: bg,
-                                    transform: isActive ? "scale(1.4)" : "scale(1)",
-                                  }}
-                                />
-                              );
-                            })}
+                          <div className="flex flex-col items-center gap-1.5 min-w-0">
+                            <div className="flex items-center gap-1.5">
+                              <input
+                                type="number"
+                                min={1}
+                                max={quiz.length}
+                                value={jumpInput}
+                                onChange={(e) => setJumpInput(e.target.value)}
+                                onBlur={() => {
+                                  const n = parseInt(jumpInput, 10);
+                                  if (!isNaN(n)) {
+                                    const clamped = Math.min(quiz.length, Math.max(1, n));
+                                    setPracticeQuestionIndex(clamped - 1);
+                                  } else {
+                                    setJumpInput(String(practiceQuestionIndex + 1));
+                                  }
+                                }}
+                                onKeyDown={(e) => {
+                                  if (e.key === "Enter") (e.target as HTMLInputElement).blur();
+                                }}
+                                className="w-11 rounded-lg border border-[#e0ddd6] bg-white px-1 py-1 text-center text-xs font-bold text-[#1c1b1f] focus:border-[#f59207] focus:outline-none"
+                              />
+                              <span className="text-xs font-medium text-[#9a9690]">/ {quiz.length}</span>
+                            </div>
+                            <div className="w-full max-w-[120px] h-1 rounded-full bg-[#e0ddd6] overflow-hidden">
+                              <div
+                                className="h-full rounded-full bg-[#f59207] transition-[width] duration-200"
+                                style={{ width: `${((practiceQuestionIndex + 1) / quiz.length) * 100}%` }}
+                              />
+                            </div>
                           </div>
                           <button
                             type="button"
@@ -973,6 +981,7 @@ export function LMSLessonView({
                       )}
                       </div>
                     </div>
+                  </div>
                   )}
                 </div>
               )}
