@@ -36,16 +36,16 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Get Gemini API key from environment
-    const apiKey = process.env.GOOGLE_GEMINI_API_KEY;
-    if (!apiKey) {
-      console.error('GOOGLE_GEMINI_API_KEY is not set');
-      // Fallback to mock response if API key is not configured
+    const openaiKey = process.env.OPENAI_API_KEY;
+    const anthropicKey = process.env.ANTHROPIC_API_KEY;
+    const geminiKey = process.env.GOOGLE_GEMINI_API_KEY;
+
+    if (!openaiKey && !anthropicKey && !geminiKey) {
       const mockResponse = generateMockResponse(message, context);
       return NextResponse.json({
         response: mockResponse,
         success: true,
-        warning: 'Using mock response - API key not configured'
+        warning: 'Using mock response - OPENAI_API_KEY, ANTHROPIC_API_KEY, or GOOGLE_GEMINI_API_KEY not set'
       });
     }
 
@@ -67,63 +67,162 @@ Context:
 - User's Answer: ${userAnswer !== null && userAnswer !== undefined ? userAnswer : 'Not answered yet'}
 
 Guidelines:
-1. Provide clear, educational explanations
-2. For math questions, show step-by-step solutions with LaTeX formatting
-3. For verbal questions, explain reasoning and vocabulary
-4. Be encouraging and supportive
-5. Use LaTeX format for math expressions (e.g., $x^2$ for inline, $$x^2$$ for display)
-6. Keep responses concise but thorough
-7. If the user asks about the current question, reference the question details provided
-8. Always format mathematical expressions using LaTeX syntax`;
+1. Keep answers SHORT: 2-5 sentences or one brief paragraph. No long step-by-step unless the user asks for it.
+2. For math, use plain text and simple symbols only: "x squared", "square root of 2", or Unicode (², √, ×, ÷, ≠, ≈). Do NOT use LaTeX ($...$ or $$...$$).
+3. Be clear, direct, and encouraging. Reference the question only when relevant.`;
 
-    // Call Google Gemini API
-    const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${apiKey}`;
-    
-    const geminiResponse = await fetch(geminiUrl, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        contents: [{
-          parts: [{
-            text: `${systemInstruction}\n\nUser's question: ${message}`
-          }]
-        }],
-        generationConfig: {
-          temperature: 0.7,
-          topK: 40,
-          topP: 0.95,
-          maxOutputTokens: 1024,
+    if (openaiKey) {
+      try {
+        const openaiRes = await fetch('https://api.openai.com/v1/chat/completions', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${openaiKey}`,
+          },
+          body: JSON.stringify({
+            model: 'gpt-4o-mini',
+            max_tokens: 400,
+            messages: [
+              { role: 'system', content: systemInstruction },
+              { role: 'user', content: message },
+            ],
+          }),
+        });
+
+        if (openaiRes.status === 429) {
+          return NextResponse.json({
+            response: 'The AI is getting a lot of requests right now. Please wait a minute and try again.',
+            success: true,
+          });
         }
-      })
-    });
 
-    if (!geminiResponse.ok) {
-      const errorData = await geminiResponse.text();
-      console.error('Gemini API error:', errorData);
-      throw new Error(`Gemini API error: ${geminiResponse.status} ${geminiResponse.statusText}`);
+        if (openaiRes.ok) {
+          const data = await openaiRes.json();
+          const text = data.choices?.[0]?.message?.content;
+          if (text) {
+            return NextResponse.json({ response: text, success: true });
+          }
+        }
+
+        const errText = await openaiRes.text();
+        console.error('OpenAI API error:', openaiRes.status, errText);
+        return NextResponse.json({
+          response: `Sorry, I couldn't process that right now. Please try again. (Error: ${openaiRes.status})`,
+          success: true,
+        });
+      } catch (err) {
+        console.error('GRE chatbot OpenAI error:', err);
+        return NextResponse.json({
+          response: 'Something went wrong. Please try again.',
+          success: true,
+        });
+      }
     }
 
-    const geminiData = await geminiResponse.json();
-    
-    // Extract the response text from Gemini's response structure
-    const responseText = geminiData.candidates?.[0]?.content?.parts?.[0]?.text;
-    
-    if (!responseText) {
-      console.error('Unexpected Gemini response structure:', geminiData);
-      // Fallback to mock response
-      const mockResponse = generateMockResponse(message, context);
-      return NextResponse.json({
-        response: mockResponse,
-        success: true,
-        warning: 'Using mock response - Unexpected API response format'
+    if (anthropicKey) {
+      try {
+        const claudeRes = await fetch('https://api.anthropic.com/v1/messages', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'x-api-key': anthropicKey,
+            'anthropic-version': '2023-06-01',
+          },
+          body: JSON.stringify({
+            model: 'claude-3-5-sonnet-20241022',
+            max_tokens: 400,
+            system: systemInstruction,
+            messages: [{ role: 'user', content: message }],
+          }),
+        });
+
+        if (claudeRes.status === 429) {
+          return NextResponse.json({
+            response: 'The AI is getting a lot of requests right now. Please wait a minute and try again.',
+            success: true,
+          });
+        }
+
+        if (claudeRes.ok) {
+          const data = await claudeRes.json();
+          const text = data.content?.[0]?.text;
+          if (text) {
+            return NextResponse.json({ response: text, success: true });
+          }
+        }
+
+        const errText = await claudeRes.text();
+        console.error('Claude API error:', claudeRes.status, errText);
+        return NextResponse.json({
+          response: `Sorry, I couldn't process that right now. Please try again. (Error: ${claudeRes.status})`,
+          success: true,
+        });
+      } catch (err) {
+        console.error('GRE chatbot Claude error:', err);
+        return NextResponse.json({
+          response: 'Something went wrong. Please try again.',
+          success: true,
+        });
+      }
+    }
+
+    const payload = {
+      contents: [{
+        parts: [{ text: `${systemInstruction}\n\nUser's question: ${message}` }],
+      }],
+      generationConfig: {
+        temperature: 0.7,
+        topK: 40,
+        topP: 0.95,
+        maxOutputTokens: 400,
+      },
+    };
+
+    const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
+    const modelsToTry = ['gemini-2.0-flash', 'gemini-1.5-flash', 'gemini-1.5-pro'];
+
+    for (const model of modelsToTry) {
+      const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${geminiKey}`;
+      let geminiResponse = await fetch(geminiUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
       });
+
+      if (geminiResponse.status === 429) {
+        await sleep(2500);
+        geminiResponse = await fetch(geminiUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        });
+      }
+
+      if (geminiResponse.ok) {
+        const geminiData = await geminiResponse.json();
+        const responseText = geminiData.candidates?.[0]?.content?.parts?.[0]?.text;
+        if (responseText) {
+          return NextResponse.json({ response: responseText, success: true });
+        }
+      }
+      if (geminiResponse.status === 429) {
+        return NextResponse.json({
+          response: 'The AI is getting a lot of requests right now. Please wait a minute and try again.',
+          success: true,
+        });
+      }
+      if (geminiResponse.status !== 404) {
+        const errorData = await geminiResponse.text();
+        console.error(`Gemini API error (${model}):`, errorData);
+        throw new Error(`Gemini API error: ${geminiResponse.status}`);
+      }
     }
 
+    const mockResponse = generateMockResponse(message, context);
     return NextResponse.json({
-      response: responseText,
-      success: true
+      response: mockResponse,
+      success: true,
+      warning: 'All Gemini models returned 404 - using mock response',
     });
   } catch (error) {
     console.error('Error in chatbot API:', error);
