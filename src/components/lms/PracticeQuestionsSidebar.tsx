@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useRef } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/design-system/components/ui/button";
 
@@ -69,8 +70,19 @@ const DIFF_COLORS: Record<string, { text: string; bg: string; border: string; ac
   Hard:   { text: "#b85555", bg: "#fdf5f5", border: "#e8b8b8", activeBg: "#dc2626" },
 };
 
-function stripMath(text: string): string {
-  return text.replace(/\$\$?([^$]+)\$\$?/g, "$1").trim();
+/** Plain-text preview for sidebar: strip LaTeX and take first maxLen chars. */
+function toPlainPreview(text: string, maxLen: number = 70): string {
+  if (!text || typeof text !== "string") return "";
+  let s = text
+    .replace(/\$\$?[^$]*\$\$?/g, " ") // inline/block math
+    .replace(/\\frac\{[^}]*\}\{[^}]*\}/g, " ")
+    .replace(/\\sqrt\{[^}]*\}/g, " ")
+    .replace(/\\[a-zA-Z]+\{[^}]*\}/g, " ") // \something{...}
+    .replace(/\\[a-zA-Z]+/g, " ") // \command
+    .replace(/\s+/g, " ")
+    .trim();
+  if (s.length === 0) return "";
+  return s.length > maxLen ? s.slice(0, maxLen).trim() + "…" : s;
 }
 
 const DIFF_CHIPS: { val: DifficultyFilter; label: string }[] = [
@@ -156,6 +168,12 @@ export function PracticeQuestionsSidebar({
   scoreCorrect = 0,
   scoreTotal = 0,
 }: PracticeQuestionsSidebarProps) {
+  const activeItemRef = useRef<HTMLLIElement | null>(null);
+
+  useEffect(() => {
+    activeItemRef.current?.scrollIntoView({ block: "nearest", behavior: "smooth" });
+  }, [currentIndex]);
+
   if (collapsed) {
     return (
       <div className="flex w-10 shrink-0 flex-col items-center border-r border-[#ebe8e1] bg-white py-2">
@@ -317,7 +335,10 @@ export function PracticeQuestionsSidebar({
                 "text-[#6b6966]";
 
               return (
-                <li key={item.order}>
+                <li
+                  key={item.order}
+                  ref={isCurrent ? activeItemRef : undefined}
+                >
                   <button
                     type="button"
                     onClick={() => onSelectQuestion(item.order)}
@@ -330,7 +351,7 @@ export function PracticeQuestionsSidebar({
                     </span>
                     {item.question ? (
                       <span className={`text-[11px] flex-1 line-clamp-2 min-w-0 ${labelColor}`}>
-                        {stripMath(item.question)}
+                        {toPlainPreview(item.question) || `Question ${item.order}`}
                       </span>
                     ) : item.topic ? (
                       <span className={`text-[11px] flex-1 line-clamp-2 min-w-0 ${labelColor}`}>

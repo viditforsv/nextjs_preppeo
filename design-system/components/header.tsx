@@ -11,6 +11,8 @@ import {
   Settings,
   BookOpen,
   FileText,
+  HelpCircle,
+  Mail,
 } from "lucide-react";
 import Image from "next/image";
 import { useAuth } from "@/contexts/AuthContext";
@@ -72,13 +74,11 @@ export function Header() {
       return [
         { name: "Home", href: "/", hasDropdown: false },
         {
-          name: "Browse Courses",
+          name: "Courses",
           href: "/courses/discover",
           hasDropdown: false,
         },
         { name: "Free Tools", href: "/tools", hasDropdown: false },
-        { name: "FAQ", href: "/faq", hasDropdown: false },
-        { name: "Contact", href: "/contact", hasDropdown: false },
         {
           name: "Site Administration",
           href: "/admin/site-administration",
@@ -90,28 +90,24 @@ export function Header() {
       return [
         { name: "Home", href: "/", hasDropdown: false },
         {
-          name: "Browse Courses",
+          name: "Courses",
           href: "/courses/discover",
           hasDropdown: false,
         },
         { name: "Free Tools", href: "/tools", hasDropdown: false },
         { name: "My Courses", href: "/courses/enrolled", hasDropdown: false },
-        { name: "FAQ", href: "/faq", hasDropdown: false },
-        { name: "Contact", href: "/contact", hasDropdown: false },
       ];
     } else {
       // Public users (not logged in)
       return [
         { name: "Home", href: "/", hasDropdown: false },
         {
-          name: "Browse Courses",
+          name: "Courses",
           href: "/courses/discover",
           hasDropdown: false,
         },
         { name: "Free Tools", href: "/tools", hasDropdown: false },
         { name: "About", href: "/about", hasDropdown: false },
-        { name: "FAQ", href: "/faq", hasDropdown: false },
-        { name: "Contact", href: "/contact", hasDropdown: false },
       ];
     }
   };
@@ -268,6 +264,24 @@ export function Header() {
                         >
                           <User className="w-4 h-4 mr-3 text-primary" />
                           Profile
+                        </Link>
+
+                        <Link
+                          href="/faq"
+                          className="flex items-center px-4 py-2 text-sm text-foreground hover:bg-primary/10 transition-colors"
+                          onClick={() => setIsUserDropdownOpen(false)}
+                        >
+                          <HelpCircle className="w-4 h-4 mr-3 text-primary" />
+                          FAQ
+                        </Link>
+
+                        <Link
+                          href="/contact"
+                          className="flex items-center px-4 py-2 text-sm text-foreground hover:bg-primary/10 transition-colors"
+                          onClick={() => setIsUserDropdownOpen(false)}
+                        >
+                          <Mail className="w-4 h-4 mr-3 text-primary" />
+                          Contact
                         </Link>
 
                         <div className="border-t border-gray-200 mt-2 pt-2">

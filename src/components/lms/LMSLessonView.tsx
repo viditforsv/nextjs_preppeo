@@ -127,6 +127,28 @@ export function LMSLessonView({
     (interactiveContent?.intro ?? "");
   const conceptTitle = lesson.concept_title || lesson.title;
 
+  // Filter-aware navigation: when difficulty or status filter is active, navigate within filtered list only
+  const hasFilter = !!(practiceFilters.difficulty || practiceFilters.status);
+  const filteredIndices: number[] | null =
+    hasFilter && practiceQuestionsData
+      ? practiceQuestionsData.questions.map((item) => item.order - 1)
+      : null;
+  const filteredCount = filteredIndices?.length ?? 0;
+  const isFilteredMode = hasFilter && filteredIndices && filteredIndices.length > 0;
+  const filteredListIndex =
+    isFilteredMode && filteredIndices
+      ? Math.max(0, filteredIndices.indexOf(practiceQuestionIndex))
+      : 0;
+  const navTotal = isFilteredMode ? filteredCount : quiz.length;
+  const navPosition = isFilteredMode ? filteredListIndex + 1 : practiceQuestionIndex + 1;
+
+  // When in filtered mode and current index is not in filtered list, jump to first filtered
+  useEffect(() => {
+    if (isFilteredMode && filteredIndices && !filteredIndices.includes(practiceQuestionIndex)) {
+      setPracticeQuestionIndex(filteredIndices[0]);
+    }
+  }, [isFilteredMode, filteredIndices, practiceQuestionIndex]);
+
   // Per-question timer: reset when question index changes
   useEffect(() => {
     questionStartRef.current = Date.now();
@@ -141,10 +163,10 @@ export function LMSLessonView({
     };
   }, [practiceQuestionIndex]);
 
-  // Keep jump input in sync with navigation
+  // Keep jump input in sync with navigation (filtered position or full index)
   useEffect(() => {
-    setJumpInput(String(practiceQuestionIndex + 1));
-  }, [practiceQuestionIndex]);
+    setJumpInput(String(isFilteredMode ? navPosition : practiceQuestionIndex + 1));
+  }, [practiceQuestionIndex, isFilteredMode, navPosition]);
 
   const getElapsedForRecording = () =>
     Math.floor((Date.now() - questionStartRef.current) / 1000);
@@ -243,11 +265,24 @@ export function LMSLessonView({
         }
       }
 
-      if (e.key === "ArrowRight") setPracticeQuestionIndex((idx) => Math.min(quiz.length - 1, idx + 1));
-      else if (e.key === "ArrowLeft") setPracticeQuestionIndex((idx) => Math.max(0, idx - 1));
+      if (e.key === "ArrowRight") {
+        if (isFilteredMode && filteredIndices && filteredIndices.length > 0) {
+          const nextFilteredIdx = Math.min(filteredListIndex + 1, filteredIndices.length - 1);
+          setPracticeQuestionIndex(filteredIndices[nextFilteredIdx]);
+        } else {
+          setPracticeQuestionIndex((idx) => Math.min(quiz.length - 1, idx + 1));
+        }
+      } else if (e.key === "ArrowLeft") {
+        if (isFilteredMode && filteredIndices && filteredIndices.length > 0) {
+          const prevFilteredIdx = Math.max(filteredListIndex - 1, 0);
+          setPracticeQuestionIndex(filteredIndices[prevFilteredIdx]);
+        } else {
+          setPracticeQuestionIndex((idx) => Math.max(0, idx - 1));
+        }
+      }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [activeTab, quiz, practiceQuestionIndex, submittedQuestions, skippedQuestions, selectedOptions]
+    [activeTab, quiz, practiceQuestionIndex, submittedQuestions, skippedQuestions, selectedOptions, isFilteredMode, filteredIndices, filteredListIndex]
   );
 
   useEffect(() => {
@@ -507,6 +542,23 @@ export function LMSLessonView({
                       />
                       <div className="flex flex-1 flex-col min-h-0">
                       <div className="flex-1 overflow-y-auto p-5 flex flex-col gap-4">
+                      {/* Empty state when filters match no questions */}
+                      {hasFilter && (practiceQuestionsData?.questions?.length ?? 0) === 0 ? (
+                        <div className="flex flex-1 flex-col items-center justify-center py-12 text-center">
+                          <p className="text-sm text-[#6b6966] mb-4">
+                            No questions match your filters. Try changing difficulty or status, or clear filters to see all questions.
+                          </p>
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            className="rounded-lg"
+                            onClick={() => setPracticeFilters({ difficulty: "", status: "" })}
+                          >
+                            Clear filters
+                          </Button>
+                        </div>
+                      ) : (
+                      <>
                       {/* Confetti overlay */}
                       {showConfetti && (
                         <div className="pointer-events-none fixed inset-0 z-50 overflow-hidden">
@@ -631,7 +683,7 @@ export function LMSLessonView({
                             {/* Meta row: Q counter, timer (warn when >90s), difficulty pill, result badge — comm.md */}
                             <div className="mb-3 flex flex-wrap items-center gap-2">
                               <span className="text-[11.5px] font-bold text-[#9a9690]">
-                                Q{i + 1} of {quiz.length}
+                                Q{navPosition} of {navTotal}
                               </span>
                               {!submitted && (
                                 <span
@@ -921,16 +973,21 @@ export function LMSLessonView({
                         );
                       })()}
 
-                      {/* Footer — Previous | jump input | Next */}
-                      {quiz.length > 1 && (
+                      {/* Footer — Previous | jump input | Next (filter-aware when filters active) */}
+                      {navTotal > 1 && (
                         <div className="mt-4 flex shrink-0 items-center justify-between gap-2 border-t border-[#ebe8e1] bg-white px-6 py-3">
                           <button
                             type="button"
-                            disabled={practiceQuestionIndex === 0}
+                            disabled={isFilteredMode ? filteredListIndex === 0 : practiceQuestionIndex === 0}
                             className="inline-flex items-center gap-1.5 rounded-lg border-[1.5px] border-[#e0ddd6] bg-white px-4 py-2 text-xs font-semibold text-[#6b6966] transition-all hover:bg-[#f5f4f1] disabled:opacity-40 disabled:cursor-not-allowed"
-                            onClick={() =>
-                              setPracticeQuestionIndex((idx) => Math.max(0, idx - 1))
-                            }
+                            onClick={() => {
+                              if (isFilteredMode && filteredIndices && filteredIndices.length > 0) {
+                                const prevIdx = Math.max(filteredListIndex - 1, 0);
+                                setPracticeQuestionIndex(filteredIndices[prevIdx]);
+                              } else {
+                                setPracticeQuestionIndex((idx) => Math.max(0, idx - 1));
+                              }
+                            }}
                           >
                             <ChevronLeft className="h-4 w-4" /> Previous
                           </button>
@@ -939,16 +996,20 @@ export function LMSLessonView({
                               <input
                                 type="number"
                                 min={1}
-                                max={quiz.length}
+                                max={navTotal}
                                 value={jumpInput}
                                 onChange={(e) => setJumpInput(e.target.value)}
                                 onBlur={() => {
                                   const n = parseInt(jumpInput, 10);
                                   if (!isNaN(n)) {
-                                    const clamped = Math.min(quiz.length, Math.max(1, n));
-                                    setPracticeQuestionIndex(clamped - 1);
+                                    const clamped = Math.min(navTotal, Math.max(1, n));
+                                    if (isFilteredMode && filteredIndices && filteredIndices.length > 0) {
+                                      setPracticeQuestionIndex(filteredIndices[clamped - 1]);
+                                    } else {
+                                      setPracticeQuestionIndex(clamped - 1);
+                                    }
                                   } else {
-                                    setJumpInput(String(practiceQuestionIndex + 1));
+                                    setJumpInput(String(navPosition));
                                   }
                                 }}
                                 onKeyDown={(e) => {
@@ -956,29 +1017,34 @@ export function LMSLessonView({
                                 }}
                                 className="w-11 rounded-lg border border-[#e0ddd6] bg-white px-1 py-1 text-center text-xs font-bold text-[#1c1b1f] focus:border-[#f59207] focus:outline-none"
                               />
-                              <span className="text-xs font-medium text-[#9a9690]">/ {quiz.length}</span>
+                              <span className="text-xs font-medium text-[#9a9690]">/ {navTotal}</span>
                             </div>
                             <div className="w-full max-w-[120px] h-1 rounded-full bg-[#e0ddd6] overflow-hidden">
                               <div
                                 className="h-full rounded-full bg-[#f59207] transition-[width] duration-200"
-                                style={{ width: `${((practiceQuestionIndex + 1) / quiz.length) * 100}%` }}
+                                style={{ width: `${(navPosition / navTotal) * 100}%` }}
                               />
                             </div>
                           </div>
                           <button
                             type="button"
-                            disabled={practiceQuestionIndex >= quiz.length - 1}
+                            disabled={isFilteredMode ? filteredListIndex >= navTotal - 1 : practiceQuestionIndex >= quiz.length - 1}
                             className="inline-flex items-center gap-1.5 rounded-lg border-[1.5px] border-[#f59207] bg-[#f59207] px-4 py-2 text-xs font-semibold text-white transition-all hover:bg-[#e08a00] disabled:border-[#e0ddd6] disabled:bg-[#e0ddd6] disabled:cursor-not-allowed disabled:text-[#b8b5ae]"
-                            onClick={() =>
-                              setPracticeQuestionIndex((idx) =>
-                                Math.min(quiz.length - 1, idx + 1)
-                              )
-                            }
+                            onClick={() => {
+                              if (isFilteredMode && filteredIndices && filteredIndices.length > 0) {
+                                const nextIdx = Math.min(filteredListIndex + 1, filteredIndices.length - 1);
+                                setPracticeQuestionIndex(filteredIndices[nextIdx]);
+                              } else {
+                                setPracticeQuestionIndex((idx) => Math.min(quiz.length - 1, idx + 1));
+                              }
+                            }}
                           >
                             Next <ChevronRight className="h-4 w-4" />
                           </button>
                         </div>
                       )}
+                    </>
+                    )}
                       </div>
                     </div>
                   </div>
