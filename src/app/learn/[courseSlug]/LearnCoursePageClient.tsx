@@ -166,9 +166,15 @@ export function LearnCoursePageClient({ courseSlug }: LearnCoursePageClientProps
         isAuthenticated={!!user}
         authLoading={authLoading}
         continueLessonSlug={continueSlug ?? null}
+        coursePrice={Number(course.price) || 0}
         onEnroll={async () => {
         if (!user) {
           router.push(`/auth?redirect=${encodeURIComponent(`/learn/${courseSlug}`)}`);
+          return;
+        }
+        const coursePrice = Number(course.price) || 0;
+        if (coursePrice > 0) {
+          router.push(`/courses/${courseSlug}/payment`);
           return;
         }
         const courseId = course.id as string;

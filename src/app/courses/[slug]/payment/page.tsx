@@ -16,6 +16,8 @@ import { ArrowLeft, Check } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 
+const LEARN_UI_SLUGS = ["sat-quant-learn"];
+
 interface RazorpayResponse {
   razorpay_payment_id: string;
   razorpay_order_id: string;
@@ -120,8 +122,10 @@ export default function CoursePaymentPage() {
             .maybeSingle();
 
           if (enrollment) {
-            // User is already enrolled, redirect to course
-            router.push(`/courses/${courseData.slug}`);
+            const dest = LEARN_UI_SLUGS.includes(courseData.slug)
+              ? `/learn/${courseData.slug}`
+              : `/courses/${courseData.slug}`;
+            router.push(dest);
             return;
           }
         }
@@ -237,9 +241,11 @@ export default function CoursePaymentPage() {
 
             if (verifyData.success) {
               setStatus("✅ Payment successful! Redirecting...");
-              // Redirect to course page after short delay
+              const dest = LEARN_UI_SLUGS.includes(course.slug)
+                ? `/learn/${course.slug}`
+                : `/courses/${course.slug}?enrolled=true`;
               setTimeout(() => {
-                router.push(`/courses/${course.slug}?enrolled=true`);
+                router.push(dest);
               }, 1500);
             } else {
               throw new Error(
@@ -323,7 +329,7 @@ export default function CoursePaymentPage() {
         <div className="max-w-3xl mx-auto">
           {/* Back Button */}
           <Link
-            href={`/courses/${course.slug}`}
+            href={LEARN_UI_SLUGS.includes(course.slug) ? `/learn/${course.slug}` : `/courses/${course.slug}`}
             className="inline-flex items-center text-sm text-muted-foreground hover:text-foreground mb-6"
           >
             <ArrowLeft className="w-4 h-4 mr-2" />

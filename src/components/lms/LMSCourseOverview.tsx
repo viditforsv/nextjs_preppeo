@@ -18,6 +18,7 @@ interface LMSCourseOverviewProps {
   authLoading: boolean;
   continueLessonSlug: string | null;
   onEnroll: () => void;
+  coursePrice?: number;
 }
 
 export function LMSCourseOverview({
@@ -29,6 +30,7 @@ export function LMSCourseOverview({
   authLoading,
   continueLessonSlug,
   onEnroll,
+  coursePrice = 0,
 }: LMSCourseOverviewProps) {
   const title = (course.title as string) || "Course";
   const description = (course.description as string) || "";
@@ -66,7 +68,7 @@ export function LMSCourseOverview({
                 disabled={authLoading || !isAuthenticated}
                 className="gap-2 bg-primary text-primary-foreground hover:bg-primary/90"
               >
-                {!isAuthenticated ? "Sign in to Enroll" : authLoading ? "Loading..." : "Enroll for Free"}
+                {!isAuthenticated ? "Sign in to Enroll" : authLoading ? "Loading..." : coursePrice > 0 ? `Enroll Now — ₹${coursePrice.toLocaleString()}` : "Enroll for Free"}
               </Button>
             )}
           </div>
