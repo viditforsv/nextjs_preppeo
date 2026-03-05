@@ -290,7 +290,7 @@ export function PracticeQuestionsSidebar({
       </div>
 
       {/* Question list */}
-      <div className="min-h-0 flex-1 overflow-y-auto p-1.5">
+      <div className="min-h-0 flex-1 overflow-y-auto p-1.5 max-h-[210px]">
         {items.length === 0 ? (
           <p className="text-[10px] text-[#9a9690] px-1 pt-1">No questions match filters.</p>
         ) : (

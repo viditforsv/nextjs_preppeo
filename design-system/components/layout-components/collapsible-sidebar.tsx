@@ -210,7 +210,7 @@ export function CollapsibleSidebar({
       return acc;
     }, {} as Record<string, Record<string, Lesson[]>>);
 
-  // Auto-expand units and chapters containing the current lesson
+  // Only expand the unit/chapter containing the current lesson
   useEffect(() => {
     if (currentLessonSlug && lessons.length > 0) {
       const currentLesson = lessons.find(
@@ -220,8 +220,8 @@ export function CollapsibleSidebar({
         const unit = currentLesson.chapter.unit.unit_name;
         const chapter = currentLesson.chapter.chapter_name;
 
-        setExpandedSections((prev) => new Set([...prev, unit]));
-        setExpandedChapters((prev) => new Set([...prev, chapter]));
+        setExpandedSections(new Set([unit]));
+        setExpandedChapters(new Set([chapter]));
       }
     }
   }, [currentLessonSlug, lessons]);
@@ -349,7 +349,7 @@ export function CollapsibleSidebar({
   }
 
   return (
-    <div className="w-80 bg-white border-r border-[#feefea] flex flex-col h-screen overflow-hidden">
+    <div className="w-80 bg-white border-r border-[#feefea] flex flex-col h-full min-h-0 overflow-hidden">
       {/* Header - Fixed */}
       <div className="p-4 border-b border-[#feefea] flex-shrink-0">
         <div className="flex items-center justify-between mb-4">
@@ -425,7 +425,7 @@ export function CollapsibleSidebar({
       </div>
 
       {/* Course Content Section - Scrollable */}
-      <div className="flex-1 overflow-y-auto space-y-4 p-4">
+      <div className="flex-1 min-h-0 overflow-y-auto space-y-4 p-4">
         {Object.entries(sortedGroupedLessons).map(([sectionKey, chapters]) => (
           <div
             key={sectionKey}

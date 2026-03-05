@@ -132,7 +132,7 @@ export function CourseChatbot({
   }
 
   const panelClass = embedded
-    ? "flex-1 min-w-0 min-h-0 flex flex-col border-l border-[#eae8e2] h-full bg-[#faf9f6]"
+    ? "flex-1 min-w-0 min-h-0 flex flex-col border-l border-[#eae8e2] bg-[#faf9f6]"
     : "fixed bottom-6 right-6 w-[380px] max-w-[calc(100vw-2rem)] h-[480px] max-h-[70vh] flex flex-col bg-background border rounded-lg shadow-xl z-50";
 
   const quickPrompts = lessonTitle
