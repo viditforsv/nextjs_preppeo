@@ -319,7 +319,8 @@ export default function StudentDashboard() {
                     <Link
                       key={enrollment.id}
                       href={
-                        enrollment.courses.courses_templates?.slug === "lms-interactive"
+                        enrollment.courses.courses_templates?.slug === "lms-interactive" ||
+                        (enrollment.courses.slug && ["sat-quant-learn"].includes(enrollment.courses.slug))
                           ? `/learn/${enrollment.courses.slug}`
                           : `/courses/${enrollment.courses.slug}`
                       }

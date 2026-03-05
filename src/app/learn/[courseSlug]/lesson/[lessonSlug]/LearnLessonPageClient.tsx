@@ -9,6 +9,7 @@ import { Button } from "@/design-system/components/ui/button";
 import type { InteractiveStep, InteractiveQuizItem } from "@/components/lms/InteractiveLessonView";
 
 const LMS_TEMPLATE_SLUG = "lms-interactive";
+const LEARN_UI_SLUGS = ["sat-quant-learn"];
 
 interface Lesson {
   id: string;
@@ -71,7 +72,10 @@ export function LearnLessonPageClient({
         const data = await res.json();
         const template = data.template;
         const courseData = data.course || data.rendered;
-        if (!template || template.slug !== LMS_TEMPLATE_SLUG || !courseData) {
+        const useLearnUI =
+          template?.slug === LMS_TEMPLATE_SLUG ||
+          LEARN_UI_SLUGS.includes(courseSlug);
+        if (!useLearnUI || !courseData) {
           setNotFound(true);
           return;
         }

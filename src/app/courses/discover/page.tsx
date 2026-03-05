@@ -35,6 +35,8 @@ import {
 // import { getAllCourses } from '@/lib/course-config'
 // import { CourseConfig } from '@/lib/course-config'
 
+const LEARN_UI_SLUGS = ["sat-quant-learn"];
+
 // API-based course interface
 interface CourseConfig {
   id: string;
@@ -772,10 +774,13 @@ function getThumbnailUrl(course: CourseConfig): string {
 
 function CourseCard({ course, viewMode }: CourseCardProps) {
   const thumbnailUrl = getThumbnailUrl(course);
+  const href = LEARN_UI_SLUGS.includes(course.slug)
+    ? `/learn/${course.slug}`
+    : `/courses/${course.slug}`;
 
   if (viewMode === "list") {
     return (
-      <Link href={`/courses/${course.slug}`} className="block">
+      <Link href={href} className="block">
         <Card className="">
           <CardContent className="p-6">
             <div className="flex gap-6">
@@ -904,7 +909,7 @@ function CourseCard({ course, viewMode }: CourseCardProps) {
   }
 
   return (
-    <Link href={`/courses/${course.slug}`} className="block">
+    <Link href={href} className="block">
         <Card className="">
         <CardHeader className="pb-4">
           <div className="w-full h-32 rounded-lg flex items-center justify-center mb-4 overflow-hidden relative">

@@ -10,6 +10,8 @@ import { Button } from "@/design-system/components/ui/button";
 import Link from "next/link";
 
 const LMS_TEMPLATE_SLUG = "lms-interactive";
+/** Slugs that use the new learn UI even if template is not lms-interactive */
+const LEARN_UI_SLUGS = ["sat-quant-learn"];
 
 interface LearnCoursePageClientProps {
   courseSlug: string;
@@ -52,7 +54,10 @@ export function LearnCoursePageClient({ courseSlug }: LearnCoursePageClientProps
           return;
         }
 
-        if (!templateData || templateData.slug !== LMS_TEMPLATE_SLUG) {
+        const useLearnUI =
+          templateData?.slug === LMS_TEMPLATE_SLUG ||
+          LEARN_UI_SLUGS.includes(courseSlug);
+        if (!useLearnUI) {
           setNotFound(true);
           return;
         }

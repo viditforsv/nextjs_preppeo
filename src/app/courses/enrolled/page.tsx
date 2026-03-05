@@ -473,7 +473,8 @@ export default function EnrolledCoursesPage() {
                     <div className="flex gap-2">
                       <Link
                         href={
-                          course.courses_templates?.slug === "lms-interactive"
+                          course.courses_templates?.slug === "lms-interactive" ||
+                          (course.slug && ["sat-quant-learn"].includes(course.slug))
                             ? `/learn/${course.slug || course.id}`
                             : `/courses/${course.slug || course.id}`
                         }
