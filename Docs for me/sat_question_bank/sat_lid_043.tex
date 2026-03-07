@@ -1,0 +1,1295 @@
+\documentclass[11pt,paper=a4,answers]{exam}
+\usepackage{graphicx,lastpage}
+\usepackage{upgreek}
+\usepackage{censor}
+\usepackage{gensymb}
+\usepackage{amsmath}
+\usepackage{multicol}
+\usepackage{enumitem}
+\usepackage{tasks}
+\usepackage{adjustbox}
+\usepackage{xcolor}
+\usepackage{tfrupee}
+\setlength{\voffset}{0.25in}
+\usepackage{tabularx}
+\newcolumntype{Y}{>{\centering\arraybackslash}X}
+%==============================================================
+% Customise Non-Essential Packages Below
+% =============================================================
+\usepackage[most]{tcolorbox}
+\usepackage{eso-pic}
+\usepackage{tikz}
+\AddToShipoutPictureBG{%
+\begin{tikzpicture}[remember picture,overlay]
+\foreach \x in {-8,-4,0,4,8,12,16,20}
+\foreach \y in {-8,-4,0,4,8,12,16,20} {
+\node[opacity=0.05,rotate=45,anchor=center] at ([xshift=\x cm,yshift=\y cm]current page.center) {%
+\begin{minipage}{2cm}
+\centering
+\includegraphics[width=2cm]{images/logo_black.png}\\
+\small preppeo.com
+\end{minipage}%
+};
+}
+\end{tikzpicture}%
+}
+\printanswers
+
+%==============================================================
+% Customise Non-Essential Packages Above
+% =============================================================
+\definecolor{svgray}{rgb}{0.90, 0.90, 0.90}
+\graphicspath{{images/}}
+
+\usepackage[normalem]{ulem}
+\renewcommand\ULthickness{1pt}   %%---> For changing thickness of underline
+\setlength\ULdepth{3.5ex}%\maxdimen ---> For changing depth of underline
+\renewcommand{\baselinestretch}{1}
+\chead{
+\includegraphics[scale=0.1,height=2cm ]{logo.png}
+}
+\pagestyle{empty}
+
+\pagestyle{headandfoot}
+\headrule
+\cfoot{W: https://preppeo.com; M: +91-8130711689}
+
+\begin{document}
+%==============================================================
+% Customise Question paper details below this
+% =============================================================
+\begin{center}
+    \centering
+    \renewcommand{\arraystretch}{1.5}
+    \begin{tabularx}{\textwidth}{YYY}
+    & \normalsize\bf{{\Large{{Quantitative Reasoning}}}} & \\
+    By Preppeo & \normalsize\bf{{sat\_lid\_043}} & SAT\\
+    \normalsize{{\textbf{{Unit:}} Lines \& Angles}} & \normalsize{{\textbf{{Chapter:}} Lines, angles, parallel/perpendicular lines}} & \normalsize{{\textbf{{Topic:}} Angles in Polygons}} \\
+    \end{tabularx}
+\end{center}
+\par\noindent\rule{\textwidth}{1pt}
+% =============================================================
+% Customise Question paper details above this
+% =============================================================
+
+\begin{questions}
+\pointsinrightmargin
+\pointsdroppedatright
+\marksnotpoints
+\pointpoints{mark}{marks}
+\pointformat{\boldmath\themarginpoints}
+\bracketedpoints
+
+% =============================================================
+% Question Begin
+% =============================================================
+% Lid 043: Geometry & Trigonometry
+% Topic: Angles in Polygons
+
+% Question 1
+% Category: Exam Level | Difficulty: Medium | Question Type: MCQ
+\question
+In convex pentagon $ABCDE$, segment $AB$ is parallel to segment $DE$. The measure of angle $B$ is 139 degrees, and the measure of angle $D$ is 174 degrees. What is the measure, in degrees, of angle $C$?
+\begin{tasks}(4)
+    \task 47
+    \task 65
+    \task 133
+    \task 141
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The sum of the interior angles of any convex polygon with $n$ sides is given by the formula $(n - 2) \times 180^\circ$. For a pentagon ($n = 5$), the sum is $(5 - 2) \times 180^\circ = 540^\circ$. Additionally, when two segments in a polygon are parallel, we can use properties of transversal lines, such as consecutive interior angles, to relate specific angles.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+First, identify the total sum of interior angles for the pentagon, which is $540^\circ$. We are given that $AB \parallel DE$. If we extend the segments to act as parallel lines intersected by transversals $BC$ and $CD$, we can observe the relationship between the angles. However, a more direct approach is to use the property of consecutive interior angles. If we were to draw an auxiliary line parallel to $AB$ and $DE$ through vertex $C$, it would split $\angle C$ into two parts. But since we are only given $\angle B = 139^\circ$ and $\angle D = 174^\circ$, we utilize the fact that for parallel segments $AB$ and $DE$, the sum of the angles on one side of the polygon "between" the parallel lines ($B + C + D$) must satisfy a specific transversal relationship. In this specific configuration, $\angle B + \angle C + \angle D = 360^\circ$ because they represent the interior angles on the same side of a "double transversal" setup. Calculating the value: $139 + \angle C + 174 = 360$. Summing the known values: $313 + \angle C = 360$. Subtracting 313 from both sides results in $\angle C = 47^\circ$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 2
+% Category: Practice | Difficulty: Medium | Question Type: MCQ
+\question
+\begin{center}
+\begin{tikzpicture}
+\draw[thick] (0,0) -- (3,0) -- (4,2) -- (2,3.5) -- (-1,2) -- cycle;
+\node at (-0.2,0.3) {$x^\circ$};
+\node at (3.2,0.3) {$110^\circ$};
+\node at (3.8,1.8) {$120^\circ$};
+\node at (2,3.1) {$100^\circ$};
+\node at (-0.8,1.8) {$115^\circ$};
+\end{tikzpicture}
+\end{center}
+What is the value of $x$ in the pentagon shown above?
+\begin{tasks}(4)
+    \task 95
+    \task 105
+    \task 115
+    \task 125
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Every convex pentagon has an interior angle sum of $540^\circ$. To find a missing angle, you must sum all known interior angles and subtract that total from the theoretical sum for that specific polygon.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+Step 1: Calculate the sum of the four given interior angles. $110 + 120 + 100 + 115 = 445^\circ$. Step 2: Set up an algebraic equation where the sum of all five angles equals $540^\circ$. The equation is $x + 445 = 540$. Step 3: Solve for $x$ by isolating the variable. $x = 540 - 445$. Performing the subtraction gives $x = 95$. Therefore, the measure of the final interior angle is 95 degrees.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 3
+% Category: Exam Level | Difficulty: Hard | Question Type: MCQ
+\question
+Quadrilateral $P'Q'R'S'$ is similar to quadrilateral $PQRS$, where $P, Q, R$, and $S$ correspond to $P', Q', R'$, and $S'$, respectively. The measure of angle $P$ is $30^\circ$, the measure of angle $Q$ is $50^\circ$, and the measure of angle $R$ is $70^\circ$. The length of each side of $P'Q'R'S'$ is 3 times the length of each corresponding side of $PQRS$. What is the measure of angle $P'$?
+\begin{tasks}(4)
+    \task $10^\circ$
+    \task $30^\circ$
+    \task $40^\circ$
+    \task $90^\circ$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Similarity in geometry has two primary components: corresponding sides are proportional, and corresponding angles are congruent. While the side lengths can be scaled by a factor (in this case, 3), the measures of the angles remain completely unchanged regardless of the size of the polygon.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+The problem states that $P'Q'R'S'$ is similar to $PQRS$. By the definition of similarity, $\angle P \cong \angle P'$, $\angle Q \cong \angle Q'$, $\angle R \cong \angle R'$, and $\angle S \cong \angle S'$. We are given that the measure of $\angle P = 30^\circ$. Although the side lengths of the second quadrilateral are three times larger, this scaling does not affect the rotation between the segments. Therefore, the measure of the corresponding angle $P'$ must be identical to the measure of $\angle P$. Thus, the measure of $\angle P'$ is $30^\circ$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 4
+% Category: Practice | Difficulty: Medium | Question Type: Numeric Entry
+\question
+A regular hexagon is inscribed in a circle. What is the measure, in degrees, of each interior angle of the hexagon?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+A regular polygon has sides of equal length and interior angles of equal measure. The formula for the measure of one interior angle of a regular $n$-gon is $\frac{(n - 2) \times 180}{n}$.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+First, identify the number of sides for a hexagon, which is $n = 6$. Second, calculate the total sum of the interior angles using $(6 - 2) \times 180$. This becomes $4 \times 180 = 720^\circ$. Third, since the hexagon is regular, all 6 interior angles are equal. Divide the total sum by the number of angles: $720 / 6$. Performing the division results in 120. Therefore, each interior angle of a regular hexagon measures 120 degrees.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{120}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 5
+% Category: Exam Level | Difficulty: Hard | Question Type: MCQ
+\question
+\begin{center}
+\begin{tikzpicture}
+\draw[thick] (0,0) -- (4,0) -- (3,2.5) -- (1,2.5) -- cycle;
+\node at (0.3,0.3) {$x^\circ$};
+\node at (3.7,0.3) {$x^\circ$};
+\node at (1.2,2.2) {$y^\circ$};
+\node at (2.8,2.2) {$y^\circ$};
+\end{tikzpicture}
+\end{center}
+In the isosceles trapezoid shown above, $y = 2x + 30$. What is the value of $x$?
+\begin{tasks}(4)
+    \task 50
+    \task 60
+    \task 70
+    \task 130
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+An isosceles trapezoid is a quadrilateral with one pair of parallel sides. The angles adjacent to the non-parallel sides (consecutive interior angles) are supplementary, meaning they add up to $180^\circ$.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+Because the top and bottom bases are parallel, the angles $x$ and $y$ are consecutive interior angles. This gives us the equation $x + y = 180$. We are also given a relationship between the variables: $y = 2x + 30$. Substitute the expression for $y$ into the first equation: $x + (2x + 30) = 180$. Combine the like terms to get $3x + 30 = 180$. Subtract 30 from both sides of the equation: $3x = 150$. Finally, divide by 3 to isolate $x$, resulting in $x = 50$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 6
+% Category: Practice | Difficulty: Easy | Question Type: MCQ
+\question
+What is the sum of the exterior angles of a convex octagon, taking one at each vertex?
+\begin{tasks}(4)
+    \task $180^\circ$
+    \task $360^\circ$
+    \task $720^\circ$
+    \task $1080^\circ$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The Polygon Exterior Angle Sum Theorem states that for any convex polygon, regardless of the number of sides, the sum of the exterior angles (one at each vertex) is always constant.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+Identify that the polygon is an octagon, which has 8 sides. According to the theorem, the exterior angle sum does not depend on $n$. Whether the polygon has 3 sides or 100 sides, the rotation required to travel around the perimeter and return to the starting direction is exactly one full circle. Therefore, the sum is $360^\circ$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 7
+% Category: Exam Level | Difficulty: Medium | Question Type: Numeric Entry
+\question
+A regular polygon has an interior angle sum of $1,440^\circ$. How many sides does the polygon have?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+We use the interior angle sum formula, $S = (n - 2) \times 180$, and solve for the variable $n$, which represents the number of sides.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+Set up the equation using the given sum: $1440 = (n - 2) \times 180$. First, divide both sides of the equation by 180 to simplify: $1440 / 180 = n - 2$. Calculating the division gives $8 = n - 2$. Next, isolate $n$ by adding 2 to both sides of the equation: $n = 8 + 2 = 10$. This means the polygon is a decagon with 10 sides.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{10}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 8
+% Category: Practice | Difficulty: Medium | Question Type: MCQ
+\question
+If the measure of one exterior angle of a regular polygon is $40^\circ$, how many sides does the polygon have?
+\begin{tasks}(4)
+    \task 4
+    \task 6
+    \task 9
+    \task 12
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+For a regular polygon, all exterior angles are equal. Since the total sum of exterior angles is always $360^\circ$, the measure of one exterior angle is $\frac{360}{n}$.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+Set up the relationship: $40 = \frac{360}{n}$. To solve for $n$, multiply both sides by $n$ to get $40n = 360$. Then, divide both sides by 40: $n = 360 / 40$. Performing the division gives $n = 9$. The polygon is a regular nonagon with 9 sides.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 9
+% Category: Exam Level | Difficulty: Hard | Question Type: MCQ
+\question
+\begin{center}
+\begin{tikzpicture}
+\draw[thick] (0,0) -- (2,0) -- (3,1.73) -- (2,3.46) -- (0,3.46) -- (-1,1.73) -- cycle;
+\draw[thick] (0,0) -- (3,1.73);
+\node at (0.4,0.2) {$a^\circ$};
+\end{tikzpicture}
+\end{center}
+In the regular hexagon shown above, a diagonal is drawn from one vertex to another. What is the value of $a$?
+\begin{tasks}(4)
+    \task 30
+    \task 60
+    \task 90
+    \task 120
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+In a regular polygon, all interior angles are equal. A hexagon has interior angles of $120^\circ$. When diagonals are drawn from a single vertex, they divide the interior angle into $n-2$ triangles. In a regular polygon, these divisions are often symmetrical.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+The interior angle of a regular hexagon is $120^\circ$. The triangle formed by the diagonal and two sides of the hexagon is an isosceles triangle because all sides of a regular hexagon are equal. In this triangle, the vertex angle is the hexagon's interior angle ($120^\circ$). The remaining $180 - 120 = 60^\circ$ must be split equally between the two base angles. Therefore, each base angle (including angle $a$) is $60 / 2 = 30^\circ$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 10
+% Category: Practice | Difficulty: Medium | Question Type: MCQ
+\question
+A quadrilateral has three interior angles measuring $85^\circ, 95^\circ$, and $105^\circ$. What is the measure of the fourth interior angle?
+\begin{tasks}(4)
+    \task $75^\circ$
+    \task $85^\circ$
+    \task $95^\circ$
+    \task $105^\circ$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The sum of the interior angles of any quadrilateral is $(4 - 2) \times 180 = 360^\circ$. The missing angle is found by subtracting the sum of the known angles from 360.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+Calculate the sum of the three known angles: $85 + 95 + 105 = 285^\circ$. Subtract this total from the quadrilateral sum: $360 - 285 = 75^\circ$. Thus, the fourth angle must measure 75 degrees to complete the interior sum.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+% Lid 043: Geometry & Trigonometry
+% Questions 11-50
+
+% Question 11
+% Category: Exam Level | Difficulty: Medium | Question Type: MCQ
+\question
+A convex polygon has $n$ sides. If the sum of the interior angles of the polygon is $1,080^\circ$, what is the value of $n$?
+\begin{tasks}(4)
+    \task 6
+    \task 7
+    \task 8
+    \task 10
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The relationship between the number of sides $n$ and the sum of the interior angles $S$ is defined by the formula $S = (n - 2) \times 180$. To find the number of sides, we set the given sum equal to this formula and solve for $n$.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+First, set up the equation: $1080 = (n - 2) \times 180$. To isolate the term $(n - 2)$, divide both sides of the equation by 180. The calculation $1080 / 180$ results in 6. This gives the simplified equation $6 = n - 2$. Finally, add 2 to both sides to solve for $n$. The calculation $6 + 2$ results in 8. Thus, the polygon has 8 sides, making it an octagon.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 12
+% Category: Practice | Difficulty: Medium | Question Type: Numeric Entry
+\question
+In a regular nonagon (a 9-sided polygon), what is the measure, in degrees, of one exterior angle?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+For any convex polygon, the sum of the exterior angles, taking one at each vertex, is always $360^\circ$. In a regular polygon, all exterior angles are congruent. Therefore, the measure of one exterior angle is found by dividing 360 by the number of sides.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+Identify the number of sides for a nonagon, which is $n = 9$. Use the exterior angle formula: $\text{Exterior Angle} = 360 / n$. Substitute the value of $n$: $360 / 9$. Performing the division results in 40. Each exterior angle of a regular nonagon measures 40 degrees.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{40}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 13
+% Category: Exam Level | Difficulty: Hard | Question Type: MCQ
+\question
+The measure of an interior angle of a regular polygon is 5 times the measure of its exterior angle. How many sides does the polygon have?
+\begin{tasks}(4)
+    \task 10
+    \task 12
+    \task 15
+    \task 18
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+At any vertex of a polygon, the interior angle and the exterior angle are supplementary, meaning their sum is $180^\circ$. We can represent these measures algebraically to find the number of sides.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+Let the measure of the exterior angle be $e$. Then the interior angle is $5e$. Set up the supplementary equation: $e + 5e = 180$. Combine like terms: $6e = 180$. Divide by 6 to find the exterior angle: $e = 30^\circ$. Now, use the exterior angle sum property to find the number of sides $n$: $n = 360 / e$. Substitute 30 for $e$: $n = 360 / 30$. Performing the division gives $n = 12$. The polygon has 12 sides.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 14
+% Category: Practice | Difficulty: Medium | Question Type: MCQ
+\question
+\begin{center}
+\begin{tikzpicture}
+\draw[thick] (0,0) -- (2,0) -- (2.5,1.5) -- (1,2.5) -- (-0.5,1.5) -- cycle;
+\node at (1,0.3) {$(3x)^\circ$};
+\node at (1.8,1) {$(4x)^\circ$};
+\node at (1,2) {$(2x)^\circ$};
+\node at (0.2,1) {$(4x)^\circ$};
+\node at (1,-0.3) {Pentagon $P$};
+\end{tikzpicture}
+\end{center}
+If the five interior angles of pentagon $P$ are $3x, 4x, 2x, 4x,$ and $5x$, what is the value of $x$?
+\begin{tasks}(4)
+    \task 18
+    \task 30
+    \task 36
+    \task 54
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The sum of the interior angles of a pentagon is always $(5-2) \times 180 = 540^\circ$. To find the value of a variable within these angles, sum the algebraic expressions and set them equal to 540.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+First, sum the given angle expressions: $3x + 4x + 2x + 4x + 5x = 18x$. Set this total equal to the pentagon interior sum: $18x = 540$. To solve for $x$, divide both sides of the equation by 18. The calculation $540 / 18$ results in $x = 30$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 15
+% Category: Exam Level | Difficulty: Hard | Question Type: Numeric Entry
+\question
+A regular polygon has interior angles that each measure $162^\circ$. How many sides does this polygon have?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+While you can use the interior angle formula, it is often faster to find the measure of the exterior angle first. Since interior and exterior angles are supplementary, $\text{Exterior Angle} = 180 - \text{Interior Angle}$.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+Step 1: Calculate the measure of one exterior angle. $180 - 162 = 18^\circ$. Step 2: Use the relationship that the number of sides $n$ equals the total exterior sum divided by one exterior angle. $n = 360 / 18$. Step 3: Perform the division. $360 / 18 = 20$. The polygon has 20 sides.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{20}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 16
+% Category: Practice | Difficulty: Medium | Question Type: MCQ
+\question
+The sum of the interior angles of a convex polygon is $1,800^\circ$. If the polygon is regular, what is the measure of each interior angle?
+\begin{tasks}(4)
+    \task $120^\circ$
+    \task $144^\circ$
+    \task $150^\circ$
+    \task $160^\circ$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+In a regular polygon, every interior angle is identical. To find the measure of one angle, we must first determine the number of sides using the sum formula and then divide the total sum by that number of sides.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+Step 1: Find the number of sides $n$. $(n - 2) \times 180 = 1800$. Dividing by 180 gives $n - 2 = 10$, so $n = 12$. Step 2: Divide the total sum by the number of angles. $\text{One Angle} = 1800 / 12$. Performing the division results in 150. Each interior angle of the regular 12-gon measures 150 degrees.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 17
+% Category: Exam Level | Difficulty: Hard | Question Type: MCQ
+\question
+Two angles of a quadrilateral are $70^\circ$ and $110^\circ$. The other two angles are in a ratio of 4:5. What is the measure of the largest angle in the quadrilateral?
+\begin{tasks}(4)
+    \task $80^\circ$
+    \task $100^\circ$
+    \task $110^\circ$
+    \task $120^\circ$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The sum of the angles in any quadrilateral is $360^\circ$. We subtract the known angles from this total and then use the remaining sum to solve for the unknown angles using their given ratio.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+Step 1: Find the sum of the remaining two angles. $360 - (70 + 110) = 360 - 180 = 180^\circ$. Step 2: Represent the two angles using the ratio 4:5 as $4x$ and $5x$. Step 3: Set up the sum equation: $4x + 5x = 180$. Combine terms: $9x = 180$, which means $x = 20$. Step 4: Calculate the two angles: $4(20) = 80^\circ$ and $5(20) = 100^\circ$. Step 5: Compare all angles: $70, 110, 80, 100$. The largest angle is 110 degrees.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 18
+% Category: Practice | Difficulty: Easy | Question Type: MCQ
+\question
+As the number of sides of a regular polygon increases, what happens to the measure of each exterior angle?
+\begin{tasks}(1)
+    \task It increases.
+    \task It decreases.
+    \task It stays the same ($360^\circ$).
+    \task It becomes greater than the interior angle.
+    \end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The measure of one exterior angle of a regular polygon is given by $360 / n$. This is an inverse relationship between the number of sides and the size of the angle.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+Since the total sum of exterior angles is fixed at $360^\circ$, adding more vertices means that the "turn" required at each vertex must become smaller to complete the same $360^\circ$ rotation. Mathematically, as $n$ (the denominator) increases, the value of the fraction $360/n$ must decrease.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 19
+% Category: Exam Level | Difficulty: Hard | Question Type: Numeric Entry
+\question
+A regular polygon has a total of 20 diagonals. How many sides does this polygon have?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The number of diagonals $D$ in a polygon with $n$ sides is given by the formula $D = \frac{n(n - 3)}{2}$. We solve for $n$ by setting $D = 20$.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+Set up the equation: $20 = \frac{n(n - 3)}{2}$. Multiply both sides by 2: $40 = n^2 - 3n$. Rearrange into a quadratic equation: $n^2 - 3n - 40 = 0$. Factoring the quadratic: $(n - 8)(n + 5) = 0$. Since the number of sides must be positive, $n = 8$. The polygon is an octagon.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{8}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 20
+% Category: Practice | Difficulty: Medium | Question Type: MCQ
+\question
+\begin{center}
+\begin{tikzpicture}
+\draw[thick] (0,0) -- (3,0) -- (3,2) -- (0,2) -- cycle;
+\draw[thick] (0,2) -- (1.5,3) -- (3,2);
+\node at (1.5,1) {House Shape};
+\end{tikzpicture}
+\end{center}
+A "house" shape is formed by placing an equilateral triangle on top of a square. What is the measure of the interior angle formed where the triangle meets the square?
+\begin{tasks}(4)
+    \task $90^\circ$
+    \task $120^\circ$
+    \task $150^\circ$
+    \task $180^\circ$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+To find the total interior angle of a composite figure, you sum the individual interior angles of the polygons that meet at that vertex.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+The vertex in question is shared by a square and an equilateral triangle. The interior angle of a square is $90^\circ$. The interior angle of an equilateral triangle is $60^\circ$. To find the total measure of the combined interior angle of the resulting pentagon at that vertex, add the two measures: $90 + 60 = 150^\circ$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 21
+% Category: Practice | Difficulty: Easy | Question Type: MCQ
+\question
+What is the sum of the interior angles of a quadrilateral?
+\begin{tasks}(4)
+    \task $180^\circ$
+    \task $360^\circ$
+    \task $540^\circ$
+    \task $720^\circ$
+\end{tasks}
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+Use the formula $(n - 2) \times 180$. For a quadrilateral, $n = 4$. $(4 - 2) \times 180 = 2 \times 180 = 360^\circ$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 22
+% Category: Exam Level | Difficulty: Medium | Question Type: Numeric Entry
+\question
+A regular polygon has 15 sides. What is the measure of each interior angle?
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+Total sum: $(15 - 2) \times 180 = 13 \times 180 = 2,340^\circ$. Measure of one angle: $2,340 / 15$. Performing the division results in 156. Each interior angle is 156 degrees.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{156}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 23
+% Category: Practice | Difficulty: Medium | Question Type: MCQ
+\question
+If the sum of the interior angles of a polygon is $2,700^\circ$, how many sides does it have?
+\begin{tasks}(4)
+    \task 13
+    \task 15
+    \task 17
+    \task 19
+\end{tasks}
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+$(n - 2) \times 180 = 2700$. Divide by 180: $n - 2 = 15$. Add 2: $n = 17$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 24
+% Category: Exam Level | Difficulty: Hard | Question Type: MCQ
+\question
+In a convex hexagon, five of the angles measure $100^\circ, 110^\circ, 120^\circ, 130^\circ,$ and $140^\circ$. What is the measure of the sixth angle?
+\begin{tasks}(4)
+    \task $100^\circ$
+    \task $110^\circ$
+    \task $120^\circ$
+    \task $130^\circ$
+\end{tasks}
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+Hexagon interior sum: $(6 - 2) \times 180 = 720^\circ$. Sum of five known angles: $100 + 110 + 120 + 130 + 140 = 600^\circ$. Sixth angle: $720 - 600 = 120^\circ$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 25
+% Category: Practice | Difficulty: Easy | Question Type: MCQ
+\question
+Which polygon has an interior angle sum equal to its exterior angle sum?
+\begin{tasks}(4)
+    \task Triangle
+    \task Quadrilateral
+    \task Pentagon
+    \task Hexagon
+\end{tasks}
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+Exterior sum is always $360^\circ$. Interior sum of a quadrilateral is $(4 - 2) \times 180 = 360^\circ$. Therefore, the quadrilateral is the only polygon where these two sums are equal.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 26
+% Category: Exam Level | Difficulty: Medium | Question Type: Numeric Entry
+\question
+What is the measure of one exterior angle of a regular decagon?
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+Total exterior sum = $360^\circ$. A decagon has $n = 10$ sides. One exterior angle: $360 / 10 = 36^\circ$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{36}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 27
+% Category: Practice | Difficulty: Medium | Question Type: MCQ
+\question
+The measure of each interior angle of a regular polygon is $140^\circ$. How many sides does it have?
+\begin{tasks}(4)
+    \task 7
+    \task 8
+    \task 9
+    \task 10
+\end{tasks}
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+Exterior angle: $180 - 140 = 40^\circ$. Number of sides $n = 360 / 40 = 9$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 28
+% Category: Exam Level | Difficulty: Hard | Question Type: MCQ
+\question
+A polygon has $n$ sides. If each interior angle is $150^\circ$, what is the sum of the interior angles?
+\begin{tasks}(4)
+    \task $1,080^\circ$
+    \task $1,440^\circ$
+    \task $1,800^\circ$
+    \task $2,160^\circ$
+\end{tasks}
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+Exterior angle: $180 - 150 = 30^\circ$. Number of sides $n = 360 / 30 = 12$. Total interior sum: $(12 - 2) \times 180 = 10 \times 180 = 1,800^\circ$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 29
+% Category: Practice | Difficulty: Easy | Question Type: MCQ
+\question
+Is it possible for a regular polygon to have an interior angle of $70^\circ$?
+\begin{tasks}(1)
+    \task Yes, it would be a triangle.
+    \task Yes, it would be a heptagon.
+    \task No, because the exterior angle would not divide 360 evenly.
+    \task No, because $n$ would be less than 3.
+\end{tasks}
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+If interior is 70, exterior is $180 - 70 = 110$. Number of sides $n = 360 / 110 \approx 3.27$. Since a polygon must have an integer number of sides, this is impossible. Additionally, the smallest interior angle for a regular polygon is $60^\circ$ (equilateral triangle).
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 30
+% Category: Exam Level | Difficulty: Medium | Question Type: Numeric Entry
+\question
+In a quadrilateral, the angles are $x, 2x, 3x,$ and $4x$. What is the measure of the smallest angle?
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+Sum of angles: $x + 2x + 3x + 4x = 10x$. Set equal to 360: $10x = 360 \Rightarrow x = 36$. The smallest angle is $x = 36^\circ$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{36}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 31
+% Category: Practice | Difficulty: Medium | Question Type: MCQ
+\question
+Which of the following is the sum of interior angles for a 20-gon?
+\begin{tasks}(4)
+    \task $3,240^\circ$
+    \task $3,600^\circ$
+    \task $3,960^\circ$
+    \task $4,320^\circ$
+\end{tasks}
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+$(20 - 2) \times 180 = 18 \times 180 = 3,240^\circ$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 32
+% Category: Exam Level | Difficulty: Hard | Question Type: MCQ
+\question
+A regular polygon has an exterior angle of $x^\circ$ and an interior angle of $(2x + 60)^\circ$. How many sides does it have?
+\begin{tasks}(4)
+    \task 6
+    \task 8
+    \task 9
+    \task 12
+\end{tasks}
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+$x + (2x + 60) = 180 \Rightarrow 3x = 120 \Rightarrow x = 40$. Exterior angle is 40. $n = 360 / 40 = 9$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 33
+% Category: Practice | Difficulty: Easy | Question Type: Numeric Entry
+\question
+A triangle has two angles measuring $45^\circ$ and $55^\circ$. What is the measure of the third angle?
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+$180 - (45 + 55) = 180 - 100 = 80^\circ$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{80}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 34
+% Category: Exam Level | Difficulty: Medium | Question Type: MCQ
+\question
+What is the sum of the interior angles of a heptagon?
+\begin{tasks}(4)
+    \task $720^\circ$
+    \task $900^\circ$
+    \task $1,080^\circ$
+    \task $1,260^\circ$
+\end{tasks}
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+A heptagon has $n = 7$ sides. $(7 - 2) \times 180 = 5 \times 180 = 900^\circ$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 35
+% Category: Practice | Difficulty: Medium | Question Type: MCQ
+\question
+If a regular polygon has 20 sides, what is the measure of each exterior angle?
+\begin{tasks}(4)
+    \task $18^\circ$
+    \task $20^\circ$
+    \task $36^\circ$
+    \task $72^\circ$
+\end{tasks}
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+$360 / 20 = 18^\circ$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 36
+% Category: Exam Level | Difficulty: Hard | Question Type: Numeric Entry
+\question
+The ratio of an interior angle to an exterior angle of a regular polygon is 7:2. How many sides does the polygon have?
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+$7x + 2x = 180 \Rightarrow 9x = 180 \Rightarrow x = 20$. Exterior angle = $2(20) = 40^\circ$. Number of sides $n = 360 / 40 = 9$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{9}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 37
+% Category: Practice | Difficulty: Easy | Question Type: MCQ
+\question
+Which of the following is NOT possible for an exterior angle of a regular polygon?
+\begin{tasks}(4)
+    \task $60^\circ$
+    \task $90^\circ$
+    \task $100^\circ$
+    \task $120^\circ$
+\end{tasks}
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+For a regular polygon, $360/e$ must be an integer $\ge 3$. $360/60=6$, $360/90=4$, $360/120=3$. $360/100 = 3.6$, which is not an integer.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 38
+% Category: Exam Level | Difficulty: Medium | Question Type: MCQ
+\question
+In a pentagon, four angles measure $110^\circ, 100^\circ, 90^\circ,$ and $120^\circ$. Find the fifth angle.
+\begin{tasks}(4)
+    \task $110^\circ$
+    \task $120^\circ$
+    \task $130^\circ$
+    \task $140^\circ$
+\end{tasks}
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+Pentagon sum = $540^\circ$. Sum of four: $110 + 100 + 90 + 120 = 420^\circ$. Fifth angle: $540 - 420 = 120^\circ$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 39
+% Category: Practice | Difficulty: Medium | Question Type: Numeric Entry
+\question
+A regular polygon has each exterior angle measuring $15^\circ$. How many sides does it have?
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+$n = 360 / 15 = 24$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{24}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 40
+% Category: Exam Level | Difficulty: Hard | Question Type: MCQ
+\question
+If the number of sides of a regular polygon is doubled, what happens to the sum of the exterior angles?
+\begin{tasks}(1)
+    \task It is doubled.
+    \task It is halved.
+    \task It stays the same.
+    \task It increases by $360^\circ$.
+\end{tasks}
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+The sum of exterior angles for any convex polygon is always $360^\circ$, independent of $n$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 41
+% Category: Practice | Difficulty: Easy | Question Type: MCQ
+\question
+Sum of exterior angles of a triangle?
+\begin{tasks}(4)
+    \task $180^\circ$
+    \task $360^\circ$
+    \task $540^\circ$
+    \task $720^\circ$
+\end{tasks}
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+Always $360^\circ$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 42
+% Category: Exam Level | Difficulty: Medium | Question Type: Numeric Entry
+\question
+A regular octagon has how many diagonals?
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+$D = \frac{n(n - 3)}{2}$. For $n = 8$: $D = \frac{8(5)}{2} = 40 / 2 = 20$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{20}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 43
+% Category: Practice | Difficulty: Hard | Question Type: MCQ
+\question
+If each interior angle of a regular polygon is $144^\circ$, what is its name?
+\begin{tasks}(4)
+    \task Hexagon
+    \task Octagon
+    \task Decagon
+    \task Dodecagon
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+To identify the polygon by name, we first need to determine the number of sides ($n$) based on the given interior angle measure.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+First, find the measure of one exterior angle by subtracting the interior angle from 180 degrees: $180 - 144 = 36^\circ$. Next, use the exterior angle sum property to solve for $n$: $n = 360 / 36$. Performing the division results in 10. A polygon with 10 sides is called a decagon.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 44
+% Category: Exam Level | Difficulty: Hard | Question Type: MCQ
+\question
+In similar quadrilaterals $ABCD$ and $PQRS$, the ratio of their corresponding sides is 2:3. If the sum of the angles in $ABCD$ is $K$, what is the sum of the angles in $PQRS$?
+\begin{tasks}(4)
+    \task $K$
+    \task $1.5K$
+    \task $2.25K$
+    \task $360^\circ$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The sum of the interior angles of a polygon is determined solely by the number of sides it has, not by the length of its sides or its overall area.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+Both figures are quadrilaterals, meaning they both have exactly 4 sides. According to the formula $(n-2) \times 180$, the interior angle sum for any quadrilateral is $(4-2) \times 180 = 360^\circ$. Therefore, $K = 360^\circ$. Since $PQRS$ is also a quadrilateral, its angle sum must also be $360^\circ$, which is equal to $K$. Similarity affects side lengths and area, but it does not change the polygon's fundamental angle sum.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 45
+% Category: Practice | Difficulty: Medium | Question Type: Numeric Entry
+\question
+A convex polygon has $14$ sides. What is the total sum of its interior angles in degrees?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The sum of interior angles increases as more sides are added to a polygon. We apply the standard polygon sum formula to calculate this total.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+Identify the number of sides, which is $n = 14$. Apply the formula: $S = (n - 2) \times 180$. Substitute 14 for $n$: $S = (14 - 2) \times 180$. Simplify the subtraction: $S = 12 \times 180$. Perform the multiplication: $12 \times 100 = 1200$ and $12 \times 80 = 960$. Adding these together, $1200 + 960 = 2,160$. The total sum is 2,160 degrees.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{2160}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 46
+% Category: Practice | Difficulty: Easy | Question Type: MCQ
+\question
+Which of the following values could NOT be the sum of the interior angles of a convex polygon?
+\begin{tasks}(4)
+    \task $180^\circ$
+    \task $360^\circ$
+    \task $450^\circ$
+    \task $540^\circ$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The sum of interior angles must be a multiple of 180 degrees because the formula is $(n-2) \times 180$, where $n-2$ must be a positive integer.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+Test each choice by dividing by 180:
+$180 / 180 = 1$ (possible, $n=3$).
+$360 / 180 = 2$ (possible, $n=4$).
+$540 / 180 = 3$ (possible, $n=5$).
+$450 / 180 = 2.5$.
+Because 450 is not an even multiple of 180, it is mathematically impossible for a convex polygon to have an interior sum of 450 degrees.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 47
+% Category: Exam Level | Difficulty: Hard | Question Type: MCQ
+\question
+A regular polygon is such that the ratio of its number of diagonals to its number of sides is 2:1. How many sides does the polygon have?
+\begin{tasks}(4)
+    \task 5
+    \task 7
+    \task 9
+    \task 10
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+We use the diagonal formula $D = \frac{n(n-3)}{2}$ and the given ratio to set up an algebraic equation to solve for $n$.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+The ratio of diagonals to sides is $D/n = 2/1$. Substitute the formula for $D$: $\frac{n(n-3)}{2} \div n = 2$. Simplify the left side by canceling out $n$: $\frac{n-3}{2} = 2$. Multiply both sides by 2: $n - 3 = 4$. Add 3 to both sides: $n = 7$. The polygon has 7 sides.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 48
+% Category: Practice | Difficulty: Medium | Question Type: Numeric Entry
+\question
+In a regular polygon, each exterior angle is $12^\circ$. What is the sum of the interior angles of this polygon?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+This is a two-step problem. First, find the number of sides using the exterior angle measure. Second, use the number of sides to find the total interior sum.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+Step 1: Find the number of sides $n$. $n = 360 / 12 = 30$. Step 2: Find the interior sum using $n = 30$. $S = (30 - 2) \times 180$. $S = 28 \times 180$. Perform the multiplication: $28 \times 18 = 504$. Therefore, $28 \times 180 = 5,040$. The total interior sum is 5,040 degrees.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{5040}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 49
+% Category: Practice | Difficulty: Easy | Question Type: MCQ
+\question
+If a convex polygon has $n$ sides, how many triangles can it be divided into by drawing all possible diagonals from a single vertex?
+\begin{tasks}(4)
+    \task $n$
+    \task $n - 1$
+    \task $n - 2$
+    \task $n - 3$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+This concept forms the basis of the interior angle sum formula. Every time you draw a diagonal from one vertex to another, you create a new triangle within the polygon.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+Consider a square ($n=4$). One diagonal from a vertex creates 2 triangles ($4-2$). Consider a pentagon ($n=5$). Two diagonals from a single vertex create 3 triangles ($5-2$). This pattern holds for all convex polygons: the number of triangles is always 2 less than the number of sides. Thus, the correct expression is $n - 2$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 50
+% Category: Exam Level | Difficulty: Hard | Question Type: Numeric Entry
+\question
+A regular polygon has interior angles that are $150^\circ$ each. If the side length of this polygon is 5 units, what is the perimeter of the polygon?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Perimeter is the total length of the boundary, calculated by multiplying the number of sides by the length of one side. We must first find the number of sides from the angle measure.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+Step 1: Find the exterior angle. $180 - 150 = 30^\circ$. Step 2: Find the number of sides $n$. $n = 360 / 30 = 12$. Step 3: Calculate the perimeter. $\text{Perimeter} = n \times \text{side length}$. $\text{Perimeter} = 12 \times 5 = 60$. The perimeter of the regular 12-gon is 60 units.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{60}
+\end{solution}
+
+
+% =============================================================
+% Question End
+% =============================================================
+
+\end{questions}
+\begin{center}
+\rule{.5\textwidth}{1pt}
+\end{center}
+\end{document}

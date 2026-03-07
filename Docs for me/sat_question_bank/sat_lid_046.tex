@@ -1,0 +1,1429 @@
+\documentclass[11pt,paper=a4,answers]{exam}
+\usepackage{graphicx,lastpage}
+\usepackage{upgreek}
+\usepackage{censor}
+\usepackage{gensymb}
+\usepackage{amsmath}
+\usepackage{multicol}
+\usepackage{enumitem}
+\usepackage{tasks}
+\usepackage{adjustbox}
+\usepackage{xcolor}
+\usepackage{tfrupee}
+\setlength{\voffset}{0.25in}
+\usepackage{tabularx}
+\newcolumntype{Y}{>{\centering\arraybackslash}X}
+%==============================================================
+% Customise Non-Essential Packages Below
+% =============================================================
+\usepackage[most]{tcolorbox}
+\usepackage{eso-pic}
+\usepackage{tikz}
+\AddToShipoutPictureBG{%
+\begin{tikzpicture}[remember picture,overlay]
+\foreach \x in {-8,-4,0,4,8,12,16,20}
+\foreach \y in {-8,-4,0,4,8,12,16,20} {
+\node[opacity=0.05,rotate=45,anchor=center] at ([xshift=\x cm,yshift=\y cm]current page.center) {%
+\begin{minipage}{2cm}
+\centering
+\includegraphics[width=2cm]{images/logo_black.png}\\
+\small preppeo.com
+\end{minipage}%
+};
+}
+\end{tikzpicture}%
+}
+\printanswers
+
+%==============================================================
+% Customise Non-Essential Packages Above
+% =============================================================
+\definecolor{svgray}{rgb}{0.90, 0.90, 0.90}
+\graphicspath{{images/}}
+
+\usepackage[normalem]{ulem}
+\renewcommand\ULthickness{1pt}   %%---> For changing thickness of underline
+\setlength\ULdepth{3.5ex}%\maxdimen ---> For changing depth of underline
+\renewcommand{\baselinestretch}{1}
+\chead{
+\includegraphics[scale=0.1,height=2cm ]{logo.png}
+}
+\pagestyle{empty}
+
+\pagestyle{headandfoot}
+\headrule
+\cfoot{W: https://preppeo.com; M: +91-8130711689}
+
+\begin{document}
+%==============================================================
+% Customise Question paper details below this
+% =============================================================
+\begin{center}
+    \centering
+    \renewcommand{\arraystretch}{1.5}
+    \begin{tabularx}{\textwidth}{YYY}
+    & \normalsize\bf{{\Large{{Quantitative Reasoning}}}} & \\
+    By Preppeo & \normalsize\bf{{sat\_lid\_046}} & SAT\\
+    \normalsize{{\textbf{{Unit:}} Triangles}} & \normalsize{{\textbf{{Chapter:}} Triangles, Pythagorean theorem, similar triangles}} & \normalsize{{\textbf{{Topic:}} Similar Triangles}} \\
+    \end{tabularx}
+\end{center}
+\par\noindent\rule{\textwidth}{1pt}
+% =============================================================
+% Customise Question paper details above this
+% =============================================================
+
+\begin{questions}
+\pointsinrightmargin
+\pointsdroppedatright
+\marksnotpoints
+\pointpoints{mark}{marks}
+\pointformat{\boldmath\themarginpoints}
+\bracketedpoints
+
+% =============================================================
+% Question Begin
+% =============================================================
+
+% LID: sat_lid_046
+% Topic: Geometry & Trigonometry; Triangles; Triangles, Pythagorean theorem, similar triangles; Similar Triangles
+
+%Q: 1
+% Category: Concept | Difficulty: Easy | Question Type: Multiple Choice
+\question
+In the figure below, $\triangle ABC$ is similar to $\triangle DEF$. If the ratio of the length of side $AB$ to the length of side $DE$ is $2:5$, and the length of side $BC$ is 8, what is the length of side $EF$?
+\begin{center}
+\begin{tikzpicture}[scale=0.6]
+    \draw[thick] (0,0) node[anchor=north]{$A$} -- (3,0) node[anchor=north]{$C$} -- (1,2) node[anchor=south]{$B$} -- cycle;
+    \begin{scope}[shift={(5,0)}]
+    \draw[thick] (0,0) node[anchor=north]{$D$} -- (7.5,0) node[anchor=north]{$F$} -- (2.5,5) node[anchor=south]{$E$} -- cycle;
+    \end{scope}
+\end{tikzpicture}
+\end{center}
+\begin{tasks}(2)
+    \task 3.2
+    \task 10
+    \task 16
+    \task 20
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+When two triangles are similar, the ratios of their corresponding sides are equal. We can set up a proportion using the given scale factor of $2:5$.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+The ratio is $\frac{AB}{DE} = \frac{BC}{EF}$. \\
+Substituting the known values: $\frac{2}{5} = \frac{8}{EF}$. \\
+Cross-multiplying gives $2(EF) = 40$. \\
+Dividing by 2, we find $EF = 20$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{D}
+\end{solution}
+
+---
+
+%Q: 2
+% Category: Exam Style | Difficulty: Medium | Question Type: Multiple Choice
+\question
+In the figure below, $\overline{BD}$ is parallel to $\overline{AE}$. If $CD = 6$, $DE = 3$, and $BC = 8$, what is the length of segment $AB$?
+\begin{center}
+\begin{tikzpicture}[scale=0.8]
+    \draw[thick] (0,0) node[anchor=north]{$C$} -- (6,0) node[anchor=north]{$E$};
+    \draw[thick] (0,0) -- (6,3) node[anchor=south]{$A$};
+    \draw[thick] (4,0) node[anchor=north]{$D$} -- (4,2) node[anchor=south west]{$B$};
+    \draw[thick] (6,0) -- (6,3);
+    \node at (2,-0.4) {6};
+    \node at (5,-0.4) {3};
+\end{tikzpicture}
+\end{center}
+\begin{tasks}(2)
+    \task 4
+    \task 12
+    \task 15
+    \task 24
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Because $\overline{BD} \parallel \overline{AE}$, $\triangle CBD$ is similar to $\triangle CAE$ by Angle-Angle similarity. Note that the side $CE$ is the sum of $CD$ and $DE$.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+First, find $CE$: $6 + 3 = 9$. \\
+The ratio of the sides is $\frac{CD}{CE} = \frac{BC}{AC}$. \\
+$\frac{6}{9} = \frac{8}{AC} \implies \frac{2}{3} = \frac{8}{AC}$. \\
+$2(AC) = 24 \implies AC = 12$. \\
+The question asks for $AB$, which is $AC - BC$. \\
+$AB = 12 - 8 = 4$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+---
+
+%Q: 3
+% Category: Practice | Difficulty: Hard | Question Type: Numeric Entry
+\question
+In right triangle $ABC$, an altitude is drawn from the right angle $C$ to the hypotenuse $AB$, intersecting at point $D$. If $AD = 4$ and $DB = 9$, what is the length of the altitude $CD$?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+When an altitude is drawn to the hypotenuse of a right triangle, it creates two smaller triangles that are both similar to the original triangle and to each other. This allows us to use the Geometric Mean theorem: $CD^2 = AD \times DB$.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+Using the similarity ratio $\frac{AD}{CD} = \frac{CD}{DB}$: \\
+$CD^2 = 4 \times 9$. \\
+$CD^2 = 36$. \\
+$CD = 6$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{6}
+\end{solution}
+
+
+% LID: sat_lid_046
+% Topic: Geometry & Trigonometry; Triangles; Triangles, Pythagorean theorem, similar triangles; Similar Triangles
+
+%Q: 4
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+A 6-foot tall man stands so that his shadow exactly overlaps the end of the shadow cast by a 24-foot tall flagpole. If the man is 30 feet away from the flagpole, how long is the man's shadow, in feet?
+\begin{center}
+\begin{tikzpicture}[scale=0.15]
+    \draw[thick] (0,0) -- (40,0);
+    \draw[ultra thick] (0,24) -- (0,0) node[midway, left]{24};
+    \draw[thick] (30,6) -- (30,0) node[midway, right]{6};
+    \draw[dashed] (0,24) -- (40,0);
+    \node at (20, -3) {30};
+    \node at (35, -3) {$s$};
+\end{tikzpicture}
+\end{center}
+\begin{tasks}(2)
+    \task 6
+    \task 10
+    \task 12
+    \task 15
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The flagpole and the man create two nested similar right triangles because they both stand perpendicular to the ground and share the angle of the sun's rays. Let $s$ be the length of the man's shadow. The total base of the large triangle is $30 + s$.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+Set up the proportion: $\frac{\text{Height of Man}}{\text{Height of Flagpole}} = \frac{\text{Shadow of Man}}{\text{Total Base}}$ \\
+$\frac{6}{24} = \frac{s}{30 + s}$ \\
+$\frac{1}{4} = \frac{s}{30 + s}$ \\
+$30 + s = 4s \implies 30 = 3s \implies s = 10$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+---
+
+%Q: 5
+% Category: Exam Style | Difficulty: Medium | Question Type: Multiple Choice
+\question
+In the figure below, $\overline{XY} \parallel \overline{RS}$. If $PX = 4$, $XR = 6$, and $XY = 5$, what is the length of segment $RS$?
+\begin{center}
+\begin{tikzpicture}[scale=0.8]
+    \draw[thick] (0,0) node[anchor=south]{$P$} -- (-2,-4) node[anchor=north]{$R$} -- (2,-4) node[anchor=north]{$S$} -- cycle;
+    \draw[thick] (-0.8,-1.6) node[anchor=east]{$X$} -- (0.8,-1.6) node[anchor=west]{$Y$};
+    \node at (-0.3, -0.8) {4};
+    \node at (-1.5, -2.8) {6};
+    \node at (0, -1.8) {5};
+\end{tikzpicture}
+\end{center}
+\begin{tasks}(2)
+    \task 7.5
+    \task 10
+    \task 12.5
+    \task 15
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Because $\overline{XY}$ is parallel to $\overline{RS}$, $\triangle PXY$ is similar to $\triangle PRS$. The side $PR$ corresponds to $PX$, and $RS$ corresponds to $XY$. Note that $PR = PX + XR$.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+$PR = 4 + 6 = 10$. \\
+The proportion is $\frac{PX}{PR} = \frac{XY}{RS}$. \\
+$\frac{4}{10} = \frac{5}{RS} \implies 4(RS) = 50$. \\
+$RS = 50 / 4 = 12.5$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+---
+
+%Q: 6
+% Category: Practice | Difficulty: Hard | Question Type: Numeric Entry
+\question
+The ratio of the lengths of corresponding sides of two similar triangles is $3:7$. If the area of the smaller triangle is 18, what is the area of the larger triangle?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+For similar figures, if the side ratio is $a:b$, the area ratio is $a^2:b^2$. This is a consistent rule for all similar shapes on the SAT.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+Side ratio $= 3:7$. \\
+Area ratio $= 3^2:7^2 = 9:49$. \\
+Set up the proportion: $\frac{9}{49} = \frac{18}{\text{Area}_{large}}$. \\
+Since $9 \times 2 = 18$, we find $\text{Area}_{large} = 49 \times 2 = 98$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{98}
+\end{solution}
+
+---
+
+%Q: 7
+% Category: Exam Style | Difficulty: Medium | Question Type: Multiple Choice
+\question
+In the figure below, $\angle ABC = \angle ADE = 90^\circ$. If $AD = 15$, $AE = 17$, and $AC = 10$, what is the length of segment $BC$?
+\begin{center}
+\begin{tikzpicture}[scale=0.4]
+    \draw[thick] (0,0) node[anchor=north east]{$A$} -- (15,0) node[anchor=north]{$D$} -- (15,8) node[anchor=south west]{$E$} -- cycle;
+    \draw[thick] (10,0) node[anchor=north]{$C$} -- (10,5.33) node[anchor=south east]{$B$};
+    \draw (14,0) -- (14,1) -- (15,1);
+    \draw (9,0) -- (9,1) -- (10,1);
+\end{tikzpicture}
+\end{center}
+\begin{tasks}(2)
+    \task 5.33
+    \task 6
+    \task 8
+    \task 10.67
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The triangles $\triangle ABC$ and $\triangle ADE$ share angle $A$ and both have a right angle, so they are similar by AA. We first find the missing side $DE$ of the large triangle using the Pythagorean theorem, then use similarity.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+In $\triangle ADE$, $DE = \sqrt{17^2 - 15^2} = \sqrt{289 - 225} = \sqrt{64} = 8$. \\
+The proportion is $\frac{AC}{AD} = \frac{BC}{DE}$. \\
+$\frac{10}{15} = \frac{BC}{8} \implies \frac{2}{3} = \frac{BC}{8}$. \\
+$3(BC) = 16 \implies BC = 16/3 = 5.33...$
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+---
+
+%Q: 8
+% Category: Practice | Difficulty: Hard | Question Type: Multiple Choice
+\question
+In the figure below, $\overline{AB} \parallel \overline{CD}$. If $AE = 12$, $ED = 4$, and $AB = 15$, what is the length of segment $CD$?
+\begin{center}
+\begin{tikzpicture}[scale=0.8]
+    \draw[thick] (0,0) node[anchor=east]{$A$} -- (4,2) node[anchor=south]{$E$} -- (8,0) node[anchor=west]{$B$} -- cycle;
+    \draw[thick] (4,2) -- (2.6,2.7) node[anchor=south]{$D$} -- (5.4,2.7) node[anchor=south]{$C$} -- cycle;
+    \draw[thick] (0,0) -- (8,0);
+\end{tikzpicture}
+\end{center}
+\begin{tasks}(2)
+    \task 5
+    \task 7.5
+    \task 10
+    \task 45
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+When lines are parallel in this "hourglass" shape, the triangles $\triangle ABE$ and $\triangle DCE$ are similar because of alternate interior angles. Side $AE$ corresponds to $DE$, and $AB$ corresponds to $CD$.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+The proportion is $\frac{AE}{DE} = \frac{AB}{CD}$. \\
+$\frac{12}{4} = \frac{15}{CD} \implies 3 = \frac{15}{CD}$. \\
+$CD = 15 / 3 = 5$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+% 
+
+---
+
+%Q: 9
+% Category: Concept | Difficulty: Easy | Question Type: Multiple Choice
+\question
+If two triangles are similar, which of the following MUST be true?
+\begin{tasks}(1)
+    \task Their areas are equal.
+    \task Their perimeters are equal.
+    \task Their corresponding angles are equal.
+    \task Their corresponding sides are equal.
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Similarity by definition means the shapes are the same but not necessarily the same size. Therefore, angles are preserved, but side lengths are scaled.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+Choice C is the definition of similarity. Choice D describes "congruent" triangles, not necessarily similar ones.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+---
+
+%Q: 10
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+A triangle has sides 6, 8, and 10. A second triangle, similar to the first, has a longest side of 15. What is the perimeter of the second triangle?
+\begin{tasks}(2)
+    \task 24
+    \task 30
+    \task 36
+    \task 48
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+We find the scale factor by comparing the longest side of each triangle. Then we can either find the individual sides of the new triangle or scale the entire perimeter of the first triangle.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+Perimeter of 1st triangle $= 6 + 8 + 10 = 24$. \\
+Scale factor $= \frac{\text{New Longest}}{\text{Old Longest}} = \frac{15}{10} = 1.5$. \\
+New Perimeter $= 24 \times 1.5 = 36$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+---
+
+%Q: 11
+% Category: Exam Style | Difficulty: Medium | Question Type: Numeric Entry
+\question
+In the figure below, $\overline{DE} \parallel \overline{AC}$. If $BD = 3$, $DA = 2$, and the area of $\triangle BDE$ is 18, what is the area of $\triangle BAC$?
+\begin{center}
+\begin{tikzpicture}[scale=0.8]
+    \draw[thick] (0,0) node[anchor=north]{$A$} -- (2,4) node[anchor=south]{$B$} -- (5,0) node[anchor=north]{$C$} -- cycle;
+    \draw[thick] (0.8,1.6) node[anchor=east]{$D$} -- (3.2,1.6) node[anchor=west]{$E$};
+\end{tikzpicture}
+\end{center}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+$\triangle BDE \sim \triangle BAC$ because $\overline{DE} \parallel \overline{AC}$. The side $BA = BD + DA$. We use the square of the side ratio to find the area ratio.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+$BA = 3 + 2 = 5$. \\
+Side ratio (Small:Large) $= 3:5$. \\
+Area ratio $= 3^2:5^2 = 9:25$. \\
+$\frac{9}{25} = \frac{18}{\text{Area}_{BAC}}$. \\
+Since $9 \times 2 = 18$, Area$_{BAC} = 25 \times 2 = 50$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{50}
+\end{solution}
+
+---
+
+%Q: 12
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+In the figure below, $\overline{AD}$ and $\overline{BE}$ intersect at $C$. If $\angle A = \angle D$, $AC = 10$, $CD = 5$, and $BC = 8$, what is the length of segment $CE$?
+\begin{center}
+\begin{tikzpicture}[scale=0.6]
+    \draw[thick] (0,3) node[anchor=south]{$A$} -- (4,0) node[anchor=north]{$C$} -- (8,3) node[anchor=south]{$E$};
+    \draw[thick] (2,-2) node[anchor=north]{$B$} -- (4,0) -- (6,-2) node[anchor=north]{$D$};
+\end{tikzpicture}
+\end{center}
+\begin{tasks}(2)
+    \task 4
+    \task 10
+    \task 16
+    \task 20
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The triangles $\triangle ABC$ and $\triangle DEC$ are similar by AA (given $\angle A = \angle D$ and vertical angles at $C$ are equal). Side $AC$ corresponds to $DC$ and $BC$ corresponds to $EC$.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+Proportion: $\frac{AC}{DC} = \frac{BC}{EC}$. \\
+$\frac{10}{5} = \frac{8}{EC} \implies 2 = \frac{8}{EC}$. \\
+$EC = 4$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+---
+
+%Q: 13
+% Category: Exam Style | Difficulty: Hard | Question Type: Multiple Choice
+\question
+A right triangle has legs of length 5 and 12. A second right triangle is similar to the first and has an area of 270. What is the length of the hypotenuse of the second triangle?
+\begin{tasks}(2)
+    \task 13
+    \task 26
+    \task 39
+    \task 65
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Find the area and hypotenuse of the first triangle. Use the area ratio to find the scale factor, then apply the scale factor to the hypotenuse.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+Area$_1 = \frac{1}{2}(5)(12) = 30$. \\
+Hypotenuse$_1 = \sqrt{5^2 + 12^2} = 13$. \\
+Area ratio $= \frac{270}{30} = 9$. \\
+Scale factor $= \sqrt{9} = 3$. \\
+Hypotenuse$_2 = 13 \times 3 = 39$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+---
+
+%Q: 14
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+In the figure below, $\triangle ABC \sim \triangle DEF$. If the perimeter of $\triangle ABC$ is 30 and the perimeter of $\triangle DEF$ is 45, what is the ratio of the length of $AC$ to the length of $DF$?
+\begin{tasks}(2)
+    \task $2:3$
+    \task $4:9$
+    \task $3:2$
+    \task $1:2$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The ratio of the perimeters of similar triangles is equal to the ratio of their corresponding side lengths.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+Ratio $= \frac{30}{45}$. \\
+Simplify by dividing both by 15: $\frac{2}{3}$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+---
+
+%Q: 15
+% Category: Practice | Difficulty: Hard | Question Type: Multiple Choice
+\question
+In right triangle $ABC$, $\angle C = 90^\circ$. If $\triangle ABC \sim \triangle DEF$ and $\cos A = 0.6$, what is the value of $\sin E$?
+\begin{tasks}(2)
+    \task 0.4
+    \task 0.6
+    \task 0.8
+    \task 1.0
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Similar triangles have equal corresponding angles. $\angle A = \angle D$ and $\angle B = \angle E$. In a right triangle, $\sin E$ is the same as $\sin B$. Since $A$ and $B$ are complementary, $\sin B = \cos A$.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+Because $\triangle ABC \sim \triangle DEF$, $\angle E$ corresponds to $\angle B$. \\
+In $\triangle ABC$, $A + B = 90^\circ$. \\
+Therefore, $\sin B = \cos A = 0.6$. \\
+So, $\sin E = 0.6$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+% LID: sat_lid_046 (Questions 16-50)
+% Topic: Geometry & Trigonometry; Triangles; Triangles, Pythagorean theorem, similar triangles; Similar Triangles
+
+%Q: 16
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+In the figure below, $\triangle ABC \sim \triangle DEF$. If the ratio of the area of $\triangle ABC$ to the area of $\triangle DEF$ is $1:16$ and $BC = 3$, what is the length of $EF$?
+\begin{tasks}(2)
+    \task 9
+    \task 12
+    \task 24
+    \task 48
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The ratio of the areas of similar triangles is the square of the ratio of their corresponding side lengths. To find the side ratio, we take the square root of the area ratio.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+Area ratio $= 1:16$. \\
+Side ratio $= \sqrt{1} : \sqrt{16} = 1:4$. \\
+Since $BC$ corresponds to $EF$: $\frac{1}{4} = \frac{3}{EF} \implies EF = 12$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+---
+
+%Q: 17
+% Category: Exam Style | Difficulty: Hard | Question Type: Multiple Choice
+\question
+In the $xy$-plane, $\triangle OPQ$ has vertices $O(0,0)$, $P(0,6)$, and $Q(8,0)$. A second triangle, $\triangle ORS$, is similar to $\triangle OPQ$ and has a vertex $R(0,3)$. If point $S$ lies on the $x$-axis, what is the area of $\triangle ORS$?
+\begin{tasks}(2)
+    \task 6
+    \task 12
+    \task 24
+    \task 48
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+We first determine the area of the original triangle and the scale factor between the two triangles using the corresponding vertical legs ($OP$ and $OR$).
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+Area of $\triangle OPQ = \frac{1}{2} \times 8 \times 6 = 24$. \\
+Side ratio (New:Old) $= \frac{OR}{OP} = \frac{3}{6} = \frac{1}{2}$. \\
+Area ratio $= (\frac{1}{2})^2 = \frac{1}{4}$. \\
+Area of $\triangle ORS = 24 \times \frac{1}{4} = 6$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+---
+
+%Q: 18
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+Two similar isosceles triangles have perimeters in the ratio $3:5$. If the base of the larger triangle is 20, what is the base of the smaller triangle?
+\begin{tasks}(2)
+    \task 10
+    \task 12
+    \task 15
+    \task 33.3
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Perimeter ratios are identical to side length ratios in similar triangles.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+$\frac{3}{5} = \frac{\text{Base}_{small}}{20}$. \\
+$5(\text{Base}_{small}) = 60 \implies \text{Base}_{small} = 12$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+---
+
+%Q: 19
+% Category: Practice | Difficulty: Hard | Question Type: Numeric Entry
+\question
+In right triangle $ABC$, an altitude $CD$ is drawn to hypotenuse $AB$. If $CD = 4$ and $AD = 2$, what is the length of segment $DB$?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Using the Right Triangle Altitude Theorem (Geometric Mean), the altitude squared equals the product of the segments of the hypotenuse: $CD^2 = AD \cdot DB$.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+$4^2 = 2 \cdot DB$. \\
+$16 = 2 \cdot DB \implies DB = 8$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{8}
+\end{solution}
+
+---
+
+%Q: 20
+% Category: Exam Style | Difficulty: Medium | Question Type: Multiple Choice
+\question
+A map is drawn to a scale where 1 inch represents 50 miles. A triangular plot of land on the map has sides 3 in, 4 in, and 5 in. What is the actual length of the shortest side of the land in miles?
+\begin{tasks}(2)
+    \task 1.5
+    \task 150
+    \task 200
+    \task 250
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The map triangle is similar to the actual land triangle. The scale factor is 50 miles/inch.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+Shortest side on map $= 3$ inches. \\
+Actual length $= 3 \text{ in} \times 50 \text{ miles/in} = 150$ miles.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+---
+
+%Q: 21
+% Category: Practice | Difficulty: Hard | Question Type: Multiple Choice
+\question
+The areas of two similar triangles are $25 \text{ cm}^2$ and $49 \text{ cm}^2$. If the perimeter of the smaller triangle is 30 cm, what is the perimeter of the larger triangle?
+\begin{tasks}(2)
+    \task 42
+    \task 58.8
+    \task 60
+    \task 84
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Area ratio is the square of the perimeter ratio.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+Area ratio $= 25:49$. \\
+Perimeter ratio $= \sqrt{25} : \sqrt{49} = 5:7$. \\
+$\frac{5}{7} = \frac{30}{P_{large}} \implies 5P_{large} = 210 \implies P_{large} = 42$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+---
+
+%Q: 22
+% Category: Concept | Difficulty: Medium | Question Type: Multiple Choice
+\question
+In $\triangle ABC$ and $\triangle DEF$, $\frac{AB}{DE} = \frac{BC}{EF}$. Which additional piece of information is sufficient to prove the triangles are similar?
+\begin{tasks}(2)
+    \task $\angle A = \angle D$
+    \task $\angle B = \angle E$
+    \task $\angle C = \angle F$
+    \task $AC = DF$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+SAS (Side-Angle-Side) Similarity requires two proportional sides and the congruency of the \textit{included} angle (the angle formed by those sides).
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+The angle between sides $AB$ and $BC$ is $\angle B$. The angle between $DE$ and $EF$ is $\angle E$. Thus, $\angle B = \angle E$ is required.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+---
+
+%Q: 23
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+In the figure below, $\triangle ABC$ is a right triangle with $\angle C = 90^\circ$. If $\triangle ABC \sim \triangle DEF$ and the scale factor is 3, what is the value of $\tan E$?
+\begin{tasks}(2)
+    \task $\tan B$
+    \task $3 \tan B$
+    \task $\frac{1}{3} \tan B$
+    \task $\tan A$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Similarity preserves angle measures. Corresponding angles are equal regardless of the scale factor.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+$\angle E$ corresponds to $\angle B$. Therefore, $\angle E = \angle B$, and $\tan E = \tan B$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+---
+
+%Q: 24
+% Category: Practice | Difficulty: Hard | Question Type: Numeric Entry
+\question
+Triangle $A$ has sides of 10, 24, and 26. Triangle $B$ is similar to Triangle $A$ and has a perimeter of 30. What is the length of the shortest side of Triangle $B$?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Find the perimeter of Triangle $A$, determine the scale factor, and apply it to the shortest side.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+Perimeter $A = 10 + 24 + 26 = 60$. \\
+Scale factor $= \frac{\text{Perimeter } B}{\text{Perimeter } A} = \frac{30}{60} = 0.5$. \\
+Shortest side $B = 10 \times 0.5 = 5$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{5}
+\end{solution}
+
+---
+
+%Q: 25
+% Category: Exam Style | Difficulty: Medium | Question Type: Multiple Choice
+\question
+In a photo, a tree that is actually 20 feet tall appears to be 2 inches tall. A person in the same photo appears to be 0.6 inches tall. How tall is the person in feet?
+\begin{tasks}(2)
+    \task 4
+    \task 5
+    \task 6
+    \task 12
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+This is a similarity problem where the photo and reality are the similar "objects."
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+$\frac{2 \text{ in}}{20 \text{ ft}} = \frac{0.6 \text{ in}}{x \text{ ft}}$. \\
+$2x = 12 \implies x = 6$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+---
+
+%Q: 26
+% Category: Practice | Difficulty: Hard | Question Type: Multiple Choice
+\question
+Two similar triangles have areas in the ratio $n:1$. What is the ratio of their perimeters?
+\begin{tasks}(2)
+    \task $n:1$
+    \task $n^2:1$
+    \task $\sqrt{n}:1$
+    \task $1:n$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Perimeter ratio is the linear ratio (side ratio), which is the square root of the area ratio.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+Ratio $= \sqrt{n} : \sqrt{1} = \sqrt{n} : 1$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+---
+
+%Q: 27
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+In the figure below, $\triangle ABC \sim \triangle ADE$. If $BC = 5$, $DE = 15$, and $AC = 4$, what is the length of $CE$?
+\begin{center}
+\begin{tikzpicture}[scale=0.8]
+    \draw[thick] (0,0) node[anchor=south]{$A$} -- (-1.5,-3) node[anchor=north]{$B$} -- (1.5,-3) node[anchor=north]{$C$} -- cycle;
+    \draw[thick] (-1.5,-3) -- (-3,-6) node[anchor=north]{$D$} -- (3,-6) node[anchor=north]{$E$} -- (1.5,-3);
+\end{tikzpicture}
+\end{center}
+\begin{tasks}(2)
+    \task 8
+    \task 10
+    \task 12
+    \task 16
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Note that $AE = AC + CE$. The ratio of the triangles is $BC:DE$.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+Scale factor $= 15/5 = 3$. \\
+$AE = 3 \times AC = 3 \times 4 = 12$. \\
+$CE = AE - AC = 12 - 4 = 8$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+---
+
+%Q: 28
+% Category: Exam Style | Difficulty: Hard | Question Type: Numeric Entry
+\question
+If the area of a triangle is tripled while maintaining similarity, by what factor is the perimeter multiplied? (Round to two decimal places)
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The scale factor of linear dimensions (perimeter) is the square root of the area scale factor.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+Area factor $= 3$. \\
+Perimeter factor $= \sqrt{3} \approx 1.73$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{1.73}
+\end{solution}
+
+---
+
+%Q: 29
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+In the figure below, $\angle X = \angle Z = 90^\circ$. If $XY = 6$, $YZ = 8$, and $YW = 10$, are triangles $\triangle XYW$ and $\triangle ZYW$ similar?
+\begin{tasks}(2)
+    \task Yes, by SSS
+    \task Yes, by SAS
+    \task Yes, by AA
+    \task No
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Check for side proportionality and angle congruency. Both are right triangles and share side $YW$.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+Without information about the third sides or another angle, similarity cannot be established just by sharing a hypotenuse and a right angle.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{D}
+\end{solution}
+
+---
+
+%Q: 30
+% Category: Practice | Difficulty: Hard | Question Type: Multiple Choice
+\question
+Two similar triangles have side ratios of $k:1$. If the smaller triangle has an area of $A$, what is the area of the larger triangle?
+\begin{tasks}(2)
+    \task $kA$
+    \task $k^2A$
+    \task $A/k$
+    \task $A/k^2$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Area scales with the square of the linear scale factor.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+Ratio $= k^2 : 1$. Area $= k^2A$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+---
+
+%Q: 31
+% Category: Exam Style | Difficulty: Medium | Question Type: Multiple Choice
+\question
+A right triangle has a hypotenuse of 10. A similar triangle has a hypotenuse of 5. What is the ratio of the area of the smaller triangle to the larger?
+\begin{tasks}(2)
+    \task $1:2$
+    \task $1:4$
+    \task $2:1$
+    \task $4:1$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The linear ratio is $5:10$, which simplifies to $1:2$.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+Area ratio $= (1/2)^2 = 1/4$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+---
+
+%Q: 32
+% Category: Practice | Difficulty: Hard | Question Type: Multiple Choice
+\question
+In $\triangle ABC$, $DE$ is parallel to $BC$, where $D$ is on $AB$ and $E$ is on $AC$. If $AD = x$, $DB = x+2$, $AE = 4$, and $EC = 6$, what is $x$?
+\begin{tasks}(2)
+    \task 4
+    \task 6
+    \task 8
+    \task 12
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The Side-Splitter Theorem (derived from similarity) states that $\frac{AD}{DB} = \frac{AE}{EC}$.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+$\frac{x}{x+2} = \frac{4}{6} = \frac{2}{3}$. \\
+$3x = 2(x+2) \implies 3x = 2x + 4 \implies x = 4$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+---
+
+%Q: 33
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+If the ratio of the corresponding altitudes of two similar triangles is $4:9$, what is the ratio of their areas?
+\begin{tasks}(2)
+    \task $2:3$
+    \task $4:9$
+    \task $16:81$
+    \task $64:729$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Altitudes are linear measures. The ratio of areas is the square of any linear ratio.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+$(4/9)^2 = 16/81$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+---
+
+%Q: 34
+% Category: Exam Style | Difficulty: Hard | Question Type: Numeric Entry
+\question
+Two similar triangles have perimeters of 24 and 36. If the area of the larger triangle is 54, what is the area of the smaller triangle?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Linear ratio $= 24/36 = 2/3$. Area ratio $= 4/9$.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+$\frac{4}{9} = \frac{A_{small}}{54}$. \\
+Since $9 \times 6 = 54$, $A_{small} = 4 \times 6 = 24$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{24}
+\end{solution}
+
+---
+
+%Q: 35
+% Category: Practice | Difficulty: Hard | Question Type: Multiple Choice
+\question
+In right triangle $ABC$, altitude $BD$ is drawn to the hypotenuse. If $AD = 9$ and $AC = 25$, what is the length of side $AB$?
+\begin{tasks}(2)
+    \task 12
+    \task 15
+    \task 16
+    \task 20
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The Leg Rule of Geometric Mean states: $AB^2 = AD \cdot AC$.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+$AB^2 = 9 \cdot 25 = 225$. \\
+$AB = \sqrt{225} = 15$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+---
+
+%Q: 36
+% Category: Exam Style | Difficulty: Medium | Question Type: Multiple Choice
+\question
+A shadow problem: A 5-foot post casts a 3-foot shadow. At the same time, a building casts a 21-foot shadow. How tall is the building?
+\begin{tasks}(2)
+    \task 12.6
+    \task 35
+    \task 63
+    \task 105
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+$\frac{\text{Height}_{post}}{\text{Shadow}_{post}} = \frac{\text{Height}_{build}}{\text{Shadow}_{build}}$.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+$\frac{5}{3} = \frac{h}{21} \implies 3h = 105 \implies h = 35$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+---
+
+%Q: 37
+% Category: Practice | Difficulty: Hard | Question Type: Multiple Choice
+\question
+In the figure below, $\triangle ABC \sim \triangle ADE$. If $AB = 6$, $BD = 4$, and the area of $\triangle ADE$ is 50, what is the area of quadrilateral $BCED$?
+\begin{tasks}(2)
+    \task 18
+    \task 32
+    \task 50
+    \task 100
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+$AD = AB + BD = 10$. The area of the quadrilateral is the difference between the large and small triangle areas.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+Linear ratio $(ABC:ADE) = 6:10 = 3:5$. \\
+Area ratio $= 9:25$. \\
+$\frac{9}{25} = \frac{Area_{ABC}}{50} \implies Area_{ABC} = 18$. \\
+Area$_{BCED} = 50 - 18 = 32$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+---
+
+%Q: 38
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+Two triangles are similar. The sides of the first are 4, 5, and 6. The perimeter of the second is 45. What is its longest side?
+\begin{tasks}(2)
+    \task 12
+    \task 15
+    \task 18
+    \task 24
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Perimeter of first triangle $= 15$. Scale factor $= 45/15 = 3$.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+Longest side $= 6 \times 3 = 18$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+---
+
+%Q: 39
+% Category: Concept | Difficulty: Medium | Question Type: Multiple Choice
+\question
+Are all equilateral triangles similar?
+\begin{tasks}(2)
+    \task Yes, because all angles are $60^\circ$
+    \task Yes, because all sides are equal
+    \task No, only if they have the same area
+    \task No, only if they are congruent
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Similarity requires equal angles (AA). All equilateral triangles have three $60^\circ$ angles.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+By AA similarity, all equilateral triangles are similar.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+---
+
+%Q: 40
+% Category: Practice | Difficulty: Hard | Question Type: Numeric Entry
+\question
+The area of a triangle is increased by 44\%. By what percentage did the side lengths increase?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+If Area is multiplied by $1.44$, the sides are multiplied by $\sqrt{1.44}$.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+$\sqrt{1.44} = 1.2$. \\
+An increase of $1.2$ corresponds to a 20\% increase.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{20}
+\end{solution}
+
+---
+
+%Q: 41
+% Category: Exam Style | Difficulty: Medium | Question Type: Multiple Choice
+\question
+In the figure below, $\triangle ABC \sim \triangle XYZ$. If $\sin A = 3/5$ and $XY = 15$, what is the length of the side opposite $\angle X$ in $\triangle XYZ$ if it is a right triangle?
+\begin{tasks}(2)
+    \task 9
+    \task 12
+    \task 15
+    \task 25
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+$\sin A = \sin X = 3/5$. In a right triangle, $\sin X = \frac{\text{opp}}{\text{hyp}}$.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+$3/5 = \frac{YZ}{15} \implies 5(YZ) = 45 \implies YZ = 9$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+---
+
+%Q: 42
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+A triangle has sides 7, 24, 25. A similar triangle has a shortest side of 14. What is its hypotenuse?
+\begin{tasks}(2)
+    \task 48
+    \task 50
+    \task 75
+    \task 100
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The shortest side 7 becomes 14. The scale factor is 2.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+Hypotenuse $= 25 \times 2 = 50$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+---
+
+%Q: 43
+% Category: Practice | Difficulty: Hard | Question Type: Multiple Choice
+\question
+Two similar triangles have perimeters $P_1$ and $P_2$. What is the ratio of their areas?
+\begin{tasks}(2)
+    \task $P_1 : P_2$
+    \task $\sqrt{P_1} : \sqrt{P_2}$
+    \task $P_1^2 : P_2^2$
+    \task $1 : 1$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Area ratio is the square of the linear ratio.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+$(P_1/P_2)^2 = P_1^2/P_2^2$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+---
+
+%Q: 44
+% Category: Exam Style | Difficulty: Hard | Question Type: Numeric Entry
+\question
+A triangle is dilated by a factor of 2.5. What is the ratio of the new area to the old area?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Area scale factor is the square of the dilation factor.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+$2.5^2 = 6.25$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{6.25}
+\end{solution}
+
+---
+
+%Q: 45
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+In the figure below, $\triangle ABC \sim \triangle DEC$. If $AB = 10$, $DE = 4$, and $AC = 15$, what is $DC$?
+\begin{tasks}(2)
+    \task 6
+    \task 10
+    \task 12
+    \task 37.5
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Proportion: $\frac{AB}{DE} = \frac{AC}{DC}$.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+$\frac{10}{4} = \frac{15}{DC} \implies 10(DC) = 60 \implies DC = 6$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+---
+
+%Q: 46
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+Are all right triangles similar?
+\begin{tasks}(2)
+    \task Yes, they all have a $90^\circ$ angle
+    \task No, they need another angle to be equal
+    \task No, they must have equal hypotenuses
+    \task Yes, by HL similarity
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Similarity (AA) requires two angles. A right angle is only one.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+A $30-60-90$ and a $45-45-90$ are both right triangles but not similar.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+---
+
+%Q: 47
+% Category: Exam Style | Difficulty: Hard | Question Type: Multiple Choice
+\question
+In the figure below, $\triangle ABC \sim \triangle DEF$. If the perimeter of $\triangle ABC$ is $12\sqrt{2}$ and the perimeter of $\triangle DEF$ is $6\sqrt{2}$, what is the ratio of their areas?
+\begin{tasks}(2)
+    \task $2:1$
+    \task $4:1$
+    \task $\sqrt{2}:1$
+    \task $1:2$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Linear ratio $= (12\sqrt{2})/(6\sqrt{2}) = 2:1$.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+Area ratio $= 2^2 : 1^2 = 4:1$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+---
+
+%Q: 48
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+If $\triangle ABC \sim \triangle DEF$, then $\frac{Area_{ABC}}{Area_{DEF}} = $?
+\begin{tasks}(2)
+    \task $AB/DE$
+    \task $(AB/DE)^2$
+    \task $\sqrt{AB/DE}$
+    \task $2(AB/DE)$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+This is the fundamental Area-Side relationship theorem for similarity.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+Area ratio is the square of the side ratio.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+---
+
+%Q: 49
+% Category: Practice | Difficulty: Hard | Question Type: Multiple Choice
+\question
+In the figure below, $\triangle ABC \sim \triangle ADE$. If $BC = x$, $DE = x+3$, $AB = 4$, and $AD = 10$, what is $x$?
+\begin{tasks}(2)
+    \task 2
+    \task 3
+    \task 4.5
+    \task 5
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Proportion: $\frac{AB}{AD} = \frac{BC}{DE}$.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+$\frac{4}{10} = \frac{x}{x+3} \implies 4(x+3) = 10x$. \\
+$4x + 12 = 10x \implies 6x = 12 \implies x = 2$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+---
+
+%Q: 50
+% Category: Exam Style | Difficulty: Hard | Question Type: Numeric Entry
+\question
+A triangle with area 10 is dilated by a factor of $k$ to an area of 160. What is $k$?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Area ratio $= 160/10 = 16$. Dilation factor $k$ is the square root of the area ratio.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+$k = \sqrt{16} = 4$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{4}
+\end{solution}
+
+
+
+
+% =============================================================
+% Question End
+% =============================================================
+
+\end{questions}
+\begin{center}
+\rule{.5\textwidth}{1pt}
+\end{center}
+\end{document}

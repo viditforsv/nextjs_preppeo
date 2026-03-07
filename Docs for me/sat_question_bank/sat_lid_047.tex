@@ -1,0 +1,1173 @@
+\documentclass[11pt,paper=a4,answers]{exam}
+\usepackage{graphicx,lastpage}
+\usepackage{upgreek}
+\usepackage{censor}
+\usepackage{gensymb}
+\usepackage{amsmath}
+\usepackage{multicol}
+\usepackage{enumitem}
+\usepackage{tasks}
+\usepackage{adjustbox}
+\usepackage{xcolor}
+\usepackage{tfrupee}
+\setlength{\voffset}{0.25in}
+\usepackage{tabularx}
+\newcolumntype{Y}{>{\centering\arraybackslash}X}
+%==============================================================
+% Customise Non-Essential Packages Below
+% =============================================================
+\usepackage[most]{tcolorbox}
+\usepackage{eso-pic}
+\usepackage{tikz}
+\AddToShipoutPictureBG{%
+\begin{tikzpicture}[remember picture,overlay]
+\foreach \x in {-8,-4,0,4,8,12,16,20}
+\foreach \y in {-8,-4,0,4,8,12,16,20} {
+\node[opacity=0.05,rotate=45,anchor=center] at ([xshift=\x cm,yshift=\y cm]current page.center) {%
+\begin{minipage}{2cm}
+\centering
+\includegraphics[width=2cm]{images/logo_black.png}\\
+\small preppeo.com
+\end{minipage}%
+};
+}
+\end{tikzpicture}%
+}
+\printanswers
+
+%==============================================================
+% Customise Non-Essential Packages Above
+% =============================================================
+\definecolor{svgray}{rgb}{0.90, 0.90, 0.90}
+\graphicspath{{images/}}
+
+\usepackage[normalem]{ulem}
+\renewcommand\ULthickness{1pt}   %%---> For changing thickness of underline
+\setlength\ULdepth{3.5ex}%\maxdimen ---> For changing depth of underline
+\renewcommand{\baselinestretch}{1}
+\chead{
+\includegraphics[scale=0.1,height=2cm ]{logo.png}
+}
+\pagestyle{empty}
+
+\pagestyle{headandfoot}
+\headrule
+\cfoot{W: https://preppeo.com; M: +91-8130711689}
+
+\begin{document}
+%==============================================================
+% Customise Question paper details below this
+% =============================================================
+\begin{center}
+    \centering
+    \renewcommand{\arraystretch}{1.5}
+    \begin{tabularx}{\textwidth}{YYY}
+    & \normalsize\bf{{\Large{{Quantitative Reasoning}}}} & \\
+    By Preppeo & \normalsize\bf{{sat\_lid\_047}} & SAT\\
+    \normalsize{{\textbf{{Unit:}} Area \& Volume}} & \normalsize{{\textbf{{Chapter:}} Area and volume of 2D/3D shapes}} & \normalsize{{\textbf{{Topic:}} Area of Polygons}} \\
+    \end{tabularx}
+\end{center}
+\par\noindent\rule{\textwidth}{1pt}
+% =============================================================
+% Customise Question paper details above this
+% =============================================================
+
+\begin{questions}
+\pointsinrightmargin
+\pointsdroppedatright
+\marksnotpoints
+\pointpoints{mark}{marks}
+\pointformat{\boldmath\themarginpoints}
+\bracketedpoints
+
+% =============================================================
+% Question Begin
+% =============================================================
+
+% Lid 047: Geometry & Trigonometry
+% Topic: Area and Volume: Area of Polygons
+
+% Question 1
+% Category: Practice | Difficulty: Easy | Question Type: MCQ
+\question
+The side length of a square is 55 centimeters (cm). What is the area, in $\text{cm}^2$, of the square?
+\begin{tasks}(4)
+    \task 110
+    \task 220
+    \task 3,025
+    \task 12,100
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The area of a square is calculated by squaring the length of its side. The formula is $\text{Area} = s^2$, where $s$ represents the side length.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+Identify the given side length, which is $s = 55 \text{ cm}$. Apply the area formula: $\text{Area} = 55^2$. Performing the multiplication $55 \times 55$ results in 3,025. Therefore, the area of the square is 3,025 square centimeters.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 2
+% Category: Exam Level | Difficulty: Medium | Question Type: Numeric Entry
+\question
+Square A has side lengths that are 166 times the side lengths of square B. The area of square A is $k$ times the area of square B. What is the value of $k$?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+In geometry, when the linear dimensions (like side lengths) of a shape are scaled by a factor of $x$, the area of that shape is scaled by a factor of $x^2$. This is known as the Area-Scale Factor relationship.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+Identify the linear scale factor given in the problem, which is 166. Let the side length of square B be $s_B$. Then the side length of square A is $166s_B$. Calculate the area of square B: $\text{Area}_B = (s_B)^2$. Calculate the area of square A: $\text{Area}_A = (166s_B)^2 = 166^2 \times (s_B)^2$. The value of $k$ represents the ratio $\text{Area}_A / \text{Area}_B$, which is simply $166^2$. Squaring 166: $166 \times 166 = 27,556$. Thus, $k = 27,556$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{27556}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 3
+% Category: Exam Level | Difficulty: Medium | Question Type: MCQ
+\question
+The area of a square is 64 square inches. What is the side length, in inches, of this square?
+\begin{tasks}(4)
+    \task 8
+    \task 16
+    \task 64
+    \task 128
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Finding the side length of a square when given its area is the inverse operation of finding the area. You must take the square root of the area.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+Use the formula $\text{Area} = s^2$. Substitute the known area: $64 = s^2$. To isolate $s$, take the square root of both sides: $s = \sqrt{64}$. Since $8 \times 8 = 64$, the side length $s$ is 8 inches.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 4
+% Category: Exam Level | Difficulty: Hard | Question Type: MCQ
+\question
+What is the length of one side of a square that has the same area as a circle with radius 2?
+\begin{tasks}(4)
+    \task 2
+    \task $\sqrt{2\pi}$
+    \task $2\sqrt{\pi}$
+    \task $2\pi$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+This problem requires setting the area formulas for two different shapes equal to each other. The area of a circle is $\pi r^2$ and the area of a square is $s^2$.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+First, calculate the area of the circle with radius $r = 2$: $\text{Area}_{\text{circle}} = \pi(2)^2 = 4\pi$. Next, set the area of the square equal to the area of the circle: $s^2 = 4\pi$. To find the side length $s$, take the square root of both sides: $s = \sqrt{4\pi}$. Using properties of radicals, $\sqrt{4\pi} = \sqrt{4} \times \sqrt{\pi}$, which simplifies to $2\sqrt{\pi}$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 5
+% Category: Practice | Difficulty: Medium | Question Type: Numeric Entry
+\question
+\begin{center}
+\begin{tikzpicture}[scale=0.8]
+\draw[thick] (0,0) -- (5,0) -- (3,3) -- cycle;
+\draw (3,3) -- (3,0);
+\draw (3,0) rectangle (2.8,0.2);
+\node at (2.5,-0.3) {5 in};
+\node at (3.3,1.5) {3 in};
+\end{tikzpicture}
+\end{center}
+The figure shows the lengths, in inches, of two sides of a right triangle. What is the area of the triangle, in square inches?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The area of a right triangle is calculated as half the product of its legs. In a right triangle, the two sides that form the right angle act as the base and the height.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+Identify the base and height from the diagram. One leg (base) is 5 inches and the other leg (height) is 3 inches. Apply the area formula: $\text{Area} = \frac{1}{2} \times \text{base} \times \text{height}$. $\text{Area} = 0.5 \times 5 \times 3$. $\text{Area} = 0.5 \times 15$. Performing the calculation results in 7.5. The area of the triangle is 7.5 square inches.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{7.5}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 6
+% Category: Exam Level | Difficulty: Hard | Question Type: MCQ
+\question
+\begin{center}
+\begin{tikzpicture}[scale=0.6]
+\draw[thick] (0,0) node[left]{$A$} -- (3,0) node[below]{$C$} -- (3,5) node[above]{$B$} -- cycle;
+\draw[thick] (3,0) -- (6,0) node[right]{$E$} -- (6,10) node[above]{$D$} -- cycle;
+\draw (3,0) rectangle (2.7,0.3);
+\draw (6,0) rectangle (5.7,0.3);
+\node at (1.5,-0.5) {3};
+\node at (4.5,-0.5) {21};
+\node at (0.8,2.8) {$\sqrt{34}$};
+\end{tikzpicture}
+\end{center}
+In the figure shown, $AB = \sqrt{34}$ units, $AC = 3$ units, and $CE = 21$ units. What is the area, in square units, of triangle $ADE$?
+\begin{tasks}(4)
+    \task 60
+    \task 120
+    \task 240
+    \task 480
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+To find the area of the larger triangle $ADE$, we need its total base ($AE$) and its height ($DE$). We can use the Pythagorean theorem on the small triangle to find a side length and then use similar triangle proportions to find the dimensions of the larger triangle.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+Step 1: Find the height of the small triangle $BC$. In $\triangle ABC$, $3^2 + (BC)^2 = (\sqrt{34})^2$. $9 + (BC)^2 = 34 \Rightarrow (BC)^2 = 25 \Rightarrow BC = 5$. Step 2: Use similarity to find $DE$. $\triangle ABC \sim \triangle ADE$. The base of $\triangle ADE$ is $AE = AC + CE = 3 + 21 = 24$. The ratio of bases is $AE/AC = 24/3 = 8$. Therefore, the height $DE = 8 \times BC = 8 \times 5 = 40$. Step 3: Calculate the area of $\triangle ADE$: $\text{Area} = \frac{1}{2} \times \text{base} \times \text{height} = \frac{1}{2} \times 24 \times 40 = 12 \times 40 = 480$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{480}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 7
+% Category: Practice | Difficulty: Medium | Question Type: MCQ
+\question
+Square X has a side length of 12 centimeters. The perimeter of square Y is 2 times the perimeter of square X. What is the length, in centimeters, of one side of square Y?
+\begin{tasks}(4)
+    \task 6
+    \task 10
+    \task 14
+    \task 24
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The perimeter of a square is $4s$. If the perimeter is scaled by a factor, the side length is scaled by that same factor because side length and perimeter are both linear measurements.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+Find the perimeter of square X: $P_X = 4 \times 12 = 48 \text{ cm}$. The perimeter of square Y is $2 \times 48 = 96 \text{ cm}$. To find the side length of square Y, divide its perimeter by 4: $s_Y = 96 / 4 = 24$. Alternatively, since the perimeter is 2 times larger, the side length must also be 2 times larger: $12 \times 2 = 24$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{D}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 8
+% Category: Exam Level | Difficulty: Hard | Question Type: Numeric Entry
+\question
+The length of each edge of a box is 29 inches. Each side of the box is in the shape of a square. The box does not have a lid. What is the exterior surface area, in square inches, of this box without a lid?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+A box (cube) without a lid consists of 5 square faces (one bottom and four vertical sides). The total surface area is the sum of the areas of these 5 faces.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+First, calculate the area of one square face: $\text{Area}_{\text{face}} = 29^2$. $29 \times 29 = 841 \text{ sq inches}$. Since there is no lid, there are exactly 5 faces. Multiply the area of one face by 5: $841 \times 5 = 4,205$. The exterior surface area is 4,205 square inches.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{4205}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 9
+% Category: Exam Level | Difficulty: Hard | Question Type: Numeric Entry
+\question
+A cube has a volume of 474,552 cubic units. What is the surface area, in square units, of the cube?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+To find the surface area, you must first find the side length (edge) of the cube by taking the cube root of the volume. Then, use the surface area formula for a cube, $6s^2$.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+Step 1: Find the edge length $s$. $s = \sqrt[3]{474,552}$. Testing values: $70^3 = 343,000$ and $80^3 = 512,000$. Since the last digit is 2, the edge length must end in 8. Testing 78: $78 \times 78 \times 78 = 474,552$. So $s = 78$. Step 2: Calculate the area of one face: $78^2 = 6,084$. Step 3: Calculate total surface area for all 6 faces: $6,084 \times 6 = 36,504$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{36504}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 10
+% Category: Practice | Difficulty: Medium | Question Type: MCQ
+\question
+A sphere has a radius of 17/5 feet. What is the volume, in cubic feet, of the sphere?
+\begin{tasks}(4)
+    \task $5\pi/17$
+    \task $68\pi/15$
+    \task $32\pi/5$
+    \task $19,652\pi/375$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The volume of a sphere is given by the formula $V = \frac{4}{3}\pi r^3$.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+Substitute $r = 17/5$ into the formula: $V = \frac{4}{3}\pi (17/5)^3$. Calculate $(17/5)^3$: $17^3 = 4,913$ and $5^3 = 125$. This gives $\pi(4913/125)$. Apply the $4/3$ factor: $V = \frac{4 \times 4913}{3 \times 125}\pi = \frac{19652}{375}\pi$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{D}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 11
+% Category: Exam Level | Difficulty: Medium | Question Type: Numeric Entry
+\question
+A cube has an edge length of 41 inches. What is the volume, in cubic inches, of the cube?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The volume of a cube is the cube of its edge length: $V = s^3$.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+$V = 41^3$. $41 \times 41 = 1681$. $1681 \times 41 = 68,921$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{68921}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 12
+% Category: Practice | Difficulty: Easy | Question Type: Numeric Entry
+\question
+A rectangle has a length of 15 units and a width of 10 units. What is its area?
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+$\text{Area} = \text{length} \times \text{width} = 15 \times 10 = 150$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{150}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 13
+% Category: Exam Level | Difficulty: Hard | Question Type: MCQ
+\question
+A parallelogram has a base of 14 cm and a height of 9 cm. A second parallelogram is similar to the first and has a base of 28 cm. What is the area of the second parallelogram?
+\begin{tasks}(4)
+    \task 126 $\text{cm}^2$
+    \task 252 $\text{cm}^2$
+    \task 504 $\text{cm}^2$
+    \task 1,008 $\text{cm}^2$
+\end{tasks}
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+$\text{Area}_1 = 14 \times 9 = 126 \text{ cm}^2$. The linear scale factor is $28/14 = 2$. The area scale factor is $2^2 = 4$. $\text{Area}_2 = 126 \times 4 = 504 \text{ cm}^2$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 14
+% Category: Practice | Difficulty: Medium | Question Type: Numeric Entry
+\question
+What is the area of a trapezoid with bases of 10 and 20 units and a height of 8 units?
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+$\text{Area} = \frac{b_1 + b_2}{2} \times h = \frac{10 + 20}{2} \times 8 = 15 \times 8 = 120$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{120}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 15
+% Category: Exam Level | Difficulty: Medium | Question Type: Numeric Entry
+\question
+If the area of a square is 144, what is its perimeter?
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+$s = \sqrt{144} = 12$. $\text{Perimeter} = 4 \times 12 = 48$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{48}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 16
+% Category: Practice | Difficulty: Hard | Question Type: Numeric Entry
+\question
+A triangle has a base of 12 and an area of 48. What is the height of the triangle?
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+$48 = 0.5 \times 12 \times h \Rightarrow 48 = 6h \Rightarrow h = 8$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{8}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 17
+% Category: Exam Level | Difficulty: Hard | Question Type: MCQ
+\question
+A square is inscribed in a circle with radius 5. What is the area of the square?
+\begin{tasks}(4)
+    \task 25
+    \task 50
+    \task 75
+    \task 100
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The diagonal of the square is equal to the diameter of the circle.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+$\text{Diameter} = 2 \times 5 = 10$. For a square, $\text{Diagonal} = s\sqrt{2} = 10$. So $s = 10/\sqrt{2}$. $\text{Area} = s^2 = (10/\sqrt{2})^2 = 100/2 = 50$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 18
+% Category: Practice | Difficulty: Easy | Question Type: Numeric Entry
+\question
+A cube has a surface area of 150. What is the length of one side?
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+$6s^2 = 150 \Rightarrow s^2 = 25 \Rightarrow s = 5$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{5}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 19
+% Category: Exam Level | Difficulty: Medium | Question Type: Numeric Entry
+\question
+The sides of a rectangle are 4 and 9. A square has the same area as this rectangle. What is the side length of the square?
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+$\text{Area}_{\text{rect}} = 4 \times 9 = 36$. $s^2 = 36 \Rightarrow s = 6$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{6}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 20
+% Category: Practice | Difficulty: Medium | Question Type: MCQ
+\question
+If the side length of a square is tripled, the area is multiplied by:
+\begin{tasks}(4)
+    \task 3
+    \task 6
+    \task 9
+    \task 27
+\end{tasks}
+
+\begin{solution}
+\textbf{Logic:} \\
+The area is proportional to the square of the side length. $3^2 = 9$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 21
+% Category: Exam Level | Difficulty: Hard | Question Type: Numeric Entry
+\question
+A right triangle has legs of 8 and 15. What is the area?
+
+\begin{solution}
+\textbf{Calculation:} \\
+$0.5 \times 8 \times 15 = 4 \times 15 = 60$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{60}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 22
+% Category: Practice | Difficulty: Hard | Question Type: Numeric Entry
+\question
+A rhombus has diagonals of 10 and 24. What is its area?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+$\text{Area}_{\text{rhombus}} = \frac{d_1 \times d_2}{2}$.
+
+\vspace{30pt}
+
+\textbf{Calculation:} \\
+$(10 \times 24) / 2 = 120$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{120}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 23
+% Category: Exam Level | Difficulty: Hard | Question Type: Numeric Entry
+\question
+A regular hexagon has a side length of 4. What is its area? (Round to the nearest whole number).
+
+\begin{solution}
+\textbf{Calculation:} \\
+$\text{Area} = \frac{3\sqrt{3}}{2}s^2 = \frac{3\sqrt{3}}{2}(16) = 24\sqrt{3} \approx 24 \times 1.732 \approx 41.56$. Rounded to 42.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{42}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 24
+% Category: Practice | Difficulty: Easy | Question Type: Numeric Entry
+\question
+Area of a circle with diameter 10? (Use $\pi = 3.14$).
+
+\begin{solution}
+\textbf{Calculation:} \\
+$r = 5$. $\text{Area} = 3.14 \times 25 = 78.5$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{78.5}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 25
+% Category: Exam Level | Difficulty: Medium | Question Type: Numeric Entry
+\question
+A trapezoid area is 50. Bases are 6 and 14. Height?
+
+\begin{solution}
+\textbf{Calculation:} \\
+$50 = 0.5(6+14)h \Rightarrow 50 = 10h \Rightarrow h = 5$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{5}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 26
+% Category: Practice | Difficulty: Medium | Question Type: Numeric Entry
+\question
+Volume of a rectangular prism with sides 2, 5, 10?
+
+\begin{solution}
+\textbf{Calculation:} \\
+$2 \times 5 \times 10 = 100$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{100}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 27
+% Category: Exam Level | Difficulty: Hard | Question Type: Numeric Entry
+\question
+Surface area of a sphere with radius 3? (Give answer in terms of $\pi$).
+
+\begin{solution}
+\textbf{Calculation:} \\
+$\text{SA} = 4\pi r^2 = 4\pi(9) = 36\pi$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{$36\pi$}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 28
+% Category: Practice | Difficulty: Easy | Question Type: Numeric Entry
+\question
+Area of a square with perimeter 20?
+
+\begin{solution}
+\textbf{Calculation:} \\
+$s = 5$. $\text{Area} = 25$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{25}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 29
+% Category: Exam Level | Difficulty: Hard | Question Type: Numeric Entry
+\question
+A cylinder height is 10 and radius is 4. Volume? (In terms of $\pi$).
+
+\begin{solution}
+\textbf{Calculation:} \\
+$V = \pi r^2 h = \pi(16)(10) = 160\pi$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{$160\pi$}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 30
+% Category: Practice | Difficulty: Medium | Question Type: Numeric Entry
+\question
+Area of a triangle with sides 3, 4, 5?
+
+\begin{solution}
+\textbf{Calculation:} \\
+It is a right triangle. $\text{Area} = 0.5 \times 3 \times 4 = 6$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{6}
+\end{solution}
+
+\vspace{60pt}
+
+% Lid 047: Geometry & Trigonometry
+% Questions 31-50
+
+% Question 31
+% Category: Exam Level | Difficulty: Medium | Question Type: MCQ
+\question
+A rectangle has a length that is twice its width. If the perimeter of the rectangle is 120 centimeters, what is the area of the rectangle in square centimeters?
+\begin{tasks}(4)
+    \task 200
+    \task 400
+    \task 800
+    \task 1,600
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+To find the area of a rectangle, you must first determine its specific length and width dimensions. We use the perimeter formula, $P = 2(L + W)$, and the given relationship between the dimensions to set up an algebraic equation.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+Let the width be $w$. According to the problem, the length is $2w$. Substitute these into the perimeter formula: $120 = 2(2w + w)$. Simplify the expression inside the parentheses to get $120 = 2(3w)$, which results in $120 = 6w$. Dividing both sides by 6 gives a width of $w = 20 \text{ cm}$. Consequently, the length is $2 \times 20 = 40 \text{ cm}$. Now, calculate the area by multiplying the length and the width. The calculation $40 \times 20$ results in 800. Therefore, the area of the rectangle is 800 square centimeters.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 32
+% Category: Practice | Difficulty: Hard | Question Type: Numeric Entry
+\question
+A regular octagon is composed of 8 congruent isosceles triangles. If each triangle has a base of 10 units and a height (apothem) of 12 units, what is the total area of the octagon?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The area of a regular polygon can be viewed as the sum of the areas of the congruent triangles that radiate from its center to its sides.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+First, calculate the area of a single triangular component. Using the formula for the area of a triangle, multiply the base of 10 by the height of 12 and then divide by 2. The calculation $0.5 \times 10 \times 12$ results in 60 square units. Since the octagon is made of exactly 8 of these congruent triangles, multiply the area of one triangle by 8. The calculation $60 \times 8$ results in 480. Thus, the total area of the regular octagon is 480 square units.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{480}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 33
+% Category: Exam Level | Difficulty: Hard | Question Type: MCQ
+\question
+A square and a rectangle have the same area. The square has a side length of 12. If the rectangle has a length of 18, what is the perimeter of the rectangle?
+\begin{tasks}(4)
+    \task 8
+    \task 26
+    \task 52
+    \task 144
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+This problem requires equating the area of two different shapes to find a missing dimension, then using that dimension to calculate a linear property (perimeter).
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+First, determine the area of the square by squaring its side length. $12 \times 12 = 144$. Because the rectangle shares this area, set the rectangle's area formula, $\text{Length} \times \text{Width}$, equal to 144. Substitute the known length: $18 \times \text{Width} = 144$. Solve for the width by dividing 144 by 18, which results in a width of 8. Finally, calculate the perimeter of the rectangle using the formula $2(L + W)$. The calculation $2(18 + 8)$ becomes $2 \times 26$, which results in 52.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 34
+% Category: Practice | Difficulty: Medium | Question Type: Numeric Entry
+\question
+\begin{center}
+\begin{tikzpicture}
+\draw[thick] (0,0) -- (4,0) -- (6,2) -- (2,2) -- cycle;
+\draw[dashed] (2,2) -- (2,0);
+\draw (2,0) rectangle (2.2,0.2);
+\node at (2,-0.3) {4};
+\node at (5,1.3) {5};
+\node at (2.3,1) {3};
+\end{tikzpicture}
+\end{center}
+What is the area of the parallelogram shown above?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The area of a parallelogram is calculated as the product of its base and its perpendicular height. It is important not to use the slant height (side length) in this calculation.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+Identify the base and the perpendicular height from the diagram. The horizontal base is given as 4 units, and the dashed line representing the vertical height is given as 3 units. Note that the side length of 5 is a distractor for this specific calculation. Apply the formula $\text{Area} = \text{base} \times \text{height}$. Multiplying 4 by 3 results in 12. Therefore, the area of the parallelogram is 12 square units.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{12}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 35
+% Category: Exam Level | Difficulty: Hard | Question Type: Numeric Entry
+\question
+A right isosceles triangle has a hypotenuse of length $10\sqrt{2}$. What is the area of this triangle?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+In a right isosceles triangle (45-45-90), the legs are equal in length, and the hypotenuse is $\text{leg} \times \sqrt{2}$. Finding the leg length allows for the calculation of the area.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+First, identify the leg length by dividing the hypotenuse by $\sqrt{2}$. The calculation $10\sqrt{2} / \sqrt{2}$ results in a leg length of 10. Since it is a right triangle, the two legs serve as the base and the height. Apply the triangle area formula: $\text{Area} = 0.5 \times \text{base} \times \text{height}$. Substituting the values gives $0.5 \times 10 \times 10$. Multiplying 10 by 10 gives 100, and taking half of that results in 50. The area of the triangle is 50 square units.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{50}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 36
+% Category: Practice | Difficulty: Medium | Question Type: MCQ
+\question
+If the area of a regular hexagon is $24\sqrt{3}$ square units, what is its side length?
+\begin{tasks}(4)
+    \task 2
+    \task 4
+    \task 6
+    \task 8
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The area of a regular hexagon is given by the formula $\text{Area} = \frac{3\sqrt{3}}{2}s^2$, where $s$ is the side length. We set the given area equal to this formula to solve for $s$.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+Set up the equation: $24\sqrt{3} = \frac{3\sqrt{3}}{2}s^2$. First, divide both sides by $\sqrt{3}$ to simplify: $24 = \frac{3}{2}s^2$. Next, multiply both sides by 2 to clear the fraction: $48 = 3s^2$. Divide both sides by 3 to isolate the squared term: $s^2 = 16$. Finally, take the square root of both sides to find the side length. The square root of 16 is 4. Thus, the side length of the hexagon is 4 units.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 37
+% Category: Exam Level | Difficulty: Medium | Question Type: Numeric Entry
+\question
+A trapezoid has an area of 100 square units. Its height is 10 units and one of its bases is 8 units. What is the length of the other base?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The area of a trapezoid is the average of its two bases multiplied by its height. The formula is $\text{Area} = 0.5 \times (b_1 + b_2) \times h$.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+Substitute the known values into the area formula: $100 = 0.5 \times (8 + b_2) \times 10$. Simplify the product of 0.5 and 10 to get 5, resulting in the equation $100 = 5 \times (8 + b_2)$. Divide both sides by 5 to isolate the term in parentheses: $20 = 8 + b_2$. To find $b_2$, subtract 8 from 20. The calculation $20 - 8$ results in 12. Therefore, the length of the other base is 12 units.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{12}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 38
+% Category: Practice | Difficulty: Hard | Question Type: MCQ
+\question
+A circle with circumference $12\pi$ is inscribed in a square. What is the area of the square?
+\begin{tasks}(4)
+    \task 36
+    \task 72
+    \task 144
+    \task 452
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+An inscribed circle's diameter is exactly equal to the side length of the square it resides in. We must find the diameter from the circumference first.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+Use the circumference formula $C = \pi d$. Given $12\pi = \pi d$, dividing by $\pi$ shows the diameter $d = 12$. Since the diameter is 12, the side length of the square is also 12. To find the area of the square, square the side length: $12^2 = 144$. The area of the square is 144 square units.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 39
+% Category: Exam Level | Difficulty: Hard | Question Type: MCQ
+\question
+The area of a rhombus is 60. If one diagonal is 10, what is the length of the other diagonal?
+\begin{tasks}(4)
+    \task 6
+    \task 12
+    \task 24
+    \task 30
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The area of a rhombus can be calculated using the lengths of its diagonals. The formula is $\text{Area} = \frac{d_1 \times d_2}{2}$.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+Substitute the known values into the formula: $60 = (10 \times d_2) / 2$. Simplify the right side by dividing 10 by 2, which results in $60 = 5 \times d_2$. To find the length of the second diagonal, divide 60 by 5. The calculation $60 / 5$ results in 12. Thus, the length of the other diagonal is 12 units.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 40
+% Category: Practice | Difficulty: Easy | Question Type: Numeric Entry
+\question
+What is the area of a square with a perimeter of 32 centimeters?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Perimeter is a linear measure of the total boundary, while area is a measure of the internal surface. You must find the side length from the perimeter before you can calculate the area.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+First, find the side length $s$ by dividing the total perimeter by 4. The calculation $32 / 4$ results in a side length of 8 cm. Next, use the side length to calculate the area using the formula $\text{Area} = s^2$. Squaring 8 ($8 \times 8$) results in 64. Therefore, the area of the square is 64 square centimeters.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{64}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 41
+% Category: Exam Level | Difficulty: Hard | Question Type: MCQ
+\question
+A rectangular room is 12 feet by 15 feet. A square rug with a side length of 9 feet is placed in the center of the room. How many square feet of the floor are NOT covered by the rug?
+\begin{tasks}(4)
+    \task 81
+    \task 99
+    \task 180
+    \task 261
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+To find the area of the floor left uncovered, calculate the total area of the room and subtract the area of the rug.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+First, calculate the total area of the rectangular room by multiplying its dimensions: $12 \times 15 = 180 \text{ sq feet}$. Second, calculate the area of the square rug by squaring its side length: $9^2 = 81 \text{ sq feet}$. Finally, subtract the rug's area from the room's total area to find the remaining floor space. The calculation $180 - 81$ results in 99. Thus, 99 square feet of the floor are not covered.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 42
+% Category: Practice | Difficulty: Medium | Question Type: Numeric Entry
+\question
+A triangle has a height of 14 units and a base of 20 units. What is its area?
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+Identify the base as 20 and the height as 14. Apply the standard triangle area formula, which is half the base multiplied by the height. Multiply 20 by 14 to get 280. Then, take half of that total. The calculation $0.5 \times 280$ results in 140. Therefore, the total area of the triangle is 140 square units.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{140}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 43
+% Category: Exam Level | Difficulty: Hard | Question Type: MCQ
+\question
+If the area of a square is increased by 300\%, by what percentage does the side length increase?
+\begin{tasks}(4)
+    \task 100\%
+    \task 150\%
+    \task 200\%
+    \task 300\%
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+An increase of 300\% means the new area is $1 + 3 = 4$ times the original area. We use the area-scale relationship to determine how the side length changes.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+Let the original area be $A$. An increase of 300\% results in a new area of $4A$. Since area is proportional to the square of the side length ($s^2$), if the area is multiplied by 4, the side length must be multiplied by the square root of 4, which is 2. Doubling a side length is equivalent to a 100\% increase ($100\% \text{ original} + 100\% \text{ increase} = 200\% \text{ or factor of 2}$). Therefore, the side length increased by 100\%.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 44
+% Category: Practice | Difficulty: Medium | Question Type: Numeric Entry
+\question
+A rectangle has an area of 48 square units. If the width is 4 units, what is the perimeter?
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+First, find the length by dividing the area by the width. The calculation $48 / 4$ results in a length of 12 units. Next, use the length and width to calculate the perimeter using the formula $2(L + W)$. Add 12 and 4 to get 16. Multiply this sum by 2. The calculation $2 \times 16$ results in 32. Thus, the perimeter is 32 units.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{32}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 45
+% Category: Exam Level | Difficulty: Hard | Question Type: Numeric Entry
+\question
+A kite has diagonals that measure 12 cm and 18 cm. What is the area of the kite in square centimeters?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Like a rhombus, the area of a kite is calculated using the product of its perpendicular diagonals.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+Apply the diagonal area formula: $\text{Area} = (d_1 \times d_2) / 2$. Substitute the diagonal lengths into the equation: $(12 \times 18) / 2$. Multiply 12 by 18 to get 216. Then, divide this product by 2. The calculation $216 / 2$ results in 108. Therefore, the area of the kite is 108 square centimeters.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{108}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 46
+% Category: Practice | Difficulty: Easy | Question Type: MCQ
+\question
+What is the area of a square with side length $\sqrt{7}$?
+\begin{tasks}(4)
+    \task $\sqrt{7}$
+    \task 7
+    \task 14
+    \task 49
+\end{tasks}
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+The area of a square is the side length squared. Squaring a square root cancels out the radical. The calculation $(\sqrt{7})^2$ is equal to 7. Thus, the area of the square is 7 square units.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 47
+% Category: Exam Level | Difficulty: Medium | Question Type: Numeric Entry
+\question
+A parallelogram has a base of 15 and an area of 75. What is the height?
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+Use the formula $\text{Area} = \text{base} \times \text{height}$. Substitute the known values: $75 = 15 \times \text{height}$. To isolate the height, divide 75 by 15. The calculation $75 / 15$ results in 5. Therefore, the height of the parallelogram is 5 units.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{5}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 48
+% Category: Practice | Difficulty: Medium | Question Type: Numeric Entry
+\question
+What is the area of a right triangle with legs of 9 and 12 units?
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+In a right triangle, the legs are the base and height. Apply the area formula: $0.5 \times 9 \times 12$. Multiply 9 by 12 to get 108. Then, calculate half of 108. The result is 54. The area of the triangle is 54 square units.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{54}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 49
+% Category: Exam Level | Difficulty: Hard | Question Type: MCQ
+\question
+A rectangular field is 40 meters wide and 60 meters long. If the length is increased by 10% and the width is decreased by 10%, what is the new area?
+\begin{tasks}(4)
+    \task 2,376
+    \task 2,400
+    \task 2,424
+    \task 2,640
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+To find the new area, first calculate the modified dimensions and then multiply them. Note that equal percentage changes in opposite directions do not cancel each other out in area calculations.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+First, find the new length: $60 + (0.10 \times 60) = 60 + 6 = 66 \text{ meters}$. Next, find the new width: $40 - (0.10 \times 40) = 40 - 4 = 36 \text{ meters}$. Calculate the new area by multiplying these dimensions. The calculation $66 \times 36$ results in 2,376. Therefore, the new area is 2,376 square meters.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 50
+% Category: Practice | Difficulty: Medium | Question Type: Numeric Entry
+\question
+The area of a square is 225. What is the perimeter?
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+First, find the side length by taking the square root of the area. The square root of 225 is 15. Next, use the side length to find the perimeter by multiplying by 4. The calculation $15 \times 4$ results in 60. Thus, the perimeter is 60 units.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{60}
+\end{solution}
+
+
+% =============================================================
+% Question End
+% =============================================================
+
+\end{questions}
+\begin{center}
+\rule{.5\textwidth}{1pt}
+\end{center}
+\end{document}

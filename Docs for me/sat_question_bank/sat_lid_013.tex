@@ -1,0 +1,1446 @@
+\documentclass[11pt,paper=a4,answers]{exam}
+\usepackage{graphicx,lastpage}
+\usepackage{upgreek}
+\usepackage{censor}
+\usepackage{gensymb}
+\usepackage{amsmath}
+\usepackage{multicol}
+\usepackage{enumitem}
+\usepackage{tasks}
+\usepackage{adjustbox}
+\usepackage{xcolor}
+\usepackage{tfrupee}
+\setlength{\voffset}{0.25in}
+\usepackage{tabularx}
+\newcolumntype{Y}{>{\centering\arraybackslash}X}
+%==============================================================
+% Customise Non-Essential Packages Below
+% =============================================================
+\usepackage[most]{tcolorbox}
+\usepackage{eso-pic}
+\usepackage{tikz}
+\AddToShipoutPictureBG{%
+\begin{tikzpicture}[remember picture,overlay]
+\foreach \x in {-8,-4,0,4,8,12,16,20}
+\foreach \y in {-8,-4,0,4,8,12,16,20} {
+\node[opacity=0.05,rotate=45,anchor=center] at ([xshift=\x cm,yshift=\y cm]current page.center) {%
+\begin{minipage}{2cm}
+\centering
+\includegraphics[width=2cm]{images/logo_black.png}\\
+\small preppeo.com
+\end{minipage}%
+};
+}
+\end{tikzpicture}%
+}
+\printanswers
+
+%==============================================================
+% Customise Non-Essential Packages Above
+% =============================================================
+\definecolor{svgray}{rgb}{0.90, 0.90, 0.90}
+\graphicspath{{images/}}
+
+\usepackage[normalem]{ulem}
+\renewcommand\ULthickness{1pt}   %%---> For changing thickness of underline
+\setlength\ULdepth{3.5ex}%\maxdimen ---> For changing depth of underline
+\renewcommand{\baselinestretch}{1}
+\chead{
+\includegraphics[scale=0.1,height=2cm ]{logo.png}
+}
+\pagestyle{empty}
+
+\pagestyle{headandfoot}
+\headrule
+\cfoot{W: https://preppeo.com; M: +91-8130711689}
+
+\begin{document}
+%==============================================================
+% Customise Question paper details below this
+% =============================================================
+\begin{center}
+    \centering
+    \renewcommand{\arraystretch}{1.5}
+    \begin{tabularx}{\textwidth}{YYY}
+    & \normalsize\bf{{\Large{{Quant}}}} & \\
+    By Preppeo & \normalsize\bf{{sat\_lid\_013}} & SAT\\
+    \normalsize{{\textbf{{Unit:}} Algebra}} & \normalsize{{\textbf{{Chapter:}} Linear functions: slope, intercepts, graphs}} & \normalsize{{\textbf{{Topic:Linear Growth \& Decay Models}} }} \\
+    \end{tabularx}
+\end{center}
+\par\noindent\rule{\textwidth}{1pt}
+% =============================================================
+% Customise Question paper details above this
+% =============================================================
+
+\begin{questions}
+\pointsinrightmargin
+\pointsdroppedatright
+\marksnotpoints
+\pointpoints{mark}{marks}
+\pointformat{\boldmath\themarginpoints}
+\bracketedpoints
+
+% =============================================================
+% Question Begin
+% =============================================================
+
+
+% --- PART 1: Core Growth and Decay Interpretation (1-25) ---
+
+% Question 1
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+A scientist is tracking the population of a specific type of bacteria in a controlled environment. The population $P$ can be modeled by the equation $P = 150t + 2,000$, where $t$ is the number of hours since the start of the observation. Which of the following is the best interpretation of the number 150 in this context?
+\begin{tasks}(1)
+    \task The initial number of bacteria when the observation began.
+    \task The number of hours it takes for the population to reach 2,000.
+    \task The increase in the number of bacteria each hour.
+    \task The total number of bacteria after 150 hours.
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+In a linear model $y = mx + b$, the slope $m$ represents the rate of change—how much the dependent variable ($P$) changes for every one unit of the independent variable ($t$).
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+$P = 150t + 2,000$. \\
+The coefficient of $t$ is 150. Since $t$ is measured in hours, 150 represents the rate of increase per hour.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{20pt}
+
+% Question 2
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+A car’s value depreciates linearly over time. The value $V$, in dollars, of a certain car $t$ years after it was purchased is given by $V = 28,500 - 2,100t$. What is the best interpretation of 28,500 in this context?
+\begin{tasks}(1)
+    \task The value of the car after 1 year.
+    \task The amount the car's value decreases each year.
+    \task The number of years until the car has no value.
+    \task The value of the car at the time of purchase.
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The $y$-intercept ($b$) represents the "starting" or "initial" value when the time ($t$) is 0.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+At the time of purchase, $t = 0$. \\
+$V = 28,500 - 2,100(0) = 28,500$. \\
+This is the original price of the car.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{D}
+\end{solution}
+
+\vspace{20pt}
+
+% Question 3
+% Category: Practice | Difficulty: Hard | Question Type: Multiple Choice
+\question
+A water tank holds 1,200 gallons of water and is being drained at a constant rate. After 5 hours, the tank contains 950 gallons. Which of the following linear functions represents the amount of water $W$, in gallons, remaining in the tank after $t$ hours?
+\begin{tasks}(2)
+    \task $W = 1,200 - 50t$
+    \task $W = 1,200 - 250t$
+    \task $W = 950 - 50t$
+    \task $W = 1,200 - 5t$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+First, find the rate of change (slope). The rate is the change in water divided by the change in time. Since it is being drained, the rate will be negative.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+Change in water = $950 - 1,200 = -250$ gallons. \\
+Change in time = 5 hours. \\
+Rate = $-250 / 5 = -50$ gallons per hour. \\
+Initial amount ($b$) = 1,200. \\
+Equation: $W = 1,200 - 50t$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+\vspace{20pt}
+
+% Question 4
+% Category: Practice | Difficulty: Easy | Question Type: Multiple Choice
+\question
+A construction worker’s total daily pay $P$, in dollars, is given by $P = 25h + 40$, where $h$ is the number of hours worked. The constant 40 represents a travel stipend. If the worker’s hourly rate increases by \$5, what will be the new equation for the worker’s daily pay?
+\begin{tasks}(2)
+    \task $P = 25h + 45$
+    \task $P = 30h + 40$
+    \task $P = 30h + 45$
+    \task $P = 5h + 40$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The hourly rate is the slope of the linear function. Increasing the "rate" means adding to the coefficient of $h$.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+Original rate = 25. \\
+New rate = $25 + 5 = 30$. \\
+The fixed stipend (y-intercept) remains 40. \\
+New Equation: $P = 30h + 40$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{20pt}
+
+% Question 5
+% Category: Practice | Difficulty: Hard | Question Type: Multiple Choice
+\question
+
+The graph above shows the temperature $T$, in degrees Celsius, of a heated liquid as it cools over time $m$, in minutes. Based on the graph, which of the following is true?
+\begin{tasks}(1)
+    \task The liquid cools at a rate of 20 degrees per minute.
+    \task The initial temperature was 40 degrees Celsius.
+    \task The liquid cools at a rate of 5 degrees per minute.
+    \task It will take 10 minutes for the liquid to reach 0 degrees.
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Determine the slope from the graph. The slope represents the cooling rate.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+Initial point: $(0, 60)$. After 4 minutes: $(4, 40)$. \\
+Change in Temp = $40 - 60 = -20$. \\
+Change in time = 4 minutes. \\
+Rate = $-20 / 4 = -5$ degrees per minute.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{20pt}
+
+% Question 6
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+A hiker is climbing a mountain at a constant rate. Their elevation $E$, in feet, $h$ hours after they started is given by $E = 800h + 1,200$. What was the hiker’s elevation when they started?
+\begin{tasks}(4)
+    \task 0 feet
+    \task 800 feet
+    \task 1,200 feet
+    \task 2,000 feet
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+"When they started" corresponds to $h = 0$.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+$E = 800(0) + 1,200 = 1,200$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{20pt}
+
+% Question 7
+% Category: Practice | Difficulty: Hard | Question Type: Multiple Choice
+\question
+A library has 5,000 books and adds $n$ new books each month. After 12 months, the library has 5,720 books. What is the value of $n$?
+\begin{tasks}(4)
+    \task 60
+    \task 72
+    \task 120
+    \task 572
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The total increase over a period of time is the rate multiplied by the time. Set up a linear equation to solve for the rate $n$.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+Total books = Initial + (Rate $\times$ Months) \\
+$5,720 = 5,000 + n(12)$ \\
+$720 = 12n$ \\
+$n = 60$
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+\vspace{20pt}
+
+% Question 8
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+A smartphone battery charges at a constant rate. The battery percentage $B$ after $m$ minutes of charging is given by $B = 0.8m + 15$. How many minutes will it take for the battery to be fully charged ($100\%$)?
+\begin{tasks}(4)
+    \task 85 minutes
+    \task 106.25 minutes
+    \task 125 minutes
+    \task 15 minutes
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Substitute the target value for $B$ and solve for the time $m$.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+$100 = 0.8m + 15$ \\
+$85 = 0.8m$ \\
+$m = 85 / 0.8 = 106.25$
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{20pt}
+
+% Question 9
+% Category: Practice | Difficulty: Hard | Question Type: Multiple Choice
+\question
+
+The graph above shows the height $H$, in feet, of two different trees over $t$ years. Tree A is modeled by $A(t) = 1.5t + 10$ and Tree B is modeled by $B(t) = 2t + 4$. After how many years will both trees be the same height?
+\begin{tasks}(4)
+    \task 6 years
+    \task 10 years
+    \task 12 years
+    \task 14 years
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+When two linear models are "the same," their equations are equal. Set the two functions equal to each other and solve for $t$.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+$1.5t + 10 = 2t + 4$ \\
+$6 = 0.5t$ \\
+$t = 12$
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{20pt}
+
+% Question 10
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+A candle is 12 inches tall and burns at a rate of 0.75 inches per hour. Which inequality represents the number of hours $h$ the candle can burn such that its height is at least 3 inches?
+\begin{tasks}(2)
+    \task $12 - 0.75h \ge 3$
+    \task $12 + 0.75h \le 3$
+    \task $0.75h \ge 3$
+    \task $12 - 0.75h \le 3$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The current height is the initial height minus the amount burned. "At least" translates to $\ge$.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+Initial = 12. Amount burned = $0.75 \times h$. \\
+Height = $12 - 0.75h$. \\
+Condition: $12 - 0.75h \ge 3$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+\vspace{20pt}
+
+% Question 11
+% Category: Practice | Difficulty: Hard | Question Type: Multiple Choice
+\question
+A salesperson earns a base salary plus a commission for every car sold. The linear function $S(c) = 500c + 25,000$ represents the salesperson’s annual salary $S$, in dollars, for selling $c$ cars. If the salesperson wants to increase their annual salary by \$5,000, how many more cars must they sell?
+\begin{tasks}(4)
+    \task 10
+    \task 50
+    \task 5
+    \task 60
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The slope (500) tells us how much the salary increases per car. Divide the target increase by the rate per car.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+Salary increase = 5,000. \\
+Rate = 500 per car. \\
+Cars needed = $5,000 / 500 = 10$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+\vspace{20pt}
+
+% Question 12
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+A pool is being filled with water. The volume of water $V$, in gallons, after $m$ minutes is $V = 12m + 200$. What does the 200 represent in this context?
+\begin{tasks}(1)
+    \task The number of gallons added to the pool each minute.
+    \task The time it takes for the pool to be full.
+    \task The amount of water already in the pool when the filling started.
+    \task The maximum capacity of the pool.
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The constant term in a linear growth model is the initial value at time zero.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+When $m = 0$, $V = 200$. This is the starting volume.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{20pt}
+
+% Question 13
+% Category: Practice | Difficulty: Hard | Question Type: Multiple Choice
+\question
+A printer has 400 sheets of paper and uses them at a rate of 8 sheets per minute. After $x$ minutes, the printer has fewer than 100 sheets left. Which inequality represents this situation?
+\begin{tasks}(2)
+    \task $400 - 8x < 100$
+    \task $400 - 8x > 100$
+    \task $8x < 300$
+    \task $400 + 8x < 100$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The remaining amount is initial minus (rate $\times$ time). "Fewer than" means $<$.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+Initial = 400. Usage = $8x$. \\
+Remaining = $400 - 8x$. \\
+Inequality: $400 - 8x < 100$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+\vspace{20pt}
+
+% Question 14
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+
+The graph above shows the balance of a gift card $B$ after $n$ coffee purchases. What is the cost of each coffee?
+\begin{tasks}(4)
+    \task \$100
+    \task \$10
+    \task \$1
+    \task \$5
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The cost of each coffee is the slope (the rate at which the balance decreases per purchase).
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+Total drop = \$100. \\
+Total purchases to reach zero = 10. \\
+Cost per purchase = $100 / 10 = 10$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{20pt}
+
+% Question 15
+% Category: Practice | Difficulty: Hard | Question Type: Multiple Choice
+\question
+A subscription service costs \$15 per month plus a one-time activation fee of \$30. Which function gives the total cost $C$ for $m$ months of service?
+\begin{tasks}(2)
+    \task $C(m) = 30m + 15$
+    \task $C(m) = 15m + 30$
+    \task $C(m) = 45m$
+    \task $C(m) = 15(m + 30)$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The "per month" cost is the rate (slope), and the "one-time" fee is the initial value (y-intercept).
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+Rate = 15. Initial = 30. \\
+Equation: $C = 15m + 30$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{20pt}
+
+% Question 16
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+The height of a candle $h$, in centimeters, after burning for $t$ minutes is $h = -0.2t + 25$. How many centimeters of the candle burn every 10 minutes?
+\begin{tasks}(4)
+    \task 0.2 cm
+    \task 2 cm
+    \task 25 cm
+    \task 23 cm
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The slope represents the change per one minute. To find the change for 10 minutes, multiply the slope by 10.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+Rate = 0.2 cm per minute. \\
+For 10 minutes = $0.2 \times 10 = 2$ cm.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{20pt}
+
+% Question 17
+% Category: Practice | Difficulty: Hard | Question Type: Multiple Choice
+\question
+A car travels at a constant speed of 65 miles per hour. The distance $D$ from its destination after $t$ hours is $D = 325 - 65t$. What does the 325 represent?
+\begin{tasks}(1)
+    \task The total time of the trip.
+    \task The speed of the car.
+    \task The total distance of the trip when $t=0$.
+    \task The distance traveled after 1 hour.
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+In a decay or distance-remaining model, the constant term is the initial distance from the goal.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+When $t = 0$, $D = 325$. This is the starting distance.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{20pt}
+
+% Question 18
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+An athlete's weight $W$, in pounds, after $x$ weeks of a training program is $W = 195 - 1.5x$. How many weeks will it take the athlete to reach 180 pounds?
+\begin{tasks}(4)
+    \task 10 weeks
+    \task 15 weeks
+    \task 1.5 weeks
+    \task 12 weeks
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Substitute the target weight for $W$ and solve for $x$.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+$180 = 195 - 1.5x$ \\
+$-15 = -1.5x$ \\
+$x = 10$
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+\vspace{20pt}
+
+% Question 19
+% Category: Practice | Difficulty: Hard | Question Type: Multiple Choice
+\question
+A business's profit $P$ increases by \$2,000 for every additional 100 units sold. If the profit is \$10,000 when 400 units are sold, which function represents profit as a function of units $u$?
+\begin{tasks}(2)
+    \task $P(u) = 20u + 2,000$
+    \task $P(u) = 200u + 10,000$
+    \task $P(u) = 20u + 10,000$
+    \task $P(u) = 20u + 8,000$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+First find the rate per unit (slope), then use the point (400, 10,000) to find the y-intercept.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+Rate = $2,000 / 100 = 20$ per unit. \\
+$10,000 = 20(400) + b$ \\
+$10,000 = 8,000 + b \Rightarrow b = 2,000$. \\
+Function: $P(u) = 20u + 2,000$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+\vspace{20pt}
+
+% Question 20
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+A plane is descending at a constant rate. Its altitude $A$, in feet, $t$ minutes after beginning its descent is $A = 30,000 - 1,500t$. How many minutes after beginning its descent will the plane be at an altitude of 15,000 feet?
+\begin{tasks}(4)
+    \task 10 minutes
+    \task 15 minutes
+    \task 20 minutes
+    \task 5 minutes
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Set the altitude $A$ to 15,000 and solve for the time $t$.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+$15,000 = 30,000 - 1,500t$ \\
+$-15,000 = -1,500t$ \\
+$t = 10$
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+\vspace{20pt}
+
+% Question 21
+% Category: Practice | Difficulty: Hard | Question Type: Multiple Choice
+\question
+The cost of renting a truck is \$40 per day plus \$0.50 per mile. If a person rents a truck for one day and drives $d$ miles, their total cost is $C$. If the per-mile rate increases by 20\%, what is the new cost equation?
+\begin{tasks}(2)
+    \task $C = 40 + 0.60d$
+    \task $C = 48 + 0.50d$
+    \task $C = 40 + 0.70d$
+    \task $C = 48 + 0.60d$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The per-mile rate is the slope. Calculate the new rate by increasing the original slope by 20\%.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+Original slope = 0.50. \\
+Increase = $0.50 \times 0.20 = 0.10$. \\
+New slope = $0.50 + 0.10 = 0.60$. \\
+Equation: $C = 40 + 0.60d$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+\vspace{20pt}
+
+% Question 22
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+A savings account starts with \$500 and \$25 is deposited every week. Which of the following represents the total amount $S$ in the account after $w$ weeks?
+\begin{tasks}(2)
+    \task $S = 500w + 25$
+    \task $S = 25w + 500$
+    \task $S = 525w$
+    \task $S = 25(w + 500)$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The starting amount is the $y$-intercept, and the weekly deposit is the slope.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+$b = 500, m = 25$. \\
+Equation: $S = 25w + 500$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{20pt}
+
+% Question 23
+% Category: Practice | Difficulty: Hard | Question Type: Multiple Choice
+\question
+A pool contains 8,000 gallons of water and is being filled at a rate of 15 gallons per minute. After how many hours will the pool contain 10,700 gallons?
+\begin{tasks}(4)
+    \task 3 hours
+    \task 180 hours
+    \task 2.5 hours
+    \task 45 hours
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Find the total time in minutes first, then convert that time into hours.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+Gallons to add = $10,700 - 8,000 = 2,700$. \\
+Minutes = $2,700 / 15 = 180$ minutes. \\
+Hours = $180 / 60 = 3$ hours.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+\vspace{20pt}
+
+% Question 24
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+A person is paying off a \$2,400 loan by making monthly payments of \$150. Which function represents the remaining balance $B$ after $m$ months?
+\begin{tasks}(2)
+    \task $B(m) = 2,400 + 150m$
+    \task $B(m) = 150m - 2,400$
+    \task $B(m) = 2,400 - 150m$
+    \task $B(m) = 2,250m$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The balance starts at the loan amount and decreases by the payment amount each month.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+Initial = 2,400. Decrease = $150 \times m$. \\
+Equation: $B = 2,400 - 150m$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{20pt}
+
+% Question 25
+% Category: Practice | Difficulty: Hard | Question Type: Multiple Choice
+\question
+A linear model $y = mx + b$ is used to predict the value of a stock. If the stock's value increases by \$4 every 5 days and was worth \$50 on Day 0, what is the value of $m$?
+\begin{tasks}(4)
+    \task 4
+    \task 5
+    \task 0.8
+    \task 1.25
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The slope $m$ is the change in the output ($y$) per one unit of the input ($x$).
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+Change in $y = 4$. Change in $x = 5$. \\
+$m = 4 / 5 = 0.8$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+
+% --- PART 2: Comparative Models and Variable Analysis (26-50) ---
+
+% Question 26
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+A delivery service uses the model $C = 2.5d + 7.5$ to calculate the delivery cost $C$, in dollars, for a distance of $d$ miles. Which of the following is a true statement based on the model?
+\begin{tasks}(1)
+    \task The cost increases by \$7.50 for every mile traveled.
+    \task For every 2-mile increase in distance, the cost increases by \$5.00.
+    \task The distance must be at least 7.5 miles.
+    \task A delivery of 0 miles would cost \$2.50.
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The slope ($2.5$) represents the cost per mile. To check a 2-mile increase, multiply the slope by 2.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+Slope = 2.50 per mile. \\
+2 miles $\times$ 2.50 = 5.00. \\
+Therefore, the cost increases by \$5.00 for every 2 miles.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{20pt}
+
+% Question 27
+% Category: Practice | Difficulty: Hard | Question Type: Multiple Choice
+\question
+A computer's value $V$ decreases by \$150 each year. After 3 years, the computer is worth \$550. Which equation represents the value of the computer $t$ years after it was purchased?
+\begin{tasks}(2)
+    \task $V = 150t + 550$
+    \task $V = -150t + 1,000$
+    \task $V = -150t + 550$
+    \task $V = -150t + 400$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Use the rate of change and the given point (3, 550) to find the initial value ($y$-intercept).
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+$m = -150$. \\
+$550 = -150(3) + b$ \\
+$550 = -450 + b \Rightarrow b = 1,000$. \\
+Equation: $V = -150t + 1,000$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{20pt}
+
+% Question 28
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+The remaining length $L$ of a yarn roll, in meters, after knitting $s$ sweaters is $L = 500 - 45s$. If a knitter has 140 meters of yarn left, how many sweaters did they knit?
+\begin{tasks}(4)
+    \task 6
+    \task 8
+    \task 10
+    \task 12
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Substitute the remaining length for $L$ and solve for $s$.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+$140 = 500 - 45s$ \\
+$-360 = -45s$ \\
+$s = 8$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{20pt}
+
+% Question 29
+% Category: Practice | Difficulty: Hard | Question Type: Multiple Choice
+\question
+Two companies offer internet plans. Plan A costs \$50 per month. Plan B costs \$20 per month plus \$0.10 for every gigabyte $g$ of data used. For what amount of data is Plan B more expensive than Plan A?
+\begin{tasks}(4)
+    \task $g > 300$
+    \task $g < 300$
+    \task $g > 700$
+    \task $g < 700$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Set up an inequality where the expression for Plan B is greater than Plan A.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+Plan B: $20 + 0.10g$. Plan A: 50. \\
+$20 + 0.10g > 50$ \\
+$0.10g > 30$ \\
+$g > 300$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+\vspace{20pt}
+
+% Question 30
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+The height of a stack of $n$ identical books is $H = 2.5n + 1$. What does the 1 represent in this context?
+\begin{tasks}(1)
+    \task The thickness of each book.
+    \task The total height of the stack.
+    \task The thickness of the bottom cover or a base.
+    \task The weight of one book.
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The $y$-intercept represents the height when the number of books is zero.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+When $n=0$, $H=1$. This suggests a constant thickness added to the stack regardless of the number of books.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{20pt}
+
+% Question 31
+% Category: Practice | Difficulty: Hard | Question Type: Multiple Choice
+\question
+A car rental company charges \$45 per day. Another company charges \$25 per day plus \$0.25 per mile. If a person rents a car for one day, at what mileage $m$ will the costs be equal?
+\begin{tasks}(4)
+    \task 80 miles
+    \task 100 miles
+    \task 180 miles
+    \task 280 miles
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Set the two cost equations equal to each other.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+$45 = 25 + 0.25m$ \\
+$20 = 0.25m$ \\
+$m = 20 / 0.25 = 80$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+\vspace{20pt}
+
+% Question 32
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+An ice block weighs 100 lbs and melts at a rate of 4 lbs per hour. Which function represents the weight $W$ after $h$ hours?
+\begin{tasks}(2)
+    \task $W = 100 + 4h$
+    \task $W = 4h - 100$
+    \task $W = 100 - 4h$
+    \task $W = 96h$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Melting implies a decrease in weight over time (negative slope).
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+Initial = 100. Rate = $-4$. \\
+Equation: $W = 100 - 4h$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{20pt}
+
+% Question 33
+% Category: Practice | Difficulty: Hard | Question Type: Multiple Choice
+\question
+A balloon is being inflated. Its volume $V$, in cubic inches, $t$ seconds after inflation starts is $V = 15t + 10$. If the maximum volume is 400 cubic inches, what is the maximum value of $t$?
+\begin{tasks}(4)
+    \task 26
+    \task 27.3
+    \task 26.6
+    \task 25
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Set the volume to the maximum limit and solve for $t$.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+$400 = 15t + 10$ \\
+$390 = 15t$ \\
+$t = 26$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+\vspace{20pt}
+
+% Question 34
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+A store offers a discount where the price $P$ of a jacket is $P = 120 - 5w$, where $w$ is the number of weeks it has been on the shelf. What is the original price of the jacket?
+\begin{tasks}(4)
+    \task \$5
+    \task \$115
+    \task \$120
+    \task \$24
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Original price corresponds to $w=0$.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+$P = 120 - 5(0) = 120$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{20pt}
+
+% Question 35
+% Category: Practice | Difficulty: Hard | Question Type: Multiple Choice
+\question
+A pump can remove water from a basement at a rate of 12 gallons per minute. If the basement starts with 1,500 gallons and the pump runs for 2 hours, how many gallons of water remain?
+\begin{tasks}(4)
+    \task 1,476
+    \task 780
+    \task 60
+    \task 1,440
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Convert hours to minutes, calculate the total removed, and subtract from the initial amount.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+2 hours = 120 minutes. \\
+Removed = $12 \times 120 = 1,440$ gallons. \\
+Remaining = $1,500 - 1,440 = 60$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{20pt}
+
+% Question 36
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+A line graph shows that for every 3 units increase in $x$, $y$ increases by 12 units. If the line passes through $(0, 5)$, what is the linear model for $y$?
+\begin{tasks}(2)
+    \task $y = 3x + 5$
+    \task $y = 4x + 5$
+    \task $y = 12x + 5$
+    \task $y = \frac{1}{4}x + 5$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Calculate the slope ($m$) first, then use the given $y$-intercept.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+$m = 12 / 3 = 4$. \\
+$b = 5$. \\
+Equation: $y = 4x + 5$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{20pt}
+
+% Question 37
+% Category: Practice | Difficulty: Hard | Question Type: Multiple Choice
+\question
+The total cost $C$ for a manufacturer to produce $n$ items is $C = 5n + 2,000$. If the manufacturer sells each item for \$15, how many items must be produced and sold to break even (where cost equals revenue)?
+\begin{tasks}(4)
+    \task 100
+    \task 200
+    \task 133
+    \task 150
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Set Cost equal to Revenue ($15n$).
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+$15n = 5n + 2,000$ \\
+$10n = 2,000$ \\
+$n = 200$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{20pt}
+
+% Question 38
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+
+The graph above shows the weight $W$, in pounds, of a puppy over $x$ weeks. If the puppy gained 2 pounds every week and started at 8 pounds, which equation matches the graph?
+\begin{tasks}(2)
+    \task $W = 8x + 2$
+    \task $W = 2x + 8$
+    \task $W = 2x + 10$
+    \task $W = 10x + 8$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+"Started at" is the $b$ value. "Gained every week" is the $m$ value.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+$m = 2, b = 8$. \\
+Equation: $W = 2x + 8$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{20pt}
+
+% Question 39
+% Category: Practice | Difficulty: Hard | Question Type: Multiple Choice
+\question
+A hiker descends from an elevation of 5,000 feet at a rate of 250 feet per hour. Which function gives the elevation $E$ after $h$ hours?
+\begin{tasks}(2)
+    \task $E = 250h - 5,000$
+    \task $E = 5,000 - 250h$
+    \task $E = 5,000 + 250h$
+    \task $E = 5,000h - 250$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Initial elevation is high and decreases over time.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+Initial = 5,000. Rate = $-250$. \\
+Equation: $E = 5,000 - 250h$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{20pt}
+
+% Question 40
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+A subscription box service charges \$20 for the first box and \$15 for each subsequent box. Which equation gives the total cost $C$ for $n$ boxes?
+\begin{tasks}(2)
+    \task $C = 15n + 20$
+    \task $C = 15(n - 1) + 20$
+    \task $C = 20n + 15$
+    \task $C = 35n$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The \$20 only applies once. The \$15 applies to the remaining ($n-1$) boxes.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+$C = 20 + 15(n - 1)$. \\
+(This simplifies to $15n + 5$, but Choice B is the correct setup).
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{20pt}
+
+% Question 41
+% Category: Practice | Difficulty: Hard | Question Type: Multiple Choice
+\question
+The amount of snow on the ground $S$ is modeled by $S = 2t + 4$ during a storm. If the storm lasts from 10:00 AM to 4:00 PM, what is the total increase in snow?
+\begin{tasks}(4)
+    \task 4 inches
+    \task 6 inches
+    \task 12 inches
+    \task 16 inches
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Total increase is the rate multiplied by the total duration.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+Duration: 10 AM to 4 PM = 6 hours. \\
+Rate = 2 inches per hour. \\
+Increase = $2 \times 6 = 12$ inches.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{20pt}
+
+% Question 42
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+A scientist finds that the temperature $T$ of a sample drops 3 degrees every minute. If the starting temperature was 75 degrees, what is the temperature after 10 minutes?
+\begin{tasks}(4)
+    \task 72 degrees
+    \task 45 degrees
+    \task 30 degrees
+    \task 105 degrees
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Calculate the total drop and subtract it from the initial temperature.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+Drop = $3 \times 10 = 30$. \\
+$75 - 30 = 45$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{20pt}
+
+% Question 43
+% Category: Practice | Difficulty: Hard | Question Type: Multiple Choice
+\question
+A company's revenue $R$ is modeled by $R = 100x$ and its costs $C$ are $C = 40x + 1,200$. What is the profit equation ($P = R - C$)?
+\begin{tasks}(2)
+    \task $P = 60x + 1,200$
+    \task $P = 60x - 1,200$
+    \task $P = 140x + 1,200$
+    \task $P = 140x - 1,200$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Subtract the entire cost expression from the revenue expression.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+$P = 100x - (40x + 1,200)$ \\
+$P = 100x - 40x - 1,200$ \\
+$P = 60x - 1,200$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{20pt}
+
+% Question 44
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+A car fuel tank holds 15 gallons. The car uses 0.04 gallons per mile. Which equation gives the gallons $G$ remaining after $m$ miles?
+\begin{tasks}(2)
+    \task $G = 0.04m - 15$
+    \task $G = 15 + 0.04m$
+    \task $G = 15 - 0.04m$
+    \task $G = 15.04m$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Fuel decreases with distance.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+Initial = 15. Rate = $-0.04$. \\
+Equation: $G = 15 - 0.04m$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{20pt}
+
+% Question 45
+% Category: Practice | Difficulty: Hard | Question Type: Multiple Choice
+\question
+
+Line A has a growth rate of 10 units per day. Line B has a growth rate of 5 units per day but starts with 50 units. If Line A starts with 0 units, on what day will Line A exceed Line B?
+\begin{tasks}(4)
+    \task Day 5
+    \task Day 10
+    \task Day 11
+    \task Day 20
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Set the inequality $A > B$.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+Line A: $10d$. Line B: $5d + 50$. \\
+$10d > 5d + 50$ \\
+$5d > 50$ \\
+$d > 10$. \\
+The first day it exceeds is Day 11.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{20pt}
+
+% Question 46
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+A plumber charges \$50 for the first hour and \$35 for each additional hour. Which model represents the total cost $C$ for $h$ hours ($h \ge 1$)?
+\begin{tasks}(2)
+    \task $C = 35h + 50$
+    \task $C = 35(h - 1) + 50$
+    \task $C = 50h + 35$
+    \task $C = 85h$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The \$50 is only for the first hour. Subsequent hours are charged at the lower rate.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+$C = 50 + 35(h - 1)$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{20pt}
+
+% Question 47
+% Category: Practice | Difficulty: Hard | Question Type: Multiple Choice
+\question
+If the value of an asset $V$ is modeled by $V = 50,000 - 4,000t$, how many years will it take for the asset to lose half of its original value?
+\begin{tasks}(4)
+    \task 6.25 years
+    \task 12.5 years
+    \task 5 years
+    \task 10 years
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Original value is 50,000. Half is 25,000. Solve for $t$.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+$25,000 = 50,000 - 4,000t$ \\
+$-25,000 = -4,000t$ \\
+$t = 6.25$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+\vspace{20pt}
+
+% Question 48
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+A gardener plants a tree that is 4 feet tall. It grows 0.5 feet per year. How tall will it be after 14 years?
+\begin{tasks}(4)
+    \task 7 feet
+    \task 11 feet
+    \task 18 feet
+    \task 9 feet
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Total growth = rate $\times$ time. Add this to the starting height.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+Growth = $0.5 \times 14 = 7$. \\
+$4 + 7 = 11$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{20pt}
+
+% Question 49
+% Category: Practice | Difficulty: Hard | Question Type: Multiple Choice
+\question
+A data plan charges a flat fee of \$40 and \$10 for every GB over 5 GB. If a customer's bill was \$90, how many total GB did they use?
+\begin{tasks}(4)
+    \task 5 GB
+    \task 9 GB
+    \task 10 GB
+    \task 14 GB
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Determine how much was paid in overage fees, calculate the overage GB, and add to the base 5 GB.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+Overage fees = $90 - 40 = 50$. \\
+Overage GB = $50 / 10 = 5$. \\
+Total GB = $5 (\text{base}) + 5 (\text{overage}) = 10$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{20pt}
+
+% Question 50
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+An airplane descends from 35,000 feet to 5,000 feet in 15 minutes. What is its constant rate of descent in feet per minute?
+\begin{tasks}(4)
+    \task 1,000
+    \task 2,000
+    \task 3,000
+    \task 2,333
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Rate is total change divided by total time.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+Change = $35,000 - 5,000 = 30,000$ feet. \\
+Time = 15 minutes. \\
+Rate = $30,000 / 15 = 2,000$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+
+
+
+
+
+
+
+
+% =============================================================
+% Question End
+% =============================================================
+
+\end{questions}
+\begin{center}
+\rule{.5\textwidth}{1pt}
+\end{center}
+\end{document}

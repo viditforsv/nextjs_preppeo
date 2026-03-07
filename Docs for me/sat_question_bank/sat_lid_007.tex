@@ -1,0 +1,1194 @@
+\documentclass[11pt,paper=a4,answers]{exam}
+\usepackage{graphicx,lastpage}
+\usepackage{upgreek}
+\usepackage{censor}
+\usepackage{gensymb}
+\usepackage{amsmath}
+\usepackage{multicol}
+\usepackage{enumitem}
+\usepackage{tasks}
+\usepackage{adjustbox}
+\usepackage{xcolor}
+\usepackage{tfrupee}
+\setlength{\voffset}{0.25in}
+\usepackage{tabularx}
+\newcolumntype{Y}{>{\centering\arraybackslash}X}
+%==============================================================
+% Customise Non-Essential Packages Below
+% =============================================================
+\usepackage[most]{tcolorbox}
+\usepackage{eso-pic}
+\usepackage{tikz}
+\AddToShipoutPictureBG{%
+\begin{tikzpicture}[remember picture,overlay]
+\foreach \x in {-8,-4,0,4,8,12,16,20}
+\foreach \y in {-8,-4,0,4,8,12,16,20} {
+\node[opacity=0.05,rotate=45,anchor=center] at ([xshift=\x cm,yshift=\y cm]current page.center) {%
+\begin{minipage}{2cm}
+\centering
+\includegraphics[width=2cm]{images/logo_black.png}\\
+\small preppeo.com
+\end{minipage}%
+};
+}
+\end{tikzpicture}%
+}
+\printanswers
+
+%==============================================================
+% Customise Non-Essential Packages Above
+% =============================================================
+\definecolor{svgray}{rgb}{0.90, 0.90, 0.90}
+\graphicspath{{images/}}
+
+\usepackage[normalem]{ulem}
+\renewcommand\ULthickness{1pt}   %%---> For changing thickness of underline
+\setlength\ULdepth{3.5ex}%\maxdimen ---> For changing depth of underline
+\renewcommand{\baselinestretch}{1}
+\chead{
+\includegraphics[scale=0.1,height=2cm ]{logo.png}
+}
+\pagestyle{empty}
+
+\pagestyle{headandfoot}
+\headrule
+\cfoot{W: https://preppeo.com; M: +91-8130711689}
+
+\begin{document}
+%==============================================================
+% Customise Question paper details below this
+% =============================================================
+\begin{center}
+    \centering
+    \renewcommand{\arraystretch}{1.5}
+    \begin{tabularx}{\textwidth}{YYY}
+    & \normalsize\bf{{\Large{{Quant}}}} & \\
+    By Preppeo & \normalsize\bf{{sat\_lid\_007}} & SAT\\
+    \normalsize{{\textbf{{Unit:}} Algebra}} & \normalsize{{\textbf{{Chapter:}}Systems of two linear equations in two variables}} & \normalsize{{\textbf{{Topic:}} Solving Systems (Substitution \& Elimination)}} \\
+    \end{tabularx}
+\end{center}
+\par\noindent\rule{\textwidth}{1pt}
+% =============================================================
+% Customise Question paper details above this
+% =============================================================
+
+\begin{questions}
+\pointsinrightmargin
+\pointsdroppedatright
+\marksnotpoints
+\pointpoints{mark}{marks}
+\pointformat{\boldmath\themarginpoints}
+\bracketedpoints
+
+% =============================================================
+% Question Begin
+% =============================================================
+%Q: 1
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+A local bakery sells boxes of donuts and muffins. A box of donuts costs \$12 and a box of muffins costs \$15. On Saturday, the bakery sold a total of 40 boxes for \$540. If $d$ represents the number of boxes of donuts and $m$ represents the number of boxes of muffins, which system of equations represents this situation?
+\begin{tasks}(2)
+    \task $d + m = 40$; $12d + 15m = 540$
+    \task $d + m = 540$; $12d + 15m = 40$
+    \task $12d + 15m = 40$; $d + m = 540$
+    \task $d + m = 40$; $15d + 12m = 540$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+When modeling a real-world scenario with a system of equations, we typically look for two different types of totals. The first is usually a "quantity total" (how many items in total), and the second is a "value total" (how much money or weight in total).
+\\[10pt]
+\textbf{Calculation and Logic:} \\
+The problem states that the total number of boxes is 40. Since $d$ is donuts and $m$ is muffins, our first equation is:
+\[d + m = 40\]
+The second piece of information is the total revenue of \$540. We multiply the cost of each item by its quantity to find the total value:
+\[12d + 15m = 540\]
+This gives us the system in option A.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+
+
+%Q: 2
+% Category: Practice | Difficulty: Medium | Question Type: Numeric Entry
+\question
+Consider the system of equations below:
+\begin{align*}
+x + y &= 15 \\
+2x - y &= 6
+\end{align*}
+What is the value of $x$ in the solution to the system?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The elimination method is most efficient here because the $y$ terms have coefficients that are opposites (+1 and -1). When we add the two equations together, the $y$ variable will be eliminated, allowing us to solve for $x$ directly.
+\\[10pt]
+\textbf{Calculation and Logic:} \\
+Add the two equations:
+\[(x + y) + (2x - y) = 15 + 6\]
+\[3x = 21\]
+Divide by 3:
+\[x = 7\]
+The $x$-coordinate of the solution is 7.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{7}
+\end{solution}
+
+%Q: 3
+% Category: Practice | Difficulty: Hard | Question Type: Multiple Choice
+\question
+A nutritionist is mixing two types of juices. Juice A contains 20\% sugar and Juice B contains 5\% sugar. The final mixture should be 10 liters and contain 1.25 liters of sugar. If $a$ is the liters of Juice A and $b$ is the liters of Juice B, which system of equations models this?
+\begin{tasks}(2)
+    \task $a + b = 10$; $0.20a + 0.05b = 1.25$
+    \task $a + b = 1.25$; $0.20a + 0.05b = 10$
+    \task $a + b = 10$; $20a + 5b = 1.25$
+    \task $0.20a + 0.05b = 10$; $a + b = 10$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+In mixture problems, we create one equation for the total volume and a second equation for the specific component (in this case, sugar) contained within that volume.
+\\[10pt]
+\textbf{Calculation and Logic:} \\
+The total volume of juice must be 10 liters:
+\[a + b = 10\]
+The amount of sugar from Juice A is $20\%$ of $a$ ($0.20a$) and from Juice B is $5\%$ of $b$ ($0.05b$). The total sugar is 1.25 liters:
+\[0.20a + 0.05b = 1.25\]
+This matches the system provided in option A.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+%Q: 4
+% Category: Practice | Difficulty: Hard | Question Type: Numeric Entry
+\question
+If $(x, y)$ is the solution to the system of equations below, what is the value of $y$?
+\begin{align*}
+y &= 3x - 4 \\
+2x + y &= 16
+\end{align*}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Since the first equation is already solved for $y$, the substitution method is the best approach. We can replace the $y$ in the second equation with the expression $3x - 4$ from the first equation.
+\\[10pt]
+\textbf{Calculation and Logic:} \\
+Substitute $3x - 4$ into the second equation:
+\[2x + (3x - 4) = 16\]
+Combine like terms:
+\[5x - 4 = 16\]
+Add 4 to both sides:
+\[5x = 20 \Rightarrow x = 4\]
+Now, find $y$ by plugging $x = 4$ back into the first equation:
+\[y = 3(4) - 4 = 12 - 4 = 8\]
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{8}
+\end{solution}
+
+%Q: 5
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+A landscaping company has two types of trucks. Type X carries 3 tons of soil and Type Y carries 5 tons. The company used a total of 12 trucks to deliver 44 tons of soil. Which system represents this?
+\begin{tasks}(2)
+    \task $x + y = 12$; $3x + 5y = 44$
+    \task $x + y = 44$; $3x + 5y = 12$
+    \task $3x + 5y = 12$; $x + y = 12$
+    \task $x + y = 12$; $5x + 3y = 44$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+We define two variables for the number of trucks and set up equations based on the count of vehicles and their total carrying capacity.
+\\[10pt]
+\textbf{Calculation and Logic:} \\
+Total number of trucks:
+\[x + y = 12\]
+Total tons of soil (capacity per truck $\times$ number of trucks):
+\[3x + 5y = 44\]
+Option A correctly represents both constraints.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+%Q: 6
+% Category: Practice | Difficulty: Medium | Question Type: Numeric Entry
+\question
+In the system below, what is the value of $x + y$?
+\begin{align*}
+2x + 3y &= 12 \\
+x - y &= 1
+\end{align*}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+We first solve the system to find the individual values of $x$ and $y$, then add them together as requested by the question.
+\\[10pt]
+\textbf{Calculation and Logic:} \\
+Multiply the second equation by 3 to use elimination:
+\[3(x - y) = 3(1) \Rightarrow 3x - 3y = 3\]
+Add this to the first equation:
+\[(2x + 3y) + (3x - 3y) = 12 + 3\]
+\[5x = 15 \Rightarrow x = 3\]
+Plug $x = 3$ into $x - y = 1$:
+\[3 - y = 1 \Rightarrow y = 2\]
+Final value: $x + y = 3 + 2 = 5$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{5}
+\end{solution}
+
+
+
+%Q: 7
+% Category: Practice | Difficulty: Hard | Question Type: Multiple Choice
+\question
+A hotel has 60 rooms, some of which are singles and some are doubles. A single room costs \$90 per night and a double room costs \$140 per night. If the hotel is full and the total revenue is \$7,400, how many double rooms ($d$) does the hotel have?
+\begin{tasks}(4)
+    \task 20
+    \task 40
+    \task 30
+    \task 25
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+We set up a system where $s$ is the number of single rooms and $d$ is the number of double rooms.
+\\[10pt]
+\textbf{Calculation and Logic:} \\
+Equation 1 (Total rooms): $s + d = 60 \Rightarrow s = 60 - d$ \\
+Equation 2 (Total revenue): $90s + 140d = 7,400$ \\
+Substitute $s$ into Equation 2:
+\[90(60 - d) + 140d = 7,400\]
+\[5,400 - 90d + 140d = 7,400\]
+\[50d = 2,000 \Rightarrow d = 40\]
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+%Q: 8
+% Category: Practice | Difficulty: Medium | Question Type: Numeric Entry
+\question
+If $2x + y = 10$ and $x + 2y = 8$, what is the value of $x - y$?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Instead of solving for $x$ and $y$ separately, we can look for a way to manipulate the equations to get the expression $x - y$ directly.
+\\[10pt]
+\textbf{Calculation and Logic:} \\
+Subtract the second equation from the first:
+\[(2x + y) - (x + 2y) = 10 - 8\]
+\[2x + y - x - 2y = 2\]
+\[x - y = 2\]
+This shortcut allows us to find the answer without full elimination.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{2}
+\end{solution}
+
+%Q: 9
+% Category: Practice | Difficulty: Hard | Question Type: Multiple Choice
+\question
+A merchant buys two types of coffee beans. Type A costs \$4 per pound and Type B costs \$7 per pound. The merchant buys a total of 30 pounds for \$165. How many pounds of Type B coffee did he buy?
+\begin{tasks}(4)
+    \task 12
+    \task 15
+    \task 18
+    \task 20
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Let $a$ be pounds of Type A and $b$ be pounds of Type B.
+\\[10pt]
+\textbf{Calculation and Logic:} \\
+$a + b = 30 \Rightarrow a = 30 - b$ \\
+$4a + 7b = 165$ \\
+Substitute:
+\[4(30 - b) + 7b = 165\]
+\[120 - 4b + 7b = 165\]
+\[3b = 45 \Rightarrow b = 15\]
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+%Q: 10
+% Category: Practice | Difficulty: Medium | Question Type: Numeric Entry
+\question
+Find the value of $x$ for the system:
+\begin{align*}
+3x + 2y &= 18 \\
+x - 2y &= 2
+\end{align*}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The $y$ coefficients are $2$ and $-2$. Adding these equations will eliminate $y$.
+\\[10pt]
+\textbf{Calculation and Logic:} \\
+\[(3x + 2y) + (x - 2y) = 18 + 2\]
+\[4x = 20 \Rightarrow x = 5\]
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{5}
+\end{solution}
+
+%Q: 11
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+An exam has 50 questions. Students earn 4 points for each correct answer ($c$) and lose 1 point for each incorrect answer ($w$). If a student gets a score of 150 by answering all questions, which system represents this?
+\begin{tasks}(2)
+    \task $c + w = 50$; $4c - w = 150$
+    \task $c + w = 150$; $4c - w = 50$
+    \task $4c + w = 50$; $c - w = 150$
+    \task $c + w = 50$; $4c + w = 150$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The total questions answered is the sum of correct and incorrect answers. The score is determined by the points gained minus the points lost.
+\\[10pt]
+\textbf{Calculation and Logic:} \\
+Total questions: $c + w = 50$. \\
+Total points: $4(c) - 1(w) = 150 \Rightarrow 4c - w = 150$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+%Q: 12
+% Category: Practice | Difficulty: Hard | Question Type: Numeric Entry
+\question
+If $5x + 2y = 20$ and $x + y = 7$, what is the value of $3x$?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+First, we solve for $x$ by eliminating $y$, then we multiply that result by 3.
+\\[10pt]
+\textbf{Calculation and Logic:} \\
+Multiply $x + y = 7$ by 2:
+\[2x + 2y = 14\]
+Subtract from the first equation:
+\[(5x + 2y) - (2x + 2y) = 20 - 14\]
+\[3x = 6\]
+The question asks for $3x$, which is 6.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{6}
+\end{solution}
+
+%Q: 13
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+Two numbers have a sum of 25 and a difference of 7. What is the larger number?
+\begin{tasks}(4)
+    \task 16
+    \task 18
+    \task 9
+    \task 11
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Let the numbers be $x$ and $y$. We form two equations based on their sum and difference.
+\\[10pt]
+\textbf{Calculation and Logic:} \\
+$x + y = 25$ \\
+$x - y = 7$ \\
+Add the equations: $2x = 32 \Rightarrow x = 16$. \\
+Plug $x = 16$ into $x + y = 25$: $16 + y = 25 \Rightarrow y = 9$. \\
+The larger number is 16.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+%Q: 14
+% Category: Practice | Difficulty: Medium | Question Type: Numeric Entry
+\question
+In the system $x = 2y$ and $x + y = 12$, what is the value of $y$?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Since $x$ is explicitly defined in terms of $y$, we substitute $2y$ for $x$ in the second equation.
+\\[10pt]
+\textbf{Calculation and Logic:} \\
+\[(2y) + y = 12\]
+\[3y = 12 \Rightarrow y = 4\]
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{4}
+\end{solution}
+
+%Q: 15
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+A farmer has chickens ($c$) and cows ($w$). There are 20 animals in total and they have 56 legs. Which system represents this?
+\begin{tasks}(2)
+    \task $c + w = 20$; $2c + 4w = 56$
+    \task $c + w = 56$; $2c + 4w = 20$
+    \task $c + w = 20$; $4c + 2w = 56$
+    \task $2c + 4w = 20$; $c + w = 56$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Chickens have 2 legs and cows have 4 legs. The system consists of an animal count equation and a leg count equation.
+\\[10pt]
+\textbf{Calculation and Logic:} \\
+Animal count: $c + w = 20$. \\
+Leg count: $2c + 4w = 56$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+%Q: 16
+% Category: Practice | Difficulty: Hard | Question Type: Numeric Entry
+\question
+Solve for $x$:
+\begin{align*}
+4x - 3y &= 11 \\
+2x + 3y &= 7
+\end{align*}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Adding these equations will eliminate the $y$ variable.
+\\[10pt]
+\textbf{Calculation and Logic:} \\
+\[(4x - 3y) + (2x + 3y) = 11 + 7\]
+\[6x = 18 \Rightarrow x = 3\]
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{3}
+\end{solution}
+
+%Q: 17
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+A theater sells adult tickets for \$10 and child tickets for \$6. One evening, 100 tickets were sold for \$840. How many adult tickets ($a$) were sold?
+\begin{tasks}(4)
+    \task 40
+    \task 60
+    \task 50
+    \task 70
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Let $a$ be adult and $c$ be child tickets.
+\\[10pt]
+\textbf{Calculation and Logic:} \\
+$a + c = 100 \Rightarrow c = 100 - a$ \\
+$10a + 6c = 840$ \\
+\[10a + 6(100 - a) = 840\]
+\[10a + 600 - 6a = 840\]
+\[4a = 240 \Rightarrow a = 60\]
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+%Q: 18
+% Category: Practice | Difficulty: Hard | Question Type: Numeric Entry
+\question
+If $y = 2x$ and $3x + 2y = 21$, what is the value of $x$?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Substitute $2x$ for $y$ in the second equation.
+\\[10pt]
+\textbf{Calculation and Logic:} \\
+\[3x + 2(2x) = 21\]
+\[3x + 4x = 21\]
+\[7x = 21 \Rightarrow x = 3\]
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{3}
+\end{solution}
+
+%Q: 19
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+$x + y = 10$ and $2x + 2y = 20$. How many solutions does this system have?
+\begin{tasks}(4)
+    \task Exactly one
+    \task Exactly two
+    \task Infinitely many
+    \task None
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+If one equation is a direct multiple of the other, they represent the same line.
+\\[10pt]
+\textbf{Calculation and Logic:} \\
+The second equation $2x + 2y = 20$ can be divided by 2 to get $x + y = 10$, which is identical to the first equation. Since they are the same line, every point on the line is a solution.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+%Q: 20
+% Category: Practice | Difficulty: Hard | Question Type: Numeric Entry
+\question
+If $ax + 3y = 12$ and $2x + y = 4$ has infinitely many solutions, what is the value of $a$?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+For infinitely many solutions, the equations must be equivalent.
+\\[10pt]
+\textbf{Calculation and Logic:} \\
+The second equation has $y$, while the first has $3y$. Multiply the second equation by 3:
+\[3(2x + y) = 3(4) \Rightarrow 6x + 3y = 12\]
+Comparing $6x + 3y = 12$ to $ax + 3y = 12$, we see $a = 6$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{6}
+\end{solution}
+
+%Q: 21
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+A car rental costs \$50 per day plus \$0.20 per mile ($m$). A truck rental costs \$30 per day plus \$0.30 per mile. At what distance in miles is the cost for one day the same for both?
+\begin{tasks}(4)
+    \task 100
+    \task 200
+    \task 150
+    \task 250
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+We set the total cost equations equal to each other to find the distance where the costs intersect.
+\\[10pt]
+\textbf{Calculation and Logic:} \\
+Car: $50 + 0.20m$ \\
+Truck: $30 + 0.30m$ \\
+Set them equal:
+\[50 + 0.20m = 30 + 0.30m\]
+\[20 = 0.10m\]
+\[m = 200\]
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+%Q: 22
+% Category: Practice | Difficulty: Hard | Question Type: Numeric Entry
+\question
+In the system $y = x + 4$ and $y = -2x + 10$, what is the $x$-coordinate of the solution?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Since both equations equal $y$, we can set them equal to each other.
+\\[10pt]
+\textbf{Calculation and Logic:} \\
+\[x + 4 = -2x + 10\]
+\[3x = 6 \Rightarrow x = 2\]
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{2}
+\end{solution}
+
+%Q: 23
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+$x + y = 5$ and $x + y = 8$. How many solutions?
+\begin{tasks}(4)
+    \task One
+    \task None
+    \task Infinitely many
+    \task Two
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Two lines with the same slope but different intercepts are parallel and never intersect.
+\\[10pt]
+\textbf{Calculation and Logic:} \\
+Both equations have a slope of -1 ($y = -x + 5$ and $y = -x + 8$). Since they are parallel and do not overlap, there are no solutions.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+%Q: 24
+% Category: Practice | Difficulty: Hard | Question Type: Numeric Entry
+\question
+If $2x - 3y = 7$ and $x + y = 6$, find $y$.
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+We eliminate $x$ by multiplying the second equation by 2.
+\\[10pt]
+\textbf{Calculation and Logic:} \\
+Multiply $x + y = 6$ by 2: $2x + 2y = 12$. \\
+Subtract the first from the second:
+\[(2x + 2y) - (2x - 3y) = 12 - 7\]
+\[5y = 5 \Rightarrow y = 1\]
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{1}
+\end{solution}
+
+%Q: 25
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+A system has the same slope and different $y$-intercepts. The graph shows:
+\begin{tasks}(2)
+    \task Intersecting lines
+    \task Parallel lines
+    \task Perpendicular lines
+    \task Overlapping lines
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Lines that change at the same rate (same slope) but start at different points (different intercepts) will always remain the same distance apart.
+\\[10pt]
+\textbf{Calculation and Logic:} \\
+The definition of parallel lines in the $xy$-plane is having identical slopes and distinct $y$-intercepts.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+% --- PART 2: TOPIC KNOWLEDGE EXPANSION (26-50) ---
+
+%Q: 26
+% Category: Practice | Difficulty: Hard | Question Type: Numeric Entry
+\question
+If $3x - y = 10$ and $x + 2y = 8$, what is the value of $10y$?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+We solve for $y$ using elimination, then multiply the result by 10.
+\\[10pt]
+\textbf{Calculation and Logic:} \\
+Multiply the first equation by 2: $6x - 2y = 20$. \\
+Add to the second: $(6x - 2y) + (x + 2y) = 20 + 8 \Rightarrow 7x = 28 \Rightarrow x = 4$. \\
+Substitute $x = 4$ into $x + 2y = 8$: $4 + 2y = 8 \Rightarrow 2y = 4 \Rightarrow y = 2$. \\
+Final value: $10(2) = 20$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{20}
+\end{solution}
+
+
+
+%Q: 27
+% Category: Practice | Difficulty: Hard | Question Type: Multiple Choice
+\question
+For what value of $k$ will the system below have no solution?
+\begin{align*}
+kx - 3y &= 4 \\
+4x - 6y &= 7
+\end{align*}
+\begin{tasks}(4)
+    \task 2
+    \task 4
+    \task 8
+    \task -2
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+A system has no solution if the lines are parallel (same slope) but have different intercepts.
+\\[10pt]
+\textbf{Calculation and Logic:} \\
+The $y$ coefficients are $-3$ and $-6$. Multiply the first equation by 2 to match the $y$ terms:
+\[2kx - 6y = 8\]
+For the lines to be parallel, the $x$ coefficients must match: $2k = 4 \Rightarrow k = 2$.
+With $k=2$, the system is $4x - 6y = 8$ and $4x - 6y = 7$. Since $8 \neq 7$, there is no solution.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+%Q: 28
+% Category: Practice | Difficulty: Hard | Question Type: Numeric Entry
+\question
+If $x = y + 3$ and $x^2 - y^2 = 21$, what is the value of $x + y$?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+We use the algebraic identity for the difference of squares: $x^2 - y^2 = (x - y)(x + y)$.
+\\[10pt]
+\textbf{Calculation and Logic:} \\
+From the first equation, $x - y = 3$. \\
+Substitute this into the identity:
+\[(x - y)(x + y) = 21\]
+\[(3)(x + y) = 21\]
+Divide by 3:
+\[x + y = 7\]
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{7}
+\end{solution}
+
+%Q: 29
+% Category: Practice | Difficulty: Hard | Question Type: Multiple Choice
+\question
+A system of two linear equations has no solutions. One equation is $y = 0.5x + 3$. Which could be the other?
+\begin{tasks}(2)
+    \task $x - 2y = 10$
+    \task $2x - y = 6$
+    \task $x + 2y = 3$
+    \task $0.5x + y = 3$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The other equation must have the same slope (0.5) but a different $y$-intercept.
+\\[10pt]
+\textbf{Calculation and Logic:} \\
+Test Option A: $x - 2y = 10 \Rightarrow -2y = -x + 10 \Rightarrow y = 0.5x - 5$. \\
+This line has the same slope (0.5) and a different intercept (-5), so it is parallel and has no solution.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+%Q: 30
+% Category: Practice | Difficulty: Hard | Question Type: Numeric Entry
+\question
+If $x + y = 10$ and $x - y = 4$, what is the value of $x^2 - y^2$?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+We can use the difference of squares identity: $x^2 - y^2 = (x + y)(x - y)$.
+\\[10pt]
+\textbf{Calculation and Logic:} \\
+We are given both parts of the identity: $x + y = 10$ and $x - y = 4$.
+\[x^2 - y^2 = (10)(4) = 40\]
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{40}
+\end{solution}
+
+%Q: 31
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+At a cafe, 2 coffees and 3 teas cost \$14.50. 3 coffees and 2 teas cost \$15.50. What is the cost of one coffee?
+\begin{tasks}(4)
+    \task \$3.50
+    \task \$2.50
+    \task \$4.00
+    \task \$3.00
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Let $c$ be coffee and $t$ be tea. We use elimination to isolate $c$.
+\\[10pt]
+\textbf{Calculation and Logic:} \\
+1) $2c + 3t = 14.50$ \\
+2) $3c + 2t = 15.50$ \\
+Multiply (1) by 2 and (2) by 3: \\
+$4c + 6t = 29.00$ \\
+$9c + 6t = 46.50$ \\
+Subtract: $5c = 17.50 \Rightarrow c = 3.50$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+%Q: 32
+% Category: Practice | Difficulty: Medium | Question Type: Numeric Entry
+\question
+If $y = 3x - 1$ and $y = x + 7$, what is the value of $x$?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Set the two expressions for $y$ equal to each other.
+\\[10pt]
+\textbf{Calculation and Logic:} \\
+\[3x - 1 = x + 7\]
+\[2x = 8 \Rightarrow x = 4\]
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{4}
+\end{solution}
+
+%Q: 33
+% Category: Practice | Difficulty: Hard | Question Type: Multiple Choice
+\question
+In the $xy$-plane, the lines $y = 2x + 1$ and $y = ax + b$ are perpendicular and intersect at $(0, 1)$. What is the value of $a$?
+\begin{tasks}(4)
+    \task -0.5
+    \task 2
+    \task -2
+    \task 0.5
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Perpendicular lines have slopes that are negative reciprocals of each other.
+\\[10pt]
+\textbf{Calculation and Logic:} \\
+The slope of the first line is 2. The negative reciprocal of 2 is $-1/2$ or $-0.5$. Thus, $a = -0.5$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+%Q: 34
+% Category: Practice | Difficulty: Medium | Question Type: Numeric Entry
+\question
+If $2x + 3y = 13$ and $y = 3$, what is the value of $x$?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Substitute the given value of $y$ into the first equation.
+\\[10pt]
+\textbf{Calculation and Logic:} \\
+\[2x + 3(3) = 13\]
+\[2x + 9 = 13\]
+\[2x = 4 \Rightarrow x = 2\]
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{2}
+\end{solution}
+
+%Q: 35
+% Category: Practice | Difficulty: Hard | Question Type: Multiple Choice
+\question
+How many solutions does the system below have?
+\begin{align*}
+x - 2y &= 5 \\
+-3x + 6y &= -15
+\end{align*}
+\begin{tasks}(4)
+    \task None
+    \task One
+    \task Infinitely many
+    \task Two
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Check if the equations are multiples of each other.
+\\[10pt]
+\textbf{Calculation and Logic:} \\
+Multiply the first equation by -3:
+\[-3(x - 2y) = -3(5) \Rightarrow -3x + 6y = -15\]
+Since this is exactly the second equation, they are the same line and have infinitely many solutions.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+%Q: 36
+% Category: Practice | Difficulty: Hard | Question Type: Numeric Entry
+\question
+If $x + y = 20$ and $0.5x + 0.2y = 7$, what is $x$?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+We eliminate $y$ by multiplying the second equation by 5.
+\\[10pt]
+\textbf{Calculation and Logic:} \\
+Multiply $0.5x + 0.2y = 7$ by 5:
+\[2.5x + y = 35\]
+Subtract $x + y = 20$ from it:
+\[(2.5x + y) - (x + y) = 35 - 20\]
+\[1.5x = 15 \Rightarrow x = 10\]
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{10}
+\end{solution}
+
+%Q: 37
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+A boat travels 24 miles downstream in 2 hours and 24 miles upstream in 3 hours. What is the speed of the current?
+\begin{tasks}(4)
+    \task 2 mph
+    \task 10 mph
+    \task 12 mph
+    \task 4 mph
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Let $b$ be the boat speed and $c$ be the current. Downstream speed is $b+c$, upstream is $b-c$.
+\\[10pt]
+\textbf{Calculation and Logic:} \\
+$b + c = 24 / 2 = 12$ \\
+$b - c = 24 / 3 = 8$ \\
+Subtract the equations: $2c = 4 \Rightarrow c = 2$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+%Q: 38
+% Category: Practice | Difficulty: Medium | Question Type: Numeric Entry
+\question
+If $x = 5$ and $2x - y = 4$, what is $y$?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Plug the known $x$ into the equation.
+\\[10pt]
+\textbf{Calculation and Logic:} \\
+\[2(5) - y = 4\]
+\[10 - y = 4 \Rightarrow y = 6\]
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{6}
+\end{solution}
+
+%Q: 39
+% Category: Practice | Difficulty: Hard | Question Type: Multiple Choice
+\question
+The lines $y = mx + 2$ and $y = 3x + 5$ are parallel. What is $m$?
+\begin{tasks}(4)
+    \task 3
+    \task -3
+    \task 1/3
+    \task 2
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Parallel lines must have identical slopes.
+\\[10pt]
+\textbf{Calculation and Logic:} \\
+The slope of the second line is 3. For the first line to be parallel, $m$ must also be 3.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+%Q: 40
+% Category: Practice | Difficulty: Hard | Question Type: Numeric Entry
+\question
+Solve for $x$: $y = 2x - 5$ and $y = -x + 10$.
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Set the two expressions for $y$ equal.
+\\[10pt]
+\textbf{Calculation and Logic:} \\
+\[2x - 5 = -x + 10\]
+\[3x = 15 \Rightarrow x = 5\]
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{5}
+\end{solution}
+
+%Q: 41
+% Category: Practice | Difficulty: Hard | Question Type: Multiple Choice
+\question
+System $x + 2y = 10$ and $x + 2y = k$ has infinitely many solutions. $k = $?
+\begin{tasks}(4)
+    \task 10
+    \task 5
+    \task 20
+    \task 0
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Equations must be identical for infinite solutions.
+\\[10pt]
+\textbf{Calculation and Logic:} \\
+To match the first equation exactly, $k$ must be 10.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+%Q: 42
+% Category: Practice | Difficulty: Medium | Question Type: Numeric Entry
+\question
+If $y = 4$ and $x + y = 10$, find $x$.
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Simple substitution.
+\\[10pt]
+\textbf{Calculation and Logic:} \\
+\[x + 4 = 10 \Rightarrow x = 6\]
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{6}
+\end{solution}
+
+%Q: 43
+% Category: Practice | Difficulty: Hard | Question Type: Multiple Choice
+\question
+Perpendicular to $y = -0.25x$?
+\begin{tasks}(4)
+    \task $y = 4x$
+    \task $y = -4x$
+    \task $y = 0.25x$
+    \task $y = -0.25x$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Negative reciprocal of -0.25 (-1/4) is 4.
+\\[10pt]
+\textbf{Calculation and Logic:} \\
+Slope of original line is $-1/4$. Flip and change sign: $4/1 = 4$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+%Q: 44
+% Category: Practice | Difficulty: Hard | Question Type: Numeric Entry
+\question
+If $3x + y = 13$ and $x + y = 7$, find $x$.
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Subtract the equations to eliminate $y$.
+\\[10pt]
+\textbf{Calculation and Logic:} \\
+\[(3x + y) - (x + y) = 13 - 7\]
+\[2x = 6 \Rightarrow x = 3\]
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{3}
+\end{solution}
+
+%Q: 45
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+Sum is 10, difference is 2. Smaller number?
+\begin{tasks}(4)
+    \task 4
+    \task 6
+    \task 2
+    \task 8
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+$x+y=10, x-y=2$.
+\\[10pt]
+\textbf{Calculation and Logic:} \\
+$2x=12 \Rightarrow x=6$. $6+y=10 \Rightarrow y=4$. Smaller is 4.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+%Q: 46
+% Category: Practice | Difficulty: Hard | Question Type: Numeric Entry
+\question
+If $y = x^2$ and $y = 4$, how many positive solutions for $x$?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Substitute $y$ into the first equation.
+\\[10pt]
+\textbf{Calculation and Logic:} \\
+\[4 = x^2 \Rightarrow x = \pm 2\]
+Positive solution is 2.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{1}
+\end{solution}
+
+%Q: 47
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+Intersection of $x=3$ and $y=5$?
+\begin{tasks}(4)
+    \task (3, 5)
+    \task (5, 3)
+    \task (0, 0)
+    \task (3, 0)
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The intersection of a vertical line and a horizontal line is the point formed by their constant values.
+\\[10pt]
+\textbf{Calculation and Logic:} \\
+$x$ is always 3, $y$ is always 5. Point is (3, 5).
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+%Q: 48
+% Category: Practice | Difficulty: Medium | Question Type: Numeric Entry
+\question
+If $y = 0$ and $2x + 3y = 12$, find $x$.
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Find the $x$-intercept.
+\\[10pt]
+\textbf{Calculation and Logic:} \\
+\[2x + 3(0) = 12 \Rightarrow 2x = 12 \Rightarrow x = 6\]
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{6}
+\end{solution}
+
+%Q: 49
+% Category: Practice | Difficulty: Hard | Question Type: Multiple Choice
+\question
+Parallel to $y = 3x + 10$ through $(0,0)$?
+\begin{tasks}(2)
+    \task $y = 3x$
+    \task $y = -3x$
+    \task $y = 1/3x$
+    \task $y = 3$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Same slope, $y$-intercept is 0.
+\\[10pt]
+\textbf{Calculation and Logic:} \\
+Slope must be 3. Through origin means $b=0$. $y = 3x$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+%Q: 50
+% Category: Practice | Difficulty: Hard | Question Type: Numeric Entry
+\question
+If $2x + y = 7$ and $x + 2y = 5$, find $x + y$.
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Add the two equations to find a multiple of $x + y$.
+\\[10pt]
+\textbf{Calculation and Logic:} \\
+\[(2x + y) + (x + 2y) = 7 + 5\]
+\[3x + 3y = 12\]
+Divide by 3:
+\[x + y = 4\]
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{4}
+\end{solution}
+
+
+% =============================================================
+% Question End
+% =============================================================
+
+\end{questions}
+\begin{center}
+\rule{.5\textwidth}{1pt}
+\end{center}
+\end{document}

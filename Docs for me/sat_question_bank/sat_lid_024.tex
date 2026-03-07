@@ -1,0 +1,1176 @@
+\documentclass[11pt,paper=a4,answers]{exam}
+\usepackage{graphicx,lastpage}
+\usepackage{upgreek}
+\usepackage{censor}
+\usepackage{gensymb}
+\usepackage{amsmath}
+\usepackage{multicol}
+\usepackage{enumitem}
+\usepackage{tasks}
+\usepackage{adjustbox}
+\usepackage{xcolor}
+\usepackage{tfrupee}
+\setlength{\voffset}{0.25in}
+\usepackage{tabularx}
+\newcolumntype{Y}{>{\centering\arraybackslash}X}
+%==============================================================
+% Customise Non-Essential Packages Below
+% =============================================================
+\usepackage[most]{tcolorbox}
+\usepackage{eso-pic}
+\usepackage{tikz}
+\AddToShipoutPictureBG{%
+\begin{tikzpicture}[remember picture,overlay]
+\foreach \x in {-8,-4,0,4,8,12,16,20}
+\foreach \y in {-8,-4,0,4,8,12,16,20} {
+\node[opacity=0.05,rotate=45,anchor=center] at ([xshift=\x cm,yshift=\y cm]current page.center) {%
+\begin{minipage}{2cm}
+\centering
+\includegraphics[width=2cm]{images/logo_black.png}\\
+\small preppeo.com
+\end{minipage}%
+};
+}
+\end{tikzpicture}%
+}
+\printanswers
+
+%==============================================================
+% Customise Non-Essential Packages Above
+% =============================================================
+\definecolor{svgray}{rgb}{0.90, 0.90, 0.90}
+\graphicspath{{images/}}
+
+\usepackage[normalem]{ulem}
+\renewcommand\ULthickness{1pt}   %%---> For changing thickness of underline
+\setlength\ULdepth{3.5ex}%\maxdimen ---> For changing depth of underline
+\renewcommand{\baselinestretch}{1}
+\chead{
+\includegraphics[scale=0.1,height=2cm ]{logo.png}
+}
+\pagestyle{empty}
+
+\pagestyle{headandfoot}
+\headrule
+\cfoot{W: https://preppeo.com; M: +91-8130711689}
+
+\begin{document}
+%==============================================================
+% Customise Question paper details below this
+% =============================================================
+\begin{center}
+    \centering
+    \renewcommand{\arraystretch}{1.5}
+    \begin{tabularx}{\textwidth}{YYY}
+    & \normalsize\bf{{\Large{{Quantitative Reasoning}}}} & \\
+    By Preppeo & \normalsize\bf{{sat\_lid\_024}} & SAT\\
+    \normalsize{{\textbf{{Unit:}} Advanced Math}} & \normalsize{{\textbf{{Chapter:}} Exponential functions and equations}} & \normalsize{{\textbf{{Topic:}} Compound Interest \& Population Growth}} \\
+    \end{tabularx}
+\end{center}
+\par\noindent\rule{\textwidth}{1pt}
+% =============================================================
+% Customise Question paper details above this
+% =============================================================
+
+\begin{questions}
+\pointsinrightmargin
+\pointsdroppedatright
+\marksnotpoints
+\pointpoints{mark}{marks}
+\pointformat{\boldmath\themarginpoints}
+\bracketedpoints
+
+% =============================================================
+% Question Begin
+% =============================================================
+% Lid Topic: Advanced Math — Compound Interest & Population Growth
+% Total Questions: 50
+
+% --- PART 1: Core Growth Modeling (1-25) ---
+
+% Question 1
+% Category: Concept | Difficulty: Medium | Question Type: Multiple Choice
+\question
+An investment account was opened with an initial deposit of $1,000$. The account earns 5\% interest compounded annually. Which of the following functions models the value $V(t)$, in dollars, of the account $t$ years after the initial deposit?
+\begin{tasks}(2)
+    \task $V(t) = 1,000(0.05)^t$
+    \task $V(t) = 1,000(1.05)^t$
+    \task $V(t) = 1,000 + 0.05t$
+    \task $V(t) = 1,000(1.5)^t$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Compound interest follows the exponential growth model $y = a(1 + r)^t$. The "base" of the exponent must be the growth factor, which is $1$ plus the interest rate expressed as a decimal.
+
+\vspace{20pt}
+
+\textbf{Calculation and Logic:} \\
+Initial deposit ($a$) = 1,000. \\
+Interest rate ($r$) = 5\% = 0.05. \\
+Growth factor = $1 + 0.05 = 1.05$.
+
+\vspace{10pt}
+
+Substituting these into the model: \\
+$V(t) = 1,000(1.05)^t$.
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 2
+% Category: Exam level | Difficulty: Hard | Question Type: Numeric Entry
+\question
+The population of a certain town is estimated to increase by 6\% every year. If the population was 25,000 in 2020, what is the estimated population of the town in 2022?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+For multi-year growth, apply the growth factor repeatedly for each year that passes.
+
+\vspace{20pt}
+
+\textbf{Calculation and Logic:} \\
+Initial population = 25,000. \\
+Time elapsed = $2022 - 2020 = 2$ years. \\
+Growth factor = $1 + 0.06 = 1.06$.
+
+\vspace{10pt}
+
+Population in 2022 = $25,000 \times (1.06)^2$. \\
+$25,000 \times 1.1236 = 28,090$.
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{28090}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 3
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+$P(t) = 4,500(1.035)^t$ \\
+The function $P$ models the population of a colony of insects $t$ weeks after an initial observation. Which of the following is the best interpretation of the value 1.035 in the function?
+\begin{tasks}(1)
+    \task The population increases by 3.5 each week.
+    \task The population increases by 3.5\% each week.
+    \task The population increases by 103.5\% each week.
+    \task The initial population was 1,035.
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+In the form $y = a(b)^t$, the base $b$ represents the growth factor. If $b > 1$, the percentage growth rate is $(b - 1) \times 100$.
+
+\vspace{20pt}
+
+\textbf{Calculation and Logic:} \\
+Base = 1.035. \\
+Rate = $1.035 - 1 = 0.035$. \\
+Convert to percentage: $0.035 \times 100 = 3.5\%$.
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 4
+% Category: Concept | Difficulty: Medium | Question Type: Multiple Choice
+\question
+An amount of $P$ dollars is deposited into an account that pays $r\%$ annual interest compounded annually. If no additional deposits or withdrawals are made, which of the following represents the total amount in the account after 10 years?
+\begin{tasks}(2)
+    \task $P(1 + r)^{10}$
+    \task $P(1 + \frac{r}{100})^{10}$
+    \task $P + 10r$
+    \task $P(r)^{10}$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+When an interest rate is given as a percentage "r", it must be divided by 100 to be used as a decimal in an exponential growth formula.
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 5
+% Category: Exam level | Difficulty: Hard | Question Type: Numeric Entry
+\question
+$A = 500(1.02)^{4t}$ \\
+The equation above models the amount of money $A$, in dollars, in a savings account $t$ years after the initial deposit. The account earns interest compounded $n$ times per year. What is the value of $n$?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The standard compound interest formula is $A = P(1 + \frac{r}{n})^{nt}$. The coefficient of $t$ in the exponent represents the number of compounding periods per year ($n$).
+
+\vspace{20pt}
+
+\textbf{Calculation and Logic:} \\
+In the given model $A = 500(1.02)^{4t}$, the exponent is $4t$. \\
+Comparing this to $nt$, we see that $n = 4$.
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{4}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 6
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+A population of 100,000 decreases by 2\% each year. Which function $P(t)$ models the population $t$ years from now?
+\begin{tasks}(2)
+    \task $P(t) = 100,000(1.02)^t$
+    \task $P(t) = 100,000(0.98)^t$
+    \task $P(t) = 100,000(0.02)^t$
+    \task $P(t) = 100,000 - 0.02t$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Exponential decay uses a base of $(1 - r)$. A 2\% decrease results in a multiplier of $1 - 0.02 = 0.98$.
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 7
+% Category: Exam level | Difficulty: Hard | Question Type: Numeric Entry
+\question
+For the population function $f$, the table below shows the population $x$ years after a survey was conducted. If $f(x) = a(b)^x$, what is the value of $b$?
+\begin{center}
+\begin{tabular}{|c|c|}
+\hline
+$x$ & $f(x)$ \\ \hline
+0 & 8,000 \\ \hline
+1 & 8,240 \\ \hline
+2 & 8,487.2 \\ \hline
+\end{tabular}
+\end{center}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+In an exponential function, the base $b$ is the ratio between any two consecutive output values: $b = \frac{f(x+1)}{f(x)}$.
+
+\vspace{20pt}
+
+\textbf{Calculation and Logic:} \\
+Use the values for $x=0$ and $x=1$: \\
+$b = \frac{8,240}{8,000}$ \\
+$b = \frac{824}{800} = 1.03$
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{1.03}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 8
+% Category: Concept | Difficulty: Medium | Question Type: Multiple Choice
+\question
+The function $M(t) = 15,000(1.045)^t$ models the amount of money in a retirement account $t$ years after 2015. What was the amount of money in the account in 2015?
+\begin{tasks}(4)
+    \task $1.045$
+    \task $15,000$
+    \task $15,675$
+    \task $675$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The value in 2015 represents the "initial value" ($t = 0$). In the form $y = a(b)^t$, the initial value is the constant $a$.
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 9
+% Category: Exam level | Difficulty: Hard | Question Type: Multiple Choice
+\question
+The population of Lowell was 90,000 in 2010 and has been increasing by 4\% each year. Which of the following functions best models the population of Lowell $n$ decades after 2010? (1 decade = 10 years)
+\begin{tasks}(2)
+    \task $p(n) = 90,000(1.04)^{10n}$
+    \task $p(n) = 90,000(1.04)^{\frac{n}{10}}$
+    \task $p(n) = 90,000(1.40)^n$
+    \task $p(n) = 90,000(1.04n)^{10}$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+If $t$ is years and $n$ is decades, then $t = 10n$. Substitute $10n$ for the time variable in the standard growth formula.
+
+\vspace{20pt}
+
+\textbf{Calculation and Logic:} \\
+Standard yearly model: $P = 90,000(1.04)^t$. \\
+Since $t = 10n$, the decade model is: \\
+$P = 90,000(1.04)^{10n}$.
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 10
+% Category: Practice | Difficulty: Hard | Question Type: Numeric Entry
+\question
+An investment of \$2,000 grows at an annual rate of 10\% compounded annually. What will be the value of the investment, in dollars, after 3 years?
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+Year 1: $2,000 \times 1.1 = 2,200$. \\
+Year 2: $2,200 \times 1.1 = 2,420$. \\
+Year 3: $2,420 \times 1.1 = 2,662$.
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{2662}
+\end{solution}
+
+% Question 11
+% Category: Concept | Difficulty: Medium | Question Type: Multiple Choice
+\question
+The population $P$ of a bacteria culture doubles every 3 hours. If the initial population is $N$, which of the following functions models the population after $t$ hours?
+\begin{tasks}(2)
+    \task $P(t) = N(2)^{3t}$
+    \task $P(t) = N(2)^{\frac{t}{3}}$
+    \task $P(t) = N(3)^{2t}$
+    \task $P(t) = N(3)^{\frac{t}{2}}$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+In a doubling model $y = a(2)^{\frac{t}{d}}$, the variable $d$ is the "doubling time." This ensures that when $t=d$, the exponent is 1 and the population has doubled once.
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 12
+% Category: Exam level | Difficulty: Hard | Question Type: Numeric Entry
+\question
+$f(t) = 300(1.21)^{\frac{t}{2}}$ \\
+The function $f$ models the number of users on a website $t$ months after it launched. The function can be rewritten in the form $f(t) = 300(1 + \frac{r}{100})^t$. What is the value of $r$?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Use the power of a power property $(a^m)^n = a^{mn}$ to combine the fractional exponent with the base. This converts the growth factor to a monthly basis.
+
+\vspace{20pt}
+
+\textbf{Calculation and Logic:} \\
+$(1.21)^{\frac{t}{2}} = (1.21^{1/2})^t$. \\
+Calculate the square root: $\sqrt{1.21} = 1.1$. \\
+The monthly growth factor is 1.1. \\
+$1 + \frac{r}{100} = 1.1 \Rightarrow \frac{r}{100} = 0.1 \Rightarrow r = 10$.
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{10}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 13
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+A town's population increases by 100\% every 15 years. If the population is currently 5,000, what will it be in 45 years?
+\begin{tasks}(4)
+    \task 15,000
+    \task 20,000
+    \task 40,000
+    \task 80,000
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+A 100\% increase is the same as doubling. Determine how many 15-year periods occur in 45 years.
+
+\vspace{20pt}
+
+\textbf{Calculation and Logic:} \\
+Cycles = $45 / 15 = 3$ doublings. \\
+$5,000 \times 2 = 10,000$ (15 yrs) \\
+$10,000 \times 2 = 20,000$ (30 yrs) \\
+$20,000 \times 2 = 40,000$ (45 yrs).
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 14
+% Category: Exam level | Difficulty: Hard | Question Type: Numeric Entry
+\question
+The value of an investment increases by $x\%$ each year. If the value of the investment triples every 12 years, what is the value of $(1 + \frac{x}{100})^{36}$?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The expression $(1 + \frac{x}{100})^{36}$ represents the total growth factor over 36 years. Determine how many 12-year tripling periods fit into 36 years.
+
+\vspace{20pt}
+
+\textbf{Calculation and Logic:} \\
+Number of periods = $36 / 12 = 3$. \\
+Since the value triples each period, the total growth multiplier is $3 \times 3 \times 3 = 3^3 = 27$.
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{27}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 15
+% Category: Concept | Difficulty: Medium | Question Type: Multiple Choice
+\question
+A savings account offers an annual interest rate of 4\% compounded semi-annually. Which expression represents the value of a \$500 deposit after $t$ years?
+\begin{tasks}(2)
+    \task $500(1.04)^t$
+    \task $500(1.02)^{2t}$
+    \task $500(1.04)^{2t}$
+    \task $500(1.08)^t$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+"Semi-annually" means $n = 2$. Divide the annual rate by 2 and multiply the time $t$ by 2.
+
+\vspace{20pt}
+
+\textbf{Calculation and Logic:} \\
+Periodic rate = $4\% / 2 = 2\% = 0.02$. \\
+Compounding periods = $2t$. \\
+$V = 500(1 + 0.02)^{2t} = 500(1.02)^{2t}$.
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 16
+% Category: Exam level | Difficulty: Hard | Question Type: Numeric Entry
+\question
+A population of rare plants is decreasing by 10\% each year. If there are 1,000 plants now, after how many years will the population be 729?
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+Year 1: $1,000 \times 0.9 = 900$. \\
+Year 2: $900 \times 0.9 = 810$. \\
+Year 3: $810 \times 0.9 = 729$.
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{3}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 17
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+Which of the following describes a population that grows by 50\% every year?
+\begin{tasks}(1)
+    \task The population increases by 50 individuals each year.
+    \task The population in any year is 1.5 times the population of the previous year.
+    \task The population in any year is 0.5 times the population of the previous year.
+    \task The population triples every 2 years.
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+A 50\% increase corresponds to a growth factor of $1 + 0.50 = 1.5$. This means the new total is 1.5 times the previous total.
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 18
+% Category: Exam level | Difficulty: Hard | Question Type: Numeric Entry
+\question
+$V(t) = 1,200(1.02)^t$ \\
+The function above models the value of an account $t$ years after 2000. By what percentage does the value of the account increase every 5 years? (Round to the nearest percent).
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+Growth factor for 1 year = 1.02. \\
+Growth factor for 5 years = $(1.02)^5 \approx 1.104$. \\
+Rate = $1.104 - 1 = 0.104 \approx 10\%$.
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{10}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 19
+% Category: Concept | Difficulty: Medium | Question Type: Multiple Choice
+\question
+
+Which of the following equations could represent the graph above?
+\begin{tasks}(2)
+    \task $y = 50(0.8)^x$
+    \task $y = 50(1.2)^x$
+    \task $y = 50 - 1.2x$
+    \task $y = 50 + 1.2x$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+A curve that starts above the x-axis and bends upward represents exponential growth, where the base must be greater than 1.
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 20
+% Category: Exam level | Difficulty: Hard | Question Type: Numeric Entry
+\question
+The population of a city doubles every 20 years. If the population was 40,000 in 1980, what was the population in 1940?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Work backward in time. Each 20-year period into the past represents a halving of the population.
+
+\vspace{20pt}
+
+\textbf{Calculation and Logic:} \\
+Time difference = $1980 - 1940 = 40$ years. \\
+Number of 20-year periods = $40 / 20 = 2$. \\
+Population in 1960 = $40,000 / 2 = 20,000$. \\
+Population in 1940 = $20,000 / 2 = 10,000$.
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{10000}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 21
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+A bank account pays 1\% annual interest compounded monthly. Which of the following is the monthly interest rate?
+\begin{tasks}(4)
+    \task 0.01
+    \task 0.12
+    \task 0.000833
+    \task 0.00833
+\end{tasks}
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+Annual rate = 1\% = 0.01. \\
+Monthly rate = $0.01 / 12 \approx 0.000833$.
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 22
+% Category: Concept | Difficulty: Medium | Question Type: Multiple Choice
+\question
+Which table shows exponential growth?
+\begin{tasks}(2)
+    \task \begin{tabular}{|c|c|c|c|} \hline $x$ & 1 & 2 & 3 \\ \hline $y$ & 10 & 20 & 30 \\ \hline \end{tabular}
+    \task \begin{tabular}{|c|c|c|c|} \hline $x$ & 1 & 2 & 3 \\ \hline $y$ & 10 & 20 & 40 \\ \hline \end{tabular}
+    \task \begin{tabular}{|c|c|c|c|} \hline $x$ & 1 & 2 & 3 \\ \hline $y$ & 10 & 5 & 2.5 \\ \hline \end{tabular}
+    \task \begin{tabular}{|c|c|c|c|} \hline $x$ & 1 & 2 & 3 \\ \hline $y$ & 10 & 12 & 14 \\ \hline \end{tabular}
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Growth requires output values to increase by a common ratio. In Choice B, the ratio is $20/10 = 2$ and $40/20 = 2$.
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 23
+% Category: Exam level | Difficulty: Hard | Question Type: Numeric Entry
+\question
+$125^x = 5^{12}$ \\
+What is the value of $x$?
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+$(5^3)^x = 5^{12}$. \\
+$3x = 12 \Rightarrow x = 4$.
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{4}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 24
+% Category: Practice | Difficulty: Hard | Question Type: Multiple Choice
+\question
+The population of a town triples every 8 years. If the current population is $P$, what will the population be after 24 years?
+\begin{tasks}(4)
+    \task $3P$
+    \task $9P$
+    \task $24P$
+    \task $27P$
+\end{tasks}
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+Periods = $24 / 8 = 3$. \\
+Multiplier = $3^3 = 27$.
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{D}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 25
+% Category: Exam level | Difficulty: Hard | Question Type: Numeric Entry
+\question
+A radioactive isotope has a half-life of 2 days. If a sample has 64 grams initially, how many grams will remain after 10 days?
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+Cycles = $10 / 2 = 5$. \\
+$64 \times (0.5)^5 = 64 \times 0.03125 = 2$.
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{2}
+\end{solution}
+
+% --- PART 2: Advanced Compound Interest & Population (26-50) ---
+
+% Question 26
+% Category: Exam level | Difficulty: Hard | Question Type: Numeric Entry
+\question
+An investment account earns 10\% annual interest compounded semi-annually. If the initial deposit is \$1,000, what is the value of the account, in dollars, after 1 year?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Semi-annual compounding means the interest is applied twice a year ($n=2$). You must divide the annual rate by 2 and apply it for 2 periods.
+
+\vspace{20pt}
+
+\textbf{Calculation and Logic:} \\
+Periodic rate = $10\% / 2 = 5\% = 0.05$. \\
+Amount after 1st period (6 months) = $1,000 \times 1.05 = 1,050$. \\
+Amount after 2nd period (12 months) = $1,050 \times 1.05 = 1,102.50$.
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{1102.5}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 27
+% Category: Practice | Difficulty: Hard | Question Type: Multiple Choice
+\question
+A certain population grows according to the model $P(t) = P_0 (1.04)^t$, where $t$ is the number of years. Which of the following best models the population $d$ decades after the start? (1 decade = 10 years)
+\begin{tasks}(2)
+    \task $P(d) = P_0 (1.04)^{\frac{d}{10}}$
+    \task $P(d) = P_0 (1.04)^{10d}$
+    \task $P(d) = P_0 (1.40)^d$
+    \task $P(d) = P_0 (1.04)^{d}$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Substitute the relationship between the time units into the exponent. Since $t = 10d$, the exponent $t$ becomes $10d$.
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 28
+% Category: Exam level | Difficulty: Hard | Question Type: Numeric Entry
+\question
+The population of a city was 50,000 in 2010. If the population grew at a constant annual rate of 2\% and reached 60,950 after $k$ years, what is the value of $k$?
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+$50,000(1.02)^k = 60,950$ \\
+$(1.02)^k = 1.219$ \\
+Testing integer values: \\
+$1.02^5 \approx 1.104$ \\
+$1.02^{10} \approx 1.219$.
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{10}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 29
+% Category: Practice | Difficulty: Medium | Question Type: Numeric Entry
+\question
+What is the growth factor for an investment that increases by 12.5\% each year?
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+Growth factor = $1 + r = 1 + 0.125 = 1.125$.
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{1.125}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 30
+% Category: Concept | Difficulty: Medium | Question Type: Multiple Choice
+\question
+If the population of a town is modeled by $P(t) = 20,000(0.85)^t$, what is the annual percentage decrease?
+\begin{tasks}(4)
+    \task 0.15\%
+    \task 1.5\%
+    \task 15\%
+    \task 85\%
+\end{tasks}
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+$0.85 = 1 - r \Rightarrow r = 0.15 = 15\%$.
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 31
+% Category: Exam level | Difficulty: Hard | Question Type: Numeric Entry
+\question
+An account with an initial balance of \$5,000 earns 8\% annual interest compounded quarterly. What is the interest rate applied at the end of each quarter as a decimal?
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+Quarterly means $n = 4$. \\
+Periodic rate = $0.08 / 4 = 0.02$.
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{0.02}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 32
+% Category: Practice | Difficulty: Hard | Question Type: Numeric Entry
+\question
+The value of a certain car depreciates by 15\% each year. If the car is worth \$20,000 today, how much will it be worth, in dollars, in 2 years?
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+$20,000 \times (0.85)^2 = 20,000 \times 0.7225 = 14,450$.
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{14450}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 33
+% Category: Exam level | Difficulty: Hard | Question Type: Multiple Choice
+\question
+$f(t) = 100(1.05)^t$ \\
+$g(t) = 100(1.10)^{\frac{t}{2}}$ \\
+Which of the following statements comparing $f$ and $g$ is true for $t > 0$?
+\begin{tasks}(1)
+    \task Function $g$ grows at a faster rate than function $f$.
+    \task Function $f$ grows at a faster rate than function $g$.
+    \task Both functions grow at the same rate.
+    \task The initial value of $g$ is greater than the initial value of $f$.
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Convert $g(t)$ to have a standard $t$ exponent: \\
+$(1.10)^{1/2} \approx 1.0488$. \\
+Since $1.05 > 1.0488$, function $f$ has a slightly higher annual growth rate.
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 34
+% Category: Practice | Difficulty: Medium | Question Type: Numeric Entry
+\question
+A population triples every 5 years. By what factor does the population increase in 15 years?
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+Periods = $15 / 5 = 3$. \\
+Factor = $3^3 = 27$.
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{27}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 35
+% Category: Exam level | Difficulty: Hard | Question Type: Numeric Entry
+\question
+If $5^{x+2} = 125$, what is the value of $x$?
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+$5^{x+2} = 5^3$. \\
+$x + 2 = 3 \Rightarrow x = 1$.
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{1}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 36
+% Category: Practice | Difficulty: Hard | Question Type: Multiple Choice
+\question
+An investment of $P$ dollars increases in value by 20\% every 4 years. Which function models the value $V(t)$ after $t$ years?
+\begin{tasks}(2)
+    \task $V(t) = P(1.20)^{4t}$
+    \task $V(t) = P(1.20)^{\frac{t}{4}}$
+    \task $V(t) = P(0.20)^{\frac{t}{4}}$
+    \task $V(t) = P(1.05)^t$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The rate 20\% gives a base of 1.20. The exponent must represent the number of 4-year cycles, which is $t/4$.
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 37
+% Category: Practice | Difficulty: Medium | Question Type: Numeric Entry
+\question
+If a bank account with \$1,000 earns 4\% interest compounded annually, how much interest, in dollars, is earned in the first year?
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+$1,000 \times 0.04 = 40$.
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{40}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 38
+% Category: Exam level | Difficulty: Hard | Question Type: Numeric Entry
+\question
+A town's population was 10,000 in 2000 and 20,000 in 2010. If the population continues to double every 10 years, what will the population be in 2040?
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+2010 to 2040 = 30 years (3 doublings). \\
+$20,000 \times 2 = 40,000$ (2020) \\
+$40,000 \times 2 = 80,000$ (2030) \\
+$80,000 \times 2 = 160,000$ (2040).
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{160000}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 39
+% Category: Concept | Difficulty: Medium | Question Type: Multiple Choice
+\question
+Which of the following represents an exponential function where the initial value is 5 and the growth rate is 100\%?
+\begin{tasks}(4)
+    \task $y = 5(1)^x$
+    \task $y = 5(2)^x$
+    \task $y = 100(5)^x$
+    \task $y = 5 + 100x$
+\end{tasks}
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+Initial ($a$) = 5. \\
+Growth factor = $1 + 1.00 = 2$.
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 40
+% Category: Exam level | Difficulty: Hard | Question Type: Numeric Entry
+\question
+$2 \cdot 4^x = 32$ \\
+What is the value of $x$?
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+$4^x = 16$. \\
+$4^2 = 16 \Rightarrow x = 2$.
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{2}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 41
+% Category: Practice | Difficulty: Hard | Question Type: Numeric Entry
+\question
+A savings account starts with \$1,000. It earns 2\% interest compounded annually. How much more money, in dollars, will be in the account after 2 years compared to after 1 year?
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+Year 1: $1,000 \times 1.02 = 1,020$. \\
+Year 2: $1,020 \times 1.02 = 1,040.40$. \\
+Difference = $1,040.40 - 1,020 = 20.40$.
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{20.4}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 42
+% Category: Exam level | Difficulty: Hard | Question Type: Multiple Choice
+\question
+A substance has a half-life of 8 hours. What fraction of the original amount remains after 24 hours?
+\begin{tasks}(4)
+    \task 1/3
+    \task 1/4
+    \task 1/8
+    \task 1/16
+\end{tasks}
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+Cycles = $24 / 8 = 3$. \\
+$(1/2)^3 = 1/8$.
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 43
+% Category: Practice | Difficulty: Hard | Question Type: Numeric Entry
+\question
+$f(n) = 10 \cdot 2^n$ \\
+$g(n) = 10 \cdot 3^n$ \\
+What is the value of $\frac{g(2)}{f(2)}$?
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+$g(2) = 10 \times 9 = 90$. \\
+$f(2) = 10 \times 4 = 40$. \\
+Ratio = $90 / 40 = 2.25$.
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{2.25}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 44
+% Category: Concept | Difficulty: Medium | Question Type: Multiple Choice
+\question
+In the compound interest formula $A = P(1 + \frac{r}{n})^{nt}$, what does $P$ represent?
+\begin{tasks}(1)
+    \task The annual interest rate
+    \task The number of times interest is compounded per year
+    \task The principal (initial amount)
+    \task The total time in years
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+$P$ stands for Principal, the starting amount of money.
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 45
+% Category: Exam level | Difficulty: Hard | Question Type: Numeric Entry
+\question
+If a population increases by 100\% every decade, what is the annual growth factor rounded to two decimal places?
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+$r^{10} = 2$. \\
+$r = 2^{1/10} \approx 1.0717$. \\
+Growth factor $\approx 1.07$.
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{1.07}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 46
+% Category: Practice | Difficulty: Medium | Question Type: Numeric Entry
+\question
+A population starts at 500 and grows by 10\% each year. What is the population after 1 year?
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+$500 \times 1.10 = 550$.
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{550}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 47
+% Category: Exam level | Difficulty: Hard | Question Type: Multiple Choice
+\question
+An amount is deposited into an account that triples every 10 years. After how many years will the amount be 9 times the initial deposit?
+\begin{tasks}(4)
+    \task 18
+    \task 20
+    \task 30
+    \task 90
+\end{tasks}
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+Since $9 = 3^2$, it takes 2 tripling periods. \\
+$2 \times 10 = 20$ years.
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 48
+% Category: Practice | Difficulty: Hard | Question Type: Numeric Entry
+\question
+If $(1.03)^x = 1.092727$, what is the value of $x$ to the nearest integer?
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+$1.03^2 = 1.0609$. \\
+$1.03^3 = 1.092727$.
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{3}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 49
+% Category: Exam level | Difficulty: Hard | Question Type: Numeric Entry
+\question
+A town's population decreases by 50\% every 20 years. If the population is 8,000 now, what was it 40 years ago?
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+Backward 20 years: $8,000 \times 2 = 16,000$. \\
+Backward 40 years: $16,000 \times 2 = 32,000$.
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{32000}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 50
+% Category: Practice | Difficulty: Medium | Question Type: Numeric Entry
+\question
+An initial investment of \$1,000 earns 5\% annual interest compounded annually. What is the value of the account after 2 years?
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+$1,000 \times (1.05)^2 = 1,000 \times 1.1025 = 1,102.50$.
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{1102.5}
+\end{solution}
+
+% =============================================================
+% Question End
+% =============================================================
+
+\end{questions}
+\begin{center}
+\rule{.5\textwidth}{1pt}
+\end{center}
+\end{document}

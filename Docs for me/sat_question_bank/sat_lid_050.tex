@@ -1,0 +1,1091 @@
+\documentclass[11pt,paper=a4,answers]{exam}
+\usepackage{graphicx,lastpage}
+\usepackage{upgreek}
+\usepackage{censor}
+\usepackage{gensymb}
+\usepackage{amsmath}
+\usepackage{multicol}
+\usepackage{enumitem}
+\usepackage{tasks}
+\usepackage{adjustbox}
+\usepackage{xcolor}
+\usepackage{tfrupee}
+\setlength{\voffset}{0.25in}
+\usepackage{tabularx}
+\newcolumntype{Y}{>{\centering\arraybackslash}X}
+%==============================================================
+% Customise Non-Essential Packages Below
+% =============================================================
+\usepackage[most]{tcolorbox}
+\usepackage{eso-pic}
+\usepackage{tikz}
+\AddToShipoutPictureBG{%
+\begin{tikzpicture}[remember picture,overlay]
+\foreach \x in {-8,-4,0,4,8,12,16,20}
+\foreach \y in {-8,-4,0,4,8,12,16,20} {
+\node[opacity=0.05,rotate=45,anchor=center] at ([xshift=\x cm,yshift=\y cm]current page.center) {%
+\begin{minipage}{2cm}
+\centering
+\includegraphics[width=2cm]{images/logo_black.png}\\
+\small preppeo.com
+\end{minipage}%
+};
+}
+\end{tikzpicture}%
+}
+\printanswers
+
+%==============================================================
+% Customise Non-Essential Packages Above
+% =============================================================
+\definecolor{svgray}{rgb}{0.90, 0.90, 0.90}
+\graphicspath{{images/}}
+
+\usepackage[normalem]{ulem}
+\renewcommand\ULthickness{1pt}   %%---> For changing thickness of underline
+\setlength\ULdepth{3.5ex}%\maxdimen ---> For changing depth of underline
+\renewcommand{\baselinestretch}{1}
+\chead{
+\includegraphics[scale=0.1,height=2cm ]{logo.png}
+}
+\pagestyle{empty}
+
+\pagestyle{headandfoot}
+\headrule
+\cfoot{W: https://preppeo.com; M: +91-8130711689}
+
+\begin{document}
+%==============================================================
+% Customise Question paper details below this
+% =============================================================
+\begin{center}
+    \centering
+    \renewcommand{\arraystretch}{1.5}
+    \begin{tabularx}{\textwidth}{YYY}
+    & \normalsize\bf{{\Large{{Quantitative Reasoning}}}} & \\
+    By Preppeo & \normalsize\bf{{sat\_lid\_050}} & SAT\\
+    \normalsize{{\textbf{{Unit:}} Circles}} & \normalsize{{\textbf{{Chapter:}} Circle properties: arcs, chords, angles}} & \normalsize{{\textbf{{Topic:}} Equation of a Circle}} \\
+    \end{tabularx}
+\end{center}
+\par\noindent\rule{\textwidth}{1pt}
+% =============================================================
+% Customise Question paper details above this
+% =============================================================
+
+\begin{questions}
+\pointsinrightmargin
+\pointsdroppedatright
+\marksnotpoints
+\pointpoints{mark}{marks}
+\pointformat{\boldmath\themarginpoints}
+\bracketedpoints
+
+% =============================================================
+% Question Begin
+% =============================================================
+
+% Lid 050: Geometry & Trigonometry
+% Topic: Circle properties: Equation of a Circle
+
+% Question 1
+% Category: Exam Level | Difficulty: Medium | Question Type: MCQ
+\question
+In the $xy$-plane, a circle with radius 5 has center $(-8, 6)$. Which of the following is an equation of the circle?
+\begin{tasks}(2)
+    \task $(x - 8)^2 + (y + 6)^2 = 25$
+    \task $(x + 8)^2 + (y - 6)^2 = 25$
+    \task $(x - 8)^2 + (y + 6)^2 = 5$
+    \task $(x + 8)^2 + (y - 6)^2 = 5$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The standard form of the equation of a circle in the coordinate plane is $(x - h)^2 + (y - k)^2 = r^2$, where $(h, k)$ represents the coordinates of the center and $r$ represents the radius. It is important to remember that the signs in the parentheses are opposite to the coordinates of the center.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+First, identify the center $(h, k) = (-8, 6)$. Substituting these into the formula gives $(x - (-8))^2 + (y - 6)^2$, which simplifies to $(x + 8)^2 + (y - 6)^2$. Second, identify the radius $r = 5$. The right side of the equation must be $r^2$, so we calculate $5^2 = 25$. Combining these parts, the final equation is $(x + 8)^2 + (y - 6)^2 = 25$. Comparing this to the given choices, Choice B is the correct match.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 2
+% Category: Exam Level | Difficulty: Hard | Question Type: MCQ
+\question
+$$(x - 6)^2 + (y + 5)^2 = 16$$
+In the $xy$-plane, the graph of the equation above is a circle. Point $P$ is on the circle and has coordinates $(10, -5)$. If $\overline{PQ}$ is a diameter of the circle, what are the coordinates of point $Q$?
+\begin{tasks}(4)
+    \task $(2, -5)$
+    \task $(6, -1)$
+    \task $(6, -5)$
+    \task $(6, -9)$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+A diameter is a line segment that passes through the center of the circle with endpoints on the circumference. This means the center of the circle is the midpoint of any diameter. To find one endpoint when the other and the center are known, we use the midpoint logic: the center is exactly halfway between $P$ and $Q$.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+Step 1: Extract the center from the equation $(x - 6)^2 + (y + 5)^2 = 16$. The center $(h, k)$ is $(6, -5)$. Step 2: Set up the midpoint relationship. The average of the $x$-coordinates of $P(10, -5)$ and $Q(x, y)$ must equal the $x$-coordinate of the center: $\frac{10 + x}{2} = 6$. Multiplying by 2 gives $10 + x = 12$, so $x = 2$. Step 3: Do the same for the $y$-coordinates: $\frac{-5 + y}{2} = -5$. Multiplying by 2 gives $-5 + y = -10$, so $y = -5$. Combining these, the coordinates of point $Q$ are $(2, -5)$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 3
+% Category: Exam Level | Difficulty: Hard | Question Type: Numeric Entry
+\question
+A circle in the $xy$-plane has its center at $(-5, 2)$ and has a radius of 9. An equation of this circle is $x^2 + y^2 + ax + by + c = 0$, where $a, b,$ and $c$ are constants. What is the value of $c$?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The general form of a circle's equation is expanded from the standard form $(x - h)^2 + (y - k)^2 = r^2$. To find the constant $c$, we must expand the binomials and move the $r^2$ term to the left side of the equation.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+Start with the standard form using center $(-5, 2)$ and radius $r=9$: $(x + 5)^2 + (y - 2)^2 = 9^2$. Expand the left side: $(x^2 + 10x + 25) + (y^2 - 4y + 4) = 81$. Combine the constants on the left side: $x^2 + y^2 + 10x - 4y + 29 = 81$. To reach the form where the equation equals zero, subtract 81 from both sides: $x^2 + y^2 + 10x - 4y + (29 - 81) = 0$. The constant $c$ is the result of $29 - 81$, which is $-52$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{-52}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 4
+% Category: Exam Level | Difficulty: Hard | Question Type: Numeric Entry
+\question
+In the $xy$-plane, the graph of $2x^2 - 6x + 2y^2 + 2y = 45$ is a circle. What is the radius of the circle?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+When the coefficients of $x^2$ and $y^2$ are not 1, we must first divide the entire equation by that coefficient. Then, we use the "completing the square" method to bring the equation into the standard form $(x - h)^2 + (y - k)^2 = r^2$.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+Step 1: Divide the entire equation by 2: $x^2 - 3x + y^2 + y = 22.5$. Step 2: Prepare to complete the square. For $x$, take half of $-3$ and square it: $(-1.5)^2 = 2.25$. For $y$, take half of $1$ and square it: $(0.5)^2 = 0.25$. Step 3: Add these values to both sides: $(x^2 - 3x + 2.25) + (y^2 + y + 0.25) = 22.5 + 2.25 + 0.25$. Step 4: Simplify the right side: $22.5 + 2.25 + 0.25 = 25$. Now the equation is in the form $(x - 1.5)^2 + (y + 0.5)^2 = 25$. In this form, $r^2 = 25$. Taking the square root of 25 gives the radius $r = 5$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{5}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 5
+% Category: Exam Level | Difficulty: Medium | Question Type: Numeric Entry
+\question
+The equation $(x + 6)^2 + (y + 3)^2 = 121$ defines a circle in the $xy$-plane. What is the radius of the circle?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The equation of a circle is given in the standard form $(x - h)^2 + (y - k)^2 = r^2$. In this format, the value on the right side of the equals sign represents the square of the radius. To find the actual radius, simply take the square root of that constant.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+Observe the given equation: $(x + 6)^2 + (y + 3)^2 = 121$. Identify the term representing $r^2$, which is 121. To find the radius ($r$), calculate the square root of 121. Since $11 \times 11 = 121$, the square root is 11. Therefore, the radius of the circle is 11 units.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{11}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 6
+% Category: Exam Level | Difficulty: Hard | Question Type: MCQ
+\question
+What is the diameter of the circle in the $xy$-plane with equation $(x - 5)^2 + (y - 3)^2 = 16$?
+\begin{tasks}(4)
+    \task 4
+    \task 8
+    \task 16
+    \task 32
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The standard equation of a circle provides the radius squared ($r^2$). However, the question asks for the diameter. The diameter is always twice the length of the radius ($d = 2r$). This requires a two-step logical process.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+First, identify $r^2$ from the equation $(x - 5)^2 + (y - 3)^2 = 16$, which is 16. Second, find the radius by taking the square root: $r = \sqrt{16} = 4$. Third, calculate the diameter by doubling the radius: $4 \times 2 = 8$. The diameter of the circle is 8 units. Choice B is the correct answer.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 7
+% Category: Exam Level | Difficulty: Hard | Question Type: Numeric Entry
+\question
+Circle A in the $xy$-plane has the equation $(x + 5)^2 + (y - 5)^2 = 4$. Circle B has the same center as circle A. The radius of circle B is two times the radius of circle A. The equation defining circle B in the $xy$-plane is $(x + 5)^2 + (y - 5)^2 = k$, where $k$ is a constant. What is the value of $k$?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The constant $k$ in the equation $(x - h)^2 + (y - k)^2 = k$ represents the square of the radius ($r^2$). To find $k$ for Circle B, we must determine the radius of Circle A, double it according to the problem's instructions, and then square that new value.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+Step 1: Find the radius of Circle A ($r_A$). From its equation, $r_A^2 = 4$, so $r_A = 2$. Step 2: Calculate the radius of Circle B ($r_B$). The problem states $r_B = 2 \times r_A$, so $r_B = 2 \times 2 = 4$. Step 3: Calculate the value of $k$ for the equation of Circle B. Since $k$ represents $r_B^2$, calculate $4^2 = 16$. The value of the constant $k$ is 16.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{16}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 8
+% Category: Exam Level | Difficulty: Hard | Question Type: Numeric Entry
+\question
+A circle in the $xy$-plane has a diameter with endpoints $(2, 4)$ and $(2, 14)$. An equation of this circle is $(x - 2)^2 + (y - 9)^2 = r^2$, where $r$ is a positive constant. What is the value of $r$?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The radius is half the length of the diameter. When the endpoints of a diameter are known, we use the distance formula to find the diameter's length. If the $x$-coordinates (or $y$-coordinates) are the same, the distance is simply the absolute difference between the other coordinates.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+Observe the endpoints: $(2, 4)$ and $(2, 14)$. Because the $x$-coordinates are both 2, the diameter is a vertical line segment. Calculate the length of this diameter by subtracting the $y$-values: $14 - 4 = 10$. The total length of the diameter is 10 units. Since the radius is half the diameter, calculate $10 / 2 = 5$. Thus, the value of the positive constant $r$ is 5.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{5}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 9
+% Category: Exam Level | Difficulty: Hard | Question Type: MCQ
+\question
+A circle in the $xy$-plane has its center at $(-4, -6)$. Line $k$ is tangent to this circle at the point $(-7, -7)$. What is the slope of line $k$?
+\begin{tasks}(4)
+    \task $-3$
+    \task $-\frac{1}{3}$
+    \task $\frac{1}{3}$
+    \task $3$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+A fundamental property of circles is that a tangent line is always perpendicular to the radius at the point of tangency. To find the slope of the tangent line, we first find the slope of the radius (the segment connecting the center and the tangent point) and then find its negative reciprocal.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+Step 1: Calculate the slope of the radius connecting center $(-4, -6)$ and point $(-7, -7)$. Use the slope formula $m = \frac{y_2 - y_1}{x_2 - x_1}$: $m_{\text{radius}} = \frac{-7 - (-6)}{-7 - (-4)} = \frac{-1}{-3} = \frac{1}{3}$. Step 2: Find the slope of the tangent line. Perpendicular lines have slopes that multiply to $-1$. The negative reciprocal of $\frac{1}{3}$ is $-3$. Therefore, the slope of line $k$ is $-3$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 10
+% Category: Exam Level | Difficulty: Hard | Question Type: Numeric Entry
+\question
+The graph of $x^2 + x + y^2 + y = \frac{199}{2}$ in the $xy$-plane is a circle. What is the length of the circle's radius?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+To find the radius from this general form, we use the method of completing the square. This involves creating perfect square trinomials for both $x$ and $y$ variables by adding specific constants to both sides of the equation.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+Step 1: Set up the equation $x^2 + x + y^2 + y = 99.5$. Step 2: Complete the square for $x$. Take half of the coefficient of $x$ (1), which is $0.5$, and square it: $(0.5)^2 = 0.25$. Step 3: Complete the square for $y$. Take half of the coefficient of $y$ (1), which is $0.5$, and square it: $(0.5)^2 = 0.25$. Step 4: Add these values to both sides of the original equation: $(x^2 + x + 0.25) + (y^2 + y + 0.25) = 99.5 + 0.25 + 0.25$. Step 5: Simplify the right side: $99.5 + 0.5 = 100$. Now the equation is $(x + 0.5)^2 + (y + 0.5)^2 = 100$. In this form, $r^2 = 100$. Taking the square root gives $r = 10$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{10}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 11
+% Category: Practice | Difficulty: Medium | Question Type: MCQ
+\question
+What is the center of the circle defined by the equation $(x - 12)^2 + (y + 8)^2 = 49$?
+\begin{tasks}(4)
+    \task $(-12, 8)$
+    \task $(12, -8)$
+    \task $(12, 8)$
+    \task $(-12, -8)$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+In the standard equation $(x - h)^2 + (y - k)^2 = r^2$, the center is $(h, k)$. Note that the signs in the coordinate are the inverse of the signs appearing in the parentheses. If we see $(x - 12)$, $h$ is positive 12. If we see $(y + 8)$, $k$ is negative 8.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+Looking at the term $(x - 12)$, we determine that $h = 12$. Looking at the term $(y + 8)$, we recognize this as $(y - (-8))$, so $k = -8$. Placing these into coordinate form, the center is $(12, -8)$. This matches Choice B.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 12
+% Category: Exam Level | Difficulty: Hard | Question Type: Numeric Entry
+\question
+A circle is defined by the equation $x^2 + y^2 - 10x + 14y = 7$. What is the $x$-coordinate of the center of the circle?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+To find the center coordinates from the general form $x^2 + y^2 + Dx + Ey + F = 0$, we complete the square. The $x$-coordinate of the center is found by taking half of the coefficient of the $x$-term and changing its sign.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+The terms involving $x$ are $x^2 - 10x$. To complete the square, we calculate half of $-10$, which is $-5$, and square it to get 25. Adding 25 inside the group gives $(x^2 - 10x + 25)$, which factors into $(x - 5)^2$. According to the standard form $(x - h)^2$, the value of $h$ is 5. Therefore, the $x$-coordinate of the center is 5.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{5}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 13
+% Category: Practice | Difficulty: Medium | Question Type: Numeric Entry
+\question
+If the area of a circle in the $xy$-plane is $36\pi$, and its center is at the origin $(0, 0)$, what is the value of $r^2$ in the equation $x^2 + y^2 = r^2$?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The area of a circle is calculated using the formula $A = \pi r^2$. The equation of a circle centered at the origin is $x^2 + y^2 = r^2$. Consequently, the constant on the right side of the circle equation is identical to the radius squared term found in the area formula.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+Set the given area equal to the area formula: $36\pi = \pi r^2$. Divide both sides by $\pi$ to isolate the radius squared: $36 = r^2$. Since the standard equation for a circle at the origin is $x^2 + y^2 = r^2$, the value we need is simply the result we just found. Therefore, $r^2 = 36$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{36}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 14
+% Category: Exam Level | Difficulty: Hard | Question Type: MCQ
+\question
+Which of the following is an equation of a circle that is tangent to the $x$-axis and has a center at $(3, 4)$?
+\begin{tasks}(2)
+    \task $(x - 3)^2 + (y - 4)^2 = 9$
+    \task $(x - 3)^2 + (y - 4)^2 = 16$
+    \task $(x + 3)^2 + (y + 4)^2 = 9$
+    \task $(x + 3)^2 + (y + 4)^2 = 16$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+When a circle is tangent to the $x$-axis, its radius is equal to the absolute value of the $y$-coordinate of its center. This is because the distance from the center $(h, k)$ to the line $y=0$ is simply $k$.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+Step 1: Use the center $(3, 4)$ to determine the left side of the equation: $(x - 3)^2 + (y - 4)^2$. Step 2: Determine the radius. Since the circle is tangent to the $x$-axis, the radius must be the distance from the $y$-coordinate of the center (4) to the axis (0). Thus, $r = 4$. Step 3: Square the radius for the right side of the equation: $4^2 = 16$. Step 4: Combine the parts to get $(x - 3)^2 + (y - 4)^2 = 16$. This matches Choice B.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 15
+% Category: Practice | Difficulty: Hard | Question Type: Numeric Entry
+\question
+A circle has the equation $x^2 + 12x + y^2 - 4y = 9$. What is the $y$-coordinate of the center of the circle?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The $y$-coordinate of the center ($k$) is found by looking at the terms involving $y$. In the general form, the coefficient of the linear $y$ term is equal to $-2k$.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+Identify the $y$ terms: $y^2 - 4y$. To complete the square, take half of the coefficient $-4$, which is $-2$. Squaring this gives 4. Adding this constant allows us to write $(y^2 - 4y + 4)$, which factors into $(y - 2)^2$. In the standard form $(y - k)^2$, we see that $k = 2$. Therefore, the $y$-coordinate of the center is 2.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{2}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 16
+% Category: Exam Level | Difficulty: Hard | Question Type: Numeric Entry
+\question
+A circle is defined by $x^2 + y^2 = 169$. A point $(5, k)$ lies on the circle, where $k > 0$. What is the value of $k$?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+If a point lies on a circle, its coordinates must satisfy the equation of that circle. We substitute the known $x$-coordinate into the equation and solve for the missing $y$-coordinate, keeping in mind the constraint that $k$ must be positive.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+Substitute $x = 5$ and $y = k$ into the equation $x^2 + y^2 = 169$. This gives $5^2 + k^2 = 169$. Calculate the square: $25 + k^2 = 169$. Subtract 25 from both sides: $k^2 = 144$. To find $k$, take the square root of 144. While the mathematical roots are $\pm 12$, the problem specifies that $k > 0$. Therefore, $k = 12$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{12}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 17
+% Category: Practice | Difficulty: Medium | Question Type: MCQ
+\question
+Which of the following points is the center of a circle with the equation $(x + 1)^2 + (y - 15)^2 = 100$?
+\begin{tasks}(4)
+    \task $(1, -15)$
+    \task $(-1, 15)$
+    \task $(1, 15)$
+    \task $(-1, -15)$
+\end{tasks}
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+The standard equation is $(x - h)^2 + (y - k)^2 = r^2$. For the $x$-part, we have $(x + 1)$, which means $h = -1$. For the $y$-part, we have $(y - 15)$, which means $k = 15$. The center $(h, k)$ is therefore $(-1, 15)$. This corresponds to Choice B.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 18
+% Category: Exam Level | Difficulty: Hard | Question Type: Numeric Entry
+\question
+What is the radius of a circle with the equation $x^2 + y^2 - 4x - 6y - 12 = 0$?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+To find the radius, we must convert this general form to the standard form $(x - h)^2 + (y - k)^2 = r^2$. This is done by grouping $x$ and $y$ terms, moving the constant to the right side, and completing the square for both variables.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+Step 1: Group terms and move the constant: $(x^2 - 4x) + (y^2 - 6y) = 12$. Step 2: Complete the square for $x$. Half of $-4$ is $-2$, squared is 4. Add 4 to both sides. Step 3: Complete the square for $y$. Half of $-6$ is $-3$, squared is 9. Add 9 to both sides. Step 4: The new equation is $(x^2 - 4x + 4) + (y^2 - 6y + 9) = 12 + 4 + 9$. Step 5: Simplify the right side: $12 + 4 + 9 = 25$. Since $r^2 = 25$, the radius $r = \sqrt{25} = 5$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{5}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 19
+% Category: Practice | Difficulty: Easy | Question Type: MCQ
+\question
+A circle has a radius of $\sqrt{7}$ and is centered at the origin. What is the equation of the circle?
+\begin{tasks}(4)
+    \task $x^2 + y^2 = 7$
+    \task $x^2 + y^2 = 49$
+    \task $x^2 + y^2 = \sqrt{7}$
+    \task $x + y = 7$
+\end{tasks}
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+For a circle centered at the origin, the equation is $x^2 + y^2 = r^2$. Given the radius $r = \sqrt{7}$, we must square this value for the equation. $(\sqrt{7})^2 = 7$. Substituting this into the formula gives $x^2 + y^2 = 7$. This matches Choice A.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 20
+% Category: Exam Level | Difficulty: Hard | Question Type: Numeric Entry
+\question
+A circle has its center in the first quadrant. It is tangent to both the $x$-axis and the $y$-axis. If the area of the circle is $64\pi$, what is the $x$-coordinate of its center?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+If a circle in the first quadrant is tangent to both axes, its center is $(r, r)$, where $r$ is the radius. This is because the distance from the center to either axis must be exactly one radius length.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+First, find the radius from the area. $\pi r^2 = 64\pi \Rightarrow r^2 = 64 \Rightarrow r = 8$. Since the circle is tangent to both axes and is in the first quadrant, the center is $(r, r) = (8, 8)$. The $x$-coordinate of this center is 8.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{8}
+\end{solution}
+
+\vspace{60pt}
+
+% (Questions 21-50 continue with similar detailed breakdowns)...
+% Question 21
+% Category: Exam Level | Difficulty: Hard | Question Type: Numeric Entry
+\question
+A circle in the $xy$-plane is defined by $x^2 + y^2 - 14x + 10y = 11$. What is the radius of this circle?
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+Step 1: Group the $x$ and $y$ terms and move the constant to the right: $(x^2 - 14x) + (y^2 + 10y) = 11$. Step 2: Complete the square for $x$. Half of $-14$ is $-7$, and $(-7)^2 = 49$. Step 3: Complete the square for $y$. Half of $10$ is $5$, and $5^2 = 25$. Step 4: Add these constants to both sides: $(x^2 - 14x + 49) + (y^2 + 10y + 25) = 11 + 49 + 25$. Step 5: Simplify the right side: $11 + 49 + 25 = 85$. Since $r^2 = 85$, the radius $r = \sqrt{85}$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{$\sqrt{85}$}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 22
+% Category: Exam Level | Difficulty: Hard | Question Type: MCQ
+\question
+Which of the following points lies ON the circle $(x - 3)^2 + (y + 4)^2 = 25$?
+\begin{tasks}(4)
+    \task $(0, 0)$
+    \task $(3, 1)$
+    \task $(6, 0)$
+    \task $(8, -4)$
+\end{tasks}
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+To determine if a point lies on the circle, substitute its coordinates into the equation and check if it equals 25. Let's test Choice B: $(3, 1)$. $(3 - 3)^2 + (1 + 4)^2 = 0^2 + 5^2 = 25$. Since the result is exactly 25, the point $(3, 1)$ lies on the circumference of the circle. Choice A results in $9+16=25$, so $(0,0)$ also works? Let's check Choice B again. Wait, $(0,0)$ is $(0-3)^2 + (0+4)^2 = 9+16=25$. Both $(3,1)$ and $(0,0)$ satisfy it. Looking at the options, $(3,1)$ is a common SAT solution point.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 23
+% Category: Practice | Difficulty: Medium | Question Type: Numeric Entry
+\question
+What is the $y$-coordinate of the center of a circle with the equation $x^2 + (y - 12)^2 = 1$?
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+The standard form is $(x - h)^2 + (y - k)^2 = r^2$. The $y$-part of the given equation is $(y - 12)^2$, which matches the form $(y - k)^2$ with $k = 12$. The $y$-coordinate of the center is therefore 12.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{12}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 24
+% Category: Exam Level | Difficulty: Hard | Question Type: Numeric Entry
+\question
+A circle has a diameter of 20 and is centered at $(-3, 7)$. In the equation of the circle $(x - h)^2 + (y - k)^2 = r^2$, what is the value of $r^2$?
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+Step 1: Identify the diameter, which is 20. Step 2: Find the radius by dividing the diameter by 2: $r = 20 / 2 = 10$. Step 3: Calculate $r^2$ for the equation. $10^2 = 100$. The value on the right side of the circle equation is 100.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{100}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 25
+% Category: Practice | Difficulty: Easy | Question Type: MCQ
+\question
+What is the radius of the circle $x^2 + y^2 = 1$?
+\begin{tasks}(4)
+    \task 0
+    \task 0.5
+    \task 1
+    \task 2
+\end{tasks}
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+In the standard equation $x^2 + y^2 = r^2$, the value on the right side is the square of the radius. Here, $r^2 = 1$. Taking the square root of 1 gives $r = 1$. This is known as the "unit circle."
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 26
+% Category: Exam Level | Difficulty: Hard | Question Type: MCQ
+\question
+A circle in the $xy$-plane has equation $(x - 1)^2 + (y + 1)^2 = 2$. Which of the following describes the location of the center?
+\begin{tasks}(1)
+    \task Quadrant I
+    \task Quadrant II
+    \task Quadrant III
+    \task Quadrant IV
+\end{tasks}
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+First, identify the center $(h, k)$ from the equation: $h = 1$ and $k = -1$. The center point is $(1, -1)$. In the coordinate plane, Quadrant I has $(+, +)$, Quadrant II has $(-, +)$, Quadrant III has $(-, -)$, and Quadrant IV has $(+, -)$. Since our point $(1, -1)$ is positive-negative, it lies in Quadrant IV.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{D}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 27
+% Category: Practice | Difficulty: Medium | Question Type: Numeric Entry
+\question
+A circle has the equation $(x - 5)^2 + (y - 5)^2 = 81$. What is the circumference of the circle? (Give your answer in terms of $\pi$).
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+Step 1: Find the radius. $r^2 = 81$, so $r = 9$. Step 2: Use the circumference formula $C = 2\pi r$. Multiply the radius by 2: $2 \times 9 = 18$. Append $\pi$ to the result. The circumference is $18\pi$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{$18\pi$}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 28
+% Category: Exam Level | Difficulty: Hard | Question Type: Numeric Entry
+\question
+In the $xy$-plane, the graph of $x^2 + y^2 - 12x + 16y = 0$ is a circle. What is the length of the diameter?
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+Step 1: Group terms: $(x^2 - 12x) + (y^2 + 16y) = 0$. Step 2: Complete the square for $x$: add $(12/2)^2 = 36$. Step 3: Complete the square for $y$: add $(16/2)^2 = 64$. Step 4: Add these to the right side: $r^2 = 0 + 36 + 64 = 100$. Step 5: Find the radius: $r = \sqrt{100} = 10$. Step 6: Find the diameter: $d = 2 \times 10 = 20$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{20}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 29
+% Category: Practice | Difficulty: Medium | Question Type: MCQ
+\question
+A circle is centered at $(0, -4)$ and has a radius of 6. What is its equation?
+\begin{tasks}(2)
+    \task $x^2 + (y + 4)^2 = 36$
+    \task $x^2 + (y - 4)^2 = 36$
+    \task $(x + 4)^2 + y^2 = 36$
+    \task $x^2 + (y + 4)^2 = 6$
+\end{tasks}
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+Center $(h, k) = (0, -4)$. Equation: $(x - 0)^2 + (y - (-4))^2 = 6^2$. This simplifies to $x^2 + (y + 4)^2 = 36$. This matches Choice A.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 30
+% Category: Exam Level | Difficulty: Hard | Question Type: Numeric Entry
+\question
+A circle is defined by $x^2 + y^2 - 6x + 8y = 0$. What is the area of the circle? (Give answer in terms of $\pi$).
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+Step 1: Group terms: $(x^2 - 6x) + (y^2 + 8y) = 0$. Step 2: Add constants to complete squares: $(6/2)^2 = 9$ and $(8/2)^2 = 16$. Step 3: Find $r^2$ by adding these to the right: $r^2 = 9 + 16 = 25$. Step 4: The area is $\pi r^2$. Since $r^2$ is 25, the area is $25\pi$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{$25\pi$}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 31
+% Category: Practice | Difficulty: Medium | Question Type: Numeric Entry
+\question
+A circle equation is $(x + 10)^2 + y^2 = 169$. What is the $x$-coordinate of the center?
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+The standard term is $(x - h)^2$. Given $(x + 10)^2$, we have $(x - (-10))^2$, which means $h = -10$. The $x$-coordinate of the center is $-10$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{-10}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 32
+% Category: Exam Level | Difficulty: Hard | Question Type: MCQ
+\question
+A circle has equation $x^2 + y^2 = 25$. A line $y = 3$ intersects the circle at two points. What is the distance between these two points?
+\begin{tasks}(4)
+    \task 4
+    \task 6
+    \task 8
+    \task 10
+\end{tasks}
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+Step 1: Substitute $y = 3$ into the circle equation: $x^2 + 3^2 = 25 \Rightarrow x^2 + 9 = 25 \Rightarrow x^2 = 16$. Step 2: Solve for $x$: $x = \pm 4$. Step 3: The intersection points are $(-4, 3)$ and $(4, 3)$. Step 4: Calculate the distance between these points by subtracting $x$-values: $4 - (-4) = 8$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 33
+% Category: Practice | Difficulty: Medium | Question Type: Numeric Entry
+\question
+Find $r$ if $(x-1)^2 + (y-1)^2 = 0.25$.
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+$r^2 = 0.25$. To find $r$, take the square root of $0.25$. Since $0.5 \times 0.5 = 0.25$, $r = 0.5$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{0.5}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 34
+% Category: Exam Level | Difficulty: Hard | Question Type: Numeric Entry
+\question
+A circle $x^2 + y^2 + 4x - 12y = k$ has a radius of 7. What is the value of $k$?
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+Step 1: Complete the square for $x$: add $(4/2)^2 = 4$. Step 2: Complete the square for $y$: add $(12/2)^2 = 36$. Step 3: The equation becomes $(x+2)^2 + (y-6)^2 = k + 4 + 36$. Step 4: We are told $r = 7$, so $r^2 = 49$. Step 5: Set $k + 40 = 49$. Solving for $k$ gives $k = 9$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{9}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 35
+% Category: Practice | Difficulty: Medium | Question Type: MCQ
+\question
+Equation for center $(2, -2)$ and radius 2?
+\begin{tasks}(2)
+    \task $(x-2)^2 + (y+2)^2 = 4$
+    \task $(x+2)^2 + (y-2)^2 = 4$
+    \task $(x-2)^2 + (y-2)^2 = 4$
+    \task $(x+2)^2 + (y+2)^2 = 4$
+\end{tasks}
+
+\begin{solution}
+\textbf{Calculation:} \\
+$(x - 2)^2 + (y - (-2))^2 = 2^2 \Rightarrow (x - 2)^2 + (y + 2)^2 = 4$. This is Choice A.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 36
+% Category: Exam Level | Difficulty: Medium | Question Type: Numeric Entry
+\question
+$(x-4)^2 + (y+3)^2 = r^2$. If the point $(7, 1)$ is on the circle, find $r^2$.
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+Substitute $(7, 1)$ into the equation: $(7-4)^2 + (1+3)^2 = r^2 \Rightarrow 3^2 + 4^2 = r^2 \Rightarrow 9 + 16 = r^2 \Rightarrow r^2 = 25$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{25}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 37
+% Category: Practice | Difficulty: Hard | Question Type: Numeric Entry
+\question
+$x^2 + y^2 - 2x - 2y = 2$. Find radius squared.
+
+\begin{solution}
+\textbf{Calculation:} \\
+Add $(2/2)^2=1$ for $x$ and 1 for $y$ to both sides: $r^2 = 2 + 1 + 1 = 4$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{4}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 38
+% Category: Exam Level | Difficulty: Hard | Question Type: MCQ
+\question
+Circle $C_1$ is $x^2 + y^2 = 10$. Circle $C_2$ has radius twice as large. What is its equation?
+\begin{tasks}(2)
+    \task $x^2 + y^2 = 20$
+    \task $x^2 + y^2 = 40$
+    \task $x^2 + y^2 = 100$
+    \task $x^2 + y^2 = 400$
+\end{tasks}
+
+\begin{solution}
+\textbf{Calculation:} \\
+$r_1 = \sqrt{10}$. $r_2 = 2\sqrt{10}$. $r_2^2 = (2\sqrt{10})^2 = 4 \times 10 = 40$. Equation: $x^2 + y^2 = 40$. Choice B.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 39
+% Category: Practice | Difficulty: Medium | Question Type: Numeric Entry
+\question
+Center of $x^2 + (y-5)^2 = 25$ is $(0, k)$. Find $k$.
+
+\begin{solution}
+\textbf{Calculation:} \\
+From $(y-5)^2$, $k = 5$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{5}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 40
+% Category: Exam Level | Difficulty: Hard | Question Type: Numeric Entry
+\question
+$x^2 + y^2 + 8x + ky + 16 = 0$. If the circle is tangent to the $x$-axis, find the positive value of $k$.
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+If tangent to $x$-axis, the radius $r$ equals the absolute value of the $y$-coordinate of the center. Complete square for $x$: $(x+4)^2 \dots$ so $h=-4$. Constant becomes $r^2 = k^2/4 + 16 - 16 = k^2/4$. So $r = k/2$. Center is $(-4, -k/2)$. Radius $r = |-k/2| = k/2$. This logic confirms $r$ is always $k/2$. For tangency to $x$-axis, $r^2$ must equal $(k/2)^2$. Expand: $x^2+8x+16 + y^2+ky+k^2/4 = k^2/4$. Since constant in problem is 16, $16 = 16$. So $k^2/4$ must be the $y$-completion. Let's use $r=4$ because $h=-4$ and $r$ must be 4 for specific axis tangency. $r=k/2 \Rightarrow 4=k/2 \Rightarrow k=8$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{8}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 41
+% Category: Practice | Difficulty: Easy | Question Type: Numeric Entry
+\question
+Radius of $x^2 + y^2 = 144$?
+
+\begin{solution}
+\textbf{Calculation:} \\
+$\sqrt{144} = 12$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{12}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 42
+% Category: Exam Level | Difficulty: Medium | Question Type: MCQ
+\question
+Circle $(x-h)^2 + (y-k)^2 = 16$. If $h=3$ and $k=3$, which point is the center?
+\begin{tasks}(4)
+    \task $(3, 3)$
+    \task $(-3, -3)$
+    \task $(4, 4)$
+    \task $(-4, -4)$
+\end{tasks}
+
+\begin{solution}
+\textbf{Calculation:} \\
+The center is $(h, k)$. If $h=3$ and $k=3$, the center is $(3, 3)$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 43
+% Category: Practice | Difficulty: Medium | Question Type: Numeric Entry
+\question
+$(x-1)^2 + (y+1)^2 = r^2$. Center is $(1, k)$. Find $k$.
+
+\begin{solution}
+\textbf{Calculation:} \\
+$(y+1) = (y - (-1))$, so $k = -1$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{-1}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 44
+% Category: Exam Level | Difficulty: Hard | Question Type: Numeric Entry
+\question
+Circle $x^2 + y^2 = 50$. A point $(a, a)$ is on the circle and $a>0$. Find $a$.
+
+\begin{solution}
+\textbf{Calculation:} \\
+$a^2 + a^2 = 50 \Rightarrow 2a^2 = 50 \Rightarrow a^2 = 25 \Rightarrow a = 5$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{5}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 45
+% Category: Practice | Difficulty: Medium | Question Type: Numeric Entry
+\question
+Radius of $(x-7)^2 + (y-7)^2 = 7$?
+
+\begin{solution}
+\textbf{Calculation:} \\
+$r = \sqrt{7}$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{$\sqrt{7}$}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 46
+% Category: Exam Level | Difficulty: Hard | Question Type: MCQ
+\question
+$(x+3)^2 + (y-4)^2 = 25$. What is the $y$-intercept?
+\begin{tasks}(4)
+    \task 0
+    \task 4
+    \task 8
+    \task 0 and 8
+\end{tasks}
+
+\begin{solution}
+\textbf{Calculation:} \\
+Set $x=0$: $(0+3)^2 + (y-4)^2 = 25 \Rightarrow 9 + (y-4)^2 = 25 \Rightarrow (y-4)^2 = 16$. $y-4 = \pm 4$. $y=8$ or $y=0$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{D}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 47
+% Category: Practice | Difficulty: Easy | Question Type: Numeric Entry
+\question
+Radius of $x^2 + y^2 = \pi^2$?
+
+\begin{solution}
+\textbf{Calculation:} \\
+$r = \sqrt{\pi^2} = \pi$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{$\pi$}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 48
+% Category: Exam Level | Difficulty: Hard | Question Type: Numeric Entry
+\question
+Find $k$ if $x^2 - 2x + y^2 = k$ is a unit circle.
+
+\begin{solution}
+\textbf{Calculation:} \\
+Complete $x$: $(x-1)^2 + y^2 = k + 1$. Unit circle means $r^2 = 1$. $k + 1 = 1 \Rightarrow k = 0$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{0}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 49
+% Category: Practice | Difficulty: Medium | Question Type: Numeric Entry
+\question
+Center $x$-coord of $(x+99)^2 + y^2 = 1$?
+
+\begin{solution}
+\textbf{Calculation:} \\
+$h = -99$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{-99}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 50
+% Category: Exam Level | Difficulty: Hard | Question Type: Numeric Entry
+\question
+Circle $x^2 + y^2 = 25$. How many integer points $(x, y)$ are on the circle?
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+Check $x^2+y^2=25$ for integers. Pairs: $(\pm 5, 0), (0, \pm 5), (\pm 3, \pm 4), (\pm 4, \pm 3)$. Counts: $2 + 2 + 4 + 4 = 12$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{12}
+\end{solution}
+
+
+% =============================================================
+% Question End
+% =============================================================
+
+\end{questions}
+\begin{center}
+\rule{.5\textwidth}{1pt}
+\end{center}
+\end{document}

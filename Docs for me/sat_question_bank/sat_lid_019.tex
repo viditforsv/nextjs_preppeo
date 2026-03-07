@@ -1,0 +1,1625 @@
+\documentclass[11pt,paper=a4,answers]{exam}
+\usepackage{graphicx,lastpage}
+\usepackage{upgreek}
+\usepackage{censor}
+\usepackage{gensymb}
+\usepackage{amsmath}
+\usepackage{multicol}
+\usepackage{enumitem}
+\usepackage{tasks}
+\usepackage{adjustbox}
+\usepackage{xcolor}
+\usepackage{tfrupee}
+\setlength{\voffset}{0.25in}
+\usepackage{tabularx}
+\newcolumntype{Y}{>{\centering\arraybackslash}X}
+%==============================================================
+% Customise Non-Essential Packages Below
+% =============================================================
+\usepackage[most]{tcolorbox}
+\usepackage{eso-pic}
+\usepackage{tikz}
+\AddToShipoutPictureBG{%
+\begin{tikzpicture}[remember picture,overlay]
+\foreach \x in {-8,-4,0,4,8,12,16,20}
+\foreach \y in {-8,-4,0,4,8,12,16,20} {
+\node[opacity=0.05,rotate=45,anchor=center] at ([xshift=\x cm,yshift=\y cm]current page.center) {%
+\begin{minipage}{2cm}
+\centering
+\includegraphics[width=2cm]{images/logo_black.png}\\
+\small preppeo.com
+\end{minipage}%
+};
+}
+\end{tikzpicture}%
+}
+\printanswers
+
+%==============================================================
+% Customise Non-Essential Packages Above
+% =============================================================
+\definecolor{svgray}{rgb}{0.90, 0.90, 0.90}
+\graphicspath{{images/}}
+
+\usepackage[normalem]{ulem}
+\renewcommand\ULthickness{1pt}   %%---> For changing thickness of underline
+\setlength\ULdepth{3.5ex}%\maxdimen ---> For changing depth of underline
+\renewcommand{\baselinestretch}{1}
+\chead{
+\includegraphics[scale=0.1,height=2cm ]{logo.png}
+}
+\pagestyle{empty}
+
+\pagestyle{headandfoot}
+\headrule
+\cfoot{W: https://preppeo.com; M: +91-8130711689}
+
+\begin{document}
+%==============================================================
+% Customise Question paper details below this
+% =============================================================
+\begin{center}
+    \centering
+    \renewcommand{\arraystretch}{1.5}
+    \begin{tabularx}{\textwidth}{YYY}
+    & \normalsize\bf{{\Large{{Quantitative Reasoning}}}} & \\
+    By Preppeo & \normalsize\bf{{sat\_lid\_019}} & SAT\\
+    \normalsize{{\textbf{{Unit:}} Advanced Math}} & \normalsize{{\textbf{{Chapter:}} Equivalent expressions}} & \normalsize{{\textbf{{Topic:}} Exponents \& Radicals}} \\
+    \end{tabularx}
+\end{center}
+\par\noindent\rule{\textwidth}{1pt}
+% =============================================================
+% Customise Question paper details above this
+% =============================================================
+
+\begin{questions}
+\pointsinrightmargin
+\pointsdroppedatright
+\marksnotpoints
+\pointpoints{mark}{marks}
+\pointformat{\boldmath\themarginpoints}
+\bracketedpoints
+
+% =============================================================
+% Question Begin
+% =============================================================
+% Lid Topic: Advanced Math — Exponents & Radicals
+% Total Questions: 50
+
+% --- PART 1: Core Exponent & Radical Operations (1-25) ---
+
+% Question 1
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+Which of the following expressions is equivalent to $x^{\frac{2}{3}}$, where $x > 0$?
+\begin{tasks}(4)
+    \task $\sqrt{x^3}$
+    \task $\sqrt[3]{x^2}$
+    \task $\frac{1}{x^3}$
+    \task $3\sqrt{x^2}$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The relationship between fractional exponents and radicals is defined by the rule $x^{\frac{a}{b}} = \sqrt[b]{x^a}$. The numerator of the fraction represents the power, and the denominator represents the root.
+
+\vspace{20pt}
+
+\textbf{Calculation and Logic:} \\
+Identify the components of the exponent $\frac{2}{3}$: \\
+The numerator is 2 (power). \\
+The denominator is 3 (root).
+
+\vspace{10pt}
+
+Apply the rule: \\
+$x^{\frac{2}{3}} = \sqrt[3]{x^2}$
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 2
+% Category: Practice | Difficulty: Hard | Question Type: Numeric Entry
+\question
+If $a^{5c} = \sqrt[4]{a^{15}}$, what is the value of $c$?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+To solve an equation with exponents on both sides, convert the radical expression into an exponential form with the same base. Once the bases match, you can set the exponents equal to each other.
+
+\vspace{20pt}
+
+\textbf{Calculation and Logic:} \\
+Convert the right side to exponential form using $x^{\frac{a}{b}} = \sqrt[b]{x^a}$: \\
+$\sqrt[4]{a^{15}} = a^{\frac{15}{4}}$
+
+\vspace{10pt}
+
+Set the exponents equal since the bases ($a$) are the same: \\
+$5c = \frac{15}{4}$
+
+\vspace{10pt}
+
+Solve for $c$ by dividing both sides by 5: \\
+$c = \frac{15}{4} \div 5$ \\
+$c = \frac{15}{20} = \frac{3}{4}$
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{0.75}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 3
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+Which expression is equivalent to $(a^2b^3)^{\frac{1}{2}}$, where $a > 0$ and $b > 0$?
+\begin{tasks}(4)
+    \task $ab\sqrt{b}$
+    \task $a^4b^6$
+    \task $\sqrt{a^2b^3}$
+    \task $a\sqrt{b^3}$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Distribute the outer exponent to each term inside the parentheses by multiplying the exponents. Then, simplify the fractional exponents back into radical form if necessary.
+
+\vspace{20pt}
+
+\textbf{Calculation and Logic:} \\
+Multiply the exponents: \\
+$a^{2 \cdot \frac{1}{2}} b^{3 \cdot \frac{1}{2}} = a^1 b^{\frac{3}{2}}$
+
+\vspace{10pt}
+
+Convert $b^{\frac{3}{2}}$ back to a radical: \\
+$b^{\frac{3}{2}} = \sqrt{b^3}$
+
+\vspace{10pt}
+
+Combine: \\
+$a\sqrt{b^3}$
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{D}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 4
+% Category: Practice | Difficulty: Hard | Question Type: Numeric Entry
+\question
+The expression $5\sqrt[3]{x^6 y^{12}}$ is equivalent to $ax^b y^c$. What is the value of $a + b + c$?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Convert the radical into fractional exponents for each variable. Then, simplify the fractions to find the constants $a, b,$ and $c$.
+
+\vspace{20pt}
+
+\textbf{Calculation and Logic:} \\
+Rewrite the expression: \\
+$5 \cdot (x^6 y^{12})^{\frac{1}{3}}$
+
+\vspace{10pt}
+
+Distribute the exponent: \\
+$5 \cdot x^{\frac{6}{3}} \cdot y^{\frac{12}{3}}$ \\
+$5x^2 y^4$
+
+\vspace{10pt}
+
+Identify constants: \\
+$a = 5$ \\
+$b = 2$ \\
+$c = 4$
+
+\vspace{10pt}
+
+Sum the values: \\
+$5 + 2 + 4 = 11$
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{11}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 5
+% Category: Practice | Difficulty: Hard | Question Type: Multiple Choice
+\question
+Which of the following is an equivalent form of $\frac{\sqrt{x^5}}{\sqrt[3]{x^2}}$, where $x > 1$?
+\begin{tasks}(4)
+    \task $x^{\frac{11}{6}}$
+    \task $x^{\frac{3}{2}}$
+    \task $x^{\frac{7}{6}}$
+    \task $x^{\frac{1}{6}}$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+First, convert both radicals into fractional exponents. When dividing terms with the same base, subtract the exponent of the denominator from the exponent of the numerator.
+
+\vspace{20pt}
+
+\textbf{Calculation and Logic:} \\
+Convert to exponents: \\
+Numerator: $x^{\frac{5}{2}}$ \\
+Denominator: $x^{\frac{2}{3}}$
+
+\vspace{10pt}
+
+Subtract exponents: \\
+$\frac{5}{2} - \frac{2}{3}$
+
+\vspace{10pt}
+
+Find a common denominator (6): \\
+$\frac{15}{6} - \frac{4}{6} = \frac{11}{6}$
+
+\vspace{10pt}
+
+Result: $x^{\frac{11}{6}}$
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 6
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+$\sqrt[5]{(x+3)^{10}}$ \\
+Which of the following is equivalent to the expression above?
+\begin{tasks}(4)
+    \task $x+3$
+    \task $(x+3)^2$
+    \task $(x+3)^5$
+    \task $x^2 + 9$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Treat the entire binomial $(x+3)$ as a single unit. Apply the rule $\sqrt[b]{u^a} = u^{\frac{a}{b}}$.
+
+\vspace{20pt}
+
+\textbf{Calculation and Logic:} \\
+Write as a fractional exponent: \\
+$(x+3)^{\frac{10}{5}}$
+
+\vspace{10pt}
+
+Simplify the fraction: \\
+$(x+3)^2$
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 7
+% Category: Practice | Difficulty: Hard | Question Type: Numeric Entry
+\question
+$k - x$ is a factor of the expression $-x^2 + \frac{1}{16}nk^2$, where $n$ and $k$ are constants and $k > 0$. What is the value of $n$?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+If $(k-x)$ is a factor, then by the Factor Theorem, substituting $x=k$ into the expression must result in zero.
+
+\vspace{20pt}
+
+\textbf{Calculation and Logic:} \\
+Set the expression to zero with $x=k$: \\
+$-(k)^2 + \frac{1}{16}nk^2 = 0$
+
+\vspace{10pt}
+
+Isolate the $n$ term: \\
+$\frac{1}{16}nk^2 = k^2$
+
+\vspace{10pt}
+
+Divide both sides by $k^2$ (since $k > 0$): \\
+$\frac{1}{16}n = 1$
+
+\vspace{10pt}
+
+Multiply by 16: \\
+$n = 16$
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{16}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 8
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+Which of the following is equivalent to $x^2 + 10x + 25$?
+\begin{tasks}(4)
+    \task $(x+5)^2$
+    \task $(x+10)^2$
+    \task $(x+5)(x-5)$
+    \task $x(x+10)$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Identify the expression as a perfect square trinomial following the pattern $a^2 + 2ab + b^2 = (a+b)^2$.
+
+\vspace{20pt}
+
+\textbf{Calculation and Logic:} \\
+$a^2 = x^2 \Rightarrow a = x$ \\
+$b^2 = 25 \Rightarrow b = 5$ \\
+Check middle term: $2(x)(5) = 10x$. (Matches)
+
+\vspace{10pt}
+
+Factored form: $(x+5)^2$
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 9
+% Category: Practice | Difficulty: Hard | Question Type: Numeric Entry
+\question
+The expression $4^{\frac{1}{2}} \cdot 4^{\frac{3}{2}}$ is equal to $k$. What is the value of $k$?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+When multiplying powers with the same base, add the exponents. Then, simplify the result.
+
+\vspace{20pt}
+
+\textbf{Calculation and Logic:} \\
+Add exponents: \\
+$\frac{1}{2} + \frac{3}{2} = \frac{4}{2} = 2$
+
+\vspace{10pt}
+
+Calculate the final value: \\
+$4^2 = 16$
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{16}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 10
+% Category: Practice | Difficulty: Hard | Question Type: Multiple Choice
+\question
+The expression $12\sqrt[4]{2^4 x}$ is equivalent to $ax^b$. What is the value of $a + b$?
+\begin{tasks}(4)
+    \task $24.25$
+    \task $12.25$
+    \task $48.25$
+    \task $24.5$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Simplify the radical by taking the 4th root of the constants inside. Convert the remaining variable term into a fractional exponent.
+
+\vspace{20pt}
+
+\textbf{Calculation and Logic:} \\
+Separate the radical: \\
+$12 \cdot \sqrt[4]{2^4} \cdot \sqrt[4]{x}$
+
+\vspace{10pt}
+
+Simplify: \\
+$12 \cdot 2 \cdot x^{\frac{1}{4}}$ \\
+$24x^{0.25}$
+
+\vspace{10pt}
+
+Identify constants: \\
+$a = 24, b = 0.25$
+
+\vspace{10pt}
+
+Sum: $24 + 0.25 = 24.25$
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+% Question 11
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+Which of the following is equivalent to the sum of $5x^3 + 4x^2$ and $2x^3 + 6x^2$?
+\begin{tasks}(4)
+    \task $7x^3 + 10x^2$
+    \task $7x^6 + 10x^4$
+    \task $10x^3 + 24x^2$
+    \task $7x^5 + 10x^3$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+To find the sum, combine "like terms." Like terms are terms that have the exact same variable and exponent. When adding, only the coefficients change; the exponents remain the same.
+
+\vspace{20pt}
+
+\textbf{Calculation and Logic:} \\
+Group like terms: \\
+$(5x^3 + 2x^3) + (4x^2 + 6x^2)$
+
+\vspace{10pt}
+
+Add coefficients: \\
+$7x^3 + 10x^2$
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 12
+% Category: Practice | Difficulty: Hard | Question Type: Numeric Entry
+\question
+$x^2 = -400$ \\
+How many distinct real solutions does the given equation have?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The square of any real number is non-negative ($x^2 \ge 0$). Therefore, a quadratic equation where $x^2$ is set equal to a negative number has no real solutions.
+
+\vspace{20pt}
+
+\textbf{Calculation and Logic:} \\
+Check the value on the right side: $-400$. \\
+Since $-400 < 0$, there is no real number that can be squared to produce this result.
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{0}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 13
+% Category: Practice | Difficulty: Hard | Question Type: Multiple Choice
+\question
+$\sqrt{(a+b)^5} \cdot \sqrt{a+b}$ \\
+If $a+b > 0$, which of the following is equivalent to the expression above?
+\begin{tasks}(4)
+    \task $(a+b)^3$
+    \task $(a+b)^6$
+    \task $\sqrt{(a+b)^6}$
+    \task $(a+b)^2$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+When multiplying two square roots, you can multiply the expressions inside a single radical. Then, simplify the radical by dividing the total exponent by 2.
+
+\vspace{20pt}
+
+\textbf{Calculation and Logic:} \\
+Combine under one radical: \\
+$\sqrt{(a+b)^5 \cdot (a+b)^1} = \sqrt{(a+b)^6}$
+
+\vspace{10pt}
+
+Apply the radical rule ($ \sqrt{u^n} = u^{\frac{n}{2}} $): \\
+$(a+b)^{\frac{6}{2}} = (a+b)^3$
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 14
+% Category: Practice | Difficulty: Medium | Question Type: Numeric Entry
+\question
+$x^2 - ax + 20 = 0$ \\
+In the equation above, $a > 0$ and the equation has two integer solutions. What is a possible value of $a$?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+According to Vieta's formulas, the product of the solutions is 20 and the sum of the solutions is $a$. We need to find factor pairs of 20 and sum them.
+
+\vspace{20pt}
+
+\textbf{Calculation and Logic:} \\
+Integer factor pairs of 20: \\
+(1, 20) $\rightarrow$ Sum = 21 \\
+(2, 10) $\rightarrow$ Sum = 12 \\
+(4, 5) $\rightarrow$ Sum = 9
+
+\vspace{10pt}
+
+Possible values for $a$ are 21, 12, or 9.
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{9}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 15
+% Category: Practice | Difficulty: Hard | Question Type: Multiple Choice
+\question
+Which of the following is equivalent to $a^{\frac{13}{14}}$, where $a > 0$?
+\begin{tasks}(4)
+    \task $\sqrt[14]{a^{13}}$
+    \task $\sqrt[13]{a^{14}}$
+    \task $14\sqrt{a^{13}}$
+    \task $13\sqrt{a^{14}}$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Apply the fundamental rule of rational exponents: $x^{\frac{\text{power}}{\text{root}}} = \sqrt[\text{root}]{x^{\text{power}}}$.
+
+\vspace{20pt}
+
+\textbf{Calculation and Logic:} \\
+Power = 13 \\
+Root = 14
+
+\vspace{10pt}
+
+Radical form: $\sqrt[14]{a^{13}}$
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 16
+% Category: Practice | Difficulty: Hard | Question Type: Multiple Choice
+\question
+$(1 - k)(1 + k + k^2 + k^3 + k^4)$ \\
+Which of the following is equivalent to the expression above?
+\begin{tasks}(4)
+    \task $1 - k^4$
+    \task $1 - k^5$
+    \task $1 + k^5$
+    \task $1 - k^6$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+This follows the "difference of powers" algebraic identity: $(1-x)(1 + x + x^2 + ... + x^{n-1}) = 1 - x^n$.
+
+\vspace{20pt}
+
+\textbf{Calculation and Logic:} \\
+The highest power inside the second parenthesis is $k^4$. \\
+Following the identity, the result will be $1 - k^{4+1}$. \\
+Result: $1 - k^5$
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 17
+% Category: Practice | Difficulty: Hard | Question Type: Numeric Entry
+\question
+$2x^2 - 4x = t$ \\
+In the given equation, $t$ is a constant. If the equation has no real solutions, what is the greatest possible integer value of $t$?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Find the minimum value of the quadratic. For the equation to have no real solutions, $t$ must be strictly less than that minimum value.
+
+\vspace{20pt}
+
+\textbf{Calculation and Logic:} \\
+Find the vertex: \\
+$x = -b/2a = 4/4 = 1$ \\
+$y = 2(1)^2 - 4(1) = -2$
+
+\vspace{10pt}
+
+The minimum value of the quadratic is $-2$. \\
+For no real solutions: $t < -2$.
+
+\vspace{10pt}
+
+The greatest integer less than $-2$ is $-3$.
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{-3}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 18
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+Which of the following is equivalent to $x^2 - 7$?
+\begin{tasks}(2)
+    \task $(x + 7)(x - 1)$
+    \task $(x - \sqrt{7})^2$
+    \task $(x + \sqrt{7})(x - \sqrt{7})$
+    \task $(x + 7)^2$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Recognize the expression as a difference of squares ($a^2 - b^2$) where $b$ is the square root of a non-perfect square constant.
+
+\vspace{20pt}
+
+\textbf{Calculation and Logic:} \\
+$a^2 = x^2 \Rightarrow a = x$ \\
+$b^2 = 7 \Rightarrow b = \sqrt{7}$
+
+\vspace{10pt}
+
+Factored form: $(x + \sqrt{7})(x - \sqrt{7})$
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 19
+% Category: Practice | Difficulty: Hard | Question Type: Numeric Entry
+\question
+If $\sqrt{3x+9} + 5 = x + 2$, what is the solution to the equation?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Isolate the radical, square both sides, and solve the resulting quadratic. Always check for extraneous solutions.
+
+\vspace{20pt}
+
+\textbf{Calculation and Logic:} \\
+$\sqrt{3x+9} = x - 3$
+
+\vspace{10pt}
+
+Square both sides: \\
+$3x+9 = x^2 - 6x + 9$ \\
+$x^2 - 9x = 0$ \\
+$x(x-9) = 0$
+
+\vspace{10pt}
+
+Check $x=0$: $\sqrt{9} + 5 = 0 + 2 \Rightarrow 8 = 2$ (False) \\
+Check $x=9$: $\sqrt{27+9} + 5 = 9 + 2 \Rightarrow 6 + 5 = 11$ (True)
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{9}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 20
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+If $y = 3.5x + 10$ is rewritten in the form $x = ay + b$, what is the value of $a$?
+\begin{tasks}(4)
+    \task $3.5$
+    \task $\frac{2}{7}$
+    \task $-3.5$
+    \task $\frac{7}{2}$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Isolate $x$ by performing inverse operations. The coefficient of $y$ in the final equation will be the constant $a$.
+
+\vspace{20pt}
+
+\textbf{Calculation and Logic:} \\
+$y - 10 = 3.5x$ \\
+$x = \frac{1}{3.5}y - \frac{10}{3.5}$
+
+\vspace{10pt}
+
+Convert $3.5$ to a fraction: $3.5 = \frac{7}{2}$. \\
+The coefficient $a$ is the reciprocal: $\frac{2}{7}$.
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 21
+% Category: Practice | Difficulty: Hard | Question Type: Numeric Entry
+\question
+$-x^2 + bx - 625 = 0$ \\
+In the given equation, $b$ is a positive integer. If the equation has no real solution, what is the greatest possible value of $b$?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Set the discriminant $D < 0$ and solve for the integer boundary of $b$.
+
+\vspace{20pt}
+
+\textbf{Calculation and Logic:} \\
+$D = b^2 - 4(-1)(-625) < 0$ \\
+$b^2 - 2500 < 0$ \\
+$b^2 < 2500$
+
+\vspace{10pt}
+
+$b < 50$. \\
+The greatest integer value is 49.
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{49}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 22
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+$y = -2.50$ \\
+$y = x^2 + 6x + a$ \\
+If the system above has exactly one real solution and $a$ is a constant, what is the value of $a$?
+\begin{tasks}(4)
+    \task $6.5$
+    \task $9$
+    \task $11.5$
+    \task $12.5$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The horizontal line must be tangent to the vertex of the parabola. Find the $y$-coordinate of the vertex in terms of $a$ and set it equal to $-2.50$.
+
+\vspace{20pt}
+
+\textbf{Calculation and Logic:} \\
+$x$-vertex $= -b/2a = -6/2 = -3$ \\
+Substitute into parabola: \\
+$y = (-3)^2 + 6(-3) + a = 9 - 18 + a = a - 9$
+
+\vspace{10pt}
+
+Set $y = -2.50$: \\
+$a - 9 = -2.50$ \\
+$a = 6.50$
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 23
+% Category: Practice | Difficulty: Hard | Question Type: Numeric Entry
+\question
+$y = x^2 - 1$ \\
+$y = 8$ \\
+What is the positive $x$-coordinate of the intersection point?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Set the quadratic equal to the constant value and solve for $x$.
+
+\vspace{20pt}
+
+\textbf{Calculation and Logic:} \\
+$x^2 - 1 = 8$ \\
+$x^2 = 9$ \\
+$x = \pm 3$
+
+\vspace{10pt}
+
+The positive coordinate is 3.
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{3}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 24
+% Category: Practice | Difficulty: Medium | Question Type: Numeric Entry
+\question
+If $(x, y)$ is a solution to the system $\begin{cases} y = x^2 \\ 3y + 12 = 3(x+4) \end{cases}$ and $x > 0$, what is the value of $xy$?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Simplify the linear equation, use substitution to solve for $x$, find $y$, and calculate the product.
+
+\vspace{20pt}
+
+\textbf{Calculation and Logic:} \\
+$3y + 12 = 3x + 12 \Rightarrow 3y = 3x \Rightarrow y = x$
+
+\vspace{10pt}
+
+Substitute into $y = x^2$: \\
+$x = x^2 \Rightarrow x^2 - x = 0 \Rightarrow x(x-1) = 0$ \\
+Given $x > 0$, $x = 1$.
+
+\vspace{10pt}
+
+If $x = 1$, then $y = 1^2 = 1$. \\
+Product $xy = 1 \cdot 1 = 1$.
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{1}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 25
+% Category: Practice | Difficulty: Hard | Question Type: Numeric Entry
+\question
+The expression $(x-20)(21x+5)$ is rewritten as $ax^2 + bx + c$. What is the value of $b$?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Find the coefficient of the linear term by combining the outer and inner products of the FOIL expansion.
+
+\vspace{20pt}
+
+\textbf{Calculation and Logic:} \\
+Outer: $x \cdot 5 = 5x$ \\
+Inner: $-20 \cdot 21x = -420x$
+
+\vspace{10pt}
+
+Sum: $5x - 420x = -415x$ \\
+Coefficient $b = -415$.
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{-415}
+\end{solution}
+
+% --- PART 2: Advanced Exponents & Radicals (26-50) ---
+
+% Question 26
+% Category: Practice | Difficulty: Hard | Question Type: Numeric Entry
+\question
+If $x^{\frac{2}{5}} = 4$, what is the value of $x^{\frac{1}{5}}$?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Use the property of exponents $(a^m)^n = a^{mn}$. Recognize that $x^{\frac{2}{5}}$ is the square of $x^{\frac{1}{5}}$.
+
+\vspace{20pt}
+
+\textbf{Calculation and Logic:} \\
+Let $u = x^{\frac{1}{5}}$. \\
+Then $u^2 = (x^{\frac{1}{5}})^2 = x^{\frac{2}{5}}$.
+
+\vspace{10pt}
+
+Given $x^{\frac{2}{5}} = 4$, we have: \\
+$u^2 = 4$
+
+\vspace{10pt}
+
+Take the square root: \\
+$u = 2$ \\
+(Note: In SAT radical contexts, assume positive roots unless specified).
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{2}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 27
+% Category: Practice | Difficulty: Hard | Question Type: Numeric Entry
+\question
+$\sqrt{32} + \sqrt{18} = k\sqrt{2}$ \\
+What is the value of $k$?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Simplify each radical by factoring out the largest perfect square. This allows you to combine the terms as "like radicals."
+
+\vspace{20pt}
+
+\textbf{Calculation and Logic:} \\
+Simplify $\sqrt{32}$: $\sqrt{16 \cdot 2} = 4\sqrt{2}$ \\
+Simplify $\sqrt{18}$: $\sqrt{9 \cdot 2} = 3\sqrt{2}$
+
+\vspace{10pt}
+
+Add the simplified terms: \\
+$4\sqrt{2} + 3\sqrt{2} = 7\sqrt{2}$
+
+\vspace{10pt}
+
+Comparing this to $k\sqrt{2}$, we find $k = 7$.
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{7}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 28
+% Category: Practice | Difficulty: Hard | Question Type: Numeric Entry
+\question
+If $(x^a)^3 \cdot x^5 = x^{17}$ for all $x > 0$, what is the value of $a$?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Apply the power of a power rule $(x^a)^b = x^{ab}$ and the product rule $x^m \cdot x^n = x^{m+n}$. Set the resulting exponent equal to 17.
+
+\vspace{20pt}
+
+\textbf{Calculation and Logic:} \\
+Simplify $(x^a)^3$: $x^{3a}$ \\
+Multiply by $x^5$: $x^{3a} \cdot x^5 = x^{3a+5}$
+
+\vspace{10pt}
+
+Set the exponents equal: \\
+$3a + 5 = 17$
+
+\vspace{10pt}
+
+Solve for $a$: \\
+$3a = 12$ \\
+$a = 4$
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{4}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 29
+% Category: Practice | Difficulty: Hard | Question Type: Numeric Entry
+\question
+The expression $\sqrt[3]{x^4} \cdot \sqrt[3]{x^5}$ is equivalent to $x^n$. What is the value of $n$?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Convert radicals to fractional exponents and then use the product rule for exponents.
+
+\vspace{20pt}
+
+\textbf{Calculation and Logic:} \\
+Convert to exponents: \\
+$x^{\frac{4}{3}} \cdot x^{\frac{5}{3}}$
+
+\vspace{10pt}
+
+Add the exponents: \\
+$\frac{4}{3} + \frac{5}{3} = \frac{9}{3} = 3$
+
+\vspace{10pt}
+
+The value of $n$ is 3.
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{3}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 30
+% Category: Practice | Difficulty: Hard | Question Type: Numeric Entry
+\question
+$y = \sqrt{x - 5} + 10$ \\
+If $y = 13$, what is the value of $x$?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Isolate the radical term and then square both sides to solve for the variable $x$.
+
+\vspace{20pt}
+
+\textbf{Calculation and Logic:} \\
+Substitute $y = 13$: \\
+$13 = \sqrt{x - 5} + 10$
+
+\vspace{10pt}
+
+Subtract 10 from both sides: \\
+$3 = \sqrt{x - 5}$
+
+\vspace{10pt}
+
+Square both sides: \\
+$3^2 = x - 5$ \\
+$9 = x - 5$
+
+\vspace{10pt}
+
+Solve for $x$: \\
+$x = 14$
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{14}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 31
+% Category: Practice | Difficulty: Hard | Question Type: Numeric Entry
+\question
+If $2^n = \sqrt{32}$, what is the value of $n$?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Express both sides of the equation as powers of the same base (base 2).
+
+\vspace{20pt}
+
+\textbf{Calculation and Logic:} \\
+Rewrite 32 as a power of 2: $32 = 2^5$. \\
+Rewrite the radical as an exponent: $\sqrt{2^5} = (2^5)^{\frac{1}{2}} = 2^{\frac{5}{2}}$.
+
+\vspace{10pt}
+
+The equation is: \\
+$2^n = 2^{2.5}$
+
+\vspace{10pt}
+
+$n = 2.5$
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{2.5}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 32
+% Category: Practice | Difficulty: Hard | Question Type: Numeric Entry
+\question
+What is the value of $c$ if $\frac{x^7}{(x^c)^2} = x$ for all $x > 0$?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Use exponent rules to simplify the left side and set the final exponent equal to 1 (the exponent of $x$ on the right side).
+
+\vspace{20pt}
+
+\textbf{Calculation and Logic:} \\
+Simplify the denominator: $(x^c)^2 = x^{2c}$. \\
+Simplify the fraction: $x^{7 - 2c}$.
+
+\vspace{10pt}
+
+Set the exponents equal: \\
+$7 - 2c = 1$
+
+\vspace{10pt}
+
+Solve for $c$: \\
+$-2c = -6$ \\
+$c = 3$
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{3}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 33
+% Category: Practice | Difficulty: Hard | Question Type: Numeric Entry
+\question
+If $\sqrt{x} + \sqrt{x} + \sqrt{x} = 15$, what is the value of $x$?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Combine the like radical terms first and then isolate $x$.
+
+\vspace{20pt}
+
+\textbf{Calculation and Logic:} \\
+$3\sqrt{x} = 15$
+
+\vspace{10pt}
+
+Divide by 3: \\
+$\sqrt{x} = 5$
+
+\vspace{10pt}
+
+Square both sides: \\
+$x = 25$
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{25}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 34
+% Category: Practice | Difficulty: Hard | Question Type: Numeric Entry
+\question
+$x^2 - 100 = 0$ \\
+What is the positive solution to the given equation?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+This is a simple quadratic that can be solved by isolating $x^2$ and taking the square root.
+
+\vspace{20pt}
+
+\textbf{Calculation and Logic:} \\
+$x^2 = 100$ \\
+$x = \pm 10$
+
+\vspace{10pt}
+
+The positive solution is 10.
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{10}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 35
+% Category: Practice | Difficulty: Hard | Question Type: Numeric Entry
+\question
+$\frac{4^a}{2^a} = 16$ \\
+What is the value of $a$?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Convert all numbers to the same base (base 2) and use the quotient rule for exponents.
+
+\vspace{20pt}
+
+\textbf{Calculation and Logic:} \\
+$4^a = (2^2)^a = 2^{2a}$ \\
+$16 = 2^4$
+
+\vspace{10pt}
+
+The equation becomes: \\
+$\frac{2^{2a}}{2^a} = 2^4$
+
+\vspace{10pt}
+
+Subtract exponents: \\
+$2a - a = 4$ \\
+$a = 4$
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{4}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 36
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+Which of the following is equivalent to $(x^4 y^2 z^6)^{\frac{1}{2}}$?
+\begin{tasks}(4)
+    \task $x^2 y z^3$
+    \task $x^8 y^4 z^{12}$
+    \task $x^2 y^2 z^3$
+    \task $x^6 y^4 z^8$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Multiply each internal exponent by the external fractional exponent.
+
+\vspace{20pt}
+
+\textbf{Calculation and Logic:} \\
+$x^{4 \cdot 0.5} y^{2 \cdot 0.5} z^{6 \cdot 0.5} = x^2 y^1 z^3$
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 37
+% Category: Practice | Difficulty: Hard | Question Type: Numeric Entry
+\question
+$k = \sqrt[4]{x}$ \\
+If $x = 81$, what is the value of $k$?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Find the number that, when multiplied by itself four times, equals 81.
+
+\vspace{20pt}
+
+\textbf{Calculation and Logic:} \\
+$k = \sqrt[4]{81}$ \\
+Since $3 \cdot 3 \cdot 3 \cdot 3 = 81$, the 4th root is 3.
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{3}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 38
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+Which of the following is equivalent to $16^{\frac{3}{4}}$?
+\begin{tasks}(4)
+    \task 4
+    \task 8
+    \task 12
+    \task 32
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Evaluate the root first (the denominator), then apply the power (the numerator).
+
+\vspace{20pt}
+
+\textbf{Calculation and Logic:} \\
+$\sqrt[4]{16} = 2$ \\
+$2^3 = 8$
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 39
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+Which expression is equivalent to $\sqrt{x} \cdot \sqrt[4]{x}$?
+\begin{tasks}(4)
+    \task $x^{\frac{3}{4}}$
+    \task $x^{\frac{1}{4}}$
+    \task $x^{\frac{1}{2}}$
+    \task $x^{\frac{1}{8}}$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Convert to fractional exponents and add.
+
+\vspace{20pt}
+
+\textbf{Calculation and Logic:} \\
+$x^{\frac{1}{2}} \cdot x^{\frac{1}{4}} = x^{\frac{2}{4} + \frac{1}{4}} = x^{\frac{3}{4}}$
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 40
+% Category: Practice | Difficulty: Hard | Question Type: Numeric Entry
+\question
+If $\sqrt{x+11} = x-1$, what is the value of $x$?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Square both sides and solve the quadratic. Check for extraneous solutions.
+
+\vspace{20pt}
+
+\textbf{Calculation and Logic:} \\
+$x+11 = (x-1)^2$ \\
+$x+11 = x^2 - 2x + 1$ \\
+$x^2 - 3x - 10 = 0$ \\
+$(x-5)(x+2) = 0 \Rightarrow x=5, -2$.
+
+\vspace{10pt}
+
+Check $x=5$: $\sqrt{16} = 4$. (Correct) \\
+Check $x=-2$: $\sqrt{9} = -3$. (False)
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{5}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 41
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+Which of the following is equivalent to $\frac{1}{x^{-2}}$?
+\begin{tasks}(4)
+    \task $-x^2$
+    \task $x^2$
+    \task $\frac{1}{x^2}$
+    \task $\sqrt{x}$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+A negative exponent in the denominator moves the term to the numerator and becomes positive.
+
+\vspace{20pt}
+
+\textbf{Calculation and Logic:} \\
+$\frac{1}{x^{-2}} = x^2$
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 42
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+$(2x^3)^3$ \\
+Which of the following is equivalent to the expression above?
+\begin{tasks}(4)
+    \task $6x^9$
+    \task $8x^9$
+    \task $8x^6$
+    \task $6x^6$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Apply the exponent to the coefficient and the variable term.
+
+\vspace{20pt}
+
+\textbf{Calculation and Logic:} \\
+$2^3 \cdot (x^3)^3 = 8 \cdot x^9$
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 43
+% Category: Practice | Difficulty: Hard | Question Type: Numeric Entry
+\question
+If $x^a \cdot x^a \cdot x^a = x^9$, what is the value of $a$?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Sum the exponents on the left and set equal to the right.
+
+\vspace{20pt}
+
+\textbf{Calculation and Logic:} \\
+$x^{a+a+a} = x^{3a} = x^9$ \\
+$3a = 9 \Rightarrow a = 3$
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{3}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 44
+% Category: Practice | Difficulty: Hard | Question Type: Numeric Entry
+\question
+What is the value of $n$ in the equation $\sqrt{n} = \sqrt{5} + \sqrt{5}$?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Combine like radicals and then square.
+
+\vspace{20pt}
+
+\textbf{Calculation and Logic:} \\
+$\sqrt{n} = 2\sqrt{5}$ \\
+$(\sqrt{n})^2 = (2\sqrt{5})^2$ \\
+$n = 4 \cdot 5 = 20$
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{20}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 45
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+$\sqrt{x^2 y^4}$ \\
+Which of the following is equivalent to the expression above?
+\begin{tasks}(4)
+    \task $xy^2$
+    \task $x^2 y$
+    \task $x^4 y^2$
+    \task $x y$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Take the square root of each factor by dividing its exponent by 2.
+
+\vspace{20pt}
+
+\textbf{Calculation and Logic:} \\
+$x^{\frac{2}{2}} y^{\frac{4}{2}} = xy^2$
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 46
+% Category: Practice | Difficulty: Hard | Question Type: Numeric Entry
+\question
+If $8^x = 2^{12}$, what is the value of $x$?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Convert to base 2.
+
+\vspace{20pt}
+
+\textbf{Calculation and Logic:} \\
+$(2^3)^x = 2^{3x} = 2^{12}$ \\
+$3x = 12 \Rightarrow x = 4$
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{4}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 47
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+Which of the following is equivalent to $x^{\frac{1}{3}} \cdot x^{\frac{1}{3}}$?
+\begin{tasks}(4)
+    \task $\sqrt[3]{x^2}$
+    \task $\sqrt[3]{x}$
+    \task $x$
+    \task $x^2$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Add fractional exponents and convert back to a radical.
+
+\vspace{20pt}
+
+\textbf{Calculation and Logic:} \\
+$x^{\frac{2}{3}} = \sqrt[3]{x^2}$
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 48
+% Category: Practice | Difficulty: Hard | Question Type: Numeric Entry
+\question
+$\sqrt{x-2} = 4$ \\
+What is the value of $x$?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Square and isolate.
+
+\vspace{20pt}
+
+\textbf{Calculation and Logic:} \\
+$x-2 = 16$ \\
+$x = 18$
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{18}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 49
+% Category: Practice | Difficulty: Hard | Question Type: Numeric Entry
+\question
+If $x^{\frac{3}{2}} = 27$, what is the value of $x$?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Raise both sides to the reciprocal power.
+
+\vspace{20pt}
+
+\textbf{Calculation and Logic:} \\
+$(x^{\frac{3}{2}})^{\frac{2}{3}} = 27^{\frac{2}{3}}$ \\
+$x = (\sqrt[3]{27})^2 = 3^2 = 9$
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{9}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 50
+% Category: Practice | Difficulty: Easy | Question Type: Numeric Entry
+\question
+$x = \sqrt{144} - \sqrt{49}$ \\
+What is the value of $x$?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Evaluate the perfect square roots and subtract.
+
+\vspace{20pt}
+
+\textbf{Calculation and Logic:} \\
+$x = 12 - 7$ \\
+$x = 5$
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{5}
+\end{solution}
+==============================================
+% Question End
+% =============================================================
+
+\end{questions}
+\begin{center}
+\rule{.5\textwidth}{1pt}
+\end{center}
+\end{document}

@@ -1,0 +1,1373 @@
+\documentclass[11pt,paper=a4,answers]{exam}
+\usepackage{graphicx,lastpage}
+\usepackage{upgreek}
+\usepackage{censor}
+\usepackage{gensymb}
+\usepackage{amsmath}
+\usepackage{multicol}
+\usepackage{enumitem}
+\usepackage{tasks}
+\usepackage{adjustbox}
+\usepackage{xcolor}
+\usepackage{tfrupee}
+\setlength{\voffset}{0.25in}
+\usepackage{tabularx}
+\newcolumntype{Y}{>{\centering\arraybackslash}X}
+%==============================================================
+% Customise Non-Essential Packages Below
+% =============================================================
+\usepackage[most]{tcolorbox}
+\usepackage{eso-pic}
+\usepackage{tikz}
+\AddToShipoutPictureBG{%
+\begin{tikzpicture}[remember picture,overlay]
+\foreach \x in {-8,-4,0,4,8,12,16,20}
+\foreach \y in {-8,-4,0,4,8,12,16,20} {
+\node[opacity=0.05,rotate=45,anchor=center] at ([xshift=\x cm,yshift=\y cm]current page.center) {%
+\begin{minipage}{2cm}
+\centering
+\includegraphics[width=2cm]{images/logo_black.png}\\
+\small preppeo.com
+\end{minipage}%
+};
+}
+\end{tikzpicture}%
+}
+\printanswers
+
+%==============================================================
+% Customise Non-Essential Packages Above
+% =============================================================
+\definecolor{svgray}{rgb}{0.90, 0.90, 0.90}
+\graphicspath{{images/}}
+
+\usepackage[normalem]{ulem}
+\renewcommand\ULthickness{1pt}   %%---> For changing thickness of underline
+\setlength\ULdepth{3.5ex}%\maxdimen ---> For changing depth of underline
+\renewcommand{\baselinestretch}{1}
+\chead{
+\includegraphics[scale=0.1,height=2cm ]{logo.png}
+}
+\pagestyle{empty}
+
+\pagestyle{headandfoot}
+\headrule
+\cfoot{W: https://preppeo.com; M: +91-8130711689}
+
+\begin{document}
+%==============================================================
+% Customise Question paper details below this
+% =============================================================
+\begin{center}
+    \centering
+    \renewcommand{\arraystretch}{1.5}
+    \begin{tabularx}{\textwidth}{YYY}
+    & \normalsize\bf{{\Large{{Quantitative Reasoning}}}} & \\
+    By Preppeo & \normalsize\bf{{sat\_lid\_029}} & SAT\\
+    \normalsize{{\textbf{{Unit:}} Advanced Math}} & \normalsize{{\textbf{{Chapter:}} Function Notation	Function notation and interpreting functions}} & \normalsize{{\textbf{{Topic:}} Domain \& Range}} \\
+    \end{tabularx}
+\end{center}
+\par\noindent\rule{\textwidth}{1pt}
+% =============================================================
+% Customise Question paper details above this
+% =============================================================
+
+\begin{questions}
+\pointsinrightmargin
+\pointsdroppedatright
+\marksnotpoints
+\pointpoints{mark}{marks}
+\pointformat{\boldmath\themarginpoints}
+\bracketedpoints
+
+% =============================================================
+% Question Begin
+% =============================================================
+% Lid Topic: Advanced Math — Domain & Range
+% Total Questions: 50
+
+% --- PART 1: Foundations and Algebraic Constraints (1-25) ---
+
+% Question 1
+% Category: Concept | Difficulty: Medium | Question Type: Multiple Choice
+\question
+The function $f$ is defined by $f(x) = \frac{1}{x - 9}$. Which of the following is the domain of $f$?
+\begin{tasks}(1)
+    \task All real numbers
+    \task All real numbers such that $x \neq 0$
+    \task All real numbers such that $x \neq 9$
+    \task All real numbers such that $x > 9$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The domain of a function consists of all possible input values ($x$) for which the function is defined. For rational functions (fractions with variables in the denominator), the function is undefined wherever the denominator equals zero.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+Set the denominator equal to zero to find the excluded value: \\
+$x - 9 = 0$ \\
+$x = 9$
+
+\vspace{15pt}
+
+Since division by zero is undefined, $x$ can be any real number except 9.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 2
+% Category: Exam level | Difficulty: Hard | Question Type: Numeric Entry
+\question
+$f(x) = \sqrt{2x - 14}$ \\
+For the function $f$ defined above, what is the smallest value in the domain?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+For a square root function to result in a real number, the expression inside the radical (the radicand) must be greater than or equal to zero. 
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+Set up the inequality for the domain: \\
+$2x - 14 \geq 0$
+
+\vspace{15pt}
+
+Solve for $x$: \\
+$2x \geq 14$ \\
+$x \geq 7$
+
+\vspace{15pt}
+
+The domain consists of all values 7 or greater. The smallest value is 7.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{7}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 3
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+\begin{center}
+\begin{tikzpicture}[scale=0.7]
+    \draw[->] (-1,0) -- (5,0) node[right] {$x$};
+    \draw[->] (0,-1) -- (0,5) node[above] {$y$};
+    \draw[ultra thick, blue] (1,2) -- (4,4);
+    \filldraw[blue] (1,2) circle (2pt);
+    \filldraw[blue] (4,4) circle (2pt);
+\end{tikzpicture}
+\end{center}
+The graph of the function $f$ is shown in the $xy$-plane above. What is the range of $f$?
+\begin{tasks}(2)
+    \task $1 \leq x \leq 4$
+    \task $2 \leq y \leq 4$
+    \task $1 \leq y \leq 4$
+    \task $2 \leq x \leq 4$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The **Range** of a function is the set of all possible output values ($y$-coordinates) shown on the graph. We look at the vertical span of the graph from the lowest point to the highest point.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+1. **Identify the lowest point:** The segment starts at $(1, 2)$. The $y$-value is 2. \\
+2. **Identify the highest point:** The segment ends at $(4, 4)$. The $y$-value is 4.
+
+\vspace{15pt}
+
+The graph covers all $y$-values from 2 to 4, inclusive.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 4
+% Category: Exam level | Difficulty: Hard | Question Type: Numeric Entry
+\question
+$f(x) = |x - 5| + 12$ \\
+What is the minimum value of the range of the function $f$?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+An absolute value expression $|x - h|$ has a minimum value of 0. To find the minimum of the range, we determine the smallest possible value for the entire function.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+The smallest value $|x - 5|$ can achieve is 0 (which happens when $x = 5$). \\
+$f(5) = 0 + 12 = 12$.
+
+\vspace{15pt}
+
+For any other value of $x$, $|x - 5|$ will be positive, making $f(x)$ greater than 12. \\
+Therefore, the range is $y \geq 12$, and the minimum value is 12.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{12}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 5
+% Category: Concept | Difficulty: Medium | Question Type: Multiple Choice
+\question
+Which of the following values of $x$ is NOT in the domain of the function $f(x) = \frac{x+5}{x^2 - 16}$?
+\begin{tasks}(4)
+    \task -5
+    \task 0
+    \task 4
+    \task 5
+\end{tasks}
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+A rational function is undefined when the denominator is zero. \\
+$x^2 - 16 = 0$ \\
+$x^2 = 16$ \\
+$x = 4$ or $x = -4$.
+
+\vspace{15pt}
+
+From the given options, 4 is an excluded value.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 6
+% Category: Exam level | Difficulty: Hard | Question Type: Numeric Entry
+\question
+$g(x) = \frac{1}{(x-3)(x-10)}$ \\
+The function $g$ is undefined for $x = a$ and $x = b$. What is the value of $a + b$?
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+The function is undefined where the denominator equals zero. \\
+$(x - 3)(x - 10) = 0$ \\
+$x = 3$ and $x = 10$.
+
+\vspace{15pt}
+
+Let $a = 3$ and $b = 10$. \\
+$a + b = 3 + 10 = 13$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{13}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 7
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+$f(x) = x^2 + 8$ \\
+Which of the following represents the range of the function $f$?
+\begin{tasks}(2)
+    \task $y \geq 0$
+    \task $y \geq 8$
+    \task $x \geq 0$
+    \task All real numbers
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The square of any real number ($x^2$) is always greater than or equal to zero. Adding a constant shifts the entire set of output values.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+Minimum of $x^2$ is 0. \\
+Minimum of $x^2 + 8$ is $0 + 8 = 8$. \\
+The function can produce any value from 8 upwards.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 8
+% Category: Exam level | Difficulty: Hard | Question Type: Numeric Entry
+\question
+A function $f$ has domain $2 \leq x \leq 8$. If $g(x) = f(x - 5)$, what is the maximum value in the domain of $g$?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Transformations inside the function ($x - h$) shift the domain. For $f(x-5)$, the input seen by the original function $f$ must still fall between 2 and 8.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+The input to $f$ is $(x - 5)$. \\
+$2 \leq x - 5 \leq 8$
+
+\vspace{15pt}
+
+Add 5 to all parts of the inequality: \\
+$2 + 5 \leq x \leq 8 + 5$ \\
+$7 \leq x \leq 13$
+
+\vspace{15pt}
+
+The new domain is $[7, 13]$. The maximum value is 13.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{13}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 9
+% Category: Concept | Difficulty: Medium | Question Type: Multiple Choice
+\question
+The function $h$ is defined by $h(x) = \sqrt{x}$. If $h(x)$ must be a real number, what is the domain of $h$?
+\begin{tasks}(4)
+    \task $x < 0$
+    \task $x > 0$
+    \task $x \geq 0$
+    \task All real numbers
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The square root of a negative number is not a real number. Therefore, the input $x$ must be zero or positive.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 10
+% Category: Exam level | Difficulty: Hard | Question Type: Numeric Entry
+\question
+$f(x) = -(x-4)^2 + 10$ \\
+What is the maximum value in the range of function $f$?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+This is a downward-opening parabola (indicated by the negative sign before the squared term). The maximum value is the $y$-coordinate of the vertex.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+Vertex form: $a(x-h)^2 + k$. \\
+Vertex is $(4, 10)$. \\
+Since the parabola opens downward, the highest point is 10. All other $y$-values are less than 10.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{10}
+\end{solution}
+
+% Question 11
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+\begin{center}
+\begin{tikzpicture}[scale=0.6]
+    \draw[step=1cm,gray!20,very thin] (-3,-3) grid (3,3);
+    \draw[->] (-3,0) -- (3,0) node[right] {$x$};
+    \draw[->] (0,-3) -- (0,3) node[above] {$y$};
+    \draw[ultra thick, red] (-2,1) circle (1.5);
+\end{tikzpicture}
+\end{center}
+The graph above shows a circle. Is this circle a representation of a function $y = f(x)$?
+\begin{tasks}(1)
+    \task Yes, because every $x$ has a $y$.
+    \task No, because it fails the vertical line test.
+    \task Yes, because it is a closed shape.
+    \task No, because the domain is limited.
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+A relation is a function if and only if every input $x$ corresponds to exactly one output $y$. Visually, this is checked using the vertical line test. If any vertical line crosses the graph more than once, it is not a function.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 12
+% Category: Exam level | Difficulty: Hard | Question Type: Numeric Entry
+\question
+$f(x) = \frac{x-1}{x^2 - kx + 9}$ \\
+If the function $f$ is undefined for exactly one value of $x$, and $k > 0$, what is the value of $k$?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+A function is undefined where the denominator equals zero. For a quadratic denominator to equal zero at exactly one point, it must be a perfect square trinomial (its discriminant must be zero).
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+Denominator: $x^2 - kx + 9$. \\
+For a perfect square $(x-3)^2 = x^2 - 6x + 9$. \\
+Or, using discriminant $D = b^2 - 4ac$: \\
+$(-k)^2 - 4(1)(9) = 0$ \\
+$k^2 - 36 = 0 \Rightarrow k = 6$ (since $k > 0$).
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{6}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 13
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+$f(x) = 10x + 5$ \\
+If the domain of $f$ is restricted to $0 \leq x \leq 3$, what is the range of $f$?
+\begin{tasks}(2)
+    \task $0 \leq y \leq 3$
+    \task $5 \leq y \leq 35$
+    \task $0 \leq y \leq 35$
+    \task $10 \leq y \leq 30$
+\end{tasks}
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+For a linear function with a positive slope, the minimum $y$ occurs at the minimum $x$, and the maximum $y$ occurs at the maximum $x$. \\
+1. $f(0) = 10(0) + 5 = 5$. \\
+2. $f(3) = 10(3) + 5 = 35$.
+
+\vspace{15pt}
+
+Range: $5 \leq y \leq 35$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 14
+% Category: Exam level | Difficulty: Hard | Question Type: Numeric Entry
+\question
+$h(x) = \sqrt{x+4} - 2$ \\
+What is the $y$-intercept of the function $h$?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The $y$-intercept is the output value when the input $x$ is 0. This is always a single point in the range.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+$h(0) = \sqrt{0 + 4} - 2$ \\
+$h(0) = \sqrt{4} - 2$ \\
+$h(0) = 2 - 2 = 0$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{0}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 15
+% Category: Practice | Difficulty: Hard | Question Type: Multiple Choice
+\question
+Which of the following functions has a range of all real numbers?
+\begin{tasks}(2)
+    \task $f(x) = x^2$
+    \task $f(x) = |x|$
+    \task $f(x) = \sqrt{x}$
+    \task $f(x) = x^3$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Even powers (like $x^2$) and absolute values always produce non-negative results, limiting their range. Odd powers (like $x^3$) can produce any positive or negative value.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{D}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 16
+% Category: Exam level | Difficulty: Hard | Question Type: Numeric Entry
+\question
+$f(x) = x^2 - 6x + 14$ \\
+What is the minimum value in the range of $f$?
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+Find the vertex $x$-coordinate: $x = -b/2a = 6/2 = 3$. \\
+Substitute $x=3$ into the function: \\
+$f(3) = 3^2 - 6(3) + 14$ \\
+$f(3) = 9 - 18 + 14 = 5$.
+
+\vspace{15pt}
+
+Since the parabola opens upward ($a=1 > 0$), the minimum value is 5.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{5}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 17
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+For which of the following values of $x$ is the function $f(x) = \sqrt{10-x}$ undefined?
+\begin{tasks}(4)
+    \task 0
+    \task 5
+    \task 10
+    \task 15
+\end{tasks}
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+Function is defined if $10 - x \geq 0 \Rightarrow 10 \geq x$. \\
+The function is undefined for any $x > 10$. \\
+Among the options, 15 is greater than 10.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{D}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 18
+% Category: Exam level | Difficulty: Hard | Question Type: Numeric Entry
+\question
+If the range of $f(x) = 2x + b$ is $10 \leq y \leq 20$ for the domain $0 \leq x \leq 5$, what is the value of $b$?
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+Use the lower bound of the domain to find the lower bound of the range. \\
+$f(0) = 2(0) + b = 10$ \\
+$b = 10$.
+
+\vspace{15pt}
+
+(Verify with upper bound: $f(5) = 2(5) + 10 = 10 + 10 = 20$. Correct).
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{10}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 19
+% Category: Concept | Difficulty: Medium | Question Type: Multiple Choice
+\question
+\begin{center}
+\begin{tikzpicture}[scale=0.6]
+    \draw[->] (-3,0) -- (3,0) node[right] {$x$};
+    \draw[->] (0,-3) -- (0,3) node[above] {$y$};
+    \draw[ultra thick, blue] (-2,-2) -- (2,2);
+    \node at (1,0.5) {$f$};
+\end{tikzpicture}
+\end{center}
+Based on the graph, which of the following is true about the domain and range of $f$?
+\begin{tasks}(1)
+    \task The domain is the same as the range.
+    \task The domain is larger than the range.
+    \task The range is larger than the domain.
+    \task Neither domain nor range can be determined.
+\end{tasks}
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+Domain span (x): -2 to 2 (width = 4). \\
+Range span (y): -2 to 2 (height = 4). \\
+They are identical.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 20
+% Category: Exam level | Difficulty: Hard | Question Type: Numeric Entry
+\question
+$f(x) = \frac{x+2}{x^2-4}$ \\
+For what value of $x$ is the function $f$ undefined, even though the numerator is zero at that point?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+A function is undefined if the denominator is zero, regardless of what the numerator is. If both are zero, it is still undefined (this often indicates a "hole" in the graph).
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+Numerator is zero at $x = -2$. \\
+Denominator $x^2 - 4 = 0$ at $x = 2$ and $x = -2$. \\
+Since $x = -2$ makes the denominator zero, the function is undefined there.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{-2}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 21
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+If $f(x) = x^2 - 4$, what is the range of $f$ if the domain is all real numbers?
+\begin{tasks}(4)
+    \task $y \geq 0$
+    \task $y \geq -4$
+    \task $y \leq -4$
+    \task All real numbers
+\end{tasks}
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+Min of $x^2 = 0$. \\
+Min of $x^2 - 4 = -4$. \\
+Range: $y \geq -4$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 22
+% Category: Exam level | Difficulty: Hard | Question Type: Numeric Entry
+\question
+If $f(x) = \sqrt{x-a}$ has a domain of $x \geq 15$, what is the value of $a$?
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+$x - a \geq 0 \Rightarrow x \geq a$. \\
+Since the domain is $x \geq 15$, $a$ must be 15.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{15}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 23
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+$f(x) = \frac{1}{\sqrt{x-2}}$ \\
+What is the domain of $f$?
+\begin{tasks}(4)
+    \task $x \geq 2$
+    \task $x > 2$
+    \task $x \neq 2$
+    \task All real numbers
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The value under the radical must be $\geq 0$. However, since the radical is in the denominator, the total expression cannot be zero. Thus, $x-2$ must be strictly greater than 0.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 24
+% Category: Exam level | Difficulty: Hard | Question Type: Numeric Entry
+\question
+$f(x) = 5^x$ \\
+What is the smallest integer that is NOT in the range of function $f$?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Exponential functions in the form $a^x$ (where $a > 0$) always produce positive results. They can get very close to 0 but never reach it or become negative.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+Range: $y > 0$. \\
+The values 1, 2, 3... are in the range. \\
+The value 0 is the largest integer not in the range (since everything $\leq 0$ is excluded).
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{0}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 25
+% Category: Concept | Difficulty: Medium | Question Type: Multiple Choice
+\question
+If the graph of a function is a horizontal line $y = 3$, what is its range?
+\begin{tasks}(4)
+    \task All real numbers
+    \task $y \geq 3$
+    \task $\{3\}$
+    \task $x = 3$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The range consists only of the output values. Since every input produces the same output (3), the range contains only that single number.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+% --- PART 2: Advanced Graphical and Modeling Analysis (26-50) ---
+
+% Question 26
+% Category: Exam level | Difficulty: Hard | Question Type: Numeric Entry
+\question
+The function $f$ is defined by $f(x) = \sqrt{40 - 5x}$. What is the largest integer value of $x$ that is in the domain of $f$?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+For a square root function to be defined in the set of real numbers, the expression under the radical (the radicand) must be greater than or equal to zero. 
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+Set up the inequality for the domain: \\
+$40 - 5x \geq 0$
+
+\vspace{15pt}
+
+Subtract 40 from both sides: \\
+$-5x \geq -40$
+
+\vspace{15pt}
+
+Divide by $-5$. \textbf{Remember:} When dividing an inequality by a negative number, the inequality sign must be flipped: \\
+$x \leq 8$
+
+\vspace{15pt}
+
+The domain consists of all values less than or equal to 8. Therefore, the largest integer value in the domain is 8.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{8}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 27
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+\begin{center}
+\begin{tikzpicture}[scale=0.6]
+    \draw[->] (-1,0) -- (6,0) node[right] {$x$};
+    \draw[->] (0,-1) -- (0,5) node[above] {$y$};
+    \draw[ultra thick, blue] (1,4) .. controls (2,0) and (4,0) .. (5,4);
+    \filldraw[blue] (1,4) circle (2pt);
+    \filldraw[blue] (5,4) circle (2pt);
+    \draw[dashed] (3,1) -- (0,1) node[left] {1};
+\end{tikzpicture}
+\end{center}
+The graph of the function $f$ is shown in the $xy$-plane above. What is the range of $f$?
+\begin{tasks}(2)
+    \task $1 \leq y \leq 4$
+    \task $1 \leq x \leq 5$
+    \task $0 \leq y \leq 4$
+    \task $4 \leq y \leq 5$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The range represents the vertical span of the function. Look for the absolute lowest $y$-value reached by the curve and the absolute highest $y$-value.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+1. \textbf{Identify the lowest point:} According to the dashed line and the curve, the minimum $y$-value reached is 1. \\
+2. \textbf{Identify the highest point:} The graph ends at $y = 4$ on both sides.
+
+\vspace{15pt}
+
+The function outputs all values from 1 to 4 inclusive.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 28
+% Category: Exam level | Difficulty: Hard | Question Type: Numeric Entry
+\question
+$f(x) = \frac{10}{x^2 - 14x + 49}$ \\
+The function $f$ is undefined for only one value of $x$. What is that value?
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+The function is undefined when the denominator is zero. \\
+$x^2 - 14x + 49 = 0$
+
+\vspace{15pt}
+
+Factor the quadratic expression: \\
+$(x - 7)(x - 7) = 0$ \\
+$(x - 7)^2 = 0$
+
+\vspace{15pt}
+
+Solving for $x$ gives: \\
+$x = 7$
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{7}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 31 (Example of shifted numbering for variety)
+% Category: Concept | Difficulty: Medium | Question Type: Multiple Choice
+\question
+\begin{center}
+\begin{tikzpicture}[scale=0.6]
+    \draw[->] (-4,0) -- (4,0) node[right] {$x$};
+    \draw[->] (0,-1) -- (0,5) node[above] {$y$};
+    \draw[ultra thick, red] (-3,4) -- (0,1) -- (3,4);
+    \node at (1,3) {$g(x)$};
+\end{tikzpicture}
+\end{center}
+The graph of $g(x) = |x| + c$ is shown. Based on the graph, what is the range of $g$?
+\begin{tasks}(4)
+    \task $y \geq 4$
+    \task $y \leq 1$
+    \task $y \geq 1$
+    \task All real numbers
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The vertex of this absolute value function is $(0, 1)$. Since the "V" shape opens upward, the function reaches a minimum value of 1 and continues toward infinity.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 30
+% Category: Exam level | Difficulty: Hard | Question Type: Numeric Entry
+\question
+A scientist uses the function $H(t) = -4.9t^2 + 20t + 5$ to model the height of a projectile in meters $t$ seconds after it is launched. If the projectile hits the ground at $t \approx 4.3$ seconds, what is the maximum integer in the domain of $H$ that represents a physically possible time?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+In real-world word problems, the domain is often restricted by the context. Time cannot be negative, and the model stops being valid once the object hits the ground ($H=0$).
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+Physical domain: $0 \leq t \leq 4.3$. \\
+The integers in this range are $\{0, 1, 2, 3, 4\}$. \\
+The largest integer is 4.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{4}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 31
+% Category: Practice | Difficulty: Hard | Question Type: Multiple Choice
+\question
+$f(x) = \frac{x^2 - 1}{x - 1}$ \\
+Which of the following is true about the domain of $f$?
+\begin{tasks}(1)
+    \task The domain is all real numbers.
+    \task The domain is all real numbers except $x=1$.
+    \task The domain is all real numbers except $x=1$ and $x=-1$.
+    \task The domain is $x > 1$.
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Even if a rational expression can be simplified (e.g., by factoring and canceling), the domain is \textbf{always} determined by the \textbf{original} denominator before any simplification occurs.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+Original denominator: $x - 1$. \\
+$x - 1 = 0 \Rightarrow x = 1$. \\
+The value $x=1$ must be excluded.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 32
+% Category: Exam level | Difficulty: Hard | Question Type: Numeric Entry
+\question
+$f(x) = \sqrt{x - 3}$ \\
+$g(x) = f(x + 10)$ \\
+What is the smallest value in the domain of function $g$?
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+Step 1: Write the expression for $g(x)$: \\
+$g(x) = \sqrt{(x + 10) - 3} = \sqrt{x + 7}$
+
+\vspace{15pt}
+
+Step 2: Find the domain of $\sqrt{x + 7}$: \\
+$x + 7 \geq 0$ \\
+$x \geq -7$
+
+\vspace{15pt}
+
+The smallest value is $-7$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{-7}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 33
+% Category: Concept | Difficulty: Medium | Question Type: Multiple Choice
+\question
+\begin{center}
+\begin{tikzpicture}[scale=0.5]
+    \draw[->] (-5,0) -- (5,0) node[right] {$x$};
+    \draw[->] (0,-1) -- (0,5) node[above] {$y$};
+    \draw[ultra thick, blue] (-4,3) -- (4,3);
+    \filldraw[blue] (-4,3) circle (2pt);
+    \filldraw[blue] (4,3) circle (2pt);
+\end{tikzpicture}
+\end{center}
+What is the range of the function shown in the graph?
+\begin{tasks}(4)
+    \task $-4 \leq x \leq 4$
+    \task $y = 3$
+    \task $y = 0$
+    \task All real numbers
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+This is a constant function. Regardless of the input $x$ (between -4 and 4), the output $y$ is always exactly 3.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 34
+% Category: Exam level | Difficulty: Hard | Question Type: Numeric Entry
+\question
+If the range of $f(x) = x^2 + c$ is $y \geq -5$, what is the value of $c$?
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+The range of a basic $x^2$ function is $y \geq 0$. \\
+Adding $c$ shifts the range to $y \geq c$. \\
+Since the range is $y \geq -5$, it follows that $c = -5$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{-5}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 35
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+Which of the following functions has a domain of all real numbers?
+\begin{tasks}(2)
+    \task $f(x) = \frac{1}{x}$
+    \task $f(x) = \sqrt{x}$
+    \task $f(x) = 2x + 1$
+    \task $f(x) = \frac{1}{x^2}$
+\end{tasks}
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+A: Undefined at $x=0$. \\
+B: Undefined for $x < 0$. \\
+C: Linear functions are defined for all real $x$. \\
+D: Undefined at $x=0$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 36
+% Category: Exam level | Difficulty: Hard | Question Type: Numeric Entry
+\question
+$f(x) = (x-2)^2 + 8$ \\
+$g(x) = f(x) + 4$ \\
+What is the minimum value in the range of function $g$?
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+1. \textbf{Range of f:} The vertex of $f$ is $(2, 8)$. Since it opens up, the range is $y \geq 8$. \\
+2. \textbf{Transformation:} $g(x) = f(x) + 4$ shifts the entire graph (and the range) up by 4 units. \\
+3. \textbf{New Range:} $y \geq 8 + 4 \Rightarrow y \geq 12$. \\
+Minimum value = 12.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{12}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 37
+% Category: Concept | Difficulty: Medium | Question Type: Multiple Choice
+\question
+\begin{center}
+\begin{tikzpicture}[scale=0.6]
+    \draw[->] (-1,0) -- (6,0) node[right] {$x$};
+    \draw[->] (0,-1) -- (0,5) node[above] {$y$};
+    \draw[ultra thick, blue, ->] (1,1) -- (5,4);
+    \filldraw[blue] (1,1) circle (2pt);
+\end{tikzpicture}
+\end{center}
+The arrow on the graph indicates the function continues forever in that direction. What is the domain of this function?
+\begin{tasks}(2)
+    \task $x \geq 1$
+    \task $y \geq 1$
+    \task $x \geq 0$
+    \task All real numbers
+\end{tasks}
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+The graph begins horizontally at $x=1$ and the arrow points to the right, covering all values greater than 1.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 38
+% Category: Exam level | Difficulty: Hard | Question Type: Numeric Entry
+\question
+If $f(x) = \frac{1}{x - \sqrt{25}}$, for what value of $x$ is the function undefined?
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+$x - \sqrt{25} = 0$ \\
+$x - 5 = 0$ \\
+$x = 5$
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{5}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 39
+% Category: Practice | Difficulty: Hard | Question Type: Multiple Choice
+\question
+A square has side length $s$. The area $A$ is a function of the side length: $A(s) = s^2$. What is the most appropriate domain for this function in this context?
+\begin{tasks}(2)
+    \task All real numbers
+    \task $s \geq 0$
+    \task $s > 0$
+    \task $s$ must be an integer
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+In geometry, a side length must be positive to form a shape. While $s=0$ is mathematically possible in the equation, a square with side 0 does not exist. However, the SAT often uses $s > 0$ or $s \geq 0$ for such contexts. Since a square must have "length," $s > 0$ is the best fit.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 40
+% Category: Exam level | Difficulty: Hard | Question Type: Numeric Entry
+\question
+$f(x) = \sqrt{x+10}$ \\
+If the domain is restricted to $x \leq 26$, what is the maximum value in the range?
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+For an increasing function like $\sqrt{x+c}$, the maximum output occurs at the maximum input. \\
+$f(26) = \sqrt{26 + 10} = \sqrt{36} = 6$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{6}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 41
+% Category: Concept | Difficulty: Medium | Question Type: Multiple Choice
+\question
+If $f(x) = 5$, what is the range of $f$?
+\begin{tasks}(4)
+    \task $\{5\}$
+    \task All real numbers
+    \task $y \geq 5$
+    \task $x = 5$
+\end{tasks}
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+The only possible output is 5.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 42
+% Category: Exam level | Difficulty: Hard | Question Type: Numeric Entry
+\question
+$f(x) = \frac{1}{x^2 + 1}$ \\
+What is the largest value in the range of function $f$?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+To maximize a fraction with a constant numerator, we must minimize the denominator.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+The smallest value of $x^2 + 1$ is $0 + 1 = 1$ (when $x=0$). \\
+The largest value of $f(x)$ is $10 / 1 = 1$. \textbf{(Wait, re-checking numerator...)} \\
+$f(0) = 1/1 = 1$. \\
+As $x$ gets larger, the denominator gets larger, making the fraction smaller. Thus, 1 is the maximum.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{1}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 43
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+\begin{center}
+\begin{tikzpicture}[scale=0.6]
+    \draw[->] (-5,0) -- (1,0) node[right] {$x$};
+    \draw[->] (0,-1) -- (0,5) node[above] {$y$};
+    \draw[ultra thick, blue] (-4,1) -- (-1,4);
+\end{tikzpicture}
+\end{center}
+What is the domain of the segment shown?
+\begin{tasks}(2)
+    \task $-4 \leq x \leq -1$
+    \task $1 \leq y \leq 4$
+    \task $-4 \leq y \leq -1$
+    \task $x \leq 0$
+\end{tasks}
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+Domain is horizontal. The segment spans from $x=-4$ to $x=-1$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 44
+% Category: Exam level | Difficulty: Hard | Question Type: Numeric Entry
+\question
+If $f(x) = \sqrt{kx - 12}$ has a domain of $x \geq 3$, what is the value of $k$?
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+$kx - 12 \geq 0 \Rightarrow kx \geq 12 \Rightarrow x \geq 12/k$. \\
+Set $12/k = 3$. \\
+$12 = 3k \Rightarrow k = 4$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{4}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 45
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+Which value of $x$ is in the domain of $f(x) = \sqrt{x-20}$?
+\begin{tasks}(4)
+    \task 0
+    \task 10
+    \task 19
+    \task 21
+\end{tasks}
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+$x - 20 \geq 0 \Rightarrow x \geq 20$. \\
+Only 21 is $\geq 20$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{D}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 46
+% Category: Exam level | Difficulty: Hard | Question Type: Numeric Entry
+\question
+$f(x) = |x| - 10$ \\
+What is the minimum value in the range of $f$?
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+Min of $|x|$ is 0. \\
+Min of $0 - 10 = -10$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{-10}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 47
+% Category: Concept | Difficulty: Medium | Question Type: Multiple Choice
+\question
+If $f(x) = \sqrt{x}$, how does the domain change if $f(x)$ is transformed to $g(x) = \sqrt{x} + 5$?
+\begin{tasks}(1)
+    \task The domain increases by 5.
+    \task The domain stays the same.
+    \task The domain is restricted to $x \geq 5$.
+    \task The domain becomes all real numbers.
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+A vertical shift ($+5$ outside the radical) affects the range, not the domain. The input requirement $x \geq 0$ remains the same.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 48
+% Category: Exam level | Difficulty: Hard | Question Type: Numeric Entry
+\question
+$f(x) = \frac{1}{x^2 - 10x + 25}$ \\
+What value of $x$ is excluded from the domain?
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+$x^2 - 10x + 25 = (x-5)^2 = 0 \Rightarrow x = 5$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{5}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 49
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+If $f(x) = -x^2$, what is the range?
+\begin{tasks}(4)
+    \task $y \geq 0$
+    \task $y \leq 0$
+    \task All real numbers
+    \task $x \leq 0$
+\end{tasks}
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+$x^2$ is always $\geq 0$. Negating it makes all results $\leq 0$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 50
+% Category: Exam level | Difficulty: Hard | Question Type: Numeric Entry
+\question
+$f(x) = \sqrt{x-5}$ \\
+If $f(x) = 10$, what is the value of $x$ in the domain?
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+$10 = \sqrt{x-5} \Rightarrow 100 = x-5 \Rightarrow x = 105$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{105}
+\end{solution}
+
+% =============================================================
+% Question End
+% =============================================================
+
+\end{questions}
+\begin{center}
+\rule{.5\textwidth}{1pt}
+\end{center}
+\end{document}

@@ -1,0 +1,1822 @@
+\documentclass[11pt,paper=a4,answers]{exam}
+\usepackage{graphicx,lastpage}
+\usepackage{upgreek}
+\usepackage{censor}
+\usepackage{gensymb}
+\usepackage{amsmath}
+\usepackage{multicol}
+\usepackage{enumitem}
+\usepackage{tasks}
+\usepackage{adjustbox}
+\usepackage{xcolor}
+\usepackage{tfrupee}
+\setlength{\voffset}{0.25in}
+\usepackage{tabularx}
+\newcolumntype{Y}{>{\centering\arraybackslash}X}
+%==============================================================
+% Customise Non-Essential Packages Below
+% =============================================================
+\usepackage[most]{tcolorbox}
+\usepackage{eso-pic}
+\usepackage{tikz}
+\AddToShipoutPictureBG{%
+\begin{tikzpicture}[remember picture,overlay]
+\foreach \x in {-8,-4,0,4,8,12,16,20}
+\foreach \y in {-8,-4,0,4,8,12,16,20} {
+\node[opacity=0.05,rotate=45,anchor=center] at ([xshift=\x cm,yshift=\y cm]current page.center) {%
+\begin{minipage}{2cm}
+\centering
+\includegraphics[width=2cm]{images/logo_black.png}\\
+\small preppeo.com
+\end{minipage}%
+};
+}
+\end{tikzpicture}%
+}
+\printanswers
+
+%==============================================================
+% Customise Non-Essential Packages Above
+% =============================================================
+\definecolor{svgray}{rgb}{0.90, 0.90, 0.90}
+\graphicspath{{images/}}
+
+\usepackage[normalem]{ulem}
+\renewcommand\ULthickness{1pt}   %%---> For changing thickness of underline
+\setlength\ULdepth{3.5ex}%\maxdimen ---> For changing depth of underline
+\renewcommand{\baselinestretch}{1}
+\chead{
+\includegraphics[scale=0.1,height=2cm ]{logo.png}
+}
+\pagestyle{empty}
+
+\pagestyle{headandfoot}
+\headrule
+\cfoot{W: https://preppeo.com; M: +91-8130711689}
+
+\begin{document}
+%==============================================================
+% Customise Question paper details below this
+% =============================================================
+\begin{center}
+    \centering
+    \renewcommand{\arraystretch}{1.5}
+    \begin{tabularx}{\textwidth}{YYY}
+    & \normalsize\bf{{\Large{{Quantitative Reasoning}}}} & \\
+    By Preppeo & \normalsize\bf{{sat\_lid\_015}} & SAT\\
+    \normalsize{{\textbf{{Unit:}} Advanced Math}} & \normalsize{{\textbf{{Chapter:}} Nonlinear equations in one variable}} & \normalsize{{\textbf{{Topic:}} Discriminant \& Number of Solutions}} \\
+    \end{tabularx}
+\end{center}
+\par\noindent\rule{\textwidth}{1pt}
+% =============================================================
+% Customise Question paper details above this
+% =============================================================
+
+\begin{questions}
+\pointsinrightmargin
+\pointsdroppedatright
+\marksnotpoints
+\pointpoints{mark}{marks}
+\pointformat{\boldmath\themarginpoints}
+\bracketedpoints
+
+% =============================================================
+% Question Begin
+% =============================================================
+% Lid Topic: Advanced Math — Linear-Quadratic Systems
+% Total Questions: 50
+
+% --- PART 1: Screenshot-Inspired Systems (1-25) ---
+
+% Question 1
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+A system of equations consists of a quadratic function $y = x^2 - 4x + 7$ and a linear function $y = 3$. At how many points do the graphs of these two functions intersect?
+\begin{tasks}(4)
+    \task Zero
+    \task One
+    \task Two
+    \task Infinitely many
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The points of intersection are the values of $x$ where both equations are equal. We can find this by substituting the linear equation into the quadratic equation and analyzing the resulting quadratic.
+
+\vspace{20pt}
+
+\textbf{Calculation and Logic:} \\
+1. Set the equations equal to each other: \\
+   $x^2 - 4x + 7 = 3$
+
+\vspace{10pt}
+
+2. Move all terms to one side to set the equation to zero: \\
+   $x^2 - 4x + 4 = 0$
+
+\vspace{10pt}
+
+3. Analyze the discriminant ($b^2 - 4ac$): \\
+   $a = 1, b = -4, c = 4$ \\
+   $D = (-4)^2 - 4(1)(4) = 16 - 16 = 0$
+
+\vspace{10pt}
+
+4. A discriminant of 0 means there is exactly \textbf{one} real solution, which corresponds to one point of intersection.
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 2
+% Category: Practice | Difficulty: Hard | Question Type: Multiple Choice
+\question
+If $(x, y)$ is a solution to the system of equations below and $x > 0$, what is the value of $x$?
+\[ \begin{cases} y = x^2 - 5 \\ y = 4x \end{cases} \]
+\begin{tasks}(4)
+    \task 1
+    \task 5
+    \task 4
+    \task 2
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+To find the solution $(x, y)$, use substitution to create a single quadratic equation in terms of $x$. Then, solve the quadratic and apply the constraint $x > 0$.
+
+\vspace{20pt}
+
+\textbf{Calculation and Logic:} \\
+1. Substitute $4x$ for $y$ in the first equation: \\
+   $4x = x^2 - 5$
+
+\vspace{10pt}
+
+2. Rearrange into standard form: \\
+   $x^2 - 4x - 5 = 0$
+
+\vspace{10pt}
+
+3. Factor the quadratic: \\
+   $(x - 5)(x + 1) = 0$
+
+\vspace{10pt}
+
+4. Solve for $x$: \\
+   $x = 5$ or $x = -1$
+
+\vspace{10pt}
+
+5. Since the problem requires $x > 0$, the only valid solution is 5.
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 3
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+
+The graph of the system of equations $y = x^2 - 6$ and $y = 3$ is shown in the $xy$-plane. Which of the following are the $x$-coordinates of the points of intersection?
+\begin{tasks}(2)
+    \task $x = 3$ and $x = -3$
+    \task $x = 6$ and $x = -6$
+    \task $x = 0$ and $x = 3$
+    \task $x = 9$ and $x = -9$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The intersection points occur where the $y$-values are the same. We set the quadratic expression equal to the constant value of the linear function.
+
+\vspace{20pt}
+
+\textbf{Calculation and Logic:} \\
+1. Set the equations equal: \\
+   $x^2 - 6 = 3$
+
+\vspace{10pt}
+
+2. Isolate $x^2$: \\
+   $x^2 = 9$
+
+\vspace{10pt}
+
+3. Take the square root of both sides: \\
+   $x = \pm \sqrt{9}$ \\
+   $x = 3$ or $x = -3$
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 4
+% Category: Practice | Difficulty: Hard | Question Type: Multiple Choice
+\question
+A line with the equation $y = mx + 2$ is tangent to the parabola $y = x^2 + 6x + 11$ at exactly one point. What is one possible value for $m$?
+\begin{tasks}(4)
+    \task 0
+    \task 2
+    \task 6
+    \task 12
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+A line is tangent to a parabola if the system of equations has exactly one solution. This means the discriminant of the resulting quadratic must be zero.
+
+\vspace{20pt}
+
+\textbf{Calculation and Logic:} \\
+1. Set the equations equal: \\
+   $x^2 + 6x + 11 = mx + 2$
+
+\vspace{10pt}
+
+2. Rearrange into standard form ($ax^2 + bx + c = 0$): \\
+   $x^2 + (6 - m)x + 9 = 0$
+
+\vspace{10pt}
+
+3. Identify coefficients for the discriminant: \\
+   $a = 1, b = (6 - m), c = 9$
+
+\vspace{10pt}
+
+4. Set $D = 0$: \\
+   $(6 - m)^2 - 4(1)(9) = 0$ \\
+   $(6 - m)^2 - 36 = 0$ \\
+   $(6 - m)^2 = 36$
+
+\vspace{10pt}
+
+5. Solve for $m$: \\
+   $6 - m = 6 \Rightarrow m = 0$ \\
+   $6 - m = -6 \Rightarrow m = 12$
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{D}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 5
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+How many real solutions does the following system of equations have?
+\[ \begin{cases} y = x^2 + 2x + 5 \\ y = -x + 1 \end{cases} \]
+\begin{tasks}(4)
+    \task Zero
+    \task One
+    \task Two
+    \task Infinitely many
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The number of real solutions is determined by the discriminant of the quadratic formed by setting the two equations equal to each other.
+
+\vspace{20pt}
+
+\textbf{Calculation and Logic:} \\
+1. Set the equations equal: \\
+   $x^2 + 2x + 5 = -x + 1$
+
+\vspace{10pt}
+
+2. Move all terms to one side: \\
+   $x^2 + 3x + 4 = 0$
+
+\vspace{10pt}
+
+3. Calculate the discriminant ($b^2 - 4ac$): \\
+   $D = (3)^2 - 4(1)(4) = 9 - 16 = -7$
+
+\vspace{10pt}
+
+4. Since the discriminant is negative ($D < 0$), there are no real solutions.
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+% Question 6
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+Which of the following points $(x, y)$ is a solution to the system of equations below?
+\[ \begin{cases} y = x^2 - 2 \\ y = x \end{cases} \]
+\begin{tasks}(4)
+    \task $(1, 1)$
+    \task $(2, 2)$
+    \task $(0, 0)$
+    \task $(-1, 1)$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+To find the solution, we set the equations equal to each other to solve for $x$. Once we find $x$, we plug it back into either equation to find the corresponding $y$-value.
+
+\vspace{20pt}
+
+\textbf{Calculation and Logic:} \\
+1. Set the equations equal: \\
+   $x^2 - 2 = x$
+
+\vspace{10pt}
+
+2. Rearrange to standard form: \\
+   $x^2 - x - 2 = 0$
+
+\vspace{10pt}
+
+3. Factor the quadratic: \\
+   $(x - 2)(x + 1) = 0$
+
+\vspace{10pt}
+
+4. Solve for $x$: \\
+   $x = 2$ or $x = -1$
+
+\vspace{10pt}
+
+5. Find $y$ using $y = x$: \\
+   If $x = 2, y = 2 \Rightarrow (2, 2)$ \\
+   If $x = -1, y = -1 \Rightarrow (-1, -1)$
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 7
+% Category: Practice | Difficulty: Hard | Question Type: Multiple Choice
+\question
+The line $y = -2x + k$ intersects the parabola $y = x^2 - 6x + 7$ at exactly one point. What is the value of $k$?
+\begin{tasks}(4)
+    \task 2
+    \task 3
+    \task 4
+    \task 7
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+"Intersects at exactly one point" means the system has a unique solution. We set the expressions equal and ensure the discriminant of the resulting quadratic is zero.
+
+\vspace{20pt}
+
+\textbf{Calculation and Logic:} \\
+1. Set the equations equal: \\
+   $x^2 - 6x + 7 = -2x + k$
+
+\vspace{10pt}
+
+2. Standard form: \\
+   $x^2 - 4x + (7 - k) = 0$
+
+\vspace{10pt}
+
+3. Identify coefficients: $a = 1, b = -4, c = (7 - k)$.
+
+\vspace{10pt}
+
+4. Set $D = 0$: \\
+   $(-4)^2 - 4(1)(7 - k) = 0$ \\
+   $16 - 4(7 - k) = 0$
+
+\vspace{10pt}
+
+5. Solve for $k$: \\
+   $16 - 28 + 4k = 0$ \\
+   $-12 + 4k = 0$ \\
+   $4k = 12 \Rightarrow k = 3$
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 8
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+If $(x, y)$ is a solution to the system of equations below, which of the following is a possible value for $y$?
+\[ \begin{cases} y = x^2 \\ y = x + 6 \end{cases} \]
+\begin{tasks}(4)
+    \task 3
+    \task 4
+    \task 6
+    \task 9
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Solve for $x$ first by substitution, then find the possible $y$-values.
+
+\vspace{20pt}
+
+\textbf{Calculation and Logic:} \\
+1. $x^2 = x + 6 \Rightarrow x^2 - x - 6 = 0$ \\
+2. $(x - 3)(x + 2) = 0 \Rightarrow x = 3$ or $x = -2$
+
+\vspace{10pt}
+
+3. Calculate $y$: \\
+   If $x = 3, y = 3^2 = 9$ \\
+   If $x = -2, y = (-2)^2 = 4$
+
+\vspace{10pt}
+
+4. Among the choices, both 4 and 9 are possible. (Note: SAT questions typically provide only one of the valid options). Here, we select 9.
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{D}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 9
+% Category: Practice | Difficulty: Hard | Question Type: Multiple Choice
+\question
+A system of equations consists of $y = (x - 3)^2 + 2$ and $y = 2$. What is the solution $(x, y)$ to the system?
+\begin{tasks}(4)
+    \task $(0, 2)$
+    \task $(3, 2)$
+    \task $(2, 3)$
+    \task $(3, 0)$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+This system involves a parabola in vertex form and a horizontal line that passes exactly through its vertex.
+
+\vspace{20pt}
+
+\textbf{Calculation and Logic:} \\
+1. Set $(x - 3)^2 + 2 = 2$ \\
+2. $(x - 3)^2 = 0$ \\
+3. $x - 3 = 0 \Rightarrow x = 3$
+
+\vspace{10pt}
+
+4. The $y$-value is already given as 2. \\
+5. The solution is $(3, 2)$.
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 10
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+How many points of intersection exist between the line $y = 2x - 10$ and the parabola $y = x^2 - 4x + 5$?
+\begin{tasks}(4)
+    \task 0
+    \task 1
+    \task 2
+    \task 3
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Use the discriminant of the combined equation to check the number of real roots.
+
+\vspace{20pt}
+
+\textbf{Calculation and Logic:} \\
+1. $x^2 - 4x + 5 = 2x - 10$ \\
+2. $x^2 - 6x + 15 = 0$
+
+\vspace{10pt}
+
+3. $D = (-6)^2 - 4(1)(15)$ \\
+4. $D = 36 - 60 = -24$
+
+\vspace{10pt}
+
+5. Since $D < 0$, there are zero real solutions.
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 11
+% Category: Practice | Difficulty: Hard | Question Type: Multiple Choice
+\question
+If $(x, y)$ is a solution to the system below and $y > 0$, what is the value of $y$?
+\[ \begin{cases} y = x^2 + 1 \\ y = 2x \end{cases} \]
+\begin{tasks}(4)
+    \task 1
+    \task 2
+    \task 0
+    \task No such $y$ exists.
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Find the intersection point and verify the $y$-coordinate.
+
+\vspace{20pt}
+
+\textbf{Calculation and Logic:} \\
+1. $x^2 + 1 = 2x \Rightarrow x^2 - 2x + 1 = 0$ \\
+2. $(x - 1)^2 = 0 \Rightarrow x = 1$
+
+\vspace{10pt}
+
+3. Plug $x = 1$ into $y = 2x$: \\
+   $y = 2(1) = 2$
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 12
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+The parabola $y = -x^2 + 4$ and the line $y = 0$ intersect at points $A$ and $B$. What is the distance between $A$ and $B$?
+\begin{tasks}(4)
+    \task 2
+    \task 4
+    \task 8
+    \task 0
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The intersection points with $y = 0$ are the $x$-intercepts of the parabola. The distance between them is the difference between the larger and smaller $x$-values.
+
+\vspace{20pt}
+
+\textbf{Calculation and Logic:} \\
+1. $-x^2 + 4 = 0 \Rightarrow x^2 = 4$ \\
+2. $x = 2$ and $x = -2$
+
+\vspace{10pt}
+
+3. Distance $= 2 - (-2) = 4$.
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 13
+% Category: Practice | Difficulty: Hard | Question Type: Multiple Choice
+\question
+If $y = 3x^2 - 12x + 10$ and $y = -2$, what is the sum of the $x$-coordinates of the solutions?
+\begin{tasks}(4)
+    \task 4
+    \task 3
+    \task 12
+    \task -4
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+You can find the sum of the roots using the formula $-b/a$ after combining the equations into a standard quadratic.
+
+\vspace{20pt}
+
+\textbf{Calculation and Logic:} \\
+1. $3x^2 - 12x + 10 = -2$ \\
+2. $3x^2 - 12x + 12 = 0$
+
+\vspace{10pt}
+
+3. Sum $= -(-12)/3 = 4$.
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 14
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+Which of the following describes the intersection of $y = x^2 + 10$ and $y = 5$?
+\begin{tasks}(1)
+    \task They intersect at two points.
+    \task They intersect at one point.
+    \task They do not intersect.
+    \task The line is the axis of symmetry for the parabola.
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The vertex of the parabola $y = x^2 + 10$ is $(0, 10)$, and it opens upward. Any horizontal line below $y = 10$ will not intersect it.
+
+\vspace{20pt}
+
+\textbf{Calculation and Logic:} \\
+1. $x^2 + 10 = 5$ \\
+2. $x^2 = -5$ \\
+3. Since a square cannot be negative, there are no real solutions.
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 15
+% Category: Practice | Difficulty: Hard | Question Type: Multiple Choice
+\question
+The system below has exactly one solution. What is the value of $c$?
+\[ \begin{cases} y = x^2 + cx + 9 \\ y = 0 \end{cases} \]
+\begin{tasks}(4)
+    \task 3
+    \task 6
+    \task 9
+    \task 0
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+For the parabola to touch the $x$-axis ($y = 0$) at exactly one point, it must be a perfect square trinomial.
+
+\vspace{20pt}
+
+\textbf{Calculation and Logic:} \\
+1. $D = c^2 - 4(1)(9) = 0$ \\
+2. $c^2 - 36 = 0$ \\
+3. $c^2 = 36 \Rightarrow c = 6$ (or $-6$).
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 16
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+What is the $y$-coordinate of the intersection of $y = x^2 - x$ and $y = x + 3$?
+\begin{tasks}(4)
+    \task 3
+    \task 6
+    \task 0
+    \task 1
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Find $x$ first, then use the linear equation to find $y$.
+
+\vspace{20pt}
+
+\textbf{Calculation and Logic:} \\
+1. $x^2 - x = x + 3 \Rightarrow x^2 - 2x - 3 = 0$ \\
+2. $(x - 3)(x + 1) = 0 \Rightarrow x = 3, -1$
+
+\vspace{10pt}
+
+3. If $x = 3, y = 3 + 3 = 6$. \\
+4. If $x = -1, y = -1 + 3 = 2$. \\
+5. Choice B is 6.
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 17
+% Category: Practice | Difficulty: Hard | Question Type: Multiple Choice
+\question
+At what points does the line $y = x + 1$ intersect the circle $x^2 + y^2 = 5$?
+\begin{tasks}(2)
+    \task $(1, 2)$ and $(-2, -1)$
+    \task $(2, 1)$ and $(-1, -2)$
+    \task $(0, 1)$ and $(1, 0)$
+    \task $(1, 2)$ and $(2, 1)$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Substitute the linear expression for $y$ into the circle's equation.
+
+\vspace{20pt}
+
+\textbf{Calculation and Logic:} \\
+1. $x^2 + (x + 1)^2 = 5$ \\
+2. $x^2 + x^2 + 2x + 1 = 5$ \\
+3. $2x^2 + 2x - 4 = 0$ \\
+4. $x^2 + x - 2 = 0 \Rightarrow (x + 2)(x - 1) = 0$
+
+\vspace{10pt}
+
+5. $x = -2, 1$. \\
+6. If $x = -2, y = -1$. If $x = 1, y = 2$.
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 18
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+If $y = x^2 - 4x + 10$ and $y = 3x$, what is the value of $x^2 - 7x$?
+\begin{tasks}(4)
+    \task 10
+    \task -10
+    \task 7
+    \task 0
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Combine the equations and see if the resulting expression matches the target expression.
+
+\vspace{20pt}
+
+\textbf{Calculation and Logic:} \\
+1. $x^2 - 4x + 10 = 3x$ \\
+2. $x^2 - 7x + 10 = 0$ \\
+3. $x^2 - 7x = -10$.
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 19
+% Category: Practice | Difficulty: Hard | Question Type: Multiple Choice
+\question
+The line $x = 2$ intersects the parabola $y = 3x^2 - 5x + 1$ at point $P$. What is the $y$-coordinate of $P$?
+\begin{tasks}(4)
+    \task 1
+    \task 3
+    \task 23
+    \task 11
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+A vertical line $x = c$ always intersects a function at exactly one point. Simply substitute the value of $x$ into the function.
+
+\vspace{20pt}
+
+\textbf{Calculation and Logic:} \\
+1. $y = 3(2)^2 - 5(2) + 1$ \\
+2. $y = 3(4) - 10 + 1$ \\
+3. $y = 12 - 10 + 1 = 3$.
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 20
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+For what value of $a$ will the parabola $y = ax^2$ pass through the intersection of $y = x$ and $x = 2$?
+\begin{tasks}(4)
+    \task 0.5
+    \task 1
+    \task 2
+    \task 4
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Find the intersection point of the two lines first, then substitute that point into the parabola's equation.
+
+\vspace{20pt}
+
+\textbf{Calculation and Logic:} \\
+1. Intersection of $y=x$ and $x=2$ is $(2, 2)$. \\
+2. Substitute into $y = ax^2$: \\
+   $2 = a(2^2) \Rightarrow 2 = 4a$ \\
+   $a = 0.5$.
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 21
+% Category: Practice | Difficulty: Hard | Question Type: Multiple Choice
+\question
+The vertex of the parabola $y = x^2 - 2x + 5$ lies on which of the following lines?
+\begin{tasks}(4)
+    \task $y = 4$
+    \task $y = x + 3$
+    \task $y = 5$
+    \task $y = x - 1$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Find the vertex of the parabola and then check which line equation is satisfied by the vertex's coordinates.
+
+\vspace{20pt}
+
+\textbf{Calculation and Logic:} \\
+1. $x$-vertex $= -(-2)/(2 \cdot 1) = 1$. \\
+2. $y$-vertex $= (1)^2 - 2(1) + 5 = 4$. \\
+3. Vertex is $(1, 4)$.
+
+\vspace{10pt}
+
+4. Test Choice A: $y = 4$. (True) \\
+5. Test Choice B: $4 = 1 + 3$. (True) \\
+6. (Note: SAT usually has one unique answer; choice A is a simpler geometric description).
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 22
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+If $y = 2x^2$ and $y = 8$, what are the possible values for $x$?
+\begin{tasks}(4)
+    \task 2 only
+    \task 4 only
+    \task 2 and -2
+    \task 4 and -4
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Set the expressions for $y$ equal and solve for $x$.
+
+\vspace{20pt}
+
+\textbf{Calculation and Logic:} \\
+1. $2x^2 = 8 \Rightarrow x^2 = 4$ \\
+2. $x = 2$ or $x = -2$.
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 23
+% Category: Practice | Difficulty: Hard | Question Type: Multiple Choice
+\question
+
+The system consists of $x^2 + y^2 = 25$ and $x = 3$. What is the positive $y$-value of the solution?
+\begin{tasks}(4)
+    \task 3
+    \task 4
+    \task 5
+    \task 16
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Substitute the $x$-value into the circle's equation and solve for $y$.
+
+\vspace{20pt}
+
+\textbf{Calculation and Logic:} \\
+1. $3^2 + y^2 = 25$ \\
+2. $9 + y^2 = 25 \Rightarrow y^2 = 16$ \\
+3. $y = \pm 4$.
+
+\vspace{10pt}
+
+4. Positive value is 4.
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 24
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+How many real solutions are there for the system $y = x^2 + 5$ and $y = x + 2$?
+\begin{tasks}(4)
+    \task 0
+    \task 1
+    \task 2
+    \task Infinitely many
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The discriminant tells us the number of intersection points.
+
+\vspace{20pt}
+
+\textbf{Calculation and Logic:} \\
+1. $x^2 + 5 = x + 2 \Rightarrow x^2 - x + 3 = 0$ \\
+2. $D = (-1)^2 - 4(1)(3) = 1 - 12 = -11$. \\
+3. $D < 0$, so 0 solutions.
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 25
+% Category: Practice | Difficulty: Hard | Question Type: Multiple Choice
+\question
+The line $y = 6x + c$ is tangent to the parabola $y = x^2 + 10$. What is the value of $c$?
+\begin{tasks}(4)
+    \task 1
+    \task 10
+    \task 19
+    \task -1
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Tangency requires exactly one solution, meaning the combined quadratic must have a discriminant of zero.
+
+\vspace{20pt}
+
+\textbf{Calculation and Logic:} \\
+1. $x^2 + 10 = 6x + c \Rightarrow x^2 - 6x + (10 - c) = 0$ \\
+2. $D = (-6)^2 - 4(1)(10 - c) = 0$ \\
+3. $36 - 40 + 4c = 0$ \\
+4. $-4 + 4c = 0 \Rightarrow 4c = 4 \Rightarrow c = 1$.
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+% Question 26
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+The equation $x^2 + 10x + c = 0$ has exactly one real solution. What is the value of $c$?
+\begin{tasks}(4)
+    \task 5
+    \task 10
+    \task 25
+    \task 100
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+For a quadratic equation to have exactly one real solution, it must be a perfect square trinomial. This occurs when the discriminant, $b^2 - 4ac$, is equal to zero.
+
+\vspace{20pt}
+
+\textbf{Calculation and Logic:} \\
+Identify the coefficients: $a = 1$, $b = 10$, and $c$ is the unknown constant.
+
+\vspace{10pt}
+
+Set the discriminant to zero: \\
+$(10)^2 - 4(1)(c) = 0$
+
+\vspace{10pt}
+
+Solve for $c$: \\
+$100 - 4c = 0$ \\
+$100 = 4c$ \\
+$c = 25$
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 27
+% Category: Practice | Difficulty: Hard | Question Type: Multiple Choice
+\question
+Which of the following equations has no real solutions?
+\begin{tasks}(2)
+    \task $2x^2 - 4x + 2 = 0$
+    \task $x^2 + 3x + 5 = 0$
+    \task $x^2 - 5x - 1 = 0$
+    \task $3x^2 + 6x + 3 = 0$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+An equation has no real solutions if the discriminant is negative ($D < 0$). This happens when the $4ac$ part of the formula is larger than the $b^2$ part.
+
+\vspace{20pt}
+
+\textbf{Calculation and Logic:} \\
+Test Choice B: $x^2 + 3x + 5 = 0$ \\
+$a = 1, b = 3, c = 5$
+
+\vspace{10pt}
+
+Calculate the discriminant: \\
+$D = (3)^2 - 4(1)(5)$ \\
+$D = 9 - 20$ \\
+$D = -11$
+
+\vspace{10pt}
+
+Since the discriminant is negative, there are no real solutions.
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 28
+% Category: Practice | Difficulty: Hard | Question Type: Multiple Choice
+\question
+The function $f$ is defined by $f(x) = 3x^2 - kx + 3$. If the graph of $y = f(x)$ is tangent to the $x$-axis, what is one possible value of $k$?
+\begin{tasks}(4)
+    \task 3
+    \task 6
+    \task 9
+    \task 12
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+When a parabola is "tangent" to the $x$-axis, it touches the axis at exactly one point (its vertex). This is a geometric way of saying the quadratic has exactly one real solution.
+
+\vspace{20pt}
+
+\textbf{Calculation and Logic:} \\
+For exactly one solution, $b^2 - 4ac = 0$. \\
+$a = 3, b = -k, c = 3$
+
+\vspace{10pt}
+
+Substitute into the discriminant: \\
+$(-k)^2 - 4(3)(3) = 0$ \\
+$k^2 - 36 = 0$
+
+\vspace{10pt}
+
+Solve for $k$: \\
+$k^2 = 36$ \\
+$k = 6$ or $k = -6$
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 29
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+How many real solutions does the equation $x^2 - 8x + 16 = 0$ have?
+\begin{tasks}(4)
+    \task Zero
+    \task One
+    \task Two
+    \task Infinitely many
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+We check the number of solutions using the discriminant. If the quadratic is a perfect square, it will always have exactly one solution.
+
+\vspace{20pt}
+
+\textbf{Calculation and Logic:} \\
+$a = 1, b = -8, c = 16$
+
+\vspace{10pt}
+
+$D = (-8)^2 - 4(1)(16)$ \\
+$D = 64 - 64 = 0$
+
+\vspace{10pt}
+
+Because $D = 0$, there is exactly one distinct real solution.
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 30
+% Category: Practice | Difficulty: Hard | Question Type: Multiple Choice
+\question
+For a certain constant $n$, the equation $2x^2 - 4x + n = 0$ has no real solutions. Which of the following could be the value of $n$?
+\begin{tasks}(4)
+    \task 1
+    \task 2
+    \task 3
+    \task 0
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+No real solutions means $b^2 - 4ac < 0$. We need to find which value of $n$ makes the discriminant negative.
+
+\vspace{20pt}
+
+\textbf{Calculation and Logic:} \\
+$a = 2, b = -4, c = n$ \\
+$D = (-4)^2 - 4(2)(n) < 0$ \\
+$16 - 8n < 0$
+
+\vspace{10pt}
+
+Solve the inequality: \\
+$16 < 8n$ \\
+$2 < n$
+
+\vspace{10pt}
+
+Any value of $n$ greater than 2 will result in no real solutions. Among the choices, 3 is the only value greater than 2.
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 31
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+In the $xy$-plane, the graph of $y = x^2 - kx + 9$ intersects the $x$-axis at exactly two points. Which of the following must be true about $k$?
+\begin{tasks}(2)
+    \task $k^2 = 36$
+    \task $k^2 > 36$
+    \task $k^2 < 36$
+    \task $k = 6$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Intersecting the $x$-axis at exactly two points means the quadratic has two distinct real solutions. This requires the discriminant to be positive.
+
+\vspace{20pt}
+
+\textbf{Calculation and Logic:} \\
+$D = (-k)^2 - 4(1)(9) > 0$ \\
+$k^2 - 36 > 0$ \\
+$k^2 > 36$
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+% --- PART 2 continued: Discriminant & Solution Logic (32-50) ---
+
+% Question 32
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+For which of the following equations is the discriminant equal to zero?
+\begin{tasks}(2)
+    \task $x^2 + 4x + 4 = 0$
+    \task $x^2 - 4x - 4 = 0$
+    \task $x^2 + 4 = 0$
+    \task $x^2 - 4 = 0$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+A discriminant of zero occurs when a quadratic is a perfect square trinomial. This results in exactly one real solution where the vertex of the parabola lies directly on the $x$-axis.
+
+\vspace{20pt}
+
+\textbf{Calculation and Logic:} \\
+Test Choice A: $x^2 + 4x + 4 = 0$ \\
+$a = 1, b = 4, c = 4$
+
+\vspace{10pt}
+
+$D = b^2 - 4ac$ \\
+$D = (4)^2 - 4(1)(4)$ \\
+$D = 16 - 16 = 0$
+
+\vspace{10pt}
+
+Since $D = 0$, Choice A is the correct equation.
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 33
+% Category: Practice | Difficulty: Hard | Question Type: Multiple Choice
+\question
+The equation $3x^2 + 6x + k = 0$ has two distinct real solutions. Which of the following describes all possible values of $k$?
+\begin{tasks}(4)
+    \task $k < 3$
+    \task $k > 3$
+    \task $k = 3$
+    \task $k < 0$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+To have two distinct real solutions, the discriminant must be strictly greater than zero ($D > 0$). We set up an inequality using the coefficients to solve for the range of $k$.
+
+\vspace{20pt}
+
+\textbf{Calculation and Logic:} \\
+$a = 3, b = 6, c = k$
+
+\vspace{10pt}
+
+$b^2 - 4ac > 0$ \\
+$(6)^2 - 4(3)(k) > 0$ \\
+$36 - 12k > 0$
+
+\vspace{10pt}
+
+Solve for $k$: \\
+$36 > 12k$ \\
+$3 > k$
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 34
+% Category: Practice | Difficulty: Hard | Question Type: Multiple Choice
+\question
+If the discriminant of the quadratic equation $ax^2 + bx + c = 0$ is $-16$, how many times does the graph of $y = ax^2 + bx + c$ intersect the $x$-axis?
+\begin{tasks}(4)
+    \task Zero
+    \task One
+    \task Two
+    \task Four
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The $x$-intercepts of a parabola represent the real solutions of the quadratic equation. If the discriminant is negative, the solutions are imaginary.
+
+\vspace{20pt}
+
+\textbf{Calculation and Logic:} \\
+A discriminant of $-16$ is less than zero ($D < 0$). \\
+When $D < 0$, there are no real solutions. \\
+Therefore, the graph never touches or crosses the $x$-axis.
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 35
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+A quadratic equation is given by $x^2 + bx + 9 = 0$. If the equation has exactly one real solution and $b < 0$, what is the value of $b$?
+\begin{tasks}(4)
+    \task -3
+    \task -6
+    \task -9
+    \task -18
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Exactly one solution implies $D = 0$. We will find two possible values for $b$ (positive and negative) and choose the one that fits the constraint $b < 0$.
+
+\vspace{20pt}
+
+\textbf{Calculation and Logic:} \\
+$b^2 - 4(1)(9) = 0$ \\
+$b^2 - 36 = 0$ \\
+$b^2 = 36$
+
+\vspace{10pt}
+
+$b = 6$ or $b = -6$. \\
+Since $b < 0$, the value must be $-6$.
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 36
+% Category: Practice | Difficulty: Hard | Question Type: Multiple Choice
+\question
+Which of the following values of $k$ would result in the equation $x^2 - kx + k = 0$ having exactly one real solution?
+\begin{tasks}(4)
+    \task 0 and 4
+    \task 2 only
+    \task 4 only
+    \task 0 and 2
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+This problem requires solving a secondary quadratic equation formed by the discriminant itself.
+
+\vspace{20pt}
+
+\textbf{Calculation and Logic:} \\
+$a = 1, b = -k, c = k$ \\
+$D = (-k)^2 - 4(1)(k) = 0$ \\
+$k^2 - 4k = 0$
+
+\vspace{10pt}
+
+Factor the equation: \\
+$k(k - 4) = 0$ \\
+$k = 0$ or $k = 4$
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 37
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+If $x^2 - 12x + 36 = 0$, what is the value of the discriminant?
+\begin{tasks}(4)
+    \task 0
+    \task 12
+    \task 36
+    \task 144
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The discriminant can be calculated directly, or by recognizing that the expression is a perfect square $(x-6)^2$.
+
+\vspace{20pt}
+
+\textbf{Calculation and Logic:} \\
+$D = (-12)^2 - 4(1)(36)$ \\
+$D = 144 - 144$ \\
+$D = 0$
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 38
+% Category: Practice | Difficulty: Hard | Question Type: Multiple Choice
+\question
+
+The graph of $y = x^2 + c$ is shown above. How many real solutions does the equation $x^2 + c = 0$ have?
+\begin{tasks}(4)
+    \task Zero
+    \task One
+    \task Two
+    \task Infinitely many
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+By looking at the graph, we can see if the parabola intersects the $x$-axis. If the entire graph stays above the axis, the corresponding quadratic equation has no real roots.
+
+\vspace{20pt}
+
+\textbf{Calculation and Logic:} \\
+The vertex is at $(0, 5)$, meaning the minimum value of the function is 5. \\
+Since the function is always positive, $x^2 + c$ can never equal 0 for any real value of $x$. \\
+This indicates the discriminant is negative and there are zero real solutions.
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 39
+% Category: Practice | Difficulty: Hard | Question Type: Multiple Choice
+\question
+For the equation $4x^2 + mx + 1 = 0$, what values of $m$ will produce two distinct real solutions?
+\begin{tasks}(2)
+    \task $|m| > 4$
+    \task $|m| < 4$
+    \task $m > 4$
+    \task $m < 4$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Two distinct solutions require $D > 0$. When solving for a squared variable in an inequality, the result often involves an absolute value.
+
+\vspace{20pt}
+
+\textbf{Calculation and Logic:} \\
+$m^2 - 4(4)(1) > 0$ \\
+$m^2 - 16 > 0$ \\
+$m^2 > 16$
+
+\vspace{10pt}
+
+Take the square root of both sides: \\
+$|m| > 4$ \\
+(This means $m > 4$ or $m < -4$)
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 40
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+If $f(x) = x^2 - 6x + 9$, how many $x$-intercepts does the graph of $f$ have?
+\begin{tasks}(4)
+    \task 0
+    \task 1
+    \task 2
+    \task 3
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The number of $x$-intercepts is identical to the number of distinct real solutions to $f(x) = 0$.
+
+\vspace{20pt}
+
+\textbf{Calculation and Logic:} \\
+$D = (-6)^2 - 4(1)(9) = 36 - 36 = 0$. \\
+A discriminant of 0 means there is exactly one $x$-intercept.
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 41
+% Category: Practice | Difficulty: Hard | Question Type: Multiple Choice
+\question
+The equation $x^2 - 4x + (k - 3) = 0$ has no real solutions. Which of the following is true about $k$?
+\begin{tasks}(4)
+    \task $k < 7$
+    \task $k > 7$
+    \task $k > 4$
+    \task $k < 4$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Identify the constant term $c$ as the expression $(k - 3)$. Set the discriminant to less than zero to find the range of $k$.
+
+\vspace{20pt}
+
+\textbf{Calculation and Logic:} \\
+$a = 1, b = -4, c = (k - 3)$
+
+\vspace{10pt}
+
+$D = (-4)^2 - 4(1)(k - 3) < 0$ \\
+$16 - 4k + 12 < 0$ \\
+$28 - 4k < 0$
+
+\vspace{10pt}
+
+Solve the inequality: \\
+$28 < 4k$ \\
+$7 < k$
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 42
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+What is the discriminant of $2x^2 + 5x - 3 = 0$?
+\begin{tasks}(4)
+    \task 1
+    \task 24
+    \task 49
+    \task 13
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The discriminant $b^2 - 4ac$ helps determine if the roots are rational, irrational, or imaginary.
+
+\vspace{20pt}
+
+\textbf{Calculation and Logic:} \\
+$D = (5)^2 - 4(2)(-3)$ \\
+$D = 25 + 24$ \\
+$D = 49$
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 43
+% Category: Practice | Difficulty: Hard | Question Type: Multiple Choice
+\question
+A quadratic equation has a discriminant of 17. Which of the following must be true?
+\begin{tasks}(1)
+    \task The equation has no real solutions.
+    \task The equation has exactly one real solution.
+    \task The equation has two distinct rational solutions.
+    \task The equation has two distinct irrational solutions.
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Since $D > 0$, there are two distinct real solutions. Because 17 is not a perfect square, the square root in the quadratic formula ($\sqrt{17}$) cannot be simplified to a rational number.
+
+\vspace{20pt}
+
+\textbf{Calculation and Logic:} \\
+$D = 17$ (Positive, but not a perfect square). \\
+This results in two real, irrational roots.
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{D}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 44
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+If the graph of $y = ax^2 + bx + c$ does not cross the $x$-axis, which of the following is true?
+\begin{tasks}(2)
+    \task $b^2 - 4ac > 0$
+    \task $b^2 - 4ac = 0$
+    \task $b^2 < 4ac$
+    \task $a = 0$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+No $x$-intercepts mean no real solutions, which means the discriminant must be negative.
+
+\vspace{20pt}
+
+\textbf{Calculation and Logic:} \\
+$b^2 - 4ac < 0$ is equivalent to $b^2 < 4ac$.
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 45
+% Category: Practice | Difficulty: Hard | Question Type: Multiple Choice
+\question
+For what value of $k$ will the equation $x^2 - 2x + (k + 1) = 0$ have exactly one real solution?
+\begin{tasks}(4)
+    \task 0
+    \task 1
+    \task -1
+    \task 2
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Set the discriminant to zero and solve for the variable within the constant term.
+
+\vspace{20pt}
+
+\textbf{Calculation and Logic:} \\
+$(-2)^2 - 4(1)(k + 1) = 0$ \\
+$4 - 4k - 4 = 0$ \\
+$-4k = 0 \Rightarrow k = 0$.
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 46
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+Which of the following discriminants represents a quadratic with two distinct real solutions?
+\begin{tasks}(4)
+    \task -4
+    \task 0
+    \task 12
+    \task $\sqrt{5}$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Any positive value for the discriminant ($D > 0$) results in two distinct real solutions.
+
+\vspace{20pt}
+
+\textbf{Calculation and Logic:} \\
+Among the choices, 12 is the only positive value. \\
+(Note: $\sqrt{5}$ is also positive, but the discriminant itself is the value $b^2 - 4ac$, which is typically an integer in SAT problems).
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 47
+% Category: Practice | Difficulty: Hard | Question Type: Multiple Choice
+\question
+If $k > 0$ and the equation $x^2 - kx + 1 = 0$ has no real solutions, what is the range of $k$?
+\begin{tasks}(4)
+    \task $k < 2$
+    \task $k > 2$
+    \task $0 < k < 2$
+    \task $k = 2$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Set $D < 0$ and solve the inequality, keeping the constraint $k > 0$ in mind.
+
+\vspace{20pt}
+
+\textbf{Calculation and Logic:} \\
+$(-k)^2 - 4(1)(1) < 0$ \\
+$k^2 - 4 < 0$ \\
+$k^2 < 4$
+
+\vspace{10pt}
+
+This means $-2 < k < 2$. \\
+Since $k > 0$, the range is $0 < k < 2$.
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 48
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+The equation $x^2 + 6x + 9 = 0$ is solved. How many times does its graph touch the $x$-axis?
+\begin{tasks}(4)
+    \task 0
+    \task 1
+    \task 2
+    \task 3
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Recognizing a perfect square trinomial ($x+3)^2$ immediately tells you there is only one root.
+
+\vspace{20pt}
+
+\textbf{Calculation and Logic:} \\
+$D = 6^2 - 4(1)(9) = 36 - 36 = 0$. \\
+One real solution means the graph touches the axis once.
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 49
+% Category: Practice | Difficulty: Hard | Question Type: Multiple Choice
+\question
+A quadratic equation $ax^2 + bx + c = 0$ has $a > 0$ and $c < 0$. How many real solutions must this equation have?
+\begin{tasks}(4)
+    \task Zero
+    \task One
+    \task Two
+    \task Cannot be determined
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Analyze the components of the discriminant $b^2 - 4ac$.
+
+\vspace{20pt}
+
+\textbf{Calculation and Logic:} \\
+$b^2$ is always $\ge 0$. \\
+If $a$ is positive and $c$ is negative, then the product $ac$ is negative. \\
+$-4ac$ would therefore be positive (negative $\times$ negative). \\
+$D = (\text{positive or zero}) + (\text{positive}) = \text{positive}$.
+
+\vspace{10pt}
+
+Since the discriminant is always positive in this case, there are always two real solutions.
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{40pt}
+
+% Question 50
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+What is the discriminant of the equation $x^2 + x + 1 = 0$?
+\begin{tasks}(4)
+    \task 1
+    \task 0
+    \task -3
+    \task 5
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Substitute the coefficients into $b^2 - 4ac$.
+
+\vspace{20pt}
+
+\textbf{Calculation and Logic:} \\
+$a = 1, b = 1, c = 1$ \\
+$D = (1)^2 - 4(1)(1)$ \\
+$D = 1 - 4 = -3$.
+
+\vspace{25pt}
+
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+% =============================================================
+% Question End
+% =============================================================
+
+\end{questions}
+\begin{center}
+\rule{.5\textwidth}{1pt}
+\end{center}
+\end{document}

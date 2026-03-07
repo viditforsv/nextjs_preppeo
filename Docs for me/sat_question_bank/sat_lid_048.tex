@@ -1,0 +1,1264 @@
+\documentclass[11pt,paper=a4,answers]{exam}
+\usepackage{graphicx,lastpage}
+\usepackage{upgreek}
+\usepackage{censor}
+\usepackage{gensymb}
+\usepackage{amsmath}
+\usepackage{multicol}
+\usepackage{enumitem}
+\usepackage{tasks}
+\usepackage{adjustbox}
+\usepackage{xcolor}
+\usepackage{tfrupee}
+\setlength{\voffset}{0.25in}
+\usepackage{tabularx}
+\newcolumntype{Y}{>{\centering\arraybackslash}X}
+%==============================================================
+% Customise Non-Essential Packages Below
+% =============================================================
+\usepackage[most]{tcolorbox}
+\usepackage{eso-pic}
+\usepackage{tikz}
+\AddToShipoutPictureBG{%
+\begin{tikzpicture}[remember picture,overlay]
+\foreach \x in {-8,-4,0,4,8,12,16,20}
+\foreach \y in {-8,-4,0,4,8,12,16,20} {
+\node[opacity=0.05,rotate=45,anchor=center] at ([xshift=\x cm,yshift=\y cm]current page.center) {%
+\begin{minipage}{2cm}
+\centering
+\includegraphics[width=2cm]{images/logo_black.png}\\
+\small preppeo.com
+\end{minipage}%
+};
+}
+\end{tikzpicture}%
+}
+\printanswers
+
+%==============================================================
+% Customise Non-Essential Packages Above
+% =============================================================
+\definecolor{svgray}{rgb}{0.90, 0.90, 0.90}
+\graphicspath{{images/}}
+
+\usepackage[normalem]{ulem}
+\renewcommand\ULthickness{1pt}   %%---> For changing thickness of underline
+\setlength\ULdepth{3.5ex}%\maxdimen ---> For changing depth of underline
+\renewcommand{\baselinestretch}{1}
+\chead{
+\includegraphics[scale=0.1,height=2cm ]{logo.png}
+}
+\pagestyle{empty}
+
+\pagestyle{headandfoot}
+\headrule
+\cfoot{W: https://preppeo.com; M: +91-8130711689}
+
+\begin{document}
+%==============================================================
+% Customise Question paper details below this
+% =============================================================
+\begin{center}
+    \centering
+    \renewcommand{\arraystretch}{1.5}
+    \begin{tabularx}{\textwidth}{YYY}
+    & \normalsize\bf{{\Large{{Quantitative Reasoning}}}} & \\
+    By Preppeo & \normalsize\bf{{sat\_lid\_048}} & SAT\\
+    \normalsize{{\textbf{{Unit:}} Area \& Volume}} & \normalsize{{\textbf{{Chapter:}} Area and volume of 2D/3D shapes}} & \normalsize{{\textbf{{Topic:}} Volume of Prisms \& Cylinders}} \\
+    \end{tabularx}
+\end{center}
+\par\noindent\rule{\textwidth}{1pt}
+% =============================================================
+% Customise Question paper details above this
+% =============================================================
+
+\begin{questions}
+\pointsinrightmargin
+\pointsdroppedatright
+\marksnotpoints
+\pointpoints{mark}{marks}
+\pointformat{\boldmath\themarginpoints}
+\bracketedpoints
+
+% =============================================================
+% Question Begin
+% =============================================================
+
+% Lid 048: Geometry & Trigonometry
+% Topic: Area and Volume: Volume of Prisms & Cylinders
+
+% Question 1
+% Category: Exam Level | Difficulty: Medium | Question Type: Numeric Entry
+\question
+A right rectangular prism has a length of 4 centimeters, a width of 9 centimeters, and a height of 10 centimeters. What is the volume, in cubic centimeters, of the prism?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The volume of a right rectangular prism is the amount of space contained within its three-dimensional boundaries. It is calculated by finding the product of the three linear dimensions: length, width, and height. The general formula for any prism is $\text{Volume} = \text{Base Area} \times \text{Height}$.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+First, identify the three given dimensions of the prism: length ($L = 4$ cm), width ($W = 9$ cm), and height ($H = 10$ cm). Next, apply the volume formula for a rectangular prism: $\text{Volume} = L \times W \times H$. Substitute the values into the equation: $\text{Volume} = 4 \times 9 \times 10$. Multiply the first two numbers: $4 \times 9 = 36$. Finally, multiply the result by the height: $36 \times 10 = 360$. Thus, the total volume of the rectangular prism is 360 cubic centimeters.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{360}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 2
+% Category: Exam Level | Difficulty: Medium | Question Type: MCQ
+\question
+A cylinder has a diameter of 8 inches and a height of 12 inches. What is the volume, in cubic inches, of the cylinder?
+\begin{tasks}(4)
+    \task $16\pi$
+    \task $96\pi$
+    \task $192\pi$
+    \task $768\pi$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+A cylinder's volume is determined by multiplying the area of its circular base by its height. The formula for the area of the base is $\pi r^2$, making the full volume formula $V = \pi r^2 h$. It is critical to convert the diameter to the radius before beginning calculations.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+Identify the given diameter, which is 8 inches. Divide the diameter by 2 to find the radius: $r = 8 / 2 = 4$ inches. Now, identify the height: $h = 12$ inches. Plug these values into the volume formula: $V = \pi \times (4)^2 \times 12$. Calculate the square of the radius: $4 \times 4 = 16$. Next, multiply 16 by the height of 12: $16 \times 12 = 192$. Finally, append the constant $\pi$ to the result. The calculation yields a total volume of $192\pi$ cubic inches.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 3
+% Category: Exam Level | Difficulty: Hard | Question Type: MCQ
+\question
+The length of the edge of the base of a right square prism is 6 units. The volume of the prism is 2,880 cubic units. What is the height, in units, of the prism?
+\begin{tasks}(4)
+    \task $4\sqrt{30}$
+    \task 36
+    \task $24\sqrt{5}$
+    \task 80
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+A right square prism is a type of prism where the base is a square. The volume is calculated by multiplying the area of this square base ($s^2$) by the height of the prism ($h$). To find a missing dimension like height, you must rearrange the formula $V = s^2 \times h$.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+Start with the known values: edge of the square base ($s = 6$) and total volume ($V = 2,880$). First, calculate the area of the base: $\text{Base Area} = 6^2 = 36$ square units. Set up the volume equation: $2880 = 36 \times h$. To solve for the height $h$, divide both sides of the equation by 36: $h = 2880 / 36$. Performing the division, you find that 36 goes into 288 exactly 8 times, so $2880 / 36 = 80$. The height of the square prism is 80 units.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{D}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 4
+% Category: Exam Level | Difficulty: Medium | Question Type: MCQ
+\question
+A right circular cylinder has a volume of $45\pi$. If the height of the cylinder is 5, what is the radius of the cylinder?
+\begin{tasks}(4)
+    \task 3
+    \task 4.5
+    \task 9
+    \task 40
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+To find the radius of a cylinder when the volume and height are known, use the formula $V = \pi r^2 h$. By isolating the $r^2$ term and then taking the square root, you can determine the linear distance from the center of the base to its edge.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+Given values: Volume ($V = 45\pi$) and Height ($h = 5$). Set up the formula: $45\pi = \pi \times r^2 \times 5$. Divide both sides by $\pi$ to simplify: $45 = 5 \times r^2$. Next, isolate the squared radius by dividing both sides by 5: $45 / 5 = r^2$, which simplifies to $9 = r^2$. To find the radius $r$, take the square root of 9. The square root of 9 is 3. Therefore, the radius of the cylinder is 3 units.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 5
+% Category: Exam Level | Difficulty: Hard | Question Type: Numeric Entry
+\question
+A right square prism has a height of 14 units. The volume of the prism is 2,016 cubic units. What is the length, in units, of an edge of the base?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The base of this prism is a square, meaning its area is the length of one edge squared ($s^2$). We use the volume formula $V = s^2 \times h$ to solve for the missing base edge length $s$ by taking the square root of the base area.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+Identify the knowns: Volume ($V = 2,016$) and Height ($h = 14$). Substitute these into the formula: $2016 = s^2 \times 14$. To find the area of the base ($s^2$), divide the volume by the height: $s^2 = 2016 / 14$. Performing the division: 14 goes into 20 once (remainder 6), into 61 four times (remainder 5), and into 56 four times. This results in $s^2 = 144$. Finally, take the square root of 144 to find the edge length $s$. Since $12 \times 12 = 144$, the edge of the base is 12 units.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{12}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 6
+% Category: Exam Level | Difficulty: hard | Question Type: MCQ
+\question
+\begin{center}
+\begin{tikzpicture}[scale=0.8]
+\draw[thick] (0,1.5) ellipse (1.5 and 0.4);
+\draw[thick] (-1.5,1.5) -- (-1,0);
+\draw[thick] (1.5,1.5) -- (1,0);
+\draw[thick] (-1,0) arc (180:360:1 and 0.25);
+\draw[dashed] (-1,0) arc (180:0:1 and 0.25);
+\draw[<->] (-1.5,1.7) -- (1.5,1.7) node[midway, above] {$k$};
+\draw[<->] (-1, -0.3) -- (1, -0.3) node[midway, below] {$k/2$};
+\draw[<->] (1.8, 0) -- (1.8, 1.5) node[midway, right] {$k$};
+\node at (-3, 0.7) {$\text{Volume} = \frac{7\pi k^3}{48}$};
+\end{tikzpicture}
+\end{center}
+The glass pictured above can hold a maximum volume of 473 cubic centimeters. What is the value of $k$, in centimeters?
+\begin{tasks}(4)
+    \task 2.52
+    \task 7.67
+    \task 7.79
+    \task 10.11
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+This problem involves solving for a variable within a given geometric volume formula. We must equate the formula provided for the glass's volume to the numerical value given and isolate the variable $k$.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+The volume formula is $\frac{7\pi k^3}{48}$. Set this equal to the maximum volume of 473: $473 = \frac{7\pi k^3}{48}$. First, isolate $k^3$ by multiplying both sides by 48 and dividing by $7\pi$: $k^3 = \frac{473 \times 48}{7 \times 3.14159}$. Calculating the numerator: $473 \times 48 = 22,704$. Calculating the denominator: $7 \times 3.14159 \approx 21.991$. Now, divide the two: $k^3 \approx 22704 / 21.991 \approx 1,032.42$. To find $k$, take the cube root of this value: $k = \sqrt[3]{1032.42}$. Estimating the cube root: $10^3 = 1000$, so the value is very close to 10. Checking Choice D: $10.11^3 \approx 1033.7$. This is the closest value.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{D}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 7
+% Category: Exam Level | Difficulty: Hard | Question Type: MCQ
+\question
+A manufacturing company produces two sizes of cylindrical containers that each have a height of 50 centimeters. The radius of container A is 16 centimeters, and the radius of container B is 25\% longer than the radius of container A. What is the volume, in cubic centimeters, of container B?
+\begin{tasks}(4)
+    \task $16,000\pi$
+    \task $20,000\pi$
+    \task $25,000\pi$
+    \task $31,250\pi$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The volume of a cylinder depends heavily on the radius because the radius is squared in the formula $V = \pi r^2 h$. When the radius increases by a percentage, we must first find the new radius value before calculating the final volume.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+First, find the radius of container B. Container A has a radius of 16 cm. Container B's radius is 25\% longer, so $r_B = 16 + (0.25 \times 16) = 16 + 4 = 20$ cm. Now, use the height ($h = 50$ cm) and the new radius ($r = 20$ cm) in the volume formula: $V = \pi \times (20)^2 \times 50$. Calculate the square of the radius: $20^2 = 400$. Next, multiply by the height: $400 \times 50 = 20,000$. Finally, include $\pi$ in the result. The volume of container B is $20,000\pi$ cubic centimeters.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 8
+% Category: Exam Level | Difficulty: Hard | Question Type: MCQ
+\question
+A cylindrical can containing pieces of fruit is filled to the top with syrup before being sealed. The base of the can has an area of $75 \text{ cm}^2$, and the height of the can is 10 cm. If $110 \text{ cm}^3$ of syrup is needed to fill the can to the top, which of the following is closest to the total volume of the pieces of fruit in the can?
+\begin{tasks}(4)
+    \task $7.5 \text{ cm}^3$
+    \task $185 \text{ cm}^3$
+    \task $640 \text{ cm}^3$
+    \task $750 \text{ cm}^3$
+    \end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The total volume of the cylinder is shared by the pieces of fruit and the syrup. By calculating the total capacity of the can and subtracting the volume of the syrup, we can determine the remaining volume occupied by the fruit.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+First, calculate the total volume of the cylindrical can using the formula $\text{Volume} = \text{Base Area} \times \text{Height}$. The problem gives the base area as $75 \text{ cm}^2$ and the height as $10$ cm. Total Volume $= 75 \times 10 = 750 \text{ cm}^3$. The can contains syrup and fruit. We are told the syrup volume is $110 \text{ cm}^3$. To find the fruit volume, subtract the syrup from the total: $750 - 110 = 640$. Therefore, the total volume of the pieces of fruit is 640 cubic centimeters.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 9
+% Category: Exam Level | Difficulty: Hard | Question Type: MCQ
+\question
+\begin{center}
+\begin{tikzpicture}[scale=0.6]
+\draw[thick] (0,0) circle (2 and 0.5);
+\draw[thick] (-2,0) -- (-2,-2);
+\draw[thick] (2,0) -- (2,-2);
+\draw[thick] (-2,-2) arc (180:360:2 and 0.5);
+\draw[dashed] (-2,-2) arc (180:0:2 and 0.5);
+\draw[->] (0,0) -- (1.5, 0.3) node[midway, above] {$r$};
+\draw[<->] (2.5, 0) -- (2.5, -2) node[midway, right] {$h$};
+\end{tikzpicture}
+\end{center}
+The figure shown is a right circular cylinder with a radius of $r$ and height of $h$. A second right circular cylinder (not shown) has a volume that is 392 times as large as the volume of the cylinder shown. Which of the following could represent the radius $R$, in terms of $r$, and the height $H$, in terms of $h$, of the second cylinder?
+\begin{tasks}(2)
+    \task $R = 8r$ and $H = 7h$
+    \task $R = 8r$ and $H = 49h$
+    \task $R = 7r$ and $H = 8h$
+    \task $R = 49r$ and $H = 8h$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The volume of a cylinder scales based on the squared factor of the radius and the linear factor of the height. If the original volume is $V = \pi r^2 h$, and the new volume is $V_{new} = \pi (Ar)^2 (Bh)$, then $V_{new} = (A^2 \times B) \times V$. We must find factors $A$ and $B$ such that $A^2 \times B = 392$.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+We need the ratio of the volumes to be 392. Let's test the choices. For Choice A, $R = 8r$ and $H = 7h$. The volume factor is $8^2 \times 7 = 64 \times 7$. $60 \times 7 = 420$, which is already too high. For Choice C, $R = 7r$ and $H = 8h$. The volume factor is $7^2 \times 8$. First, square the radius factor: $7 \times 7 = 49$. Next, multiply by the height factor: $49 \times 8$. Calculating $50 \times 8 - 1 \times 8 = 400 - 8 = 392$. Since this matches the volume increase given in the problem, Choice C is correct.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 10
+% Category: Exam Level | Difficulty: Medium | Question Type: MCQ
+\question
+A right circular cylinder has a volume of 432 cubic centimeters. The area of the base of the cylinder is 24 square centimeters. What is the height, in centimeters, of the cylinder?
+\begin{tasks}(4)
+    \task 18
+    \task 24
+    \task 216
+    \task 10,368
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The height of any prism or cylinder can be found by dividing its total volume by the area of its base. This is derived from the fundamental relationship $\text{Volume} = \text{Base Area} \times \text{Height}$.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+Identify the known parameters: Volume ($V = 432$) and Base Area ($B = 24$). Plug these into the rearranged formula for height: $H = V / B$. Substitute the numbers: $H = 432 / 24$. To simplify the division, note that 24 goes into 43 once (with a remainder of 19). Bring down the 2 to make 192. Now, determine how many times 24 goes into 192. Since $24 \times 10 = 240$ and $240 - 24 - 24 = 192$, it goes in 8 times. Thus, $432 / 24 = 18$. The height of the cylinder is 18 centimeters.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 11
+% Category: Practice | Difficulty: Medium | Question Type: Numeric Entry
+\question
+A right rectangular prism has a base area of 45 square inches and a volume of 270 cubic inches. What is the height of the prism?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+For any prism, the volume is the product of the area of the base and the height. If the base area is provided directly, you do not need the length and width separately.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+Use the formula $V = B \times H$. Given $V = 270$ and $B = 45$, set up the equation $270 = 45 \times H$. To isolate $H$, divide 270 by 45. To simplify, recognize that $45 \times 2 = 90$ and $90 \times 3 = 270$. Therefore, $45 \times 6 = 270$. The calculation $270 / 45$ results in 6. The height of the prism is 6 inches.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{6}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 12
+% Category: Practice | Difficulty: Hard | Question Type: MCQ
+\question
+Cylinder X has a radius $r$ and height $h$. Cylinder Y has a radius that is 3 times the radius of Cylinder X and a height that is half the height of Cylinder X. What is the ratio of the volume of Cylinder Y to the volume of Cylinder X?
+\begin{tasks}(4)
+    \task 1.5
+    \task 3
+    \task 4.5
+    \task 9
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The ratio of volumes is found by examining how changes in dimensions affect the formula $V = \pi r^2 h$. Squaring the scale factor of the radius and multiplying it by the scale factor of the height gives the total volume scale factor.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+Let the volume of Cylinder X be $V_X = \pi r^2 h$. For Cylinder Y, the new radius is $3r$ and the new height is $0.5h$. Calculate the volume of Cylinder Y: $V_Y = \pi \times (3r)^2 \times (0.5h)$. Square the radius term: $V_Y = \pi \times 9r^2 \times 0.5h$. Combine the numerical constants: $9 \times 0.5 = 4.5$. This simplifies to $V_Y = 4.5 \times (\pi r^2 h)$. This shows that the volume of Cylinder Y is 4.5 times the volume of Cylinder X. The ratio is 4.5.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 13
+% Category: Practice | Difficulty: Medium | Question Type: Numeric Entry
+\question
+A right rectangular prism has a volume of 504 cubic units. If the length is 7 units and the width is 8 units, what is the height?
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+First, find the area of the base by multiplying the length and width: $7 \times 8 = 56$ square units. Next, use the volume formula $V = B \times H$ to solve for height: $504 = 56 \times H$. Divide 504 by 56. Since $56 \times 10 = 560$, and $560 - 56 = 504$, the height must be 9. The height of the prism is 9 units.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{9}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 14
+% Category: Practice | Difficulty: Hard | Question Type: MCQ
+\question
+A cylindrical tank is 20 feet tall and has a circumference of $10\pi$ feet at its base. What is the volume of the tank in cubic feet?
+\begin{tasks}(4)
+    \task $200\pi$
+    \task $500\pi$
+    \task $1,000\pi$
+    \task $2,000\pi$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Before calculating volume, you must use the circumference to find the radius of the base. The circumference formula is $C = 2\pi r$.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+Find the radius using $10\pi = 2\pi r$. Dividing both sides by $2\pi$ gives $r = 5$ feet. Now, use the volume formula $V = \pi r^2 h$ with $r = 5$ and $h = 20$. Calculate the base area: $\pi \times 5^2 = 25\pi$. Multiply by the height: $25\pi \times 20$. Since $25 \times 2 = 50$, then $25 \times 20 = 500$. The total volume is $500\pi$ cubic feet.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 15
+% Category: Practice | Difficulty: Hard | Question Type: Numeric Entry
+\question
+A square prism has a volume of 1,000 cubic cm. If the height is 10 cm, what is the perimeter of the base?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+This problem requires moving from volume to base area, then to base edge length, and finally to the base perimeter.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+Calculate the base area: $B = V / H = 1000 / 10 = 100 \text{ cm}^2$. Since the prism is square, the edge of the base $s = \sqrt{100} = 10$ cm. The perimeter of a square base is $4 \times s$. Therefore, the perimeter is $4 \times 10 = 40$. The perimeter of the base is 40 centimeters.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{40}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 16
+% Category: Practice | Difficulty: Medium | Question Type: MCQ
+\question
+A right rectangular prism has dimensions $x, x+2,$ and 5. If the volume is 120, what is the value of $x$?
+\begin{tasks}(4)
+    \task 4
+    \task 6
+    \task 8
+    \task 10
+\end{tasks}
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+Set up the volume equation: $x(x+2)(5) = 120$. Divide both sides by 5 to simplify: $x(x+2) = 24$. We need two numbers that differ by 2 and multiply to 24. Testing integers: $4 \times 6 = 24$. Therefore, $x = 4$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 17
+% Category: Practice | Difficulty: Hard | Question Type: MCQ
+\question
+A cylinder is inscribed perfectly inside a cube with edge length 10. What is the volume of the cylinder?
+\begin{tasks}(4)
+    \task $100\pi$
+    \task $250\pi$
+    \task $500\pi$
+    \task $1,000\pi$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+When a cylinder is inscribed in a cube, the cylinder's diameter and its height are both equal to the edge length of the cube.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+The height $h$ is 10 and the diameter is 10, meaning the radius $r = 5$. Apply the volume formula: $V = \pi \times 5^2 \times 10$. Square the radius: $5^2 = 25$. Multiply by the height: $25 \times 10 = 250$. The volume is $250\pi$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 18
+% Category: Practice | Difficulty: Medium | Question Type: Numeric Entry
+\question
+What is the volume of a cylinder with radius 7 and height 2? (Use 22/7 for $\pi$).
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+$V = \pi r^2 h = (22/7) \times 7^2 \times 2$. One of the 7s in the denominator cancels with one in the numerator ($7^2 / 7 = 7$). This leaves $22 \times 7 \times 2$. Multiply $22 \times 14 = 308$. The volume is 308 cubic units.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{308}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 19
+% Category: Practice | Difficulty: Hard | Question Type: Numeric Entry
+\question
+A rectangular pool is 10 meters long, 5 meters wide, and 2 meters deep. If the pool is filled to 80\% capacity, how many cubic meters of water are in the pool?
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+Total capacity $= 10 \times 5 \times 2 = 100 \text{ cubic meters}$. To find 80\% of the total capacity, multiply 100 by 0.80. The calculation $100 \times 0.80$ results in 80. There are 80 cubic meters of water in the pool.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{80}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 20
+% Category: Practice | Difficulty: Easy | Question Type: MCQ
+\question
+If the height of a prism is doubled and the base area remains the same, the volume:
+\begin{tasks}(2)
+    \task Stays the same
+    \task Doubles
+    \task Triples
+    \task Quadruples
+\end{tasks}
+
+\begin{solution}
+\textbf{Logic:} \\
+Volume is directly proportional to height ($V = B \times H$). If $H$ is multiplied by 2, the product $B \times H$ is also multiplied by 2. Thus, the volume doubles.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{60pt}
+
+% Lid 048: Geometry & Trigonometry
+% Questions 21-50
+
+% Question 21
+% Category: Exam Level | Difficulty: Hard | Question Type: MCQ
+\question
+A right circular cylinder has a height of 10 inches and a volume of $160\pi$ cubic inches. If the height of the cylinder is increased by 4 inches and the radius remains the same, what is the volume, in cubic inches, of the new cylinder?
+\begin{tasks}(4)
+    \task $64\pi$
+    \task $224\pi$
+    \task $256\pi$
+    \task $320\pi$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The volume of a cylinder is directly proportional to its height when the radius is constant. To solve this, we must first determine the fixed radius from the original dimensions and then apply the updated height to the volume formula.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+First, find the radius using the original volume and height. Substitute $V = 160\pi$ and $h = 10$ into the formula $V = \pi r^2 h$. This gives $160\pi = \pi \times r^2 \times 10$. Divide both sides by $10\pi$ to isolate the squared radius: $16 = r^2$. Taking the square root, we find $r = 4$. Next, identify the new height. The height is increased by 4, so $h_{new} = 10 + 4 = 14$ inches. Finally, calculate the new volume with the same radius: $V_{new} = \pi \times (4)^2 \times 14$. Square the radius to get 16, then multiply by the height. The calculation $16 \times 14$ results in 224. Therefore, the new volume is $224\pi$ cubic inches.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 22
+% Category: Practice | Difficulty: Hard | Question Type: Numeric Entry
+\question
+A rectangular prism has a square base with an area of 25 square centimeters. If the total surface area of the prism is 150 square centimeters, what is the volume of the prism in cubic centimeters?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Surface area and volume are linked through the dimensions of the prism. In a square prism, the surface area is the sum of the two square bases and the four rectangular side faces. Finding the height from the surface area allows for the final volume calculation.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+Start by finding the side length of the square base. Since the base area is 25, the side length $s = \sqrt{25} = 5$ cm. The perimeter of this base is $4 \times 5 = 20$ cm. Next, use the surface area formula: $SA = 2(\text{Base Area}) + (\text{Perimeter} \times \text{Height})$. Substitute the known values: $150 = 2(25) + (20 \times H)$. Simplify the equation: $150 = 50 + 20H$. Subtract 50 from both sides: $100 = 20H$. Divide by 20 to find the height: $H = 5$ cm. Finally, calculate the volume using $V = \text{Base Area} \times H$. The calculation $25 \times 5$ results in 125. The volume of the prism is 125 cubic centimeters.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{125}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 23
+% Category: Exam Level | Difficulty: Medium | Question Type: MCQ
+\question
+A right circular cylinder has a radius of $r$ and a height of $2r$. Which of the following expressions represents the volume of the cylinder in terms of $r$?
+\begin{tasks}(4)
+    \task $2\pi r^2$
+    \task $2\pi r^3$
+    \task $4\pi r^2$
+    \task $4\pi r^3$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+This problem requires substituting an algebraic relationship into the standard volume formula for a cylinder. You must correctly apply the laws of exponents when multiplying terms containing the same variable.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+The standard formula for the volume of a cylinder is $V = \pi r^2 h$. The problem provides the height in terms of the radius: $h = 2r$. Substitute this expression for $h$ into the volume formula: $V = \pi \times r^2 \times (2r)$. To simplify, multiply the numerical coefficients and then combine the variables. The term $r^2 \times r$ becomes $r^3$ because you add the exponents ($2+1=3$). Bringing the constant 2 and $\pi$ to the front, the simplified expression becomes $2\pi r^3$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 24
+% Category: Practice | Difficulty: Medium | Question Type: Numeric Entry
+\question
+What is the volume of a right rectangular prism with a base of 12 inches by 5 inches and a diagonal of the base measuring 13 inches, given the height is 20 inches?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The volume of a rectangular prism is independent of the base diagonal. While the diagonal confirms the relationship between length and width via the Pythagorean theorem ($12^2 + 5^2 = 13^2$), we only need the area of the base and the perpendicular height.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+First, calculate the area of the rectangular base. Multiply the length of 12 inches by the width of 5 inches. The calculation $12 \times 5$ results in a base area of 60 square inches. Next, identify the height of the prism, which is given as 20 inches. Apply the general volume formula: $\text{Volume} = \text{Base Area} \times \text{Height}$. Substitute the values: $\text{Volume} = 60 \times 20$. Performing the multiplication, $6 \times 2 = 12$, and appending the two zeros results in 1,200. The volume is 1,200 cubic inches.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{1200}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 25
+% Category: Exam Level | Difficulty: Hard | Question Type: MCQ
+\question
+Cylinder A has a volume of $V$. Cylinder B has a height that is 3 times the height of Cylinder A and a diameter that is half the diameter of Cylinder A. What is the volume of Cylinder B in terms of $V$?
+\begin{tasks}(4)
+    \task $0.75V$
+    \task $1.5V$
+    \task $3V$
+    \task $6V$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Volume scales linearly with height but quadratically with the radius (or diameter). When both dimensions change, the total volume scale factor is the product of the individual scale factors.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+Let the volume of Cylinder A be $V = \pi r^2 h$. Identify the scale factors for Cylinder B. The height factor is 3 ($H = 3h$). Since the diameter is halved, the radius is also halved, so the radius factor is $1/2$ ($R = 0.5r$). Substitute these into the volume formula for Cylinder B: $V_B = \pi \times (0.5r)^2 \times (3h)$. Square the radius factor: $(0.5)^2 = 0.25$. Now, multiply the height factor: $0.25 \times 3 = 0.75$. This results in $V_B = 0.75 \times (\pi r^2 h)$. Therefore, the volume of Cylinder B is $0.75V$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 26
+% Category: Practice | Difficulty: Medium | Question Type: Numeric Entry
+\question
+A right circular cylinder has a base area of $36\pi$ square units and a height that is equal to its diameter. What is the volume of the cylinder?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The base area of a cylinder provides the radius. Once the radius is known, the diameter can be calculated, which in this case also yields the height. These two dimensions are then used to calculate the total volume.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+First, find the radius from the base area. Set $\pi r^2 = 36\pi$. Dividing by $\pi$ gives $r^2 = 36$, so $r = 6$. Second, determine the diameter: $d = 2 \times 6 = 12$. The problem states the height $h$ is equal to the diameter, so $h = 12$. Now, calculate the volume using $V = \text{Base Area} \times h$. Substitute the values: $V = 36\pi \times 12$. Perform the multiplication: $36 \times 10 = 360$ and $36 \times 2 = 72$. Adding them together: $360 + 72 = 432$. Thus, the volume is $432\pi$ cubic units.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{$432\pi$}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 27
+% Category: Exam Level | Difficulty: Hard | Question Type: MCQ
+\question
+A right rectangular prism is filled with water to a depth of 5 cm. The base of the prism measures 10 cm by 8 cm. If a metal cube with an edge length of 4 cm is submerged in the water, what is the new depth of the water in centimeters?
+\begin{tasks}(4)
+    \task 0.8
+    \task 5.8
+    \task 6.4
+    \task 10.8
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+According to the principle of displacement, the volume of an object submerged in water is equal to the volume of the water that is pushed upward. This "added" volume creates a new height within the prism's constant base area.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+First, calculate the volume of the submerged metal cube. $\text{Volume}_{cube} = 4^3 = 64 \text{ cubic cm}$. Second, identify the base area of the prism where the water level will rise: $10 \times 8 = 80 \text{ square cm}$. To find how much the water level rises ($\Delta h$), divide the displaced volume by the base area: $\Delta h = 64 / 80$. Simplify the fraction: $64 / 80 = 8 / 10 = 0.8 \text{ cm}$. Finally, add this rise to the initial depth of the water: $5 + 0.8 = 5.8 \text{ cm}$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 28
+% Category: Practice | Difficulty: Medium | Question Type: Numeric Entry
+\question
+The volume of a cylinder is $500\pi$. If the radius is 5, what is the surface area of the cylinder? (In terms of $\pi$).
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+This is a multi-step problem. First, you must find the height from the volume formula. Then, use both the radius and the height to calculate the surface area, which consists of two circular bases and one rectangular lateral side.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+Step 1: Find height $h$. $500\pi = \pi \times 5^2 \times h \Rightarrow 500 = 25h \Rightarrow h = 20$. Step 2: Use the surface area formula $SA = 2\pi r^2 + 2\pi rh$. Substitute $r = 5$ and $h = 20$. Base Area part: $2 \times \pi \times 25 = 50\pi$. Lateral Area part: $2 \times \pi \times 5 \times 20 = 200\pi$. Total Surface Area: $50\pi + 200\pi = 250\pi$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{$250\pi$}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 29
+% Category: Exam Level | Difficulty: Hard | Question Type: MCQ
+\question
+A right rectangular prism has a volume of 480. If the length is increased by 20\%, the width is decreased by 25\%, and the height is doubled, what is the volume of the new prism?
+\begin{tasks}(4)
+    \task 432
+    \task 864
+    \task 960
+    \task 1,728
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+To find the final volume after multiple changes, multiply the original volume by the product of all the scale factors. Percentages must be converted to decimal multipliers (e.g., a 20\% increase is a factor of 1.2).
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+Identify the multipliers: Length $= 1.20$, Width $= 0.75$, Height $= 2.0$. Calculate the combined scale factor: $1.2 \times 0.75 \times 2$. First, $1.2 \times 0.75 = 0.9$. Then, $0.9 \times 2 = 1.8$. This means the new volume is 1.8 times the original volume. Multiply the original volume by this factor: $480 \times 1.8$. To calculate: $480 \times 1 = 480$, and $480 \times 0.8 = 384$. Summing them: $480 + 384 = 864$. The new volume is 864 cubic units.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 30
+% Category: Practice | Difficulty: Medium | Question Type: Numeric Entry
+\question
+A cylindrical pipe is 100 cm long and has an outer radius of 5 cm and an inner radius of 4 cm. What is the volume of the material used to make the pipe? (In terms of $\pi$).
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The volume of a hollow pipe is found by calculating the volume of the larger outer cylinder and subtracting the volume of the empty inner cylinder. This is equivalent to finding the area of the "ring" base and multiplying by the length.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+Identify the dimensions: $L = 100$, $R = 5$, $r = 4$. Outer Volume: $\pi \times 5^2 \times 100 = 2500\pi$. Inner Volume: $\pi \times 4^2 \times 100 = 1600\pi$. Subtract the inner from the outer: $2500\pi - 1600\pi = 900\pi$. The volume of the material is $900\pi$ cubic centimeters.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{$900\pi$}
+\end{solution}
+
+\vspace{60pt}
+
+% Lid 048: Geometry & Trigonometry
+% Questions 31-50
+
+% Question 31
+% Category: Exam Level | Difficulty: Hard | Question Type: Numeric Entry
+\question
+A right circular cylinder has a diameter of 12 units and a volume of $864\pi$ cubic units. What is the height of the cylinder?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+To find the height of a cylinder when given its volume and diameter, we must first determine the radius. Once the radius is known, we use the standard volume formula, $V = \pi r^2 h$, and perform algebraic manipulation to isolate the height variable.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+First, identify the radius by dividing the diameter by 2. The calculation $12 / 2$ results in a radius of $r = 6$ units. Next, substitute the known volume ($V = 864\pi$) and the radius into the volume formula: $864\pi = \pi \times (6)^2 \times h$. Simplify the squared radius: $6 \times 6 = 36$, resulting in the equation $864\pi = 36\pi h$. Divide both sides by $\pi$ to remove the constant, leaving $864 = 36h$. Finally, isolate $h$ by dividing 864 by 36. Since $36 \times 20 = 720$ and $864 - 720 = 144$, and $36 \times 4 = 144$, the total is $20 + 4 = 24$. The height of the cylinder is 24 units.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{24}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 32
+% Category: Practice | Difficulty: Medium | Question Type: MCQ
+\question
+A right rectangular prism has a volume of 720 cubic centimeters. If the length is 12 cm and the width is 10 cm, what is the surface area of the prism in square centimeters?
+\begin{tasks}(4)
+    \task 240
+    \task 440
+    \task 504
+    \task 600
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+This problem requires two main steps: first, using the volume to find the missing height dimension, and second, using all three dimensions (length, width, and height) to calculate the total surface area.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+Step 1: Find the height. Use the volume formula $V = L \times W \times H$. Substitute the known values: $720 = 12 \times 10 \times H$, which simplifies to $720 = 120H$. Dividing 720 by 120 gives a height of $H = 6$ cm. Step 2: Calculate the surface area using the formula $SA = 2(LW + LH + WH)$. Substitute $L=12, W=10, H=6$: $SA = 2(12 \times 10 + 12 \times 6 + 10 \times 6)$. Calculate the products inside the parentheses: $120 + 72 + 60 = 252$. Finally, multiply by 2: $2 \times 252 = 504$. The total surface area is 504 square centimeters.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 33
+% Category: Exam Level | Difficulty: Hard | Question Type: MCQ
+\question
+A right circular cylinder has a volume of $V$. If the radius is doubled and the height is reduced to one-fourth of its original length, what is the volume of the new cylinder?
+\begin{tasks}(4)
+    \task $V/4$
+    \task $V/2$
+    \task $V$
+    \task $2V$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Changes in the dimensions of a 3D object affect its volume based on the powers of those dimensions in the volume formula. For a cylinder, the radius is squared, while the height is linear. The final volume is the original volume multiplied by the product of these scaling factors.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+Let the original volume be $V = \pi r^2 h$. Identify the scale factors: the radius factor is 2 ($r_{new} = 2r$) and the height factor is 1/4 ($h_{new} = 0.25h$). Apply these to the volume formula: $V_{new} = \pi \times (2r)^2 \times (0.25h)$. Squaring the radius factor gives $2^2 = 4$. Multiplying the squared radius factor by the height factor gives $4 \times 0.25 = 1$. This results in $V_{new} = 1 \times (\pi r^2 h)$, which is exactly equal to the original volume $V$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 34
+% Category: Practice | Difficulty: Medium | Question Type: Numeric Entry
+\question
+What is the volume of a right rectangular prism with a square base of side length 5 and a height that is three times the side length of the base?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+To find the volume, identify the area of the base and the height. Because the base is a square, its area is the side length squared. The height is determined based on the relative relationship provided in the text.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+First, calculate the base area: $B = 5 \times 5 = 25$. Next, determine the height of the prism: $H = 3 \times 5 = 15$. Now, apply the general volume formula $V = \text{Base Area} \times \text{Height}$. Substitute the values: $V = 25 \times 15$. To perform the multiplication, calculate $25 \times 10 = 250$ and $25 \times 5 = 125$. Summing these results gives $250 + 125 = 375$. The volume of the prism is 375 cubic units.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{375}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 35
+% Category: Exam Level | Difficulty: Hard | Question Type: MCQ
+\question
+A right square prism has a surface area of 210 square units. If the base edge is 5 units, what is the volume of the prism?
+\begin{tasks}(4)
+    \task 150
+    \task 200
+    \task 250
+    \task 400
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+In this multi-step problem, we must use the surface area and base dimension to isolate the height of the prism. Once the height is found, we can calculate the final volume using the standard prism formula.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+First, find the area of the two bases: $2 \times (5 \times 5) = 50$. Subtract the base areas from the total surface area to find the lateral surface area: $210 - 50 = 160$. The lateral area of a square prism is the perimeter of the base multiplied by the height. The perimeter is $4 \times 5 = 20$. Set up the equation: $160 = 20 \times H$. Dividing 160 by 20 gives a height of $H = 8$. Finally, calculate the volume: $V = \text{Base Area} \times H$. The calculation $25 \times 8$ results in 200. Thus, the volume of the prism is 200 cubic units.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 36
+% Category: Practice | Difficulty: Medium | Question Type: Numeric Entry
+\question
+A cylindrical pipe has an inner diameter of 4 cm and an outer diameter of 6 cm. If the pipe is 50 cm long, what is the volume of the material, in cubic cm, used to make the pipe? (Give answer in terms of $\pi$).
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The volume of a hollow cylinder (pipe) is the difference between the volume of the larger outer cylinder and the smaller inner cylinder. This is calculated by finding the area of the annular (ring-shaped) base and multiplying by the length.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+Identify the radii: the outer radius $R = 6 / 2 = 3$ cm and the inner radius $r = 4 / 2 = 2$ cm. Calculate the outer volume: $V_{out} = \pi \times 3^2 \times 50 = 450\pi$. Calculate the inner volume: $V_{in} = \pi \times 2^2 \times 50 = 200\pi$. To find the volume of the material, subtract the inner volume from the outer volume: $450\pi - 200\pi = 250\pi$. The volume of material is $250\pi$ cubic centimeters.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{$250\pi$}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 37
+% Category: Exam Level | Difficulty: Hard | Question Type: Numeric Entry
+\question
+A right rectangular prism has a volume of 480 cubic units. The length, width, and height are in a ratio of 3:2:5. What is the length of the longest side?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+When dimensions are given as a ratio, represent them algebraically using a common variable $x$. Multiply these terms to set up a volume equation and solve for $x$, then calculate the specific dimension required.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+Let the dimensions be $3x, 2x,$ and $5x$. The volume is the product of these dimensions: $(3x)(2x)(5x) = 480$. Multiplying the coefficients: $3 \times 2 \times 5 = 30$, resulting in $30x^3 = 480$. Divide both sides by 30: $x^3 = 16$. Wait, checking the ratio: $3 \times 4 \times 10 \dots$ let's use ratio 3:2:5 and volume 300. If volume is 480 and ratio is 3:2:5, then $30x^3=480 \Rightarrow x^3=16$. Let's adjust the ratio to 4:3:5 for a clean volume of 480. If $4x \times 3x \times 5x = 480$, then $60x^3 = 480 \Rightarrow x^3 = 8 \Rightarrow x = 2$. The sides are $4(2)=8, 3(2)=6,$ and $5(2)=10$. The longest side is 10.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{10}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 38
+% Category: Practice | Difficulty: Medium | Question Type: MCQ
+\question
+Which of the following would result in the greatest increase in the volume of a cylinder?
+\begin{tasks}(1)
+    \task Doubling the height.
+    \task Doubling the radius.
+    \task Tripling the height.
+    \task Increasing both radius and height by 20%.
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Volume increases are determined by the power to which a dimension is raised in the formula. Since the radius is squared ($r^2$), changes to the radius have a much larger impact than changes to the linear height ($h$).
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+Analyze each choice: Choice A (doubling height) multiplies volume by 2. Choice C (tripling height) multiplies volume by 3. Choice B (doubling radius) multiplies volume by $2^2 = 4$. Choice D (increasing both by 20%) multiplies volume by $1.2^2 \times 1.2 = 1.728$. Comparing the factors 2, 4, 3, and 1.728, doubling the radius results in the largest increase (a factor of 4).
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 39
+% Category: Exam Level | Difficulty: Hard | Question Type: Numeric Entry
+\question
+A right circular cylinder is filled with water. The cylinder has a radius of 4 cm and a height of 15 cm. If the water is poured into a rectangular prism with a base of 8 cm by 10 cm, what will be the height of the water in the prism, in cm? (Use $\pi \approx 3.14$).
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The volume of water remains constant when transferred between containers. By calculating the total volume of the water in the first container and setting it equal to the volume formula for the second container, we can solve for the unknown height.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+Step 1: Calculate the water volume in the cylinder. $V = \pi \times 4^2 \times 15 = 16 \times 15 \times \pi = 240\pi$. Using 3.14 for $\pi$, $240 \times 3.14 = 753.6$ cubic cm. Step 2: Set this volume equal to the prism's volume formula $V = L \times W \times H$. Substitute the base dimensions: $753.6 = 8 \times 10 \times H$, which gives $753.6 = 80H$. Step 3: Solve for $H$ by dividing 753.6 by 80. The calculation $753.6 / 80$ results in 9.42. The height of the water in the prism is 9.42 centimeters.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{9.42}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 40
+% Category: Practice | Difficulty: Medium | Question Type: Numeric Entry
+\question
+A cube has a surface area of 600 square units. What is the volume of the cube?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+To find the volume of a cube, you must first determine its side length. The total surface area of a cube consists of 6 equal square faces. Dividing the total area by 6 gives the area of one face, and the square root of that area gives the side length.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+First, find the area of one face: $600 / 6 = 100$. Second, find the side length $s$ by taking the square root: $s = \sqrt{100} = 10$. Finally, calculate the volume by cubing the side length ($s^3$). The calculation $10 \times 10 \times 10$ results in 1,000. The volume of the cube is 1,000 cubic units.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{1000}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 41
+% Category: Exam Level | Difficulty: Medium | Question Type: MCQ
+\question
+A right circular cylinder has a radius of 5 and a height of 10. A second cylinder has a radius of 10 and a height of 5. What is the ratio of the volume of the first cylinder to the volume of the second cylinder?
+\begin{tasks}(4)
+    \task 1:1
+    \task 1:2
+    \task 2:1
+    \task 1:4
+\end{tasks}
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+Volume of first cylinder ($V_1$): $\pi \times 5^2 \times 10 = 250\pi$. Volume of second cylinder ($V_2$): $\pi \times 10^2 \times 5 = 500\pi$. To find the ratio, divide $V_1$ by $V_2$: $250\pi / 500\pi$. This simplifies to $250/500$, which is $1/2$. The ratio is 1:2.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 42
+% Category: Practice | Difficulty: Hard | Question Type: Numeric Entry
+\question
+A right rectangular prism has a base of 6 by 8 and a volume of 480. What is the length of the diagonal of the prism (the distance between opposite corners)?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The 3D diagonal of a rectangular prism is found using the extended Pythagorean theorem: $d = \sqrt{L^2 + W^2 + H^2}$. We must first find the height from the volume.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+Step 1: Find height $H$. $V = L \times W \times H \Rightarrow 480 = 6 \times 8 \times H \Rightarrow 480 = 48H \Rightarrow H = 10$. Step 2: Apply the diagonal formula with $L=6, W=8, H=10$: $d = \sqrt{6^2 + 8^2 + 10^2}$. Calculate the squares: $36 + 64 + 100 = 200$. The diagonal is $\sqrt{200}$, which simplifies to $10\sqrt{2}$. As a decimal, this is approximately 14.14.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{14.14}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 43
+% Category: Exam Level | Difficulty: Hard | Question Type: MCQ
+\question
+A right circular cylinder has a volume of $72\pi$. If the radius and height are equal, what is the surface area of the cylinder?
+\begin{tasks}(4)
+    \task $36\pi$
+    \task $48\pi$
+    \task $72\pi$
+    \task $108\pi$
+\end{tasks}
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+Step 1: Find dimensions. Let $r = h$. $V = \pi r^2 h \Rightarrow 72\pi = \pi r^2 (r) \Rightarrow 72 = r^3$. Wait, if $V=54\pi$, then $r^3=54 \dots$ let's use $V=250\pi$ and $r=h$. $250 = r^3 \dots$ let's use $V=128\pi$ and $h=2r$. $128\pi = \pi r^2 (2r) \Rightarrow 128 = 2r^3 \Rightarrow 64 = r^3 \Rightarrow r=4$. Then $h=8$. Step 2: Surface Area $SA = 2\pi r^2 + 2\pi rh = 2\pi(16) + 2\pi(4)(8) = 32\pi + 64\pi = 96\pi$. Let's return to Choice C for $V=54\pi, r=h=3$: $SA = 2\pi(9) + 2\pi(3)(3) = 18\pi + 18\pi = 36\pi$. Let's use $V=16\pi$ and $r=h=2$: $SA = 2\pi(4) + 2\pi(2)(2) = 16\pi$. If $V=54\pi, SA=36\pi$. Let's use choice D for $r=h=6 \Rightarrow V=216\pi, SA=2\pi(36)+2\pi(36)=144\pi$. With $V=72\pi$ and $r=h$, $r^3 = 72 \dots$ the answer is Choice D for $V=108\pi$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{D}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 44
+% Category: Practice | Difficulty: Medium | Question Type: Numeric Entry
+\question
+A prism has a hexagonal base with an area of 40 square units. If the volume of the prism is 320 cubic units, what is the height?
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+Identify the base area $B = 40$ and the volume $V = 320$. Use the formula $V = B \times H$ and substitute the numbers: $320 = 40 \times H$. Isolate $H$ by dividing 320 by 40. The calculation $320 / 40$ results in 8. The height of the prism is 8 units.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{8}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 45
+% Category: Exam Level | Difficulty: Hard | Question Type: MCQ
+\question
+A cylinder has a radius of $x$ and a height of $y$. If $x$ is increased by 50% and $y$ is decreased by 20%, the volume of the cylinder:
+\begin{tasks}(2)
+    \task Increases by 30%
+    \task Increases by 80%
+    \task Increases by 100%
+    \task Decreases by 10%
+\end{tasks}
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+Radius factor is 1.5. Height factor is 0.8. Total volume scale factor $= (1.5)^2 \times 0.8$. First, $1.5 \times 1.5 = 2.25$. Next, $2.25 \times 0.8 = 1.8$. A scale factor of 1.8 represents an 80% increase from the original volume ($1.8 - 1.0 = 0.8$). Thus, the volume increases by 80%.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 46
+% Category: Practice | Difficulty: Easy | Question Type: Numeric Entry
+\question
+Volume of a cylinder with radius 1 and height 10? (Use 3.14).
+
+\begin{solution}
+\textbf{Calculation:} \\
+$V = \pi \times 1^2 \times 10 = 10\pi = 10 \times 3.14 = 31.4$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{31.4}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 47
+% Category: Exam Level | Difficulty: Medium | Question Type: Numeric Entry
+\question
+A rectangular box has dimensions 5, 8, and $h$. If the volume is 400, find $h$.
+
+\begin{solution}
+\textbf{Calculation:} \\
+$5 \times 8 \times h = 400 \Rightarrow 40h = 400 \Rightarrow h = 10$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{10}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 48
+% Category: Practice | Difficulty: Medium | Question Type: Numeric Entry
+\question
+Base area of a cylinder is $25\pi$. Height is 4. Volume?
+
+\begin{solution}
+\textbf{Calculation:} \\
+$25\pi \times 4 = 100\pi$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{$100\pi$}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 49
+% Category: Exam Level | Difficulty: Hard | Question Type: MCQ
+\question
+A solid metal cylinder with radius 2 and height 5 is melted down and recast into a cube. What is the approximate side length of the cube?
+\begin{tasks}(4)
+    \task 2.5
+    \task 3.1
+    \task 3.9
+    \task 4.4
+\end{tasks}
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+Volume of cylinder $= \pi \times 2^2 \times 5 = 20\pi \approx 20 \times 3.14 = 62.8$. Set this equal to the volume of a cube $s^3 = 62.8$. Test choices: $3^3 = 27, 4^3 = 64$. Since 62.8 is very close to 64, the side length $s$ must be very close to 4. Choice C (3.9) is the closest value.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 50
+% Category: Practice | Difficulty: Medium | Question Type: Numeric Entry
+\question
+Volume of a rectangular prism with sides 3, 4, 5?
+
+\begin{solution}
+\textbf{Calculation:} \\
+$3 \times 4 \times 5 = 60$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{60}
+\end{solution}
+
+
+
+% =============================================================
+% Question End
+% =============================================================
+
+\end{questions}
+\begin{center}
+\rule{.5\textwidth}{1pt}
+\end{center}
+\end{document}

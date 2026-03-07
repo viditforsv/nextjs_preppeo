@@ -1,0 +1,1142 @@
+\documentclass[11pt,paper=a4,answers]{exam}
+\usepackage{graphicx,lastpage}
+\usepackage{upgreek}
+\usepackage{censor}
+\usepackage{gensymb}
+\usepackage{amsmath}
+\usepackage{multicol}
+\usepackage{enumitem}
+\usepackage{tasks}
+\usepackage{adjustbox}
+\usepackage{xcolor}
+\usepackage{tfrupee}
+\setlength{\voffset}{0.25in}
+\usepackage{tabularx}
+\newcolumntype{Y}{>{\centering\arraybackslash}X}
+%==============================================================
+% Customise Non-Essential Packages Below
+% =============================================================
+\usepackage[most]{tcolorbox}
+\usepackage{eso-pic}
+\usepackage{tikz}
+\AddToShipoutPictureBG{%
+\begin{tikzpicture}[remember picture,overlay]
+\foreach \x in {-8,-4,0,4,8,12,16,20}
+\foreach \y in {-8,-4,0,4,8,12,16,20} {
+\node[opacity=0.05,rotate=45,anchor=center] at ([xshift=\x cm,yshift=\y cm]current page.center) {%
+\begin{minipage}{2cm}
+\centering
+\includegraphics[width=2cm]{images/logo_black.png}\\
+\small preppeo.com
+\end{minipage}%
+};
+}
+\end{tikzpicture}%
+}
+\printanswers
+
+%==============================================================
+% Customise Non-Essential Packages Above
+% =============================================================
+\definecolor{svgray}{rgb}{0.90, 0.90, 0.90}
+\graphicspath{{images/}}
+
+\usepackage[normalem]{ulem}
+\renewcommand\ULthickness{1pt}   %%---> For changing thickness of underline
+\setlength\ULdepth{3.5ex}%\maxdimen ---> For changing depth of underline
+\renewcommand{\baselinestretch}{1}
+\chead{
+\includegraphics[scale=0.1,height=2cm ]{logo.png}
+}
+\pagestyle{empty}
+
+\pagestyle{headandfoot}
+\headrule
+\cfoot{W: https://preppeo.com; M: +91-8130711689}
+
+\begin{document}
+%==============================================================
+% Customise Question paper details below this
+% =============================================================
+\begin{center}
+    \centering
+    \renewcommand{\arraystretch}{1.5}
+    \begin{tabularx}{\textwidth}{YYY}
+    & \normalsize\bf{{\Large{{Quantitative Reasoning}}}} & \\
+    By Preppeo & \normalsize\bf{{sat\_lid\_041}} & SAT\\
+    \normalsize{{\textbf{{Unit:}} Inference}} & \normalsize{{\textbf{{Chapter:}} Inference from samples, margin of error}} & \normalsize{{\textbf{{Topic:}} Margin of Error \& Confidence}} \\
+    \end{tabularx}
+\end{center}
+\par\noindent\rule{\textwidth}{1pt}
+% =============================================================
+% Customise Question paper details above this
+% =============================================================
+
+\begin{questions}
+\pointsinrightmargin
+\pointsdroppedatright
+\marksnotpoints
+\pointpoints{mark}{marks}
+\pointformat{\boldmath\themarginpoints}
+\bracketedpoints
+
+% =============================================================
+% Question Begin
+% =============================================================
+
+% Lid 041: Problem-Solving & Data Analysis
+% Topic: Inference: Margin of Error & Confidence Intervals
+
+% Question 1
+% Category: Exam Level | Difficulty: Medium | Question Type: MCQ
+\question
+Based on a random sample from a population, a researcher estimated that the mean value of a certain variable for the population is 20.5, with an associated margin of error of 1. Which of the following is the most appropriate conclusion?
+\begin{tasks}(1)
+    \task It is plausible that the actual mean value of the variable for the population is between 19.5 and 21.5.
+    \task It is not possible that the mean value of the variable for the population is less than 19.5 or greater than 21.5.
+    \task Every value of the variable in the population is between 19.5 and 21.5.
+    \task The mean value of the variable for the population is 20.5.
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The margin of error defines a confidence interval—a range of values within which the true population parameter (like a mean or proportion) is likely to fall. It does not provide absolute certainty or describe individual data points.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+Lower bound: $20.5 - 1 = 19.5$. Upper bound: $20.5 + 1 = 21.5$. The interval [19.5, 21.5] represents the range of plausible values for the true population mean. Choice B is too strong because "not possible" ignores the nature of statistical probability. Choice C is incorrect because the interval describes the \textit{mean} of the population, not every individual \textit{value} in it. Choice D is incorrect because the sample mean is just an estimate, not necessarily the exact population mean.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 2
+% Category: Exam Level | Difficulty: Medium | Question Type: MCQ
+\question
+To estimate the proportion of a population that has a certain characteristic, a random sample was selected from the population. Based on the sample, it is estimated that the proportion of the population that has the characteristic is 0.49, with an associated margin of error of 0.04. Based on this estimate and margin of error, which of the following is the most appropriate conclusion about the proportion of the population that has the characteristic?
+\begin{tasks}(1)
+    \task It is plausible that the proportion is between 0.45 and 0.53.
+    \task It is plausible that the proportion is less than 0.45.
+    \task The proportion is exactly 0.49.
+    \task It is plausible that the proportion is greater than 0.53.
+\end{tasks}
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+Lower bound calculation: $0.49 - 0.04 = 0.45$. Upper bound calculation: $0.49 + 0.04 = 0.53$. The resulting interval is 0.45 to 0.53. This range contains the values that are statistically plausible for the actual population proportion.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 3
+% Category: Practice | Difficulty: Easy | Question Type: MCQ
+\question
+In a study, the data from a random sample of a population had a mean of 37, with an associated margin of error of 3. Which of the following is the most appropriate conclusion that can be made about the population mean?
+\begin{tasks}(1)
+    \task It is less than 37.
+    \task It is greater than 37.
+    \task It is between 34 and 40.
+    \task It is less than 34 or greater than 40.
+\end{tasks}
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+Confidence Interval = Estimate $\pm$ Margin of Error. $37 - 3 = 34$ and $37 + 3 = 40$. The plausible values for the true population mean fall between 34 and 40.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 4
+% Category: Exam Level | Difficulty: Hard | Question Type: MCQ
+\question
+A company that produces socks wants to estimate the percent of the socks produced in a typical week that are defective. A random sample of 310 socks produced in a certain week were inspected. Based on the sample, it is estimated that 12\% of all socks produced by the company in this week are defective, with an associated margin of error of 3.62\%. Which of the following is the most appropriate conclusion about all socks produced by the company during this week?
+\begin{tasks}(1)
+    \task 3.62\% of the socks are defective.
+    \task It is plausible that between 8.38\% and 15.62\% of the socks are defective.
+    \task 12\% of the socks are defective.
+    \task It is plausible that more than 15.62\% of the socks are defective.
+\end{tasks}
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+Percentage range: $12\% - 3.62\% = 8.38\%$ and $12\% + 3.62\% = 15.62\%$. This range [8.38\%, 15.62\%] represents the set of plausible values for the actual percentage of defective socks in the entire weekly production.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 5
+% Category: Exam Level | Difficulty: Hard | Question Type: MCQ
+\question
+A bag containing 10,000 beads of assorted colors is purchased from a craft store. To estimate the percent of red beads in the bag, a sample of beads is selected at random. The percent of red beads in the bag was estimated to be 15\%, with an associated margin of error of 2\%. If $r$ is the actual number of red beads in the bag, which of the following is most plausible?
+\begin{tasks}(4)
+    \task $r > 1,700$
+    \task $1,300 < r < 1,700$
+    \task $200 < r < 1,500$
+    \task $r < 1,300$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+To move from a percentage interval to a population count, apply the lower and upper bounds of the percentage range to the total population size.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+Percentage bounds: $15\% \pm 2\% = [13\%, 17\%]$. Calculate the count for 10,000 beads: $0.13 \times 10,000 = 1,300$ and $0.17 \times 10,000 = 1,700$. Therefore, it is plausible that the actual number of red beads, $r$, falls between 1,300 and 1,700.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 6
+% Category: Practice | Difficulty: Medium | Question Type: MCQ
+\question
+\begin{center}
+\begin{tabular}{|c|c|c|}
+\hline
+Sample & Percent in favor & Margin of error \\ \hline
+A & 52\% & 4.2\% \\ \hline
+B & 48\% & 1.6\% \\ \hline
+\end{tabular}
+\end{center}
+The results of two random samples of votes for a proposition are shown above. Which of the following is the most appropriate reason that the margin of error for sample A is greater than the margin of error for sample B?
+\begin{tasks}(1)
+    \task Sample A had a smaller number of votes that could not be recorded.
+    \task Sample A had a higher percent of favorable responses.
+    \task Sample A had a larger sample size.
+    \task Sample A had a smaller sample size.
+\end{tasks}
+
+\begin{solution}
+\textbf{Logic:} \\
+The margin of error is inversely related to the sample size. As the number of participants ($n$) in a random sample increases, the estimate becomes more precise, causing the margin of error to decrease. Since Sample A has a much larger margin of error (4.2\%) compared to Sample B (1.6\%), it implies that Sample A had fewer respondents (a smaller sample size).
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{D}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 7
+% Category: Exam Level | Difficulty: Medium | Question Type: MCQ
+\question
+From a population of 50,000 people, 1,000 were chosen at random and surveyed. Based on the survey, it is estimated that 35\% support a piece of legislation, with a margin of error of 3\%. Which of the following is a plausible value for the total number of people in the population who support the legislation?
+\begin{tasks}(4)
+    \task 350
+    \task 650
+    \task 16,750
+    \task 31,750
+\end{tasks}
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+Percentage range: $35\% \pm 3\% = [32\%, 38\%]$. Apply these percentages to the population of 50,000: $0.32 \times 50,000 = 16,000$ and $0.38 \times 50,000 = 19,000$. A plausible value must fall within the range of 16,000 to 19,000. Among the choices, 16,750 is the only value in that range.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 8
+% Category: Practice | Difficulty: Easy | Question Type: MCQ
+\question
+A quality control manager inspected a random sample of 200 light bulbs and found that 4 were defective. If the factory produces 10,000 bulbs per day, what is the best estimate for the total number of defective bulbs?
+\begin{tasks}(4)
+    \task 20
+    \task 100
+    \task 200
+    \task 400
+\end{tasks}
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+Sample proportion: $4 / 200 = 0.02$. Population estimate: $0.02 \times 10,000 = 200$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 9
+% Category: Practice | Difficulty: Medium | Question Type: Numeric Entry
+\question
+A random sample of 500 residents of a town was surveyed, and 40\% reported that they exercise daily. If the associated margin of error is 5\%, what is the \textbf{maximum} plausible number of residents who exercise daily in a town of 8,000 people?
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+Max plausible percentage: $40\% + 5\% = 45\%$. Max plausible count: $0.45 \times 8,000 = 3,600$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{3600}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 10
+% Category: Concept | Difficulty: Medium | Question Type: MCQ
+\question
+If the sample size of a random survey is increased from 400 to 1,600, what will happen to the margin of error?
+\begin{tasks}(1)
+    \task It will be multiplied by 4.
+    \task It will be multiplied by 2.
+    \task It will be divided by 2.
+    \task It will be divided by 4.
+\end{tasks}
+
+\begin{solution}
+\textbf{Logic:} \\
+The margin of error is proportional to $1/\sqrt{n}$. The sample size increased by a factor of 4 ($1,600 / 400 = 4$). Therefore, the margin of error is divided by $\sqrt{4}$, which is 2.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 11
+% Category: Exam Level | Difficulty: Medium | Question Type: MCQ
+\question
+A survey of a random sample of 1,200 residents of a city found that 15\% of the respondents walk to work. The margin of error for this estimate is 2\%. Which of the following is the best interpretation of this margin of error?
+\begin{tasks}(1)
+    \task It is plausible that between 13\% and 17\% of all city residents walk to work.
+    \task Exactly 15\% of all city residents walk to work, but there is a 2\% chance the survey is wrong.
+    \task The researchers are 2\% sure that the actual percentage is 15\%.
+    \task Between 13\% and 17\% of the 1,200 residents surveyed walk to work.
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The margin of error defines the range around the sample estimate where the actual population parameter is likely to be found. It accounts for the variability inherent in using a sample instead of the entire population.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+Calculate the interval bounds: $15\% - 2\% = 13\%$ and $15\% + 2\% = 17\%$. This interval of 13\% to 17\% represents the set of plausible values for the percentage of the \textit{entire city population} that walks to work. Choice D is incorrect because we already know the exact data for the 1,200 people surveyed; the error only applies when making an inference about the larger population.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 12
+% Category: Practice | Difficulty: Medium | Question Type: MCQ
+\question
+A study was conducted to determine the average number of hours of sleep for high school students in a district. A random sample of 200 students from one high school in the district was surveyed. Which of the following limits the ability to generalize the results to all high school students in the district?
+\begin{tasks}(1)
+    \task The sample size was too small.
+    \task The sample was not random.
+    \task The sample was only taken from one school in the district.
+    \task Sleep habits cannot be measured accurately with a survey.
+\end{tasks}
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+To generalize results to a larger population (all students in the district), the sample must be representative of that entire population. Since the students were only selected from one specific school, students from other schools with different schedules or workloads were excluded. This geographic bias prevents the results from being applied to the whole district.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 13
+% Category: Exam Level | Difficulty: Medium | Question Type: MCQ
+\question
+A poll of 600 likely voters showed that 54\% intended to vote for Candidate A, with a margin of error of 4\%. What is the maximum percentage of likely voters that can be expected to vote for Candidate A based on this poll?
+\begin{tasks}(4)
+    \task 50\%
+    \task 54\%
+    \task 58\%
+    \task 62\%
+\end{tasks}
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+Upper bound calculation: $\text{Estimate} + \text{Margin of Error}$. $54\% + 4\% = 58\%$. The maximum plausible support for the candidate in the general population is 58\%.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 14
+% Category: Practice | Difficulty: Medium | Question Type: Numeric Entry
+\question
+A random sample of 400 trees in a forest of 5,000 trees was examined. It was found that 12\% of the trees in the sample were infected with a specific fungus. Based on this sample, how many trees in the entire forest are estimated to be infected?
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+Sample proportion in decimal form: $0.12$. Estimated total infected: $0.12 \times 5,000 = 600$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{600}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 15
+% Category: Exam Level | Difficulty: Hard | Question Type: MCQ
+\question
+A researcher interviewed 100 people who were leaving a fitness center and asked them how many days per week they exercise. The mean number of days was 4.5. Which of the following is true about this study?
+\begin{tasks}(1)
+    \task The mean of 4.5 is a reliable estimate for the exercise habits of all people in the city.
+    \task The mean of 4.5 is a reliable estimate for the exercise habits of all members of that fitness center.
+    \task The sample is biased because it only includes people who were at a fitness center.
+    \task The sample size is too small to make any conclusions.
+\end{tasks}
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+The target population is likely the general public, but by surveying only people at a gym, the researcher uses "convenience sampling." People leaving a gym are significantly more likely to exercise than the general population. Because the sample is not representative of all residents, the result is biased and cannot be generalized to the city.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 16
+% Category: Practice | Difficulty: Easy | Question Type: MCQ
+\question
+A larger sample size generally leads to which of the following?
+\begin{tasks}(1)
+    \task A larger margin of error
+    \task A smaller margin of error
+    \task A more biased result
+    \task No change in the margin of error
+\end{tasks}
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+The margin of error is calculated using the formula $z \times \sqrt{\frac{p(1-p)}{n}}$. Because the sample size $n$ is in the denominator, as $n$ increases, the overall value of the error decreases. Larger samples provide more precision.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 17
+% Category: Exam Level | Difficulty: Hard | Question Type: MCQ
+\question
+A quality control manager at a factory randomly selected 500 light bulbs from a day's production of 20,000 bulbs. In the sample, 3 bulbs were defective. Which of the following is the best estimate of the number of defective light bulbs in the day's production?
+\begin{tasks}(4)
+    \task 60
+    \task 120
+    \task 150
+    \task 300
+\end{tasks}
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+Sample proportion defective: $3 / 500 = 0.006$. Total production estimate: $0.006 \times 20,000 = 120$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{120}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 18
+% Category: Practice | Difficulty: Medium | Question Type: MCQ
+\question
+A biologist is studying the average weight of squirrels in a park. Which of the following squirrel samples is most likely to be representative?
+\begin{tasks}(1)
+    \task The first 10 squirrels found near a bird feeder in the morning.
+    \task 20 squirrels caught in various locations throughout the park at different times of the day.
+    \task 5 squirrels that appear to be the largest in the park.
+    \task 50 squirrels caught in a single trap located near the park entrance.
+\end{tasks}
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+Choice B is the most representative because it employs a randomized approach across both space (various locations) and time. Choice A is biased by location/food source; Choice C is biased by size; Choice D is biased by a single fixed location.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 19
+% Category: Exam Level | Difficulty: Hard | Question Type: MCQ
+\question
+An estimate for the percentage of students who favor a new school policy is 65\%, with a margin of error of 5\%. Which of the following percentages is NOT a plausible value for the true population proportion?
+\begin{tasks}(4)
+    \task 61\%
+    \task 64\%
+    \task 68\%
+    \task 72\%
+\end{tasks}
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+Plausible range: $65\% - 5\% = 60\%$ to $65\% + 5\% = 70\%$. Any percentage within [60\%, 70\%] is plausible. $72\%$ is outside this range.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{D}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 20
+% Category: Practice | Difficulty: Medium | Question Type: Numeric Entry
+\question
+In a random sample of 250 students, 40 reported that they play a musical instrument. If there are 2,000 students in the school, how many are estimated to play a musical instrument?
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+Sample proportion: $40 / 250 = 0.16$. Estimate for school: $0.16 \times 2,000 = 320$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{320}
+\end{solution}
+
+% Lid 041: Problem-Solving & Data Analysis
+% Questions 21-50
+
+% Question 21
+% Category: Exam Level | Difficulty: Hard | Question Type: MCQ
+\question
+A city council wants to estimate the proportion of residents who support a new park. A random sample of 800 residents was surveyed, and 62% expressed support, with an associated margin of error of 3.5%. Which of the following is the most plausible range for the number of supporters in the city's population of 120,000?
+\begin{tasks}(4)
+    \task 70,200 to 78,600
+    \task 74,400 to 78,600
+    \task 70,200 to 74,400
+    \task 62,000 to 120,000
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+To determine the plausible range for a total count, calculate the lower and upper bounds of the confidence interval percentage and multiply them by the total population size.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+Lower bound percentage: $62\% - 3.5\% = 58.5\%$. Upper bound percentage: $62\% + 3.5\% = 65.5\%$. Apply to population: $120,000 \times 0.585 = 70,200$ and $120,000 \times 0.655 = 78,600$. The plausible number of supporters is between 70,200 and 78,600.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 22
+% Category: Practice | Difficulty: Medium | Question Type: Numeric Entry
+\question
+A random sample of 40 students from a school of 600 students was asked if they own a tablet. If 10 students in the sample responded "yes," what is the best estimate for the total number of students in the school who own a tablet?
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+Sample proportion: $10 / 40 = 0.25$. Population estimate: $600 \times 0.25 = 150$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{150}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 23
+% Category: Exam Level | Difficulty: Hard | Question Type: MCQ
+\question
+A scientist surveyed 1,000 people and estimated that 28% of a population has a specific allergy, with a margin of error of 2.4%. If the scientist wants to reduce the margin of error to 1.2%, what should the new sample size be?
+\begin{tasks}(4)
+    \task 2,000
+    \task 4,000
+    \task 8,000
+    \task 10,000
+\end{tasks}
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+The scientist wants to cut the margin of error in half ($1/2$). The margin of error is proportional to $1/\sqrt{n}$. To divide the error by 2, the sample size must be multiplied by $2^2 = 4$. New sample size: $1,000 \times 4 = 4,000$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 24
+% Category: Practice | Difficulty: Medium | Question Type: Numeric Entry
+\question
+A survey of 500 car owners found that the mean annual maintenance cost is \$450, with a margin of error of \$25. What is the \textbf{minimum} plausible mean annual maintenance cost for the population of all car owners?
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+Lower bound: $450 - 25 = 425$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{425}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 25
+% Category: Concept | Difficulty: Medium | Question Type: MCQ
+\question
+Which of the following is true about a margin of error?
+\begin{tasks}(1)
+    \task It represents the percentage of the sample that was calculated incorrectly.
+    \task It is a range within which the actual population mean is likely to fall.
+    \task It identifies the exact value of the population mean.
+    \task It describes the difference between the largest and smallest values in the sample.
+\end{tasks}
+
+\begin{solution}
+\textbf{Logic:} \\
+The margin of error expresses the degree of uncertainty in a sample-based estimate. It defines an interval around the sample mean (or proportion) where the true population parameter is expected to be found. 
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 26
+% Category: Exam Level | Difficulty: Hard | Question Type: MCQ
+\question
+A factory produces 50,000 units per month. A random sample of 1,000 units found that 1.5% were defective, with a margin of error of 0.4%. What is the \textbf{maximum} plausible number of defective units produced in a month?
+\begin{tasks}(4)
+    \task 550
+    \task 750
+    \task 950
+    \task 1,250
+\end{tasks}
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+Maximum plausible percentage: $1.5\% + 0.4\% = 1.9\%$. Decimal form: $0.019$. Max count: $50,000 \times 0.019 = 950$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 27
+% Category: Practice | Difficulty: Medium | Question Type: MCQ
+\question
+An environmental study of 250 lakes found that 12% had high acidity levels. If the margin of error is 3%, which of the following is a plausible acidity percentage for all lakes in the region?
+\begin{tasks}(4)
+    \task 8%
+    \task 11%
+    \task 16%
+    \task 20%
+\end{tasks}
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+Confidence interval: $12\% \pm 3\% = [9\%, 15\%]$. A plausible value must be in this range. 11% is the only choice that fits.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 28
+% Category: Exam Level | Difficulty: Medium | Question Type: Numeric Entry
+\question
+A random sample of 150 employees at a company of 1,200 found that 80% prefer a four-day work week. How many employees in the entire company are estimated to prefer a four-day work week?
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+$1,200 \times 0.80 = 960$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{960}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 29
+% Category: Concept | Difficulty: Medium | Question Type: MCQ
+\question
+If the sample size is multiplied by 9, the margin of error will most likely:
+\begin{tasks}(1)
+    \task Be multiplied by 9.
+    \task Be multiplied by 3.
+    \task Be divided by 3.
+    \task Be divided by 9.
+\end{tasks}
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+Error is proportional to $1/\sqrt{n}$. If $n$ becomes $9n$, the error becomes $1/\sqrt{9} = 1/3$ of its original value.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 30
+% Category: Exam Level | Difficulty: Hard | Question Type: MCQ
+\question
+A national poll found that 45% of respondents favor a new policy, with a margin of error of 2.1%. If the poll is representative of 250 million people, what is the best estimate for the difference between the maximum and minimum plausible number of people who favor the policy?
+\begin{tasks}(4)
+    \task 5.25 million
+    \task 10.5 million
+    \task 112.5 million
+    \task 239.5 million
+\end{tasks}
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+The difference between the max and min bound is equal to $2 \times \text{Margin of Error}$. Total range width in percentage: $2 \times 2.1\% = 4.2\%$. Total range width in population: $250,000,000 \times 0.042 = 10,500,000$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 31
+% Category: Practice | Difficulty: Easy | Question Type: Numeric Entry
+\question
+In a random sample of 200 light bulbs, 6 were found to be broken. What percentage of the sample was broken?
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+$6 / 200 = 3 / 100 = 3\%$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{3}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 32
+% Category: Exam Level | Difficulty: Hard | Question Type: MCQ
+\question
+A scientist estimated that the population of a certain bird species is 4,500 with a margin of error of 400. If a second study with a larger sample size has a margin of error of 200, which is most likely the width of the new confidence interval?
+\begin{tasks}(4)
+    \task 200
+    \task 400
+    \task 800
+    \task 4,500
+\end{tasks}
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+Width of interval = $2 \times \text{Margin of Error}$. For the new study: $2 \times 200 = 400$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 33
+% Category: Practice | Difficulty: Medium | Question Type: Numeric Entry
+\question
+If 18% of a population of 5,000 has a certain trait, how many individuals have that trait?
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+$5,000 \times 0.18 = 900$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{900}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 34
+% Category: Exam Level | Difficulty: Hard | Question Type: MCQ
+\question
+A study found that 52% of a sample of 400 high school students play video games daily, with a margin of error of 5%. Which statement is most accurate?
+\begin{tasks}(1)
+    \task 5% of the students do not play video games.
+    \task Exactly 208 students in the school play video games.
+    \task It is plausible that between 47% and 57% of all high school students play video games daily.
+    \task The margin of error would increase if the sample size were increased to 1,000.
+\end{tasks}
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+Range calculation: $52\% \pm 5\% = [47\%, 57\%]$. This interval describes the plausible values for the entire population. Choice C is a standard interpretation of a confidence interval.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 35
+% Category: Practice | Difficulty: Easy | Question Type: MCQ
+\question
+A survey of 100 people is less likely to be representative than a survey of 1,000 people because:
+\begin{tasks}(1)
+    \task 100 is an even number.
+    \task Smaller samples usually have larger margins of error.
+    \task Larger samples are more expensive.
+    \task Smaller samples are always biased.
+\end{tasks}
+
+\begin{solution}
+\textbf{Logic:} \\
+Sample size directly affects precision. A larger sample reduces the variability of the estimate, leading to a smaller margin of error and a result that is likely closer to the true population value.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 36
+% Category: Exam Level | Difficulty: Medium | Question Type: Numeric Entry
+\question
+A random sample of 50 people showed that 12% are left-handed. If there are 2,500 people in the town, how many are estimated to be left-handed?
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+$2,500 \times 0.12 = 300$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{300}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 37
+% Category: Exam Level | Difficulty: Hard | Question Type: MCQ
+\question
+A pollster wants to estimate a proportion with a margin of error of no more than 2%. If a previous survey with 400 people had an error of 5%, what is the minimum number of people they should survey now?
+\begin{tasks}(4)
+    \task 1,000
+    \task 1,600
+    \task 2,500
+    \task 4,000
+\end{tasks}
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+Ratio of required error change: $2/5 = 0.4$. Since Error $\propto 1/\sqrt{n}$, then $n \propto 1/\text{Error}^2$. Factor for $n$: $1 / 0.4^2 = 1 / 0.16 = 6.25$. New sample size: $400 \times 6.25 = 2,500$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 38
+% Category: Practice | Difficulty: Medium | Question Type: Numeric Entry
+\question
+A random sample of 500 voters showed that 55% support a candidate. If the margin of error is 4%, what is the \textbf{maximum} plausible percentage of support?
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+$55\% + 4\% = 59\%$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{59}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 39
+% Category: Exam Level | Difficulty: Hard | Question Type: MCQ
+\question
+An estimate of 30% has a margin of error of 5%. If the total population is 10,000, which of the following represents the width of the plausible population count interval?
+\begin{tasks}(4)
+    \task 500
+    \task 1,000
+    \task 3,000
+    \task 5,000
+\end{tasks}
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+Percentage width = $2 \times 5\% = 10\%$. Population width: $10,000 \times 0.10 = 1,000$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 40
+% Category: Practice | Difficulty: Easy | Question Type: MCQ
+\question
+A confidence interval of [20, 30] for a population mean implies that:
+\begin{tasks}(1)
+    \task The sample mean was 25.
+    \task The margin of error was 10.
+    \task Every value in the population is between 20 and 30.
+    \task There are exactly 50 people in the sample.
+\end{tasks}
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+The estimate (sample mean) is the midpoint of the interval: $(20 + 30) / 2 = 25$. 
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 41
+% Category: Exam Level | Difficulty: Medium | Question Type: Numeric Entry
+\question
+A random sample of 60 items found that 5 were defective. If the total batch is 1,200 items, how many are estimated to be defective?
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+Sample proportion: $5 / 60 = 1 / 12$. Batch estimate: $1,200 \times (1 / 12) = 100$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{100}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 42
+% Category: Exam Level | Difficulty: Hard | Question Type: MCQ
+\question
+A surveyor found that 35% of a random sample of 1,000 residents walk to work, with a margin of error of 3%. Which of the following would \textbf{decrease} the width of the confidence interval?
+\begin{tasks}(1)
+    \task Increasing the population size.
+    \task Increasing the sample size.
+    \task Increasing the margin of error.
+    \task Selecting a non-random sample.
+\end{tasks}
+
+\begin{solution}
+\textbf{Logic:} \\
+The width of the interval is $2 \times \text{Margin of Error}$. To decrease the width, you must decrease the margin of error. Increasing the sample size $n$ is the standard way to reduce error and increase precision.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 43
+% Category: Practice | Difficulty: Medium | Question Type: Numeric Entry
+\question
+A random sample of 250 birds was caught, and 40 were found to be females. What percentage of the sample was female?
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+$40 / 250 = 4 / 25 = 16 / 100 = 16\%$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{16}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 44
+% Category: Exam Level | Difficulty: Hard | Question Type: MCQ
+\question
+A population has 10,000 individuals. A sample estimate is 15% with a margin of error of 2%. What is the \textbf{minimum} plausible count of individuals in the population sharing the trait?
+\begin{tasks}(4)
+    \task 130
+    \task 1,300
+    \task 1,500
+    \task 1,700
+\end{tasks}
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+Lower bound percentage: $15\% - 2\% = 13\%$. Lower bound count: $10,000 \times 0.13 = 1,300$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 45
+% Category: Practice | Difficulty: Easy | Question Type: MCQ
+\question
+A margin of error of 0% is only possible if:
+\begin{tasks}(1)
+    \task The sample size is 1,000.
+    \task The population size is 1,000.
+    \task The entire population is surveyed (a census).
+    \task The sample is perfectly random.
+\end{tasks}
+
+\begin{solution}
+\textbf{Logic:} \\
+As long as you are using a sample (a subset), there is inherent variability and uncertainty. A margin of error only disappears when the entire population is measured, as there is no longer an "estimate"—the value is exact.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 46
+% Category: Exam Level | Difficulty: Medium | Question Type: Numeric Entry
+\question
+A random sample of 800 people showed that 12% speak more than two languages. If the margin of error is 2.5%, what is the \textbf{maximum} plausible percentage for the population?
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+$12\% + 2.5\% = 14.5\%$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{14.5}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 47
+% Category: Exam Level | Difficulty: Hard | Question Type: MCQ
+\question
+A survey of 1,000 people has a margin of error of 3%. What will the margin of error be if the sample size is reduced to 250?
+\begin{tasks}(4)
+    \task 1.5%
+    \task 3%
+    \task 6%
+    \task 12%
+\end{tasks}
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+Sample size reduction factor: $1,000 / 250 = 4$. Since Error $\propto 1/\sqrt{n}$, reducing $n$ by 4 increases the error by $\sqrt{4} = 2$. New error: $3\% \times 2 = 6\%$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 48
+% Category: Practice | Difficulty: Medium | Question Type: MCQ
+\question
+A scientist wants to generalize findings from a sample of 200 college students to all adults in the country. What is the main problem with this?
+\begin{tasks}(1)
+    \task The sample size is too small.
+    \task College students are not representative of all adults in the country.
+    \task The survey was likely not random.
+    \task College students do not have traits.
+\end{tasks}
+
+\begin{solution}
+\textbf{Logic:} \\
+To generalize to a population, the sample must be representative. College students differ from the general adult population in age, education level, and often income. This creates a selection bias.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 49
+% Category: Exam Level | Difficulty: Hard | Question Type: Numeric Entry
+\question
+An estimate for the population mean is 85, with a margin of error of 7. What is the upper bound of the confidence interval?
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+$85 + 7 = 92$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{92}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 50
+% Category: Practice | Difficulty: Easy | Question Type: MCQ
+\question
+Which of the following describes a confidence interval?
+\begin{tasks}(1)
+    \task A single number that is always correct.
+    \task A range of values used to estimate a population parameter.
+    \task The percentage of the sample that was wrong.
+    \task The time it takes to finish a survey.
+\end{tasks}
+
+\begin{solution}
+\textbf{Logic:} \\
+A confidence interval uses sample data to provide a range where the true population value is likely to be. It is the core tool of statistical inference.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+
+% =============================================================
+% Question End
+% =============================================================
+
+\end{questions}
+\begin{center}
+\rule{.5\textwidth}{1pt}
+\end{center}
+\end{document}

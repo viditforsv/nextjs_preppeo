@@ -1,0 +1,1156 @@
+\documentclass[11pt,paper=a4,answers]{exam}
+\usepackage{graphicx,lastpage}
+\usepackage{upgreek}
+\usepackage{censor}
+\usepackage{gensymb}
+\usepackage{amsmath}
+\usepackage{multicol}
+\usepackage{enumitem}
+\usepackage{tasks}
+\usepackage{adjustbox}
+\usepackage{xcolor}
+\usepackage{tfrupee}
+\setlength{\voffset}{0.25in}
+\usepackage{tabularx}
+\newcolumntype{Y}{>{\centering\arraybackslash}X}
+%==============================================================
+% Customise Non-Essential Packages Below
+% =============================================================
+\usepackage[most]{tcolorbox}
+\usepackage{eso-pic}
+\usepackage{tikz}
+\AddToShipoutPictureBG{%
+\begin{tikzpicture}[remember picture,overlay]
+\foreach \x in {-8,-4,0,4,8,12,16,20}
+\foreach \y in {-8,-4,0,4,8,12,16,20} {
+\node[opacity=0.05,rotate=45,anchor=center] at ([xshift=\x cm,yshift=\y cm]current page.center) {%
+\begin{minipage}{2cm}
+\centering
+\includegraphics[width=2cm]{images/logo_black.png}\\
+\small preppeo.com
+\end{minipage}%
+};
+}
+\end{tikzpicture}%
+}
+\printanswers
+
+%==============================================================
+% Customise Non-Essential Packages Above
+% =============================================================
+\definecolor{svgray}{rgb}{0.90, 0.90, 0.90}
+\graphicspath{{images/}}
+
+\usepackage[normalem]{ulem}
+\renewcommand\ULthickness{1pt}   %%---> For changing thickness of underline
+\setlength\ULdepth{3.5ex}%\maxdimen ---> For changing depth of underline
+\renewcommand{\baselinestretch}{1}
+\chead{
+\includegraphics[scale=0.1,height=2cm ]{logo.png}
+}
+\pagestyle{empty}
+
+\pagestyle{headandfoot}
+\headrule
+\cfoot{W: https://preppeo.com; M: +91-8130711689}
+
+\begin{document}
+%==============================================================
+% Customise Question paper details below this
+% =============================================================
+\begin{center}
+    \centering
+    \renewcommand{\arraystretch}{1.5}
+    \begin{tabularx}{\textwidth}{YYY}
+    & \normalsize\bf{{\Large{{Quantitative Reasoning}}}} & \\
+    By Preppeo & \normalsize\bf{{sat\_lid\_044}} & SAT\\
+    \normalsize{{\textbf{{Unit:}} Triangles}} & \normalsize{{\textbf{{Chapter:}} Triangles, Pythagorean theorem, similar triangles}} & \normalsize{{\textbf{{Topic:}} Pythagorean Theorem}} \\
+    \end{tabularx}
+\end{center}
+\par\noindent\rule{\textwidth}{1pt}
+% =============================================================
+% Customise Question paper details above this
+% =============================================================
+
+\begin{questions}
+\pointsinrightmargin
+\pointsdroppedatright
+\marksnotpoints
+\pointpoints{mark}{marks}
+\pointformat{\boldmath\themarginpoints}
+\bracketedpoints
+
+% =============================================================
+% Question Begin
+% =============================================================
+
+% Lid 044: Geometry & Trigonometry
+% Topic: Pythagorean Theorem
+
+% Question 1
+% Category: Exam Level | Difficulty: Medium | Question Type: Numeric Entry
+\question
+\begin{center}
+\begin{tikzpicture}[scale=0.8]
+\draw[thick] (0,0) node[left]{$A$} -- (3,0) node[below]{$C$} -- (3,5) node[above]{$B$} -- cycle;
+\draw (3,0) rectangle (2.7,0.3);
+\node at (1.5,-0.4) {3 units};
+\node at (3.8,2.5) {?};
+\node at (0.8,2.8) {$\sqrt{34}$ units};
+\end{tikzpicture}
+\end{center}
+In the figure shown, $AB = \sqrt{34}$ units and $AC = 3$ units. If triangle $ABC$ is a right triangle with the right angle at $C$, what is the length of segment $BC$?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The Pythagorean Theorem states that for any right triangle with legs $a$ and $b$ and hypotenuse $c$, the relationship $a^2 + b^2 = c^2$ must hold. In this problem, we are given the hypotenuse ($AB$) and one leg ($AC$), and we need to solve for the missing leg ($BC$).
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+Identify the known values: $c = \sqrt{34}$ and $a = 3$. Set up the equation: $3^2 + (BC)^2 = (\sqrt{34})^2$. Calculate the squares: $9 + (BC)^2 = 34$. Isolate the missing term by subtracting 9 from both sides: $(BC)^2 = 34 - 9$. This gives $(BC)^2 = 25$. To find $BC$, take the square root of both sides: $BC = \sqrt{25} = 5$. The length of segment $BC$ is 5 units.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{5}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 2
+% Category: Practice | Difficulty: Medium | Question Type: MCQ
+\question
+\begin{center}
+\begin{tikzpicture}[scale=0.6]
+\draw[thick] (0,0) node[left]{$A$} -- (5,0) node[right]{$C$} -- (5,12) node[above]{$B$} -- cycle;
+\draw (5,0) rectangle (4.6,0.4);
+\node at (2.5,-0.5) {5};
+\node at (5.5,6) {12};
+\end{tikzpicture}
+\end{center}
+What is the length of the hypotenuse of a right triangle with legs of length 5 and 12?
+\begin{tasks}(4)
+    \task 13
+    \task 15
+    \task 17
+    \task 25
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+When given both legs of a right triangle, we apply the Pythagorean Theorem ($a^2 + b^2 = c^2$) to find the hypotenuse, which is the longest side opposite the right angle.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+Assign the leg lengths: $a = 5$ and $b = 12$. Substitute these into the formula: $5^2 + 12^2 = c^2$. Calculate the squares: $25 + 144 = c^2$. Sum the results: $169 = c^2$. Solve for $c$ by taking the square root: $c = \sqrt{169} = 13$. The hypotenuse is 13 units long.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 3
+% Category: Exam Level | Difficulty: Hard | Question Type: Numeric Entry
+\question
+\begin{center}
+\begin{tikzpicture}[scale=0.5]
+\draw[thick] (0,0) node[left]{$A$} -- (12,0) node[below]{$C$} -- (12,5) node[right]{$B$} -- cycle;
+\draw[thick] (5,0) node[below]{$E$} -- (5,2.08) node[above]{$D$};
+\draw (12,0) rectangle (11.5,0.5);
+\draw (5,0) rectangle (4.5,0.5);
+\node at (2.5,0.5) {5};
+\node at (8.5,0.5) {7};
+\node at (12.5,2.5) {$y$};
+\node at (4.5,1) {$x$};
+\end{tikzpicture}
+\end{center}
+In the figure above, triangle $ABC$ is similar to triangle $ADE$. If $AC = 12$, $AE = 5$, and the area of triangle $ABC$ is 30, what is the value of $x$?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+This problem combines the area of a triangle, the Pythagorean Theorem (to find side lengths if needed), and the properties of similar triangles. Corresponding sides of similar triangles are proportional.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+First, use the area of triangle $ABC$ to find $y$: $\text{Area} = \frac{1}{2} \times \text{base} \times \text{height} \Rightarrow 30 = \frac{1}{2} \times 12 \times y \Rightarrow 30 = 6y \Rightarrow y = 5$. Since triangle $ADE \sim ABC$, the ratio of corresponding legs is constant: $\frac{DE}{BC} = \frac{AE}{AC}$. Substitute the known values: $\frac{x}{5} = \frac{5}{12}$. Solve for $x$ by multiplying both sides by 5: $x = \frac{25}{12}$. 
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{25/12}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 4
+% Category: Practice | Difficulty: Medium | Question Type: MCQ
+\question
+A right triangle has a hypotenuse of length 10 and one leg of length 8. What is the length of the other leg?
+\begin{tasks}(4)
+    \task 2
+    \task 4
+    \task 6
+    \task 9
+\end{tasks}
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+Let the missing leg be $b$. Using $a^2 + b^2 = c^2$: $8^2 + b^2 = 10^2$. This simplifies to $64 + b^2 = 100$. Subtract 64 from both sides: $b^2 = 36$. Taking the square root gives $b = \sqrt{36} = 6$. The missing leg is 6.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 5
+% Category: Exam Level | Difficulty: Medium | Question Type: MCQ
+\question
+Two nearby trees are perpendicular to the ground, which is flat. One of these trees is 10 feet tall and has a shadow that is 5 feet long. At the same time, the shadow of the other tree is 2 feet long. How tall, in feet, is the other tree?
+\begin{tasks}(4)
+    \task 3
+    \task 4
+    \task 8
+    \task 27
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The tree and its shadow form the legs of a right triangle. Since the sun's rays hit the ground at the same angle, the two triangles formed are similar. We can use proportions to solve for the height.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+Set up a proportion between height and shadow: $\frac{\text{Height}_1}{\text{Shadow}_1} = \frac{\text{Height}_2}{\text{Shadow}_2}$. Substitute the values: $\frac{10}{5} = \frac{H}{2}$. Simplify the left ratio: $2 = \frac{H}{2}$. Multiply by 2: $H = 4$. The other tree is 4 feet tall.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 6
+% Category: Practice | Difficulty: Hard | Question Type: Numeric Entry
+\question
+A coordinate plane has points at $(0,0)$ and $(8,15)$. What is the distance between these two points?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The distance formula $d = \sqrt{(x_2-x_1)^2 + (y_2-y_1)^2}$ is derived directly from the Pythagorean Theorem, where the difference in $x$-coordinates is one leg and the difference in $y$-coordinates is the other.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+Leg 1 (horizontal distance): $8 - 0 = 8$. Leg 2 (vertical distance): $15 - 0 = 15$. Apply the theorem: $8^2 + 15^2 = c^2 \Rightarrow 64 + 225 = c^2 \Rightarrow 289 = c^2$. The distance $c = \sqrt{289} = 17$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{17}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 7
+% Category: Exam Level | Difficulty: Hard | Question Type: MCQ
+\question
+\begin{center}
+\begin{tikzpicture}[scale=0.8]
+\draw[thick] (0,0) node[left]{$M$} -- (4.5,0) node[right]{$P$} -- (1.5,2) node[above]{$N$} -- cycle;
+\draw[thick] (1.5,2) -- (1.5,0) node[below]{$Q$};
+\draw (1.5,0) rectangle (1.3,0.2);
+\node at (0.7,1.2) {3};
+\node at (3.5,1.2) {4};
+\end{tikzpicture}
+\end{center}
+In the figure above, $MN = 3$ and $NP = 4$. If $\angle MNP$ is a right angle and $NQ$ is an altitude to $MP$, what is the length of $NQ$?
+\begin{tasks}(4)
+    \task 2.2
+    \task 2.3
+    \task 2.4
+    \task 2.5
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+In a right triangle, the altitude to the hypotenuse creates three similar triangles. The area can be calculated in two ways: $\frac{1}{2}(\text{leg}_1 \times \text{leg}_2)$ or $\frac{1}{2}(\text{hypotenuse} \times \text{altitude})$.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+First, find the hypotenuse $MP$ using legs 3 and 4: $MP = \sqrt{3^2 + 4^2} = \sqrt{25} = 5$. Next, set the two area formulas equal: $\frac{1}{2}(3 \times 4) = \frac{1}{2}(5 \times NQ)$. Simplify: $6 = 2.5 \times NQ$. Solve for $NQ$: $NQ = \frac{6}{2.5} = 2.4$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 8
+% Category: Exam Level | Difficulty: Hard | Question Type: Numeric Entry
+\question
+A square has a diagonal of length $10\sqrt{2}$. What is the area of the square?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+In a square, the diagonal ($d$) and two sides ($s$) form a right isosceles triangle. By the Pythagorean Theorem, $s^2 + s^2 = d^2$.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+$2s^2 = (10\sqrt{2})^2 \Rightarrow 2s^2 = 100 \times 2 \Rightarrow 2s^2 = 200 \Rightarrow s^2 = 100$. Since the area of a square is $s^2$, the area is 100 square units.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{100}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 9
+% Category: Practice | Difficulty: Easy | Question Type: MCQ
+\question
+Which set of side lengths represents a right triangle?
+\begin{tasks}(4)
+    \task 3, 4, 6
+    \task 5, 10, 12
+    \task 7, 24, 25
+    \task 8, 15, 16
+\end{tasks}
+
+\begin{solution}
+\textbf{Logic:} \\
+Check each set using $a^2 + b^2 = c^2$. For choice C: $7^2 + 24^2 = 49 + 576 = 625$. Since $25^2 = 625$, the theorem holds. Choice C is a "Pythagorean Triple."
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 10
+% Category: Exam Level | Difficulty: Hard | Question Type: MCQ
+\question
+A 26-foot ladder is leaning against a vertical wall. If the base of the ladder is 10 feet away from the wall, how high up the wall does the ladder reach?
+\begin{tasks}(4)
+    \task 16 feet
+    \task 20 feet
+    \task 24 feet
+    \task 25 feet
+\end{tasks}
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+The ladder is the hypotenuse ($c=26$) and the ground distance is one leg ($a=10$). Using $10^2 + h^2 = 26^2 \Rightarrow 100 + h^2 = 676 \Rightarrow h^2 = 576$. Thus, $h = \sqrt{576} = 24$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 11
+% Category: Practice | Difficulty: Medium | Question Type: MCQ
+\question
+\begin{center}
+\begin{tikzpicture}[scale=0.8]
+\draw[thick] (0,0) -- (4,0) node[midway, below]{32$^\circ$} -- (4,2.5) -- cycle;
+\draw[thick] (6,2.5) -- (6,0) node[midway, below]{58$^\circ$} -- (8,0) -- cycle;
+\node at (0.2,1.5) {$A$}; \node at (7.8,1.5) {$E$};
+\node at (4.3,2.5) {$B$}; \node at (5.7,2.5) {$T$};
+\end{tikzpicture}
+\end{center}
+Triangles $ABC$ and $DEF$ are right triangles. Which of the following is equal to the ratio $\frac{BC}{AB}$?
+\begin{tasks}(2)
+    \task $\frac{DE}{DF}$
+    \task $\frac{DF}{DE}$
+    \task $\frac{DF}{EF}$
+    \task $\frac{EF}{DE}$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+In right triangles, the ratio of sides is determined by the acute angles. If two right triangles have an identical acute angle, they are similar, and their side ratios (trigonometric functions) are equal. Note that $32^\circ + 58^\circ = 90^\circ$, meaning these triangles are complementary.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+In $\triangle ABC$, $\frac{BC}{AB}$ is $\sin(32^\circ)$ or $\cos(58^\circ)$. In $\triangle DEF$, $\cos(58^\circ)$ is the ratio of adjacent leg to hypotenuse, which is $\frac{DF}{DE}$. Therefore, $\frac{BC}{AB} = \frac{DF}{DE}$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 12
+% Category: Exam Level | Difficulty: Hard | Question Type: MCQ
+\question
+\begin{center}
+\begin{tikzpicture}[scale=0.6]
+\draw[thick] (0,0) node[left]{$D$} -- (8,0) node[below]{$E$} -- (8,6) node[right]{$B$} -- (0,6) node[above]{$C$} -- cycle;
+\draw[thick] (0,6) -- (6,0) node[below]{$A$};
+\draw (8,0) rectangle (7.5,0.5);
+\node at (4,-0.5) {8};
+\node at (8.5,3) {$y$};
+\node at (3,3.5) {$x$};
+\end{tikzpicture}
+\end{center}
+The area of triangle $ABC$ is at least 48 but no more than 60. If $y$ is an integer, what is one possible value of $x$?
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+The base of $\triangle ABC$ is $y$. The height is $CD = 8 - 2$ (if $DA=6$). Wait, in the diagram, $DE=8$ and $DA=6$. Thus $AE=2$. Height of $\triangle ABC$ is horizontal distance 8. Area $= \frac{1}{2} \cdot 8 \cdot y = 4y$. Given $48 \le 4y \le 60 \Rightarrow 12 \le y \le 15$. If $y=12$, then $x = \sqrt{8^2 + 12^2} = \sqrt{64+144} = \sqrt{208} \approx 14.4$. 
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{14.4}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 13
+% Category: Practice | Difficulty: Easy | Question Type: Numeric Entry
+\question
+A right triangle has legs of length $\sqrt{7}$ and $\sqrt{2}$. What is the length of the hypotenuse?
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+$c^2 = (\sqrt{7})^2 + (\sqrt{2})^2 = 7 + 2 = 9$. $c = \sqrt{9} = 3$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{3}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 14
+% Category: Exam Level | Difficulty: Medium | Question Type: MCQ
+\question
+The area of a right triangle is 24 square inches. If one leg is 6 inches, what is the length of the hypotenuse?
+\begin{tasks}(4)
+    \task 8 inches
+    \task 10 inches
+    \task 12 inches
+    \task 14 inches
+\end{tasks}
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+Area $= \frac{1}{2}ab \Rightarrow 24 = \frac{1}{2}(6)b \Rightarrow 24 = 3b \Rightarrow b = 8$. Use legs 6 and 8: $c = \sqrt{6^2 + 8^2} = \sqrt{100} = 10$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 15
+% Category: Practice | Difficulty: Medium | Question Type: Numeric Entry
+\question
+What is the perimeter of a right triangle with legs of length 9 and 40?
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+Hypotenuse $c = \sqrt{9^2 + 40^2} = \sqrt{81 + 1600} = \sqrt{1681} = 41$. Perimeter $= 9 + 40 + 41 = 90$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{90}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 16
+% Category: Exam Level | Difficulty: Hard | Question Type: MCQ
+\question
+A right triangle has side lengths $x$, $x+7$, and $x+8$. What is the value of $x$?
+\begin{tasks}(4)
+    \task 3
+    \task 5
+    \task 8
+    \task 12
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Substitute the algebraic expressions into the Pythagorean Theorem. The longest side, $x+8$, must be the hypotenuse.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+$x^2 + (x+7)^2 = (x+8)^2 \Rightarrow x^2 + x^2 + 14x + 49 = x^2 + 16x + 64$. Simplify to a quadratic: $x^2 - 2x - 15 = 0$. Factor the equation: $(x-5)(x+3) = 0$. Since length must be positive, $x = 5$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 17
+% Category: Practice | Difficulty: Medium | Question Type: Numeric Entry
+\question
+The legs of a right triangle are in a ratio of 3:4. If the hypotenuse is 25, what is the length of the shorter leg?
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+Let legs be $3x$ and $4x$. $(3x)^2 + (4x)^2 = 25^2 \Rightarrow 9x^2 + 16x^2 = 625 \Rightarrow 25x^2 = 625 \Rightarrow x^2 = 25 \Rightarrow x = 5$. Shorter leg $= 3(5) = 15$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{15}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 18
+% Category: Exam Level | Difficulty: Hard | Question Type: MCQ
+\question
+A rectangle has a perimeter of 34 and a diagonal of 13. What is the area of the rectangle?
+\begin{tasks}(4)
+    \task 30
+    \task 60
+    \task 120
+    \task 169
+\end{tasks}
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+Let dimensions be $L$ and $W$. $2(L+W) = 34 \Rightarrow L+W = 17$. From the diagonal: $L^2 + W^2 = 13^2 = 169$. Use the identity $(L+W)^2 = L^2 + W^2 + 2LW \Rightarrow 17^2 = 169 + 2LW \Rightarrow 289 = 169 + 2LW \Rightarrow 120 = 2LW \Rightarrow LW = 60$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 19
+% Category: Practice | Difficulty: Medium | Question Type: Numeric Entry
+\question
+In a right triangle, the hypotenuse is 17 and one leg is 15. What is the area of the triangle?
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+Missing leg $a = \sqrt{17^2 - 15^2} = \sqrt{289 - 225} = \sqrt{64} = 8$. Area $= \frac{1}{2}(8 \times 15) = 60$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{60}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 20
+% Category: Exam Level | Difficulty: Hard | Question Type: MCQ
+\question
+\begin{center}
+\begin{tikzpicture}[scale=1]
+\draw[thick] (0,0) -- (4,0) -- (4,3) -- cycle;
+\draw[thick] (4,3) -- (6,3) -- (4,0);
+\node at (2,-0.4) {4};
+\node at (4.3,1.5) {3};
+\node at (5,3.3) {2};
+\end{tikzpicture}
+\end{center}
+In the composite figure above, what is the distance from the bottom-left vertex to the top-right vertex?
+\begin{tasks}(4)
+    \task $\sqrt{13}$
+    \task $\sqrt{29}$
+    \task $\sqrt{45}$
+    \task $\sqrt{61}$
+\end{tasks}
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+Create a large right triangle. The horizontal leg is $4 + 2 = 6$. The vertical leg is 3. The distance $d = \sqrt{6^2 + 3^2} = \sqrt{36 + 9} = \sqrt{45}$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 21
+% Category: Practice | Difficulty: Easy | Question Type: Numeric Entry
+\question
+A right triangle has legs of length 8 and 15. Find the hypotenuse.
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+$c^2 = 8^2 + 15^2 = 64 + 225 = 289 \Rightarrow c = 17$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{17}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 22
+% Category: Exam Level | Difficulty: Medium | Question Type: MCQ
+\question
+An equilateral triangle has a side length of 6. What is its height?
+\begin{tasks}(4)
+    \task 3
+    \task $3\sqrt{2}$
+    \task $3\sqrt{3}$
+    \task 6
+\end{tasks}
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+The height bisects the base into two segments of 3. This forms a right triangle with leg 3 and hypotenuse 6. $h^2 + 3^2 = 6^2 \Rightarrow h^2 + 9 = 36 \Rightarrow h^2 = 27 \Rightarrow h = \sqrt{27} = 3\sqrt{3}$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 23
+% Category: Practice | Difficulty: Medium | Question Type: Numeric Entry
+\question
+A rectangle has sides of 20 and 21. How long is its diagonal?
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+$d^2 = 20^2 + 21^2 = 400 + 441 = 841 \Rightarrow d = \sqrt{841} = 29$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{29}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 24
+% Category: Exam Level | Difficulty: Hard | Question Type: MCQ
+\question
+A right triangle has a perimeter of 40 and a hypotenuse of 17. What is the length of the shortest side?
+\begin{tasks}(4)
+    \task 8
+    \task 10
+    \task 12
+    \task 15
+\end{tasks}
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+Sum of legs $a+b = 40 - 17 = 23$. Pythagorean property: $a^2 + b^2 = 17^2 = 289$. Testing integer pairs that sum to 23: 8 and 15. Check: $8^2 + 15^2 = 64 + 225 = 289$. The shortest side is 8.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 25
+% Category: Practice | Difficulty: Medium | Question Type: Numeric Entry
+\question
+Find the area of a right triangle where the hypotenuse is 25 and one leg is 7.
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+Leg $b = \sqrt{25^2 - 7^2} = \sqrt{625 - 49} = \sqrt{576} = 24$. Area $= \frac{1}{2}(7 \times 24) = 84$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{84}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 26
+% Category: Exam Level | Difficulty: Hard | Question Type: MCQ
+\question
+A circle is inscribed in a square with a diagonal of $8\sqrt{2}$. What is the circumference of the circle?
+\begin{tasks}(4)
+    \task $4\pi$
+    \task $8\pi$
+    \task $16\pi$
+    \task $64\pi$
+\end{tasks}
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+Diagonal $d = s\sqrt{2} \Rightarrow 8\sqrt{2} = s\sqrt{2} \Rightarrow s = 8$. The diameter of the inscribed circle is equal to the side of the square (8). Circumference $= \pi d = 8\pi$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 27
+% Category: Practice | Difficulty: Easy | Question Type: Numeric Entry
+\question
+Find the leg of a right triangle if the hypotenuse is 5 and the other leg is 4.
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+$x = \sqrt{5^2 - 4^2} = \sqrt{9} = 3$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{3}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 28
+% Category: Exam Level | Difficulty: Medium | Question Type: MCQ
+\question
+A right triangle has legs of length $x$ and $2x$. If the hypotenuse is $\sqrt{20}$, what is $x$?
+\begin{tasks}(4)
+    \task 2
+    \task 4
+    \task 5
+    \task 10
+\end{tasks}
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+$x^2 + (2x)^2 = (\sqrt{20})^2 \Rightarrow x^2 + 4x^2 = 20 \Rightarrow 5x^2 = 20 \Rightarrow x^2 = 4 \Rightarrow x = 2$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 29
+% Category: Practice | Difficulty: Medium | Question Type: Numeric Entry
+\question
+What is the area of a right isosceles triangle with a hypotenuse of $4\sqrt{2}$?
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+Leg $s = 4$. Area $= \frac{1}{2}(4 \times 4) = 8$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{8}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 30
+% Category: Exam Level | Difficulty: Hard | Question Type: MCQ
+\question
+An isosceles triangle has a base of 16 and a perimeter of 36. What is its height?
+\begin{tasks}(4)
+    \task 6
+    \task 8
+    \task 10
+    \task 12
+\end{tasks}
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+Legs $= (36 - 16) / 2 = 10$. Height forms a right triangle with half the base (8) and a leg (10). $h = \sqrt{10^2 - 8^2} = \sqrt{36} = 6$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 31
+% Category: Practice | Difficulty: Easy | Question Type: Numeric Entry
+\question
+Find the hypotenuse for legs 1.5 and 2.
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+$c = \sqrt{1.5^2 + 2^2} = \sqrt{2.25 + 4} = \sqrt{6.25} = 2.5$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{2.5}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 32
+% Category: Exam Level | Difficulty: Medium | Question Type: MCQ
+\question
+The area of a square is 50. What is the length of its diagonal?
+\begin{tasks}(4)
+    \task 5
+    \task 10
+    \task $5\sqrt{2}$
+    \task $10\sqrt{2}$
+\end{tasks}
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+$s^2 = 50 \Rightarrow s = \sqrt{50} = 5\sqrt{2}$. Diagonal $d = s\sqrt{2} = 5\sqrt{2} \cdot \sqrt{2} = 5 \cdot 2 = 10$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 33
+% Category: Practice | Difficulty: Medium | Question Type: Numeric Entry
+\question
+A right triangle has legs $\sqrt{11}$ and $\sqrt{14}$. Find the hypotenuse.
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+$c = \sqrt{11 + 14} = \sqrt{25} = 5$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{5}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 34
+% Category: Exam Level | Difficulty: Hard | Question Type: MCQ
+\question
+A rhombus has diagonals of 10 and 24. What is its perimeter?
+\begin{tasks}(4)
+    \task 34
+    \task 52
+    \task 68
+    \task 120
+\end{tasks}
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+Diagonals of a rhombus bisect at right angles. Half-diagonals are 5 and 12. Side $s = \sqrt{5^2 + 12^2} = 13$. Perimeter $= 4 \times 13 = 52$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 35
+% Category: Practice | Difficulty: Medium | Question Type: Numeric Entry
+\question
+A triangle has sides 11, 60, and 61. What is its area?
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+Check if it's a right triangle: $11^2 + 60^2 = 121 + 3600 = 3721$. $61^2 = 3721$. Yes. Area $= \frac{1}{2}(11 \times 60) = 330$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{330}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 36
+% Category: Exam Level | Difficulty: Hard | Question Type: MCQ
+\question
+Points $P(2,3)$ and $Q(5,7)$ are in a coordinate plane. What is the distance $PQ$?
+\begin{tasks}(4)
+    \task 4
+    \task 5
+    \task 6
+    \task 7
+\end{tasks}
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+$\Delta x = 3, \Delta y = 4$. $d = \sqrt{3^2 + 4^2} = 5$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 37
+% Category: Practice | Difficulty: Easy | Question Type: Numeric Entry
+\question
+Legs 20 and 21. Hypotenuse?
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+$c = \sqrt{400 + 441} = 29$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{29}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 38
+% Category: Exam Level | Difficulty: Medium | Question Type: MCQ
+\question
+One leg of a right triangle is twice the other. If the area is 16, find the hypotenuse.
+\begin{tasks}(4)
+    \task 4
+    \task $4\sqrt{5}$
+    \task 8
+    \task $8\sqrt{5}$
+\end{tasks}
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+$\frac{1}{2}(x)(2x) = 16 \Rightarrow x^2 = 16 \Rightarrow x = 4$. Legs are 4 and 8. $c = \sqrt{16 + 64} = \sqrt{80} = 4\sqrt{5}$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 39
+% Category: Practice | Difficulty: Medium | Question Type: Numeric Entry
+\question
+Diagonal of a square is 6. Find its area.
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+Area $= d^2 / 2 = 36 / 2 = 18$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{18}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 40
+% Category: Exam Level | Difficulty: Hard | Question Type: MCQ
+\question
+Two sides of a right triangle are 3 and 4. What is the sum of all possible lengths of the third side?
+\begin{tasks}(4)
+    \task 5
+    \task $5 + \sqrt{7}$
+    \task 7
+    \task 12
+\end{tasks}
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+Case 1: 3 and 4 are legs $\Rightarrow c = 5$. Case 2: 4 is hypotenuse $\Rightarrow a = \sqrt{4^2 - 3^2} = \sqrt{7}$. Sum $= 5 + \sqrt{7}$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 41
+% Category: Practice | Difficulty: Medium | Question Type: Numeric Entry
+\question
+Hypotenuse 13, leg 12. Find the other leg.
+
+\begin{solution}
+\textbf{Calculation:} \\
+$\sqrt{169 - 144} = 5$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{5}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 42
+% Category: Exam Level | Difficulty: Hard | Question Type: MCQ
+\question
+Find the length of the longest stick that can fit inside a 3x4x12 box.
+\begin{tasks}(4)
+    \task 12
+    \task 13
+    \task 15
+    \task 19
+\end{tasks}
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+3D Pythagorean theorem: $d = \sqrt{L^2 + W^2 + H^2} = \sqrt{3^2 + 4^2 + 12^2} = \sqrt{9 + 16 + 144} = \sqrt{169} = 13$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 43
+% Category: Practice | Difficulty: Medium | Question Type: Numeric Entry
+\question
+A right triangle has legs of 1 and 1. Find the hypotenuse squared.
+
+\begin{solution}
+\textbf{Calculation:} \\
+$c^2 = 1^2 + 1^2 = 2$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{2}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 44
+% Category: Exam Level | Difficulty: Medium | Question Type: MCQ
+\question
+The area of a right isosceles triangle is 18. Find the hypotenuse.
+\begin{tasks}(4)
+    \task 6
+    \task $6\sqrt{2}$
+    \task 12
+    \task $12\sqrt{2}$
+\end{tasks}
+
+\begin{solution}
+\textbf{Calculation:} \\
+$\frac{1}{2}s^2 = 18 \Rightarrow s^2 = 36 \Rightarrow s = 6$. $c = 6\sqrt{2}$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 45
+% Category: Practice | Difficulty: Medium | Question Type: Numeric Entry
+\question
+Sides 24, 70, 74. Area?
+
+\begin{solution}
+\textbf{Calculation:} \\
+$24^2 + 70^2 = 576 + 4900 = 5476 = 74^2$. Right triangle. Area $= 0.5 \times 24 \times 70 = 840$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{840}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 46
+% Category: Exam Level | Difficulty: Hard | Question Type: MCQ
+\question
+A rectangle diagonal is 25. Width is 7. Find Perimeter.
+\begin{tasks}(4)
+    \task 31
+    \task 32
+    \task 62
+    \task 84
+\end{tasks}
+
+\begin{solution}
+\textbf{Calculation:} \\
+Length $= \sqrt{25^2 - 7^2} = 24$. Perimeter $= 2(24 + 7) = 62$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 47
+% Category: Practice | Difficulty: Easy | Question Type: Numeric Entry
+\question
+Legs 12, 16. Hypotenuse?
+
+\begin{solution}
+\textbf{Calculation:} \\
+$\sqrt{144 + 256} = \sqrt{400} = 20$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{20}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 48
+% Category: Exam Level | Difficulty: Hard | Question Type: MCQ
+\question
+A square side is doubled. What happens to its diagonal?
+\begin{tasks}(2)
+    \task It doubles
+    \task It triples
+    \task It increases by $\sqrt{2}$
+    \task It stays the same
+\end{tasks}
+
+\begin{solution}
+\textbf{Calculation:} \\
+$d_1 = s\sqrt{2}$. $d_2 = (2s)\sqrt{2} = 2d_1$. It doubles.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 49
+% Category: Practice | Difficulty: Medium | Question Type: Numeric Entry
+\question
+Area of square is 36. Find diagonal squared.
+
+\begin{solution}
+\textbf{Calculation:} \\
+$s^2 = 36 \Rightarrow s=6$. $d^2 = 6^2 + 6^2 = 72$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{72}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 50
+% Category: Exam Level | Difficulty: Hard | Question Type: Numeric Entry
+\question
+A right triangle has hypotenuse 10. Legs are $x$ and $x+2$. Find $x$.
+
+\begin{solution}
+\textbf{Calculation:} \\
+$x^2 + (x+2)^2 = 100 \Rightarrow x^2 + x^2 + 4x + 4 = 100 \Rightarrow 2x^2 + 4x - 96 = 0 \Rightarrow x^2 + 2x - 48 = 0 \Rightarrow (x+8)(x-6) = 0 \Rightarrow x = 6$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{6}
+\end{solution}
+
+% =============================================================
+% Question End
+% =============================================================
+
+\end{questions}
+\begin{center}
+\rule{.5\textwidth}{1pt}
+\end{center}
+\end{document}

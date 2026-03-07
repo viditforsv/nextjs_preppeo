@@ -1,0 +1,1136 @@
+\documentclass[11pt,paper=a4,answers]{exam}
+\usepackage{graphicx,lastpage}
+\usepackage{upgreek}
+\usepackage{censor}
+\usepackage{gensymb}
+\usepackage{amsmath}
+\usepackage{multicol}
+\usepackage{enumitem}
+\usepackage{tasks}
+\usepackage{adjustbox}
+\usepackage{xcolor}
+\usepackage{tfrupee}
+\setlength{\voffset}{0.25in}
+\usepackage{tabularx}
+\newcolumntype{Y}{>{\centering\arraybackslash}X}
+%==============================================================
+% Customise Non-Essential Packages Below
+% =============================================================
+\usepackage[most]{tcolorbox}
+\usepackage{eso-pic}
+\usepackage{tikz}
+\AddToShipoutPictureBG{%
+\begin{tikzpicture}[remember picture,overlay]
+\foreach \x in {-8,-4,0,4,8,12,16,20}
+\foreach \y in {-8,-4,0,4,8,12,16,20} {
+\node[opacity=0.05,rotate=45,anchor=center] at ([xshift=\x cm,yshift=\y cm]current page.center) {%
+\begin{minipage}{2cm}
+\centering
+\includegraphics[width=2cm]{images/logo_black.png}\\
+\small preppeo.com
+\end{minipage}%
+};
+}
+\end{tikzpicture}%
+}
+\printanswers
+
+%==============================================================
+% Customise Non-Essential Packages Above
+% =============================================================
+\definecolor{svgray}{rgb}{0.90, 0.90, 0.90}
+\graphicspath{{images/}}
+
+\usepackage[normalem]{ulem}
+\renewcommand\ULthickness{1pt}   %%---> For changing thickness of underline
+\setlength\ULdepth{3.5ex}%\maxdimen ---> For changing depth of underline
+\renewcommand{\baselinestretch}{1}
+\chead{
+\includegraphics[scale=0.1,height=2cm ]{logo.png}
+}
+\pagestyle{empty}
+
+\pagestyle{headandfoot}
+\headrule
+\cfoot{W: https://preppeo.com; M: +91-8130711689}
+
+\begin{document}
+%==============================================================
+% Customise Question paper details below this
+% =============================================================
+\begin{center}
+    \centering
+    \renewcommand{\arraystretch}{1.5}
+    \begin{tabularx}{\textwidth}{YYY}
+    & \normalsize\bf{{\Large{{Quantitative Reasoning}}}} & \\
+    By Preppeo & \normalsize\bf{{sat\_lid\_034}} & SAT\\
+    \normalsize{{\textbf{{Unit:}} One-Variable Data}} & \normalsize{{\textbf{{Chapter:}} Distributions, measures of center/spread}} & \normalsize{{\textbf{{Topic:}}Mean, Median, Mode, Range}} \\
+    \end{tabularx}
+\end{center}
+\par\noindent\rule{\textwidth}{1pt}
+% =============================================================
+% Customise Question paper details above this
+% =============================================================
+
+\begin{questions}
+\pointsinrightmargin
+\pointsdroppedatright
+\marksnotpoints
+\pointpoints{mark}{marks}
+\pointformat{\boldmath\themarginpoints}
+\bracketedpoints
+
+% =============================================================
+% Question Begin
+% =============================================================
+% Question 1
+% Category: Practice | Difficulty: Easy | Question Type: MCQ
+\question
+4, 10, 18, 4, 4, 5, 6, 5 \\
+What is the median of the data set shown?
+\begin{tasks}(4)
+    \task 4
+    \task 5
+    \task 7
+    \task 14
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The median is the middle value of an ordered data set. For an even number of values, it is the average of the two middle terms.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+1. \textbf{Order the data:} 4, 4, 4, 5, 5, 6, 10, 18.
+2. \textbf{Identify middle pair:} The 4th and 5th values are 5 and 5.
+3. \textbf{Average:} $\frac{5+5}{2} = 5$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 2
+% Category: Practice | Difficulty: Easy | Question Type: MCQ
+\question
+2, 2, 2, 3, 4, 4, 11 \\
+What is the median of the seven data values shown?
+\begin{tasks}(4)
+    \task 2
+    \task 3
+    \task 4
+    \task 9
+\end{tasks}
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+The data is ordered: 2, 2, 2, \textbf{3}, 4, 4, 11. The middle value (4th position) is 3.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 3
+% Category: Exam Level | Difficulty: Medium | Question Type: MCQ
+\question
+The box plots summarize the masses, in kilograms, of two groups of gazelles. Based on the box plots, which of the following statements must be true?
+\begin{tasks}(1)
+    \task The mean mass of group 1 is greater than the mean mass of group 2.
+    \task The mean mass of group 1 is less than the mean mass of group 2.
+    \task The median mass of group 1 is greater than the median mass of group 2.
+    \task The median mass of group 1 is less than the median mass of group 2.
+\end{tasks}
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+1. Group 1 Median: 25 kg. \\
+2. Group 2 Median: 24 kg. \\
+3. Since $25 > 24$, the median of Group 1 is greater.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 4
+% Category: Exam Level | Difficulty: Hard | Question Type: MCQ
+\question
+Ages of 20 Students Enrolled in a College Class
+\begin{center}
+\begin{tabular}{|c|c|}
+\hline
+Age & Frequency \\ \hline
+18 & 6 \\ \hline
+19 & 5 \\ \hline
+20 & 4 \\ \hline
+21 & 2 \\ \hline
+22 & 1 \\ \hline
+23 & 1 \\ \hline
+30 & 1 \\ \hline
+\end{tabular}
+\end{center}
+Which of the following gives the correct order of the mean, median, and mode of the ages?
+\begin{tasks}(2)
+    \task mode $<$ median $<$ mean
+    \task mode $<$ mean $<$ median
+    \task median $<$ mode $<$ mean
+    \task mean $<$ mode $<$ median
+\end{tasks}
+
+\begin{solution}
+\textbf{Calculation:} \\
+1. \textbf{Mode:} 18 (highest frequency). \\
+2. \textbf{Median:} 10th and 11th values are both 19. \\
+3. \textbf{Mean:} $\frac{(18\cdot6)+(19\cdot5)+(20\cdot4)+(21\cdot2)+22+23+30}{20} = \frac{400}{20} = 20$. \\
+Comparison: $18 < 19 < 20$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 5
+% Category: Practice | Difficulty: Medium | Question Type: MCQ
+\question
+Data set A: 72, 73, 73, 76, 76 \\
+Data set B: 61, 64, 74, 85, $x$ \\
+If the mean of data set A is equal to the mean of data set B, what is the value of $x$?
+\begin{tasks}(4)
+    \task 77
+    \task 85
+    \task 86
+    \task 95
+\end{tasks}
+
+\begin{solution}
+\textbf{Calculation:} \\
+Sum A = 370. Sum B must be 370. \\
+$61+64+74+85+x = 370 \Rightarrow 284+x=370 \Rightarrow x=86$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 6
+% Category: Exam Level | Difficulty: Medium | Question Type: MCQ
+\question
+Men's Height: Group A (Mean 186, SD 12.5), Group B (Mean 186, SD 19.1). Which statement is true?
+\begin{tasks}(1)
+    \task The Group A data set was identical to the Group B data set.
+    \task Group B contained the tallest participant.
+    \task Heights in Group B had a larger spread than in Group A.
+    \task The median height of Group B is larger than Group A.
+\end{tasks}
+
+\begin{solution}
+\textbf{Logic:} Standard deviation measures spread. Group B (19.1) $>$ Group A (12.5), so Group B has a larger spread.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 7
+% Category: Exam Level | Difficulty: Hard | Question Type: MCQ
+\question
+Adding 7 to numbers above the median and subtracting 7 from numbers below the median. Which measure changes?
+\begin{tasks}(2)
+    \task Median
+    \task Mean
+    \task Sum of numbers
+    \task Standard deviation
+\end{tasks}
+
+\begin{solution}
+\textbf{Logic:} Values move further from the mean, increasing the spread. Standard deviation measures spread, so it will change.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{D}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 8
+% Category: Practice | Difficulty: Medium | Question Type: Numeric Entry
+\question
+Class A range (0 to 5), Class B range (1 to 10). What is the positive difference between the ranges?
+
+\begin{solution}
+\textbf{Calculation:} Range A = 5. Range B = 9. Difference = $9 - 5 = 4$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{4}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 9
+% Category: Exam Level | Difficulty: Hard | Question Type: Numeric Entry
+\question
+Median of arrivals 2012 vs 2013 (9 values each). How much greater was the 2013 median?
+
+\begin{solution}
+\textbf{Calculation:} 2012 Median = 46.4. 2013 Median = 47.7. $47.7 - 46.4 = 1.3$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{1.3}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 10
+% Category: Exam Level | Difficulty: Medium | Question Type: MCQ
+\question
+[Dot Plots A and B] Which is true? I. Medians are equal. II. SDs are equal.
+\begin{tasks}(4)
+    \task I only
+    \task II only
+    \task I and II
+    \task Neither
+\end{tasks}
+
+\begin{solution}
+\textbf{Logic:} Both are symmetric at 13 (I is true). Set A has more dots at the extremes than B, so SDs are not equal (II is false).
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 11
+% Category: Concept | Difficulty: Medium | Question Type: MCQ
+\question
+A set of 5 positive integers has a mean of 10 and a median of 8. What is the largest possible value?
+\begin{tasks}(4)
+    \task 31
+    \task 32
+    \task 33
+    \task 34
+\end{tasks}
+
+\begin{solution}
+\textbf{Calculation:} Sum = 50. Set: 1, 1, 8, 8, $x$. $1+1+8+8+x=50 \Rightarrow x=32$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 12
+% Category: Exam Level | Difficulty: Hard | Question Type: MCQ
+\question
+Adding an outlier (10 siblings) to a set where max was 4. Which measure increases most?
+\begin{tasks}(4)
+    \task Mean
+    \task Median
+    \task Mode
+    \task Range
+\end{tasks}
+
+\begin{solution}
+\textbf{Logic:} Range changes from 4 to 10 (+6). Mean changes slightly. Median/Mode likely stay same.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{D}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 13
+% Category: Practice | Difficulty: Medium | Question Type: Numeric Entry
+\question
+Set: 15, 18, 20, 22, 25. Add $k$ to make new mean 22. What is $k$?
+
+\begin{solution}
+\textbf{Calculation:} Old sum = 100. New sum ($22 \times 6$) = 132. $k = 132 - 100 = 32$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{32}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 14
+% Category: Concept | Difficulty: Hard | Question Type: MCQ
+\question
+Right-skewed distribution. Which is true?
+\begin{tasks}(1)
+    \task mean $<$ median $<$ mode
+    \task mode $<$ median $<$ mean
+    \task median $<$ mean $<$ mode
+    \task mean = median = mode
+\end{tasks}
+
+\begin{solution}
+\textbf{Logic:} Tail on right pulls mean highest. Mode is peak on left. Mode $<$ Median $<$ Mean.
+
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 15
+% Category: Exam Level | Difficulty: Medium | Question Type: MCQ
+\question
+Set X: 5, 10, 15, 20, 25. Set Y: 105, 110, 115, 120, 125. Compare SD.
+\begin{tasks}(1)
+    \task SD X is 100 less than SD Y
+    \task SD X is equal to SD Y
+    \task SD X is greater than SD Y
+    \task SD X is 5 times less than SD Y
+\end{tasks}
+
+\begin{solution}
+\textbf{Logic:} Adding a constant doesn't change spread. SD remains identical.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 16
+% Category: Practice | Difficulty: Easy | Question Type: Numeric Entry
+\question
+Range of 10 numbers is 45. Smallest is 12. Largest?
+
+\begin{solution}
+\textbf{Calculation:} Max - 12 = 45 $\Rightarrow$ Max = 57.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{57}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 17
+% Category: Exam Level | Difficulty: Hard | Question Type: MCQ
+\question
+Median is 20. Every number $\times 3$ then $+4$. New median?
+\begin{tasks}(4)
+    \task 20
+    \task 60
+    \task 64
+    \task 75
+\end{tasks}
+
+\begin{solution}
+\textbf{Calculation:} $(20 \times 3) + 4 = 64$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 18
+% Category: Concept | Difficulty: Medium | Question Type: MCQ
+\question
+Which is NOT affected by a single extreme outlier in a large set?
+\begin{tasks}(4)
+    \task Mean
+    \task Range
+    \task Standard Deviation
+    \task Mode
+\end{tasks}
+
+\begin{solution}
+\textbf{Logic:} Mode is the most frequent value; one outlier won't change frequency rankings in a large set.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{D}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 19
+% Category: Exam Level | Difficulty: Medium | Question Type: MCQ
+\question
+Class A box is wider than Class B. Which is true?
+\begin{tasks}(1)
+    \task Class A has a higher median.
+    \task IQR of Class A is greater.
+    \task Class A has more students.
+    \task Means are equal.
+\end{tasks}
+
+\begin{solution}
+\textbf{Logic:} Box width = IQR ($Q3 - Q1$). A wider box means a larger IQR.
+
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 20
+% Category: Practice | Difficulty: Easy | Question Type: MCQ
+\question
+Mode of: 2, 5, 8, 2, 10, 5, 2, 7, 8
+\begin{tasks}(4)
+    \task 2
+    \task 5
+    \task 7
+    \task 8
+\end{tasks}
+
+\begin{solution}
+\textbf{Logic:} 2 appears three times; others appear less.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 21
+% Category: Concept | Difficulty: Medium | Question Type: MCQ
+\question
+If the mean of a set is 50 and the SD is 0, which must be true?
+\begin{tasks}(1)
+    \task There is only one number in the set.
+    \task All numbers in the set are 50.
+    \task The median is 0.
+    \task The range is 50.
+\end{tasks}
+
+\begin{solution}
+\textbf{Logic:} SD = 0 means there is zero spread; every value must be identical to the mean.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 22
+% Category: Exam Level | Difficulty: Medium | Question Type: MCQ
+\question
+A set of 7 numbers has a mean of 12. If 4 is added to the set, new mean?
+\begin{tasks}(4)
+    \task 8
+    \task 10
+    \task 11
+    \task 12
+\end{tasks}
+
+\begin{solution}
+\textbf{Calculation:} Old sum = $7 \times 12 = 84$. New sum = $84 + 4 = 88$. New $n = 8$. Mean = $88/8 = 11$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 23
+% Category: Practice | Difficulty: Hard | Question Type: Numeric Entry
+\question
+The average of $x, y,$ and $z$ is 15. The average of $x, y, z,$ and $w$ is 20. Value of $w$?
+
+\begin{solution}
+\textbf{Calculation:} Sum(3) = 45. Sum(4) = 80. $w = 80 - 45 = 35$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{35}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 24
+% Category: Concept | Difficulty: Medium | Question Type: MCQ
+\question
+Which measure is most sensitive to an outlier?
+\begin{tasks}(4)
+    \task Median
+    \task IQR
+    \task Range
+    \task Mode
+\end{tasks}
+
+\begin{solution}
+\textbf{Logic:} Range is determined solely by Max and Min. An extreme outlier immediately changes one of these.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 25
+% Category: Exam Level | Difficulty: Hard | Question Type: MCQ
+\question
+Mean of 100 values is 70. If 10 values are removed (all being 70), new mean?
+\begin{tasks}(4)
+    \task 60
+    \task 70
+    \task 77
+    \task 80
+\end{tasks}
+
+\begin{solution}
+\textbf{Logic:} Removing values equal to the mean does not change the mean of the remaining set.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+% Question 26
+% Category: Exam Level | Difficulty: Hard | Question Type: MCQ
+\question
+A data set of 150 values has a mean of 45 and a standard deviation of 8. If every value in the data set is increased by 10\%, what will be the new mean and the new standard deviation?
+\begin{tasks}(1)
+    \task Mean: 45, SD: 8
+    \task Mean: 49.5, SD: 8
+    \task Mean: 49.5, SD: 8.8
+    \task Mean: 55, SD: 18
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+When every value in a data set is multiplied by a constant $k$ (in this case, $1.10$), both the mean and the standard deviation are multiplied by that same constant.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+1. \textbf{New Mean:} $45 \times 1.10 = 49.5$.
+2. \textbf{New SD:} $8 \times 1.10 = 8.8$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 27
+% Category: Practice | Difficulty: Medium | Question Type: MCQ
+\question
+The median of a set of 9 distinct integers is 20. If the largest number is increased by 50, how does the median change?
+\begin{tasks}(1)
+    \task It increases.
+    \task It decreases.
+    \task It stays the same.
+    \task It cannot be determined without the other values.
+\end{tasks}
+
+\begin{solution}
+\textbf{Logic:} The median is the middle value. Changing the largest value (which is to the right of the median) does not shift the middle position or the value at that position.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 28
+% Category: Exam Level | Difficulty: Medium | Question Type: MCQ
+\question
+Which of the following describes a data set where the mean is significantly greater than the median?
+\begin{tasks}(1)
+    \task The data is perfectly symmetric.
+    \task The data is skewed to the left.
+    \task The data is skewed to the right.
+    \task The standard deviation is zero.
+\end{tasks}
+
+\begin{solution}
+\textbf{Logic:} In a right-skewed distribution, high-value outliers pull the mean toward the right tail, while the median remains closer to the bulk of the data.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 29
+% Category: Practice | Difficulty: Easy | Question Type: Numeric Entry
+\question
+What is the range of the following data set? \\
+-12, -5, 0, 4, 15, 22
+
+\begin{solution}
+\textbf{Calculation:} Range = Max - Min = $22 - (-12) = 22 + 12 = 34$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{34}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 30
+% Category: Exam Level | Difficulty: Hard | Question Type: MCQ
+\question
+Two groups of students took a test. Group A ($n=20$) had a mean score of 80. Group B ($n=30$) had a mean score of 90. What is the mean score of all 50 students combined?
+\begin{tasks}(4)
+    \task 84
+    \task 85
+    \task 86
+    \task 88
+\end{tasks}
+
+\begin{solution}
+\textbf{Calculation:} \\
+1. Total Score A = $20 \times 80 = 1600$.
+2. Total Score B = $30 \times 90 = 2700$.
+3. Total Combined = $1600 + 2700 = 4300$.
+4. Combined Mean = $4300 / 50 = 86$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 31
+% Category: Concept | Difficulty: Medium | Question Type: MCQ
+\question
+A data set consists of 10 identical values. Which of the following must be true?
+\begin{tasks}(1)
+    \task The mean is 10.
+    \task The standard deviation is 0.
+    \task The range is 1.
+    \task The median is 0.
+\end{tasks}
+
+\begin{solution}
+\textbf{Logic:} If all values are the same, there is no variation, meaning the spread (Range and SD) is zero.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 32
+% Category: Exam Level | Difficulty: Medium | Question Type: Numeric Entry
+\question
+The interquartile range (IQR) of a data set is 15. If the first quartile ($Q1$) is 42, what is the value of the third quartile ($Q3$)?
+
+\begin{solution}
+\textbf{Calculation:} $IQR = Q3 - Q1 \Rightarrow 15 = Q3 - 42 \Rightarrow Q3 = 57$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{57}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 33
+% Category: Practice | Difficulty: Hard | Question Type: MCQ
+\question
+A set of data has a range of 20. If every value in the set is multiplied by -2, what is the range of the new set?
+\begin{tasks}(4)
+    \task -40
+    \task 20
+    \task 40
+    \task 60
+\end{tasks}
+
+\begin{solution}
+\textbf{Logic:} Range is a measure of distance and must always be positive. If all values are multiplied by $k$, the range is multiplied by $|k|$. $20 \times |-2| = 40$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 34
+% Category: Concept | Difficulty: Medium | Question Type: MCQ
+\question
+Which measure is least likely to be affected by an outlier?
+\begin{tasks}(4)
+    \task Mean
+    \task Median
+    \task Range
+    \task Standard Deviation
+\end{tasks}
+
+\begin{solution}
+\textbf{Logic:} The median is resistant to outliers because it only depends on the rank/position of values, not their actual numerical weight.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 35
+% Category: Exam Level | Difficulty: Medium | Question Type: MCQ
+\question
+In a box plot, what does the rightmost whisker end represent?
+\begin{tasks}(4)
+    \task Mean
+    \task Median
+    \task Maximum
+    \task Third Quartile
+\end{tasks}
+
+\begin{solution}
+\textbf{Logic:} The whiskers in a standard SAT box plot extend from the minimum to the maximum values.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 36
+% Category: Practice | Difficulty: Easy | Question Type: MCQ
+\question
+A student scored 85, 90, and 88 on three tests. What score does he need on the fourth test to have a mean of 90?
+\begin{tasks}(4)
+    \task 90
+    \task 93
+    \task 95
+    \task 97
+\end{tasks}
+
+\begin{solution}
+\textbf{Calculation:} Total needed for 4 tests = $4 \times 90 = 360$. Current total = $85 + 90 + 88 = 263$. $360 - 263 = 97$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{D}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 37
+% Category: Exam Level | Difficulty: Hard | Question Type: MCQ
+\question
+Data Set A: {1, 2, 3, 4, 5}. Data Set B: {1, 1, 3, 5, 5}. Which is true?
+\begin{tasks}(1)
+    \task Mean A $>$ Mean B
+    \task Median A $>$ Median B
+    \task SD A $>$ SD B
+    \task SD B $>$ SD A
+\end{tasks}
+
+\begin{solution}
+\textbf{Logic:} Both have the same mean (3) and median (3). Set B has more values at the extremes (1s and 5s) compared to A, so Set B has a larger standard deviation.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{D}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 38
+% Category: Practice | Difficulty: Medium | Question Type: Numeric Entry
+\question
+A data set has 11 values. If the median is 25, how many values must be less than or equal to 25?
+
+\begin{solution}
+\textbf{Logic:} In an ordered set of 11, the 6th value is the median. Thus, the 1st through 6th values are all $\le$ the median.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{6}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 39
+% Category: Concept | Difficulty: Medium | Question Type: MCQ
+\question
+If the standard deviation of a set is 5, what is the variance?
+\begin{tasks}(4)
+    \task 2.5
+    \task 5
+    \task 10
+    \task 25
+\end{tasks}
+
+\begin{solution}
+\textbf{Logic:} Variance is the square of the standard deviation. $5^2 = 25$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{D}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 40
+% Category: Exam Level | Difficulty: Hard | Question Type: MCQ
+\question
+A frequency table shows 10 students with 0 books, 20 students with 1 book, and $x$ students with 2 books. If the mean is 1, what is $x$?
+\begin{tasks}(4)
+    \task 5
+    \task 10
+    \task 15
+    \task 20
+\end{tasks}
+
+\begin{solution}
+\textbf{Calculation:} Mean = Total Books / Total Students.
+$1 = \frac{(0\cdot10) + (1\cdot20) + (2\cdot x)}{10 + 20 + x} \Rightarrow 30 + x = 20 + 2x \Rightarrow x = 10$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 41
+% Category: Practice | Difficulty: Easy | Question Type: MCQ
+\question
+What is the mode of {1, 2, 2, 3, 3, 3, 4}?
+\begin{tasks}(4)
+    \task 1
+    \task 2
+    \task 3
+    \task 4
+\end{tasks}
+
+\begin{solution}
+\textbf{Logic:} 3 appears most frequently.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 42
+% Category: Exam Level | Difficulty: Hard | Question Type: MCQ
+\question
+A set has a mean of 100. If we remove the largest and smallest values, which measure is guaranteed to change?
+\begin{tasks}(4)
+    \task Mean
+    \task Median
+    \task Range
+    \task Mode
+\end{tasks}
+
+\begin{solution}
+\textbf{Logic:} Removing the extremes will always shrink the distance between the new max and min, thus changing the range.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 43
+% Category: Concept | Difficulty: Medium | Question Type: MCQ
+\question
+In a left-skewed distribution, which is usually true?
+\begin{tasks}(1)
+    \task mean $<$ median
+    \task mean $>$ median
+    \task mean = median
+    \task SD = 0
+\end{tasks}
+
+\begin{solution}
+\textbf{Logic:} The tail on the left pulls the mean down below the median.
+
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 44
+% Category: Practice | Difficulty: Medium | Question Type: MCQ
+\question
+Find the median of {5, 12, 3, 10, 8}.
+\begin{tasks}(4)
+    \task 5
+    \task 8
+    \task 10
+    \task 12
+\end{tasks}
+
+\begin{solution}
+\textbf{Logic:} Ordered: 3, 5, 8, 10, 12. Median = 8.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 45
+% Category: Exam Level | Difficulty: Hard | Question Type: MCQ
+\question
+If the sum of 5 numbers is 100, and the median is 20, what is the largest possible value in the set if all numbers are non-negative?
+\begin{tasks}(4)
+    \task 20
+    \task 60
+    \task 80
+    \task 100
+\end{tasks}
+
+\begin{solution}
+\textbf{Logic:} To maximize the 5th value, minimize others: 0, 0, 20, 20, $x$. $40 + x = 100 \Rightarrow x = 60$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 46
+% Category: Concept | Difficulty: Easy | Question Type: MCQ
+\question
+Can the mean be greater than the range?
+\begin{tasks}(2)
+    \task Yes
+    \task No
+\end{tasks}
+
+\begin{solution}
+\textbf{Logic:} Yes. Consider {100, 100, 101}. Mean $\approx 100$, Range = 1.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 47
+% Category: Practice | Difficulty: Medium | Question Type: Numeric Entry
+\question
+Median of {1, 2, 3, 4, 5, 100}.
+
+\begin{solution}
+\textbf{Calculation:} Even set ($n=6$). Average of 3rd (3) and 4th (4) = 3.5.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{3.5}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 48
+% Category: Exam Level | Difficulty: Hard | Question Type: MCQ
+\question
+Standard deviation of {5, 5, 5, 5}?
+\begin{tasks}(4)
+    \task 0
+    \task 5
+    \task 25
+    \task Undefined
+\end{tasks}
+
+\begin{solution}
+\textbf{Logic:} No variation $\Rightarrow$ SD = 0.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 49
+% Category: Concept | Difficulty: Medium | Question Type: MCQ
+\question
+The median of a set is 10. If we add 5 to every number, the new median is?
+\begin{tasks}(4)
+    \task 10
+    \task 15
+    \task 50
+    \task 5
+\end{tasks}
+
+\begin{solution}
+\textbf{Logic:} Addition shifts the entire distribution. $10 + 5 = 15$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 50
+% Category: Practice | Difficulty: Medium | Question Type: MCQ
+\question
+If the mean of $x, x+2, x+4$ is 10, what is $x$?
+\begin{tasks}(4)
+    \task 6
+    \task 8
+    \task 10
+    \task 12
+\end{tasks}
+
+\begin{solution}
+\textbf{Calculation:} $\frac{3x + 6}{3} = 10 \Rightarrow x + 2 = 10 \Rightarrow x = 8$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+% =============================================================
+% Question End
+% =============================================================
+
+\end{questions}
+\begin{center}
+\rule{.5\textwidth}{1pt}
+\end{center}
+\end{document}

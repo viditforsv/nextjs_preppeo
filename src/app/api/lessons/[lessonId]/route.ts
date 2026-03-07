@@ -30,6 +30,7 @@ export async function GET(
         is_preview,
         content,
         quiz_id,
+        lesson_type,
         video_url,
         pdf_url,
         solution_url,

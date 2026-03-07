@@ -28,8 +28,28 @@ import {
   Lightbulb,
   Calculator,
   BookOpen,
+  ClipboardList,
+  Plus,
+  Trash2,
+  GripVertical,
 } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
+
+export interface InteractiveStep {
+  title?: string;
+  content?: string;
+  equation?: string;
+  highlight?: string;
+}
+
+export interface InteractiveQuizItem {
+  id?: string;
+  question?: string;
+  options?: string[];
+  answer?: number;
+  explanation?: string;
+  difficulty?: string;
+}
 
 interface Lesson {
   id: string;
@@ -37,6 +57,7 @@ interface Lesson {
   slug: string;
   lesson_order: number;
   is_preview: boolean;
+  lesson_type?: string | null;
   content?: string;
   quiz_id?: string;
   video_url?: string;
@@ -76,6 +97,15 @@ export default function AdminLessonEditorPage({
     lessonId: string;
   } | null>(null);
   const [activeTab, setActiveTab] = useState("basic");
+  const [interactiveIntro, setInteractiveIntro] = useState<string>("");
+  const [interactiveSteps, setInteractiveSteps] = useState<InteractiveStep[]>([]);
+  const [interactiveQuiz, setInteractiveQuiz] = useState<InteractiveQuizItem[]>([]);
+  const [interactiveSaving, setInteractiveSaving] = useState(false);
+  const [interactiveLoaded, setInteractiveLoaded] = useState(false);
+  const [questionBankSearch, setQuestionBankSearch] = useState("");
+  const [questionBankResults, setQuestionBankResults] = useState<{ id: string; question_text: string; options?: unknown[]; correct_answer?: string; explanation?: string }[]>([]);
+  const [questionBankLoading, setQuestionBankLoading] = useState(false);
+  const [showAddFromBank, setShowAddFromBank] = useState(false);
 
   // Resolve params
   useEffect(() => {
@@ -107,12 +137,107 @@ export default function AdminLessonEditorPage({
       }
       const lessonData = await lessonResponse.json();
       setLesson(lessonData.lesson);
+      setInteractiveLoaded(false);
     } catch (error) {
       console.error("Error loading lesson data:", error);
       setError("Failed to load lesson data");
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const loadInteractiveContent = async (lessonId: string) => {
+    try {
+      const res = await fetch(`/api/lessons/${lessonId}/interactive`);
+      if (res.ok) {
+        const data = await res.json();
+        setInteractiveIntro(data.intro ?? "");
+        setInteractiveSteps(Array.isArray(data.steps) ? data.steps : []);
+        setInteractiveQuiz(Array.isArray(data.quiz) ? data.quiz : []);
+      } else {
+        setInteractiveIntro("");
+        setInteractiveSteps([]);
+        setInteractiveQuiz([]);
+      }
+    } catch {
+      setInteractiveIntro("");
+      setInteractiveSteps([]);
+      setInteractiveQuiz([]);
+    } finally {
+      setInteractiveLoaded(true);
+    }
+  };
+
+  useEffect(() => {
+    if (resolvedParams?.lessonId && (activeTab === "practice" || lesson?.lesson_type === "interactive") && !interactiveLoaded) {
+      loadInteractiveContent(resolvedParams.lessonId);
+    }
+  }, [resolvedParams?.lessonId, activeTab, lesson?.lesson_type, interactiveLoaded]);
+
+  const handleSaveInteractive = async () => {
+    if (!resolvedParams?.lessonId) return;
+    try {
+      setInteractiveSaving(true);
+      const res = await fetch(`/api/lessons/${resolvedParams.lessonId}/interactive`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          intro: interactiveIntro,
+          steps: interactiveSteps,
+          quiz: interactiveQuiz,
+        }),
+      });
+      if (!res.ok) throw new Error("Failed to save");
+      alert("Practice & interactive content saved.");
+    } catch (e) {
+      setError(e instanceof Error ? e.message : "Failed to save interactive content");
+    } finally {
+      setInteractiveSaving(false);
+    }
+  };
+
+  const searchQuestionBank = async () => {
+    if (!questionBankSearch.trim()) return;
+    setQuestionBankLoading(true);
+    try {
+      const res = await fetch(
+        `/api/question-bank?search=${encodeURIComponent(questionBankSearch.trim())}&limit=20&page=1`
+      );
+      if (res.ok) {
+        const data = await res.json();
+        setQuestionBankResults(data.questions ?? []);
+      } else {
+        setQuestionBankResults([]);
+      }
+    } catch {
+      setQuestionBankResults([]);
+    } finally {
+      setQuestionBankLoading(false);
+    }
+  };
+
+  const addQuestionFromBank = (q: { id: string; question_text: string; options?: unknown[]; correct_answer?: string; explanation?: string }) => {
+    const opts = Array.isArray(q.options) ? q.options : [];
+    const optionTexts = opts.map((o: unknown) => (typeof o === "string" ? o : (o && typeof o === "object" && "text" in o ? String((o as { text?: string }).text ?? "") : "")));
+    let answerIdx = 0;
+    if (q.correct_answer != null) {
+      const idx = optionTexts.findIndex((t) => t === q.correct_answer);
+      if (idx >= 0) answerIdx = idx;
+      else if (/^\d+$/.test(String(q.correct_answer))) answerIdx = Math.max(0, parseInt(String(q.correct_answer), 10));
+    }
+    setInteractiveQuiz((prev) => [
+      ...prev,
+      {
+        id: q.id,
+        question: q.question_text,
+        options: optionTexts.length ? optionTexts : ["Option A", "Option B", "Option C", "Option D"],
+        answer: answerIdx,
+        explanation: q.explanation ?? "",
+      },
+    ]);
+    setShowAddFromBank(false);
+    setQuestionBankSearch("");
+    setQuestionBankResults([]);
   };
 
   const handleSave = async () => {
@@ -131,6 +256,7 @@ export default function AdminLessonEditorPage({
           title: lesson.title,
           slug: lesson.slug,
           is_preview: lesson.is_preview,
+          lesson_type: lesson.lesson_type || null,
           content: lesson.content,
           quiz_id: lesson.quiz_id || null,
           video_url: lesson.video_url || null,
@@ -276,7 +402,7 @@ export default function AdminLessonEditorPage({
 
       {/* Editor Tabs */}
       <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-        <TabsList className="grid w-full grid-cols-4 rounded-lg bg-gray-100 p-1">
+        <TabsList className="grid w-full grid-cols-5 rounded-lg bg-gray-100 p-1">
           <TabsTrigger
             value="basic"
             className="rounded-sm data-[state=active]:bg-primary data-[state=active]:text-white font-medium"
@@ -304,6 +430,13 @@ export default function AdminLessonEditorPage({
           >
             <Lightbulb className="w-4 h-4 mr-2" />
             Concepts & Formulas
+          </TabsTrigger>
+          <TabsTrigger
+            value="practice"
+            className="rounded-sm data-[state=active]:bg-primary data-[state=active]:text-white font-medium"
+          >
+            <ClipboardList className="w-4 h-4 mr-2" />
+            Practice
           </TabsTrigger>
         </TabsList>
 
@@ -372,6 +505,23 @@ export default function AdminLessonEditorPage({
                 </div>
               </div>
 
+              <div>
+                <label className="block text-sm font-medium mb-2">
+                  Lesson type (Learn flow)
+                </label>
+                <select
+                  value={lesson.lesson_type ?? "video"}
+                  onChange={(e) => updateField("lesson_type", e.target.value)}
+                  className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm"
+                >
+                  <option value="video">Video</option>
+                  <option value="pdf">PDF</option>
+                  <option value="interactive">Interactive (theory + practice)</option>
+                </select>
+                <p className="text-xs text-muted-foreground mt-1">
+                  Interactive: use Practice tab for steps and quiz.
+                </p>
+              </div>
               <div>
                 <label className="block text-sm font-medium mb-2">
                   Quiz ID
@@ -572,6 +722,160 @@ export default function AdminLessonEditorPage({
               </CardContent>
             </Card>
           </div>
+        </TabsContent>
+
+        {/* Practice & Interactive Tab */}
+        <TabsContent value="practice" className="mt-6">
+          <Card className="rounded-sm">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <ClipboardList className="w-5 h-5 text-[#e27447]" />
+                Practice & Interactive content
+              </CardTitle>
+              <CardDescription>
+                Intro, steps (theory), and practice questions for /learn. Set lesson type to &quot;Interactive&quot; in Basic Info.
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-6">
+              <div>
+                <label className="block text-sm font-medium mb-2">Intro (optional)</label>
+                <Textarea
+                  value={interactiveIntro}
+                  onChange={(e) => setInteractiveIntro(e.target.value)}
+                  placeholder="Short intro for this lesson"
+                  rows={2}
+                  className="rounded-sm"
+                />
+              </div>
+
+              <div>
+                <div className="flex items-center justify-between mb-2">
+                  <label className="text-sm font-medium">Steps (theory blocks)</label>
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    onClick={() => setInteractiveSteps((s) => [...s, { title: "", content: "" }])}
+                  >
+                    <Plus className="w-4 h-4 mr-1" /> Add step
+                  </Button>
+                </div>
+                <div className="space-y-3">
+                  {interactiveSteps.map((step, idx) => (
+                    <div key={idx} className="flex gap-2 items-start border rounded-md p-3 bg-muted/30">
+                      <span className="text-muted-foreground mt-2" aria-hidden><GripVertical className="w-4 h-4" /></span>
+                      <div className="flex-1 grid gap-2">
+                        <Input
+                          placeholder="Step title"
+                          value={step.title ?? ""}
+                          onChange={(e) => {
+                            const next = [...interactiveSteps];
+                            next[idx] = { ...step, title: e.target.value };
+                            setInteractiveSteps(next);
+                          }}
+                          className="rounded-sm"
+                        />
+                        <Textarea
+                          placeholder="Step content"
+                          value={step.content ?? ""}
+                          onChange={(e) => {
+                            const next = [...interactiveSteps];
+                            next[idx] = { ...step, content: e.target.value };
+                            setInteractiveSteps(next);
+                          }}
+                          rows={2}
+                          className="rounded-sm"
+                        />
+                      </div>
+                      <Button
+                        type="button"
+                        variant="outline"
+                        size="icon"
+                        onClick={() => setInteractiveSteps((s) => s.filter((_, i) => i !== idx))}
+                        aria-label="Remove step"
+                      >
+                        <Trash2 className="w-4 h-4 text-destructive" />
+                      </Button>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div>
+                <div className="flex items-center justify-between mb-2">
+                  <label className="text-sm font-medium">Practice questions</label>
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    onClick={() => setShowAddFromBank(true)}
+                  >
+                    <Plus className="w-4 h-4 mr-1" /> Add from question bank
+                  </Button>
+                </div>
+                {showAddFromBank && (
+                  <Card className="rounded-sm mb-4 p-4 border-dashed">
+                    <p className="text-sm text-muted-foreground mb-2">Search question bank and add to this lesson</p>
+                    <div className="flex gap-2 mb-2">
+                      <Input
+                        placeholder="Search by text or ID"
+                        value={questionBankSearch}
+                        onChange={(e) => setQuestionBankSearch(e.target.value)}
+                        onKeyDown={(e) => e.key === "Enter" && searchQuestionBank()}
+                        className="rounded-sm"
+                      />
+                      <Button size="sm" onClick={searchQuestionBank} disabled={questionBankLoading}>
+                        {questionBankLoading ? "Searching..." : "Search"}
+                      </Button>
+                      <Button variant="outline" size="sm" onClick={() => { setShowAddFromBank(false); setQuestionBankResults([]); setQuestionBankSearch(""); }}>Cancel</Button>
+                    </div>
+                    <div className="max-h-48 overflow-y-auto space-y-1">
+                      {questionBankResults.map((q) => (
+                        <div key={q.id} className="flex items-center justify-between py-1 border-b text-sm">
+                          <span className="line-clamp-1 flex-1">{q.question_text?.slice(0, 80)}...</span>
+                          <Button size="sm" variant="secondary" onClick={() => addQuestionFromBank(q)}>Add</Button>
+                        </div>
+                      ))}
+                      {questionBankResults.length === 0 && questionBankSearch && !questionBankLoading && (
+                        <p className="text-sm text-muted-foreground">No questions found.</p>
+                      )}
+                    </div>
+                  </Card>
+                )}
+                <div className="space-y-2">
+                  {interactiveQuiz.map((item, idx) => (
+                    <div key={idx} className="flex gap-2 items-start border rounded-md p-3 bg-muted/30">
+                      <span className="text-muted-foreground mt-2" aria-hidden><GripVertical className="w-4 h-4" /></span>
+                      <div className="flex-1 min-w-0">
+                        <p className="text-sm font-medium line-clamp-2">{item.question ?? `Question ${idx + 1}`}</p>
+                        {item.id && <p className="text-xs text-muted-foreground">ID: {item.id}</p>}
+                      </div>
+                      <Button
+                        type="button"
+                        variant="outline"
+                        size="icon"
+                        onClick={() => setInteractiveQuiz((q) => q.filter((_, i) => i !== idx))}
+                        aria-label="Remove question"
+                      >
+                        <Trash2 className="w-4 h-4 text-destructive" />
+                      </Button>
+                    </div>
+                  ))}
+                </div>
+                {interactiveQuiz.length === 0 && !showAddFromBank && (
+                  <p className="text-sm text-muted-foreground py-2">No practice questions. Add from question bank or create inline (future).</p>
+                )}
+              </div>
+
+              <Button
+                onClick={handleSaveInteractive}
+                disabled={interactiveSaving || !resolvedParams?.lessonId}
+                className="rounded-sm bg-[#e27447] hover:bg-[#d1653a]"
+              >
+                {interactiveSaving ? "Saving..." : "Save practice & interactive content"}
+              </Button>
+            </CardContent>
+          </Card>
         </TabsContent>
       </Tabs>
     </div>

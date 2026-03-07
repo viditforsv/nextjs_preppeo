@@ -1,0 +1,1411 @@
+\documentclass[11pt,paper=a4,answers]{exam}
+\usepackage{graphicx,lastpage}
+\usepackage{upgreek}
+\usepackage{censor}
+\usepackage{gensymb}
+\usepackage{amsmath}
+\usepackage{multicol}
+\usepackage{enumitem}
+\usepackage{tasks}
+\usepackage{adjustbox}
+\usepackage{xcolor}
+\usepackage{tfrupee}
+\setlength{\voffset}{0.25in}
+\usepackage{tabularx}
+\newcolumntype{Y}{>{\centering\arraybackslash}X}
+%==============================================================
+% Customise Non-Essential Packages Below
+% =============================================================
+\usepackage[most]{tcolorbox}
+\usepackage{eso-pic}
+\usepackage{tikz}
+\AddToShipoutPictureBG{%
+\begin{tikzpicture}[remember picture,overlay]
+\foreach \x in {-8,-4,0,4,8,12,16,20}
+\foreach \y in {-8,-4,0,4,8,12,16,20} {
+\node[opacity=0.05,rotate=45,anchor=center] at ([xshift=\x cm,yshift=\y cm]current page.center) {%
+\begin{minipage}{2cm}
+\centering
+\includegraphics[width=2cm]{images/logo_black.png}\\
+\small preppeo.com
+\end{minipage}%
+};
+}
+\end{tikzpicture}%
+}
+\printanswers
+
+%==============================================================
+% Customise Non-Essential Packages Above
+% =============================================================
+\definecolor{svgray}{rgb}{0.90, 0.90, 0.90}
+\graphicspath{{images/}}
+
+\usepackage[normalem]{ulem}
+\renewcommand\ULthickness{1pt}   %%---> For changing thickness of underline
+\setlength\ULdepth{3.5ex}%\maxdimen ---> For changing depth of underline
+\renewcommand{\baselinestretch}{1}
+\chead{
+\includegraphics[scale=0.1,height=2cm ]{logo.png}
+}
+\pagestyle{empty}
+
+\pagestyle{headandfoot}
+\headrule
+\cfoot{W: https://preppeo.com; M: +91-8130711689}
+
+\begin{document}
+%==============================================================
+% Customise Question paper details below this
+% =============================================================
+\begin{center}
+    \centering
+    \renewcommand{\arraystretch}{1.5}
+    \begin{tabularx}{\textwidth}{YYY}
+    & \normalsize\bf{{\Large{{Quantitative Reasoning}}}} & \\
+    By Preppeo & \normalsize\bf{{sat\_lid\_038}} & SAT\\
+    \normalsize{{\textbf{{Unit:}} Probability}} & \normalsize{{\textbf{{Chapter:}} Probability and conditional probability}} & \normalsize{{\textbf{{Topic:}} Basic Probability}} \\
+    \end{tabularx}
+\end{center}
+\par\noindent\rule{\textwidth}{1pt}
+% =============================================================
+% Customise Question paper details above this
+% =============================================================
+
+\begin{questions}
+\pointsinrightmargin
+\pointsdroppedatright
+\marksnotpoints
+\pointpoints{mark}{marks}
+\pointformat{\boldmath\themarginpoints}
+\bracketedpoints
+
+% =============================================================
+% Question Begin
+% =============================================================
+
+% Lid 038: Problem-Solving & Data Analysis
+% Topic: Probability: Basic Probability and Conditional Probability
+
+% Question 1
+% Category: Practice | Difficulty: Easy | Question Type: MCQ
+\question
+Each face of a fair 14-sided die is labeled with a number from 1 through 14, with a different number appearing on each face. If the die is rolled one time, what is the probability of rolling a 2?
+\begin{tasks}(4)
+    \task $\frac{1}{14}$
+    \task $\frac{2}{14}$
+    \task $\frac{12}{14}$
+    \task $\frac{13}{14}$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Probability is the ratio of the number of favorable outcomes to the total number of possible outcomes in the sample space.
+\[ P(\text{Event}) = \frac{\text{Number of favorable outcomes}}{\text{Total number of outcomes}} \]
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+* Identify the total number of outcomes: Since the die has 14 sides labeled 1 through 14, there are 14 possible outcomes.
+* Identify the favorable outcomes: The event is "rolling a 2." There is only one face with the number 2.
+* Set up the ratio: $\frac{1}{14}$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 2
+% Category: Practice | Difficulty: Easy | Question Type: MCQ
+\question
+In a bag, there are 7 red, 4 white, 33 blue, and 33 yellow cubes. If one of these cubes is selected at random, what is the probability of selecting a cube that is neither blue nor yellow?
+\begin{tasks}(4)
+    \task $\frac{6}{7}$
+    \task $\frac{7}{11}$
+    \task $\frac{1}{3}$
+    \task $\frac{1}{7}$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+To find the probability of a "neither/nor" event, we first determine which outcomes satisfy the condition (the red and white cubes) and then divide by the total number of items in the set.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+* Calculate the total number of cubes: $7 + 4 + 33 + 33 = 77$.
+* Identify the "neither blue nor yellow" cubes: These are the red and white cubes.
+* Calculate the number of favorable outcomes: $7 + 4 = 11$.
+* Set up the probability fraction: $\frac{11}{77}$.
+* Simplify the fraction: $\frac{11 \div 11}{77 \div 11} = \frac{1}{7}$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{D}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 3
+% Category: Exam Level | Difficulty: Hard | Question Type: MCQ
+\question
+A grove has 6 rows of birch trees and 5 rows of maple trees. Each row of birch trees has 8 trees 20 feet or taller and 6 trees shorter than 20 feet. Each row of maple trees has 9 trees 20 feet or taller and 7 trees shorter than 20 feet. A tree from one of these rows will be selected at random. What is the probability of selecting a maple tree, given that the tree is 20 feet or taller?
+\begin{tasks}(4)
+    \task $\frac{9}{164}$
+    \task $\frac{3}{10}$
+    \task $\frac{15}{31}$
+    \task $\frac{9}{17}$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+This is a conditional probability problem. We are restricted to a specific subset of the data: only trees that are 20 feet or taller. The "total" for our probability will be the sum of all trees meeting that height requirement.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+* Calculate total birch trees $\ge$ 20 ft: $6 \text{ rows} \times 8 \text{ trees/row} = 48$.
+* Calculate total maple trees $\ge$ 20 ft: $5 \text{ rows} \times 9 \text{ trees/row} = 45$.
+* Calculate the "given" total (all trees $\ge$ 20 ft): $48 + 45 = 93$.
+* Identify the favorable outcomes (maple trees $\ge$ 20 ft): 45.
+* Set up the probability: $\frac{45}{93}$.
+* Simplify by dividing by 3: $\frac{45 \div 3}{93 \div 3} = \frac{15}{31}$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 4
+% Category: Practice | Difficulty: Medium | Question Type: MCQ
+\question
+\begin{center}
+\begin{tabular}{|l|c|}
+\hline
+\textbf{Classification} & \textbf{Frequency} \\ \hline
+Igneous & 10 \\ \hline
+Metamorphic & 33 \\ \hline
+Sedimentary & 27 \\ \hline
+\end{tabular}
+\end{center}
+Each rock in a collection of 70 rocks was classified as either igneous, metamorphic, or sedimentary, as shown in the frequency table. If one of these rocks is selected at random, what is the probability of selecting a rock that is igneous?
+\begin{tasks}(4)
+    \task $\frac{10}{27}$
+    \task $\frac{10}{33}$
+    \task $\frac{10}{60}$
+    \task $\frac{10}{70}$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+In a frequency table, the probability is the frequency of the specific category divided by the total frequency of all categories combined.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+* Identify the total number of rocks (given in the problem and table): 70.
+* Identify the frequency of igneous rocks: 10.
+* Set up the probability ratio: $\frac{10}{70}$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{D}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 5
+% Category: Practice | Difficulty: Easy | Question Type: MCQ
+\question
+Of the 8 planets in our solar system, 4 are considered rocky. If a student randomly selects 1 of those 8 planets as a topic for a report, what is the probability that the selected planet will be rocky?
+\begin{tasks}(4)
+    \task $\frac{1}{8}$
+    \task $\frac{1}{4}$
+    \task $\frac{1}{2}$
+    \task 2
+\end{tasks}
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+* Total possible outcomes (total planets): 8.
+* Favorable outcomes (rocky planets): 4.
+* Probability = $\frac{4}{8}$.
+* Simplify: $\frac{1}{2}$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 6
+% Category: Exam Level | Difficulty: Medium | Question Type: MCQ
+\question
+At a movie theater, there are a total of 350 customers. Each customer is located in either theater A, theater B, or theater C. If one of these customers is selected at random, the probability of selecting a customer who is located in theater A is 0.48, and the probability of selecting a customer who is located in theater B is 0.24. How many customers are located in theater C?
+\begin{tasks}(4)
+    \task 28
+    \task 40
+    \task 84
+    \task 98
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The sum of probabilities for all possible mutually exclusive outcomes must equal 1. Once the probability of the final category is found, multiply it by the total population to find the specific count.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+* Calculate the combined probability of A and B: $0.48 + 0.24 = 0.72$.
+* Find the probability of theater C: $1 - 0.72 = 0.28$.
+* Multiply the probability of C by the total number of customers: $0.28 \times 350$.
+* $28\% \text{ of } 350 = 0.28 \times 350 = 98$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{D}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 7
+% Category: Practice | Difficulty: Easy | Question Type: Numeric Entry
+\question
+Each vertex of a 14-sided polygon is labeled with one of the 14 letters A through N, with a different letter at each vertex. If one vertex is selected at random, what is the probability that the letter D will be at the selected vertex? (Express your answer as a fraction.)
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+* Total vertices: 14.
+* Each vertex has a unique letter, so there is exactly one vertex labeled "D".
+* Probability = $\frac{1}{14}$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{1/14}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 8
+% Category: Practice | Difficulty: Easy | Question Type: MCQ
+\question
+A band with 45 members has 11 members who play saxophone. If one band member is selected at random, what is the probability of selecting a band member who plays saxophone?
+\begin{tasks}(4)
+    \task $\frac{1}{45}$
+    \task $\frac{11}{45}$
+    \task $\frac{34}{45}$
+    \task $\frac{45}{45}$
+\end{tasks}
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+* Total outcomes (band members): 45.
+* Favorable outcomes (saxophone players): 11.
+* Probability = $\frac{11}{45}$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 9
+% Category: Exam Level | Difficulty: Hard | Question Type: Numeric Entry
+\question
+On May 10, 2015, there were 83 million Internet subscribers in Nigeria. By September 30, 2015, the number of Internet subscribers in Nigeria had increased to 97 million. If an Internet subscriber in Nigeria on September 30, 2015, is selected at random, the probability that the person selected was an MTN subscriber is 0.43. There were $p$ million MTN subscribers in Nigeria on September 30, 2015. To the nearest integer, what is the value of $p$?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+To find a subset's size when given its probability relative to a total, multiply the total population by the probability. 
+\[ \text{Subset Size} = \text{Total Size} \times \text{Probability} \]
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+* Use the total population for the specific date mentioned (Sept 30): 97 million.
+* Use the given probability for MTN subscribers: 0.43.
+* Multiply: $97 \times 0.43 = 41.71$.
+* Round to the nearest integer: 42.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{42}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 10
+% Category: Practice | Difficulty: Easy | Question Type: MCQ
+\question
+A store received a shipment of 1,000 MP3 players, 4 of which were defective. If an MP3 player is randomly selected from this shipment, what is the probability that it is defective?
+\begin{tasks}(4)
+    \task 0.004
+    \task 0.04
+    \task 0.4
+    \task 4
+\end{tasks}
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+* Total outcomes: 1,000.
+* Favorable outcomes (defective): 4.
+* Probability = $\frac{4}{1,000}$.
+* Convert to decimal: 0.004.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 11
+% Category: Concept | Difficulty: Medium | Question Type: MCQ
+\question
+If the probability of an event happening is $x$, what is the probability of the event NOT happening?
+\begin{tasks}(4)
+    \task $x$
+    \task $1 - x$
+    \task $\frac{1}{x}$
+    \task $x - 1$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The sum of the probability of an event and the probability of its complement (it not happening) is always exactly 1.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+* $P(\text{Event}) + P(\text{Not Event}) = 1$.
+* $x + P(\text{Not Event}) = 1$.
+* $P(\text{Not Event}) = 1 - x$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 12
+% Category: Practice | Difficulty: Medium | Question Type: MCQ
+\question
+A spinner is divided into 8 equal sections labeled 1 through 8. What is the probability that the spinner lands on a number that is a prime number?
+\begin{tasks}(4)
+    \task $\frac{1}{8}$
+    \task $\frac{3}{8}$
+    \task $\frac{4}{8}$
+    \task $\frac{5}{8}$
+\end{tasks}
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+* Total outcomes: 8.
+* List prime numbers between 1 and 8: 2, 3, 5, 7.
+* Count favorable outcomes: 4.
+* Probability = $\frac{4}{8}$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 13
+% Category: Exam Level | Difficulty: Hard | Question Type: MCQ
+\question
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+\hline
+ & \textbf{Science} & \textbf{History} & \textbf{Total} \\ \hline
+\textbf{Grade 10} & 15 & 25 & 40 \\ \hline
+\textbf{Grade 11} & 20 & 10 & 30 \\ \hline
+\textbf{Total} & 35 & 35 & 70 \\ \hline
+\end{tabular}
+\end{center}
+Based on the table, if a Grade 11 student is chosen at random, what is the probability that they prefer History?
+\begin{tasks}(4)
+    \task $\frac{10}{30}$
+    \task $\frac{10}{35}$
+    \task $\frac{10}{70}$
+    \task $\frac{30}{70}$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+For conditional probability from a two-way table, use the specific row or column total mentioned in the "if" clause as the denominator.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+* Condition: "if a Grade 11 student is chosen." 
+* Total Grade 11 students: 30.
+* Favorable outcomes (Grade 11 and History): 10.
+* Probability = $\frac{10}{30}$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+% Question 14
+% Category: Practice | Difficulty: Medium | Question Type: Numeric Entry
+\question
+A jar contains 5 red marbles, 8 blue marbles, and 7 green marbles. If one marble is selected at random, what is the probability that the marble is NOT red? (Express your answer as a decimal.)
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The probability of an event NOT occurring is the complement of the event occurring. We can find this by identifying all outcomes that do not meet the "red" criteria and dividing by the total.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+* Calculate the total number of marbles: $5 + 8 + 7 = 20$.
+* Identify favorable outcomes (not red): These are blue and green marbles.
+* Count favorable outcomes: $8 + 7 = 15$.
+* Set up the probability fraction: $\frac{15}{20}$.
+* Convert to decimal: $15 \div 20 = 0.75$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{0.75}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 15
+% Category: Exam Level | Difficulty: Hard | Question Type: MCQ
+\question
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+\hline
+ & \textbf{Pass} & \textbf{Fail} & \textbf{Total} \\ \hline
+\textbf{Trained} & 45 & 5 & 50 \\ \hline
+\textbf{Untrained} & 20 & 30 & 50 \\ \hline
+\textbf{Total} & 65 & 35 & 100 \\ \hline
+\end{tabular}
+\end{center}
+The table shows the results of a safety exam for 100 employees. If an employee who failed the exam is selected at random, what is the probability that the employee was untrained?
+\begin{tasks}(4)
+    \task $\frac{30}{100}$
+    \task $\frac{30}{50}$
+    \task $\frac{30}{35}$
+    \task $\frac{35}{100}$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+This is a conditional probability problem where the sample space is restricted to only those who "failed." The denominator must be the total number of failures.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+* Identify the restricted group: Employees who "Fail."
+* Find the total for that group from the table: 35.
+* Identify the favorable outcome within that group: Untrained and Fail.
+* Find that value: 30.
+* Set up the ratio: $\frac{30}{35}$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 16
+% Category: Concept | Difficulty: Medium | Question Type: MCQ
+\question
+A fair coin is flipped 3 times. What is the probability that the coin lands on heads exactly 2 times?
+\begin{tasks}(4)
+    \task $\frac{1}{8}$
+    \task $\frac{1}{4}$
+    \task $\frac{3}{8}$
+    \task $\frac{1}{2}$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+For small sample spaces, we can list all possible outcomes (Heads/Tails) and count how many meet the specific condition.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+* List total outcomes ($2^3 = 8$): HHH, HHT, HTH, THH, HTT, THT, TTH, TTT.
+* Identify outcomes with exactly two heads: HHT, HTH, THH.
+* Count favorable outcomes: 3.
+* Set up the ratio: $\frac{3}{8}$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 17
+% Category: Practice | Difficulty: Easy | Question Type: MCQ
+\question
+A set of cards consists of 10 cards numbered 1 through 10. If one card is drawn at random, what is the probability that the number on the card is a multiple of 3?
+\begin{tasks}(4)
+    \task $\frac{1}{10}$
+    \task $\frac{3}{10}$
+    \task $\frac{4}{10}$
+    \task $\frac{1}{3}$
+\end{tasks}
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+* Total possible outcomes: 10.
+* List multiples of 3 in the set: 3, 6, 9.
+* Count favorable outcomes: 3.
+* Probability = $\frac{3}{10}$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 18
+% Category: Exam Level | Difficulty: Hard | Question Type: Numeric Entry
+\question
+A survey asked 200 people if they prefer tea or coffee. 120 people said tea, and the rest said coffee. Of those who said tea, 40 were male. Of those who said coffee, 50 were male. If a person who is male is selected at random, what is the probability that he prefers coffee?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+We must first organize the raw data into categories to identify the "given" group (males) and the favorable subgroup (males who like coffee).
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+* Total people = 200.
+* Tea drinkers = 120. Coffee drinkers = $200 - 120 = 80$.
+* Tea + Male = 40.
+* Coffee + Male = 50.
+* Total Males = $40 + 50 = 90$.
+* Probability (Coffee given Male) = $\frac{50}{90}$.
+* Simplify: $5/9$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{5/9}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 19
+% Category: Practice | Difficulty: Medium | Question Type: MCQ
+\question
+A box contains 4 red pens, 6 blue pens, and 10 black pens. If one pen is chosen at random, what is the probability that it is NOT a black pen?
+\begin{tasks}(4)
+    \task 0.1
+    \task 0.4
+    \task 0.5
+    \task 0.6
+\end{tasks}
+
+\begin{solution}
+\textbf{Logic:} \\
+* Total pens: $4 + 6 + 10 = 20$.
+* Pens that are "not black" are red or blue: $4 + 6 = 10$.
+* Probability: $\frac{10}{20} = 0.5$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 20
+% Category: Exam Level | Difficulty: Medium | Question Type: MCQ
+\question
+A company has two branches. Branch A has 60 employees, 12 of whom are managers. Branch B has 40 employees, 8 of whom are managers. If an employee is selected at random from the entire company, what is the probability that the employee is a manager?
+\begin{tasks}(4)
+    \task 0.10
+    \task 0.20
+    \task 0.25
+    \task 0.40
+\end{tasks}
+
+\begin{solution}
+\textbf{Logic:} \\
+* Total employees: $60 + 40 = 100$.
+* Total managers: $12 + 8 = 20$.
+* Probability: $\frac{20}{100} = 0.20$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 21
+% Category: Practice | Difficulty: Easy | Question Type: Numeric Entry
+\question
+A fair 6-sided die is rolled. What is the probability of rolling a number greater than 4?
+
+\begin{solution}
+\textbf{Logic:} \\
+* Total outcomes: 6.
+* Numbers greater than 4: 5, 6.
+* Favorable outcomes: 2.
+* Probability: $\frac{2}{6} = \frac{1}{3}$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{1/3}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 22
+% Category: Exam Level | Difficulty: Hard | Question Type: MCQ
+\question
+A bag contains 50 tokens numbered 1 to 50. If one token is selected at random, what is the probability that the number is a perfect square or a multiple of 20?
+\begin{tasks}(4)
+    \task $\frac{7}{50}$
+    \task $\frac{9}{50}$
+    \task $\frac{10}{50}$
+    \task $\frac{12}{50}$
+\end{tasks}
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+* List perfect squares $\le 50$: 1, 4, 9, 16, 25, 36, 49 (7 tokens).
+* List multiples of 20 $\le 50$: 20, 40 (2 tokens).
+* Check for overlap: None of the perfect squares are multiples of 20.
+* Total favorable outcomes: $7 + 2 = 9$.
+* Probability: $\frac{9}{50}$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 23
+% Category: Practice | Difficulty: Medium | Question Type: MCQ
+\question
+If $P(A) = 0.35$ and $P(B) = 0.45$, and events A and B are mutually exclusive, what is $P(A \text{ or } B)$?
+\begin{tasks}(4)
+    \task 0.10
+    \task 0.80
+    \task 0.1575
+    \task 1.00
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+For mutually exclusive events, the probability of either occurring is the sum of their individual probabilities.
+
+\vspace{30pt}
+
+\textbf{Logic:} \\
+* $P(A \text{ or } B) = P(A) + P(B)$.
+* $0.35 + 0.45 = 0.80$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 24
+% Category: Exam Level | Difficulty: Hard | Question Type: Numeric Entry
+\question
+A group of 30 students includes 18 girls and 12 boys. 10 girls and 5 boys are in the school band. If a student is selected at random, what is the probability that the student is a boy or in the band?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+To find the probability of "A or B," we add the probabilities but subtract the overlap ($A \text{ and } B$) to avoid double-counting.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+* Total students = 30.
+* Boys = 12.
+* Band members = $10 \text{ (girls)} + 5 \text{ (boys)} = 15$.
+* Overlap (Boys in band) = 5.
+* Favorable = (Boys) + (Band) - (Overlap) = $12 + 15 - 5 = 22$.
+* Probability = $\frac{22}{30} = \frac{11}{15}$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{11/15}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 25
+% Category: Practice | Difficulty: Easy | Question Type: MCQ
+\question
+A card is drawn from a standard 52-card deck. What is the probability of drawing a King?
+\begin{tasks}(4)
+    \task $\frac{1}{52}$
+    \task $\frac{1}{26}$
+    \task $\frac{1}{13}$
+    \task $\frac{1}{4}$
+\end{tasks}
+
+\begin{solution}
+\textbf{Logic:} \\
+* Total cards: 52.
+* Number of Kings: 4 (one for each suit).
+* Probability: $\frac{4}{52} = \frac{1}{13}$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 26
+% Category: Exam Level | Difficulty: Hard | Question Type: MCQ
+\question
+A target has three regions: A, B, and C. The probability of hitting A is 0.2 and hitting B is 0.5. If hit points are mutually exclusive, what is the probability of hitting C or missing the target entirely?
+\begin{tasks}(4)
+    \task 0.3
+    \task 0.7
+    \task 0.8
+    \task Cannot be determined.
+\end{tasks}
+
+\begin{solution}
+\textbf{Logic:} \\
+* Total probability = 1.0.
+* Probability of hitting A or B = $0.2 + 0.5 = 0.7$.
+* The remaining probability represents everything else (hitting C or missing) = $1.0 - 0.7 = 0.3$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 27
+% Category: Practice | Difficulty: Medium | Question Type: Numeric Entry
+\question
+A bag has 10 coins: 3 quarters, 2 dimes, and 5 nickels. If a coin is selected at random, what is the probability it is a dime?
+
+\begin{solution}
+\textbf{Logic:} \\
+* Total coins: 10.
+* Favorable (dimes): 2.
+* Probability: $\frac{2}{10} = 0.2$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{0.2}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 28
+% Category: Concept | Difficulty: Medium | Question Type: MCQ
+\question
+Which of the following probabilities represents a "certain" event?
+\begin{tasks}(4)
+    \task 0
+    \task 0.5
+    \task 1
+    \task 100
+\end{tasks}
+
+\begin{solution}
+\textbf{Logic:} \\
+* On a probability scale, 0 is impossible and 1 is certain.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 29
+% Category: Practice | Difficulty: Easy | Question Type: MCQ
+\question
+A box contains 5 red balls and 5 white balls. If you draw one ball, what is the probability it is red?
+\begin{tasks}(4)
+    \task 0.1
+    \task 0.5
+    \task 5
+    \task 10
+\end{tasks}
+
+\begin{solution}
+\textbf{Logic:} \\
+* Total: 10. Red: 5. $\frac{5}{10} = 0.5$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 30
+% Category: Exam Level | Difficulty: Medium | Question Type: Numeric Entry
+\question
+In a class of 25 students, 15 play sports. What is the probability that a randomly chosen student does NOT play sports?
+
+\begin{solution}
+\textbf{Logic:} \\
+* Total: 25.
+* Do not play sports: $25 - 15 = 10$.
+* Probability: $\frac{10}{25} = \frac{2}{5} = 0.4$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{0.4}
+\end{solution}
+
+% Question 31
+% Category: Exam Level | Difficulty: Hard | Question Type: MCQ
+\question
+\begin{center}
+\begin{tabular}{|l|c|c|c|}
+\hline
+ & \textbf{Pet: Dog} & \textbf{Pet: Cat} & \textbf{Total} \\ \hline
+\textbf{Living in House} & 42 & 18 & 60 \\ \hline
+\textbf{Living in Apartment} & 15 & 25 & 40 \\ \hline
+\textbf{Total} & 57 & 43 & 100 \\ \hline
+\end{tabular}
+\end{center}
+The table summarizes a survey of 100 pet owners. If a pet owner who lives in an apartment is selected at random, what is the probability that the owner has a dog?
+\begin{tasks}(4)
+    \task $\frac{15}{40}$
+    \task $\frac{15}{57}$
+    \task $\frac{15}{100}$
+    \task $\frac{40}{100}$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+This is a conditional probability problem. The phrase "If a pet owner who lives in an apartment is selected" restricts our focus to only those 40 individuals. The denominator of our probability fraction must be the total for that specific row.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+* Identify the restricted group: "Living in Apartment."
+* Find the total for this group from the table: 40.
+* Identify the favorable outcomes within this group: Owners who have a "Dog."
+* Locate the intersection of "Apartment" and "Dog" in the table: 15.
+* Set up the probability ratio: $\frac{15}{40}$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 32
+% Category: Practice | Difficulty: Medium | Question Type: Numeric Entry
+\question
+A bag contains 60 marbles that are either solid or striped. If the probability of choosing a striped marble at random is 0.35, how many solid marbles are in the bag?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The probabilities of all mutually exclusive events in a set must add up to 1. If we know the probability of one type (striped), we can find the probability of the other (solid) and then calculate the physical count.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+* Find the probability of choosing a solid marble: $1 - 0.35 = 0.65$.
+* Multiply the total number of marbles by the probability of choosing a solid one: $60 \times 0.65$.
+* Calculation: $60 \times 0.6 = 36$ and $60 \times 0.05 = 3$. 
+* $36 + 3 = 39$.
+* There are 39 solid marbles in the bag.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{39}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 33
+% Category: Exam Level | Difficulty: Medium | Question Type: MCQ
+\question
+A fair 10-sided die labeled 1 through 10 is rolled once. What is the probability of rolling a number that is a factor of 10?
+\begin{tasks}(4)
+    \task $\frac{2}{10}$
+    \task $\frac{3}{10}$
+    \task $\frac{4}{10}$
+    \task $\frac{5}{10}$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+To find the probability, we first list all possible outcomes and then identify which specific numbers meet the criteria of being a "factor of 10."
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+* Identify the sample space: $\{1, 2, 3, 4, 5, 6, 7, 8, 9, 10\}$.
+* List the factors of 10: Any number that divides 10 evenly. These are 1, 2, 5, and 10.
+* Count the favorable outcomes: 4.
+* Probability = $\frac{\text{favorable}}{\text{total}} = \frac{4}{10}$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 34
+% Category: Practice | Difficulty: Easy | Question Type: MCQ
+\question
+A letter is chosen at random from the word "PROBABILITY." What is the probability that the letter chosen is a "B"?
+\begin{tasks}(4)
+    \task $\frac{1}{11}$
+    \task $\frac{2}{11}$
+    \task $\frac{2}{9}$
+    \task $\frac{1}{5}$
+\end{tasks}
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+* Count the total number of letters in "PROBABILITY": 11 letters.
+* Count how many times the letter "B" appears: 2 times.
+* The probability of choosing a "B" is $\frac{2}{11}$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 35
+% Category: Exam Level | Difficulty: Hard | Question Type: Numeric Entry
+\question
+In a group of 80 students, 45 take Spanish, 20 take French, and 10 take both languages. If a student is selected at random, what is the probability that the student takes neither Spanish nor French?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+To find the number of students taking "neither," we must first find the total number of unique students taking at least one language. We use the Principle of Inclusion-Exclusion to avoid double-counting the students who take both.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+* Total taking Spanish or French: $45 \text{ (Spanish)} + 20 \text{ (French)} - 10 \text{ (Both)} = 55$.
+* Total students taking neither: $80 \text{ (Total students)} - 55 \text{ (At least one)} = 25$.
+* Probability of neither: $\frac{25}{80}$.
+* Simplify the fraction: $\frac{25 \div 5}{80 \div 5} = \frac{5}{16}$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{5/16}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 36
+% Category: Concept | Difficulty: Medium | Question Type: MCQ
+\question
+If event A and event B are independent, and $P(A) = 0.4$ and $P(B) = 0.5$, what is $P(A \text{ and } B)$?
+\begin{tasks}(4)
+    \task 0.1
+    \task 0.2
+    \task 0.9
+    \task 1.0
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+For two independent events, the probability of both happening at the same time is the product of their individual probabilities.
+\[ P(A \text{ and } B) = P(A) \times P(B) \]
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+* $P(A) = 0.4$.
+* $P(B) = 0.5$.
+* $P(A \text{ and } B) = 0.4 \times 0.5 = 0.20$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 37
+% Category: Practice | Difficulty: Easy | Question Type: MCQ
+\question
+A jar contains 12 caramels, 8 mints, and 10 chocolates. If one piece of candy is selected at random, what is the probability it is a chocolate?
+\begin{tasks}(4)
+    \task $\frac{1}{3}$
+    \task $\frac{1}{2}$
+    \task $\frac{1}{10}$
+    \task $\frac{10}{20}$
+\end{tasks}
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+* Total pieces of candy: $12 + 8 + 10 = 30$.
+* Favorable outcomes (chocolates): 10.
+* Probability = $\frac{10}{30} = \frac{1}{3}$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 38
+% Category: Exam Level | Difficulty: Hard | Question Type: MCQ
+\question
+A doctor tests 200 patients for a certain condition. 40 patients actually have the condition. The test correctly identifies 38 of those with the condition but also gives a positive result for 16 patients who do not have it. If a patient with a positive test result is chosen at random, what is the probability they actually have the condition?
+\begin{tasks}(4)
+    \task $\frac{38}{200}$
+    \task $\frac{38}{54}$
+    \task $\frac{38}{40}$
+    \task $\frac{54}{200}$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Conditional probability focuses only on the specific subset that meets the "given" criteria. Here, we only care about patients who received a "positive test result."
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+* Total positive results = (True Positives) + (False Positives).
+* Total positive results = $38 + 16 = 54$.
+* Favorable outcomes (actually have condition and tested positive): 38.
+* Probability = $\frac{38}{54}$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 39
+% Category: Practice | Difficulty: Medium | Question Type: Numeric Entry
+\question
+A set of cards is numbered 1 through 20. If one card is drawn, what is the probability that the number is a multiple of 4? (Express your answer as a decimal.)
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+* Total cards: 20.
+* Multiples of 4 in the set: 4, 8, 12, 16, 20.
+* Count: 5.
+* Probability = $\frac{5}{20} = \frac{1}{4} = 0.25$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{0.25}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 40
+% Category: Concept | Difficulty: Easy | Question Type: MCQ
+\question
+Which of the following is an impossible probability for any event?
+\begin{tasks}(4)
+    \task 0
+    \task 0.75
+    \task 1
+    \task 1.2
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Probabilities are ratios of parts to a whole. Therefore, the value of any probability $P$ must be $0 \le P \le 1$.
+
+\vspace{30pt}
+
+\textbf{Logic:} \\
+* 1.2 is greater than 1, which would imply there are more favorable outcomes than total possible outcomes. This is impossible.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{D}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 41
+% Category: Exam Level | Difficulty: Medium | Question Type: MCQ
+\question
+A company produces 500 light bulbs. 2\% are defective. If 2 bulbs are chosen at random with replacement, what is the probability that both are defective?
+\begin{tasks}(4)
+    \task 0.0004
+    \task 0.02
+    \task 0.04
+    \task 0.4
+\end{tasks}
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+* Probability of one defective bulb: 2\% = 0.02.
+* Because they are chosen "with replacement," the events are independent.
+* $P(\text{Both Defective}) = 0.02 \times 0.02 = 0.0004$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 42
+% Category: Practice | Difficulty: Medium | Question Type: MCQ
+\question
+A weather forecast predicts a 30\% chance of rain on Saturday and a 30\% chance of rain on Sunday. Assuming these are independent events, what is the probability that it rains on at least one of these days?
+\begin{tasks}(4)
+    \task 30\%
+    \task 51\%
+    \task 60\%
+    \task 90\%
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The easiest way to find the probability of "at least one" is to find the complement: the probability that it rains on \textit{neither} day, and subtract that from 1.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+* $P(\text{No rain Saturday}) = 1 - 0.3 = 0.7$.
+* $P(\text{No rain Sunday}) = 1 - 0.3 = 0.7$.
+* $P(\text{No rain either day}) = 0.7 \times 0.7 = 0.49$.
+* $P(\text{At least one day}) = 1 - 0.49 = 0.51$, or 51\%.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 43
+% Category: Exam Level | Difficulty: Hard | Question Type: Numeric Entry
+\question
+A class has 15 boys and 10 girls. Three students are chosen to be on a committee. If the first two chosen are boys, what is the probability that the third student chosen is a girl?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+When choosing without replacement, the total number of students and the number of students in each category decrease after each selection.
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+* Initial count: 15 boys, 10 girls (Total 25).
+* After choosing 2 boys: 13 boys remain, 10 girls remain (Total 23).
+* The probability that the next student is a girl is $\frac{10}{23}$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{10/23}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 44
+% Category: Practice | Difficulty: Easy | Question Type: MCQ
+\question
+A bag has 5 red and 5 blue balls. After a red ball is drawn and NOT replaced, what is the probability of drawing another red ball?
+\begin{tasks}(4)
+    \task $\frac{4}{9}$
+    \task $\frac{4}{10}$
+    \task $\frac{5}{9}$
+    \task $\frac{5}{10}$
+\end{tasks}
+
+\begin{solution}
+\textbf{Logic:} \\
+* Initially: 5 red, 5 blue (Total 10).
+* After one red is removed: 4 red, 5 blue (Total 9).
+* Probability of another red: $\frac{4}{9}$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 45
+% Category: Exam Level | Difficulty: Medium | Question Type: MCQ
+\question
+If a point is chosen at random inside a circle of radius 2 that is centered within a square of side length 5, what is the probability the point is inside the circle?
+\begin{tasks}(4)
+    \task $\frac{2}{5}$
+    \task $\frac{4}{25}$
+    \task $\frac{2\pi}{25}$
+    \task $\frac{4\pi}{25}$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+In geometric probability, the probability is the area of the favorable region divided by the total area of the entire shape.
+
+
+
+[Image of a circle inscribed in a square]
+
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+* Area of the square (Total): $5 \times 5 = 25$.
+* Area of the circle (Favorable): $\pi r^2 = \pi (2^2) = 4\pi$.
+* Probability = $\frac{4\pi}{25}$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{D}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 46
+% Category: Practice | Difficulty: Medium | Question Type: MCQ
+\question
+A student answers a 5-question multiple-choice quiz by guessing. Each question has 4 options. What is the probability that the student gets all 5 questions correct?
+\begin{tasks}(4)
+    \task $(\frac{1}{4})^5$
+    \task $5 \times \frac{1}{4}$
+    \task $1 - (\frac{1}{4})^5$
+    \task $\frac{1}{5}$
+\end{tasks}
+
+\begin{solution}
+\textbf{Logic:} \\
+* The probability of guessing one question correctly is $\frac{1}{4}$.
+* Since each guess is independent, the probability of getting all 5 correct is the product: $\frac{1}{4} \times \frac{1}{4} \times \frac{1}{4} \times \frac{1}{4} \times \frac{1}{4}$.
+* This is $(\frac{1}{4})^5$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 47
+% Category: Practice | Difficulty: Medium | Question Type: Numeric Entry
+\question
+There are 12 eggs in a carton, and 3 are cracked. If you pick two eggs at random without replacement, what is the probability that both are cracked?
+
+\begin{solution}
+\textbf{Calculation and Logic:} \\
+* Probability first is cracked: $\frac{3}{12}$.
+* Probability second is cracked (given the first was cracked): $\frac{2}{11}$.
+* $P(\text{Both}) = \frac{3}{12} \times \frac{2}{11} = \frac{6}{132}$.
+* Simplify: $\frac{1}{22}$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{1/22}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 48
+% Category: Concept | Difficulty: Medium | Question Type: MCQ
+\question
+Which of the following describes mutually exclusive events?
+\begin{tasks}(1)
+    \task Events that cannot happen at the same time.
+    \task Events where the outcome of one affects the other.
+    \task Events where the outcome of one does not affect the other.
+    \task Events that must happen at the same time.
+\end{tasks}
+
+\begin{solution}
+\textbf{Logic:} \\
+* Mutually exclusive means "disjoint." If one happens, the other cannot. For example, rolling a 1 and rolling a 2 on a single die roll are mutually exclusive.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 49
+% Category: Practice | Difficulty: Easy | Question Type: MCQ
+\question
+A bag has 10 red marbles and 90 black marbles. What is the probability of picking a red marble?
+\begin{tasks}(4)
+    \task 0.01
+    \task 0.10
+    \task 0.90
+    \task 1.00
+\end{tasks}
+
+\begin{solution}
+\textbf{Logic:} \\
+* Total: $10 + 90 = 100$.
+* Red: 10.
+* Probability: $\frac{10}{100} = 0.10$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{60pt}
+
+% Question 50
+% Category: Exam Level | Difficulty: Hard | Question Type: MCQ
+\question
+A test for a disease is 90\% accurate for those who have it and 90\% accurate for those who do not. If 10\% of a population has the disease, what is the probability that a randomly chosen person tests positive?
+\begin{tasks}(4)
+    \task 0.09
+    \task 0.10
+    \task 0.18
+    \task 0.20
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+A positive test can come from two groups: people who actually have the disease (True Positives) and people who do not have it (False Positives).
+
+\vspace{30pt}
+
+\textbf{Calculation and Logic:} \\
+* Group 1 (Has disease): 10\% of population. $P(\text{Has and Tests Positive}) = 0.10 \times 0.90 = 0.09$.
+* Group 2 (No disease): 90\% of population. $P(\text{No and Tests Positive}) = 0.90 \times 0.10 = 0.09$.
+* Total probability of testing positive: $0.09 + 0.09 = 0.18$.
+
+\vspace{30pt}
+
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+% =============================================================
+% Question End
+% =============================================================
+
+\end{questions}
+\begin{center}
+\rule{.5\textwidth}{1pt}
+\end{center}
+\end{document}

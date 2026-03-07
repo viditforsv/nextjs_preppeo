@@ -1,0 +1,1076 @@
+\documentclass[11pt,paper=a4,answers]{exam}
+\usepackage{graphicx,lastpage}
+\usepackage{upgreek}
+\usepackage{censor}
+\usepackage{gensymb}
+\usepackage{amsmath}
+\usepackage{multicol}
+\usepackage{enumitem}
+\usepackage{tasks}
+\usepackage{adjustbox}
+\usepackage{xcolor}
+\usepackage{tfrupee}
+\setlength{\voffset}{0.25in}
+\usepackage{tabularx}
+\newcolumntype{Y}{>{\centering\arraybackslash}X}
+%==============================================================
+% Customise Non-Essential Packages Below
+% =============================================================
+\usepackage[most]{tcolorbox}
+\usepackage{eso-pic}
+\usepackage{tikz}
+\AddToShipoutPictureBG{%
+\begin{tikzpicture}[remember picture,overlay]
+\foreach \x in {-8,-4,0,4,8,12,16,20}
+\foreach \y in {-8,-4,0,4,8,12,16,20} {
+\node[opacity=0.05,rotate=45,anchor=center] at ([xshift=\x cm,yshift=\y cm]current page.center) {%
+\begin{minipage}{2cm}
+\centering
+\includegraphics[width=2cm]{images/logo_black.png}\\
+\small preppeo.com
+\end{minipage}%
+};
+}
+\end{tikzpicture}%
+}
+\printanswers
+
+%==============================================================
+% Customise Non-Essential Packages Above
+% =============================================================
+\definecolor{svgray}{rgb}{0.90, 0.90, 0.90}
+\graphicspath{{images/}}
+
+\usepackage[normalem]{ulem}
+\renewcommand\ULthickness{1pt}   %%---> For changing thickness of underline
+\setlength\ULdepth{3.5ex}%\maxdimen ---> For changing depth of underline
+\renewcommand{\baselinestretch}{1}
+\chead{
+\includegraphics[scale=0.1,height=2cm ]{logo.png}
+}
+\pagestyle{empty}
+
+\pagestyle{headandfoot}
+\headrule
+\cfoot{W: https://preppeo.com; M: +91-8130711689}
+
+\begin{document}
+%==============================================================
+% Customise Question paper details below this
+% =============================================================
+\begin{center}
+    \centering
+    \renewcommand{\arraystretch}{1.5}
+    \begin{tabularx}{\textwidth}{YYY}
+    & \normalsize\bf{{\Large{{Quant}}}} & \\
+    By Preppeo & \normalsize\bf{{sat\_lid\_003}} & SAT\\
+    \normalsize{{\textbf{{Unit:}} Algebra}} & \normalsize{{\textbf{{Chapter:}} Linear equations in one variable}} & \normalsize{{\textbf{{Topic:}} Number of Solutions (Zero, One, Infinite)}} \\
+    \end{tabularx}
+\end{center}
+\par\noindent\rule{\textwidth}{1pt}
+% =============================================================
+% Customise Question paper details above this
+% =============================================================
+
+\begin{questions}
+\pointsinrightmargin
+\pointsdroppedatright
+\marksnotpoints
+\pointpoints{mark}{marks}
+\pointformat{\boldmath\themarginpoints}
+\bracketedpoints
+
+% =============================================================
+% Question Begin
+% =============================================================
+%Q: 1
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+Which of the following equations has infinitely many solutions?
+\begin{tasks}(2)
+    \task $4x + 5 = 4x + 10$
+    \task $2(x + 3) = 2x + 6$
+    \task $3x + 1 = 3x - 1$
+    \task $5x + 2 = 2x + 5$
+\end{tasks}
+
+\begin{solution}
+An equation has infinitely many solutions when both sides are mathematically identical. 
+\\[10pt]
+Let us examine Option B. By distributing the 2 on the left side, we get:
+\\[10pt]
+$2x + 6 = 2x + 6$ 
+\\[10pt]
+Because the coefficients of $x$ are equal (2 on both sides) and the constant terms are equal (6 on both sides), any value substituted for $x$ will make the equation true. This is known as an identity.
+
+\vspace{20pt}
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+%Q: 2
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+$ax + 12 = 5x + 12$
+In the equation above, $a$ is a constant. If the equation has infinitely many solutions, what is the value of $a$?
+\begin{tasks}(2)
+    \task 0
+    \task 5
+    \task 12
+    \task 17
+\end{tasks}
+
+\begin{solution}
+For a linear equation to have infinitely many solutions, the coefficient of the variable and the constant term must be the same on both sides of the equal sign. 
+\\[10pt]
+The equation is given as $ax + 12 = 5x + 12$. 
+\\[10pt]
+We can see that the constant terms are already identical (both are 12). For the equation to be an identity, the coefficients of $x$ must also match. Therefore, $a$ must be equal to 5.
+
+\vspace{20pt}
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+%Q: 3
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+$3x + 7 = 3x + b$
+In the equation above, $b$ is a constant. If the equation has no solution, which of the following could be the value of $b$?
+\begin{tasks}(2)
+    \task 0
+    \task 7
+    \task Both 0 and 7
+    \task Neither 0 nor 7
+\end{tasks}
+
+\begin{solution}
+An equation has no solution when the variable terms cancel out but the resulting numerical statement is false (a contradiction). 
+\\[10pt]
+In the equation $3x + 7 = 3x + b$, subtracting $3x$ from both sides results in $7 = b$. 
+\\[10pt]
+If $b = 7$, the equation becomes $7 = 7$, which means infinitely many solutions. If $b$ is any value other than 7, the statement will be false. Since 0 is not equal to 7, if $b = 0$, the equation $7 = 0$ is impossible. Thus, $b=0$ results in no solution.
+
+\vspace{20pt}
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+%Q: 4
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+Which of the following equations has exactly one solution?
+\begin{tasks}(2)
+    \task $x + x = 2x$
+    \task $5(x - 1) = 5x - 5$
+    \task $2x + 10 = 3x + 10$
+    \task $4x - 8 = 4x + 2$
+\end{tasks}
+
+\begin{solution}
+An equation has exactly one solution if the coefficients of the variable on each side of the equation are different. 
+\\[10pt]
+Let us analyze Option C: $2x + 10 = 3x + 10$. 
+\\[10pt]
+If we subtract $2x$ from both sides, we get $10 = x + 10$. Subtracting 10 from both sides yields $x = 0$. Since we found a specific value for $x$, there is exactly one solution. 
+\\[10pt]
+In contrast, Options A and B are identities (infinite solutions), and Option D is a contradiction (no solution).
+
+\vspace{20pt}
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+%Q: 5
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+$kx + 5 = 5$
+In the equation above, $k$ is a constant. If the equation is true for all values of $x$, what is the value of $k$?
+\begin{tasks}(2)
+    \task 0
+    \task 1
+    \task 5
+    \task Any value
+\end{tasks}
+
+\begin{solution}
+The phrase "true for all values of $x$" is another way of saying the equation has infinitely many solutions. 
+\\[10pt]
+For the equation $kx + 5 = 5$ to be true for any $x$, the left side must simplify to exactly the same thing as the right side. 
+\\[10pt]
+The right side can be thought of as $0x + 5$. Therefore, the coefficient $k$ on the left side must be 0 to match the right side. If $k=0$, the equation becomes $0 + 5 = 5$, which is $5 = 5$.
+
+\vspace{20pt}
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+%Q: 6
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+If $3(2x + 4) = ax + b$ has infinitely many solutions, what is the value of $a + b$?
+\begin{tasks}(2)
+    \task 6
+    \task 12
+    \task 18
+    \task 24
+\end{tasks}
+
+\begin{solution}
+First, we distribute the 3 on the left side of the equation to see the standard form:
+\\[10pt]
+$6x + 12 = ax + b$ 
+\\[10pt]
+For the equation to have infinitely many solutions, it must be an identity where $a = 6$ and $b = 12$. 
+\\[10pt]
+The question asks for the sum $a + b$:
+\\[10pt]
+$6 + 12 = 18$
+
+\vspace{20pt}
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+%Q: 7
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+$4x + 1 = 4x + c$
+If the equation above has no solution, which of the following is a possible value for $c$?
+\begin{tasks}(2)
+    \task 1
+    \task 0
+    \task Both 1 and 0
+    \task None of the above
+\end{tasks}
+
+\begin{solution}
+When an equation has no solution, the coefficients of the variable are identical but the constants are different. 
+\\[10pt]
+In $4x + 1 = 4x + c$, the $x$ terms will cancel out when we subtract $4x$ from both sides, leaving $1 = c$. 
+\\[10pt]
+If $c = 1$, we get $1 = 1$ (infinite solutions). If $c = 0$, we get $1 = 0$, which is impossible. Therefore, $c = 0$ results in no solution.
+
+\vspace{20pt}
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+%Q: 8
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+How many solutions does the equation $2(x - 4) = 2x - 4$ have?
+\begin{tasks}(2)
+    \task Zero
+    \task Exactly one
+    \task Infinitely many
+    \task Exactly two
+\end{tasks}
+
+\begin{solution}
+We begin by distributing the 2 on the left side of the equation:
+\\[10pt]
+$2x - 8 = 2x - 4$ 
+\\[10pt]
+Next, we attempt to isolate $x$ by subtracting $2x$ from both sides:
+\\[10pt]
+$-8 = -4$ 
+\\[10pt]
+Because the variable $x$ has been eliminated and we are left with a false statement ($-8$ is never equal to $-4$), there is no value of $x$ that can satisfy the equation.
+
+\vspace{20pt}
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+%Q: 9
+% Category: Practice | Difficulty: Hard | Question Type: Multiple Choice
+\question
+$\frac{1}{2}(4x + 10) = ax + 5$
+If the equation above has infinitely many solutions, what is the value of $a$?
+\begin{tasks}(2)
+    \task 2
+    \task 4
+    \task 5
+    \task 10
+\end{tasks}
+
+\begin{solution}
+We distribute the $\frac{1}{2}$ to both terms inside the parentheses:
+\\[10pt]
+$\frac{1}{2}(4x) + \frac{1}{2}(10) = ax + 5$ \\
+$2x + 5 = ax + 5$ 
+\\[10pt]
+For the equation to have infinitely many solutions, it must be an identity. Comparing the two sides, the constant terms are already equal (5). The coefficients of $x$ must also be equal, so $a$ must be 2.
+
+\vspace{20pt}
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+%Q: 10
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+$5x - 3 = 5x - 3$
+How many solutions does the given equation have?
+\begin{tasks}(2)
+    \task Zero
+    \task Exactly one
+    \task Infinitely many
+    \task Exactly two
+\end{tasks}
+
+\begin{solution}
+Observe that the expression on the left side is identical to the expression on the right side. 
+\\[10pt]
+If we add 3 to both sides, we get $5x = 5x$. If we divide by 5, we get $x = x$. This statement is true for any value of $x$ that we choose. In SAT terms, this is an identity with infinite solutions.
+
+\vspace{20pt}
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+%Q: 11
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+$mx + 10 = 2x + 5$
+If the equation above has exactly one solution, which of the following cannot be the value of $m$?
+\begin{tasks}(2)
+    \task -2
+    \task 0
+    \task 2
+    \task 10
+\end{tasks}
+
+\begin{solution}
+A linear equation in the form $Ax + B = Cx + D$ has exactly one solution if and only if $A \neq C$. 
+\\[10pt]
+In this problem, $A = m$ and $C = 2$. If $m = 2$, the equation becomes $2x + 10 = 2x + 5$. Subtracting $2x$ would leave $10 = 5$, which has no solution. 
+\\[10pt]
+Therefore, for there to be exactly one solution, $m$ can be any value except 2.
+
+\vspace{20pt}
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+%Q: 12
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+$8x + 4 = 2(4x + 2)$
+How many solutions does the given equation have?
+\begin{tasks}(2)
+    \task Zero
+    \task Exactly one
+    \task Infinitely many
+    \task exactly two
+\end{tasks}
+
+\begin{solution}
+Simplify the right side of the equation by distributing the 2:
+\\[10pt]
+$8x + 4 = 8x + 4$ 
+\\[10pt]
+Both sides are identical. No matter what value is used for $x$, the left side will always calculate to the same result as the right side. This characterizes an equation with infinitely many solutions.
+
+\vspace{20pt}
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+%Q: 13
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+Which value of $c$ makes $5x + c = 5x + 7$ have no solution?
+\begin{tasks}(2)
+    \task 7
+    \task 0
+    \task Any value except 7
+    \task Any value except 0
+\end{tasks}
+
+\begin{solution}
+The condition for "no solution" in a linear equation is that the variable terms cancel out while the constants remain unequal. 
+\\[10pt]
+In the equation $5x + c = 5x + 7$, subtracting $5x$ from both sides gives $c = 7$. 
+\\[10pt]
+If $c = 7$, we get $7 = 7$, which is infinite solutions. If $c$ is anything else (like 0, 5, or 10), the statement $c = 7$ will be false. Thus, any value except 7 will result in no solution.
+
+\vspace{20pt}
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+%Q: 14
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+$4(x + 1) = 4x + 4$
+How many solutions?
+\begin{tasks}(2)
+    \task 0
+    \task 1
+    \task Infinitely many
+    \task 4
+\end{tasks}
+
+\begin{solution}
+Distribute the 4 on the left side:
+\\[10pt]
+$4x + 4 = 4x + 4$ 
+\\[10pt]
+Because the left side and the right side of the equation are the same, every real number is a solution.
+
+\vspace{20pt}
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+%Q: 15
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+$2x + 8 = 2x + 10$
+How many solutions?
+\begin{tasks}(2)
+    \task Zero
+    \task One
+    \task Infinite
+    \task Two
+\end{tasks}
+
+\begin{solution}
+Subtract $2x$ from both sides:
+\\[10pt]
+$8 = 10$ 
+\\[10pt]
+Since 8 can never be equal to 10, there is no possible value for $x$ that makes this equation valid.
+
+\vspace{20pt}
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+%Q: 16
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+If $5x + a = bx + 4$ has infinitely many solutions, what is $a$?
+\begin{tasks}(2)
+    \task 4
+    \task 5
+    \task $x$
+    \task 0
+\end{tasks}
+
+\begin{solution}
+Infinite solutions require identical sides. 
+\\[10pt]
+Coefficient of $x$ on the left (5) must equal coefficient of $x$ on the right ($b$). So $b = 5$. 
+\\[10pt]
+The constant on the left ($a$) must equal the constant on the right (4). So $a = 4$.
+
+\vspace{20pt}
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+%Q: 17
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+$10x - 5 = 10x - 5$. Solutions?
+\begin{tasks}(2)
+    \task Zero
+    \task One
+    \task Infinitely many
+    \task 10
+\end{tasks}
+
+\begin{solution}
+The equation is an identity. Every value of $x$ satisfies the equation.
+
+\vspace{20pt}
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+%Q: 17
+% Category: Practice | Difficulty: Hard | Question Type: Multiple Choice
+\question
+A storage tank has 5,000 liters. After 2 hours of draining at a constant rate, 4,200 liters remain. How many total hours to reach 2,600 liters?
+\begin{tasks}(2)
+    \task 4
+    \task 5
+    \task 6
+    \task 8
+\end{tasks}
+
+\begin{solution}
+To solve this problem, we must first determine the constant rate at which water is leaving the tank. 
+\\[10pt]
+We know that in 2 hours, the volume dropped from 5,000 to 4,200 liters. This means a total of 800 liters were removed. By dividing 800 liters by 2 hours, we find that the drainage rate is exactly 400 liters per hour. 
+\\[10pt]
+Next, we identify our target: reaching 2,600 liters. To find how much total water must be removed from the original 5,000 liters, we subtract: 5,000 - 2,600 = 2,400 liters total to be drained. 
+\\[10pt]
+Finally, we divide the total volume to be removed (2,400 liters) by the hourly rate (400 liters per hour). This calculation reveals that it will take a total of 6 hours from the start to reach the desired level.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+%Q: 18
+% Category: Practice | Difficulty: Easy | Question Type: Multiple Choice
+\question
+What value of $p$ satisfies $7p + 140 = 700$?
+\begin{tasks}(2)
+    \task 80
+    \task 120
+    \task 560
+    \task 700
+\end{tasks}
+
+\begin{solution}
+Finding the value of $p$ requires us to isolate the variable by reversing the operations performed on it. 
+\\[10pt]
+The current expression adds 140 to the variable term. To undo this, we subtract 140 from both sides of the equation. This results in the statement that $7p$ is equal to 560. 
+\\[10pt]
+Now, the variable $p$ is being multiplied by 7. We use the inverse operation of division to move the 7 to the other side. By dividing 560 by 7, we determine that $p$ must be 80. 
+\\[10pt]
+We can verify this by checking if 7 multiplied by 80 plus 140 equals 700. Since 560 plus 140 is indeed 700, the solution is correct.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+%Q: 19
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+If $10x - 50 = 20$, what is the value of $2x - 10$?
+\begin{tasks}(2)
+    \task 4
+    \task 10
+    \task 14
+    \task 20
+\end{tasks}
+
+\begin{solution}
+This question tests your ability to recognize algebraic proportions rather than simply solving for a single variable. 
+\\[10pt]
+If we compare the left side of the equation, $10x - 50$, to the expression we are looking for, $2x - 10$, we can see that every term in the target expression is exactly one-fifth of the terms in the original equation. 
+\\[10pt]
+Specifically, $10x \div 5 = 2x$ and $50 \div 5 = 10$. Because of the property of equality, if we perform this division on the left side, we must also divide the right side by 5 to keep the equation balanced. 
+\\[10pt]
+Dividing the right side, 20, by 5 gives us 4. Therefore, without ever finding the value of $x$ itself, we can conclude that the value of $2x - 10$ is 4.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+%Q: 20
+% Category: Practice | Difficulty: Easy | Question Type: Multiple Choice
+\question
+$15x + 5 = 155$. What is $x$?
+\begin{tasks}(2)
+    \task 10
+    \task 11
+    \task 15
+    \task 150
+\end{tasks}
+
+\begin{solution}
+To solve for $x$, we need to clear the constant and the coefficient away from the variable step by step. 
+\\[10pt]
+First, we subtract 5 from both sides of the equal sign. This leaves the variable term alone on the left: $15x = 150$. 
+\\[10pt]
+The next step is to isolate $x$ by removing the coefficient of 15. Since the 15 is multiplying the $x$, we divide both sides by 15. 
+\\[10pt]
+When we divide 150 by 15, we get a result of 10. This means that $x$ must be 10 for the equation to be balanced.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+%Q: 21
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+A painter charges 200 for supplies plus 40 per hour. If the total bill was 600, how many hours, $h$, did he work?
+\begin{tasks}(2)
+    \task $40h + 200 = 600$
+    \task $200h + 40 = 600$
+    \task $240h = 600$
+    \task $40h = 600$
+\end{tasks}
+
+\begin{solution}
+This problem asks us to translate a real-world billing scenario into a mathematical equation. 
+\\[10pt]
+The cost consists of two parts: a fixed amount for supplies that does not change, and a variable amount that depends on the duration of the job. The fixed cost is 200. The variable cost is 40 for every hour $h$, which is written as $40h$. 
+\\[10pt]
+By adding these two parts together, we get the total bill expression: $40h + 200$. We are told the actual bill was 600, so we set the expression equal to that value. 
+\\[10pt]
+To solve for $h$, we would subtract 200 from 600 to find the labor cost (400) and then divide by 40 to find the total hours (10).
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+%Q: 22
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+If $4x + 2 = 10$, what is $8x - 5$?
+\begin{tasks}(2)
+    \task 11
+    \task 15
+    \task 16
+    \task 20
+\end{tasks}
+
+\begin{solution}
+We can find the answer by solving for $x$ and then using that value to evaluate the second expression. 
+\\[10pt]
+Starting with the equation $4x + 2 = 10$, we subtract 2 from both sides to get $4x = 8$. Dividing by 4 reveals that $x = 2$. 
+\\[10pt]
+Now that we have the value of $x$, we substitute it into the expression $8x - 5$. This becomes $8(2) - 5$. 
+\\[10pt]
+Following the order of operations, we multiply 8 by 2 to get 16, and then subtract 5, resulting in a final answer of 11.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+%Q: 23
+% Category: Practice | Difficulty: Easy | Question Type: Multiple Choice
+\question
+$2x + 3x + 10 = 60$. Value of $x$?
+\begin{tasks}(2)
+    \task 10
+    \task 12
+    \task 25
+    \task 50
+\end{tasks}
+
+\begin{solution}
+The first priority in this equation is to combine terms that are alike. Since $2x$ and $3x$ are both terms of the same variable, they can be added together to simplify the left side to $5x + 10 = 60$. 
+\\[10pt]
+Next, we move the constant 10 to the other side by subtracting it from 60, which gives us $5x = 50$. 
+\\[10pt]
+Finally, we isolate $x$ by dividing both sides of the equation by 5. Dividing 50 by 5 shows that $x$ is 10.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+%Q: 24
+% Category: Practice | Difficulty: Easy | Question Type: Multiple Choice
+\question
+$(w + 2) - 5 = 10$. What is $w$?
+\begin{tasks}(2)
+    \task 3
+    \task 7
+    \task 13
+    \task 17
+\end{tasks}
+
+\begin{solution}
+We begin by simplifying the left side of the equation. Since there is no multiplication occurring outside the parentheses, they can be removed, allowing us to combine the constants $+2$ and $-5$. 
+\\[10pt]
+This results in the simplified equation $w - 3 = 10$. To solve for $w$, we need to move the $-3$ to the right side of the equation. 
+\\[10pt]
+By using the inverse operation of addition, we add 3 to both sides. Adding 3 to 10 gives us a final value of 13 for the variable $w$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+%Q: 25
+% Category: Practice | Difficulty: Easy | Question Type: Multiple Choice
+\question
+$5(x - 2) = 25$. Same solution as?
+\begin{tasks}(2)
+    \task $x - 2 = 5$
+    \task $x - 2 = 20$
+    \task $5x - 2 = 25$
+    \task $5x - 10 = 5$
+\end{tasks}
+
+\begin{solution}
+To find an equivalent equation, we can apply an operation to both sides of the original equation that simplifies its structure. 
+\\[10pt]
+The original equation is $5$ multiplied by the quantity $(x - 2)$ equals 25. We can undo this multiplication by dividing both sides by 5. 
+\\[10pt]
+On the left side, the 5s cancel out, leaving just $x - 2$. On the right side, we divide 25 by 5, which results in 5. This gives us the new equation $x - 2 = 5$. Because we performed the same operation on both sides, the value of $x$ remains the same.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+%Q: 26
+% Category: Practice | Difficulty: Medium | Question Type: Numeric Entry
+\question
+Solve for $x$: $0.5x + 2 = 10$.
+
+\begin{solution}
+To solve for $x$, we first isolate the term containing the variable by removing the constant 2 from the left side. 
+\\[10pt]
+Subtracting 2 from both sides of the equation results in $0.5x = 8$. Now, we need to eliminate the coefficient of 0.5. 
+\\[10pt]
+We divide both sides by 0.5. It is helpful to remember that dividing by 0.5 is mathematically the same as multiplying by 2. Therefore, multiplying 8 by 2 gives us a final result of 16.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{16}
+\end{solution}
+
+%Q: 27
+% Category: Practice | Difficulty: Medium | Question Type: Numeric Entry
+\question
+$3(x + 4) = 2x - 5$. What is $x$?
+
+\begin{solution}
+We begin by distributing the 3 into the parentheses on the left side of the equation, which gives us $3x + 12 = 2x - 5$. 
+\\[10pt]
+Next, we want to collect all terms with the variable $x$ on one side. We subtract $2x$ from both sides, which simplifies the left side to $x + 12 = -5$. 
+\\[10pt]
+Finally, we isolate $x$ by subtracting 12 from both sides. Subtracting 12 from $-5$ results in $-17$, which is our final answer.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{-17}
+\end{solution}
+
+%Q: 28
+% Category: Practice | Difficulty: Medium | Question Type: Numeric Entry
+\question
+$7x + 14 = 7x + k$
+If the equation above has no solution, what is one possible value for $k$?
+
+\begin{solution}
+No solution occurs when the variable terms cancel out, but the constant terms remain unequal. 
+\\[10pt]
+In this equation, both sides have $7x$. If we subtract $7x$ from both sides, we get $14 = k$. 
+\\[10pt]
+For the equation to have no solution, $k$ must be any value other than 14. An easy integer choice for this would be 0. If $k = 0$, the statement $14 = 0$ is false, confirming there is no solution.
+
+\vspace{20pt}
+Answer: \colorbox{yellow!100}{0}
+\end{solution}
+
+%Q: 29
+% Category: Practice | Difficulty: Hard | Question Type: Numeric Entry
+\question
+$\frac{1}{2}(ax + 8) = 4x + 4$
+If the equation above has infinitely many solutions, what is the value of $a$?
+
+\begin{solution}
+To find the value of $a$ for infinite solutions, we must make the left side look exactly like the right side. 
+\\[10pt]
+First, we distribute the $\frac{1}{2}$ across the parentheses:
+\\[10pt]
+$\frac{1}{2}(ax) + \frac{1}{2}(8) = \frac{a}{2}x + 4$
+\\[10pt]
+Now we compare this to the right side: $\frac{a}{2}x + 4 = 4x + 4$. The constants match perfectly. To make the $x$ coefficients match, we set $\frac{a}{2} = 4$. Multiplying both sides by 2 gives $a = 8$.
+
+\vspace{20pt}
+Answer: \colorbox{yellow!100}{8}
+\end{solution}
+
+%Q: 30
+% Category: Practice | Difficulty: Medium | Question Type: Numeric Entry
+\question
+$10x + 5 = 5(2x + k)$
+If the equation above has infinitely many solutions, what is the value of $k$?
+
+\begin{solution}
+Infinite solutions require identical expressions on both sides. We expand the right side to compare:
+\\[10pt]
+$5(2x) + 5(k) = 10x + 5k$
+\\[10pt]
+The equation is $10x + 5 = 10x + 5k$. The variable terms already match. For the constant terms to match, we set $5 = 5k$. Dividing by 5 reveals that $k$ must be 1.
+
+\vspace{20pt}
+Answer: \colorbox{yellow!100}{1}
+\end{solution}
+
+%Q: 31
+% Category: Practice | Difficulty: Hard | Question Type: Numeric Entry
+\question
+$4x + c = ax + 9$
+If the equation above has infinitely many solutions, what is the value of $a + c$?
+
+\begin{solution}
+For infinite solutions, the coefficients of $x$ must be the same and the constants must be the same. 
+\\[10pt]
+From the equation, we can immediately see that $a = 4$ and $c = 9$. 
+\\[10pt]
+The question asks for the sum $a + c$. By adding these values together ($4 + 9$), we get a final result of 13.
+
+\vspace{20pt}
+Answer: \colorbox{yellow!100}{13}
+\end{solution}
+
+%Q: 32
+% Category: Practice | Difficulty: Medium | Question Type: Numeric Entry
+\question
+$3x - 6 = 3x + b$
+If the equation has no solution, what is the only value that $b$ cannot be?
+
+\begin{solution}
+In the equation $3x - 6 = 3x + b$, the $x$ terms will always cancel out. This leaves us with the statement $-6 = b$. 
+\\[10pt]
+If $b = -6$, the statement is true, meaning there are infinitely many solutions. If $b$ is any other number, the statement is false, and there is no solution. Since the question asks for the one value $b$ cannot be for there to be no solution, the answer is $-6$.
+
+\vspace{20pt}
+Answer: \colorbox{yellow!100}{-6}
+\end{solution}
+
+%Q: 33
+% Category: Practice | Difficulty: Hard | Question Type: Numeric Entry
+\question
+$2(3x + 5) = 6x + 2k$
+If the equation is an identity, what is the value of $k$?
+
+\begin{solution}
+An identity is an equation that is true for all values of $x$ (infinitely many solutions). We expand the left side:
+\\[10pt]
+$6x + 10 = 6x + 2k$
+\\[10pt]
+For this to be an identity, the constant term $2k$ must equal 10. By dividing both sides of $2k = 10$ by 2, we find that $k = 5$.
+
+\vspace{20pt}
+Answer: \colorbox{yellow!100}{5}
+\end{solution}
+
+%Q: 34
+% Category: Practice | Difficulty: Medium | Question Type: Numeric Entry
+\question
+$ax + 4 = 12x + 4$
+If the equation has exactly one solution, what is one value $a$ cannot be?
+
+\begin{solution}
+Exactly one solution occurs when the coefficients of $x$ are different. 
+\\[10pt]
+In this case, the coefficients are $a$ and 12. If $a = 12$, the variable terms would be identical, which would lead to infinitely many solutions (since the constants 4 and 4 also match). Therefore, for there to be exactly one solution, $a$ cannot be 12.
+
+\vspace{20pt}
+Answer: \colorbox{yellow!100}{12}
+\end{solution}
+
+%Q: 35
+% Category: Practice | Difficulty: Hard | Question Type: Numeric Entry
+\question
+$5(x - c) = 5x - 10$
+If the equation has infinitely many solutions, what is the value of $c$?
+
+\begin{solution}
+First, we distribute the 5 on the left side:
+\\[10pt]
+$5x - 5c = 5x - 10$
+\\[10pt]
+For infinite solutions, the constants must match. We set $-5c = -10$. Dividing both sides by -5 gives us $c = 2$.
+
+\vspace{20pt}
+Answer: \colorbox{yellow!100}{2}
+\end{solution}
+
+%Q: 36
+% Category: Practice | Difficulty: Medium | Question Type: Numeric Entry
+\question
+$0x = 0$
+How many solutions does this equation have? (Enter 999 for infinite)
+
+\begin{solution}
+The equation $0 = 0$ is a statement that is always true, regardless of what value is used for $x$. In algebraic terms, this means the equation is an identity and possesses infinitely many solutions.
+
+\vspace{20pt}
+Answer: \colorbox{yellow!100}{999}
+\end{solution}
+
+%Q: 37
+% Category: Practice | Difficulty: Medium | Question Type: Numeric Entry
+\question
+$0x = 10$
+How many solutions does this equation have?
+
+\begin{solution}
+The equation $0 = 10$ is a statement that is always false. No matter what number is substituted for $x$, it will be multiplied by 0 and result in 0, which can never be 10. Therefore, there are zero solutions.
+
+\vspace{20pt}
+Answer: \colorbox{yellow!100}{0}
+\end{solution}
+
+%Q: 38
+% Category: Practice | Difficulty: Hard | Question Type: Numeric Entry
+\question
+$3(x + 2) = 3x + c$
+If the equation has no solution, what is one possible value for $c$?
+
+\begin{solution}
+Expanding the left side gives $3x + 6 = 3x + c$. For no solution, the constant $c$ must be any value other than 6. 
+\\[10pt]
+If $c = 0$, the equation becomes $3x + 6 = 3x$, which simplifies to $6 = 0$. Since this is false, $c = 0$ is a correct possible value.
+
+\vspace{20pt}
+Answer: \colorbox{yellow!100}{0}
+\end{solution}
+%Q: 39
+% Category: Practice | Difficulty: Medium | Question Type: Numeric Entry
+\question
+$x + 5 = x + 5$
+How many solutions? (Enter 999 for infinite)
+
+\begin{solution}
+Since both sides of the equation are identical, the equation will be true for any real number substituted for $x$. This characterizes an identity with infinitely many solutions.
+
+\vspace{20pt}
+Answer: \colorbox{yellow!100}{999}
+\end{solution}
+
+%Q: 40
+% Category: Practice | Difficulty: Hard | Question Type: Numeric Entry
+\question
+$ax + b = 2x + 3$
+If the equation has infinitely many solutions, what is the value of $a \times b$?
+
+\begin{solution}
+For infinite solutions, the sides must be identical. This means $a$ must be 2 and $b$ must be 3. 
+\\[10pt]
+The question asks for the product of $a$ and $b$. Multiplying 2 and 3 results in 6.
+
+\vspace{20pt}
+Answer: \colorbox{yellow!100}{6}
+\end{solution}
+
+%Q: 41
+% Category: Practice | Difficulty: Medium | Question Type: Numeric Entry
+\question
+$10x - 2 = 10x + 2$
+How many solutions?
+
+\begin{solution}
+Subtracting $10x$ from both sides results in $-2 = 2$. This is a false statement, so there are zero solutions.
+
+\vspace{20pt}
+Answer: \colorbox{yellow!100}{0}
+\end{solution}
+
+%Q: 42
+% Category: Practice | Difficulty: Medium | Question Type: Numeric Entry
+\question
+$x = x$
+How many solutions? (Enter 999 for infinite)
+
+\begin{solution}
+This is the simplest form of an identity. It is true for every value of $x$, so it has infinitely many solutions.
+
+\vspace{20pt}
+Answer: \colorbox{yellow!100}{999}
+\end{solution}
+
+%Q: 43
+% Category: Practice | Difficulty: Hard | Question Type: Numeric Entry
+\question
+$4(x + k) = 4x + 20$
+If infinite solutions, $k = ?$
+
+\begin{solution}
+Expanding the left side gives $4x + 4k = 4x + 20$. For infinite solutions, we set $4k = 20$. Dividing by 4 gives $k = 5$.
+
+\vspace{20pt}
+Answer: \colorbox{yellow!100}{5}
+\end{solution}
+
+%Q: 44
+% Category: Practice | Difficulty: Medium | Question Type: Numeric Entry
+\question
+$x + 1 = 2x + 1$
+How many solutions?
+
+\begin{solution}
+Subtracting $x$ and 1 from both sides leaves $x = 0$. Since we found one specific value for the variable, there is exactly one solution.
+
+\vspace{20pt}
+Answer: \colorbox{yellow!100}{1}
+\end{solution}
+
+%Q: 45
+% Category: Practice | Difficulty: Hard | Question Type: Numeric Entry
+\question
+$ax + 7 = 7x + 7$
+If infinite solutions, $a = ?$
+
+\begin{solution}
+For the equation to be an identity, the coefficients of $x$ must match. Thus, $a$ must be 7.
+
+\vspace{20pt}
+Answer: \colorbox{yellow!100}{7}
+\end{solution}
+%Q: 46
+% Category: Practice | Difficulty: Medium | Question Type: Numeric Entry
+\question
+$1/3(3x + 9) = x + 3$
+How many solutions? (Enter 999 for infinite)
+
+\begin{solution}
+Distributing the $1/3$ gives $x + 3 = x + 3$. Since the sides are identical, there are infinitely many solutions.
+
+\vspace{20pt}
+Answer: \colorbox{yellow!100}{999}
+\end{solution}
+
+%Q: 47
+% Category: Practice | Difficulty: Medium | Question Type: Numeric Entry
+\question
+$5x = 5x + 1$
+How many solutions?
+
+\begin{solution}
+Subtracting $5x$ leaves $0 = 1$. This is false, so there are zero solutions.
+
+\vspace{20pt}
+Answer: \colorbox{yellow!100}{0}
+\end{solution}
+%Q: 48
+% Category: Practice | Difficulty: Hard | Question Type: Multiple Choice
+\question
+$2(x + 5) = 2x + 10$. How many solutions?
+\begin{tasks}(2)
+    \task Zero
+    \task Exactly one
+    \task Infinitely many
+    \task Exactly two
+\end{tasks}
+
+\begin{solution}
+We begin by distributing the 2 on the left side of the equation: $2x + 10 = 2x + 10$. 
+\\[10pt]
+Notice that the left side and the right side are mathematically identical. No matter what number is used for $x$, the statement will always be true. 
+\\[10pt]
+In algebra, this type of equation is called an identity. Because it is always true, it has infinitely many solutions.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+%Q: 49
+% Category: Practice | Difficulty: Hard | Question Type: Multiple Choice
+\question
+$3x + 4 = 3x + 1$. How many solutions?
+\begin{tasks}(2)
+    \task Zero
+    \task Exactly one
+    \task Infinitely many
+    \task Exactly two
+\end{tasks}
+
+\begin{solution}
+To analyze this equation, we attempt to isolate $x$ by subtracting $3x$ from both sides. 
+\\[10pt]
+This causes the variable terms to cancel out completely, leaving the numerical statement $4 = 1$. 
+\\[10pt]
+Since 4 can never be equal to 1, this statement is always false. This means there is no value of $x$ that can ever make the equation true, so there are zero solutions.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+%Q: 50
+% Category: Practice | Difficulty: Medium | Question Type: Numeric Entry
+\question
+If $1/2 x + 1/4 x = 6$, what is $x$?
+
+\begin{solution}
+We start by combining the fractions on the left side. To add them, we need a common denominator, which is 4. $1/2 x$ is the same as $2/4 x$. 
+\\[10pt]
+Adding $2/4 x$ and $1/4 x$ results in $3/4 x$, so our equation is $3/4 x = 6$. 
+\\[10pt]
+To solve for $x$, we multiply both sides of the equation by 4 to clear the fraction, giving $3x = 24$. Dividing by 3 reveals that $x = 8$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{8}
+\end{solution}
+% =============================================================
+% Question End
+% =============================================================
+
+\end{questions}
+\begin{center}
+\rule{.5\textwidth}{1pt}
+\end{center}
+\end{document}

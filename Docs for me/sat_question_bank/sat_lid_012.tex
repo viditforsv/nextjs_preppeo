@@ -1,0 +1,1467 @@
+\documentclass[11pt,paper=a4,answers]{exam}
+\usepackage{graphicx,lastpage}
+\usepackage{upgreek}
+\usepackage{censor}
+\usepackage{gensymb}
+\usepackage{amsmath}
+\usepackage{multicol}
+\usepackage{enumitem}
+\usepackage{tasks}
+\usepackage{adjustbox}
+\usepackage{xcolor}
+\usepackage{tfrupee}
+\setlength{\voffset}{0.25in}
+\usepackage{tabularx}
+\newcolumntype{Y}{>{\centering\arraybackslash}X}
+%==============================================================
+% Customise Non-Essential Packages Below
+% =============================================================
+\usepackage[most]{tcolorbox}
+\usepackage{eso-pic}
+\usepackage{tikz}
+\AddToShipoutPictureBG{%
+\begin{tikzpicture}[remember picture,overlay]
+\foreach \x in {-8,-4,0,4,8,12,16,20}
+\foreach \y in {-8,-4,0,4,8,12,16,20} {
+\node[opacity=0.05,rotate=45,anchor=center] at ([xshift=\x cm,yshift=\y cm]current page.center) {%
+\begin{minipage}{2cm}
+\centering
+\includegraphics[width=2cm]{images/logo_black.png}\\
+\small preppeo.com
+\end{minipage}%
+};
+}
+\end{tikzpicture}%
+}
+\printanswers
+
+%==============================================================
+% Customise Non-Essential Packages Above
+% =============================================================
+\definecolor{svgray}{rgb}{0.90, 0.90, 0.90}
+\graphicspath{{images/}}
+
+\usepackage[normalem]{ulem}
+\renewcommand\ULthickness{1pt}   %%---> For changing thickness of underline
+\setlength\ULdepth{3.5ex}%\maxdimen ---> For changing depth of underline
+\renewcommand{\baselinestretch}{1}
+\chead{
+\includegraphics[scale=0.1,height=2cm ]{logo.png}
+}
+\pagestyle{empty}
+
+\pagestyle{headandfoot}
+\headrule
+\cfoot{W: https://preppeo.com; M: +91-8130711689}
+
+\begin{document}
+%==============================================================
+% Customise Question paper details below this
+% =============================================================
+\begin{center}
+    \centering
+    \renewcommand{\arraystretch}{1.5}
+    \begin{tabularx}{\textwidth}{YYY}
+    & \normalsize\bf{{\Large{{Quant}}}} & \\
+    By Preppeo & \normalsize\bf{{sat\_lid\_12}} & SAT\\
+    \normalsize{{\textbf{{Unit:}} Algebra}} & \normalsize{{\textbf{{Chapter:}} Linear functions: slope, intercepts, graphs}} & \normalsize{{\textbf{{Topic:}} Slope \& Intercepts}} \\
+    \end{tabularx}
+\end{center}
+\par\noindent\rule{\textwidth}{1pt}
+% =============================================================
+% Customise Question paper details above this
+% =============================================================
+
+\begin{questions}
+\pointsinrightmargin
+\pointsdroppedatright
+\marksnotpoints
+\pointpoints{mark}{marks}
+\pointformat{\boldmath\themarginpoints}
+\bracketedpoints
+
+% =============================================================
+% Question Begin
+% =============================================================
+% --- PART 1: Screenshot-Inspired & Core Concept Questions (1-25) ---
+
+% Question 1
+% Category: Practice | Difficulty: Easy | Question Type: Multiple Choice
+\question
+A line in the $xy$-plane passes through the points $(0, 4)$ and $(2, 10)$. What is the slope of the line?
+\begin{tasks}(4)
+    \task 2
+    \task 3
+    \task 4
+    \task 7
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The slope $m$ of a line passing through $(x_1, y_1)$ and $(x_2, y_2)$ is the ratio of the change in $y$ to the change in $x$.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+$m = \frac{y_2 - y_1}{x_2 - x_1} = \frac{10 - 4}{2 - 0}$ \\
+$m = \frac{6}{2} = 3$
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{20pt}
+
+% Question 2
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+
+Which of the following is the equation of the line shown in the graph above?
+\begin{tasks}(2)
+    \task $y = 2x - 5$
+    \task $y = -5x + 2$
+    \task $y = \frac{1}{2}x - 5$
+    \task $y = -2x - 5$
+\end{tasks}
+\begin{center}
+% TikZ Diagram: Coordinate plane with a line crossing y-axis at -5 and having a slope of 2
+\begin{tikzpicture}[scale=0.5]
+    \draw[->] (-3,0) -- (5,0) node[right] {$x$};
+    \draw[->] (0,-7) -- (0,3) node[above] {$y$};
+    \draw[thick, blue] (-1,-7) -- (4,3);
+    \filldraw (0,-5) circle (2pt) node[anchor=west] {$(0, -5)$};
+\end{tikzpicture}
+\end{center}
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+In the slope-intercept form $y = mx + b$, $b$ is the $y$-intercept where the line crosses the vertical axis, and $m$ is the slope.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+The graph crosses the $y$-axis at $-5$, so $b = -5$. \\
+The line rises from left to right, indicating a positive slope. Using points $(0, -5)$ and $(2.5, 0)$: \\
+$m = \frac{0 - (-5)}{2.5 - 0} = \frac{5}{2.5} = 2$. \\
+Equation: $y = 2x - 5$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+\vspace{20pt}
+
+% Question 3
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+The function $f$ is defined by $f(x) = -\frac{2}{3}x + 8$. What is the $x$-intercept of the graph of $y = f(x)$ in the $xy$-plane?
+\begin{tasks}(4)
+    \task $(0, 8)$
+    \task $(8, 0)$
+    \task $(12, 0)$
+    \task $(-12, 0)$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The $x$-intercept is the point where the graph crosses the $x$-axis, which occurs when $y$ (or $f(x)$) is equal to 0.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+$0 = -\frac{2}{3}x + 8$ \\
+$-8 = -\frac{2}{3}x$ \\
+$x = -8 \times \left(-\frac{3}{2}\right) = 12$
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{20pt}
+
+% Question 4
+% Category: Practice | Difficulty: Hard | Question Type: Multiple Choice
+\question
+A plumber charges a fixed fee for a service call plus an hourly rate for the time spent on the repair. The total charge $C$, in dollars, for $h$ hours of work is given by the function $C(h) = 60h + 75$. Which of the following is the best interpretation of the number 75 in this context?
+\begin{tasks}(1)
+    \task The hourly rate charged by the plumber.
+    \task The total cost for a repair that takes 60 hours.
+    \task The fixed fee for the service call regardless of the time spent.
+    \task The maximum amount the plumber charges for any repair.
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+In a linear modeling function $y = mx + b$, the constant term $b$ (the $y$-intercept) represents the starting value or initial cost when the independent variable is zero.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+When $h = 0$, $C(0) = 75$. This is the "starting" cost before any hours are logged.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{20pt}
+
+% Question 5
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+
+The graph of a linear function $g$ is shown above. If $g(x) = kx + p$, where $k$ and $p$ are constants, what is the value of $k + p$?
+\begin{tasks}(4)
+    \task 3
+    \task 4
+    \task 5
+    \task 0
+\end{tasks}
+\begin{center}
+\begin{tikzpicture}[scale=0.6]
+    \draw[step=1cm,gray!20,very thin] (-2,-2) grid (6,6);
+    \draw[->] (-2,0) -- (6,0) node[right] {$x$};
+    \draw[->] (0,-2) -- (0,6) node[above] {$y$};
+    \draw[thick, red] (-1,5) -- (5,-1);
+\end{tikzpicture}
+\end{center}
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+$k$ represents the slope and $p$ represents the $y$-intercept.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+The line crosses the $y$-axis at 4, so $p = 4$. \\
+The line goes down 1 unit for every 1 unit to the right, so the slope $k = -1$. \\
+$k + p = -1 + 4 = 3$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+\vspace{20pt}
+
+% Question 6
+% Category: Practice | Difficulty: Hard | Question Type: Multiple Choice
+\question
+Line $L$ in the $xy$-plane contains the point $(3, 5)$ and is perpendicular to the line with equation $y = -\frac{3}{4}x + 2$. What is the $y$-intercept of line $L$?
+\begin{tasks}(4)
+    \task 1
+    \task -1
+    \task 9
+    \task 4
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Perpendicular lines have slopes that are negative reciprocals of each other. Once the slope is found, use the point-slope form to find the $y$-intercept.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+Original slope = $-3/4$. Perpendicular slope $m = 4/3$. \\
+Using $(3, 5)$: $y - 5 = \frac{4}{3}(x - 3)$ \\
+$y - 5 = \frac{4}{3}x - 4$ \\
+$y = \frac{4}{3}x + 1$ \\
+The $y$-intercept is 1.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+\vspace{20pt}
+
+Here is the next batch of unique questions (7–25) for Lid 012. These focus on interpreting linear equations in context, finding intercepts from tables, and analyzing graph transformations.
+
+Code snippet
+
+% --- PART 1 continued: Slope, Intercepts, and Graphs (7-25) ---
+
+% Question 7
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+The table below shows several values of $x$ and their corresponding values of $f(x)$ for a linear function $f$.
+\begin{center}
+\begin{tabular}{|c|c|}
+\hline
+$x$ & $f(x)$ \\ \hline
+$-2$ & $10$ \\ \hline
+$2$ & $2$ \\ \hline
+$4$ & $-2$ \\ \hline
+\end{tabular}
+\end{center}
+Which of the following defines $f$?
+\begin{tasks}(2)
+    \task $f(x) = -2x + 6$
+    \task $f(x) = 2x + 14$
+    \task $f(x) = -\frac{1}{2}x + 9$
+    \task $f(x) = -4x + 2$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+For a linear function, the slope remains constant. Calculate the slope using any two points from the table and then identify the $y$-intercept.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+$m = \frac{2 - 10}{2 - (-2)} = \frac{-8}{4} = -2$ \\
+Using point $(2, 2)$: $2 = -2(2) + b \Rightarrow 2 = -4 + b \Rightarrow b = 6$ \\
+Equation: $f(x) = -2x + 6$
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+\vspace{20pt}
+
+% Question 8
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+Line $k$ in the $xy$-plane has a $y$-intercept of $(0, -3)$ and an $x$-intercept of $(2, 0)$. Which of the following is an equation of line $k$?
+\begin{tasks}(2)
+    \task $y = \frac{2}{3}x - 3$
+    \task $y = \frac{3}{2}x - 3$
+    \task $y = -\frac{3}{2}x - 3$
+    \task $y = \frac{3}{2}x + 2$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The slope is calculated as $\frac{\text{change in } y}{\text{change in } x}$. The $y$-intercept is the $b$ value in $y=mx+b$.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+$m = \frac{0 - (-3)}{2 - 0} = \frac{3}{2}$ \\
+$b = -3$ \\
+Equation: $y = \frac{3}{2}x - 3$
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{20pt}
+
+% Question 9
+% Category: Practice | Difficulty: Hard | Question Type: Multiple Choice
+\question
+A line in the $xy$-plane has a slope of $\frac{1}{4}$ and contains the point $(k, 3)$. If the line also passes through the origin $(0, 0)$, what is the value of $k$?
+\begin{tasks}(4)
+    \task $\frac{3}{4}$
+    \task 4
+    \task 7
+    \task 12
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Since the line passes through the origin, its equation is simply $y = mx$. Use the given slope and the point $(k, 3)$ to solve for $k$.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+$y = \frac{1}{4}x$ \\
+Substitute $(k, 3)$: $3 = \frac{1}{4}k$ \\
+$k = 3 \times 4 = 12$
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{D}
+\end{solution}
+
+\vspace{20pt}
+
+% Question 10
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+
+The graph of line $L$ is shown above. If line $M$ (not shown) is parallel to line $L$ and passes through the point $(0, -2)$, what is the $x$-intercept of line $M$?
+\begin{tasks}(4)
+    \task $(-2, 0)$
+    \task $(2, 0)$
+    \task $(0, -2)$
+    \task $(5, 0)$
+\end{tasks}
+\begin{center}
+\begin{tikzpicture}[scale=0.6]
+    \draw[->] (-1,0) -- (6,0) node[right] {$x$};
+    \draw[->] (0,-1) -- (0,6) node[above] {$y$};
+    \draw[thick, blue] (0,5) -- (5,0);
+    \node at (0.5,5.2) {$L$};
+\end{tikzpicture}
+\end{center}
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Parallel lines have the same slope. First find the slope of $L$, use it to write the equation for $M$, and then solve for $M$'s $x$-intercept.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+Slope of $L$: $m = \frac{0 - 5}{5 - 0} = -1$ \\
+Equation for $M$: $y = -1x - 2$ \\
+To find $x$-intercept, set $y = 0$: $0 = -x - 2 \Rightarrow x = -2$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+\vspace{20pt}
+
+% Question 11
+% Category: Practice | Difficulty: Hard | Question Type: Multiple Choice
+\question
+The total amount $A$, in dollars, that an electrician charges for a job is $A = 45h + k$, where $h$ is the number of hours worked and $k$ is a constant. If the electrician charges \$225 for a 3-hour job, how much will they charge for a 5-hour job?
+\begin{tasks}(4)
+    \task \$270
+    \task \$315
+    \task \$360
+    \task \$405
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+First, use the information from the 3-hour job to find the value of $k$ (the service fee). Then, use the completed equation to find the cost for 5 hours.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+$225 = 45(3) + k \Rightarrow 225 = 135 + k \Rightarrow k = 90$ \\
+Function: $A = 45h + 90$ \\
+For $h = 5$: $A = 45(5) + 90 = 225 + 90 = 315$
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{20pt}
+
+% Question 12
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+Line $p$ is defined by $3x + 4y = 24$. What is the slope of a line that is perpendicular to line $p$?
+\begin{tasks}(4)
+    \task $-\frac{3}{4}$
+    \task $\frac{3}{4}$
+    \task $\frac{4}{3}$
+    \task $-\frac{4}{3}$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Convert the equation to slope-intercept form ($y = mx + b$) to find the slope of line $p$. The slope of a perpendicular line is the negative reciprocal ($-\frac{1}{m}$).
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+$4y = -3x + 24 \Rightarrow y = -\frac{3}{4}x + 6$ \\
+Slope of $p = -3/4$. \\
+Negative reciprocal = $4/3$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{20pt}
+
+% Question 13
+% Category: Practice | Difficulty: Hard | Question Type: Multiple Choice
+\question
+A line in the $xy$-plane has a $y$-intercept of $(0, b)$ and a slope of $m$, where $m \neq 0$. If the $x$-intercept is $(d, 0)$, which of the following expresses $d$ in terms of $m$ and $b$?
+\begin{tasks}(4)
+    \task $d = -mb$
+    \task $d = -\frac{b}{m}$
+    \task $d = \frac{m}{b}$
+    \task $d = b - m$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Start with the general slope-intercept equation $y = mx + b$. To find the $x$-intercept, set $y = 0$ and solve for $x$.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+$0 = mx + b$ \\
+$mx = -b$ \\
+$x = -\frac{b}{m}$ \\
+Since the $x$-intercept is $(d, 0)$, $d = -\frac{b}{m}$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{20pt}
+
+% Question 14
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+
+Which of the following equations represents the line shown in the graph?
+\begin{tasks}(2)
+    \task $y = x + 3$
+    \task $y = x - 3$
+    \task $y = -x + 3$
+    \task $y = 3x$
+\end{tasks}
+\begin{center}
+\begin{tikzpicture}[scale=0.5]
+    \draw[->] (-4,0) -- (4,0) node[right] {$x$};
+    \draw[->] (0,-2) -- (0,6) node[above] {$y$};
+    \draw[thick] (-3,0) -- (3,6);
+\end{tikzpicture}
+\end{center}
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Identify the $y$-intercept ($b$) and use a second point (the $x$-intercept) to determine the slope.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+The graph crosses the $y$-axis at $3$, so $b = 3$. \\
+The graph crosses the $x$-axis at $-3$. \\
+$m = \frac{3 - 0}{0 - (-3)} = \frac{3}{3} = 1$. \\
+Equation: $y = x + 3$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+\vspace{20pt}
+
+% Question 15
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+For a certain linear function $h$, $h(0) = 4$ and $h(5) = 14$. What is the value of $h(10)$?
+\begin{tasks}(4)
+    \task 20
+    \task 24
+    \task 28
+    \task 30
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+In a linear function, the rate of change (slope) is constant. Since the $x$-value increased by 5 units from 0 to 5, and again by 5 units from 5 to 10, the $y$-value will increase by the same amount each time.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+Increase from $x=0$ to $x=5$: $14 - 4 = 10$. \\
+The same increase applies from $x=5$ to $x=10$. \\
+$h(10) = 14 + 10 = 24$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{20pt}
+
+% Question 16
+% Category: Practice | Difficulty: Hard | Question Type: Multiple Choice
+\question
+The graph of the linear function $f(x) = ax + b$ is translated 3 units up and 2 units to the right in the $xy$-plane. Which of the following represents the new function $g(x)$?
+\begin{tasks}(2)
+    \task $g(x) = a(x - 2) + b + 3$
+    \task $g(x) = a(x + 2) + b + 3$
+    \task $g(x) = a(x - 2) + b - 3$
+    \task $g(x) = a(x + 3) + b + 2$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+A vertical translation of $k$ units is represented by $f(x) + k$. A horizontal translation of $h$ units is represented by $f(x - h)$.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+Translation 3 units up: $+3$ \\
+Translation 2 units right: replace $x$ with $(x - 2)$. \\
+New function: $g(x) = a(x - 2) + b + 3$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+\vspace{20pt}
+
+% Question 17
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+What is the slope of the line with equation $y - 4 = \frac{2}{5}(x + 10)$?
+\begin{tasks}(4)
+    \task 4
+    \task $-10$
+    \task $\frac{2}{5}$
+    \task $-\frac{2}{5}$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+This equation is in point-slope form: $y - y_1 = m(x - x_1)$, where $m$ is the slope.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+The coefficient of the $(x + 10)$ term is $\frac{2}{5}$. Therefore, the slope $m = \frac{2}{5}$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{20pt}
+
+% Question 18
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+A line passes through the point $(4, 7)$ and has a slope of 0. What is the equation of the line?
+\begin{tasks}(4)
+    \task $x = 4$
+    \task $y = 4$
+    \task $x = 7$
+    \task $y = 7$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+A line with a slope of 0 is a horizontal line. The equation for any horizontal line is $y = k$, where $k$ is the $y$-coordinate of any point on the line.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+The point is $(4, 7)$. The $y$-coordinate is 7. \\
+Equation: $y = 7$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{D}
+\end{solution}
+
+\vspace{20pt}
+
+% Question 19
+% Category: Practice | Difficulty: Easy | Question Type: Multiple Choice
+\question
+Which of the following lines has a slope that is undefined?
+\begin{tasks}(4)
+    \task $y = x$
+    \task $y = 0$
+    \task $x = 5$
+    \task $y = 5$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+A line with an undefined slope is a vertical line. Vertical lines have the equation $x = a$, where $a$ is a constant.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+$x = 5$ is a vertical line. \\
+$y = 0$ and $y = 5$ are horizontal (slope 0). \\
+$y = x$ has a slope of 1.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{20pt}
+
+% Question 20
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+The relationship between degrees Celsius ($C$) and degrees Fahrenheit ($F$) is linear. $0^\circ C$ is $32^\circ F$, and $100^\circ C$ is $212^\circ F$. What is the slope of the line that represents $F$ as a function of $C$?
+\begin{tasks}(4)
+    \task $\frac{5}{9}$
+    \task $\frac{9}{5}$
+    \task 32
+    \task 1.8
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Slope is the change in the output variable ($F$) divided by the change in the input variable ($C$).
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+$m = \frac{212 - 32}{100 - 0} = \frac{180}{100} = 1.8$ \\
+$1.8$ is equivalent to $9/5$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{20pt}
+
+% Question 21
+% Category: Practice | Difficulty: Hard | Question Type: Multiple Choice
+\question
+Two lines, $L_1$ and $L_2$, are graphed in the $xy$-plane. $L_1$ has the equation $y = 2x + 5$. $L_2$ passes through the points $(1, 3)$ and $(3, k)$. If $L_1$ and $L_2$ are parallel, what is the value of $k$?
+\begin{tasks}(4)
+    \task 5
+    \task 7
+    \task 9
+    \task 11
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Since the lines are parallel, their slopes must be equal. Find the slope of $L_1$ and set the slope of $L_2$ equal to that value to solve for $k$.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+Slope of $L_1 = 2$. \\
+Slope of $L_2 = \frac{k - 3}{3 - 1} = \frac{k - 3}{2}$. \\
+$2 = \frac{k - 3}{2} \Rightarrow 4 = k - 3 \Rightarrow k = 7$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{20pt}
+
+% Question 22
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+If $f(x) = mx + b$ and $f(2) = 7$ and $f(4) = 11$, what is the value of $b$?
+\begin{tasks}(4)
+    \task 2
+    \task 3
+    \task 4
+    \task 5
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Calculate the slope $m$ first, then use one of the points to solve for the $y$-intercept $b$.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+$m = \frac{11 - 7}{4 - 2} = \frac{4}{2} = 2$. \\
+Using $(2, 7)$: $7 = 2(2) + b \Rightarrow 7 = 4 + b \Rightarrow b = 3$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{20pt}
+
+% Question 23
+% Category: Practice | Difficulty: Hard | Question Type: Multiple Choice
+\question
+
+Which of the following linear equations represents the graph shown above?
+\begin{tasks}(2)
+    \task $x + 2y = 6$
+    \task $2x + y = 6$
+    \task $x - 2y = 6$
+    \task $x + 2y = 3$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Determine the $x$ and $y$ intercepts from the graph and test them in the provided equations.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+From the graph: $y$-intercept is $(0, 3)$ and $x$-intercept is $(6, 0)$. \\
+Test Choice A: \\
+For $(0, 3)$: $0 + 2(3) = 6$ (True) \\
+For $(6, 0)$: $6 + 2(0) = 6$ (True)
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+\vspace{20pt}
+
+% Question 24
+% Category: Practice | Difficulty: Easy | Question Type: Multiple Choice
+\question
+A line has a slope of $-3$ and passes through the point $(0, 5)$. Which of the following is the equation of the line?
+\begin{tasks}(2)
+    \task $y = 5x - 3$
+    \task $y = -3x + 5$
+    \task $y = -3x - 5$
+    \task $y = 3x + 5$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+When the point $(0, b)$ is given, $b$ is the $y$-intercept. Plug $m$ and $b$ directly into $y = mx + b$.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+$m = -3$ \\
+$b = 5$ \\
+Equation: $y = -3x + 5$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{20pt}
+
+% Question 25
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+What is the slope of the line that passes through the points $(a, b)$ and $(2a, 3b)$?
+\begin{tasks}(4)
+    \task $\frac{2b}{a}$
+    \task $\frac{3b}{2a}$
+    \task $\frac{b}{a}$
+    \task $2b - a$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Use the slope formula $m = \frac{y_2 - y_1}{x_2 - x_1}$ with the given coordinates.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+$m = \frac{3b - b}{2a - a}$ \\
+$m = \frac{2b}{a}$
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+% --- PART 2: Advanced Linear Functions & Systems (26-50) ---
+
+% Question 26
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+Which of the following lines is perpendicular to the line $y = 4$?
+\begin{tasks}(4)
+    \task $y = -4$
+    \task $y = 4x$
+    \task $x = 0$
+    \task $y = 0$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The line $y = 4$ is a horizontal line (slope = 0). A line perpendicular to a horizontal line must be a vertical line.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+Vertical lines are written in the form $x = a$. Among the choices, $x = 0$ (the $y$-axis) is the only vertical line.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{20pt}
+
+% Question 27
+% Category: Practice | Difficulty: Hard | Question Type: Multiple Choice
+\question
+A line in the $xy$-plane has a slope of $-2$ and passes through the point $(3, 4)$. What is the $x$-intercept of this line?
+\begin{tasks}(4)
+    \task $(5, 0)$
+    \task $(2, 0)$
+    \task $(0, 10)$
+    \task $(10, 0)$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+First, find the equation of the line using the point-slope formula. Then, set $y=0$ to find the $x$-intercept.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+$y - 4 = -2(x - 3)$ \\
+$y = -2x + 6 + 4 \Rightarrow y = -2x + 10$ \\
+Set $y = 0$: $0 = -2x + 10 \Rightarrow 2x = 10 \Rightarrow x = 5$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+\vspace{20pt}
+
+% Question 28
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+
+The graph of line $k$ is shown above. What is the slope of line $k$?
+\begin{tasks}(4)
+    \task 1
+    \task -1
+    \task 0
+    \task Undefined
+\end{tasks}
+\begin{center}
+\begin{tikzpicture}[scale=0.6]
+    \draw[->] (-3,0) -- (3,0) node[right] {$x$};
+    \draw[->] (0,-3) -- (0,3) node[above] {$y$};
+    \draw[thick, red] (-2,2) -- (2,-2);
+\end{tikzpicture}
+\end{center}
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The slope is negative because the line falls from left to right. Since it passes through points like $(-1, 1)$ and $(1, -1)$, we can calculate the exact value.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+$m = \frac{-1 - 1}{1 - (-1)} = \frac{-2}{2} = -1$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{20pt}
+
+% Question 29
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+Which of the following is an equation of a line that is parallel to the line $L$ with equation $x - 3y = 9$?
+\begin{tasks}(2)
+    \task $y = \frac{1}{3}x + 5$
+    \task $y = 3x + 9$
+    \task $y = -3x + 2$
+    \task $y = -\frac{1}{3}x + 1$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Convert the original equation to slope-intercept form to find its slope. Parallel lines must have the same slope.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+$x - 3y = 9 \Rightarrow -3y = -x + 9 \Rightarrow y = \frac{1}{3}x - 3$. \\
+The slope is $1/3$. Choice A has the same slope.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+\vspace{20pt}
+
+% Question 30
+% Category: Practice | Difficulty: Hard | Question Type: Multiple Choice
+\question
+The function $g$ is a linear function. If $g(-3) = 4$ and $g(1) = 6$, what is the value of $g(9)$?
+\begin{tasks}(4)
+    \task 8
+    \task 10
+    \task 12
+    \task 14
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Find the rate of change (slope) and then use it to project the value of the function at $x = 9$.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+$m = \frac{6 - 4}{1 - (-3)} = \frac{2}{4} = 0.5$. \\
+From $x = 1$ to $x = 9$, the change in $x$ is 8. \\
+Change in $y = 0.5 \times 8 = 4$. \\
+$g(9) = g(1) + 4 = 6 + 4 = 10$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{20pt}
+
+% Question 31
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+What is the $y$-intercept of the line $5x - 2y = 10$?
+\begin{tasks}(4)
+    \task $(2, 0)$
+    \task $(0, 5)$
+    \task $(0, -5)$
+    \task $(-5, 0)$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The $y$-intercept occurs when $x = 0$.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+$5(0) - 2y = 10 \Rightarrow -2y = 10 \Rightarrow y = -5$. \\
+The point is $(0, -5)$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{20pt}
+
+% Question 32
+% Category: Practice | Difficulty: Hard | Question Type: Multiple Choice
+\question
+A line in the $xy$-plane passes through the point $(k, 2k)$ and has a slope of 3. If the $y$-intercept of the line is $(0, 4)$, what is the value of $k$?
+\begin{tasks}(4)
+    \task 4
+    \task -4
+    \task 2
+    \task -2
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Write the equation using the slope and $y$-intercept, then substitute the point $(k, 2k)$ to solve for $k$.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+Equation: $y = 3x + 4$ \\
+Substitute $(k, 2k)$: $2k = 3k + 4$ \\
+$-k = 4 \Rightarrow k = -4$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{20pt}
+
+% Question 33
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+A line has a slope of $2/5$. Which of the following points could be on this line if it also passes through $(1, 3)$?
+\begin{tasks}(4)
+    \task $(6, 5)$
+    \task $(3, 8)$
+    \task $(5, 6)$
+    \task $(6, 7)$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Calculate the slope between $(1, 3)$ and each option. The correct option will yield a slope of $2/5$.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+Test $(6, 5)$: $m = \frac{5 - 3}{6 - 1} = \frac{2}{5}$. (Correct)
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+\vspace{20pt}
+
+% Question 34
+% Category: Practice | Difficulty: Easy | Question Type: Multiple Choice
+\question
+If the graph of $y = mx + b$ is a horizontal line, what is the value of $m$?
+\begin{tasks}(4)
+    \task 1
+    \task -1
+    \task 0
+    \task Undefined
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+A horizontal line has no steepness; it does not rise or fall as $x$ increases.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+Horizontal lines have a constant $y$-value. In the equation $y = mx + b$, this only happens if $m = 0$, making $y = b$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{20pt}
+
+% Question 35
+% Category: Practice | Difficulty: Hard | Question Type: Multiple Choice
+\question
+Line $A$ passes through $(1, 2)$ and $(3, 8)$. Line $B$ is perpendicular to line $A$. What is the slope of line $B$?
+\begin{tasks}(4)
+    \task 3
+    \task -3
+    \task $1/3$
+    \task $-1/3$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Find the slope of line $A$ first. The slope of line $B$ is the negative reciprocal.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+$m_A = \frac{8 - 2}{3 - 1} = \frac{6}{2} = 3$. \\
+Negative reciprocal = $-1/3$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{D}
+\end{solution}
+
+\vspace{20pt}
+
+% Question 36
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+A linear model predicts the height of a plant $H$, in cm, after $d$ days: $H = 1.2d + 5$. What does the $1.2$ represent?
+\begin{tasks}(1)
+    \task The initial height of the plant.
+    \task The total height after 5 days.
+    \task The daily growth rate of the plant.
+    \task The number of days it takes to grow 1 cm.
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+In the linear equation $y = mx + b$, the slope $m$ represents the rate of change of the output per unit of input.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+The input is days ($d$). The output is height ($H$). $1.2$ is the growth (cm) per day.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{20pt}
+
+% Question 37
+% Category: Practice | Difficulty: Hard | Question Type: Multiple Choice
+\question
+Line $k$ has the equation $y = ax + b$. If $a < 0$ and $b > 0$, which quadrant does the line NOT pass through?
+\begin{tasks}(4)
+    \task Quadrant I
+    \task Quadrant II
+    \task Quadrant III
+    \task Quadrant IV
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+A negative slope and a positive $y$-intercept mean the line starts in Q2, passes through Q1, and ends in Q4.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+Since it has a positive $y$-intercept and moves downward, it will eventually cross the positive $x$-axis. It never enters Quadrant III (where both $x$ and $y$ are negative).
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{20pt}
+
+% Question 38
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+Which of the following lines has the steepest slope?
+\begin{tasks}(4)
+    \task $y = 3x + 10$
+    \task $y = -5x - 2$
+    \task $y = 4x + 1$
+    \task $y = -2x + 15$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Steepness is determined by the absolute value of the slope. The sign (+ or -) only tells you the direction.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+Slopes are $|3|, |-5|, |4|, |-2|$. \\
+The largest magnitude is 5.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{20pt}
+
+% Question 39
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+If the point $(3, 11)$ is on the line $y = 2x + k$, what is the value of $k$?
+\begin{tasks}(4)
+    \task 5
+    \task 8
+    \task 14
+    \task 17
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+If a point is on a line, its coordinates must satisfy the equation. Substitute $x=3$ and $y=11$.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+$11 = 2(3) + k$ \\
+$11 = 6 + k \Rightarrow k = 5$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+\vspace{20pt}
+
+% Question 40
+% Category: Practice | Difficulty: Hard | Question Type: Multiple Choice
+\question
+A line has a slope of $m$. If the line is reflected across the $y$-axis, what is the slope of the new line?
+\begin{tasks}(4)
+    \task $m$
+    \task $-m$
+    \task $1/m$
+    \task $-1/m$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Reflecting a point $(x, y)$ across the $y$-axis results in $(-x, y)$. This changes the sign of the run, but not the rise.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+New slope = $\frac{\text{rise}}{-\text{run}} = -m$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{20pt}
+
+% Question 41
+% Category: Practice | Difficulty: Easy | Question Type: Multiple Choice
+\question
+What is the slope of the line $y = -x$?
+\begin{tasks}(4)
+    \task 1
+    \task -1
+    \task 0
+    \task Undefined
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The slope is the coefficient of the $x$ term.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+$y = -1x$. The coefficient is $-1$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{20pt}
+
+% Question 42
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+A line passes through $(2, 4)$ and $(2, 10)$. What is the slope?
+\begin{tasks}(4)
+    \task 0
+    \task 6
+    \task Undefined
+    \task 1
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Check for a constant $x$ or $y$. Here, $x$ is always 2.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+$m = \frac{10 - 4}{2 - 2} = \frac{6}{0}$. Division by zero is undefined.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{20pt}
+
+% Question 43
+% Category: Practice | Difficulty: Hard | Question Type: Multiple Choice
+\question
+Line $L$ is perpendicular to the $x$-axis. Which of the following could be the equation of line $L$?
+\begin{tasks}(4)
+    \task $y = 5$
+    \task $x = 5$
+    \task $y = x$
+    \task $y = -x$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The $x$-axis is horizontal. A line perpendicular to it must be vertical.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+Vertical lines have equations of the form $x = a$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{20pt}
+
+% Question 44
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+A linear function $f$ has $f(0) = -2$ and $f(3) = 7$. What is the value of $f(1)$?
+\begin{tasks}(4)
+    \task 0
+    \task 1
+    \task 2
+    \task 3
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Find the slope, then use the $y$-intercept ($b = -2$) to find the value at $x=1$.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+$m = \frac{7 - (-2)}{3 - 0} = \frac{9}{3} = 3$. \\
+$f(x) = 3x - 2$. \\
+$f(1) = 3(1) - 2 = 1$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{20pt}
+
+% Question 45
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+
+In the figure above, lines $k$ and $p$ are parallel. If the equation of line $k$ is $y = 3x + 1$, which of the following could be the equation of line $p$?
+\begin{tasks}(2)
+    \task $y = 3x - 5$
+    \task $y = -3x + 1$
+    \task $y = \frac{1}{3}x + 1$
+    \task $y = -3x - 5$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Parallel lines must share the exact same slope.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+Slope of $k = 3$. The only option with slope 3 is A.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+\vspace{20pt}
+
+% Question 46
+% Category: Practice | Difficulty: Hard | Question Type: Multiple Choice
+\question
+If a line has a positive slope and a negative $x$-intercept, what must be true about its $y$-intercept?
+\begin{tasks}(4)
+    \task It must be positive.
+    \task It must be negative.
+    \task It must be zero.
+    \task It could be anything.
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Visualize the line. It crosses the $x$-axis to the left of the origin and moves upward.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+To move from a point on the negative $x$-axis ($x < 0, y = 0$) with a positive slope, the $y$-values must increase as $x$ moves toward zero. Thus, when it hits the $y$-axis ($x=0$), the $y$-value will be positive.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+\vspace{20pt}
+
+% Question 47
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+What is the slope of a line that is parallel to the $x$-axis?
+\begin{tasks}(4)
+    \task 1
+    \task -1
+    \task 0
+    \task Undefined
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The $x$-axis is a horizontal line.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+Horizontal lines have a slope of 0.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{20pt}
+
+% Question 48
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+A line passes through $(0, 0)$ and $(5, 2)$. What is its equation?
+\begin{tasks}(2)
+    \task $y = \frac{5}{2}x$
+    \task $y = \frac{2}{5}x$
+    \task $y = 2x + 5$
+    \task $y = 5x + 2$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The line passes through the origin, so $b = 0$. Calculate the slope using $(0,0)$ and $(5,2)$.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+$m = \frac{2 - 0}{5 - 0} = \frac{2}{5}$. \\
+Equation: $y = \frac{2}{5}x$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{20pt}
+
+% Question 49
+% Category: Practice | Difficulty: Hard | Question Type: Multiple Choice
+\question
+Line $L$ contains the points $(2, 5)$ and $(4, 9)$. Which of the following points also lies on line $L$?
+\begin{tasks}(4)
+    \task $(0, 0)$
+    \task $(5, 11)$
+    \task $(1, 2)$
+    \task $(3, 6)$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Find the equation of line $L$ and test the given points.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+$m = \frac{9 - 5}{4 - 2} = \frac{4}{2} = 2$. \\
+$y - 5 = 2(x - 2) \Rightarrow y = 2x + 1$. \\
+Test $(5, 11)$: $11 = 2(5) + 1$. (True)
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{20pt}
+
+% Question 50
+% Category: Practice | Difficulty: Hard | Question Type: Multiple Choice
+\question
+
+Based on the graph above, which equation represents the line?
+\begin{tasks}(2)
+    \task $y = 0.5x + 2$
+    \task $y = -0.5x + 2$
+    \task $y = 2x + 4$
+    \task $y = 2x - 4$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Identify the $y$-intercept directly ($b=2$) and calculate the slope using the $x$-intercept.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+Points: $(0, 2)$ and $(-4, 0)$. \\
+$m = \frac{2 - 0}{0 - (-4)} = \frac{2}{4} = 0.5$. \\
+Equation: $y = 0.5x + 2$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+% =============================================================
+% Question End
+% =============================================================
+
+\end{questions}
+\begin{center}
+\rule{.5\textwidth}{1pt}
+\end{center}
+\end{document}

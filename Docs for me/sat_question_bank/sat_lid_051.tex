@@ -1,0 +1,1525 @@
+\documentclass[11pt,paper=a4,answers]{exam}
+\usepackage{graphicx,lastpage}
+\usepackage{upgreek}
+\usepackage{censor}
+\usepackage{gensymb}
+\usepackage{amsmath}
+\usepackage{multicol}
+\usepackage{enumitem}
+\usepackage{tasks}
+\usepackage{adjustbox}
+\usepackage{xcolor}
+\usepackage{tfrupee}
+\setlength{\voffset}{0.25in}
+\usepackage{tabularx}
+\newcolumntype{Y}{>{\centering\arraybackslash}X}
+%==============================================================
+% Customise Non-Essential Packages Below
+% =============================================================
+\usepackage[most]{tcolorbox}
+\usepackage{eso-pic}
+\usepackage{tikz}
+\AddToShipoutPictureBG{%
+\begin{tikzpicture}[remember picture,overlay]
+\foreach \x in {-8,-4,0,4,8,12,16,20}
+\foreach \y in {-8,-4,0,4,8,12,16,20} {
+\node[opacity=0.05,rotate=45,anchor=center] at ([xshift=\x cm,yshift=\y cm]current page.center) {%
+\begin{minipage}{2cm}
+\centering
+\includegraphics[width=2cm]{images/logo_black.png}\\
+\small preppeo.com
+\end{minipage}%
+};
+}
+\end{tikzpicture}%
+}
+\printanswers
+
+%==============================================================
+% Customise Non-Essential Packages Above
+% =============================================================
+\definecolor{svgray}{rgb}{0.90, 0.90, 0.90}
+\graphicspath{{images/}}
+
+\usepackage[normalem]{ulem}
+\renewcommand\ULthickness{1pt}   %%---> For changing thickness of underline
+\setlength\ULdepth{3.5ex}%\maxdimen ---> For changing depth of underline
+\renewcommand{\baselinestretch}{1}
+\chead{
+\includegraphics[scale=0.1,height=2cm ]{logo.png}
+}
+\pagestyle{empty}
+
+\pagestyle{headandfoot}
+\headrule
+\cfoot{W: https://preppeo.com; M: +91-8130711689}
+
+\begin{document}
+%==============================================================
+% Customise Question paper details below this
+% =============================================================
+\begin{center}
+    \centering
+    \renewcommand{\arraystretch}{1.5}
+    \begin{tabularx}{\textwidth}{YYY}
+    & \normalsize\bf{{\Large{{Quantitative Reasoning}}}} & \\
+    By Preppeo & \normalsize\bf{{sat\_lid\_051}} & SAT\\
+    \normalsize{{\textbf{{Unit:}} Trigonometry}} & \normalsize{{\textbf{{Chapter:}} Right-triangle trig: sin, cos, tan}} & \normalsize{{\textbf{{Topic:}} SOH CAH TOA}} \\
+    \end{tabularx}
+\end{center}
+\par\noindent\rule{\textwidth}{1pt}
+% =============================================================
+% Customise Question paper details above this
+% =============================================================
+
+\begin{questions}
+\pointsinrightmargin
+\pointsdroppedatright
+\marksnotpoints
+\pointpoints{mark}{marks}
+\pointformat{\boldmath\themarginpoints}
+\bracketedpoints
+
+% =============================================================
+% Question Begin
+% =============================================================
+
+% LID: sat_lid_051
+% Topic: Geometry & Trigonometry; Trigonometry; Right-triangle trig: sin, cos, tan; SOH CAH TOA
+
+%Q: 1
+% Category: Concept | Difficulty: Easy | Question Type: Multiple Choice
+\question
+In a right triangle, the side opposite to acute angle $\theta$ has a length of 7 and the hypotenuse has a length of 25. What is the value of $\cos \theta$?
+\begin{tasks}(2)
+    \task $\frac{7}{25}$
+    \task $\frac{7}{24}$
+    \task $\frac{24}{25}$
+    \task $\frac{25}{24}$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+To find $\cos \theta$, we need the ratio of the \textit{adjacent} side to the \textit{hypotenuse} ($\frac{\text{adj}}{\text{hyp}}$). We are given the opposite side and the hypotenuse.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+1. Use the Pythagorean theorem to find the adjacent side ($a$):
+   $a^2 + 7^2 = 25^2$ \\
+   $a^2 + 49 = 625$ \\
+   $a^2 = 576 \implies a = 24$ \\
+2. Apply the definition of Cosine (CAH):
+   $\cos \theta = \frac{\text{adjacent}}{\text{hypotenuse}} = \frac{24}{25}$
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+---
+
+%Q: 2
+% Category: Practice | Difficulty: Medium | Question Type: Numeric Entry
+\question
+In $\triangle ABC$, the measure of $\angle C$ is $90^\circ$. If $\sin A = \frac{5}{13}$, what is the value of $\cos B$?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+This question tests the Complementary Angle Identity. In any right triangle, the two acute angles (A and B) must sum to $90^\circ$. For any such angles, $\sin A = \cos(90^\circ - A)$.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+1. Since $\angle C = 90^\circ$, we know $A + B = 90^\circ$. \\
+2. The identity states that $\sin A = \cos B$. \\
+3. Given $\sin A = \frac{5}{13}$, it follows directly that $\cos B = \frac{5}{13}$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{5/13}
+\end{solution}
+
+---
+
+%Q: 3
+% Category: Exam Style | Difficulty: Medium | Question Type: Multiple Choice
+\question
+For a certain acute angle $x$, $\tan x = \frac{3}{4}$. What is the value of $\sin x + \cos x$?
+\begin{tasks}(2)
+    \task $\frac{7}{5}$
+    \task $\frac{5}{7}$
+    \task $\frac{12}{25}$
+    \task $1$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The tangent ratio represents $\frac{\text{opposite}}{\text{adjacent}}$. We can model this using a standard 3-4-5 right triangle.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+1. Let the side opposite to $x$ be 3 and the side adjacent to $x$ be 4. \\
+2. The hypotenuse is $\sqrt{3^2 + 4^2} = 5$. \\
+3. Determine the individual ratios: \\
+   $\sin x = \frac{\text{opp}}{\text{hyp}} = \frac{3}{5}$ \\
+   $\cos x = \frac{\text{adj}}{\text{hyp}} = \frac{4}{5}$ \\
+4. Sum the values: $\frac{3}{5} + \frac{4}{5} = \frac{7}{5}$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+% LID: sat_lid_051
+% Topic: Geometry & Trigonometry; Trigonometry; Right-triangle trig: sin, cos, tan; SOH CAH TOA
+
+%Q: 4
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+In a right triangle, $\cos \theta = \frac{\sqrt{3}}{2}$. What is the value of $\sin (90^\circ - \theta)$?
+\begin{tasks}(2)
+    \task $\frac{1}{2}$
+    \task $\frac{\sqrt{3}}{2}$
+    \task $1$
+    \task $\frac{\sqrt{3}}{3}$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+This question utilizes the cofunction identity which states that the cosine of an angle is equal to the sine of its complement.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+The identity $\cos \theta = \sin(90^\circ - \theta)$ applies here directly. \\
+Given that $\cos \theta = \frac{\sqrt{3}}{2}$, then the value of $\sin(90^\circ - \theta)$ must be the exact same value.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+---
+
+%Q: 5
+% Category: Exam Style | Difficulty: Hard | Question Type: Numeric Entry
+\question
+In the $xy$-plane, the terminal ray of an angle $\alpha$ in standard position passes through the point $(8, 15)$. What is the value of $\sin \alpha$?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+We can treat the coordinates $(x, y)$ as the adjacent and opposite sides of a right triangle where the hypotenuse is the distance from the origin to the point.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+The $x$-coordinate is 8 (adjacent) and the $y$-coordinate is 15 (opposite). \\
+Find the hypotenuse ($r$) using the Pythagorean theorem: $r = \sqrt{8^2 + 15^2} = \sqrt{64 + 225} = \sqrt{289} = 17$. \\
+The sine ratio is $\frac{\text{opposite}}{\text{hypotenuse}}$, which gives $15/17$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{15/17}
+\end{solution}
+
+---
+
+%Q: 6
+% Category: Concept | Difficulty: Easy | Question Type: Multiple Choice
+\question
+Which of the following is equivalent to $\frac{\sin \theta}{\cos \theta}$ for all acute angles $\theta$?
+\begin{tasks}(2)
+    \task $\cos(90^\circ - \theta)$
+    \task $\tan \theta$
+    \task $1$
+    \task $\sin^2 \theta$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+This is a fundamental trigonometric identity derived from the SOH CAH TOA definitions.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+Substitute the side ratios: $\sin \theta = \frac{\text{opp}}{\text{hyp}}$ and $\cos \theta = \frac{\text{adj}}{\text{hyp}}$. \\
+Dividing these gives $(\frac{\text{opp}}{\text{hyp}}) \div (\frac{\text{adj}}{\text{hyp}}) = \frac{\text{opp}}{\text{adj}}$. \\
+By definition, $\frac{\text{opp}}{\text{adj}}$ is $\tan \theta$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+
+% LID: sat_lid_051
+% Topic: Geometry & Trigonometry; Trigonometry; Right-triangle trig: sin, cos, tan; SOH CAH TOA
+
+%Q: 7
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+In the figure below, triangle $ABC$ is a right triangle. If $BC = 12$ and $\tan A = \frac{3}{4}$, what is the length of segment $AB$?
+\begin{center}
+\begin{tikzpicture}[scale=0.8]
+    \draw[thick] (0,0) node[anchor=north east]{$A$} -- (4,0) node[anchor=north west]{$C$} -- (4,3) node[anchor=south west]{$B$} -- cycle;
+    \draw (3.7,0) -- (3.7,0.3) -- (4,0.3);
+\end{tikzpicture}
+\end{center}
+\begin{tasks}(2)
+    \task 9
+    \task 15
+    \task 16
+    \task 20
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The tangent of angle $A$ is defined as the ratio of the side opposite to $A$ (which is $BC$) to the side adjacent to $A$ (which is $AC$). We use this ratio to find the missing sides and then use the Pythagorean theorem for $AB$.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+From the definition, $\tan A = \frac{BC}{AC} = \frac{3}{4}$. \\
+Substituting the known value, $\frac{12}{AC} = \frac{3}{4}$. \\
+Cross-multiplying gives $3(AC) = 48$, so $AC = 16$. \\
+To find the hypotenuse $AB$, we use $AB = \sqrt{AC^2 + BC^2} = \sqrt{16^2 + 12^2} = \sqrt{256 + 144} = \sqrt{400}$. \\
+The length of $AB$ is 20.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{D}
+\end{solution}
+
+---
+
+%Q: 8
+% Category: Exam Style | Difficulty: Medium | Question Type: Multiple Choice
+\question
+In right triangle $XYZ$ shown below, the length of $XY$ is 10 and $\cos X = 0.8$. What is the length of $YZ$?
+\begin{center}
+\begin{tikzpicture}[scale=1]
+    \draw[thick] (0,0) node[anchor=north east]{$X$} -- (4,0) node[anchor=north west]{$Z$} -- (4,3) node[anchor=south west]{$Y$} -- cycle;
+    \draw (3.7,0) -- (3.7,0.3) -- (4,0.3);
+    \node at (1.8,1.8) {10};
+\end{tikzpicture}
+\end{center}
+\begin{tasks}(2)
+    \task 6
+    \task 8
+    \task 12.5
+    \task 15
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+We are given the hypotenuse and the cosine of an angle. We can find the adjacent side first, or use the sine relationship since $YZ$ is opposite to angle $X$.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+The cosine ratio is $\frac{\text{adj}}{\text{hyp}}$, so $0.8 = \frac{XZ}{10}$, which means $XZ = 8$. \\
+Using the Pythagorean theorem, $YZ = \sqrt{10^2 - 8^2} = \sqrt{100 - 64} = \sqrt{36}$. \\
+The length of $YZ$ is 6. \\
+Alternatively, if $\cos X = 0.8$, then $\sin X = \sqrt{1 - 0.8^2} = 0.6$. Then $YZ = 10 \times 0.6 = 6$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+---
+
+%Q: 9
+% Category: Practice | Difficulty: Hard | Question Type: Numeric Entry
+\question
+In a right triangle, $\sin \theta = \frac{a}{b}$ and $\cos \theta = \frac{c}{b}$. If $a=5$ and $c=12$, what is the value of $b$?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The denominators of the sine and cosine ratios in a right triangle both represent the hypotenuse. The numerators represent the legs of the triangle.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+According to the Pythagorean identity, $\sin^2 \theta + \cos^2 \theta = 1$. \\
+Substituting the given ratios: $(\frac{a}{b})^2 + (\frac{c}{b})^2 = 1$. \\
+This simplifies to $a^2 + c^2 = b^2$. \\
+Plugging in the values: $5^2 + 12^2 = b^2 \implies 25 + 144 = b^2$. \\
+$b^2 = 169$, so $b = 13$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{13}
+\end{solution}
+
+
+% LID: sat_lid_051
+% Topic: Geometry & Trigonometry; Trigonometry; Right-triangle trig: sin, cos, tan; SOH CAH TOA
+
+%Q: 10
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+In the figure below, a ladder leans against a wall, making a $60^\circ$ angle with the ground. If the base of the ladder is 8 feet from the wall, what is the length of the ladder, in feet?
+\begin{center}
+\begin{tikzpicture}[scale=0.6]
+    \draw[thick] (0,0) -- (4,0) node[midway, below]{8 ft} -- (4,7);
+    \draw[ultra thick, blue] (0,0) -- (4,7) node[midway, above left, black]{L};
+    \draw (0.8,0) arc (0:60:0.8) node[midway, right=2pt]{$60^\circ$};
+    \draw (3.7,0) -- (3.7,0.3) -- (4,0.3);
+\end{tikzpicture}
+\end{center}
+\begin{tasks}(2)
+    \task 4
+    \task $8\sqrt{3}$
+    \task 16
+    \task $16\sqrt{3}$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The ladder forms the hypotenuse of a right triangle. The distance from the wall is the side adjacent to the $60^\circ$ angle. We use the cosine ratio (CAH) to relate these.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+By definition, $\cos(60^\circ) = \frac{\text{adjacent}}{\text{hypotenuse}}$. \\
+Substituting the values gives $\cos(60^\circ) = \frac{8}{L}$. \\
+Since $\cos(60^\circ) = 0.5$, we have $0.5 = \frac{8}{L}$. \\
+Solving for $L$ yields $L = \frac{8}{0.5} = 16$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+---
+
+%Q: 11
+% Category: Exam Style | Difficulty: Medium | Question Type: Numeric Entry
+\question
+In a right triangle, $\sin \theta = \cos(2\theta - 30^\circ)$, where all angles are in degrees. What is the value of $\theta$?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The sine and cosine functions are equal when their arguments are complementary angles. This means the sum of the two angles must be $90^\circ$.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+Set the sum of the angles to 90: $\theta + (2\theta - 30) = 90$. \\
+Combine like terms: $3\theta - 30 = 90$. \\
+Add 30 to both sides: $3\theta = 120$. \\
+Divide by 3: $\theta = 40$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{40}
+\end{solution}
+
+---
+
+%Q: 12
+% Category: Concept | Difficulty: Easy | Question Type: Multiple Choice
+\question
+In $\triangle DEF$ (not shown), $\angle E$ is a right angle. Which of the following is equivalent to $\cos D$?
+\begin{tasks}(2)
+    \task $\sin F$
+    \task $\sin D$
+    \task $\tan F$
+    \task $\cos F$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+In any right triangle, the two acute angles are complements of each other. The cofunction identity states that the cosine of one acute angle equals the sine of the other.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+Since $\angle E = 90^\circ$, then $D + F = 90^\circ$. \\
+According to the complementary angle identity, $\cos D = \sin(90^\circ - D)$. \\
+Substituting $F$ for $(90^\circ - D)$, we find $\cos D = \sin F$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+---
+
+%Q: 13
+% Category: Practice | Difficulty: Hard | Question Type: Multiple Choice
+\question
+In right triangle $PQR$, $\angle Q = 90^\circ$ and $\tan P = \frac{x}{y}$. What is the value of $\sin R$?
+\begin{tasks}(2)
+    \task $\frac{x}{\sqrt{x^2+y^2}}$
+    \task $\frac{y}{\sqrt{x^2+y^2}}$
+    \task $\frac{x}{y}$
+    \task $\frac{y}{x}$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The tangent of angle $P$ gives the ratio of the opposite side ($QR$) to the adjacent side ($PQ$). We need to find the hypotenuse ($PR$) to determine the sine of angle $R$.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+Let $QR = x$ and $PQ = y$. \\
+The hypotenuse $PR = \sqrt{x^2 + y^2}$. \\
+Angle $R$ is opposite to side $PQ$. \\
+Therefore, $\sin R = \frac{\text{opposite to R}}{\text{hypotenuse}} = \frac{PQ}{PR} = \frac{y}{\sqrt{x^2 + y^2}}$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+---
+
+%Q: 14
+% Category: Exam Style | Difficulty: Medium | Question Type: Numeric Entry
+\question
+If $\cos(x^\circ) = \sin(24^\circ)$, where $0 < x < 90$, what is the value of $x$?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The sine and cosine of complementary angles are equal. This identity is a staple of the SAT and requires the two angles to sum to 90.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+Set up the equation based on the identity: $x + 24 = 90$. \\
+Subtract 24 from 90 to isolate $x$. \\
+$x = 66$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{66}
+\end{solution}
+
+---
+
+%Q: 15
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+In the figure below, $\sin A = 0.6$. If $AB = 15$, what is the area of triangle $ABC$?
+\begin{center}
+\begin{tikzpicture}[scale=0.8]
+    \draw[thick] (0,0) node[anchor=north east]{$A$} -- (4.8,0) node[anchor=north west]{$C$} -- (4.8,3.6) node[anchor=south west]{$B$} -- cycle;
+    \draw (4.5,0) -- (4.5,0.3) -- (4.8,0.3);
+    \node at (2.4,2.2) {15};
+\end{tikzpicture}
+\end{center}
+\begin{tasks}(2)
+    \task 27
+    \task 54
+    \task 108
+    \task 135
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+To find the area ($\frac{1}{2} \times \text{base} \times \text{height}$), we need the lengths of sides $AC$ and $BC$. We can use the sine ratio and the Pythagorean theorem to find them.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+$\sin A = \frac{BC}{AB} \implies 0.6 = \frac{BC}{15} \implies BC = 9$. \\
+Using the Pythagorean theorem, $AC = \sqrt{15^2 - 9^2} = \sqrt{225 - 81} = \sqrt{144} = 12$. \\
+Area $= \frac{1}{2} \times AC \times BC = \frac{1}{2} \times 12 \times 9$. \\
+Area $= 6 \times 9 = 54$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+% LID: sat_lid_051
+% Topic: Geometry & Trigonometry; Trigonometry; Right-triangle trig: sin, cos, tan; SOH CAH TOA
+
+%Q: 16
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+In $\triangle ABC$ below, $\angle C = 90^\circ$ and $BC = 5$. If $\sin A = \frac{5}{13}$, what is the value of $\tan B$?
+\begin{center}
+\begin{tikzpicture}[scale=0.8]
+    \draw[thick] (0,0) node[anchor=north east]{$A$} -- (4.5,0) node[anchor=north west]{$C$} -- (4.5,2) node[anchor=south west]{$B$} -- cycle;
+    \draw (4.2,0) -- (4.2,0.3) -- (4.5,0.3);
+    \node at (4.8, 1) {5};
+\end{tikzpicture}
+\end{center}
+\begin{tasks}(2)
+    \task $\frac{5}{12}$
+    \task $\frac{12}{13}$
+    \task $\frac{12}{5}$
+    \task $\frac{13}{5}$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+We use the given sine ratio to identify the side lengths of the triangle. Since $\sin A$ involves the hypotenuse, we first find the adjacent side $AC$ to calculate the tangent of angle $B$.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+By definition, $\sin A = \frac{\text{opp}}{\text{hyp}} = \frac{BC}{AB}$. \\
+Given $\sin A = \frac{5}{13}$ and $BC = 5$, it follows that the hypotenuse $AB = 13$. \\
+Using the Pythagorean theorem, $AC = \sqrt{13^2 - 5^2} = \sqrt{169 - 25} = 12$. \\
+For angle $B$, the opposite side is $AC$ and the adjacent side is $BC$. \\
+$\tan B = \frac{\text{opp}}{\text{adj}} = \frac{AC}{BC} = \frac{12}{5}$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+---
+
+%Q: 17
+% Category: Exam Style | Difficulty: Hard | Question Type: Numeric Entry
+\question
+In a right triangle, the measure of one acute angle is $x^\circ$, where $\sin(x^\circ) = \frac{1}{3}$. What is the value of $\cos(90^\circ - x^\circ)$?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The SAT frequently tests the relationship between the sine of an angle and the cosine of its complement. This identity is based on the fact that the side opposite one acute angle is the side adjacent to the other.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+The fundamental identity is $\sin(\theta) = \cos(90^\circ - \theta)$. \\
+In this problem, $\theta = x$. \\
+Therefore, $\cos(90^\circ - x^\circ)$ must be equal to $\sin(x^\circ)$. \\
+Given $\sin(x^\circ) = 1/3$, the required value is $1/3$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{1/3}
+\end{solution}
+
+---
+
+%Q: 18
+% Category: Concept | Difficulty: Medium | Question Type: Multiple Choice
+\question
+Which of the following expressions is equal to $1$ for all values of $\theta$ such that $0 < \theta < 90^\circ$?
+\begin{tasks}(2)
+    \task $\sin \theta + \cos \theta$
+    \task $\frac{\sin \theta}{\cos(90^\circ - \theta)}$
+    \task $\tan \theta \cdot \cos \theta$
+    \task $\frac{\cos \theta}{\sin \theta}$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+We evaluate the trigonometric identities. For a fraction or product to equal 1, the numerator must equal the denominator or the terms must be reciprocals.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+Check Choice B: Using the identity $\cos(90^\circ - \theta) = \sin \theta$. \\
+The expression becomes $\frac{\sin \theta}{\sin \theta}$, which is 1 for all valid $\theta$. \\
+Choice A is only 1 at $0^\circ$ or $90^\circ$ (not acute). \\
+Choice C simplifies to $(\frac{\text{opp}}{\text{adj}}) \cdot (\frac{\text{adj}}{\text{hyp}}) = \sin \theta$. \\
+Choice D is $\cot \theta$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+---
+
+%Q: 19
+% Category: Practice | Difficulty: Easy | Question Type: Multiple Choice
+\question
+In the right triangle shown below, what is the value of $\sin \beta$?
+\begin{center}
+\begin{tikzpicture}[scale=1]
+    \draw[thick] (0,0) -- (3,0) node[midway, below]{4} -- (3,1.5) node[midway, right]{3} -- cycle;
+    \node at (0.4, 0.2) {$\beta$};
+    \draw (2.8,0) -- (2.8,0.2) -- (3,0.2);
+\end{tikzpicture}
+\end{center}
+\begin{tasks}(2)
+    \task 0.6
+    \task 0.75
+    \task 0.8
+    \task 1.33
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+We identify the components of SOH CAH TOA. The sine of an angle is the ratio of the side opposite to it over the hypotenuse.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+The side opposite $\beta$ is 3. The side adjacent to $\beta$ is 4. \\
+The hypotenuse is $\sqrt{3^2 + 4^2} = 5$. \\
+$\sin \beta = \frac{3}{5} = 0.6$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+---
+
+%Q: 20
+% Category: Exam Style | Difficulty: Medium | Question Type: Multiple Choice
+\question
+The circle shown below is centered at the origin. If the point $P(\frac{1}{2}, \frac{\sqrt{3}}{2})$ lies on the circle, what is the value of $\cos \theta$?
+\begin{center}
+\begin{tikzpicture}[scale=1.5]
+    \draw[->] (-0.2,0) -- (1.5,0);
+    \draw[->] (0,-0.2) -- (0,1.5);
+    \draw (1,0) arc (0:90:1);
+    \draw[thick, blue] (0,0) -- (0.5, 0.866) node[anchor=south west, black]{$P$};
+    \draw (0.3,0) arc (0:60:0.3) node[midway, right]{$\theta$};
+\end{tikzpicture}
+\end{center}
+\begin{tasks}(2)
+    \task $\frac{1}{2}$
+    \task $\frac{\sqrt{3}}{2}$
+    \task $\sqrt{3}$
+    \task $1$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+On the unit circle (or any circle centered at the origin), the cosine of an angle in standard position is given by the $x$-coordinate divided by the radius.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+The $x$-coordinate of point $P$ is $1/2$ and the $y$-coordinate is $\sqrt{3}/2$. \\
+The radius $r$ is $\sqrt{(\frac{1}{2})^2 + (\frac{\sqrt{3}}{2})^2} = \sqrt{\frac{1}{4} + \frac{3}{4}} = 1$. \\
+Since $\cos \theta = \frac{x}{r}$, then $\cos \theta = \frac{1/2}{1} = 1/2$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+%Q: 21
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+In a right triangle, the legs have lengths of 9 and 40. What is the value of the sine of the angle opposite the side with length 9?
+\begin{tasks}(2)
+    \task $\frac{9}{40}$
+    \task $\frac{9}{41}$
+    \task $\frac{40}{41}$
+    \task $\frac{41}{9}$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+To find the sine ratio, we need the opposite side and the hypotenuse. We calculate the hypotenuse using the Pythagorean theorem with the two given legs.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+Hypotenuse $= \sqrt{9^2 + 40^2} = \sqrt{81 + 1600} = \sqrt{1681} = 41$. \\
+The side opposite the required angle is 9. \\
+$\sin \theta = \frac{\text{opp}}{\text{hyp}} = \frac{9}{41}$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+---
+
+%Q: 22
+% Category: Exam Style | Difficulty: Medium | Question Type: Numeric Entry
+\question
+In the figure below, $\overline{BD}$ is perpendicular to $\overline{AC}$. If $BD = 4$ and $\tan A = 0.5$, what is the length of segment $AD$?
+\begin{center}
+\begin{tikzpicture}[scale=0.8]
+    \draw[thick] (0,0) node[anchor=north]{$A$} -- (6,0) node[anchor=north]{$C$} -- (2,4) node[anchor=south]{$B$} -- cycle;
+    \draw[dashed] (2,4) -- (2,0) node[anchor=north]{$D$};
+    \draw (2.2,0) -- (2.2,0.2) -- (2,0.2);
+\end{tikzpicture}
+\end{center}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The dashed line creates two right triangles. We use triangle $ABD$ and the given tangent value to find the horizontal segment $AD$.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+In right triangle $ABD$, $\tan A = \frac{BD}{AD}$. \\
+Given $\tan A = 0.5$ and $BD = 4$, we have $0.5 = \frac{4}{AD}$. \\
+Solving for $AD$ gives $AD = \frac{4}{0.5} = 8$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{8}
+\end{solution}
+
+---
+
+%Q: 23
+% Category: Concept | Difficulty: Hard | Question Type: Multiple Choice
+\question
+Given that $\sin x = \cos y$ and $x$ and $y$ are acute angles. If $x = 3k - 10$ and $y = 2k + 5$, what is the value of $k$?
+\begin{tasks}(2)
+    \task 15
+    \task 19
+    \task 25
+    \task 30
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The equality $\sin x = \cos y$ for acute angles implies that $x$ and $y$ are complementary. Their sum must be exactly 90 degrees.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+$(3k - 10) + (2k + 5) = 90$. \\
+$5k - 5 = 90$. \\
+$5k = 95$. \\
+$k = 19$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+---
+
+%Q: 24
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+In right triangle $ABC$, the hypotenuse $AB$ has a length of 10. If $\cos A = \frac{3}{5}$, what is the length of side $BC$?
+\begin{tasks}(2)
+    \task 6
+    \task 8
+    \task $2\sqrt{5}$
+    \task 10
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+We use the cosine ratio to find the side adjacent to angle $A$ ($AC$), and then use the Pythagorean theorem or sine relationship to find the side opposite angle $A$ ($BC$).
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+$\cos A = \frac{AC}{10} = \frac{3}{5} \implies AC = 6$. \\
+Using the Pythagorean theorem: $BC = \sqrt{10^2 - 6^2} = \sqrt{64} = 8$. \\
+Alternatively, since $\cos A = 3/5$, $\sin A = 4/5$, and $BC = 10 \times (4/5) = 8$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+---
+
+%Q: 25
+% Category: Practice | Difficulty: Easy | Question Type: Multiple Choice
+\question
+In a right triangle, $\tan \theta = 1$. What is the value of $\sin \theta$?
+\begin{tasks}(2)
+    \task $0.5$
+    \task $\frac{\sqrt{2}}{2}$
+    \task $\frac{\sqrt{3}}{2}$
+    \task $1$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+When $\tan \theta = 1$, the opposite and adjacent sides are equal. This occurs in a $45^\circ-45^\circ-90^\circ$ triangle.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+Let the legs be 1. The hypotenuse is $\sqrt{1^2 + 1^2} = \sqrt{2}$. \\
+$\sin \theta = \frac{1}{\sqrt{2}}$. \\
+Rationalizing the denominator: $\frac{1}{\sqrt{2}} \times \frac{\sqrt{2}}{\sqrt{2}} = \frac{\sqrt{2}}{2}$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+% LID: sat_lid_051 (Questions 26-48)
+% Topic: Geometry & Trigonometry; Trigonometry; Right-triangle trig: sin, cos, tan; SOH CAH TOA
+
+%Q: 26
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+In a right triangle, $\sin \theta = 0.8$. What is the value of $(\cos \theta)^2$?
+\begin{tasks}(2)
+    \task 0.2
+    \task 0.36
+    \task 0.6
+    \task 0.64
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+We use the Pythagorean identity which states that the square of the sine of an angle plus the square of the cosine of the same angle always equals 1.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+Substitute the given value into the identity $\sin^2 \theta + \cos^2 \theta = 1$. \\
+$(0.8)^2 + \cos^2 \theta = 1$. \\
+$0.64 + \cos^2 \theta = 1$. \\
+Subtracting 0.64 from both sides gives $\cos^2 \theta = 0.36$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+---
+
+%Q: 27
+% Category: Exam Style | Difficulty: Medium | Question Type: Multiple Choice
+\question
+In the figure below, $\triangle ABC$ is similar to $\triangle DEF$. If $\cos A = \frac{12}{13}$, what is the value of $\cos D$?
+\begin{center}
+\begin{tikzpicture}[scale=0.7]
+    \draw[thick] (0,0) node[anchor=north east]{$A$} -- (2.4,0) node[anchor=north west]{$C$} -- (2.4,1) node[anchor=south west]{$B$} -- cycle;
+    \draw (2.1,0) -- (2.1,0.3) -- (2.4,0.3);
+    
+    \begin{scope}[shift={(4,0)}]
+    \draw[thick] (0,0) node[anchor=north east]{$D$} -- (4.8,0) node[anchor=north west]{$F$} -- (4.8,2) node[anchor=south west]{$E$} -- cycle;
+    \draw (4.5,0) -- (4.5,0.3) -- (4.8,0.3);
+    \end{scope}
+\end{tikzpicture}
+\end{center}
+\begin{tasks}(2)
+    \task $\frac{5}{13}$
+    \task $\frac{12}{13}$
+    \task $\frac{13}{12}$
+    \task $\frac{24}{26}$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Trigonometric ratios depend only on the measure of the angle, not the size of the triangle. Since the triangles are similar, their corresponding angles are equal.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+Angle $A$ corresponds to angle $D$ in the similar triangles. \\
+Therefore, the measure of angle $A$ is equal to the measure of angle $D$. \\
+Since the angles are equal, their cosines must be equal. \\
+Given $\cos A = 12/13$, it follows that $\cos D = 12/13$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+---
+
+%Q: 28
+% Category: Practice | Difficulty: Hard | Question Type: Numeric Entry
+\question
+In right triangle $RST$ (not shown), $\angle S = 90^\circ$. If $\tan R = \frac{24}{7}$, what is the value of $\sin T$?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The tangent of angle $R$ gives us the ratio of the side opposite $R$ ($ST$) to the side adjacent to $R$ ($RS$). We need to find the hypotenuse to determine the sine of angle $T$.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+Let $ST = 24$ and $RS = 7$. \\
+The hypotenuse $RT = \sqrt{24^2 + 7^2} = \sqrt{576 + 49} = \sqrt{625} = 25$. \\
+Angle $T$ is opposite side $RS$. \\
+By definition, $\sin T = \frac{\text{opposite to T}}{\text{hypotenuse}} = \frac{RS}{RT} = \frac{7}{25}$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{7/25}
+\end{solution}
+
+---
+
+%Q: 29
+% Category: Exam Style | Difficulty: Medium | Question Type: Multiple Choice
+\question
+A surveyor stands 50 meters from the base of a building. The angle of elevation to the top of the building is $37^\circ$. If $\tan 37^\circ \approx 0.75$, what is the height of the building in meters?
+\begin{tasks}(2)
+    \task 37.5
+    \task 40
+    \task 66.7
+    \task 75
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The distance from the building represents the adjacent side of a right triangle, and the height of the building represents the opposite side. We use the tangent ratio to relate these.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+$\tan(37^\circ) = \frac{\text{height}}{50}$. \\
+Substituting the given value, $0.75 = \frac{\text{height}}{50}$. \\
+Multiplying both sides by 50, we get height $= 50 \times 0.75 = 37.5$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+---
+
+%Q: 30
+% Category: Concept | Difficulty: Medium | Question Type: Multiple Choice
+\question
+In a right triangle, $\angle A$ and $\angle B$ are acute. If $\tan A = \frac{a}{b}$, what is $\tan B$?
+\begin{tasks}(2)
+    \task $\frac{a}{b}$
+    \task $\frac{b}{a}$
+    \task $\frac{a}{\sqrt{a^2+b^2}}$
+    \task $\frac{b}{\sqrt{a^2+b^2}}$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+In a right triangle, the side opposite angle $A$ is the side adjacent to angle $B$, and vice versa. This makes their tangent ratios reciprocals of each other.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+$\tan A = \frac{\text{opp A}}{\text{adj A}} = \frac{a}{b}$. \\
+Since the opposite of $A$ is the adjacent of $B$, and the adjacent of $A$ is the opposite of $B$: \\
+$\tan B = \frac{\text{opp B}}{\text{adj B}} = \frac{b}{a}$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+---
+
+%Q: 31
+% Category: Practice | Difficulty: Easy | Question Type: Numeric Entry
+\question
+In right triangle $ABC$, $\angle C = 90^\circ$, $AC = 3$, and $BC = 4$. What is the value of $\cos A$?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+We are given the two legs of the triangle. We must first find the hypotenuse using the Pythagorean theorem and then apply the definition of cosine for angle $A$.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+Hypotenuse $AB = \sqrt{3^2 + 4^2} = 5$. \\
+The side adjacent to angle $A$ is $AC$, which has a length of 3. \\
+By definition, $\cos A = \frac{\text{adjacent}}{\text{hypotenuse}} = \frac{3}{5}$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{0.6}
+\end{solution}
+
+---
+
+%Q: 32
+% Category: Exam Style | Difficulty: Medium | Question Type: Multiple Choice
+\question
+In the $xy$-plane, an angle $\alpha$ has its vertex at the origin and its initial side on the positive $x$-axis. If the point $(-3, 4)$ lies on the terminal side of $\alpha$, what is $\sin \alpha$?
+\begin{tasks}(2)
+    \task $-0.6$
+    \task $-0.75$
+    \task $0.6$
+    \task $0.8$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+In the coordinate plane, for any point $(x, y)$ on the terminal side of an angle, $\sin \alpha = y/r$, where $r$ is the distance from the origin.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+The $y$-coordinate is 4 and the $x$-coordinate is $-3$. \\
+Calculate $r = \sqrt{(-3)^2 + 4^2} = \sqrt{9 + 16} = 5$. \\
+Substitute into the sine formula: $\sin \alpha = 4/5 = 0.8$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{D}
+\end{solution}
+
+% 
+
+---
+
+%Q: 33
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+In $\triangle ABC$ (not shown), $\angle C = 90^\circ$. If $\sin A = \frac{\sqrt{2}}{2}$, what is the measure of angle $B$ in degrees?
+\begin{tasks}(2)
+    \task $30^\circ$
+    \task $45^\circ$
+    \task $60^\circ$
+    \task $90^\circ$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+We identify the angle $A$ whose sine is $\sqrt{2}/2$. Since the triangle is a right triangle, angles $A$ and $B$ must sum to $90^\circ$.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+The sine value $\frac{\sqrt{2}}{2}$ corresponds to an angle of $45^\circ$. \\
+Therefore, $A = 45^\circ$. \\
+Since $A + B = 90^\circ$, we have $45^\circ + B = 90^\circ$. \\
+Solving for $B$ gives $B = 45^\circ$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+---
+
+%Q: 34
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+In a right triangle, $\cos \theta = \frac{x}{12}$. If $\sin(90^\circ - \theta) = \frac{2}{3}$, what is the value of $x$?
+\begin{tasks}(2)
+    \task 4
+    \task 6
+    \task 8
+    \task 9
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+This problem uses the cofunction identity where $\sin(90^\circ - \theta) = \cos \theta$. We set the two expressions for cosine equal to each other.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+From the identity, $\cos \theta = \sin(90^\circ - \theta) = \frac{2}{3}$. \\
+We are also given $\cos \theta = \frac{x}{12}$. \\
+Set them equal: $\frac{x}{12} = \frac{2}{3}$. \\
+Cross-multiply: $3x = 24$. \\
+Divide by 3: $x = 8$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+---
+
+%Q: 35
+% Category: Exam Style | Difficulty: Medium | Question Type: Multiple Choice
+\question
+In the figure below, $AD = 10$, $CD = 6$, and $\angle C = 90^\circ$. What is $\cos (\angle DAC)$?
+\begin{center}
+\begin{tikzpicture}[scale=0.8]
+    \draw[thick] (0,0) node[anchor=north east]{$A$} -- (4,0) node[anchor=north west]{$C$} -- (4,3) node[anchor=south west]{$D$} -- cycle;
+    \draw (3.7,0) -- (3.7,0.3) -- (4,0.3);
+    \node at (2, 1.8) {10};
+    \node at (4.3, 1.5) {6};
+\end{tikzpicture}
+\end{center}
+\begin{tasks}(2)
+    \task 0.6
+    \task 0.75
+    \task 0.8
+    \task 1.25
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+To find the cosine of $\angle DAC$, we need the ratio of the side adjacent to it ($AC$) to the hypotenuse ($AD$). We use the Pythagorean theorem to find $AC$.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+$AC = \sqrt{AD^2 - CD^2} = \sqrt{10^2 - 6^2} = \sqrt{100 - 36} = \sqrt{64} = 8$. \\
+By definition, $\cos(\angle DAC) = \frac{AC}{AD} = \frac{8}{10} = 0.8$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+---
+
+%Q: 36
+% Category: Practice | Difficulty: Hard | Question Type: Multiple Choice
+\question
+If $\sin \theta = \frac{1}{k}$ and $0 < \theta < 90^\circ$, what is $\tan \theta$ in terms of $k$?
+\begin{tasks}(2)
+    \task $\sqrt{k^2-1}$
+    \task $\frac{1}{\sqrt{k^2-1}}$
+    \task $\frac{k}{\sqrt{k^2-1}}$
+    \task $\frac{\sqrt{k^2-1}}{k}$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+We can model this using a right triangle where the opposite side is 1 and the hypotenuse is $k$. We find the adjacent side and then determine the tangent ratio.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+Opposite side $= 1$, Hypotenuse $= k$. \\
+Adjacent side $= \sqrt{k^2 - 1^2} = \sqrt{k^2 - 1}$. \\
+$\tan \theta = \frac{\text{opposite}}{\text{adjacent}} = \frac{1}{\sqrt{k^2 - 1}}$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+---
+
+%Q: 37
+% Category: Concept | Difficulty: Medium | Question Type: Multiple Choice
+\question
+In $\triangle ABC$, the measure of $\angle B$ is $90^\circ$. If $\sin A = \frac{x}{y}$, what is $\cos C$?
+\begin{tasks}(2)
+    \task $\frac{x}{y}$
+    \task $\frac{y}{x}$
+    \task $\frac{\sqrt{y^2-x^2}}{y}$
+    \task $\frac{\sqrt{y^2-x^2}}{x}$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+In a right triangle where $\angle B$ is $90^\circ$, angles $A$ and $C$ are complementary. The sine of one acute angle equals the cosine of the other.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+The cofunction identity states that $\sin A = \cos(90^\circ - A)$. \\
+Since $A + C = 90^\circ$, then $90^\circ - A = C$. \\
+Therefore, $\sin A = \cos C$. \\
+Given $\sin A = x/y$, then $\cos C$ must also be $x/y$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+---
+
+%Q: 38
+% Category: Practice | Difficulty: Medium | Question Type: Numeric Entry
+\question
+In a right triangle, $\tan \theta = \frac{15}{8}$. What is the value of $\cos \theta$?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The tangent ratio provides the opposite and adjacent sides. We calculate the hypotenuse and then find the cosine ratio.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+Opposite $= 15$, Adjacent $= 8$. \\
+Hypotenuse $= \sqrt{15^2 + 8^2} = \sqrt{225 + 64} = \sqrt{289} = 17$. \\
+$\cos \theta = \frac{\text{adjacent}}{\text{hypotenuse}} = \frac{8}{17}$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{8/17}
+\end{solution}
+
+---
+
+%Q: 39
+% Category: Exam Style | Difficulty: Medium | Question Type: Multiple Choice
+\question
+In the figure below, line $l$ passes through the origin and the point $(k, 3)$. If the angle $\theta$ formed by line $l$ and the positive $x$-axis satisfies $\cos \theta = \frac{4}{5}$, what is the value of $k$?
+\begin{center}
+\begin{tikzpicture}[scale=0.8]
+    \draw[->] (-0.5,0) -- (5,0) node[anchor=north]{$x$};
+    \draw[->] (0,-0.5) -- (0,4) node[anchor=east]{$y$};
+    \draw[thick, blue] (0,0) -- (4,3) node[anchor=south west, black]{$(k, 3)$};
+    \draw (0.8,0) arc (0:36.87:0.8) node[midway, right]{$\theta$};
+\end{tikzpicture}
+\end{center}
+\begin{tasks}(2)
+    \task 3
+    \task 4
+    \task 5
+    \task 6
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The point $(k, 3)$ forms a right triangle with the $x$-axis where $k$ is the adjacent side and 3 is the opposite side. We use the given cosine to find the relationship between the sides.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+If $\cos \theta = 4/5$, then the ratio of adjacent to hypotenuse is $4:5$. \\
+In a $3-4-5$ triangle, if the adjacent side is 4 and the hypotenuse is 5, the opposite side is 3. \\
+Here, the opposite side ($y$-coordinate) is given as 3. \\
+Therefore, the adjacent side $k$ must be 4.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+---
+
+%Q: 40
+% Category: Practice | Difficulty: Hard | Question Type: Multiple Choice
+\question
+In a right triangle, $\sin \theta = p$. Which of the following is equivalent to $\tan \theta$?
+\begin{tasks}(2)
+    \task $\frac{p}{\sqrt{1-p^2}}$
+    \task $\frac{\sqrt{1-p^2}}{p}$
+    \task $\frac{p}{1-p}$
+    \task $\sqrt{1-p^2}$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+We express tangent in terms of sine and cosine, then use the Pythagorean identity to replace cosine with an expression involving sine.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+$\tan \theta = \frac{\sin \theta}{\cos \theta}$. \\
+From $\sin^2 \theta + \cos^2 \theta = 1$, we get $\cos \theta = \sqrt{1 - \sin^2 \theta} = \sqrt{1 - p^2}$. \\
+Substituting these into the tangent formula gives $\frac{p}{\sqrt{1 - p^2}}$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+---
+
+%Q: 41
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+In $\triangle ABC$, $\angle C = 90^\circ$. If $\cos B = \frac{21}{29}$, what is $\sin B$?
+\begin{tasks}(2)
+    \task $\frac{20}{29}$
+    \task $\frac{21}{20}$
+    \task $\frac{29}{21}$
+    \task $\frac{8}{29}$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Given one trigonometric ratio, we use the Pythagorean theorem to find the missing side and determine the other ratio for the same angle.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+Adjacent side $= 21$, Hypotenuse $= 29$. \\
+Opposite side $= \sqrt{29^2 - 21^2} = \sqrt{841 - 441} = \sqrt{400} = 20$. \\
+$\sin B = \frac{\text{opposite}}{\text{hypotenuse}} = \frac{20}{29}$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+---
+
+%Q: 42
+% Category: Exam Style | Difficulty: Easy | Question Type: Multiple Choice
+\question
+For which of the following angles is $\sin \theta = \cos \theta$?
+\begin{tasks}(2)
+    \task $0^\circ$
+    \task $30^\circ$
+    \task $45^\circ$
+    \task $60^\circ$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The sine and cosine of an angle are equal when the opposite side and adjacent side of the right triangle are equal in length.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+This occurs in an isosceles right triangle ($45^\circ-45^\circ-90^\circ$). \\
+At $45^\circ$, both $\sin \theta$ and $\cos \theta$ equal $\frac{\sqrt{2}}{2}$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+---
+
+%Q: 43
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+In right triangle $JKL$, $\angle K = 90^\circ$ and $\sin J = \frac{1}{2}$. What is the length of $KL$ if $JL = 10$?
+\begin{tasks}(2)
+    \task 5
+    \task $5\sqrt{3}$
+    \task 10
+    \task 20
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+We are given the hypotenuse ($JL$) and the sine of angle $J$. The side $KL$ is opposite to angle $J$, so we can use the sine ratio directly.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+$\sin J = \frac{KL}{JL}$. \\
+$\frac{1}{2} = \frac{KL}{10}$. \\
+Multiplying both sides by 10 gives $KL = 5$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+---
+
+%Q: 44
+% Category: Concept | Difficulty: Hard | Question Type: Numeric Entry
+\question
+If $\sin(x + 20)^\circ = \cos(x + 10)^\circ$ and both angles are acute, what is the value of $x$?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The sine of one angle equals the cosine of another when the two angles are complementary (sum to 90 degrees).
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+$(x + 20) + (x + 10) = 90$. \\
+$2x + 30 = 90$. \\
+$2x = 60$. \\
+$x = 30$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{30}
+\end{solution}
+
+---
+
+%Q: 45
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+In a right triangle, $\tan \theta = \frac{1}{\sqrt{3}}$. What is $\cos \theta$?
+\begin{tasks}(2)
+    \task $\frac{1}{2}$
+    \task $\frac{\sqrt{2}}{2}$
+    \task $\frac{\sqrt{3}}{2}$
+    \task $\frac{\sqrt{3}}{1}$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+A tangent of $1/\sqrt{3}$ identifies this as a $30^\circ-60^\circ-90^\circ$ triangle. We can either identify the angle or use the side ratios.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+Opposite $= 1$, Adjacent $= \sqrt{3}$. \\
+Hypotenuse $= \sqrt{1^2 + (\sqrt{3})^2} = \sqrt{1 + 3} = 2$. \\
+$\cos \theta = \frac{\text{adjacent}}{\text{hypotenuse}} = \frac{\sqrt{3}}{2}$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+---
+
+%Q: 46
+% Category: Exam Style | Difficulty: Medium | Question Type: Multiple Choice
+\question
+The triangle below is a right triangle. What is the value of $\sin A + \cos A$?
+\begin{center}
+\begin{tikzpicture}[scale=0.8]
+    \draw[thick] (0,0) node[anchor=north east]{$A$} -- (4,0) node[anchor=north west]{$C$} -- (4,3) node[anchor=south west]{$B$} -- cycle;
+    \draw (3.7,0) -- (3.7,0.3) -- (4,0.3);
+    \node at (2, -0.4) {12};
+    \node at (4.3, 1.5) {5};
+\end{tikzpicture}
+\end{center}
+\begin{tasks}(2)
+    \task $\frac{17}{13}$
+    \task $\frac{17}{12}$
+    \task $1$
+    \task $\frac{7}{13}$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+We first calculate the hypotenuse of the triangle and then sum the sine and cosine ratios for angle $A$.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+Hypotenuse $AB = \sqrt{12^2 + 5^2} = \sqrt{144 + 25} = 13$. \\
+$\sin A = \frac{\text{opp}}{\text{hyp}} = \frac{5}{13}$. \\
+$\cos A = \frac{\text{adj}}{\text{hyp}} = \frac{12}{13}$. \\
+Sum $= \frac{5}{13} + \frac{12}{13} = \frac{17}{13}$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+---
+
+%Q: 47
+% Category: Practice | Difficulty: Hard | Question Type: Multiple Choice
+\question
+In right triangle $XYZ$, $\angle Y = 90^\circ$ and $\tan X = t$. What is $\sin Z$ in terms of $t$?
+\begin{tasks}(2)
+    \task $\frac{t}{\sqrt{1+t^2}}$
+    \task $\frac{1}{\sqrt{1+t^2}}$
+    \task $t$
+    \task $\frac{1}{t}$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Since $X$ and $Z$ are complementary, $\sin Z = \cos X$. We find $\cos X$ based on the given tangent.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+$\tan X = \frac{\text{opp X}}{\text{adj X}} = \frac{t}{1}$. \\
+Hypotenuse $= \sqrt{t^2 + 1^2} = \sqrt{t^2 + 1}$. \\
+$\cos X = \frac{\text{adj X}}{\text{hyp}} = \frac{1}{\sqrt{t^2 + 1}}$. \\
+Since $\sin Z = \cos X$, then $\sin Z = \frac{1}{\sqrt{t^2 + 1}}$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+---
+
+%Q: 48
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+In the figure below, triangle $ABC$ is a right triangle. What is $\tan A$?
+\begin{center}
+\begin{tikzpicture}[scale=0.8]
+    \draw[thick] (0,0) node[anchor=north east]{$A$} -- (5,0) node[anchor=north west]{$C$} -- (5,2) node[anchor=south west]{$B$} -- cycle;
+    \draw (4.7,0) -- (4.7,0.3) -- (5,0.3);
+    \node at (2.5, 1.3) {$\sqrt{29}$};
+    \node at (5.3, 1) {2};
+\end{tikzpicture}
+\end{center}
+\begin{tasks}(2)
+    \task $\frac{2}{5}$
+    \task $\frac{5}{2}$
+    \task $\frac{2}{\sqrt{29}}$
+    \task $\frac{5}{\sqrt{29}}$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Tangent is the ratio of opposite to adjacent sides. We are given the opposite side and the hypotenuse, so we must find the adjacent side first.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+$AC = \sqrt{(\sqrt{29})^2 - 2^2} = \sqrt{29 - 4} = \sqrt{25} = 5$. \\
+$\tan A = \frac{\text{opposite}}{\text{adjacent}} = \frac{2}{5}$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+
+% LID: sat_lid_051 (Questions 49-50)
+% Topic: Geometry & Trigonometry; Trigonometry; Right-triangle trig: sin, cos, tan; SOH CAH TOA
+
+%Q: 49
+% Category: Exam Style | Difficulty: Hard | Question Type: Multiple Choice
+\question
+In the $xy$-plane, the line $y = \frac{3}{4}x$ passes through the origin and forms an acute angle $\theta$ with the positive $x$-axis. What is the value of $\cos \theta$?
+\begin{tasks}(2)
+    \task $\frac{3}{5}$
+    \task $\frac{4}{5}$
+    \task $\frac{3}{4}$
+    \task $\frac{4}{3}$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The slope of a line passing through the origin is equivalent to the tangent of the angle it makes with the positive $x$-axis. We can use this slope to define the opposite and adjacent sides of a right triangle.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+The slope $m = 3/4$, which means $\tan \theta = 3/4$. \\
+We can treat the opposite side as 3 and the adjacent side as 4. \\
+The hypotenuse is $\sqrt{3^2 + 4^2} = 5$. \\
+By definition, $\cos \theta = \frac{\text{adjacent}}{\text{hypotenuse}} = \frac{4}{5}$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+---
+
+%Q: 50
+% Category: Concept | Difficulty: Hard | Question Type: Numeric Entry
+\question
+In $\triangle ABC$, $\angle C = 90^\circ$ and $\tan A = \frac{w}{z}$. If $z > w$, what is the value of $\cos(90^\circ - B)$?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+This problem requires understanding two concepts: the definition of tangent and the cofunction relationship. Note that in a right triangle, the complement of angle $B$ is angle $A$.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+Since $A + B = 90^\circ$, then $90^\circ - B = A$. \\
+Therefore, $\cos(90^\circ - B) = \cos A$. \\
+From $\tan A = w/z$, we have opposite $= w$ and adjacent $= z$. \\
+The hypotenuse is $\sqrt{w^2 + z^2}$. \\
+Wait, let's re-examine: $\cos(90^\circ - B)$ is identically equal to $\sin B$. \\
+The side opposite angle $B$ is the side adjacent to angle $A$, which is $z$. \\
+The hypotenuse remains $\sqrt{w^2 + z^2}$. \\
+Therefore, $\sin B = \frac{z}{\sqrt{w^2 + z^2}}$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{$z/\sqrt{w^2+z^2}$}
+\end{solution}
+
+
+
+
+
+
+
+
+% =============================================================
+% Question End
+% =============================================================
+
+\end{questions}
+\begin{center}
+\rule{.5\textwidth}{1pt}
+\end{center}
+\end{document}

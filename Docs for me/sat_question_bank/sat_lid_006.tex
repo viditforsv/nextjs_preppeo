@@ -1,0 +1,1205 @@
+\documentclass[11pt,paper=a4,answers]{exam}
+\usepackage{graphicx,lastpage}
+\usepackage{upgreek}
+\usepackage{censor}
+\usepackage{gensymb}
+\usepackage{amsmath}
+\usepackage{multicol}
+\usepackage{enumitem}
+\usepackage{tasks}
+\usepackage{adjustbox}
+\usepackage{xcolor}
+\usepackage{tfrupee}
+\setlength{\voffset}{0.25in}
+\usepackage{tabularx}
+\newcolumntype{Y}{>{\centering\arraybackslash}X}
+%==============================================================
+% Customise Non-Essential Packages Below
+% =============================================================
+\usepackage[most]{tcolorbox}
+\usepackage{eso-pic}
+\usepackage{tikz}
+\AddToShipoutPictureBG{%
+\begin{tikzpicture}[remember picture,overlay]
+\foreach \x in {-8,-4,0,4,8,12,16,20}
+\foreach \y in {-8,-4,0,4,8,12,16,20} {
+\node[opacity=0.05,rotate=45,anchor=center] at ([xshift=\x cm,yshift=\y cm]current page.center) {%
+\begin{minipage}{2cm}
+\centering
+\includegraphics[width=2cm]{images/logo_black.png}\\
+\small preppeo.com
+\end{minipage}%
+};
+}
+\end{tikzpicture}%
+}
+\printanswers
+
+%==============================================================
+% Customise Non-Essential Packages Above
+% =============================================================
+\definecolor{svgray}{rgb}{0.90, 0.90, 0.90}
+\graphicspath{{images/}}
+
+\usepackage[normalem]{ulem}
+\renewcommand\ULthickness{1pt}   %%---> For changing thickness of underline
+\setlength\ULdepth{3.5ex}%\maxdimen ---> For changing depth of underline
+\renewcommand{\baselinestretch}{1}
+\chead{
+\includegraphics[scale=0.1,height=2cm ]{logo.png}
+}
+\pagestyle{empty}
+
+\pagestyle{headandfoot}
+\headrule
+\cfoot{W: https://preppeo.com; M: +91-8130711689}
+
+\begin{document}
+%==============================================================
+% Customise Question paper details below this
+% =============================================================
+\begin{center}
+    \centering
+    \renewcommand{\arraystretch}{1.5}
+    \begin{tabularx}{\textwidth}{YYY}
+    & \normalsize\bf{{\Large{{Quant}}}} & \\
+    By Preppeo & \normalsize\bf{{sat\_lid\_006}} & SAT\\
+    \normalsize{{\textbf{{Unit:}} Algebra}} & \normalsize{{\textbf{{Chapter:}} Linear equations in two variables}} & \normalsize{{\textbf{{Topic:}} Interpreting Linear Models}} \\
+    \end{tabularx}
+\end{center}
+\par\noindent\rule{\textwidth}{1pt}
+% =============================================================
+% Customise Question paper details above this
+% =============================================================
+
+\begin{questions}
+\pointsinrightmargin
+\pointsdroppedatright
+\marksnotpoints
+\pointpoints{mark}{marks}
+\pointformat{\boldmath\themarginpoints}
+\bracketedpoints
+
+% =============================================================
+% Question Begin
+% =============================================================
+%Q: 1
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+The total cost $C$, in dollars, to rent a surfboard for $h$ hours is given by the function $C(h) = 15h + 25$. What is the best interpretation of the value 25 in this context?
+\begin{tasks}(1)
+    \task The cost to rent the surfboard for each additional hour.
+    \task The total number of hours the surfboard was rented.
+    \task The minimum cost to rent the surfboard regardless of the duration.
+    \task The maximum cost a customer would pay for a rental.
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+In a linear model of the form $y = mx + b$, the constant term $b$ represents the value of the dependent variable when the independent variable is zero. In real-world rental scenarios, this is typically referred to as a "flat fee," "deposit," or "service charge" that must be paid regardless of how much time passes.
+\\[10pt]
+\textbf{Calculation and Logic:} \\
+If we set $h = 0$ in the equation:
+\[C(0) = 15(0) + 25 = 25\]
+This confirms that before any hours are even used, the cost is already \$25. Therefore, 25 represents the initial, fixed cost of the rental.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+%Q: 2
+% Category: Practice | Difficulty: Medium | Question Type: Numeric Entry
+\question
+The height of a certain tree, $H$, in inches, can be modeled by the equation $H = 4.5y + 36$, where $y$ is the number of years since it was planted. According to the model, how many inches does the tree grow each year?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The growth of the tree over time is represented by the rate of change in the linear equation. In the form $y = mx + b$, the slope $m$ describes how much the dependent variable changes for every one-unit increase in the independent variable.
+\\[10pt]
+\textbf{Calculation and Logic:} \\
+Looking at the equation $H = 4.5y + 36$, the variable $y$ (years) is multiplied by 4.5. 
+\[\text{Rate of change} = \frac{\Delta H}{\Delta y} = 4.5\]
+This means for every year that passes ($y$ increases by 1), the height $H$ increases by 4.5 inches. 
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{4.5}
+\end{solution}
+
+%Q: 3
+% Category: Practice | Difficulty: Hard | Question Type: Multiple Choice
+\question
+$n = 1,200 - 40d$ \\
+The equation above models the number of laptops, $n$, remaining in a warehouse after $d$ days of sales. Which of the following is the best interpretation of the value 40 in this equation?
+\begin{tasks}(1)
+    \task The initial number of laptops in the warehouse.
+    \task The number of days it takes to sell all the laptops.
+    \task The number of laptops sold each day.
+    \task The total number of laptops sold after $d$ days.
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+In this model, the number of laptops is decreasing over time. The negative coefficient in front of the variable $d$ indicates the rate at which the inventory is being depleted.
+\\[10pt]
+\textbf{Calculation and Logic:} \\
+The slope of the equation is -40. 
+\[\text{Slope} = \frac{\text{Change in laptops}}{\text{Change in days}} = -40\]
+This means that for every 1 day that passes, the inventory $n$ decreases by 40. Therefore, 40 represents the daily sales rate of the laptops.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+
+
+%Q: 4
+% Category: Practice | Difficulty: Medium | Question Type: Numeric Entry
+\question
+A plumber charges a one-time fee of \$60 plus an hourly rate of \$x. If a 3-hour job costs \$225, what is the value of $x$?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+We can model the plumber's total charges using a linear equation where the total cost is the sum of the fixed call-out fee and the variable hourly charges.
+\\[10pt]
+\textbf{Calculation and Logic:} \\
+Let the total cost be $T$. The model is:
+\[T = xh + 60\]
+We are given that when $h = 3$, $T = 225$. We substitute these values into the equation:
+\[225 = 3x + 60\]
+Subtract 60 from both sides:
+\[165 = 3x\]
+Divide by 3:
+\[x = 55\]
+The hourly rate $x$ is 55.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{55}
+\end{solution}
+
+%Q: 5
+% Category: Practice | Difficulty: Hard | Question Type: Multiple Choice
+\question
+$V(t) = 25,000 - 2,500t$ \\
+The function above models the value of a car, $V$, in dollars, $t$ years after it was purchased. What is the interpretation of the $t$-intercept of the graph of this function in the $ty$-plane?
+\begin{tasks}(1)
+    \task The purchase price of the car.
+    \task The annual decrease in the car's value.
+    \task The number of years until the car has no monetary value.
+    \task The value of the car after 10 years.
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The $t$-intercept occurs when the dependent variable ($V$) is zero. In the context of value over time, this point represents the specific time at which the asset is worth nothing.
+\\[10pt]
+\textbf{Calculation and Logic:} \\
+Set $V(t) = 0$ and solve for $t$:
+\[0 = 25,000 - 2,500t\]
+\[2,500t = 25,000\]
+\[t = \frac{25,000}{2,500} = 10\]
+At $t = 10$, the value is \$0. Thus, the $t$-intercept represents the time it takes for the car's value to drop to zero.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+%Q: 6
+% Category: Practice | Difficulty: Medium | Question Type: Numeric Entry
+\question
+A moving company charges a flat fee of \$150 to rent a truck plus \$0.75 per mile driven. If a customer was charged a total of \$210, how many miles did they drive?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The relationship between total cost and distance driven is linear. The flat fee is our constant, and the cost per mile is our slope.
+\\[10pt]
+\textbf{Calculation and Logic:} \\
+Let $m$ be the number of miles. The equation is:
+\[\text{Total Cost} = 0.75m + 150\]
+We set the total cost to 210:
+\[210 = 0.75m + 150\]
+Subtract 150 from both sides:
+\[60 = 0.75m\]
+Divide by 0.75 (which is the same as multiplying by 4/3):
+\[m = 80\]
+The customer drove 80 miles.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{80}
+\end{solution}
+
+%Q: 7
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+$P = 14.7 + 0.44d$ \\
+The total pressure $P$, in pounds per square inch, at a depth of $d$ feet below the surface of the ocean is given by the equation above. Which statement is the best interpretation of the value 14.7 in this context?
+\begin{tasks}(1)
+    \task The pressure at the surface of the ocean.
+    \task The increase in pressure for every 1 foot of depth.
+    \task The depth at which the pressure is zero.
+    \task The maximum pressure the ocean can exert.
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+In this linear model, $d$ represents depth. The value 14.7 is the constant term (y-intercept). This value represents the pressure when the depth is zero (at the surface).
+\\[10pt]
+\textbf{Calculation and Logic:} \\
+If we let $d = 0$:
+\[P = 14.7 + 0.44(0) = 14.7\]
+Since a depth of 0 feet describes the surface level, 14.7 is the atmospheric pressure at the ocean's surface.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+
+
+%Q: 8
+% Category: Practice | Difficulty: Medium | Question Type: Numeric Entry
+\question
+A candle is 12 inches tall when it is lit. Every hour it burns, the height decreases by 0.75 inches. After how many hours will the candle be 6 inches tall?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The height of the candle is a linear function of time. The initial height is our starting value, and the burn rate is our negative slope.
+\\[10pt]
+\textbf{Calculation and Logic:} \\
+Let $h$ be the height and $t$ be the hours:
+\[h = 12 - 0.75t\]
+We want to find $t$ when $h = 6$:
+\[6 = 12 - 0.75t\]
+Subtract 12 from both sides:
+\[-6 = -0.75t\]
+Divide by -0.75:
+\[t = \frac{6}{0.75} = 8\]
+It will take 8 hours for the candle to reach 6 inches.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{8}
+\end{solution}
+
+%Q: 9
+% Category: Practice | Difficulty: Hard | Question Type: Multiple Choice
+\question
+$S = 15 + 0.2(T - 60)$ \\
+The speed of sound $S$, in meters per second, depends on the air temperature $T$, in degrees Celsius. The equation above is valid for temperatures above 60 degrees. Which of the following is the best interpretation of the value 0.2 in this context?
+\begin{tasks}(1)
+    \task The speed of sound when the temperature is 60 degrees.
+    \task The temperature at which the speed of sound is 15 meters per second.
+    \task The increase in the speed of sound for each 1 degree increase in temperature.
+    \task The temperature at which sound cannot travel.
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+In the linear form $y = m(x - x_1) + y_1$, the value $m$ is the slope. The slope represents the rate of change of the dependent variable (Speed) with respect to the independent variable (Temperature).
+\\[10pt]
+\textbf{Calculation and Logic:} \\
+If we distribute the 0.2, the equation becomes $S = 0.2T + \text{constant}$. 
+The coefficient 0.2 is the slope. 
+\[\text{Slope} = \frac{\Delta S}{\Delta T} = 0.2\]
+This means for every 1 degree increase in temperature, the speed of sound increases by 0.2 meters per second.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+%Q: 10
+% Category: Practice | Difficulty: Medium | Question Type: Numeric Entry
+\question
+A bank account starts with \$500. Every month, \$75 is deposited into the account. If no other transactions occur, how many months will it take for the balance to reach \$1,400?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The account balance grows linearly. The starting amount is the y-intercept, and the monthly deposit is the slope.
+\\[10pt]
+\textbf{Calculation and Logic:} \\
+Let $B$ be the balance and $m$ be the months:
+\[B = 75m + 500\]
+Set $B = 1,400$:
+\[1,400 = 75m + 500\]
+Subtract 500:
+\[900 = 75m\]
+Divide by 75:
+\[m = 12\]
+It will take 12 months to reach \$1,400.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{12}
+\end{solution}
+
+%Q: 11
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+$A = 1,500 + 20t$ \\
+A construction manager uses the equation above to estimate the total cost $A$, in dollars, for a project that takes $t$ hours of labor. What does the value 1,500 represent?
+\begin{tasks}(1)
+    \task The hourly rate for labor.
+    \task the total cost if no labor is required.
+    \task The number of workers on the project.
+    \task The maximum budget for the project.
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The 1,500 is the constant term in the linear model. It is the cost associated with the project before any labor hours are added.
+\\[10pt]
+\textbf{Calculation and Logic:} \\
+Setting $t = 0$:
+\[A = 1,500 + 20(0) = 1,500\]
+This \$1,500 could represent equipment fees or materials—costs that are fixed and do not depend on the hours of work.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+%Q: 12
+% Category: Practice | Difficulty: Hard | Question Type: Numeric Entry
+\question
+$y = 0.15x + 2.50$ \\
+The cost $y$, in dollars, for a long-distance phone call lasts $x$ minutes. If a call costs \$6.10, how many minutes did the call last?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+This is a standard linear model where 2.50 is the connection fee and 0.15 is the price per minute.
+\\[10pt]
+\textbf{Calculation and Logic:} \\
+\[6.10 = 0.15x + 2.50\]
+Subtract 2.50:
+\[3.60 = 0.15x\]
+Divide by 0.15:
+\[x = 24\]
+The call lasted 24 minutes.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{24}
+\end{solution}
+
+%Q: 13
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+$w = 150 - 2.5t$ \\
+The weight $w$, in pounds, of a block of ice $t$ hours after it began melting is given by the equation above. What is the interpretation of the value 2.5?
+\begin{tasks}(1)
+    \task The initial weight of the ice block.
+    \task The weight of the block after 1 hour.
+    \task The amount of weight the ice block loses each hour.
+    \task The time it takes for the ice block to melt completely.
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The value 2.5 is the coefficient of the time variable $t$. Because it is being subtracted, it represents a rate of loss or decrease.
+\\[10pt]
+\textbf{Calculation and Logic:} \\
+The slope $m = -2.5$. This indicates that for every 1-hour increase in $t$, the weight $w$ decreases by 2.5 pounds.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+%Q: 14
+% Category: Practice | Difficulty: Medium | Question Type: Numeric Entry
+\question
+A car's gas tank contains 15 gallons of fuel. The car consumes 0.04 gallons of fuel for every mile driven. How many miles can the car travel before it has only 5 gallons remaining?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The amount of fuel is a decreasing linear function of distance. We start at 15 and subtract the fuel used per mile.
+\\[10pt]
+\textbf{Calculation and Logic:} \\
+Let $g$ be gallons and $m$ be miles:
+\[g = 15 - 0.04m\]
+Set $g = 5$:
+\[5 = 15 - 0.04m\]
+\[-10 = -0.04m\]
+Divide by -0.04 (which is the same as dividing by -1/25, or multiplying by -25):
+\[m = 250\]
+The car can travel 250 miles.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{250}
+\end{solution}
+
+%Q: 15
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+$T = 72 + 1.5h$ \\
+The temperature $T$, in degrees Fahrenheit, in a room $h$ hours after a heater is turned on is given by the equation above. Which of the following is the best interpretation of the value 72?
+\begin{tasks}(1)
+    \task The temperature of the room when the heater was turned on.
+    \task The rate at which the temperature is increasing.
+    \task The temperature of the room after 1 hour.
+    \task The maximum temperature the room can reach.
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The value 72 is the constant term. In time-based models, the constant term represents the starting state (where $h=0$).
+\\[10pt]
+\textbf{Calculation and Logic:} \\
+At $h = 0$, $T = 72 + 1.5(0) = 72$. This is the initial temperature.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+%Q: 16
+% Category: Practice | Difficulty: Medium | Question Type: Numeric Entry
+\question
+A subscription service costs \$12 per month. A new member joins and pays a \$30 sign-up fee. If the member has paid a total of \$150 so far, for how many months have they been a member?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Total cost equals the sign-up fee plus the product of the monthly rate and the number of months.
+\\[10pt]
+\textbf{Calculation and Logic:} \\
+Let $m$ be the months:
+\[12m + 30 = 150\]
+Subtract 30:
+\[12m = 120\]
+Divide by 12:
+\[m = 10\]
+The membership has lasted 10 months.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{10}
+\end{solution}
+
+%Q: 17
+% Category: Practice | Difficulty: Hard | Question Type: Multiple Choice
+\question
+$y = 100 + 4x$ \\
+A salesperson earns a base salary plus a commission for every unit sold. The equation above models the salesperson's daily earnings $y$, in dollars, for selling $x$ units. What does the slope of the graph of this equation represent?
+\begin{tasks}(1)
+    \task The salesperson's base daily salary.
+    \task The number of units the salesperson sells each day.
+    \task The commission earned for each unit sold.
+    \task The total earnings after selling $x$ units.
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The slope is the coefficient of $x$. It represents the rate at which the total earnings increase per unit sold.
+\\[10pt]
+\textbf{Calculation and Logic:} \\
+Slope = 4. 
+This means for every 1 unit increase in $x$, earnings $y$ increase by \$4. This "per unit" increase is the definition of a commission.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+%Q: 18
+% Category: Practice | Difficulty: Medium | Question Type: Numeric Entry
+\question
+A balloon is released from a height of 5 feet and rises at a constant rate of 2 feet per second. After how many seconds will the balloon be 25 feet above the ground?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Height is a linear function of time. We start at 5 and add the product of speed and time.
+\\[10pt]
+\textbf{Calculation and Logic:} \\
+\[H = 2t + 5\]
+Set $H = 25$:
+\[25 = 2t + 5\]
+\[20 = 2t\]
+\[t = 10\]
+The balloon reaches 25 feet after 10 seconds.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{10}
+\end{solution}
+
+%Q: 19
+% Category: Practice | Difficulty: Hard | Question Type: Multiple Choice
+\question
+$G = 12 - 0.05d$ \\
+The amount of gas $G$, in gallons, remaining in a car's tank after driving $d$ miles is modeled by the equation above. What does the $d$-intercept of the graph represent?
+\begin{tasks}(1)
+    \task The car's fuel efficiency in miles per gallon.
+    \task The maximum distance the car can drive on a full tank.
+    \task The initial amount of gas in the tank.
+    \task The distance driven when the tank is half full.
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The $d$-intercept occurs when the amount of gas $G$ is zero. This point indicates how many miles can be driven until the fuel is completely gone.
+\\[10pt]
+\textbf{Calculation and Logic:} \\
+Set $G = 0$:
+\[0 = 12 - 0.05d\]
+\[0.05d = 12\]
+\[d = \frac{12}{0.05} = 240\]
+The car can drive 240 miles on a full tank.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+%Q: 20
+% Category: Practice | Difficulty: Medium | Question Type: Numeric Entry
+\question
+A water tank starts with 100 gallons. A pump begins removing water at a rate of 4 gallons per minute. How many minutes will it take for the tank to have exactly 20 gallons left?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The volume of water is decreasing linearly over time.
+\\[10pt]
+\textbf{Calculation and Logic:} \\
+Let $V$ be volume and $t$ be time:
+\[V = 100 - 4t\]
+Set $V = 20$:
+\[20 = 100 - 4t\]
+\[-80 = -4t\]
+\[t = 20\]
+It will take 20 minutes.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{20}
+\end{solution}
+
+%Q: 21
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+$L = 0.5w + 10$ \\
+The length $L$, in inches, of a spring is a linear function of the weight $w$, in pounds, attached to it. What does the value 0.5 represent?
+\begin{tasks}(1)
+    \task The length of the spring with no weight attached.
+    \task The total weight required to stretch the spring to 10 inches.
+    \task The increase in length for each 1 pound of weight attached.
+    \task The maximum weight the spring can hold.
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The slope 0.5 indicates the rate of change of the spring's length with respect to the weight applied.
+\\[10pt]
+\textbf{Calculation and Logic:} \\
+Slope = 0.5. 
+This means for every 1 pound of weight ($w$), the length ($L$) increases by 0.5 inches.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+%Q: 22
+% Category: Practice | Difficulty: Hard | Question Type: Numeric Entry
+\question
+A rental car costs \$40 per day plus \$0.20 per mile. If a person rents the car for 2 days and the total bill is \$110, how many miles did they drive?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The total cost is the daily fee times the number of days, plus the mileage fee.
+\\[10pt]
+\textbf{Calculation and Logic:} \\
+Daily fees: $40 \times 2 = 80$.
+Total Cost: $0.20m + 80$.
+\[110 = 0.20m + 80\]
+\[30 = 0.20m\]
+\[m = \frac{30}{0.20} = 150\]
+The person drove 150 miles.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{150}
+\end{solution}
+
+%Q: 23
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+$C = 50 + 0.15n$ \\
+The total cost $C$, in dollars, to print $n$ copies of a flyer is given by the equation above. What is the interpretation of the value 0.15?
+\begin{tasks}(1)
+    \task The setup fee for the printing job.
+    \task The total cost to print 50 copies.
+    \task The price to print each additional copy.
+    \task The maximum number of copies that can be printed.
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The slope 0.15 is the coefficient of the number of copies. It represents the unit price.
+\\[10pt]
+\textbf{Calculation and Logic:} \\
+Slope = 0.15. 
+This means the cost increases by \$0.15 for every 1 flyer ($n$) printed.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+%Q: 24
+% Category: Practice | Difficulty: Hard | Question Type: Numeric Entry
+\question
+$y = 1.25x + 10$ \\
+A taxi service charges \$10 as a base fare and \$1.25 per mile. If a passenger's fare was \$35, how many miles was the trip?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+We subtract the base fare from the total to find the mileage cost, then divide by the rate per mile.
+\\[10pt]
+\textbf{Calculation and Logic:} \\
+\[35 = 1.25x + 10\]
+\[25 = 1.25x\]
+\[x = \frac{25}{1.25} = 20\]
+The trip was 20 miles.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{20}
+\end{solution}
+
+%Q: 25
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+$H = 60 - 5t$ \\
+A container is being drained. The height $H$ of the liquid, in centimeters, $t$ minutes after the drain was opened is given by the equation above. What does the value 60 represent?
+\begin{tasks}(1)
+    \task The rate at which the liquid is draining.
+    \task The time it takes for the container to empty.
+    \task The initial height of the liquid in the container.
+    \task The height of the liquid after 1 minute.
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The constant term 60 represents the state of the system at time $t=0$.
+\\[10pt]
+\textbf{Calculation and Logic:} \\
+At $t = 0$:
+\[H = 60 - 5(0) = 60\]
+This is the starting height of the liquid.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+%Q: 26 (Starting Broad Topic Expansion)
+% Category: Practice | Difficulty: Hard | Question Type: Numeric Entry
+\question
+A phone battery is at 100\% and loses charge at a rate of 8\% per hour while in use. After how many hours of use will the battery be at 20\%?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The battery percentage is a decreasing linear function of time.
+\\[10pt]
+\textbf{Calculation and Logic:} \\
+Let $P$ be percentage and $t$ be hours:
+\[P = 100 - 8t\]
+Set $P = 20$:
+\[20 = 100 - 8t\]
+\[-80 = -8t\]
+\[t = 10\]
+The battery will reach 20\% after 10 hours.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{10}
+\end{solution}
+
+%Q: 27
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+$y = mx + b$ \\
+In the linear equation above, $y$ is the total cost of a service and $x$ is the number of hours. If the service provider doubles their hourly rate but keeps the same flat fee, which of the following describes the change in the graph?
+\begin{tasks}(1)
+    \task The y-intercept doubles.
+    \task The x-intercept doubles.
+    \task The slope doubles.
+    \task The graph shifts up by $m$ units.
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The hourly rate is represented by the slope $m$. If the rate doubles, the slope must be multiplied by 2.
+\\[10pt]
+\textbf{Calculation and Logic:} \\
+Original: $y = mx + b$. 
+New: $y = (2m)x + b$. 
+The coefficient of $x$ (the slope) has doubled.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+%Q: 28
+% Category: Practice | Difficulty: Medium | Question Type: Numeric Entry
+\question
+A hiker is at an elevation of 2,000 feet and begins descending at a constant rate of 400 feet per hour. What will the hiker's elevation be after 3.5 hours?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Elevation is the starting height minus the total descent (rate $\times$ time).
+\\[10pt]
+\textbf{Calculation and Logic:} \\
+\[E = 2,000 - 400(3.5)\]
+\[400 \times 3.5 = 1,400\]
+\[E = 2,000 - 1,400 = 600\]
+The elevation will be 600 feet.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{600}
+\end{solution}
+
+%Q: 29
+% Category: Practice | Difficulty: Hard | Question Type: Multiple Choice
+\question
+$A = 500(1 + 0.05t)$ \\
+The amount of money $A$ in a simple interest savings account after $t$ years is given by the equation above. What is the interpretation of the value 0.05 in this context?
+\begin{tasks}(1)
+    \task The initial deposit in the account.
+    \task The annual interest rate as a decimal.
+    \task The total interest earned after $t$ years.
+    \task The amount of money added to the account each year.
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+If we distribute the 500, the equation becomes $A = 500 + 25t$. Here, 25 is the annual interest. However, in the factored form, the value 0.05 is the percentage of the principal added per year.
+\\[10pt]
+\textbf{Calculation and Logic:} \\
+In the formula for simple interest $A = P(1 + rt)$, $r$ represents the interest rate. Therefore, 0.05 is the interest rate (5\%).
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+%Q: 30
+% Category: Practice | Difficulty: Medium | Question Type: Numeric Entry
+\question
+A car rental company charges \$35 per day. If a customer was charged \$245, for how many days did they rent the car?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Since there is no mention of a flat fee, the total cost is simply the daily rate multiplied by the number of days.
+\\[10pt]
+\textbf{Calculation and Logic:} \\
+\[245 = 35d\]
+\[d = \frac{245}{35} = 7\]
+The car was rented for 7 days.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{7}
+\end{solution}
+
+%Q: 31
+% Category: Practice | Difficulty: Hard | Question Type: Multiple Choice
+\question
+$y = -0.8x + 12$ \\
+The amount of a medication $y$, in milligrams, remaining in a patient's bloodstream $x$ hours after it was administered is modeled by the equation above. What does the value 12 represent?
+\begin{tasks}(1)
+    \task The time it takes for the medication to be fully cleared.
+    \task The dosage of the medication administered.
+    \task The rate at which the medication is cleared from the blood.
+    \task The amount of medication after 1 hour.
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The constant term 12 represents the amount of medication at time $x=0$, which is the moment it was administered.
+\\[10pt]
+\textbf{Calculation and Logic:} \\
+At $x = 0$, $y = 12$. This is the initial dosage.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+%Q: 32
+% Category: Practice | Difficulty: Medium | Question Type: Numeric Entry
+\question
+A spring stretches 2 centimeters for every 5 kilograms of weight added. If the spring is initially 10 centimeters long, how long will it be with 15 kilograms of weight?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+We first determine the rate of stretch per kilogram (the slope), then use the linear model.
+\\[10pt]
+\textbf{Calculation and Logic:} \\
+Rate = $2 / 5 = 0.4$ cm per kg.
+Model: $L = 0.4w + 10$.
+For $w = 15$:
+\[L = 0.4(15) + 10 = 6 + 10 = 16\]
+The spring will be 16 cm long.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{16}
+\end{solution}
+
+%Q: 33
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+$y = 50x + 200$ \\
+A company's daily production cost $y$ is modeled by the equation above, where $x$ is the number of units produced. If the company wants to decrease the cost per unit, which part of the equation should they target to change?
+\begin{tasks}(1)
+    \task The value 50.
+    \task The value 200.
+    \task The variable $x$.
+    \task The variable $y$.
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The "cost per unit" is the rate of change or the slope of the linear model.
+\\[10pt]
+\textbf{Calculation and Logic:} \\
+In $y = 50x + 200$, the 50 represents the cost added for each additional unit produced. To lower the cost per unit, this rate must be reduced.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+%Q: 34
+% Category: Practice | Difficulty: Hard | Question Type: Numeric Entry
+\question
+A pool contains 5,000 gallons of water and is being filled at a rate of 15 gallons per minute. How many hours will it take to add 1,800 gallons of water?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+We need to find the time in minutes to add the specified volume, then convert that time into hours.
+\\[10pt]
+\textbf{Calculation and Logic:} \\
+Time in minutes: $1,800 / 15 = 120$ minutes.
+Convert to hours: $120 / 60 = 2$ hours.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{2}
+\end{solution}
+
+%Q: 35
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+$V = 1,000(0.8)^t$ \\
+While this is an exponential model, the SAT often asks to compare it to linear models. If the value decreased by a constant \$200 each year instead of by 20\%, which linear equation would model the value $V$ over time $t$?
+\begin{tasks}(1)
+    \task $V = 1,000 - 0.2t$
+    \task $V = 1,000 - 200t$
+    \task $V = 200t + 1,000$
+    \task $V = 1,000(200)t$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+A "constant decrease" indicates a linear relationship where the decrease per year is the slope.
+\\[10pt]
+\textbf{Calculation and Logic:} \\
+Initial Value = 1,000. 
+Rate of change = -200. 
+Equation: $V = 1,000 - 200t$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+%Q: 36
+% Category: Practice | Difficulty: Medium | Question Type: Numeric Entry
+\question
+A student has 400 pages left to read in a book. If the student reads 25 pages per day, after how many days will there be 150 pages left?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Pages remaining is the total minus the pages read (rate $\times$ days).
+\\[10pt]
+\textbf{Calculation and Logic:} \\
+\[150 = 400 - 25d\]
+\[-250 = -25d\]
+\[d = 10\]
+It will take 10 days.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{10}
+\end{solution}
+
+%Q: 37
+% Category: Practice | Difficulty: Hard | Question Type: Multiple Choice
+\question
+$y = 0.5x + 10$ \\
+The equation above models the total weight $y$, in pounds, of a box containing $x$ books. What does the value 10 represent?
+\begin{tasks}(1)
+    \task The weight of each book.
+    \task The total weight of the books.
+    \task The weight of the empty box.
+    \task The maximum capacity of the box.
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The 10 is the weight when $x=0$, which means no books are in the box.
+\\[10pt]
+\textbf{Calculation and Logic:} \\
+At $x = 0$, $y = 10$. This is the "base" weight of the container itself.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+%Q: 38
+% Category: Practice | Difficulty: Medium | Question Type: Numeric Entry
+\question
+An athlete runs 6 miles at a pace of 8 minutes per mile. What is the total time, in minutes, the athlete spends running?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Total time is the product of the rate (time per unit distance) and the total distance.
+\\[10pt]
+\textbf{Calculation and Logic:} \\
+\[\text{Time} = 8 \text{ min/mile} \times 6 \text{ miles} = 48 \text{ minutes}\]
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{48}
+\end{solution}
+
+%Q: 39
+% Category: Practice | Difficulty: Hard | Question Type: Multiple Choice
+\question
+$T = 20 + 0.5(d - 100)$ \\
+The temperature $T$ of a substance increases once the pressure $d$ exceeds 100 units. What is the temperature of the substance when the pressure is exactly 100 units?
+\begin{tasks}(1)
+    \task 0
+    \task 20
+    \task 50
+    \task 100
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+We evaluate the function at the specific point $d = 100$.
+\\[10pt]
+\textbf{Calculation and Logic:} \\
+\[T = 20 + 0.5(100 - 100)\]
+\[T = 20 + 0.5(0) = 20\]
+The temperature is 20 units.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+%Q: 40
+% Category: Practice | Difficulty: Medium | Question Type: Numeric Entry
+\question
+A car rental costs \$120 for 3 days. What is the daily rate for the car rental?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The daily rate is the total cost divided by the number of days.
+\\[10pt]
+\textbf{Calculation and Logic:} \\
+\[\text{Rate} = 120 / 3 = 40\]
+The rate is \$40 per day.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{40}
+\end{solution}
+
+%Q: 41
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+$y = 1.5x + 3.0$ \\
+The price $y$ of a customized coffee depends on the number of extra toppings $x$. What is the base price of the coffee with no extra toppings?
+\begin{tasks}(1)
+    \task \$1.50
+    \task \$3.00
+    \task \$4.50
+    \task \$0.00
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Base price corresponds to the constant term in the linear equation.
+\\[10pt]
+\textbf{Calculation and Logic:} \\
+At $x = 0$, $y = 3.0$. The base price is \$3.00.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+%Q: 42
+% Category: Practice | Difficulty: Hard | Question Type: Numeric Entry
+\question
+A plane is at 30,000 feet and descends at a rate of 1,500 feet per minute. How many minutes will it take for the plane to reach 15,000 feet?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+We find the total descent needed and divide by the rate of descent.
+\\[10pt]
+\textbf{Calculation and Logic:} \\
+Total descent: $30,000 - 15,000 = 15,000$.
+Time: $15,000 / 1,500 = 10$ minutes.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{10}
+\end{solution}
+
+%Q: 43
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+$n = 450 - 15t$ \\
+The number of people $n$ in a theater $t$ minutes after a movie ends is given by the equation above. What does the value 15 represent?
+\begin{tasks}(1)
+    \task The number of people in the theater when the movie ends.
+    \task The number of people who leave the theater each minute.
+    \task The time it takes for all people to leave.
+    \task The total number of minutes the movie lasted.
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The value 15 is the rate of change. Because it is subtracted, it represents the rate of decrease.
+\\[10pt]
+\textbf{Calculation and Logic:} \\
+Slope = -15. 
+This means for every 1 minute that passes, 15 people leave the theater.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+%Q: 44
+% Category: Practice | Difficulty: Hard | Question Type: Numeric Entry
+\question
+A gardener charges \$25 to come to a house plus \$15 per hour. If a job cost \$85, how many hours did the gardener work?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Subtract the travel fee from the total, then divide by the hourly rate.
+\\[10pt]
+\textbf{Calculation and Logic:} \\
+\[85 = 15h + 25\]
+\[60 = 15h\]
+\[h = 4\]
+The gardener worked 4 hours.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{4}
+\end{solution}
+
+%Q: 45
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+$y = 0.8x + b$ \\
+A salesperson's earnings $y$ are a linear function of sales $x$. If the base salary increases, which part of the equation would change?
+\begin{tasks}(1)
+    \task The value 0.8.
+    \task The variable $x$.
+    \task The value $b$.
+    \task The variable $y$.
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Base salary is the constant income that does not depend on sales. This is represented by the y-intercept.
+\\[10pt]
+\textbf{Calculation and Logic:} \\
+In the model, $b$ is the earnings when $x = 0$. Therefore, $b$ is the base salary.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+%Q: 46
+% Category: Practice | Difficulty: Medium | Question Type: Numeric Entry
+\question
+A car travels 300 miles on 12 gallons of gas. What is the car's fuel efficiency in miles per gallon?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Fuel efficiency is the total distance divided by the total fuel consumed.
+\\[10pt]
+\textbf{Calculation and Logic:} \\
+Efficiency = $300 / 12 = 25$ mpg.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{25}
+\end{solution}
+
+%Q: 47
+% Category: Practice | Difficulty: Hard | Question Type: Multiple Choice
+\question
+$P = 100 - 0.5t$ \\
+The percentage $P$ of a project remaining to be completed $t$ hours after work began is given by the equation above. What does the $t$-intercept represent?
+\begin{tasks}(1)
+    \task The total time required to finish the project.
+    \task The percentage of the project completed in 1 hour.
+    \task The initial amount of work required.
+    \task The time when half the project is done.
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The $t$-intercept is when $P = 0$, meaning 0\% of the project is remaining (it is finished).
+\\[10pt]
+\textbf{Calculation and Logic:} \\
+\[0 = 100 - 0.5t\]
+\[0.5t = 100\]
+\[t = 200\]
+It takes 200 hours to finish the project.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+%Q: 48
+% Category: Practice | Difficulty: Medium | Question Type: Numeric Entry
+\question
+A machine produces 120 parts per hour. How many parts does it produce in 15 minutes?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+We convert the time from minutes to hours, then multiply by the production rate.
+\\[10pt]
+\textbf{Calculation and Logic:} \\
+15 minutes = $15 / 60 = 0.25$ hours.
+Parts = $120 \times 0.25 = 30$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{30}
+\end{solution}
+
+%Q: 49
+% Category: Practice | Difficulty: Hard | Question Type: Multiple Choice
+\question
+$S = 24,000 + 1,200n$ \\
+The salary $S$ of an employee depends on the number of years of experience $n$. Which of the following is the best interpretation of 1,200?
+\begin{tasks}(1)
+    \task The starting salary of the employee.
+    \task The total salary after $n$ years.
+    \task The annual raise the employee receives each year.
+    \task The total number of employees in the company.
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+1,200 is the slope, which represents the change in salary per one-unit change in years of experience.
+\\[10pt]
+\textbf{Calculation and Logic:} \\
+Slope = 1,200. This means for every 1 year of experience ($n$), the salary ($S$) increases by \$1,200. This is the annual raise.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+%Q: 50
+% Category: Practice | Difficulty: Hard | Question Type: Numeric Entry
+\question
+A candle is 15 inches tall and burns down to 9 inches in 4 hours. What is the burning rate of the candle in inches per hour?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The rate of change is the total height lost divided by the time elapsed.
+\\[10pt]
+\textbf{Calculation and Logic:} \\
+Height lost: $15 - 9 = 6$ inches.
+Rate: $6 / 4 = 1.5$ inches per hour.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{1.5}
+\end{solution}
+
+% =============================================================
+% Question End
+% =============================================================
+
+\end{questions}
+\begin{center}
+\rule{.5\textwidth}{1pt}
+\end{center}
+\end{document}

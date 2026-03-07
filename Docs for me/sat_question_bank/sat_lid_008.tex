@@ -1,0 +1,1169 @@
+\documentclass[11pt,paper=a4,answers]{exam}
+\usepackage{graphicx,lastpage}
+\usepackage{upgreek}
+\usepackage{censor}
+\usepackage{gensymb}
+\usepackage{amsmath}
+\usepackage{multicol}
+\usepackage{enumitem}
+\usepackage{tasks}
+\usepackage{adjustbox}
+\usepackage{xcolor}
+\usepackage{tfrupee}
+\setlength{\voffset}{0.25in}
+\usepackage{tabularx}
+\newcolumntype{Y}{>{\centering\arraybackslash}X}
+%==============================================================
+% Customise Non-Essential Packages Below
+% =============================================================
+\usepackage[most]{tcolorbox}
+\usepackage{eso-pic}
+\usepackage{tikz}
+\AddToShipoutPictureBG{%
+\begin{tikzpicture}[remember picture,overlay]
+\foreach \x in {-8,-4,0,4,8,12,16,20}
+\foreach \y in {-8,-4,0,4,8,12,16,20} {
+\node[opacity=0.05,rotate=45,anchor=center] at ([xshift=\x cm,yshift=\y cm]current page.center) {%
+\begin{minipage}{2cm}
+\centering
+\includegraphics[width=2cm]{images/logo_black.png}\\
+\small preppeo.com
+\end{minipage}%
+};
+}
+\end{tikzpicture}%
+}
+\printanswers
+
+%==============================================================
+% Customise Non-Essential Packages Above
+% =============================================================
+\definecolor{svgray}{rgb}{0.90, 0.90, 0.90}
+\graphicspath{{images/}}
+
+\usepackage[normalem]{ulem}
+\renewcommand\ULthickness{1pt}   %%---> For changing thickness of underline
+\setlength\ULdepth{3.5ex}%\maxdimen ---> For changing depth of underline
+\renewcommand{\baselinestretch}{1}
+\chead{
+\includegraphics[scale=0.1,height=2cm ]{logo.png}
+}
+\pagestyle{empty}
+
+\pagestyle{headandfoot}
+\headrule
+\cfoot{W: https://preppeo.com; M: +91-8130711689}
+
+\begin{document}
+%==============================================================
+% Customise Question paper details below this
+% =============================================================
+\begin{center}
+    \centering
+    \renewcommand{\arraystretch}{1.5}
+    \begin{tabularx}{\textwidth}{YYY}
+    & \normalsize\bf{{\Large{{Quant}}}} & \\
+    By Preppeo & \normalsize\bf{{sat\_lid\_008}} & SAT\\
+    \normalsize{{\textbf{{Unit:}} Algebra}} & \normalsize{{\textbf{{Chapter:}} Systems of two linear equations in two variables}} & \normalsize{{\textbf{{Topic:}} Systems Word Problems}} \\
+    \end{tabularx}
+\end{center}
+\par\noindent\rule{\textwidth}{1pt}
+% =============================================================
+% Customise Question paper details above this
+% =============================================================
+
+\begin{questions}
+\pointsinrightmargin
+\pointsdroppedatright
+\marksnotpoints
+\pointpoints{mark}{marks}
+\pointformat{\boldmath\themarginpoints}
+\bracketedpoints
+
+% =============================================================
+% Question Begin
+% =============================================================
+
+
+%Q: 1
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+A craft store manager is ordering two types of yarn. Wool yarn costs \$8 per skein and acrylic yarn costs \$5 per skein. The manager ordered a total of 24 skeins for a total cost of \$150. If $w$ represents the skeins of wool yarn and $a$ represents the skeins of acrylic yarn, which system of equations models this purchase?
+\begin{tasks}(2)
+    \task $w + a = 24$; $8w + 5a = 150$
+    \task $w + a = 150$; $8w + 5a = 24$
+    \task $8w + 5a = 24$; $w + a = 150$
+    \task $5w + 8a = 150$; $w + a = 24$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+In this modeling problem, we must identify two independent constraints. The first constraint is the physical count of the items (skeins of yarn). The second constraint is the financial limit (total budget). By multiplying the count of each type by its unit price, we determine its contribution to the total cost.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+First, we establish the quantity equation based on the total of 24 skeins:
+\[w + a = 24\]
+Next, we establish the value equation based on the prices (\$8 for wool and \$5 for acrylic) and the total cost of \$150:
+\[8w + 5a = 150\]
+Combining these two gives the system in option A.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+%Q: 2
+% Category: Practice | Difficulty: Medium | Question Type: Numeric Entry
+\question
+A local sanctuary houses two species of birds: Parrots and Cockatoos. There are 18 birds in total. Parrots require 2 cups of specialized seed per day, while Cockatoos require 5 cups. If the sanctuary uses exactly 60 cups of seed per day, how many Cockatoos are at the sanctuary?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+This problem requires solving for one of the variables in a quantity-value system. We set up equations for the bird count and the food consumption, then use substitution to find the number of Cockatoos.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+Let $p$ be Parrots and $c$ be Cockatoos.
+\[p + c = 18 \Rightarrow p = 18 - c\]
+\[2p + 5c = 60\]
+Substituting the first expression into the second:
+\[2(18 - c) + 5c = 60\]
+\[36 - 2c + 5c = 60\]
+\[3c = 24 \Rightarrow c = 8\]
+There are 8 Cockatoos.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{8}
+\end{solution}
+
+%Q: 3
+% Category: Practice | Difficulty: Hard | Question Type: Multiple Choice
+\question
+A tech company manufactures two versions of a processor. Version X takes 30 minutes to test and Version Y takes 50 minutes to test. In one shift, a total of 40 processors were tested, requiring a total testing time of 1,500 minutes. If $x$ is the number of Version X processors and $y$ is the number of Version Y processors, which system correctly represents this?
+\begin{tasks}(2)
+    \task $x + y = 40$; $30x + 50y = 1,500$
+    \task $x + y = 1,500$; $30x + 50y = 40$
+    \task $30x + 50y = 40$; $x + y = 1,500$
+    \task $x + y = 40$; $50x + 30y = 1,500$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The SAT frequently uses time as the second constraint. One equation relates to the number of units produced or tested, while the other relates to the total time consumed, calculated by multiplying the units by the time-per-unit rate.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+The total count of processors is 40:
+\[x + y = 40\]
+The total time is 1,500 minutes, with X taking 30 and Y taking 50:
+\[30x + 50y = 1,500\]
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+%Q: 4
+% Category: Practice | Difficulty: Hard | Question Type: Numeric Entry
+\question
+A scientist is blending a 20\% saline solution with a 60\% saline solution. She wants to create 40 liters of a 50\% saline solution. How many liters of the 60\% solution should she use?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Mixture systems track the volume of the mixture and the "strength" or amount of the solute (saline). We create one equation for the total liters and another for the liters of pure saline.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+Let $L$ be the 20\% solution and $H$ be the 60\% solution.
+\[L + H = 40 \Rightarrow L = 40 - H\]
+The target saline amount is $50\%$ of 40, which is 20 liters.
+\[0.20L + 0.60H = 20\]
+Substitute:
+\[0.20(40 - H) + 0.60H = 20\]
+\[8 - 0.20H + 0.60H = 20\]
+\[0.40H = 12 \Rightarrow H = 30\]
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{30}
+\end{solution}
+
+%Q: 5
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+A gardener is creating 100 pounds of mulch by mixing pine bark, costing \$2 per pound, and cedar chips, costing \$5 per pound. If the total cost for the mulch is \$320, which system represents the pounds of pine bark ($p$) and cedar chips ($c$)?
+\begin{tasks}(2)
+    \task $p + c = 100$; $2p + 5c = 320$
+    \task $p + c = 320$; $2p + 5c = 100$
+    \task $2p + 5c = 100$; $p + c = 320$
+    \task $p + c = 100$; $5p + 2c = 320$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The system is built on weight and budget. One equation sums the weights of the two components to equal the final weight, and the second sums the costs to equal the total budget.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+Total weight equation: $p + c = 100$ \\
+Total budget equation: $2p + 5c = 320$
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+%Q: 6
+% Category: Practice | Difficulty: Medium | Question Type: Numeric Entry
+\question
+A bookstore ordered 50 books. Paperbacks cost \$10 each and hardcovers cost \$18 each. If the total order was \$700, how many hardcovers were ordered?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+We use the elimination method to isolate the number of hardcovers by multiplying the quantity equation to match the paperback coefficient.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+$p + h = 50$ \\
+$10p + 18h = 700$ \\
+Multiply the quantity equation by 10:
+\[10p + 10h = 500\]
+Subtract this from the value equation:
+\[(10p + 18h) - (10p + 10h) = 700 - 500\]
+\[8h = 200 \Rightarrow h = 25\]
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{25}
+\end{solution}
+
+%Q: 7
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+A movie theater sold 120 tickets. Child tickets are \$8 and adult tickets are \$14. The total revenue was \$1,320. If $c$ is child tickets and $a$ is adult tickets, which system is correct?
+\begin{tasks}(2)
+    \task $c + a = 120$; $8c + 14a = 1,320$
+    \task $c + a = 1,320$; $8c + 14a = 120$
+    \task $8c + 14a = 1,320$; $c + a = 1,320$
+    \task $14c + 8a = 1,320$; $c + a = 120$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+This system models ticket counts and revenue. The first equation sums the ticket types, and the second multiplies each by its respective price to reach the total sales.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+Count: $c + a = 120$ \\
+Revenue: $8c + 14a = 1,320$
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+%Q: 8
+% Category: Practice | Difficulty: Medium | Question Type: Numeric Entry
+\question
+A hobbyist bought 15 total model planes and cars. Planes cost \$20 and cars cost \$12. If he spent \$220, how many planes did he buy?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Setting up a system for count and cost allowed us to find the specific quantity of planes by substituting the car variable.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+$p + c = 15 \Rightarrow c = 15 - p$ \\
+$20p + 12c = 220$ \\
+\[20p + 12(15 - p) = 220\]
+\[20p + 180 - 12p = 220\]
+\[8p = 40 \Rightarrow p = 5\]
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{5}
+\end{solution}
+
+%Q: 9
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+A shipment of 80 crates contains small crates and large crates. Small crates weigh 10 kg and large crates weigh 25 kg. Total weight is 1,250 kg. If $s$ is small and $l$ is large, which system works?
+\begin{tasks}(2)
+    \task $s + l = 80$; $10s + 25l = 1,250$
+    \task $s + l = 1,250$; $10s + 25l = 80$
+    \task $10s + 25l = 80$; $s + l = 80$
+    \task $25s + 10l = 1,250$; $s + l = 80$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+We model the shipment using crate count and the sum of weights. The weight of each crate type is its coefficient in the second equation.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+Crate count: $s + l = 80$ \\
+Weight sum: $10s + 25l = 1,250$
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+%Q: 10
+% Category: Practice | Difficulty: Medium | Question Type: Numeric Entry
+\question
+A vending machine contains 40 coins, all quarters (\$0.25) and dimes (\$0.10). The total value is \$7.00. How many quarters are in the machine?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Using the total count of coins and their monetary values, we create a system and solve for quarters using substitution.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+$q + d = 40 \Rightarrow d = 40 - q$ \\
+$0.25q + 0.10d = 7.00$ \\
+\[0.25q + 0.10(40 - q) = 7.00\]
+\[0.25q + 4 - 0.10q = 7.00\]
+\[0.15q = 3 \Rightarrow q = 20\]
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{20}
+\end{solution}
+
+%Q: 11
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+A parking lot has 60 vehicles, some cars and some motorcycles. Cars have 4 wheels and motorcycles have 2. Total wheels in the lot is 200. If $c$ is cars and $m$ is motorcycles, which system is correct?
+\begin{tasks}(2)
+    \task $c + m = 60$; $4c + 2m = 200$
+    \task $c + m = 200$; $4c + 2m = 60$
+    \task $4c + 2m = 60$; $c + m = 60$
+    \task $c + m = 60$; $2c + 4m = 200$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+This system uses vehicle count and wheel count. We multiply the wheels per vehicle by the number of each vehicle to find the total.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+Vehicle count: $c + m = 60$ \\
+Wheel count: $4c + 2m = 200$
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+%Q: 12
+% Category: Practice | Difficulty: Medium | Question Type: Numeric Entry
+\question
+A test has 50 questions. Students get 5 points for each correct answer and lose 2 points for each incorrect answer. A student scored 180 by answering all questions. How many did they get correct?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Score systems on the SAT often involve negative coefficients for incorrect answers. We track total questions and total points.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+$c + i = 50 \Rightarrow i = 50 - c$ \\
+$5c - 2i = 180$ \\
+\[5c - 2(50 - c) = 180\]
+\[5c - 100 + 2c = 180\]
+\[7c = 280 \Rightarrow c = 40\]
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{40}
+\end{solution}
+
+%Q: 13
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+A florist sells lilies for \$4 each and roses for \$6 each. A customer bought 20 flowers for \$104. If $L$ is lilies and $r$ is roses, which system models this?
+\begin{tasks}(2)
+    \task $L + r = 20$; $4L + 6r = 104$
+    \task $L + r = 104$; $4L + 6r = 20$
+    \task $4L + 6r = 104$; $L + r = 104$
+    \task $L + r = 20$; $6L + 4r = 104$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The system counts flowers and calculates the total cost based on individual unit prices.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+Flower count: $L + r = 20$ \\
+Cost sum: $4L + 6r = 104$
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+%Q: 14
+% Category: Practice | Difficulty: Medium | Question Type: Numeric Entry
+\question
+A gym has 15 total weights: 5-lb plates and 10-lb plates. The total weight is 110 lbs. How many 10-lb plates are there?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+We track the count of plates and the sum of their weights, solving for the 10-lb plates by eliminating the 5-lb variable.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+$x + y = 15 \Rightarrow x = 15 - y$ \\
+$5x + 10y = 110$ \\
+\[5(15 - y) + 10y = 110\]
+\[75 - 5y + 10y = 110\]
+\[5y = 35 \Rightarrow y = 7\]
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{7}
+\end{solution}
+
+%Q: 15
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+A cafe sold 45 drinks: small coffees for \$3 and large coffees for \$5. Total sales were \$175. If $s$ is small and $L$ is large, which system is correct?
+\begin{tasks}(2)
+    \task $s + L = 45$; $3s + 5L = 175$
+    \task $s + L = 175$; $3s + 5L = 45$
+    \task $3s + 5L = 175$; $s + L = 175$
+    \task $s + L = 45$; $5s + 3L = 175$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Drink count and revenue are the constraints. Small drinks generate $3s$ dollars and large drinks generate $5L$ dollars.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+Count: $s + L = 45$ \\
+Revenue: $3s + 5L = 175$
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+%Q: 16
+% Category: Practice | Difficulty: Medium | Question Type: Numeric Entry
+\question
+A drawer has 24 socks, black and blue. There are twice as many black socks as blue socks. How many blue socks are there?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+This system uses a simple relationship between variables instead of a budget. We define one variable in terms of the other.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+$B + L = 24$ \\
+$B = 2L$ \\
+\[(2L) + L = 24\]
+\[3L = 24 \Rightarrow L = 8\]
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{8}
+\end{solution}
+
+%Q: 17
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+A theater has 200 seats divided into floor and balcony. Floor seats cost \$50 and balcony seats cost \$30. Revenue for a full show is \$7,600. If $f$ is floor and $b$ is balcony, which system works?
+\begin{tasks}(2)
+    \task $f + b = 200$; $50f + 30b = 7,600$
+    \task $f + b = 7,600$; $50f + 30b = 200$
+    \task $50f + 30b = 7,600$; $f + b = 7,600$
+    \task $f + b = 200$; $30f + 50b = 7,600$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The constraints are seat capacity and total potential revenue. The price of each seat type acts as its weight in the value equation.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+Seats: $f + b = 200$ \\
+Revenue: $50f + 30b = 7,600$
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+%Q: 18
+% Category: Practice | Difficulty: Medium | Question Type: Numeric Entry
+\question
+A rectangular field has a perimeter of 60 meters. The length is 6 meters more than the width. What is the width of the field?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Perimeter systems define relationships between dimensions. We use the perimeter formula and the specific relationship provided.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+$2L + 2W = 60 \Rightarrow L + W = 30$ \\
+$L = W + 6$ \\
+\[(W + 6) + W = 30\]
+\[2W = 24 \Rightarrow W = 12\]
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{12}
+\end{solution}
+
+%Q: 19
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+A person bought 12 fruits: apples for \$1.50 and oranges for \$2.00. Total cost was \$21.00. If $a$ is apples and $r$ is oranges, which system is correct?
+\begin{tasks}(2)
+    \task $a + r = 12$; $1.5a + 2r = 21$
+    \task $a + r = 21$; $1.5a + 2r = 12$
+    \task $1.5a + 2r = 21$; $a + r = 21$
+    \task $a + r = 12$; $2a + 1.5r = 21$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Modeling fruit count and budget follows the standard value-quantity pattern.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+Count: $a + r = 12$ \\
+Budget: $1.5a + 2r = 21$
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+%Q: 20
+% Category: Practice | Difficulty: Medium | Question Type: Numeric Entry
+\question
+Two numbers sum to 40 and their difference is 10. What is the smaller number?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Simple numerical systems are a foundational SAT skill. Adding and subtracting equations directly allows for rapid solving.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+$x + y = 40$ \\
+$x - y = 10$ \\
+Subtracting:
+\[(x + y) - (x - y) = 40 - 10\]
+\[2y = 30 \Rightarrow y = 15\]
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{15}
+\end{solution}
+
+%Q: 21
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+A store sells small lamps for \$15 and large lamps for \$25. A customer bought 10 lamps for \$190. If $s$ is small and $L$ is large, which system models this?
+\begin{tasks}(2)
+    \task $s + L = 10$; $15s + 25L = 190$
+    \task $s + L = 190$; $15s + 25L = 10$
+    \task $15s + 25L = 190$; $s + L = 190$
+    \task $s + L = 10$; $25s + 15L = 190$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The model links lamp count to the total expenditure based on the price of each size.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+Count: $s + L = 10$ \\
+Budget: $15s + 25L = 190$
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+%Q: 22
+% Category: Practice | Difficulty: Medium | Question Type: Numeric Entry
+\question
+A collection of 30 stamps contains 20-cent stamps and 50-cent stamps. Total value is \$12.00. How many 50-cent stamps are there?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+This system models stamp count and value in dollars. We multiply the count of each by its value in dollars to reach the total.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+$x + y = 30 \Rightarrow x = 30 - y$ \\
+$0.20x + 0.50y = 12$ \\
+\[0.20(30 - y) + 0.50y = 12\]
+\[6 - 0.20y + 0.50y = 12\]
+\[0.30y = 6 \Rightarrow y = 20\]
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{20}
+\end{solution}
+
+%Q: 23
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+A truck carried 50 packages. Type A packages weigh 4 lbs and Type B weigh 7 lbs. Total weight is 260 lbs. If $a$ is Type A and $b$ is Type B, which system is correct?
+\begin{tasks}(2)
+    \task $a + b = 50$; $4a + 7b = 260$
+    \task $a + b = 260$; $4a + 7b = 50$
+    \task $4a + 7b = 260$; $a + b = 260$
+    \task $a + b = 50$; $7a + 4b = 260$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The system models the package shipment using unit weight and count constraints.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+Package count: $a + b = 50$ \\
+Weight sum: $4a + 7b = 260$
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+%Q: 24
+% Category: Practice | Difficulty: Medium | Question Type: Numeric Entry
+\question
+In a shop, 20 tools were sold: screwdrivers and hammers. Screwdrivers cost \$5 and hammers cost \$12. Total sales were \$156. How many screwdrivers were sold?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+By modeling tool count and revenue, we can solve for screwdrivers by substituting the hammer variable.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+$s + h = 20 \Rightarrow h = 20 - s$ \\
+$5s + 12h = 156$ \\
+\[5s + 12(20 - s) = 156\]
+\[5s + 240 - 12s = 156\]
+\[-7s = -84 \Rightarrow s = 12\]
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{12}
+\end{solution}
+
+%Q: 25
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+A company has 100 employees: managers and workers. Managers earn \$200 per day and workers earn \$120 per day. Total payroll is \$13,600. If $m$ is managers and $w$ is workers, which system is correct?
+\begin{tasks}(2)
+    \task $m + w = 100$; $200m + 120w = 13,600$
+    \task $m + w = 13,600$; $200m + 120w = 100$
+    \task $200m + 120w = 13,600$; $m + w = 13,600$
+    \task $m + w = 100$; $120m + 200w = 13,600$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Modeling employee count and daily payroll costs follows the standard value-quantity pattern.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+Count: $m + w = 100$ \\
+Payroll: $200m + 120w = 13,600$
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+%Q: 27
+% Category: Practice | Difficulty: Hard | Question Type: Multiple Choice
+\question
+A cyclist travels 40 miles with a tailwind in 2 hours and returns against the same wind in 2.5 hours. What is the speed of the wind in miles per hour?
+\begin{tasks}(4)
+    \task 2
+    \task 4
+    \task 18
+    \task 20
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Wind problems use modifying speeds. With the wind, speeds add ($c + w$). Against the wind, they subtract ($c - w$).
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+With wind: $40 / 2 = 20$ mph $\Rightarrow c + w = 20$ \\
+Against wind: $40 / 2.5 = 16$ mph $\Rightarrow c - w = 16$ \\
+Subtract equations to eliminate cyclist speed $c$:
+\[(c + w) - (c - w) = 20 - 16\]
+\[2w = 4 \Rightarrow w = 2\]
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+%Q: 28
+% Category: Practice | Difficulty: Hard | Question Type: Numeric Entry
+\question
+A technician has two data plans. Plan A costs \$20 plus \$10 per GB. Plan B costs \$50 plus \$5 per GB. For what number of GB will the plans cost the same?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+"Equal cost" problems are solved by setting the linear expressions for each plan equal to each other.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+Plan A: $20 + 10x$ \\
+Plan B: $50 + 5x$ \\
+\[20 + 10x = 50 + 5x\]
+\[5x = 30 \Rightarrow x = 6\]
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{6}
+\end{solution}
+
+%Q: 29
+% Category: Practice | Difficulty: Medium | Question Type: Multiple Choice
+\question
+A collection of 60 notes contains \$5 notes and \$10 notes. Total value is \$420. If $f$ is \$5 and $t$ is \$10, which system is correct?
+\begin{tasks}(2)
+    \task $f + t = 60$; $5f + 10t = 420$
+    \task $f + t = 420$; $5f + 10t = 60$
+    \task $5f + 10t = 420$; $f + t = 420$
+    \task $f + t = 60$; $10f + 5t = 420$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The system models banknote count and the sum of their cash values.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+Count: $f + t = 60$ \\
+Value: $5f + 10t = 420$
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+%Q: 30
+% Category: Practice | Difficulty: Hard | Question Type: Numeric Entry
+\question
+A rectangle has a perimeter of 40 cm. The length is three times the width. What is the length of the rectangle?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+We use the perimeter formula and the specific multiplier relationship to solve for length.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+$2L + 2W = 40 \Rightarrow L + W = 20$ \\
+$L = 3W$ \\
+\[(3W) + W = 20\]
+\[4W = 20 \Rightarrow W = 5\]
+If $W = 5$, then $L = 3(5) = 15$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{15}
+\end{solution}
+
+%Q: 31
+% Category: Practice | Difficulty: Hard | Question Type: Multiple Choice
+\question
+A store owner mixed nuts costing \$3 per lb with nuts costing \$8 per lb to get 10 lbs of a mix costing \$5 per lb. Which system models this?
+\begin{tasks}(2)
+    \task $x + y = 10$; $3x + 8y = 50$
+    \task $x + y = 10$; $3x + 8y = 5$
+    \task $3x + 8y = 10$; $x + y = 50$
+    \task $x + y = 50$; $3x + 8y = 10$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The total mix is 10 lbs, and the total cost is 10 lbs $\times$ \$5/lb = \$50.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+Weight: $x + y = 10$ \\
+Total cost: $3x + 8y = 50$
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+%Q: 32
+% Category: Practice | Difficulty: Hard | Question Type: Numeric Entry
+\question
+In a factory, 40 machines produce 200 parts per hour. Type A machines produce 4 parts and Type B produce 6 parts. How many Type B machines are there?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Modeling production follows the quantity-value pattern, using hourly rates as coefficients.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+$A + B = 40 \Rightarrow A = 40 - B$ \\
+$4A + 6B = 200$ \\
+\[4(40 - B) + 6B = 200\]
+\[160 - 4B + 6B = 200\]
+\[2B = 40 \Rightarrow B = 20\]
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{20}
+\end{solution}
+
+%Q: 33
+% Category: Practice | Difficulty: Hard | Question Type: Multiple Choice
+\question
+A plane flying with the wind travels 1,200 miles in 3 hours. Against the wind, it takes 4 hours for the same distance. What is the speed of the wind?
+\begin{tasks}(4)
+    \task 50
+    \task 350
+    \task 400
+    \task 300
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Modifying speed systems allow for finding both the vehicle and the medium's speed.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+With wind: $1,200 / 3 = 400 \Rightarrow p + w = 400$ \\
+Against wind: $1,200 / 4 = 300 \Rightarrow p - w = 300$ \\
+Subtract equations:
+\[(p + w) - (p - w) = 400 - 300\]
+\[2w = 100 \Rightarrow w = 50\]
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+%Q: 34
+% Category: Practice | Difficulty: Hard | Question Type: Numeric Entry
+\question
+A student scored 85 on a test with 40 questions. Correct answers earned 3 points and incorrect answers lost 2 points. How many did they answer correctly?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Tracking total questions and point deductions allows us to find the number of correct answers.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+$c + i = 40 \Rightarrow i = 40 - c$ \\
+$3c - 2i = 85$ \\
+\[3c - 2(40 - c) = 85\]
+\[3c - 80 + 2c = 85\]
+\[5c = 165 \Rightarrow c = 33\]
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{33}
+\end{solution}
+
+%Q: 35
+% Category: Practice | Difficulty: Hard | Question Type: Multiple Choice
+\question
+A jar contains 50 coins, all nickels and dimes. Total value is \$3.50. If $n$ is nickels and $d$ is dimes, which system models this?
+\begin{tasks}(2)
+    \task $n + d = 50$; $0.05n + 0.10d = 3.50$
+    \task $n + d = 3.50$; $0.05n + 0.10d = 50$
+    \task $0.05n + 0.10d = 3.50$; $n + d = 3.50$
+    \task $n + d = 50$; $0.10n + 0.05d = 3.50$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+The system models coin count and the sum of their monetary values in dollars.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+Count: $n + d = 50$ \\
+Value: $0.05n + 0.10d = 3.50$
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+%Q: 36
+% Category: Practice | Difficulty: Hard | Question Type: Numeric Entry
+\question
+Two angles are supplementary (sum to 180 degrees). One angle is 20 degrees more than three times the other. What is the smaller angle?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Geometric systems use defined sums (like 180 or 90) alongside specific additive or multiplicative relationships.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+$x + y = 180 \Rightarrow x = 180 - y$ \\
+$x = 3y + 20$ \\
+\[(3y + 20) + y = 180\]
+\[4y = 160 \Rightarrow y = 40\]
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{40}
+\end{solution}
+
+%Q: 37
+% Category: Practice | Difficulty: Hard | Question Type: Multiple Choice
+\question
+A mix of 20 lbs of nuts costing \$4 per lb and \$9 per lb costs \$6 per lb total. Which system models this?
+\begin{tasks}(2)
+    \task $x + y = 20$; $4x + 9y = 120$
+    \task $x + y = 20$; $4x + 9y = 6$
+    \task $4x + 9y = 120$; $x + y = 120$
+    \task $x + y = 6$; $4x + 9y = 20$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Total cost is the total weight multiplied by the unit price of the final mix.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+Weight: $x + y = 20$ \\
+Cost: $20 \times 6 = 120 \Rightarrow 4x + 9y = 120$
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+%Q: 38
+% Category: Practice | Difficulty: Hard | Question Type: Numeric Entry
+\question
+A runner covers 10 miles in 2 segments. The first part is at 6 mph and the second is at 8 mph. If the total time was 1.5 hours, how many miles was the first part?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Segmented distance problems use distance-time relationships. We create equations for total distance and total time (distance / speed).
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+$d_1 + d_2 = 10 \Rightarrow d_2 = 10 - d_1$ \\
+$d_1 / 6 + d_2 / 8 = 1.5$ \\
+Multiply by 24: $4d_1 + 3d_2 = 36$ \\
+\[4d_1 + 3(10 - d_1) = 36\]
+\[d_1 + 30 = 36 \Rightarrow d_1 = 6\]
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{6}
+\end{solution}
+
+%Q: 39
+% Category: Practice | Difficulty: Hard | Question Type: Multiple Choice
+\question
+A technician has 40 resistors: 100-ohm and 250-ohm. Total resistance in series is 6,400 ohms. If $x$ is 100-ohm and $y$ is 250-ohm, which system is correct?
+\begin{tasks}(2)
+    \task $x + y = 40$; $100x + 250y = 6,400$
+    \task $x + y = 6,400$; $100x + 250y = 40$
+    \task $100x + 250y = 6,400$; $x + y = 6,400$
+    \task $x + y = 40$; $250x + 100y = 6,400$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+This system models resistor count and total cumulative resistance.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+Count: $x + y = 40$ \\
+Total Resistance: $100x + 250y = 6,400$
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+%Q: 41
+% Category: Practice | Difficulty: Hard | Question Type: Multiple Choice
+\question
+A bank has 80 notes: \$10 and \$20. Total value is \$1,100. If $x$ is \$10 and $y$ is \$20, which system is correct?
+\begin{tasks}(2)
+    \task $x + y = 80$; $10x + 20y = 1,100$
+    \task $x + y = 1,100$; $10x + 20y = 80$
+    \task $10x + 20y = 1,100$; $x + y = 1,100$
+    \task $x + y = 80$; $20x + 10y = 1,100$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Modeling currency count and total cash value follows the standard quantity-value pattern.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+Count: $x + y = 80$ \\
+Value: $10x + 20y = 1,100$
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+%Q: 42
+% Category: Practice | Difficulty: Hard | Question Type: Numeric Entry
+\question
+A rectangle has a perimeter of 50. The width is 5 less than the length. What is the width?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+We use the perimeter formula and the specific additive relationship to solve for width.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+$2L + 2W = 50 \Rightarrow L + W = 25$ \\
+$W = L - 5 \Rightarrow L = W + 5$ \\
+\[(W + 5) + W = 25\]
+\[2W = 20 \Rightarrow W = 10\]
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{10}
+\end{solution}
+
+%Q: 43
+% Category: Practice | Difficulty: Hard | Question Type: Multiple Choice
+\question
+A store mixed coffee worth \$6 per lb and \$11 per lb to get 20 lbs of a mix worth \$8 per lb. Which system models this?
+\begin{tasks}(2)
+    \task $x + y = 20$; $6x + 11y = 160$
+    \task $x + y = 20$; $6x + 11y = 8$
+    \task $6x + 11y = 20$; $x + y = 160$
+    \task $x + y = 160$; $6x + 11y = 20$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Total mix is 20 lbs, and total value is 20 lbs $\times$ \$8/lb = \$160.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+Weight: $x + y = 20$ \\
+Value: $6x + 11y = 160$
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+%Q: 44
+% Category: Practice | Difficulty: Hard | Question Type: Numeric Entry
+\question
+Two numbers sum to 60. One number is 10 more than four times the other. What is the larger number?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Numerical systems use additive and multiplicative relationships. We substitute one variable to find the values.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+$x + y = 60 \Rightarrow x = 60 - y$ \\
+$x = 4y + 10$ \\
+\[(4y + 10) + y = 60\]
+\[5y = 50 \Rightarrow y = 10\]
+If $y = 10$, then $x = 4(10) + 10 = 50$.
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{50}
+\end{solution}
+
+%Q: 45
+% Category: Practice | Difficulty: Hard | Question Type: Multiple Choice
+\question
+A jar has 40 balls, red and blue. Red balls cost \$2 and blue balls cost \$5. Total cost is \$110. If $r$ is red and $b$ is blue, which system is correct?
+\begin{tasks}(2)
+    \task $r + b = 40$; $2r + 5b = 110$
+    \task $r + b = 110$; $2r + 5b = 40$
+    \task $2r + 5b = 110$; $r + b = 110$
+    \task $r + b = 40$; $5r + 2b = 110$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Modeling ball count and total budget follows the standard value-quantity pattern.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+Count: $r + b = 40$ \\
+Budget: $2r + 5b = 110$
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+%Q: 46
+% Category: Practice | Difficulty: Hard | Question Type: Numeric Entry
+\question
+In a library, 30 books were checked out: novels and non-fiction. Total fine for late return was \$21. Novels fine is \$0.50 and non-fiction is \$1.00. How many novels were checked out?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Modeling book count and cumulative fines follows the standard quantity-value pattern.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+$n + f = 30 \Rightarrow f = 30 - n$ \\
+$0.50n + 1.00f = 21$ \\
+\[0.50n + 1.00(30 - n) = 21\]
+\[-0.50n = -9 \Rightarrow n = 18\]
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{18}
+\end{solution}
+
+%Q: 47
+% Category: Practice | Difficulty: Hard | Question Type: Multiple Choice
+\question
+A collection of 100 tools contains screwdrivers and wrenches. Screwdrivers cost \$3 and wrenches cost \$6. Total value is \$420. If $s$ is screwdrivers and $w$ is wrenches, which system works?
+\begin{tasks}(2)
+    \task $s + w = 100$; $3s + 6w = 420$
+    \task $s + w = 420$; $3s + 6w = 100$
+    \task $3s + 6w = 420$; $s + w = 420$
+    \task $s + w = 100$; $6s + 3w = 420$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Modeling tool count and cumulative costs follows the standard quantity-value pattern.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+Count: $s + w = 100$ \\
+Cost: $3s + 6w = 420$
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+%Q: 48
+% Category: Practice | Difficulty: Hard | Question Type: Numeric Entry
+\question
+Two numbers sum to 80. Their difference is 20. What is the larger number?
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Numerical systems are solved efficiently by summing the equations to find the larger variable.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+$x + y = 80$ \\
+$x - y = 20$ \\
+Summing:
+\[2x = 100 \Rightarrow x = 50\]
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{50}
+\end{solution}
+
+%Q: 49
+% Category: Practice | Difficulty: Hard | Question Type: Multiple Choice
+\question
+A box of 60 items has Type X and Type Y. Type X costs \$4 and Type Y costs \$9. Total value is \$340. If $x$ is Type X and $y$ is Type Y, which system is correct?
+\begin{tasks}(2)
+    \task $x + y = 60$; $4x + 9y = 340$
+    \task $x + y = 340$; $4x + 9y = 60$
+    \task $4x + 9y = 340$; $x + y = 340$
+    \task $x + y = 60$; $9x + 4y = 340$
+\end{tasks}
+
+\begin{solution}
+\textbf{Conceptual Explanation:} \\
+Modeling item count and cumulative costs follows the standard quantity-value pattern.
+
+\vspace{10pt}
+\textbf{Calculation and Logic:} \\
+Count: $x + y = 60$ \\
+Cost: $4x + 9y = 340$
+
+\vspace{15pt}
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+% =============================================================
+% Question End
+% =============================================================
+
+\end{questions}
+\begin{center}
+\rule{.5\textwidth}{1pt}
+\end{center}
+\end{document}
