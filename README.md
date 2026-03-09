@@ -1,6 +1,6 @@
 # Preppeo LMS - Learning Management System
 
-A modern, feature-rich Learning Management System built with Next.js 15, shadcn/ui, and Supabase.
+A modern, feature-rich Learning Management System built with Next.js 16, shadcn/ui, and Supabase.
 
 ## 🚀 Features
 
@@ -21,7 +21,7 @@ A modern, feature-rich Learning Management System built with Next.js 15, shadcn/
 
 ## 🛠️ Tech Stack
 
-- **Frontend**: Next.js 15 (App Router)
+- **Frontend**: Next.js 16 (App Router)
 - **UI Components**: shadcn/ui + Tailwind CSS
 - **Database**: Supabase (PostgreSQL)
 - **Authentication**: Supabase Auth with Google OAuth support
@@ -69,7 +69,7 @@ SUPABASE_SERVICE_ROLE_KEY=your_service_role_key_here
    - Enable Google provider
    - Add your Google Client ID and Client Secret
    - Set redirect URL to: `https://your-project.supabase.co/auth/v1/callback`
-4. Create the following tables in your Supabase database:
+4. Set up the database schema. Schema is managed via Supabase migrations; see `supabase/migrations/`. The SQL below is kept as a legacy reference:
 
 ```sql
 -- Users table (extends Supabase auth.users)
@@ -148,7 +148,7 @@ This project is set up for safe multi-engineer collaboration:
 
 ### For New Developers
 
-See [DEVELOPER_GUIDE.md](./DEVELOPER_GUIDE.md) for complete onboarding instructions.
+See [DOCS_FOR_AI_AGENT/ENVIRONMENT_SETUP.md](./DOCS_FOR_AI_AGENT/ENVIRONMENT_SETUP.md) for environment setup and onboarding instructions.
 
 ### Available Scripts
 

@@ -212,7 +212,7 @@ npm install -g tsx
 ## 📚 Related Documentation
 
 - [Course Structure Setup Guide](../DOCS_FOR_AI_AGENT/COURSE_STRUCTURE_SETUP_GUIDE.md)
-- [Environment Setup Guide](../DOCS_FOR_AI_AGENT/ENVIRONMENT_BASED_DATABASE_SETUP.md)
+- [Environment Setup Guide](../DOCS_FOR_AI_AGENT/ENVIRONMENT_SETUP.md)
 
 ---
 

@@ -135,7 +135,6 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/design-system/components/ui/collapsible";
-// import QuestionBankQueryBuilder from "@/components/QuestionBankQueryBuilder";
 
 /**
  * Question Interface - Represents a single question in the question bank
@@ -1262,17 +1261,9 @@ export default function QuestionBankPage() {
                   <DialogHeader>
                     <DialogTitle>Advanced Query Builder</DialogTitle>
                   </DialogHeader>
-                  {/* Advanced Query Builder Component - Currently Disabled
-                      This would provide complex filtering capabilities
-                      <QuestionBankQueryBuilder
-                        onQueryChange={(query) => {
-                          setAdvancedQuery(query);
-                          setPagination((prev) => ({ ...prev, page: 1 }));
-                        }}
-                        initialQuery={advancedQuery}
-                      /> */}
+                  {/* Advanced Query Builder disabled — see QuestionBankQueryBuilder.tsx to re-enable */}
                   <div className="p-8 text-center text-muted-foreground">
-                    Query Builder temporarily disabled due to build issues
+                    Advanced Query Builder is not yet available.
                   </div>
                 </DialogContent>
               </Dialog>

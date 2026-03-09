@@ -1,6 +1,6 @@
 # Advanced Filter Plugin System
 
-A reusable, plugin-based advanced filtering system for the ShriArya LMS that supports complex logical operations like "difficulty of 9 OR difficulty of not 8".
+A reusable, plugin-based advanced filtering system for the Preppeo LMS that supports complex logical operations like "difficulty of 9 OR difficulty of not 8".
 
 ## 🏗️ Architecture
 
@@ -254,21 +254,6 @@ The plugin automatically handles API requests:
 }
 ```
 
-## 🧪 Testing
-
-Test the advanced filtering with the test endpoint:
-
-```bash
-GET /api/question-bank/test-advanced-filters?test=difficulty-or-not
-```
-
-Available test cases:
-
-- `difficulty-or-not` - Difficulty = 9 OR ≠ 8
-- `range` - Difficulty between 5 and 8
-- `complex` - Multi-field complex logic
-- `pyq-recent` - PYQ from 2020 onwards
-
 ## 🚀 Future Enhancements
 
 1. **Filter Templates** - Save and reuse common filter combinations
@@ -291,4 +276,3 @@ When adding new filter configurations:
 
 - **Question Bank**: `/src/app/question-bank/page.tsx`
 - **Bulk Assignments**: `/src/components/BulkAssignmentManager.tsx`
-- **Test Endpoint**: `/src/app/api/question-bank/test-advanced-filters/route.ts`
