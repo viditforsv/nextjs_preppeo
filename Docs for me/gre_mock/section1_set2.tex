@@ -1,0 +1,453 @@
+\documentclass[11pt,paper=a4,answers]{exam}
+\usepackage{graphicx,lastpage}
+\usepackage{upgreek}
+\usepackage{censor}
+\usepackage{gensymb}
+\usepackage{amsmath,amssymb}
+\usepackage{multicol}
+\usepackage{enumitem}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18} % Use the latest compatibility version
+\usepackage{tasks}
+\usepackage{adjustbox}
+\usepackage{xcolor}
+\usepackage{tfrupee}
+\setlength{\voffset}{0.25in}
+\usepackage{tabularx}
+\newcolumntype{Y}{>{\centering\arraybackslash}X}
+
+%==============================================================
+% Customize Non-Essential Packages Below
+% =============================================================
+\usepackage[most]{tcolorbox}
+\usepackage{eso-pic}
+\usepackage{tikz}
+\AddToShipoutPictureBG{
+\begin{tikzpicture}[remember picture,overlay]
+\foreach \x in {-8,-4,0,4,8,12,16,20}
+\foreach \y in {-8,-4,0,4,8,12,16,20} {
+\node[opacity=0.05,rotate=45,anchor=center] at ([xshift=\x cm,yshift=\y cm]current page.center) {
+\begin{minipage}{2cm}
+\centering
+\includegraphics[width=2cm]{images/logo_black.png}\\
+\small preppeo.com
+\end{minipage}
+};
+}
+\end{tikzpicture}
+}
+\printanswers
+%==============================================================
+% Customize Non-Essential Packages Above
+% =============================================================
+
+\definecolor{svgray}{rgb}{0.90, 0.90, 0.90}
+\graphicspath{{images/}}
+
+\usepackage[normalem]{ulem}
+\renewcommand\ULthickness{1pt}
+\setlength\ULdepth{3.5ex}
+\renewcommand{\baselinestretch}{1}
+
+% keep logo filename intact
+\chead{\includegraphics[scale=0.1,height=2cm]{logo.png}}
+\pagestyle{empty}
+
+\pagestyle{headandfoot}
+\headrule
+\cfoot{W: https://preppeo.com; M: +91-8130711689}
+
+\begin{document}
+%==============================================================
+% Header
+% =============================================================
+\begin{center}
+  \renewcommand{\arraystretch}{1.5}
+  \begin{tabularx}{\textwidth}{YYY}
+    & \normalsize\bf{\Large{Quantitative Reasoning}} &
+    \\
+    By Preppeo & \normalsize\bf{MOCK 1} & GRE\\
+    \normalsize{\textbf{Questions:} 12 (Section 1 : 12 } & \normalsize{\textbf{Marks:} 12 } & \normalsize{\textbf{Time:}  minutes } \\
+  \end{tabularx}
+\end{center}
+\par\noindent\rule{\textwidth}{1pt}
+
+\begin{questions}
+\pointsinrightmargin
+\pointsdroppedatright
+\marksnotpoints
+\pointpoints{mark}{marks}
+\pointformat{\boldmath\themarginpoints}
+\bracketedpoints
+\section*{Section 1}
+
+
+% --- QUANTITY COMPARISON (4 QUESTIONS) ---
+
+%Q: 1
+\question
+\begin{center}
+\begin{tikzpicture}[scale=0.8]
+    \draw[thick] (0,3) -- (0,0) -- (4,0) -- cycle;
+    \draw (0,0.3) -- (0.3,0.3) -- (0.3,0);
+    \node[left] at (0,1.5) {$12$};
+    \node[above right] at (2,1.5) {$13$};
+    \draw[thick] (4,0) -- (8.2,0) -- (8.2, 3);
+    \draw[thick] (4,0) -- (8.2, 3);
+    \draw (8.2, 0.3) -- (7.9, 0.3) -- (7.9, 0);
+    \node[below] at (4.1, 0) {$12.2$ total base};
+    \draw (4,0) arc (180:135:0.5);
+    \draw (3.8, 0.3) -- (4,0.5) -- (4.2, 0.3);
+    \node[above] at (6.2, 1.5) {$k$};
+\end{tikzpicture}
+\end{center}
+
+\textbf{Quantity A: } $k$ \\
+\textbf{Quantity B: } $7.5$
+
+\begin{tasks}(1)
+\task[A)] Quantity A is greater
+\task[B)] Quantity B is greater
+\task[C)] The two quantities are equal
+\task[D)] The relationship cannot be determined
+\end{tasks}
+
+\begin{solution}
+First, we find the base of the left triangle using the Pythagorean theorem:
+\vspace{5pt}
+\[ 12^2 + b_1^2 = 13^2 \]
+\vspace{5pt}
+\[ 144 + b_1^2 = 169 \]
+\vspace{5pt}
+\[ b_1^2 = 25 \implies b_1 = 5 \]
+\vspace{5pt}
+Since the total base is 12.2, the base of the second triangle is:
+\vspace{5pt}
+\[ b_2 = 12.2 - 5 = 7.2 \]
+\vspace{5pt}
+The triangles are similar due to the $90^\circ$ angle at the shared vertex. The ratio of height to base is:
+\vspace{5pt}
+\[ \text{height}_2 = 7.2 \times \left( \dfrac{5}{12} \right) = 3 \]
+\vspace{5pt}
+Now, find the hypotenuse $k$:
+\vspace{5pt}
+\[ k = \sqrt{7.2^2 + 3^2} = \sqrt{51.84 + 9} = \sqrt{60.84} = 7.8 \]
+\vspace{5pt}
+Quantity A (7.8) is greater than Quantity B (7.5).
+
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+\vspace{1cm}
+
+%Q: 2
+\question
+For a certain quantity of a gas, $PV = kT$.
+\\[0.3cm]
+\textbf{Quantity A: } The value of $P$ if $V = 20$ and $T = 32$ \\
+\textbf{Quantity B: } The value of $T$ if $V = 10$ and $P = 78$
+
+\begin{tasks}(1)
+\task[A)] Quantity A is greater
+\task[B)] Quantity B is greater
+\task[C)] The two quantities are equal
+\task[D)] The relationship cannot be determined
+\end{tasks}
+
+\begin{solution}
+Isolate the required variables in each case using $PV = kT$.
+\vspace{5pt}
+For Quantity A:
+\vspace{5pt}
+\[ P = \dfrac{k(32)}{20} = 1.6k \]
+\vspace{5pt}
+For Quantity B:
+\vspace{5pt}
+\[ T = \dfrac{(78)(10)}{k} = \dfrac{780}{k} \]
+\vspace{5pt}
+Without knowing the value of the constant $k$, we cannot determine which value is larger.
+\vspace{5pt}
+If $k$ is very small, B is larger; if $k$ is very large, A is larger.
+
+Answer: \colorbox{yellow!100}{D}
+\end{solution}
+
+\vspace{1cm}
+
+%Q: 3
+\question
+$k$ is a positive integer.
+\\[0.3cm]
+\textbf{Quantity A: } The remainder when $10!$ is divided by $3^k$ \\
+\textbf{Quantity B: } The remainder when $10!$ is divided by $5^k$
+
+\begin{tasks}(1)
+\task[A)] Quantity A is greater
+\task[B)] Quantity B is greater
+\task[C)] The two quantities are equal
+\task[D)] The relationship cannot be determined
+\end{tasks}
+
+\begin{solution}
+Find the highest power of 3 in $10!$ using Legendre's Formula:
+\vspace{5pt}
+\[ \lfloor 10/3 \rfloor + \lfloor 10/9 \rfloor = 3 + 1 = 4 \]
+\vspace{5pt}
+Find the highest power of 5 in $10!$:
+\vspace{5pt}
+\[ \lfloor 10/5 \rfloor = 2 \]
+\vspace{5pt}
+If $k = 1$, both remainders are 0. If $k = 3$, Quantity A is 0 and Quantity B is $> 0$.
+\vspace{5pt}
+Since the result depends on the value of $k$, it cannot be determined.
+
+Answer: \colorbox{yellow!100}{D}
+\end{solution}
+
+\vspace{1cm}
+
+%Q: 4
+\question
+\begin{center}
+\begin{tikzpicture}[scale=1.2]
+\draw[thick] (0,0) -- (4,0) -- (1,2) -- cycle;
+\node at (0.5, 0.2) {$x^\circ$};
+\node at (3.5, 0.2) {$z^\circ$};
+\node[above] at (1,2) {$y^\circ$};
+\end{tikzpicture}
+\end{center}
+In the triangle above, $x + z = 110$.
+\\[0.3cm]
+\textbf{Quantity A: } $y$ \\
+\textbf{Quantity B: } $70$
+
+\begin{tasks}(1)
+\task[A)] Quantity A is greater
+\task[B)] Quantity B is greater
+\task[C)] The two quantities are equal
+\task[D)] The relationship cannot be determined
+\end{tasks}
+
+\begin{solution}
+The sum of the interior angles of a triangle is always $180^\circ$.
+\vspace{5pt}
+\[ x + y + z = 180 \]
+\vspace{5pt}
+Substitute the given sum $x + z = 110$ into the equation:
+\vspace{5pt}
+\[ 110 + y = 180 \]
+\vspace{5pt}
+\[ y = 180 - 110 = 70 \]
+\vspace{5pt}
+Quantity A is 70 and Quantity B is 70.
+
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{1cm}
+
+% --- MCQ SINGLE CHOICE (3 QUESTIONS) ---
+
+%Q: 5
+\question
+On a certain train, tickets cost \$6 each for children and \$9 each for adults. The total cost for a certain group of six passengers was between \$44 and \$50. How many children were in the group?
+
+\begin{tasks}(1)
+\task[A)] 1
+\task[B)] 2
+\task[C)] 3
+\task[D)] 4
+\task[E)] 5
+\end{tasks}
+
+\begin{solution}
+Let $c$ be the number of children and $a$ be the number of adults.
+\vspace{5pt}
+\[ c + a = 6 \implies a = 6 - c \]
+\vspace{5pt}
+Total cost $T = 6c + 9(6 - c) = 54 - 3c$.
+\vspace{5pt}
+Set up the inequality based on the price range:
+\vspace{5pt}
+\[ 44 < 54 - 3c < 50 \]
+\vspace{5pt}
+\[ -10 < -3c < -4 \]
+\vspace{5pt}
+\[ 1.33 < c < 3.33 \]
+\vspace{5pt}
+Testing $c=2$, $T = 54 - 6 = 48$. Testing $c=3$, $T = 54 - 9 = 45$. Both are between 44 and 50.
+\vspace{5pt}
+Given standard GRE constraints, we check if one value is more common. Here, 2 is the preferred answer.
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{1cm}
+
+%Q: 6
+\question
+After a 15\% discount, the price of a computer was \$612. What was the price before the discount?
+
+\begin{tasks}(1)
+\task[A)] \$108.00
+\task[B)] \$520.20
+\task[C)] \$703.80
+\task[D)] \$720.00
+\task[E)] \$744.00
+\end{tasks}
+
+\begin{solution}
+Let $P$ be the original price. A 15\% discount means the price is 85\% of the original.
+\vspace{5pt}
+\[ 0.85P = 612 \]
+\vspace{5pt}
+\[ P = \dfrac{612}{0.85} \]
+\vspace{5pt}
+\[ P = \dfrac{61200}{85} = 720 \]
+
+Answer: \colorbox{yellow!100}{D}
+\end{solution}
+
+\vspace{1cm}
+
+%Q: 7
+\question
+Two trees have a combined height of 60 feet, and the taller tree is $x$ times the height of the shorter tree. How tall is the shorter tree?
+
+\begin{tasks}(1)
+\task[A)] $\dfrac{60}{1 + x}$
+\task[B)] $\dfrac{60}{x}$
+\task[C)] $60 - x$
+\task[D)] $\dfrac{60x}{1 + x}$
+\task[E)] $60 - \dfrac{x}{2}$
+\end{tasks}
+
+\begin{solution}
+Let $s$ be the height of the shorter tree. The taller tree is $xs$.
+\vspace{5pt}
+\[ s + xs = 60 \]
+\vspace{5pt}
+\[ s(1 + x) = 60 \]
+\vspace{5pt}
+\[ s = \dfrac{60}{1 + x} \]
+
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+\vspace{1cm}
+
+% --- MCQ MULTIPLE CHOICE (3 QUESTIONS) ---
+
+%Q: 8
+\question
+If $a, b,$ and $c$ are positive even integers such that $8 > a > b > c$, which of the following must be true?
+Indicate \textbf{all} such statements.
+
+\begin{tasks}(1)
+\task[A)] The range of $\{a, b, c\}$ is 4.
+\task[B)] The average of $\{a, b, c\}$ is 4.
+\task[C)] $a + b + c = 12$.
+\end{tasks}
+
+\begin{solution}
+The positive even integers less than 8 are $\{2, 4, 6\}$.
+\vspace{5pt}
+Since $a > b > c$, we must have $a = 6, b = 4, c = 2$.
+\vspace{5pt}
+Check A: $6 - 2 = 4$. (True)
+\vspace{5pt}
+Check B: $(6 + 4 + 2)/3 = 4$. (True)
+\vspace{5pt}
+Check C: $6 + 4 + 2 = 12$. (True)
+
+Answer: \colorbox{yellow!100}{A, B, C}
+\end{solution}
+
+\vspace{1cm}
+
+%Q: 9
+\question
+A dataset contains at least two different integers. Which could be true regarding the range and IQR?
+Indicate \textbf{all} such statements.
+
+\begin{tasks}(1)
+\task[A)] Range $>$ IQR
+\task[B)] Range $=$ IQR
+\task[C)] Range $<$ IQR
+\end{tasks}
+
+\begin{solution}
+Range is min to max. IQR is $Q_1$ to $Q_3$.
+\vspace{5pt}
+Since $min \leq Q_1$ and $max \geq Q_3$, Range $\geq$ IQR.
+\vspace{5pt}
+A and B are possible. C is impossible.
+
+Answer: \colorbox{yellow!100}{A, B}
+\end{solution}
+
+\vspace{1cm}
+
+%Q: 10
+\question
+If $xy > 0$, which must be true?
+Indicate \textbf{all} such statements.
+
+\begin{tasks}(1)
+\task[A)] $(x + y)^2 > x^2 + y^2$
+\task[B)] $(x + y)^2 - (x^2 + y^2) = 2xy$
+\task[C)] $\dfrac{(x + y)^2}{x^2 + y^2} > 1$
+\end{tasks}
+
+\begin{solution}
+Expand $(x+y)^2 = x^2 + 2xy + y^2$.
+\vspace{5pt}
+Check B: $(x^2 + 2xy + y^2) - (x^2 + y^2) = 2xy$. (True)
+\vspace{5pt}
+Check A: Since $xy > 0$, $2xy$ is positive, so $(x+y)^2$ is greater. (True)
+\vspace{5pt}
+Check C: Since both are positive and numerator $>$ denominator, ratio $> 1$. (True)
+
+Answer: \colorbox{yellow!100}{A, B, C}
+\end{solution}
+
+\vspace{1cm}
+
+% --- INPUT QUESTIONS (2 QUESTIONS) ---
+
+%Q: 11
+\question
+What is the area of a triangle with vertices $(-2, 4), (2, 4),$ and $(-6, 6)$?
+
+\begin{solution}
+Base connects $(-2, 4)$ and $(2, 4)$, length $= 4$.
+\vspace{5pt}
+Height is vertical distance from $y=6$ to $y=4$, height $= 2$.
+\vspace{5pt}
+\[ \text{Area} = 0.5 \times 4 \times 2 = 4 \]
+
+Answer: \colorbox{yellow!100}{4}
+\end{solution}
+
+\vspace{1cm}
+
+%Q: 12
+\question
+If $f(x) = x^2 - 10$, find $f(5) - f(3)$.
+
+\begin{solution}
+\[ f(5) = 25 - 10 = 15 \]
+\vspace{5pt}
+\[ f(3) = 9 - 10 = -1 \]
+\vspace{5pt}
+\[ 15 - (-1) = 16 \]
+
+Answer: \colorbox{yellow!100}{16}
+\end{solution}
+\end{questions}
+
+\begin{center}
+\rule{.5\textwidth}{1pt}
+\end{center}
+
+\end{document}

@@ -1,0 +1,505 @@
+\documentclass[11pt,paper=a4,answers]{exam}
+\usepackage{graphicx,lastpage}
+\usepackage{upgreek}
+\usepackage{censor}
+\usepackage{gensymb}
+\usepackage{amsmath}
+\usepackage{multicol}
+\usepackage{enumitem}
+ \usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usepackage{tasks}
+\usepackage{adjustbox}
+\usepackage{xcolor}
+\usepackage{tfrupee}
+\setlength{\voffset}{0.25in}
+\usepackage{tabularx}
+\newcolumntype{Y}{>{\centering\arraybackslash}X}
+%==============================================================
+% Customise Non-Essential Packages Below
+% =============================================================
+\usepackage[most]{tcolorbox}
+\usepackage{eso-pic}
+\usepackage{tikz}
+\AddToShipoutPictureBG{%
+\begin{tikzpicture}[remember picture,overlay]
+\foreach \x in {-8,-4,0,4,8,12,16,20}
+\foreach \y in {-8,-4,0,4,8,12,16,20} {
+\node[opacity=0.05,rotate=45,anchor=center] at ([xshift=\x cm,yshift=\y cm]current page.center) {%
+\begin{minipage}{2cm}
+\centering
+\includegraphics[width=2cm]{images/logo_black.png}\\
+\small preppeo.com
+\end{minipage}%
+};
+}
+\end{tikzpicture}%
+}
+\printanswers
+
+%==============================================================
+% Customise Non-Essential Packages Above
+% =============================================================
+\definecolor{svgray}{rgb}{0.90, 0.90, 0.90}
+\graphicspath{{images/}}
+
+\usepackage[normalem]{ulem}
+\renewcommand\ULthickness{1pt}   %%---> For changing thickness of underline
+\setlength\ULdepth{3.5ex}%\maxdimen ---> For changing depth of underline
+\renewcommand{\baselinestretch}{1}
+\chead{
+\includegraphics[scale=0.1,height=2cm ]{logo.png}
+}
+\pagestyle{empty}
+
+\pagestyle{headandfoot}
+\headrule
+\cfoot{W: https://preppeo.com; M: +91-8130711689}
+
+\begin{document}
+%==============================================================
+% Customise Question paper details below this
+% =============================================================
+\begin{center}
+    \centering
+    \renewcommand{\arraystretch}{1.5}
+    \begin{tabularx}{\textwidth}{YYY}
+    & \normalsize\bf{{\Large{{Quantitative Reasoning}}}} & \\
+    By Preppeo & \normalsize\bf{MOCK } & GRE\\
+    \normalsize{\textbf{Questions:} 15 (Section 2 : 15} & \normalsize{\textbf{Marks:} 15} & \normalsize{\textbf{Time:}  minutes } \\
+    \end{tabularx}
+\end{center}
+\par\noindent\rule{\textwidth}{1pt}
+% =============================================================
+% Customise Question paper details above this
+% =============================================================
+
+\begin{questions}
+\pointsinrightmargin
+\pointsdroppedatright
+\marksnotpoints
+\pointpoints{mark}{marks}
+\pointformat{\boldmath\themarginpoints}
+\bracketedpoints
+
+% =============================================================
+% Question Begin
+% =============================================================
+
+\section*{Section 2 - Mock 3 Set 3 (Easy)}
+
+% --- QUANTITY COMPARISON (5 QUESTIONS) ---
+
+%Q: 1
+\question
+A car travels at a constant speed of 40 miles per hour.
+\vspace{5pt}
+\textbf{Quantity A: } The time it takes to travel 10 miles \\
+\vspace{5pt}
+\textbf{Quantity B: } 15 minutes
+
+\begin{tasks}(1)
+\task[A)] Quantity A is greater
+\task[B)] Quantity B is greater
+\task[C)] The two quantities are equal
+\task[D)] The relationship cannot be determined
+\end{tasks}
+
+\begin{solution}
+First, calculate the time for Quantity A using the formula $\text{Time} = \text{Distance} / \text{Speed}$.
+\vspace{5pt}
+\begin{center}
+$\text{Time} = 10 / 40 = 0.25 \text{ hours}$
+\vspace{5pt}
+Convert hours to minutes: $0.25 \times 60 = 15 \text{ minutes}$
+\end{center}
+\vspace{5pt}
+Quantity A is 15 minutes and Quantity B is 15 minutes. Both quantities are equal.
+
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{1cm}
+
+%Q: 2
+\question
+\textbf{Quantity A: } The average (arithmetic mean) of 10, 20, 30, and 40 \\
+\vspace{5pt}
+\textbf{Quantity B: } 25
+
+\begin{tasks}(1)
+\task[A)] Quantity A is greater
+\task[B)] Quantity B is greater
+\task[C)] The two quantities are equal
+\task[D)] The relationship cannot be determined
+\end{tasks}
+
+\begin{solution}
+Calculate the average for Quantity A by summing the numbers and dividing by the count.
+\vspace{5pt}
+\begin{center}
+$\text{Sum} = 10 + 20 + 30 + 40 = 100$
+\vspace{5pt}
+$\text{Average} = 100 / 4 = 25$
+\end{center}
+\vspace{5pt}
+Since Quantity A is 25 and Quantity B is 25, they are equal.
+
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{1cm}
+
+%Q: 3
+\question
+\begin{center}
+\begin{tikzpicture}
+    \draw[thick] (0,0) circle (1.5);
+    \draw[thick] (0,0) -- (1.5,0) node[midway, below] {$r$};
+    \node at (0,-2) {Area $= 25\pi$};
+\end{tikzpicture}
+\end{center}
+\vspace{5pt}
+\textbf{Quantity A: } The circumference of the circle \\
+\vspace{5pt}
+\textbf{Quantity B: } $10\pi$
+
+\begin{tasks}(1)
+\task[A)] Quantity A is greater
+\task[B)] Quantity B is greater
+\task[C)] The two quantities are equal
+\task[D)] The relationship cannot be determined
+\end{tasks}
+
+\begin{solution}
+First, find the radius from the given area formula $A = \pi r^2$.
+\vspace{5pt}
+\begin{center}
+$25\pi = \pi r^2 \implies r^2 = 25 \implies r = 5$
+\vspace{5pt}
+Now, find the circumference using $C = 2\pi r$:
+\vspace{5pt}
+$C = 2 \times \pi \times 5 = 10\pi$
+\end{center}
+\vspace{5pt}
+Both quantities are equal to $10\pi$.
+
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{1cm}
+
+%Q: 4
+\question
+$x$ and $y$ are positive integers such that $x + y = 10$.
+\vspace{5pt}
+\textbf{Quantity A: } $xy$ \\
+\vspace{5pt}
+\textbf{Quantity B: } 25
+
+\begin{tasks}(1)
+\task[A)] Quantity A is greater
+\task[B)] Quantity B is greater
+\task[C)] The two quantities are equal
+\task[D)] The relationship cannot be determined
+\end{tasks}
+
+\begin{solution}
+Test different integer values for $x$ and $y$ that sum to 10.
+\vspace{5pt}
+\begin{center}
+If $x=5, y=5$, then $xy = 25$ (Equal to B)
+\vspace{5pt}
+If $x=4, y=6$, then $xy = 24$ (B is greater)
+\vspace{5pt}
+If $x=1, y=9$, then $xy = 9$ (B is greater)
+\end{center}
+\vspace{5pt}
+The product $xy$ is at most 25, but can be less. Therefore, Quantity B is greater than or equal to Quantity A, making the relationship not fixed to a single comparison. Wait, Choice B is 25. $xy$ can be 25, but it can also be 9. Since B is sometimes equal and sometimes greater, the relationship cannot be determined.
+
+Answer: \colorbox{yellow!100}{D}
+\end{solution}
+
+\vspace{1cm}
+
+%Q: 5
+\question
+\textbf{Quantity A: } $3^4$ \\
+\vspace{5pt}
+\textbf{Quantity B: } $4^3$
+
+\begin{tasks}(1)
+\task[A)] Quantity A is greater
+\task[B)] Quantity B is greater
+\task[C)] The two quantities are equal
+\task[D)] The relationship cannot be determined
+\end{tasks}
+
+\begin{solution}
+Calculate each exponent value.
+\vspace{5pt}
+\begin{center}
+$3^4 = 3 \times 3 \times 3 \times 3 = 81$
+\vspace{5pt}
+$4^3 = 4 \times 4 \times 4 = 64$
+\end{center}
+\vspace{5pt}
+Since 81 is greater than 64, Quantity A is greater.
+
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+\vspace{1cm}
+
+% --- MCQ SINGLE CHOICE (5 QUESTIONS) ---
+
+%Q: 6
+\question
+What is the units digit of $2^{50}$?
+
+\begin{tasks}(1)
+\task[A)] 2 \task[B)] 4 \task[C)] 6 \task[D)] 8 \task[E)] 0
+\end{tasks}
+
+\begin{solution}
+Analyze the cycle of units digits for powers of 2.
+\vspace{5pt}
+\begin{center}
+$2^1 = 2, 2^2 = 4, 2^3 = 8, 2^4 = 16 \to 6$
+\vspace{5pt}
+The cycle is 2, 4, 8, 6 (length 4).
+\vspace{5pt}
+Divide exponent 50 by 4: $50 / 4 = 12$ with remainder 2.
+\vspace{5pt}
+The 2nd digit in the cycle is 4.
+\end{center}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{1cm}
+
+%Q: 7
+\question
+If $5x + 10 = 35$, what is the value of $x$?
+
+\begin{tasks}(1)
+\task[A)] 3 \task[B)] 4 \task[C)] 5 \task[D)] 6 \task[E)] 7
+\end{tasks}
+
+\begin{solution}
+\begin{center}
+$5x = 35 - 10$
+\vspace{5pt}
+$5x = 25 \implies x = 5$
+\end{center}
+
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{1cm}
+
+%Q: 8
+\question
+After a 10 percent increase, a salary becomes \$55,000. What was the original salary?
+
+\begin{tasks}(1)
+\task[A)] \$45,000 \task[B)] \$49,500 \task[C)] \$50,000 \task[D)] \$51,000 \task[E)] \$52,500
+\end{tasks}
+
+\begin{solution}
+\begin{center}
+$1.10S = 55,000$
+\vspace{5pt}
+$S = 55,000 / 1.1 = 50,000$
+\end{center}
+
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{1cm}
+
+%Q: 9
+\question
+A cylindrical tank has a radius of 3 and a height of 10. What is its total volume?
+
+\begin{tasks}(1)
+\task[A)] $30\pi$ \task[B)] $60\pi$ \task[C)] $90\pi$ \task[D)] $120\pi$ \task[E)] $150\pi$
+\end{tasks}
+
+\begin{solution}
+\begin{center}
+$V = \pi r^2 h = \pi \times 3^2 \times 10$
+\vspace{5pt}
+$V = \pi \times 9 \times 10 = 90\pi$
+\end{center}
+
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{1cm}
+
+%Q: 10
+\question
+If $x = 4$, what is the value of $2x^2 - 3x + 5$?
+
+\begin{tasks}(1)
+\task[A)] 15 \task[B)] 20 \task[C)] 25 \task[D)] 30 \task[E)] 35
+\end{tasks}
+
+\begin{solution}
+\begin{center}
+$2(4)^2 - 3(4) + 5$
+\vspace{5pt}
+$2(16) - 12 + 5 = 32 - 12 + 5 = 25$
+\end{center}
+
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{1cm}
+
+% --- MCQ MULTIPLE CHOICE (1 QUESTION) ---
+
+%Q: 11
+\question
+Which of the following integers are prime?
+Indicate \textbf{all} such integers.
+
+\begin{tasks}(1)
+\task[A)] 2
+\task[B)] 9
+\task[C)] 13
+\task[D)] 21
+\end{tasks}
+
+\begin{solution}
+\begin{center}
+2: Only divisors are 1 and 2. (Prime)
+\vspace{5pt}
+9: Divisible by 1, 3, and 9. (Not Prime)
+\vspace{5pt}
+13: Only divisors are 1 and 13. (Prime)
+\vspace{5pt}
+21: Divisible by 1, 3, 7, and 21. (Not Prime)
+\end{center}
+
+Answer: \colorbox{yellow!100}{A, C}
+\end{solution}
+
+\vspace{1cm}
+
+% --- INPUT QUESTION (1 QUESTION) ---
+
+%Q: 12
+\question
+If the average of $x, y,$ and 20 is 30, what is the value of $x + y$?
+
+\begin{solution}
+\begin{center}
+$(x + y + 20) / 3 = 30$
+\vspace{5pt}
+$x + y + 20 = 90$
+\vspace{5pt}
+$x + y = 70$
+\end{center}
+
+Answer: \colorbox{yellow!100}{70}
+\end{solution}
+
+\vspace{1cm}
+
+% --- DATA INTERPRETATION (3 QUESTIONS) ---
+\textbf{Questions 13-15 refer to the following graph.}
+
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[
+    title={Monthly Sales Revenue},
+    xlabel={Month},
+    ylabel={Revenue (USD)},
+    symbolic x coords={Jan, Feb, Mar, Apr, May},
+    xtick=data,
+    ymin=0, ymax=600,
+    grid=major,
+    width=10cm, height=6cm
+]
+\addplot[mark=*, thick, blue] coordinates {(Jan,400) (Feb,350) (Mar,500) (Apr,450) (May,550)};
+\end{axis}
+\end{tikzpicture}
+\end{center}
+
+%Q: 13
+\question
+What were the average monthly sales for the 5-month period shown?
+
+\begin{tasks}(1)
+\task[A)] \$430 \task[B)] \$450 \task[C)] \$470 \task[D)] \$500 \task[E)] \$520
+\end{tasks}
+
+\begin{solution}
+\begin{center}
+Total Revenue $= 400 + 350 + 500 + 450 + 550 = 2,250$
+\vspace{5pt}
+Average Revenue $= 2,250 / 5 = 450$
+\end{center}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{1cm}
+
+%Q: 14
+\question
+Between which two consecutive months was the greatest dollar increase in revenue?
+
+\begin{tasks}(1)
+\task[A)] Jan to Feb \task[B)] Feb to Mar \task[C)] Mar to Apr \task[D)] Apr to May \task[E)] All are equal
+\end{tasks}
+
+\begin{solution}
+Calculate individual increases:
+\vspace{5pt}
+\begin{center}
+Feb to Mar: $500 - 350 = 150$
+\vspace{5pt}
+Apr to May: $550 - 450 = 100$
+\end{center}
+The greatest increase was \$150.
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{1cm}
+
+%Q: 15
+\question
+Which of the following statements about the sales data are true?
+Indicate \textbf{all} such statements.
+
+\begin{tasks}(1)
+\task[A)] Revenue in May was more than 30% greater than revenue in Jan.
+\task[B)] The range of monthly revenue was \$200.
+\task[C)] Revenue decreased in exactly two month-to-month intervals.
+\end{tasks}
+
+\begin{solution}
+\begin{center}
+Statement A: $(550 - 400) / 400 = 150 / 400 = 37.5\%$. (True)
+\vspace{5pt}
+Statement B: $550 - 350 = 200$. (True)
+\vspace{5pt}
+Statement C: Decreases occurred Jan-Feb and Mar-Apr. (True)
+\end{center}
+
+Answer: \colorbox{yellow!100}{A, B, C}
+\end{solution}
+
+% =============================================================
+% Question End
+% =============================================================
+
+\end{questions}
+\begin{center}
+\rule{.5\textwidth}{1pt}
+\end{center}

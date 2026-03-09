@@ -8,8 +8,6 @@ import {
   PracticeConfig,
 } from '@/types/gre-test';
 import {
-  getSection1Questions,
-  getSection2Questions,
   getQuestionsByDifficulty,
 } from '@/lib/mock-gre-math-data';
 
@@ -38,6 +36,26 @@ function checkAnswer(
   return String(answer) === String(correct);
 }
 
+async function fetchQuestions(
+  section: number,
+  setNumber: number,
+  difficulty?: DifficultyTier
+): Promise<GREQuestion[]> {
+  const params = new URLSearchParams({
+    section: String(section),
+    set: String(setNumber),
+  });
+  if (difficulty) params.set('difficulty', difficulty);
+
+  const res = await fetch(`/api/gre/questions?${params}`);
+  const data = await res.json();
+
+  if (!res.ok || !data.questions) {
+    throw new Error(data.error || 'Failed to fetch questions');
+  }
+  return data.questions;
+}
+
 // ── State Shape ─────────────────────────────────────────────────────────────
 
 interface GRETestState {
@@ -45,6 +63,7 @@ interface GRETestState {
   mode: 'test' | 'practice' | null;
 
   // Test mode
+  setNumber: number | null;
   section1: GRESection | null;
   section2: GRESection | null;
   currentSectionNumber: 1 | 2;
@@ -70,7 +89,7 @@ interface GRETestState {
 
   // Actions
   goToLanding: () => void;
-  startTestMode: () => void;
+  startTestMode: (setNumber: number) => Promise<void>;
   beginSection: () => void;
   setAnswer: (qId: string, value: string | string[] | null) => void;
   toggleFlag: (qId: string) => void;
@@ -93,6 +112,7 @@ interface GRETestState {
 export const useGRETestStore = create<GRETestState>()((set, get) => ({
   phase: 'landing',
   mode: null,
+  setNumber: null,
   section1: null,
   section2: null,
   currentSectionNumber: 1,
@@ -116,6 +136,7 @@ export const useGRETestStore = create<GRETestState>()((set, get) => ({
     set({
       phase: 'landing',
       mode: null,
+      setNumber: null,
       section1: null,
       section2: null,
       currentSectionNumber: 1,
@@ -136,8 +157,8 @@ export const useGRETestStore = create<GRETestState>()((set, get) => ({
       timerHidden: false,
     }),
 
-  startTestMode: () => {
-    const questions = getSection1Questions();
+  startTestMode: async (setNum: number) => {
+    const questions = await fetchQuestions(1, setNum);
     const section1: GRESection = {
       sectionNumber: 1,
       difficultyTier: 'medium',
@@ -147,6 +168,7 @@ export const useGRETestStore = create<GRETestState>()((set, get) => ({
     set({
       mode: 'test',
       phase: 'section-intro',
+      setNumber: setNum,
       section1,
       section2: null,
       currentSectionNumber: 1,
@@ -182,7 +204,7 @@ export const useGRETestStore = create<GRETestState>()((set, get) => ({
   },
 
   submitSection: () => {
-    const { currentSectionNumber, section1, section2, answers, timeLeft } = get();
+    const { currentSectionNumber, section1, section2, answers, timeLeft, setNumber } = get();
 
     if (currentSectionNumber === 1 && section1) {
       let correct = 0;
@@ -198,21 +220,30 @@ export const useGRETestStore = create<GRETestState>()((set, get) => ({
         timeUsed: SECTION_1_DURATION - timeLeft,
       };
       const tier = scoreToTier(correct);
-      const s2Questions = getSection2Questions(tier);
-      const s2: GRESection = {
-        sectionNumber: 2,
-        difficultyTier: tier,
-        durationSeconds: SECTION_2_DURATION,
-        questions: s2Questions,
-      };
+
       set({
         section1Result: result,
         section2Tier: tier,
-        section2: s2,
         phase: 'between-sections',
         isReviewOpen: false,
         isCalculatorOpen: false,
       });
+
+      if (setNumber) {
+        fetchQuestions(2, setNumber, tier)
+          .then((s2Questions) => {
+            const s2: GRESection = {
+              sectionNumber: 2,
+              difficultyTier: tier,
+              durationSeconds: SECTION_2_DURATION,
+              questions: s2Questions,
+            };
+            set({ section2: s2 });
+          })
+          .catch((err) => {
+            console.error('Failed to fetch Section 2 questions:', err);
+          });
+      }
     } else if (currentSectionNumber === 2 && section2) {
       let correct = 0;
       section2.questions.forEach((q) => {
@@ -254,7 +285,7 @@ export const useGRETestStore = create<GRETestState>()((set, get) => ({
   toggleReview: () => set((s) => ({ isReviewOpen: !s.isReviewOpen })),
   toggleTimerVisibility: () => set((s) => ({ timerHidden: !s.timerHidden })),
 
-  // Practice
+  // Practice (still uses mock data)
   startPracticeMode: (config) => {
     const questions = getQuestionsByDifficulty(config.difficulty, config.questionCount);
     set({

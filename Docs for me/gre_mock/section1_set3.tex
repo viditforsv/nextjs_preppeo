@@ -1,0 +1,486 @@
+\documentclass[11pt,paper=a4,answers]{exam}
+\usepackage{graphicx,lastpage}
+\usepackage{upgreek}
+\usepackage{censor}
+\usepackage{gensymb}
+\usepackage{amsmath,amssymb}
+\usepackage{multicol}
+\usepackage{enumitem}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18} % Use the latest compatibility version
+\usepackage{tasks}
+\usepackage{adjustbox}
+\usepackage{xcolor}
+\usepackage{tfrupee}
+\setlength{\voffset}{0.25in}
+\usepackage{tabularx}
+\newcolumntype{Y}{>{\centering\arraybackslash}X}
+
+%==============================================================
+% Customize Non-Essential Packages Below
+% =============================================================
+\usepackage[most]{tcolorbox}
+\usepackage{eso-pic}
+\usepackage{tikz}
+\AddToShipoutPictureBG{
+\begin{tikzpicture}[remember picture,overlay]
+\foreach \x in {-8,-4,0,4,8,12,16,20}
+\foreach \y in {-8,-4,0,4,8,12,16,20} {
+\node[opacity=0.05,rotate=45,anchor=center] at ([xshift=\x cm,yshift=\y cm]current page.center) {
+\begin{minipage}{2cm}
+\centering
+\includegraphics[width=2cm]{images/logo_black.png}\\
+\small preppeo.com
+\end{minipage}
+};
+}
+\end{tikzpicture}
+}
+\printanswers
+%==============================================================
+% Customize Non-Essential Packages Above
+% =============================================================
+
+\definecolor{svgray}{rgb}{0.90, 0.90, 0.90}
+\graphicspath{{images/}}
+
+\usepackage[normalem]{ulem}
+\renewcommand\ULthickness{1pt}
+\setlength\ULdepth{3.5ex}
+\renewcommand{\baselinestretch}{1}
+
+% keep logo filename intact
+\chead{\includegraphics[scale=0.1,height=2cm]{logo.png}}
+\pagestyle{empty}
+
+\pagestyle{headandfoot}
+\headrule
+\cfoot{W: https://preppeo.com; M: +91-8130711689}
+
+\begin{document}
+%==============================================================
+% Header
+% =============================================================
+\begin{center}
+  \renewcommand{\arraystretch}{1.5}
+  \begin{tabularx}{\textwidth}{YYY}
+    & \normalsize\bf{\Large{Quantitative Reasoning}} &
+    \\
+    By Preppeo & \normalsize\bf{MOCK 1} & GRE\\
+    \normalsize{\textbf{Questions:} 12 (Section 1 : 12 } & \normalsize{\textbf{Marks:} 12 } & \normalsize{\textbf{Time:}  minutes } \\
+  \end{tabularx}
+\end{center}
+\par\noindent\rule{\textwidth}{1pt}
+
+\begin{questions}
+\pointsinrightmargin
+\pointsdroppedatright
+\marksnotpoints
+\pointpoints{mark}{marks}
+\pointformat{\boldmath\themarginpoints}
+\bracketedpoints
+\section*{Section 1}
+
+
+% --- QUANTITY COMPARISON (4 QUESTIONS) ---
+
+%Q: 1
+\question
+In the circle with center $O$, $AC$ is a diameter.
+\begin{center}
+\begin{tikzpicture}[scale=1.5]
+    \draw[thick] (0,0) circle (1);
+    \draw[thick] (0,1) coordinate (A) -- (0,-1) coordinate (C);
+    \draw[thick] (A) -- (0.866, 0.5) coordinate (B) -- (C);
+    \node[above] at (A) {$A$};
+    \node[right] at (B) {$B$};
+    \node[below] at (C) {$C$};
+    \node[left] at (0,0) {$O$};
+    \filldraw (0,0) circle (1pt);
+    \draw (0,-0.7) arc (90:35:0.3);
+    \node at (0.5, -0.6) {$30^\circ$};
+\end{tikzpicture}
+\end{center}
+The circumference of the circle is $18\pi\sqrt{3}$.
+\\[0.3cm]
+\textbf{Quantity A: } The length of segment $AB$ \\
+\textbf{Quantity B: } $9\sqrt{3}$
+
+\begin{tasks}(1)
+\task[A)] Quantity A is greater
+\task[B)] Quantity B is greater
+\task[C)] The two quantities are equal
+\task[D)] The relationship cannot be determined
+\end{tasks}
+
+\begin{solution}
+First, we must determine the radius of the circle using the given circumference formula $C = 2\pi r$.
+\vspace{5pt}
+\[ 18\pi\sqrt{3} = 2\pi r \]
+\vspace{5pt}
+Divide both sides by $2\pi$:
+\vspace{5pt}
+\[ r = \dfrac{18\pi\sqrt{3}}{2\pi} = 9\sqrt{3} \]
+\vspace{5pt}
+The diameter of the circle, which is segment $AC$, is twice the radius:
+\vspace{5pt}
+\[ AC = 2 \times (9\sqrt{3}) = 18\sqrt{3} \]
+\vspace{5pt}
+Since $AC$ is a diameter, $\angle ABC = 90^\circ$ by Thales's Theorem. In right triangle $ABC$, we are given $\angle ACB = 30^\circ$.
+\vspace{5pt}
+In a $30-60-90$ triangle, the side opposite the $30^\circ$ angle is half the hypotenuse:
+\vspace{5pt}
+\[ AB = \dfrac{1}{2} \times AC \]
+\vspace{5pt}
+\[ AB = \dfrac{1}{2} \times (18\sqrt{3}) = 9\sqrt{3} \]
+\vspace{5pt}
+Comparing Quantity A ($9\sqrt{3}$) and Quantity B ($9\sqrt{3}$), they are equal.
+
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{1cm}
+
+%Q: 2
+\question
+$m = 2^{16} \cdot 3^{17} \cdot 4^{18} \cdot 5^{19}$ \\
+$n = 2^{19} \cdot 3^{18} \cdot 4^{17} \cdot 5^{16}$
+\\[0.3cm]
+\textbf{Quantity A: } The number of zeros at the end of $m$ in integer form \\
+\textbf{Quantity B: } The number of zeros at the end of $n$ in integer form
+
+\begin{tasks}(1)
+\task[A)] Quantity A is greater
+\task[B)] Quantity B is greater
+\task[C)] The two quantities are equal
+\task[D)] The relationship cannot be determined
+\end{tasks}
+
+\begin{solution}
+The number of trailing zeros is determined by the number of factors of $10$ ($2 \times 5$).
+\vspace{5pt}
+First, simplify $m$ into prime bases:
+\vspace{5pt}
+\[ m = 2^{16} \cdot 3^{17} \cdot (2^2)^{18} \cdot 5^{19} \]
+\vspace{5pt}
+\[ m = 2^{16} \cdot 3^{17} \cdot 2^{36} \cdot 5^{19} = 2^{52} \cdot 3^{17} \cdot 5^{19} \]
+\vspace{5pt}
+The number of trailing zeros is $\min(52, 19) = 19$.
+\vspace{5pt}
+Now, simplify $n$ into prime bases:
+\vspace{5pt}
+\[ n = 2^{19} \cdot 3^{18} \cdot (2^2)^{17} \cdot 5^{16} \]
+\vspace{5pt}
+\[ n = 2^{19} \cdot 3^{18} \cdot 2^{34} \cdot 5^{16} = 2^{53} \cdot 3^{18} \cdot 5^{16} \]
+\vspace{5pt}
+The number of trailing zeros is $\min(53, 16) = 16$.
+\vspace{5pt}
+Comparing Quantity A (19) to Quantity B (16), Quantity A is larger.
+
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+\vspace{1cm}
+
+%Q: 3
+\question
+$x < 0$
+\\[0.3cm]
+\textbf{Quantity A: } $((25^x)^{-2})^3$ \\
+\textbf{Quantity B: } $((5^{-3})^2)^{-x}$
+
+\begin{tasks}(1)
+\task[A)] Quantity A is greater
+\task[B)] Quantity B is greater
+\task[C)] The two quantities are equal
+\task[D)] The relationship cannot be determined
+\end{tasks}
+
+\begin{solution}
+Simplify Quantity A using exponent rules $(a^m)^n = a^{mn}$:
+\vspace{5pt}
+\[ ((25^x)^{-2})^3 = 25^{-6x} \]
+\vspace{5pt}
+Convert to base 5 ($25 = 5^2$):
+\vspace{5pt}
+\[ (5^2)^{-6x} = 5^{-12x} \]
+\vspace{5pt}
+Now simplify Quantity B:
+\vspace{5pt}
+\[ ((5^{-3})^2)^{-x} = 5^{6x} \]
+\vspace{5pt}
+Since $x < 0$, let $x = -1$.
+\vspace{5pt}
+\[ \text{Quantity A} = 5^{-12(-1)} = 5^{12} \]
+\vspace{5pt}
+\[ \text{Quantity B} = 5^{6(-1)} = 5^{-6} \]
+\vspace{5pt}
+Since $5^{12} > 5^{-6}$, Quantity A is greater.
+
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+\vspace{1cm}
+
+%Q: 4
+\question
+$xy > 0$
+\\[0.3cm]
+\textbf{Quantity A: } $(x + y)^2$ \\
+\textbf{Quantity B: } $x^2 + y^2$
+
+\begin{tasks}(1)
+\task[A)] Quantity A is greater
+\task[B)] Quantity B is greater
+\task[C)] The two quantities are equal
+\task[D)] The relationship cannot be determined
+\end{tasks}
+
+\begin{solution}
+Expand the algebraic expression in Quantity A:
+\vspace{5pt}
+\[ (x + y)^2 = x^2 + 2xy + y^2 \]
+\vspace{5pt}
+We are comparing $x^2 + 2xy + y^2$ to $x^2 + y^2$.
+\vspace{5pt}
+Subtract $x^2 + y^2$ from both sides to simplify the comparison:
+\vspace{5pt}
+\[ 2xy \quad \text{vs} \quad 0 \]
+\vspace{5pt}
+The prompt states $xy > 0$, which means the product of $x$ and $y$ is positive.
+\vspace{5pt}
+Therefore, $2xy$ must be a positive value greater than 0.
+
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+\vspace{1cm}
+
+% --- MCQ SINGLE CHOICE (3 QUESTIONS) ---
+
+%Q: 5
+\question
+In the figure below, $DE$ and $AC$ are parallel lines.
+\begin{center}
+\begin{tikzpicture}[scale=1.2]
+    \draw[thick] (0,0) coordinate (A) -- (2,3) coordinate (B) -- (4,0) coordinate (C) -- cycle;
+    \draw[thick] (0.66, 1) coordinate (D) -- (3.33, 1) coordinate (E);
+    \node[left] at (A) {$A$};
+    \node[above] at (B) {$B$};
+    \node[right] at (C) {$C$};
+    \node[left] at (0.66, 1) {$D$};
+    \node[right] at (3.33, 1) {$E$};
+\end{tikzpicture}
+\end{center}
+If $AC = 12$, $DE = 8$, and $AD = 2$, what is the length of $AB$?
+
+\begin{tasks}(1)
+\task[A)] 2 \task[B)] 3 \task[C)] 4 \task[D)] 5 \task[E)] 6
+\end{tasks}
+
+\begin{solution}
+Since $DE \parallel AC$, triangle $BDE$ is similar to triangle $BAC$.
+\vspace{5pt}
+Set up the ratio of corresponding sides:
+\vspace{5pt}
+\[ \dfrac{DE}{AC} = \dfrac{BD}{BA} \]
+\vspace{5pt}
+\[ \dfrac{8}{12} = \dfrac{BA - AD}{BA} \]
+\vspace{5pt}
+Simplify the ratio and substitute $AD = 2$:
+\vspace{5pt}
+\[ \dfrac{2}{3} = \dfrac{BA - 2}{BA} \]
+\vspace{5pt}
+Cross-multiply to solve for $BA$:
+\vspace{5pt}
+\[ 2BA = 3(BA - 2) \]
+\vspace{5pt}
+\[ 2BA = 3BA - 6 \]
+\vspace{5pt}
+\[ BA = 6 \]
+
+Answer: \colorbox{yellow!100}{E}
+\end{solution}
+
+\vspace{1cm}
+
+%Q: 6
+\question
+A standard connection fee is constant, plus a per-minute charge. A 10-minute call costs \$2.90 and a 16-minute call costs \$4.40. How much does a 13-minute call cost?
+
+\begin{tasks}(1)
+\task[A)] \$3.45 \task[B)] \$3.65 \task[C)] \$3.75 \task[D)] \$3.80 \task[E)] \$3.90
+\end{tasks}
+
+\begin{solution}
+Let $f$ be the connection fee and $r$ be the rate per minute.
+\vspace{5pt}
+\[ f + 10r = 2.90 \]
+\vspace{5pt}
+\[ f + 16r = 4.40 \]
+\vspace{5pt}
+Subtract the first from the second:
+\vspace{5pt}
+\[ 6r = 1.50 \implies r = 0.25 \]
+\vspace{5pt}
+Now find the fee $f$:
+\vspace{5pt}
+\[ f + 10(0.25) = 2.90 \implies f + 2.50 = 2.90 \implies f = 0.40 \]
+\vspace{5pt}
+Calculate the cost for 13 minutes:
+\vspace{5pt}
+\[ \text{Cost} = 0.40 + 13(0.25) = 0.40 + 3.25 = 3.65 \]
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{1cm}
+
+%Q: 7
+\question
+A 200cm by 200cm sheet of paper is cut into 2cm by 10cm rectangles. What is the maximum number of rectangles that can be cut from the sheet?
+
+\begin{tasks}(1)
+\task[A)] 100 \task[B)] 200 \task[C)] 1,000 \task[D)] 2,000 \task[E)] 4,000
+\end{tasks}
+
+\begin{solution}
+First, calculate the total area of the large sheet:
+\vspace{5pt}
+\[ \text{Area}_{sheet} = 200 \times 200 = 40,000 \text{ cm}^2 \]
+\vspace{5pt}
+Next, calculate the area of one small rectangle:
+\vspace{5pt}
+\[ \text{Area}_{rect} = 2 \times 10 = 20 \text{ cm}^2 \]
+\vspace{5pt}
+Divide the total area by the small area:
+\vspace{5pt}
+\[ \text{Number} = \dfrac{40,000}{20} = 2,000 \]
+
+Answer: \colorbox{yellow!100}{D}
+\end{solution}
+
+\vspace{1cm}
+
+% --- MCQ MULTIPLE CHOICE (3 QUESTIONS) ---
+
+%Q: 8
+\question
+If $g(x) = \dfrac{x^2(4x + 9)}{(3x - 3)(x + 2)}$, for which values of $x$ is $g(x)$ undefined?
+Indicate \textbf{all} such values.
+
+\begin{tasks}(1)
+\task[A)] $-9/4$ \task[B)] $-2$ \task[C)] $0$ \task[D)] $1$ \task[E)] $2$
+\end{tasks}
+
+\begin{solution}
+A function is undefined when its denominator equals zero.
+\vspace{5pt}
+\[ (3x - 3)(x + 2) = 0 \]
+\vspace{5pt}
+This occurs at:
+\vspace{5pt}
+\[ 3x - 3 = 0 \implies x = 1 \]
+\vspace{5pt}
+\[ x + 2 = 0 \implies x = -2 \]
+
+Answer: \colorbox{yellow!100}{B, D}
+\end{solution}
+
+\vspace{1cm}
+
+%Q: 9
+\question
+Physicists' salaries cluster around a mean of \$100,000, and biologists' cluster around a mean of \$70,000. Which statements \textbf{could} be true based on overlapping normal distributions?
+Indicate \textbf{all} such statements.
+
+\begin{tasks}(1)
+\task[A)] Some biologists earn more than some physicists.
+\task[B)] Both groups' salaries are normally distributed.
+\task[C)] The standard deviation of biologists is greater than that of physicists.
+\end{tasks}
+
+\begin{solution}
+Statement A: Bell curves for normal distributions have infinite tails; therefore, their distributions overlap, meaning some high-earning biologists can earn more than low-earning physicists. (True)
+\vspace{5pt}
+Statement B: The problem explicitly mentions the groups are "normally distributed." (True)
+\vspace{5pt}
+Statement C: Standard deviation measures spread. One distribution could be wider than the other without changing the mean. (True)
+
+Answer: \colorbox{yellow!100}{A, B, C}
+\end{solution}
+
+\vspace{1cm}
+
+%Q: 10
+\question
+If $x$ is a positive integer, which could be the remainder when $73^x$ is divided by 10?
+Indicate \textbf{all} such remainders.
+
+\begin{tasks}(1)
+\task[A)] 1 \task[B)] 3 \task[C)] 7 \task[D)] 9
+\end{tasks}
+
+\begin{solution}
+Finding the remainder when dividing by 10 is the same as finding the units digit. The units digit of $73^x$ is the same as the units digit of $3^x$.
+\vspace{5pt}
+Analyze the cycle of $3^x$:
+\vspace{5pt}
+\[ 3^1 = 3, \quad 3^2 = 9, \quad 3^3 = 27 (7), \quad 3^4 = 81 (1) \]
+\vspace{5pt}
+The cycle is $\{3, 9, 7, 1\}$. All values are possible.
+
+Answer: \colorbox{yellow!100}{A, B, C, D}
+\end{solution}
+
+\vspace{1cm}
+
+% --- INPUT QUESTIONS (2 QUESTIONS) ---
+
+%Q: 11
+\question
+John bought 5 books for \$12 average. He buys a 6th book for \$18. What is the new average?
+
+\begin{solution}
+Calculate total cost of 5 books:
+\vspace{5pt}
+\[ 5 \times 12 = 60 \]
+\vspace{5pt}
+Add the 6th book:
+\vspace{5pt}
+\[ 60 + 18 = 78 \]
+\vspace{5pt}
+Calculate new average for 6 books:
+\vspace{5pt}
+\[ \text{Average} = \dfrac{78}{6} = 13 \]
+
+Answer: \colorbox{yellow!100}{13}
+\end{solution}
+
+\vspace{1cm}
+
+%Q: 12
+\question
+What is the area of a triangle with vertices $(-2, 4)$, $(2, 4)$, and $(-6, 6)$?
+
+\begin{solution}
+Identify the base using the vertices on the same y-line ($y=4$):
+\vspace{5pt}
+\[ \text{Base} = |2 - (-2)| = 4 \]
+\vspace{5pt}
+Identify the height using the vertical distance from the third point ($y=6$):
+\vspace{5pt}
+\[ \text{Height} = |6 - 4| = 2 \]
+\vspace{5pt}
+\[ \text{Area} = \dfrac{1}{2} \times 4 \times 2 = 4 \]
+
+Answer: \colorbox{yellow!100}{4}
+\end{solution}
+
+\end{questions}
+
+\begin{center}
+\rule{.5\textwidth}{1pt}
+\end{center}
+
+\end{document}

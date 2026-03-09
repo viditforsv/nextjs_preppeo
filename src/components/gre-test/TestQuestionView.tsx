@@ -5,6 +5,7 @@ import { useGRETestStore } from '@/stores/useGRETestStore';
 import QuestionRenderer from './question-types/QuestionRenderer';
 import GRECalculator from './GRECalculator';
 import ReviewScreen from './ReviewScreen';
+import { renderMixedContent } from '@/components/MathRenderer';
 import {
   Clock,
   Flag,
@@ -148,9 +149,11 @@ export default function TestQuestionView() {
 
         {/* Question card */}
         <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-6 mb-6">
-          <div className="mb-5">
-            <p className="text-base text-gray-800 leading-relaxed">{question.prompt}</p>
-          </div>
+          {question.type !== 'quantitative-comparison' && (
+            <div className="mb-5">
+              <div className="text-base text-gray-800 leading-relaxed">{renderMixedContent(question.prompt)}</div>
+            </div>
+          )}
           <QuestionRenderer
             question={question}
             answer={answers[question.id] ?? null}

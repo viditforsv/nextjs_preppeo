@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useGRETestStore } from '@/stores/useGRETestStore';
 import { GREQuestion, SectionResult } from '@/types/gre-test';
 import QuestionRenderer from './question-types/QuestionRenderer';
+import { renderMixedContent } from '@/components/MathRenderer';
 import {
   BarChart3,
   CheckCircle,
@@ -116,7 +117,7 @@ function SectionReview({
                     />
                     <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 text-sm text-blue-800">
                       <p className="font-medium mb-1">Explanation:</p>
-                      <p>{q.explanation}</p>
+                      <div>{renderMixedContent(q.explanation)}</div>
                     </div>
                   </div>
                 )}

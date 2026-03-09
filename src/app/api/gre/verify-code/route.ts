@@ -17,7 +17,7 @@ export async function POST(request: NextRequest) {
 
     const { data, error } = await supabase
       .from('gre_access_codes')
-      .select('code, is_active')
+      .select('code, is_active, set_number')
       .eq('code', code.trim())
       .eq('is_active', true)
       .maybeSingle();
@@ -39,7 +39,7 @@ export async function POST(request: NextRequest) {
       .update({ used_at: new Date().toISOString() })
       .eq('code', data.code);
 
-    return NextResponse.json({ valid: true });
+    return NextResponse.json({ valid: true, setNumber: data.set_number });
   } catch (error) {
     console.error('Error in POST /api/gre/verify-code:', error);
     return NextResponse.json(

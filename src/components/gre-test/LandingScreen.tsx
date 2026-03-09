@@ -17,9 +17,9 @@ export default function LandingScreen() {
     <div className="min-h-screen bg-[#f5f5f0] flex items-center justify-center p-4">
       {showCodeModal && (
         <AccessCodeModal
-          onSuccess={() => {
+          onSuccess={async (setNumber: number) => {
             setShowCodeModal(false);
-            startTestMode();
+            await startTestMode(setNumber);
           }}
           onClose={() => setShowCodeModal(false)}
         />

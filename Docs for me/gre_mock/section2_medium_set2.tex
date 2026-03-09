@@ -1,0 +1,544 @@
+\documentclass[11pt,paper=a4,answers]{exam}
+\usepackage{graphicx,lastpage}
+\usepackage{upgreek}
+\usepackage{censor}
+\usepackage{gensymb}
+\usepackage{amsmath}
+\usepackage{multicol}
+\usepackage{enumitem}
+ \usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usepackage{tasks}
+\usepackage{adjustbox}
+\usepackage{xcolor}
+\usepackage{tfrupee}
+\setlength{\voffset}{0.25in}
+\usepackage{tabularx}
+\newcolumntype{Y}{>{\centering\arraybackslash}X}
+%==============================================================
+% Customise Non-Essential Packages Below
+% =============================================================
+\usepackage[most]{tcolorbox}
+\usepackage{eso-pic}
+\usepackage{tikz}
+\AddToShipoutPictureBG{%
+\begin{tikzpicture}[remember picture,overlay]
+\foreach \x in {-8,-4,0,4,8,12,16,20}
+\foreach \y in {-8,-4,0,4,8,12,16,20} {
+\node[opacity=0.05,rotate=45,anchor=center] at ([xshift=\x cm,yshift=\y cm]current page.center) {%
+\begin{minipage}{2cm}
+\centering
+\includegraphics[width=2cm]{images/logo_black.png}\\
+\small preppeo.com
+\end{minipage}%
+};
+}
+\end{tikzpicture}%
+}
+\printanswers
+
+%==============================================================
+% Customise Non-Essential Packages Above
+% =============================================================
+\definecolor{svgray}{rgb}{0.90, 0.90, 0.90}
+\graphicspath{{images/}}
+
+\usepackage[normalem]{ulem}
+\renewcommand\ULthickness{1pt}   %%---> For changing thickness of underline
+\setlength\ULdepth{3.5ex}%\maxdimen ---> For changing depth of underline
+\renewcommand{\baselinestretch}{1}
+\chead{
+\includegraphics[scale=0.1,height=2cm ]{logo.png}
+}
+\pagestyle{empty}
+
+\pagestyle{headandfoot}
+\headrule
+\cfoot{W: https://preppeo.com; M: +91-8130711689}
+
+\begin{document}
+%==============================================================
+% Customise Question paper details below this
+% =============================================================
+\begin{center}
+    \centering
+    \renewcommand{\arraystretch}{1.5}
+    \begin{tabularx}{\textwidth}{YYY}
+    & \normalsize\bf{{\Large{{Quantitative Reasoning}}}} & \\
+    By Preppeo & \normalsize\bf{MOCK } & GRE\\
+    \normalsize{\textbf{Questions:} 15 (Section 2 : 15} & \normalsize{\textbf{Marks:} 15 } & \normalsize{\textbf{Time:}  minutes } \\
+    \end{tabularx}
+\end{center}
+\par\noindent\rule{\textwidth}{1pt}
+% =============================================================
+% Customise Question paper details above this
+% =============================================================
+
+\begin{questions}
+\pointsinrightmargin
+\pointsdroppedatright
+\marksnotpoints
+\pointpoints{mark}{marks}
+\pointformat{\boldmath\themarginpoints}
+\bracketedpoints
+
+% =============================================================
+% Question Begin
+% =============================================================
+\section*{Section 2 - Mock 5 Set 2 (Medium)}
+
+% --- QUANTITY COMPARISON (5 QUESTIONS) ---
+
+%Q: 1
+\question
+\[ |x|y > x|y| \]
+\vspace{5pt}
+\textbf{Quantity A: } $(x + y)^2$ \\
+\vspace{5pt}
+\textbf{Quantity B: } $(x - y)^2$
+
+\begin{tasks}(1)
+\task[A)] Quantity A is greater
+\task[B)] Quantity B is greater
+\task[C)] The two quantities are equal
+\task[D)] The relationship cannot be determined
+\end{tasks}
+
+\begin{solution}
+First, analyze the given inequality $|x|y > x|y|$. 
+\vspace{5pt}
+\begin{center}
+For $|x|y$ to be strictly greater than $x|y|$, $y$ must be positive. 
+\vspace{5pt}
+If $y$ is positive, we can divide both sides by $y$ to get $|x| > x$. 
+\vspace{5pt}
+This condition $|x| > x$ is only true if $x$ is a negative number. 
+\vspace{5pt}
+Therefore, we have established that $x < 0$ and $y > 0$.
+\end{center}
+\vspace{5pt}
+Now, expand the two quantities:
+\vspace{5pt}
+\begin{center}
+Quantity A: $(x + y)^2 = x^2 + 2xy + y^2$ \\
+\vspace{5pt}
+Quantity B: $(x - y)^2 = x^2 - 2xy + y^2$
+\end{center}
+\vspace{5pt}
+Compare $2xy$ and $-2xy$. Since $x$ is negative and $y$ is positive, their product $xy$ is negative.
+\vspace{5pt}
+This makes $2xy$ negative and $-2xy$ positive. Any positive number is greater than a negative number.
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{1cm}
+
+%Q: 2
+\question
+A dataset of tree heights is normally distributed. One standard deviation below the mean is 15 feet, and one standard deviation above the mean is 21 feet.
+\vspace{5pt}
+\textbf{Quantity A: } The median height of the trees \\
+\vspace{5pt}
+\textbf{Quantity B: } 18 feet
+
+\begin{tasks}(1)
+\task[A)] Quantity A is greater
+\task[B)] Quantity B is greater
+\task[C)] The two quantities are equal
+\task[D)] The relationship cannot be determined
+\end{tasks}
+
+\begin{solution}
+In a perfectly normal distribution, the Mean and the Median are identical.
+\vspace{5pt}
+\begin{center}
+The mean ($\mu$) is exactly halfway between $(\mu - \sigma)$ and $(\mu + \sigma)$.
+\vspace{5pt}
+$\text{Mean} = \dfrac{15 + 21}{2} = \dfrac{36}{2} = 18$
+\end{center}
+\vspace{5pt}
+Since Median = Mean in this distribution, Quantity A is 18.
+
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{1cm}
+
+%Q: 3
+\question
+\begin{center}
+\begin{tikzpicture}[scale=1.5]
+    \draw[thick] (0,0) circle (1);
+    \draw[thick] (0,0) -- (1,0) node[midway, below] {$r$};
+    \draw[thick] (0,0) -- (0.5, 0.866);
+    \draw (0.3,0) arc (0:60:0.3);
+    \node at (0.45, 0.25) {$60^\circ$};
+\end{tikzpicture}
+\end{center}
+In the circle above, the length of the minor arc shown is $4\pi$.
+\vspace{5pt}
+\textbf{Quantity A: } The circumference of the circle \\
+\vspace{5pt}
+\textbf{Quantity B: } $24\pi$
+
+\begin{tasks}(1)
+\task[A)] Quantity A is greater
+\task[B)] Quantity B is greater
+\task[C)] The two quantities are equal
+\task[D)] The relationship cannot be determined
+\end{tasks}
+
+\begin{solution}
+The ratio of an arc length to the total circumference is proportional to the ratio of the central angle to $360^\circ$.
+\vspace{5pt}
+\begin{center}
+$\dfrac{\text{Arc Length}}{\text{Circumference}} = \dfrac{\text{Angle}}{360}$
+\vspace{5pt}
+$\dfrac{4\pi}{C} = \dfrac{60}{360} = \dfrac{1}{6}$
+\vspace{5pt}
+$C = 6 \times 4\pi = 24\pi$
+\end{center}
+\vspace{5pt}
+Quantity A is $24\pi$ and Quantity B is $24\pi$.
+
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{1cm}
+
+%Q: 4
+\question
+$n$ is a positive integer.
+\vspace{5pt}
+\textbf{Quantity A: } $(-1)^{4n} \times (-1)^{202}$ \\
+\vspace{5pt}
+\textbf{Quantity B: } $(3)^3 \times (-5)^5$
+
+\begin{tasks}(1)
+\task[A)] Quantity A is greater
+\task[B)] Quantity B is greater
+\task[C)] The two quantities are equal
+\task[D)] The relationship cannot be determined
+\end{tasks}
+
+\begin{solution}
+Evaluate each quantity by considering the signs of the results.
+\vspace{5pt}
+\begin{center}
+Quantity A: $4n$ is always even, and 202 is even. $(-1)^{\text{even}} = 1$.
+\vspace{5pt}
+$1 \times 1 = 1$ (Positive)
+\vspace{10pt}
+Quantity B: $3^3 = 27$ (Positive). $(-5)^5$ is a negative number raised to an odd power, which is negative.
+\vspace{5pt}
+$\text{Positive} \times \text{Negative} = \text{Negative}$
+\end{center}
+\vspace{5pt}
+Since 1 is greater than any negative number, Quantity A is greater.
+
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+\vspace{1cm}
+
+%Q: 5
+\question
+$xz = 24$ and $yz = 36$, where $z \neq 0$.
+\vspace{5pt}
+\textbf{Quantity A: } $x/y$ \\
+\vspace{5pt}
+\textbf{Quantity B: } $2/3$
+
+\begin{tasks}(1)
+\task[A)] Quantity A is greater
+\task[B)] Quantity B is greater
+\task[C)] The two quantities are equal
+\task[D)] The relationship cannot be determined
+\end{tasks}
+
+\begin{solution}
+Divide the first equation by the second equation to isolate the ratio of $x$ to $y$.
+\vspace{5pt}
+\begin{center}
+$\dfrac{xz}{yz} = \dfrac{24}{36}$
+\vspace{5pt}
+Since $z$ is non-zero, it cancels out:
+\vspace{5pt}
+$\dfrac{x}{y} = \dfrac{24}{36}$
+\vspace{5pt}
+Simplify the fraction by dividing by 12:
+\vspace{5pt}
+$\dfrac{x}{y} = \dfrac{2}{3}$
+\end{center}
+\vspace{5pt}
+Quantity A is equal to Quantity B.
+
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{1cm}
+
+% --- MCQ SINGLE CHOICE (5 QUESTIONS) ---
+
+%Q: 6
+\question
+A contractor has two teams. Team A can pave a road in 12 days, and Team B can pave it in 18 days. If Team A works alone for 2 days and then Team B joins to finish, how many total days does the project take?
+
+\begin{tasks}(1)
+\task[A)] 6 \task[B)] 8 \task[C)] 10 \task[D)] 12 \task[E)] 14
+\end{tasks}
+
+\begin{solution}
+\begin{center}
+Team A rate $= 1/12$. Team B rate $= 1/18$.
+\vspace{5pt}
+Work done by A in 2 days $= 2 \times (1/12) = 1/6$.
+\vspace{5pt}
+Remaining work $= 1 - 1/6 = 5/6$.
+\vspace{5pt}
+Combined rate $= 1/12 + 1/18 = 3/36 + 2/36 = 5/36$.
+\vspace{5pt}
+Time for combined work $= (5/6) / (5/36) = (5/6) \times (36/5) = 6 \text{ days}$.
+\vspace{5pt}
+Total time $= 2 + 6 = 8 \text{ days}$.
+\end{center}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{1cm}
+
+%Q: 7
+\question
+If $x$ is 250 percent greater than 40, $x$ is what percent greater than 70?
+
+\begin{tasks}(1)
+\task[A)] 50% \task[B)] 100% \task[C)] 150% \task[D)] 200% \task[E)] 250%
+\end{tasks}
+
+\begin{solution}
+\begin{center}
+$x = 40 + (2.50 \times 40) = 40 + 100 = 140$
+\vspace{5pt}
+Percent greater than 70 $= \dfrac{140 - 70}{70} \times 100$
+\vspace{5pt}
+$\dfrac{70}{70} \times 100 = 100\%$
+\end{center}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{1cm}
+
+%Q: 8
+\question
+If $f(x) = x^2 + 5$, what is the value of $f(a+b) - f(a-b)$?
+
+\begin{tasks}(1)
+\task[A)] $2b^2 + 10$ \task[B)] $4ab$ \task[C)] $4ab + 10$ \task[D)] $2a^2 + 2b^2$ \task[E)] $0$
+\end{tasks}
+
+\begin{solution}
+\begin{center}
+$f(a+b) = (a+b)^2 + 5 = a^2 + 2ab + b^2 + 5$
+\vspace{5pt}
+$f(a-b) = (a-b)^2 + 5 = a^2 - 2ab + b^2 + 5$
+\vspace{5pt}
+$(a^2 + 2ab + b^2 + 5) - (a^2 - 2ab + b^2 + 5) = 4ab$
+\end{center}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{1cm}
+
+%Q: 9
+\question
+A snack mix contains 3oz pretzels, 1oz chocolate, 2oz nuts, and $x$ oz fruit. What percent of the mix is fruit, by weight?
+
+\begin{tasks}(1)
+\task[A)] $100x / (6+x)$ \task[B)] $x/600$ \task[C)] $100/6x$ \task[D)] $6x/100$ \task[E)] $x / (6+x)$
+\end{tasks}
+
+\begin{solution}
+\begin{center}
+Total weight $= 3 + 1 + 2 + x = 6 + x$
+\vspace{5pt}
+Percent fruit $= \left( \dfrac{\text{fruit weight}}{\text{total weight}} \right) \times 100$
+\vspace{5pt}
+$\text{Percent} = \dfrac{x}{6 + x} \times 100 = \dfrac{100x}{6 + x}$
+\end{center}
+
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+\vspace{1cm}
+
+%Q: 10
+\question
+What is the remainder when $4^{20}$ is divided by 10?
+
+\begin{tasks}(1)
+\task[A)] 0 \task[B)] 2 \task[C)] 4 \task[D)] 6 \task[E)] 8
+\end{tasks}
+
+\begin{solution}
+Dividing by 10 is equivalent to finding the units digit.
+\vspace{5pt}
+\begin{center}
+$4^1 = 4, 4^2 = 16 \to 6, 4^3 = 64 \to 4, 4^4 = 256 \to 6$
+\vspace{5pt}
+The cycle is 4 (odd exponent) and 6 (even exponent).
+\vspace{5pt}
+Since 20 is even, the units digit is 6.
+\end{center}
+
+Answer: \colorbox{yellow!100}{D}
+\end{solution}
+
+\vspace{1cm}
+
+% --- MCQ MULTIPLE CHOICE (1 QUESTION) ---
+
+%Q: 11
+\question
+If $g$ is an integer and $x$ is a prime number, which of the following \textbf{must} be an integer?
+Indicate \textbf{all} such expressions.
+
+\begin{tasks}(1)
+\task[A)] $\dfrac{g^2x + 5gx}{x}$
+\task[B)] $g^2 - \dfrac{x^2}{3}$
+\task[C)] $6(\frac{g}{2}) - 100(\frac{g}{2})^2$
+\end{tasks}
+
+\begin{solution}
+\begin{center}
+A: $\dfrac{x(g^2 + 5g)}{x} = g^2 + 5g$. Since $g$ is integer, this is an integer. (True)
+\vspace{5pt}
+B: If $x=2$, $x^2/3 = 4/3$, not necessarily an integer. (False)
+\vspace{5pt}
+C: $3g - 25g^2$. Since $g$ is integer, this is an integer. (True)
+\end{center}
+
+Answer: \colorbox{yellow!100}{A, C}
+\end{solution}
+
+\vspace{1cm}
+
+% --- INPUT QUESTION (1 QUESTION) ---
+
+%Q: 12
+\question
+Evaluate the following: $\dfrac{(18)(21)(25)}{(14)(15)(9)}$
+
+\begin{solution}
+\begin{center}
+Factor: $\dfrac{(2 \times 9)(3 \times 7)(5 \times 5)}{(2 \times 7)(3 \times 5)(9)}$
+\vspace{5pt}
+Cancel matching terms: $2, 9, 3, 7,$ and one $5$.
+\vspace{5pt}
+Remaining in numerator: 5. Remaining in denominator: 1.
+\end{center}
+
+Answer: \colorbox{yellow!100}{5}
+\end{solution}
+
+\vspace{1cm}
+
+% --- DATA INTERPRETATION (3 QUESTIONS) ---
+\textbf{Questions 13-15 refer to the following scatter plot.}
+
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[
+    title={Fuel Efficiency vs. Weight},
+    xlabel={Weight (lbs)},
+    ylabel={MPG},
+    grid=major,
+    xmin=2000, xmax=5000,
+    ymin=10, ymax=40,
+    width=10cm, height=6cm
+]
+\addplot[only marks, mark=*, blue] coordinates {
+    (2200,38) (2500,34) (2800,30) (3200,28) (3500,24) (4000,20) (4200,18) (4800,14)
+};
+\addplot[thick, red, domain=2000:5000] {-0.0088*x + 56.7};
+\end{axis}
+\end{tikzpicture}
+\end{center}
+
+%Q: 13
+\question
+Based on the trend line, what is the approximate decrease in MPG for every 1,000 lbs increase in weight?
+
+\begin{tasks}(1)
+\task[A)] 5 \task[B)] 9 \task[C)] 12 \task[D)] 15 \task[E)] 20
+\end{tasks}
+
+\begin{solution}
+\begin{center}
+At 3,000 lbs, MPG $\approx 30$. At 4,000 lbs, MPG $\approx 21$.
+\vspace{5pt}
+Decrease $= 30 - 21 = 9$ MPG.
+\end{center}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{1cm}
+
+%Q: 14
+\question
+How many vehicles in the data set weigh more than 3,000 lbs but get more than 20 MPG?
+
+\begin{tasks}(1)
+\task[A)] 1 \task[B)] 2 \task[C)] 3 \task[D)] 4 \task[E)] 5
+\end{tasks}
+
+\begin{solution}
+\begin{center}
+Check points: (3200, 28) and (3500, 24).
+\vspace{5pt}
+Vehicles weighing 4000 lbs or more have MPG $\leq 20$.
+\vspace{5pt}
+Count $= 2$.
+\end{center}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{1cm}
+
+%Q: 15
+\question
+Which of the following statements about the data are true?
+Indicate \textbf{all} such statements.
+
+\begin{tasks}(1)
+\task[A)] There is a negative correlation between weight and fuel efficiency.
+\task[B)] The range of vehicle weight in the sample is 2,600 lbs.
+\task[C)] The lightest vehicle has the highest MPG.
+\end{tasks}
+
+\begin{solution}
+\begin{center}
+A: The slope is downward, indicating negative correlation. (True)
+\vspace{5pt}
+B: Range $= 4800 - 2200 = 2600$ lbs. (True)
+\vspace{5pt}
+C: Point (2200, 38) is both the leftmost and highest. (True)
+\end{center}
+
+Answer: \colorbox{yellow!100}{A, B, C}
+\end{solution}
+
+% =============================================================
+% Question End
+% =============================================================
+
+\end{questions}
+\begin{center}
+\rule{.5\textwidth}{1pt}
+\end{center}
+\end{document}

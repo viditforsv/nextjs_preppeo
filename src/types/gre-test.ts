@@ -80,6 +80,7 @@ export interface GREQuestion {
   correctAnswer: string | string[];
   explanation: string;
   topics?: string[];
+  imageUrl?: string;
 }
 
 // ── Section / Test Structure ────────────────────────────────────────────────

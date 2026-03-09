@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { X, Loader2, KeyRound } from 'lucide-react';
 
 interface AccessCodeModalProps {
-  onSuccess: () => void;
+  onSuccess: (setNumber: number) => void;
   onClose: () => void;
 }
 
@@ -33,7 +33,7 @@ export default function AccessCodeModal({ onSuccess, onClose }: AccessCodeModalP
       const data = await res.json();
 
       if (data.valid) {
-        onSuccess();
+        onSuccess(data.setNumber);
       } else {
         setError(data.message || 'Invalid access code');
       }

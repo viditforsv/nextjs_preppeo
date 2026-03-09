@@ -1,0 +1,506 @@
+\documentclass[11pt,paper=a4,answers]{exam}
+\usepackage{graphicx,lastpage}
+\usepackage{upgreek}
+\usepackage{censor}
+\usepackage{gensymb}
+\usepackage{amsmath}
+\usepackage{multicol}
+\usepackage{enumitem}
+ \usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usepackage{tasks}
+\usepackage{adjustbox}
+\usepackage{xcolor}
+\usepackage{tfrupee}
+\setlength{\voffset}{0.25in}
+\usepackage{tabularx}
+\newcolumntype{Y}{>{\centering\arraybackslash}X}
+%==============================================================
+% Customise Non-Essential Packages Below
+% =============================================================
+\usepackage[most]{tcolorbox}
+\usepackage{eso-pic}
+\usepackage{tikz}
+\AddToShipoutPictureBG{%
+\begin{tikzpicture}[remember picture,overlay]
+\foreach \x in {-8,-4,0,4,8,12,16,20}
+\foreach \y in {-8,-4,0,4,8,12,16,20} {
+\node[opacity=0.05,rotate=45,anchor=center] at ([xshift=\x cm,yshift=\y cm]current page.center) {%
+\begin{minipage}{2cm}
+\centering
+\includegraphics[width=2cm]{images/logo_black.png}\\
+\small preppeo.com
+\end{minipage}%
+};
+}
+\end{tikzpicture}%
+}
+\printanswers
+
+%==============================================================
+% Customise Non-Essential Packages Above
+% =============================================================
+\definecolor{svgray}{rgb}{0.90, 0.90, 0.90}
+\graphicspath{{images/}}
+
+\usepackage[normalem]{ulem}
+\renewcommand\ULthickness{1pt}   %%---> For changing thickness of underline
+\setlength\ULdepth{3.5ex}%\maxdimen ---> For changing depth of underline
+\renewcommand{\baselinestretch}{1}
+\chead{
+\includegraphics[scale=0.1,height=2cm ]{logo.png}
+}
+\pagestyle{empty}
+
+\pagestyle{headandfoot}
+\headrule
+\cfoot{W: https://preppeo.com; M: +91-8130711689}
+
+\begin{document}
+%==============================================================
+% Customise Question paper details below this
+% =============================================================
+\begin{center}
+    \centering
+    \renewcommand{\arraystretch}{1.5}
+    \begin{tabularx}{\textwidth}{YYY}
+    & \normalsize\bf{{\Large{{Quantitative Reasoning}}}} & \\
+    By Preppeo & \normalsize\bf{MOCK } & GRE\\
+    \normalsize{\textbf{Questions:} 15 (Section 2 : 15} & \normalsize{\textbf{Marks:} 15 } & \normalsize{\textbf{Time:}  minutes } \\
+    \end{tabularx}
+\end{center}
+\par\noindent\rule{\textwidth}{1pt}
+% =============================================================
+% Customise Question paper details above this
+% =============================================================
+
+\begin{questions}
+\pointsinrightmargin
+\pointsdroppedatright
+\marksnotpoints
+\pointpoints{mark}{marks}
+\pointformat{\boldmath\themarginpoints}
+\bracketedpoints
+
+% =============================================================
+% Question Begin
+% =============================================================
+
+\section*{Section 2 - Mock 1 Set 1 (Easy)}
+
+% --- QUANTITY COMPARISON (5 QUESTIONS) ---
+
+%Q: 1
+\question
+\textbf{Quantity A: } $2^3 \times 3^2$ \\
+\vspace{5pt}
+\textbf{Quantity B: } $3^3 \times 2^2$
+
+\begin{tasks}(1)
+\task[A)] Quantity A is greater
+\task[B)] Quantity B is greater
+\task[C)] The two quantities are equal
+\task[D)] The relationship cannot be determined
+\end{tasks}
+
+\begin{solution}
+To compare these quantities, we simply perform the arithmetic calculations for each.
+\vspace{5pt}
+\begin{center}
+Quantity A: $2^3 \times 3^2 = 8 \times 9 = 72$
+\vspace{5pt}
+Quantity B: $3^3 \times 2^2 = 27 \times 4 = 108$
+\end{center}
+\vspace{5pt}
+Since 108 is greater than 72, Quantity B is greater.
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{1cm}
+
+%Q: 2
+\question
+$q$ is an odd integer.
+\vspace{5pt}
+\textbf{Quantity A: } $(-1)^q$ \\
+\vspace{5pt}
+\textbf{Quantity B: } $(-1)^q + 1$
+
+\begin{tasks}(1)
+\task[A)] Quantity A is greater
+\task[B)] Quantity B is greater
+\task[C)] The two quantities are equal
+\task[D)] The relationship cannot be determined
+\end{tasks}
+
+\begin{solution}
+We evaluate the expressions based on the properties of negative numbers with odd exponents.
+\vspace{5pt}
+\begin{center}
+Since $q$ is odd, $(-1)^{\text{odd}} = -1$.
+\vspace{5pt}
+Quantity A $= -1$
+\vspace{5pt}
+Quantity B $= -1 + 1 = 0$
+\end{center}
+\vspace{5pt}
+Since 0 is greater than -1, Quantity B is greater.
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{1cm}
+
+%Q: 3
+\question
+The circumference of a circle is $16\pi$.
+\vspace{5pt}\\
+\textbf{Quantity A: } The area of the circle \\
+\vspace{5pt}
+\textbf{Quantity B: } $60\pi$
+
+\begin{tasks}(1)
+\task[A)] Quantity A is greater
+\task[B)] Quantity B is greater
+\task[C)] The two quantities are equal
+\task[D)] The relationship cannot be determined
+\end{tasks}
+
+\begin{solution}
+First, we find the radius ($r$) using the circumference formula $C = 2\pi r$.
+\vspace{5pt}
+\begin{center}
+$16\pi = 2\pi r \implies r = 8$
+\end{center}
+\vspace{5pt}
+Now, calculate the area using $A = \pi r^2$:
+\vspace{5pt}
+\begin{center}
+Area $= \pi \times (8)^2 = 64\pi$
+\end{center}
+\vspace{5pt}
+Quantity A is $64\pi$ and Quantity B is $60\pi$. Quantity A is greater.
+
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+\vspace{1cm}
+
+%Q: 4
+\question
+$xz = 12$ and $yz = 24$, where $z$ is a non-zero integer.
+\vspace{5pt}\\
+\textbf{Quantity A: } $x$ \\
+\vspace{5pt}
+\textbf{Quantity B: } $y$
+
+\begin{tasks}(1)
+\task[A)] Quantity A is greater
+\task[B)] Quantity B is greater
+\task[C)] The two quantities are equal
+\task[D)] The relationship cannot be determined
+\end{tasks}
+
+\begin{solution}
+The relationship depends on the sign of $z$.
+\vspace{5pt}
+\begin{center}
+If $z = 1$, then $x = 12$ and $y = 24$. (B is greater)
+\vspace{5pt}
+If $z = -1$, then $x = -12$ and $y = -24$. (A is greater)
+\end{center}
+\vspace{5pt}
+Because the comparison flips depending on whether $z$ is positive or negative, the relationship cannot be determined.
+
+Answer: \colorbox{yellow!100}{D}
+\end{solution}
+
+\vspace{1cm}
+
+%Q: 5
+\question
+\begin{center}
+\begin{tikzpicture}
+\draw[thick] (0,0) -- (4,0) -- (1,2.5) -- cycle;
+\node at (0.5, 0.2) {$x^\circ$};
+\node at (3.5, 0.2) {$y^\circ$};
+\node[above] at (1,2.5) {$z^\circ$};
+\end{tikzpicture}
+\end{center}
+In the triangle above, the value of $x + y$ is 115.
+\vspace{5pt}\\
+\textbf{Quantity A: } $z$ \\
+\vspace{5pt}
+\textbf{Quantity B: } 65
+
+\begin{tasks}(1)
+\task[A)] Quantity A is greater
+\task[B)] Quantity B is greater
+\task[C)] The two quantities are equal
+\task[D)] The relationship cannot be determined
+\end{tasks}
+
+\begin{solution}
+The sum of interior angles in a triangle is always $180^\circ$.
+\vspace{5pt}
+\begin{center}
+$x + y + z = 180$
+\vspace{5pt}
+$115 + z = 180$
+\vspace{5pt}
+$z = 180 - 115 = 65$
+\end{center}
+\vspace{5pt}
+Quantity A is 65 and Quantity B is 65. They are equal.
+
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{1cm}
+
+% --- MCQ SINGLE CHOICE (5 QUESTIONS) ---
+
+%Q: 6
+\question
+A store owner marked down an item by 20\% and the new price is \$160. What was the original price?
+
+\begin{tasks}(1)
+\task[A)] \$180 \task[B)] \$192 \task[C)] \$200 \task[D)] \$220 \task[E)] \$240
+\end{tasks}
+
+\begin{solution}
+Let $P$ be the original price. A 20\% discount means the current price is 80\% of the original.
+\vspace{5pt}
+\begin{center}
+$0.80P = 160$
+\vspace{5pt}
+$P = \dfrac{160}{0.8} = \dfrac{1600}{8} = 200$
+\end{center}
+
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{1cm}
+
+%Q: 7
+\question
+If $y = 3x - 4$ and $x = 2$, what is the value of $y$?
+
+\begin{tasks}(1)
+\task[A)] 1 \task[B)] 2 \task[C)] 3 \task[D)] 4 \task[E)] 5
+\end{tasks}
+
+\begin{solution}
+Substitute $x = 2$ directly into the equation.
+\vspace{5pt}
+\begin{center}
+$y = 3(2) - 4$
+\vspace{5pt}
+$y = 6 - 4 = 2$
+\end{center}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{1cm}
+
+%Q: 8
+\question
+A machine produces 20 cans per hour. Each box fits 10 cans. If the machine ran for 2 hours, how many boxes are needed to pack all the cans?
+
+\begin{tasks}(1)
+\task[A)] 2 \task[B)] 4 \task[C)] 10 \task[D)] 20 \task[E)] 40
+\end{tasks}
+
+\begin{solution}
+Calculate total production first, then divide by box capacity.
+\vspace{5pt}
+\begin{center}
+Total Cans $= 20 \text{ cans/hr} \times 2 \text{ hours} = 40 \text{ cans}$
+\vspace{5pt}
+Total Boxes $= \dfrac{40 \text{ cans}}{10 \text{ cans/box}} = 4 \text{ boxes}$
+\end{center}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{1cm}
+
+%Q: 9
+\question
+What is the area of a regular hexagon with side length 4?
+
+\begin{tasks}(1)
+\task[A)] $12\sqrt{3}$ \task[B)] $16\sqrt{3}$ \task[C)] $24\sqrt{3}$ \task[D)] $32\sqrt{3}$ \task[E)] $48\sqrt{3}$
+\end{tasks}
+
+\begin{solution}
+Use the area formula for a regular hexagon: $\text{Area} = \dfrac{3\sqrt{3}}{2}s^2$.
+\vspace{5pt}
+\begin{center}
+$\text{Area} = \dfrac{3\sqrt{3}}{2} \times (4)^2$
+\vspace{5pt}
+$\text{Area} = \dfrac{3\sqrt{3}}{2} \times 16 = 24\sqrt{3}$
+\end{center}
+
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{1cm}
+
+%Q: 10
+\question
+In a class of 40 students, 25 are girls. What is the ratio of boys to girls?
+
+\begin{tasks}(1)
+\task[A)] $3 : 5$ \task[B)] $5 : 3$ \task[C)] $3 : 8$ \task[D)] $5 : 8$ \task[E)] $8 : 5$
+\end{tasks}
+
+\begin{solution}
+Find the number of boys, then set up the ratio.
+\vspace{5pt}
+\begin{center}
+Number of Boys $= 40 - 25 = 15$
+\vspace{5pt}
+Ratio Boys : Girls $= 15 : 25$
+\vspace{5pt}
+Dividing both by 5: $3 : 5$
+\end{center}
+
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+\vspace{1cm}
+
+% --- MCQ MULTIPLE CHOICE (1 QUESTION) ---
+
+%Q: 11
+\question
+If $a$ is a prime number and $b$ is an even number, which of the following \textbf{must} be even?
+Indicate \textbf{all} such expressions.
+
+\begin{tasks}(1)
+\task[A)] $ab$
+\task[B)] $a + b$
+\task[C)] $a^b$
+\end{tasks}
+
+\begin{solution}
+Analyze each property based on number types.
+\vspace{5pt}
+\begin{center}
+Statement A: Any number multiplied by an even number is even. (True)
+\vspace{5pt}
+Statement B: If $a=3$ (odd) and $b=2$, sum is 5. (False)
+\vspace{5pt}
+Statement C: If $a=3$ and $b=2$, $3^2 = 9$. (False)
+\end{center}
+Only $ab$ must be even.
+
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+\vspace{1cm}
+
+% --- INPUT QUESTION (1 QUESTION) ---
+
+%Q: 12
+\question
+What is the area of a circle that has a circumference of $12\pi$?
+
+\begin{solution}
+\begin{center}
+$12\pi = 2\pi r \implies r = 6$
+\vspace{5pt}
+Area $= \pi r^2 = \pi \times 6^2 = 36\pi$
+\end{center}
+
+Answer: \colorbox{yellow!100}{$36\pi$}
+\end{solution}
+
+\vspace{1cm}
+
+% --- DATA INTERPRETATION (3 QUESTIONS) ---
+\textbf{Questions 13-15 refer to the following table.}
+\begin{center}
+\begin{tabular}{|l|c|c|}
+\hline
+\textbf{Department} & \textbf{Employees} & \textbf{Avg Salary (\$)} \\
+\hline
+Sales & 40 & 50,000 \\
+Marketing & 25 & 60,000 \\
+Engineering & 35 & 80,000 \\
+\hline
+\end{tabular}
+\end{center}
+
+%Q: 13
+\question
+What is the weighted average salary for all 100 employees?
+
+\begin{tasks}(1)
+\task[A)] \$60,000 \task[B)] \$63,000 \task[C)] \$65,000 \task[D)] \$70,000 \task[E)] \$75,000
+\end{tasks}
+
+\begin{solution}
+\begin{center}
+Total Payroll $= (40 \times 50,000) + (25 \times 60,000) + (35 \times 80,000)$
+\vspace{5pt}
+Total Payroll $= 2,000,000 + 1,500,000 + 2,800,000 = 6,300,000$
+\vspace{5pt}
+Weighted Average $= 6,300,000 / 100 = 63,000$
+\end{center}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{1cm}
+
+%Q: 14
+\question
+Which department has the highest total expenditure on salaries?
+
+\begin{tasks}(1)
+\task[A)] Sales \task[B)] Marketing \task[C)] Engineering \task[D)] Both Sales and Marketing \task[E)] All are equal
+\end{tasks}
+
+\begin{solution}
+\begin{center}
+Sales: \$2,000,000 \\
+Marketing: \$1,500,000 \\
+Engineering: \$2,800,000
+\end{center}
+Engineering has the highest total.
+
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{1cm}
+
+%Q: 15
+\question
+If 5 new employees are hired into Marketing at an average salary of \$60,000 each, what would be the new average salary for the Marketing department?
+
+\begin{solution}
+\begin{center}
+Current Total Marketing $= 25 \times 60,000 = 1,500,000$
+\vspace{5pt}
+New Total Marketing $= 1,500,000 + (5 \times 60,000) = 1,800,000$
+\vspace{5pt}
+New Average $= 1,800,000 / 30 = 60,000$
+\end{center}
+Since the new salaries match the existing average, the average stays the same.
+
+Answer: \colorbox{yellow!100}{60,000}
+\end{solution}
+
+% =============================================================
+% Question End
+% =============================================================
+
+\end{questions}
+\begin{center}
+\rule{.5\textwidth}{1pt}
+\end{center}
+\end{document}

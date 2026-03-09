@@ -175,6 +175,12 @@ export default function SiteAdministrationPage() {
           icon: FileText,
           description: "Manage question types and categories",
         },
+        {
+          name: "GRE Questions QC",
+          href: "/admin/gre-questions-qc",
+          icon: ListChecks,
+          description: "Review all GRE questions as they appear in the test",
+        },
       ],
     },
     {

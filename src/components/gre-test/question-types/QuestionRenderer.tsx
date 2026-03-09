@@ -21,7 +21,8 @@ export default function QuestionRenderer({
   disabled,
   showCorrect,
 }: Props) {
-  switch (question.type) {
+  const questionBody = (() => {
+    switch (question.type) {
     case 'single-choice':
       return (
         <SingleChoiceQuestion
@@ -65,4 +66,22 @@ export default function QuestionRenderer({
     default:
       return <p className="text-red-500">Unknown question type</p>;
   }
+  })();
+
+  return (
+    <div>
+      {question.imageUrl && (
+        <div className="mb-4">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={question.imageUrl}
+            alt="Question diagram"
+            className="max-w-full h-auto rounded-lg border border-gray-200"
+            style={{ maxHeight: 400 }}
+          />
+        </div>
+      )}
+      {questionBody}
+    </div>
+  );
 }

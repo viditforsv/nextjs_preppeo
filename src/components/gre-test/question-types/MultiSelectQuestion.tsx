@@ -1,6 +1,7 @@
 'use client';
 
 import { GREQuestion } from '@/types/gre-test';
+import { renderMixedContent } from '@/components/MathRenderer';
 
 interface Props {
   question: GREQuestion;
@@ -71,7 +72,7 @@ export default function MultiSelectQuestion({
             >
               {isSelected || isCorrect ? '✓' : letter}
             </span>
-            <span className="flex-1 text-gray-800">{opt.text}</span>
+            <span className="flex-1 text-gray-800">{renderMixedContent(opt.text)}</span>
           </div>
         );
       })}

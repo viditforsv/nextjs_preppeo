@@ -3,6 +3,7 @@
 import { useGRETestStore } from '@/stores/useGRETestStore';
 import QuestionRenderer from './question-types/QuestionRenderer';
 import GRECalculator from './GRECalculator';
+import { renderMixedContent } from '@/components/MathRenderer';
 import {
   ChevronLeft,
   ChevronRight,
@@ -95,7 +96,9 @@ export default function PracticeView() {
         </div>
 
         <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-6 mb-4">
-          <p className="text-base text-gray-800 leading-relaxed mb-5">{question.prompt}</p>
+          {question.type !== 'quantitative-comparison' && (
+            <div className="text-base text-gray-800 leading-relaxed mb-5">{renderMixedContent(question.prompt)}</div>
+          )}
           <QuestionRenderer
             question={question}
             answer={answer}
@@ -133,7 +136,7 @@ export default function PracticeView() {
                 {correct ? 'Correct!' : 'Incorrect'}
               </span>
             </div>
-            <p className="text-sm text-gray-700">{question.explanation}</p>
+            <div className="text-sm text-gray-700">{renderMixedContent(question.explanation)}</div>
           </div>
         )}
       </main>

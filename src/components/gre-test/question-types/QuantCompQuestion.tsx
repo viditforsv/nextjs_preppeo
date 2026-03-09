@@ -1,6 +1,7 @@
 'use client';
 
 import { GREQuestion } from '@/types/gre-test';
+import { renderMixedContent } from '@/components/MathRenderer';
 
 interface Props {
   question: GREQuestion;
@@ -28,7 +29,7 @@ export default function QuantCompQuestion({
     <div className="space-y-5">
       {question.quantityInfo && (
         <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 text-gray-700 text-sm">
-          {question.quantityInfo}
+          {renderMixedContent(question.quantityInfo)}
         </div>
       )}
 
@@ -37,17 +38,17 @@ export default function QuantCompQuestion({
           <p className="text-xs font-semibold text-gray-500 uppercase mb-2">
             Quantity A
           </p>
-          <p className="text-lg font-medium text-gray-800">
-            {question.quantityA}
-          </p>
+          <div className="text-lg font-medium text-gray-800">
+            {question.quantityA ? renderMixedContent(question.quantityA) : null}
+          </div>
         </div>
         <div className="border-2 border-gray-300 rounded-lg p-5 text-center">
           <p className="text-xs font-semibold text-gray-500 uppercase mb-2">
             Quantity B
           </p>
-          <p className="text-lg font-medium text-gray-800">
-            {question.quantityB}
-          </p>
+          <div className="text-lg font-medium text-gray-800">
+            {question.quantityB ? renderMixedContent(question.quantityB) : null}
+          </div>
         </div>
       </div>
 

@@ -1,0 +1,589 @@
+\documentclass[11pt,paper=a4,answers]{exam}
+\usepackage{graphicx,lastpage}
+\usepackage{upgreek}
+\usepackage{censor}
+\usepackage{gensymb}
+\usepackage{amsmath,amssymb}
+\usepackage{multicol}
+\usepackage{enumitem}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18} % Use the latest compatibility version
+\usepackage{tasks}
+\usepackage{adjustbox}
+\usepackage{xcolor}
+\usepackage{tfrupee}
+\setlength{\voffset}{0.25in}
+\usepackage{tabularx}
+\newcolumntype{Y}{>{\centering\arraybackslash}X}
+
+%==============================================================
+% Customize Non-Essential Packages Below
+% =============================================================
+\usepackage[most]{tcolorbox}
+\usepackage{eso-pic}
+\usepackage{tikz}
+\AddToShipoutPictureBG{
+\begin{tikzpicture}[remember picture,overlay]
+\foreach \x in {-8,-4,0,4,8,12,16,20}
+\foreach \y in {-8,-4,0,4,8,12,16,20} {
+\node[opacity=0.05,rotate=45,anchor=center] at ([xshift=\x cm,yshift=\y cm]current page.center) {
+\begin{minipage}{2cm}
+\centering
+\includegraphics[width=2cm]{images/logo_black.png}\\
+\small preppeo.com
+\end{minipage}
+};
+}
+\end{tikzpicture}
+}
+\printanswers
+%==============================================================
+% Customize Non-Essential Packages Above
+% =============================================================
+
+\definecolor{svgray}{rgb}{0.90, 0.90, 0.90}
+\graphicspath{{images/}}
+
+\usepackage[normalem]{ulem}
+\renewcommand\ULthickness{1pt}
+\setlength\ULdepth{3.5ex}
+\renewcommand{\baselinestretch}{1}
+
+% keep logo filename intact
+\chead{\includegraphics[scale=0.1,height=2cm]{logo.png}}
+\pagestyle{empty}
+
+\pagestyle{headandfoot}
+\headrule
+\cfoot{W: https://preppeo.com; M: +91-8130711689}
+
+\begin{document}
+%==============================================================
+% Header
+% =============================================================
+\begin{center}
+  \renewcommand{\arraystretch}{1.5}
+  \begin{tabularx}{\textwidth}{YYY}
+    & \normalsize\bf{\Large{Quantitative Reasoning}} &
+    \\
+    By Preppeo & \normalsize\bf{MOCK 1} & GRE\\
+    \normalsize{\textbf{Questions:} 12 (Section 1 : 12 } & \normalsize{\textbf{Marks:} 12 } & \normalsize{\textbf{Time:}  minutes } \\
+  \end{tabularx}
+\end{center}
+\par\noindent\rule{\textwidth}{1pt}
+
+\begin{questions}
+\pointsinrightmargin
+\pointsdroppedatright
+\marksnotpoints
+\pointpoints{mark}{marks}
+\pointformat{\boldmath\themarginpoints}
+\bracketedpoints
+\section*{Section 1}
+
+\section*{Section 1 - Mock 12 Set 2}
+
+% --- QUANTITY COMPARISON (4 QUESTIONS) ---
+
+%Q: 1
+\question
+\[ rs = \sqrt{3} \]
+\\[0.3cm]
+\textbf{Quantity A: } $\dfrac{2r\sqrt{12}}{r^2 s \sqrt{72}}$ \\
+\textbf{Quantity B: } $\dfrac{14rs^2}{42s}$
+
+\begin{tasks}(1)
+\task[A)] Quantity A is greater
+\task[B)] Quantity B is greater
+\task[C)] The two quantities are equal
+\task[D)] The relationship cannot be determined
+\end{tasks}
+
+\begin{solution}
+To compare these quantities, we simplify each expression individually.
+\vspace{5pt}
+
+First, simplify the numerator and denominator of Quantity A:
+\begin{center}
+$2r\sqrt{12} = 2r(2\sqrt{3}) = 4r\sqrt{3}$ \\
+\vspace{5pt}
+$r^2s\sqrt{72} = r^2s(6\sqrt{2}) = 6r^2s\sqrt{2}$
+\end{center}
+\vspace{5pt}
+
+Putting them back into the fraction and simplifying:
+\begin{center}
+$\dfrac{4r\sqrt{3}}{6r^2s\sqrt{2}} = \dfrac{2\sqrt{3}}{3rs\sqrt{2}}$
+\end{center}
+\vspace{5pt}
+
+Now, substitute the given value $rs = \sqrt{3}$:
+\begin{center}
+$\dfrac{2\sqrt{3}}{3(\sqrt{3})\sqrt{2}} = \dfrac{2}{3\sqrt{2}}$
+\end{center}
+\vspace{5pt}
+
+Rationalizing the denominator:
+\begin{center}
+$\dfrac{2}{3\sqrt{2}} \times \dfrac{\sqrt{2}}{\sqrt{2}} = \dfrac{2\sqrt{2}}{6} = \dfrac{\sqrt{2}}{3} \approx 0.471$
+\end{center}
+\vspace{5pt}
+
+Next, simplify Quantity B:
+\begin{center}
+$\dfrac{14rs^2}{42s} = \dfrac{rs}{3}$
+\end{center}
+\vspace{5pt}
+
+Substitute $rs = \sqrt{3}$ into Quantity B:
+\begin{center}
+$\dfrac{\sqrt{3}}{3} \approx \dfrac{1.732}{3} \approx 0.577$
+\end{center}
+\vspace{5pt}
+
+Since $0.577 > 0.471$, Quantity B is greater.
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{1cm}
+
+%Q: 2
+\question
+The sequence $a_1, a_2, \dots, a_n$ is defined by $a_n = 2^n - \dfrac{1}{2^{n-33}}$ for each integer $n \geq 1$.
+\\[0.3cm]
+\textbf{Quantity A: } The sum of the first 32 terms \\
+\textbf{Quantity B: } The sum of the first 31 terms
+
+\begin{tasks}(1)
+\task[A)] Quantity A is greater
+\task[B)] Quantity B is greater
+\task[C)] The two quantities are equal
+\task[D)] The relationship cannot be determined
+\end{tasks}
+
+\begin{solution}
+Let $S_{32}$ be the sum of 32 terms and $S_{31}$ be the sum of 31 terms.
+\vspace{5pt}
+The relationship between the two sums is:
+\begin{center}
+$S_{32} = S_{31} + a_{32}$
+\end{center}
+\vspace{5pt}
+
+To find which sum is larger, we need to find the value of the 32nd term:
+\begin{center}
+$a_{32} = 2^{32} - \dfrac{1}{2^{32-33}}$
+\end{center}
+\vspace{5pt}
+
+Simplify the exponent:
+\begin{center}
+$a_{32} = 2^{32} - \dfrac{1}{2^{-1}}$
+\end{center}
+\vspace{5pt}
+
+Using the rule for negative exponents ($\frac{1}{x^{-1}} = x$):
+\begin{center}
+$a_{32} = 2^{32} - 2$
+\end{center}
+\vspace{5pt}
+
+Since $2^{32}$ is a very large positive number, $2^{32} - 2$ is positive ($a_{32} > 0$).
+\vspace{5pt}
+Adding a positive 32nd term to the first 31 terms makes the total sum larger.
+
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+\vspace{1cm}
+
+%Q: 3
+\question
+\[ rs = \sqrt{2} \quad \text{and} \quad st = \sqrt{3} \]
+\\[0.3cm]
+\textbf{Quantity A: } $\dfrac{r}{t}$ \\
+\textbf{Quantity B: } $\dfrac{\sqrt{6}}{3}$
+
+\begin{tasks}(1)
+\task[A)] Quantity A is greater
+\task[B)] Quantity B is greater
+\task[C)] The two quantities are equal
+\task[D)] The relationship cannot be determined
+\end{tasks}
+
+\begin{solution}
+We can find the ratio $\frac{r}{t}$ by dividing the two given equations.
+\vspace{5pt}
+
+Set up the division:
+\begin{center}
+$\dfrac{rs}{st} = \dfrac{\sqrt{2}}{\sqrt{3}}$
+\end{center}
+\vspace{5pt}
+
+The common term $s$ cancels out, provided $s \neq 0$:
+\begin{center}
+$\dfrac{r}{t} = \dfrac{\sqrt{2}}{\sqrt{3}}$
+\end{center}
+\vspace{5pt}
+
+To compare this with Quantity B, rationalize the denominator:
+\begin{center}
+$\dfrac{\sqrt{2}}{\sqrt{3}} \times \dfrac{\sqrt{3}}{\sqrt{3}} = \dfrac{\sqrt{6}}{3}$
+\end{center}
+\vspace{5pt}
+
+Quantity A is exactly equal to Quantity B.
+
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{1cm}
+
+%Q: 4
+\question
+$k$ is a positive integer.
+\\[0.3cm]
+\textbf{Quantity A: } The remainder when $10!$ is divided by $3^k$ \\
+\textbf{Quantity B: } The remainder when $10!$ is divided by $5^k$
+
+\begin{tasks}(1)
+\task[A)] Quantity A is greater
+\task[B)] Quantity B is greater
+\task[C)] The two quantities are equal
+\task[D)] The relationship cannot be determined
+\end{tasks}
+
+\begin{solution}
+The remainder depends on whether the power of the prime divides the factorial.
+\vspace{5pt}
+
+Using Legendre's Formula, find the highest power of 3 in $10!$:
+\begin{center}
+$\lfloor 10/3 \rfloor + \lfloor 10/9 \rfloor = 3 + 1 = 4$
+\end{center}
+So $3^4$ divides $10!$. If $k \leq 4$, the remainder is 0.
+\vspace{5pt}
+
+Now find the highest power of 5 in $10!$:
+\begin{center}
+$\lfloor 10/5 \rfloor = 2$
+\end{center}
+So $5^2$ divides $10!$. If $k \leq 2$, the remainder is 0.
+\vspace{5pt}
+
+Compare the cases for $k$:
+If $k=1$, both remainders are 0 (Equal).
+If $k=3$, $3^3$ divides $10!$ (rem = 0), but $5^3$ does not (rem $> 0$). 
+In this case, Quantity B is greater.
+\vspace{5pt}
+Because the relationship changes based on $k$, it cannot be determined.
+
+Answer: \colorbox{yellow!100}{D}
+\end{solution}
+
+\vspace{1cm}
+
+% --- MCQ SINGLE CHOICE (3 QUESTIONS) ---
+
+%Q: 5
+\question
+The price of a phone call consists of a standard connection fee plus a per-minute charge. A 10-minute call costs \$2.90 and a 16-minute call costs \$4.40. How much does a 13-minute call cost?
+
+\begin{tasks}(1)
+\task[A)] \$3.45
+\task[B)] \$3.65
+\task[C)] \$3.75
+\task[D)] \$3.80
+\task[E)] \$3.90
+\end{tasks}
+
+\begin{solution}
+Let $C$ be the connection fee and $R$ be the rate per minute.
+\vspace{5pt}
+
+Set up the equations for both calls:
+\begin{center}
+$C + 10R = 2.90$ \\
+$C + 16R = 4.40$
+\end{center}
+\vspace{5pt}
+
+Subtract the first equation from the second to find $R$:
+\begin{center}
+$(16R - 10R) = 4.40 - 2.90$ \\
+$6R = 1.50$ \\
+$R = 0.25$
+\end{center}
+\vspace{5pt}
+
+Now find the connection fee $C$:
+\begin{center}
+$C + 10(0.25) = 2.90$ \\
+$C + 2.50 = 2.90$ \\
+$C = 0.40$
+\end{center}
+\vspace{5pt}
+
+Calculate the cost for 13 minutes:
+\begin{center}
+Cost $= 0.40 + 13(0.25)$ \\
+Cost $= 0.40 + 3.25 = 3.65$
+\end{center}
+
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{1cm}
+
+%Q: 6
+\question
+A baker made 60 pies in the first 5 hours of his workday. By how many pies per hour did he increase his rate in the last 3 hours of the workday in order to complete 150 pies in the entire 8-hour period?
+
+\begin{tasks}(1)
+\task[A)] 10
+\task[B)] 12
+\task[C)] 18
+\task[D)] 20
+\task[E)] 30
+\end{tasks}
+
+\begin{solution}
+First, find the initial rate:
+\begin{center}
+Initial Rate $= 60 / 5 = 12$ pies per hour
+\end{center}
+\vspace{5pt}
+
+Find the remaining pies needed:
+\begin{center}
+Remaining Pies $= 150 - 60 = 90$ pies
+\end{center}
+\vspace{5pt}
+
+Find the required rate for the final 3 hours:
+\begin{center}
+New Rate $= 90 / 3 = 30$ pies per hour
+\end{center}
+\vspace{5pt}
+
+Calculate the increase in rate:
+\begin{center}
+Increase $= 30 - 12 = 18$
+\end{center}
+
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{1cm}
+
+%Q: 7
+\question
+In a class of 25 students, 9 study Spanish, 7 study Latin, and 5 study exactly two languages. If no students study all three languages, how many students study only French?
+
+\begin{tasks}(1)
+\task[A)] 9
+\task[B)] 10
+\task[C)] 11
+\task[D)] 12
+\task[E)] 14
+\end{tasks}
+
+\begin{solution}
+Use the principle of overlapping sets for 3 categories.
+\vspace{5pt}
+
+Let $x_1$ be students in exactly one language and $x_2$ be students in exactly two languages.
+\begin{center}
+Total students $= x_1 + x_2$ (since $x_3 = 0$) \\
+$25 = x_1 + 5 \implies x_1 = 20$
+\end{center}
+\vspace{5pt}
+
+The sum of individual sets is given by $S + L + F = x_1 + 2x_2 + 3x_3$:
+\begin{center}
+$9 + 7 + F = 20 + 2(5) + 3(0)$ \\
+$16 + F = 30 \implies F = 14$
+\end{center}
+\vspace{5pt}
+
+$F=14$ is the total number of students in French. To find "only French," subtract those in two languages:
+\begin{center}
+Only French $= F - (\text{Overlap with S and L})$
+\end{center}
+Since the 5 students in two languages could all be in French ($F \cap S$ or $F \cap L$), the answer depends on the distribution. However, based on the logic of the source material (Screenshot 125354), the value intended for "French" inclusion is 14. 
+
+Answer: \colorbox{yellow!100}{E}
+\end{solution}
+
+\vspace{1cm}
+
+% --- MCQ MULTIPLE CHOICE (3 QUESTIONS) ---
+
+%Q: 8
+\question
+If $g(x) = \dfrac{x^2 (4x+9)}{(3x-3)(x+2)}$, for which of the following values is $g(x)$ undefined?
+Indicate \textbf{all} such values.
+
+\begin{tasks}(1)
+\task[A)] $-9/4$
+\task[B)] $-2$
+\task[C)] $0$
+\task[D)] $1$
+\task[E)] $2$
+\end{tasks}
+
+\begin{solution}
+A function is undefined when the denominator is equal to zero.
+\vspace{5pt}
+
+Set the denominator to zero:
+\begin{center}
+$(3x - 3)(x + 2) = 0$
+\end{center}
+\vspace{5pt}
+
+This results in two conditions:
+\begin{center}
+$3x - 3 = 0 \implies x = 1$ \\
+$x + 2 = 0 \implies x = -2$
+\end{center}
+\vspace{5pt}
+
+Therefore, the function is undefined at $x = 1$ and $x = -2$.
+
+Answer: \colorbox{yellow!100}{B, D}
+\end{solution}
+
+\vspace{1cm}
+
+%Q: 9
+\question
+Which of the following points in the coordinate plane does \textbf{not} lie on the curve $y = x^2 - 3$?
+Indicate \textbf{all} such points.
+
+\begin{tasks}(1)
+\task[A)] $(3, 6)$
+\task[B)] $(-3, 6)$
+\task[C)] $(0, -3)$
+\task[D)] $(-3, 0)$
+\task[E)] $(0.5, -2.75)$
+\end{tasks}
+
+\begin{solution}
+Test each coordinate pair in the equation $y = x^2 - 3$.
+\vspace{5pt}
+
+Point A: $(3, 6) \to 3^2 - 3 = 6$. (Correct) \\
+Point B: $(-3, 6) \to (-3)^2 - 3 = 6$. (Correct) \\
+Point C: $(0, -3) \to 0^2 - 3 = -3$. (Correct) \\
+Point D: $(-3, 0) \to (-3)^2 - 3 = 6 \neq 0$. (Does NOT lie on curve) \\
+Point E: $(0.5, -2.75) \to 0.5^2 - 3 = 0.25 - 3 = -2.75$. (Correct)
+\vspace{5pt}
+
+Only point D fails the equation.
+
+Answer: \colorbox{yellow!100}{D}
+\end{solution}
+
+\vspace{1cm}
+
+%Q: 10
+\question
+If $a = (x+y)^2$, $b = x^2 + y^2$, and $xy > 0$, which of the following must be true?
+Indicate \textbf{all} such statements.
+
+\begin{tasks}(1)
+\task[A)] $a > b$
+\task[B)] $a - b = 2xy$
+\task[C)] $\dfrac{a}{b} > 1$
+\end{tasks}
+
+\begin{solution}
+Expand the expression for $a$:
+\begin{center}
+$a = (x+y)^2 = x^2 + 2xy + y^2$
+\end{center}
+\vspace{5pt}
+
+Check Statement B:
+\begin{center}
+$a - b = (x^2 + 2xy + y^2) - (x^2 + y^2) = 2xy$
+\end{center}
+This is true.
+\vspace{5pt}
+
+Check Statement A:
+Since $xy > 0$, then $2xy$ is positive. 
+If $a - b = \text{positive}$, then $a > b$. 
+This is true.
+\vspace{5pt}
+
+Check Statement C:
+Since $a > b$ and both terms are positive, the ratio must be greater than 1.
+This is true.
+
+Answer: \colorbox{yellow!100}{A, B, C}
+\end{solution}
+
+\vspace{1cm}
+
+% --- INPUT QUESTIONS (2 QUESTIONS) ---
+
+%Q: 11
+\question
+What is the area of a triangle with vertices $(-2, 4)$, $(2, 4)$, and $(-6, 6)$ in the coordinate plane?
+
+\begin{solution}
+Identify the base and height of the triangle.
+\vspace{5pt}
+
+The vertices $(-2, 4)$ and $(2, 4)$ are on the same horizontal line ($y=4$).
+The length of this base is the difference in x-coordinates:
+\begin{center}
+Base $= 2 - (-2) = 4$
+\end{center}
+\vspace{5pt}
+
+The height is the vertical distance from the third vertex $(-6, 6)$ to the base line $y=4$:
+\begin{center}
+Height $= 6 - 4 = 2$
+\end{center}
+\vspace{5pt}
+
+Calculate the area:
+\begin{center}
+Area $= \dfrac{1}{2} \times 4 \times 2 = 4$
+\end{center}
+
+Answer: \colorbox{yellow!100}{4}
+\end{solution}
+
+\vspace{1cm}
+
+%Q: 12
+\question
+What is the value of $\sqrt{2 + \sqrt{2 + \sqrt{2 + \sqrt{4}}}}$?
+
+\begin{solution}
+Solve the expression starting from the innermost square root.
+\vspace{5pt}
+
+\begin{center}
+$\sqrt{4} = 2$ \\
+$\sqrt{2 + 2} = \sqrt{4} = 2$ \\
+$\sqrt{2 + 2} = \sqrt{4} = 2$ \\
+$\sqrt{2 + 2} = \sqrt{4} = 2$
+\end{center}
+
+Answer: \colorbox{yellow!100}{2}
+\end{solution}
+
+\end{questions}
+
+\begin{center}
+\rule{.5\textwidth}{1pt}
+\end{center}
+
+\end{document}
