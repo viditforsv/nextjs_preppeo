@@ -1,10 +1,13 @@
 'use client';
 
+import { useState } from 'react';
 import { useGRETestStore } from '@/stores/useGRETestStore';
 import { Calculator, ClipboardList, BookOpen } from 'lucide-react';
+import AccessCodeModal from './AccessCodeModal';
 
 export default function LandingScreen() {
   const startTestMode = useGRETestStore((s) => s.startTestMode);
+  const [showCodeModal, setShowCodeModal] = useState(false);
 
   const goToPracticeConfig = () => {
     useGRETestStore.setState({ phase: 'practice-config', mode: 'practice' });
@@ -12,6 +15,15 @@ export default function LandingScreen() {
 
   return (
     <div className="min-h-screen bg-[#f5f5f0] flex items-center justify-center p-4">
+      {showCodeModal && (
+        <AccessCodeModal
+          onSuccess={() => {
+            setShowCodeModal(false);
+            startTestMode();
+          }}
+          onClose={() => setShowCodeModal(false)}
+        />
+      )}
       <div className="w-full max-w-3xl">
         {/* Header */}
         <div className="text-center mb-8">
@@ -32,7 +44,7 @@ export default function LandingScreen() {
         <div className="grid md:grid-cols-2 gap-6">
           {/* Test Mode */}
           <button
-            onClick={startTestMode}
+            onClick={() => setShowCodeModal(true)}
             className="group text-left bg-white border-2 border-gray-200 rounded-xl p-6 hover:border-[#1a365d] hover:shadow-lg transition-all"
           >
             <div className="flex items-center gap-3 mb-4">
