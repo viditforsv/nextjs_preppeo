@@ -79,6 +79,7 @@ export function Header() {
           hasDropdown: false,
         },
         { name: "Free Tools", href: "/tools", hasDropdown: false },
+        { name: "Tests", href: "/tests", hasDropdown: false },
         {
           name: "Site Administration",
           href: "/admin/site-administration",
@@ -95,6 +96,7 @@ export function Header() {
           hasDropdown: false,
         },
         { name: "Free Tools", href: "/tools", hasDropdown: false },
+        { name: "Tests", href: "/tests", hasDropdown: false },
         { name: "My Courses", href: "/courses/enrolled", hasDropdown: false },
       ];
     } else {
@@ -107,6 +109,7 @@ export function Header() {
           hasDropdown: false,
         },
         { name: "Free Tools", href: "/tools", hasDropdown: false },
+        { name: "Tests", href: "/tests", hasDropdown: false },
         { name: "About", href: "/about", hasDropdown: false },
       ];
     }
