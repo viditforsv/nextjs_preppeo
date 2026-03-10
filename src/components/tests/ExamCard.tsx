@@ -19,7 +19,7 @@ export default function ExamCard({ exam, freeCode }: ExamCardProps) {
     setTimeout(() => setCopied(false), 2000);
   };
 
-  const isReady = exam.id === 'gre';
+  const isReady = exam.id === 'gre' || exam.id === 'sat';
 
   return (
     <div className="bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-lg transition-shadow">

@@ -46,11 +46,11 @@ const nextConfig: NextConfig = {
             key: "Content-Security-Policy",
             value: [
               "default-src 'self'",
-              "script-src 'self' 'unsafe-eval' 'unsafe-inline' https://checkout.razorpay.com",
+              "script-src 'self' 'unsafe-eval' 'unsafe-inline' https://checkout.razorpay.com https://www.desmos.com",
               "style-src 'self' 'unsafe-inline'",
               "img-src 'self' data: https:",
               "font-src 'self' data:",
-              "connect-src 'self' https://*.supabase.co https://shrividhyaclasses.b-cdn.net https://acrobatservices.adobe.com https://api.razorpay.com",
+              "connect-src 'self' https://*.supabase.co https://shrividhyaclasses.b-cdn.net https://acrobatservices.adobe.com https://api.razorpay.com https://www.desmos.com",
               "frame-src 'self' https: data:",
               "frame-ancestors 'self' https:",
               "object-src 'self' data:",
