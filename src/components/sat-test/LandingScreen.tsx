@@ -1,13 +1,25 @@
 'use client';
 
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { useSATTestStore } from '@/stores/useSATTestStore';
+import { useAuth } from '@/contexts/AuthContext';
 import { ClipboardList, BookOpen, Calculator } from 'lucide-react';
 import AccessCodeModal from './AccessCodeModal';
 
 export default function LandingScreen() {
   const startTestMode = useSATTestStore((s) => s.startTestMode);
   const [showCodeModal, setShowCodeModal] = useState(false);
+  const { user, loading } = useAuth();
+  const router = useRouter();
+
+  const handleStartTest = () => {
+    if (!user && !loading) {
+      router.push('/auth?redirect=/sat-test');
+      return;
+    }
+    setShowCodeModal(true);
+  };
 
   const goToPracticeConfig = () => {
     useSATTestStore.setState({ phase: 'practice-config', mode: 'practice' });
@@ -17,9 +29,9 @@ export default function LandingScreen() {
     <div className="min-h-screen bg-[#f5f5f0] flex items-center justify-center p-4">
       {showCodeModal && (
         <AccessCodeModal
-          onSuccess={async (setNumber: number) => {
+          onSuccess={async (setNumber: number, tokenCode: string) => {
             setShowCodeModal(false);
-            await startTestMode(setNumber);
+            await startTestMode(setNumber, tokenCode);
           }}
           onClose={() => setShowCodeModal(false)}
         />
@@ -44,7 +56,7 @@ export default function LandingScreen() {
         <div className="grid md:grid-cols-2 gap-6">
           {/* Test Mode */}
           <button
-            onClick={() => setShowCodeModal(true)}
+            onClick={handleStartTest}
             className="group text-left bg-white border-2 border-gray-200 rounded-xl p-6 hover:border-[#0d47a1] hover:shadow-lg transition-all"
           >
             <div className="flex items-center gap-3 mb-4">

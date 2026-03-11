@@ -3,6 +3,7 @@ import crypto from 'crypto';
 import { createClient } from '@/lib/supabase/server';
 import { createSupabaseApiClient } from '@/lib/supabase/api-client';
 import { generateBulkTokenCodes } from '@/lib/tokens/generate';
+import { sendTransactionalEmail } from '@/lib/email/send';
 
 export async function POST(request: NextRequest) {
   try {
@@ -144,6 +145,35 @@ export async function POST(request: NextRequest) {
         commission_amount: commissionAmount,
         status: 'pending',
       });
+    }
+
+    // Email tokens to the buyer (non-blocking)
+    if (user.email) {
+      const appUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://courses.preppeo.com';
+      const examLabel = pack.exam_type.toUpperCase();
+      const tokenListHtml = codes
+        .map((c) => `<li style="font-family:monospace;font-size:16px;padding:4px 0">${c}</li>`)
+        .join('');
+
+      sendTransactionalEmail({
+        to: user.email,
+        subject: `Your ${examLabel} Test Access Codes`,
+        htmlBody: `
+          <div style="font-family:sans-serif;max-width:600px;margin:0 auto">
+            <h2 style="color:#0d47a1">Your ${examLabel} Access Codes</h2>
+            <p>Thank you for your purchase! Here are your <strong>${codes.length}</strong> access code${codes.length > 1 ? 's' : ''}:</p>
+            <ul style="list-style:none;padding:0">${tokenListHtml}</ul>
+            <p style="margin-top:16px">
+              <a href="${appUrl}/sat-test" style="display:inline-block;padding:12px 24px;background:#0d47a1;color:#fff;text-decoration:none;border-radius:8px;font-weight:600">
+                Start Your Test
+              </a>
+            </p>
+            <p style="color:#666;font-size:13px;margin-top:24px">
+              You can share these codes with others — each code works once regardless of who uses it.
+            </p>
+          </div>
+        `,
+      }).catch((err) => console.error('Token email failed:', err));
     }
 
     return NextResponse.json({

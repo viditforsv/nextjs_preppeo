@@ -49,6 +49,7 @@ interface SATTestState {
   mode: 'test' | 'practice' | null;
 
   // Test mode
+  tokenCode: string | null;
   setNumber: number | null;
   module1: SATModule | null;
   module2: SATModule | null;
@@ -75,7 +76,7 @@ interface SATTestState {
 
   // Actions
   goToLanding: () => void;
-  startTestMode: (setNumber: number) => Promise<void>;
+  startTestMode: (setNumber: number, tokenCode?: string) => Promise<void>;
   beginModule: () => void;
   setAnswer: (qId: string, value: string | null) => void;
   toggleFlag: (qId: string) => void;
@@ -98,6 +99,7 @@ interface SATTestState {
 const initialState = {
   phase: 'landing' as SATAppPhase,
   mode: null as 'test' | 'practice' | null,
+  tokenCode: null as string | null,
   setNumber: null as number | null,
   module1: null as SATModule | null,
   module2: null as SATModule | null,
@@ -124,7 +126,7 @@ export const useSATTestStore = create<SATTestState>()((set, get) => ({
 
   goToLanding: () => set({ ...initialState }),
 
-  startTestMode: async (setNum: number) => {
+  startTestMode: async (setNum: number, tokenCode?: string) => {
     const questions = await fetchQuestions(1, setNum);
     const mod1: SATModule = {
       moduleNumber: 1,
@@ -135,6 +137,7 @@ export const useSATTestStore = create<SATTestState>()((set, get) => ({
     set({
       mode: 'test',
       phase: 'module-intro',
+      tokenCode: tokenCode ?? null,
       setNumber: setNum,
       module1: mod1,
       module2: null,
@@ -231,6 +234,27 @@ export const useSATTestStore = create<SATTestState>()((set, get) => ({
         isReviewOpen: false,
         isCalculatorOpen: false,
       });
+
+      const { module1Result, tokenCode, setNumber: sn } = get();
+      if (module1Result) {
+        const allAnswers = { ...module1Result.answers, ...result.answers };
+        fetch('/api/sat/attempts', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            tokenCode,
+            setNumber: sn,
+            module1Correct: module1Result.correct,
+            module1Total: module1Result.total,
+            module1TimeUsed: module1Result.timeUsed,
+            module2Tier: result.difficultyTier,
+            module2Correct: result.correct,
+            module2Total: result.total,
+            module2TimeUsed: result.timeUsed,
+            answersJson: allAnswers,
+          }),
+        }).catch((err) => console.error('Failed to persist SAT attempt:', err));
+      }
     }
   },
 
