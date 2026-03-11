@@ -1,61 +1,157 @@
 "use client";
 
-// Removed unused imports
 import { Button } from "@/design-system/components/ui/button";
 import {
   Card,
   CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
 } from "@/design-system/components/ui/card";
 import {
   BookOpen,
-  Award,
-  Clock,
   ArrowRight,
   TrendingUp,
-  Users,
   GraduationCap,
+  ClipboardCheck,
+  Wrench,
+  ExternalLink,
 } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import { createClient } from "@/lib/supabase/client";
-import Image from "next/image";
+import Link from "next/link";
+
+const exams = [
+  {
+    name: "SAT",
+    description: "College admission test covering reading, writing, and math.",
+    gradient: "from-indigo-500 to-indigo-600",
+    testRoute: "/sat-test",
+    courseQuery: "SAT",
+    live: true,
+  },
+  {
+    name: "GRE",
+    description: "Graduate school entrance exam — verbal, quant, and AWA.",
+    gradient: "from-purple-500 to-purple-600",
+    testRoute: "/gre-test",
+    courseQuery: "GRE",
+    live: true,
+  },
+  {
+    name: "Ashoka",
+    description: "Ashoka University aptitude test for undergraduate admissions.",
+    gradient: "from-teal-500 to-teal-600",
+    testRoute: "/ashoka-test",
+    courseQuery: "Ashoka",
+    live: true,
+  },
+  {
+    name: "GMAT",
+    description: "Business school admission test — quant, verbal, and data insights.",
+    gradient: "from-red-500 to-red-600",
+    testRoute: "/gmat-test",
+    courseQuery: "GMAT",
+    live: false,
+  },
+];
+
+function ExamShowcase({ showHeading = true }: { showHeading?: boolean }) {
+  return (
+    <section className="py-16 bg-white">
+      <div className="max-w-6xl mx-auto px-4">
+        {showHeading && (
+          <div className="text-center mb-10">
+            <h2 className="text-3xl font-bold text-foreground mb-3">
+              Explore by Exam
+            </h2>
+            <p className="text-muted-foreground max-w-xl mx-auto">
+              Jump straight into a mock test or browse courses for your target exam.
+            </p>
+          </div>
+        )}
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          {exams.map((exam) => (
+            <Card
+              key={exam.name}
+              className="relative overflow-hidden hover:shadow-lg transition-shadow"
+            >
+              <CardContent className="p-5">
+                <div className="flex items-start justify-between mb-3">
+                  <div
+                    className={`w-10 h-10 rounded-lg bg-linear-to-br ${exam.gradient} flex items-center justify-center`}
+                  >
+                    <GraduationCap className="w-5 h-5 text-white" />
+                  </div>
+                  {exam.live ? (
+                    <span className="text-[11px] font-medium bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full">
+                      Live
+                    </span>
+                  ) : (
+                    <span className="text-[11px] font-medium bg-amber-100 text-amber-700 px-2 py-0.5 rounded-full">
+                      Coming Soon
+                    </span>
+                  )}
+                </div>
+                <h3 className="font-bold text-foreground text-lg mb-1">
+                  {exam.name}
+                </h3>
+                <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
+                  {exam.description}
+                </p>
+                <div className="flex gap-2">
+                  {exam.live ? (
+                    <Link
+                      href={exam.testRoute}
+                      className="flex-1 flex items-center justify-center gap-1.5 py-2 bg-primary text-white text-xs font-semibold rounded-md hover:bg-primary/90 transition-colors"
+                    >
+                      Mock Test <ExternalLink className="w-3 h-3" />
+                    </Link>
+                  ) : (
+                    <span className="flex-1 flex items-center justify-center gap-1.5 py-2 bg-gray-100 text-gray-400 text-xs font-semibold rounded-md cursor-not-allowed">
+                      Coming Soon
+                    </span>
+                  )}
+                  <Link
+                    href={`/courses/discover?curriculum=${exam.courseQuery}`}
+                    className="flex-1 flex items-center justify-center py-2 border border-gray-200 text-xs font-medium text-foreground rounded-md hover:bg-gray-50 transition-colors"
+                  >
+                    Courses
+                  </Link>
+                </div>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
 
 export default function Home() {
   const router = useRouter();
-
-  // Use auth context
   const authContext = useAuth();
   const user = authContext?.user;
   const profile = authContext?.profile;
   const loading = authContext?.loading;
 
-  // Stats state
   const [stats, setStats] = useState({
     enrolledCourses: 0,
-    completedCourses: 0,
-    totalProgress: 0,
+    completedLessons: 0,
+    avgProgress: 0,
     loading: true,
   });
 
   useEffect(() => {
     const fetchStats = async () => {
       if (!user) return;
-
       try {
         const supabase = createClient();
-
-        // Get enrolled courses count
         const { count: enrolledCount } = await supabase
           .from("courses_enrollments")
           .select("*", { count: "exact", head: true })
           .eq("student_id", user.id)
           .eq("is_active", true);
 
-        // Get user progress data
         const { data: progressData } = await supabase
           .from("user_progress")
           .select("is_completed, completion_percentage")
@@ -75,8 +171,8 @@ export default function Home() {
 
         setStats({
           enrolledCourses: enrolledCount || 0,
-          completedCourses: completedCount,
-          totalProgress: avgProgress,
+          completedLessons: completedCount,
+          avgProgress,
           loading: false,
         });
       } catch (error) {
@@ -84,438 +180,297 @@ export default function Home() {
         setStats((prev) => ({ ...prev, loading: false }));
       }
     };
-
     fetchStats();
   }, [user]);
 
-  // Show loading while auth is being determined (with a timeout)
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-primary mx-auto"></div>
-          <p className="mt-4 text-muted-foreground">Loading...</p>
-        </div>
+        <div className="animate-spin rounded-full h-10 w-10 border-2 border-primary border-t-transparent" />
       </div>
     );
   }
 
-  // Show authenticated user content
+  // ── Authenticated ──
   if (user) {
     return (
-      <div className="min-h-screen">
-        {/* Hero Section for Authenticated Users */}
-        <section className="relative bg-gradient-to-br from-white via-green-50 to-emerald-50 py-20 overflow-hidden">
-          {/* Decorative elements */}
-          <div className="absolute top-0 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl"></div>
-          <div className="absolute bottom-0 left-0 w-96 h-96 bg-accent/10 rounded-full blur-3xl"></div>
-
-          <div className="container mx-auto px-4 text-center relative z-10">
-            {/* Subtle Logo */}
-            <div className="mb-6 flex justify-center">
-              <Image
-                src="/images/preppeo logo package/logo_color_wo_bg.png"
-                alt="Preppeo"
-                width={600}
-                height={180}
-                className="w-auto h-36 object-contain opacity-90"
-              />
-            </div>
-
-            <h1 className="text-5xl font-bold text-foreground mb-6">
-              Welcome back,{" "}
-              {profile?.first_name || profile?.full_name || "Student"}!
+      <div className="min-h-screen bg-[#fafaf8]">
+        {/* Compact Hero */}
+        <section className="bg-white border-b border-gray-100">
+          <div className="max-w-6xl mx-auto px-4 py-12">
+            <h1 className="text-3xl font-bold text-foreground mb-2">
+              Welcome back, {profile?.first_name || profile?.full_name || "Student"}
             </h1>
-            <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-              Continue your learning journey with personalized courses and
-              progress tracking.
+            <p className="text-muted-foreground mb-6">
+              Pick up where you left off or start something new.
             </p>
-            <div className="flex gap-4 justify-center flex-wrap">
-              <Button
-                size="lg"
-                className="bg-primary hover:bg-primary/90 text-white shadow-lg"
-                onClick={() => router.push("/courses/enrolled")}
-              >
-                My Courses
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
-              <Button
-                size="lg"
-                variant="outline"
-                className="border-2 border-primary text-primary hover:bg-primary hover:text-white"
-                onClick={() => router.push("/courses/discover")}
-              >
-                Browse Courses
-              </Button>
-            </div>
-          </div>
-        </section>
 
-        {/* Quick Stats */}
-        <section className="py-20 bg-white">
-          <div className="container mx-auto px-4">
-            <div className="text-center mb-12">
-              <h2 className="text-4xl font-bold text-foreground mb-4">
-                Your Learning Progress
-              </h2>
-              <p className="text-lg text-muted-foreground">
-                Track your journey to success
-              </p>
-            </div>
-            {stats.loading ? (
-              <div className="text-center py-12">
-                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
-                <p className="text-muted-foreground">Loading your stats...</p>
-              </div>
-            ) : (
-              <div className="grid md:grid-cols-3 gap-6">
-                <Card className="text-center ">
-                  <CardHeader>
-                    <div className="w-16 h-16 bg-gradient-to-br from-primary to-emerald-600 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
-                      <BookOpen className="w-8 h-8 text-white" />
-                    </div>
-                    <CardTitle className="text-lg">Enrolled Courses</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <CardDescription>
-                      <span className="text-5xl font-bold text-primary">
-                        {stats.enrolledCourses}
-                      </span>
-                    </CardDescription>
-                    <p className="text-sm text-muted-foreground mt-2">
-                      Active enrollments
-                    </p>
-                  </CardContent>
-                </Card>
-
-                <Card className="text-center ">
-                  <CardHeader>
-                    <div className="w-16 h-16 bg-gradient-to-br from-amber-500 to-yellow-500 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
-                      <Award className="w-8 h-8 text-white" />
-                    </div>
-                    <CardTitle className="text-lg">Lessons Completed</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <CardDescription>
-                      <span className="text-5xl font-bold text-amber-600">
-                        {stats.completedCourses}
-                      </span>
-                    </CardDescription>
-                    <p className="text-sm text-muted-foreground mt-2">
-                      Keep learning!
-                    </p>
-                  </CardContent>
-                </Card>
-
-                <Card className="text-center ">
-                  <CardHeader>
-                    <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
-                      <TrendingUp className="w-8 h-8 text-white" />
-                    </div>
-                    <CardTitle className="text-lg">Average Progress</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <CardDescription>
-                      <span className="text-5xl font-bold text-blue-600">
-                        {stats.totalProgress}%
-                      </span>
-                    </CardDescription>
-                    <p className="text-sm text-muted-foreground mt-2">
-                      Overall completion
-                    </p>
-                  </CardContent>
-                </Card>
+            {/* Inline Stats */}
+            {!stats.loading && (
+              <div className="flex flex-wrap gap-6 mb-8">
+                <div className="flex items-center gap-2 text-sm">
+                  <BookOpen className="w-4 h-4 text-primary" />
+                  <span className="font-semibold text-foreground">{stats.enrolledCourses}</span>
+                  <span className="text-muted-foreground">courses enrolled</span>
+                </div>
+                <div className="flex items-center gap-2 text-sm">
+                  <ClipboardCheck className="w-4 h-4 text-emerald-600" />
+                  <span className="font-semibold text-foreground">{stats.completedLessons}</span>
+                  <span className="text-muted-foreground">lessons completed</span>
+                </div>
+                <div className="flex items-center gap-2 text-sm">
+                  <TrendingUp className="w-4 h-4 text-blue-600" />
+                  <span className="font-semibold text-foreground">{stats.avgProgress}%</span>
+                  <span className="text-muted-foreground">avg progress</span>
+                </div>
               </div>
             )}
 
-            {/* Quick Actions */}
-            <div className="mt-12 grid md:grid-cols-2 gap-4 max-w-2xl mx-auto">
+            <div className="flex gap-3 flex-wrap">
               <Button
-                variant="outline"
-                size="lg"
-                className="w-full rounded-sm border-2 border-primary text-primary hover:bg-primary hover:text-white"
+                className="bg-primary hover:bg-primary/90 text-white"
                 onClick={() => router.push("/courses/enrolled")}
               >
-                <BookOpen className="w-5 h-5 mr-2" />
-                View My Courses
+                My Courses
+                <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
               <Button
                 variant="outline"
-                size="lg"
-                className="w-full rounded-sm border-2 border-primary text-primary hover:bg-primary hover:text-white"
-                onClick={() => router.push("/courses/discover")}
+                className="border-primary text-primary hover:bg-primary hover:text-white"
+                onClick={() => router.push("/tests")}
               >
-                <Clock className="w-5 h-5 mr-2" />
-                Discover New Courses
+                Test Hub
               </Button>
             </div>
           </div>
         </section>
 
-        {/* Exam Cards Section */}
-        <section className="py-20 bg-gradient-to-b from-white to-gray-50">
-          <div className="container mx-auto px-4">
-            <div className="text-center mb-12">
-              <h2 className="text-4xl font-bold text-foreground mb-4">
-                Explore by Exam
-              </h2>
-              <p className="text-lg text-muted-foreground">
-                Choose your test and start preparing today
-              </p>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-2xl mx-auto">
-              {[
-                {
-                  name: "SAT",
-                  color: "bg-indigo-500",
-                  gradient: "from-indigo-500 to-indigo-600",
-                },
-                {
-                  name: "GMAT",
-                  color: "bg-red-500",
-                  gradient: "from-red-500 to-red-600",
-                },
-                {
-                  name: "GRE",
-                  color: "bg-purple-500",
-                  gradient: "from-purple-500 to-purple-600",
-                },
-              ].map((board) => (
-                <Card
-                  key={board.name}
-                  className="cursor-pointer "
-                  onClick={() =>
-                    router.push(`/courses/discover?curriculum=${board.name}`)
-                  }
-                >
-                  <CardContent className="p-6 text-center relative">
-                    <div
-                      className={`w-14 h-14 bg-gradient-to-br ${board.gradient} rounded-xl flex items-center justify-center mx-auto mb-4 shadow-lg group-hover:scale-110 transition-transform`}
-                    >
-                      <GraduationCap className="w-7 h-7 text-white" />
+        {/* Quick Actions */}
+        <section className="py-12">
+          <div className="max-w-6xl mx-auto px-4">
+            <div className="grid sm:grid-cols-3 gap-4">
+              <Link href="/courses/enrolled" className="group">
+                <Card className="h-full hover:shadow-md transition-shadow">
+                  <CardContent className="p-6 flex items-start gap-4">
+                    <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
+                      <BookOpen className="w-5 h-5 text-primary" />
                     </div>
-                    <h3 className="font-bold text-foreground text-lg">
-                      {board.name}
-                    </h3>
+                    <div>
+                      <h3 className="font-semibold text-foreground mb-1">My Courses</h3>
+                      <p className="text-sm text-muted-foreground">
+                        Continue your enrolled courses and track progress.
+                      </p>
+                    </div>
                   </CardContent>
                 </Card>
-              ))}
+              </Link>
+              <Link href="/tests" className="group">
+                <Card className="h-full hover:shadow-md transition-shadow">
+                  <CardContent className="p-6 flex items-start gap-4">
+                    <div className="w-10 h-10 rounded-lg bg-emerald-50 flex items-center justify-center shrink-0">
+                      <ClipboardCheck className="w-5 h-5 text-emerald-600" />
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-foreground mb-1">Test Hub</h3>
+                      <p className="text-sm text-muted-foreground">
+                        Take timed mock tests that mirror real exam conditions.
+                      </p>
+                    </div>
+                  </CardContent>
+                </Card>
+              </Link>
+              <Link href="/tools" className="group">
+                <Card className="h-full hover:shadow-md transition-shadow">
+                  <CardContent className="p-6 flex items-start gap-4">
+                    <div className="w-10 h-10 rounded-lg bg-amber-50 flex items-center justify-center shrink-0">
+                      <Wrench className="w-5 h-5 text-amber-600" />
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-foreground mb-1">Free Tools</h3>
+                      <p className="text-sm text-muted-foreground">
+                        Calculators, flashcards, and other study aids.
+                      </p>
+                    </div>
+                  </CardContent>
+                </Card>
+              </Link>
             </div>
           </div>
         </section>
+
+        {/* Exam Showcase */}
+        <ExamShowcase />
       </div>
     );
   }
 
-  // Original content for unauthenticated users
+  // ── Unauthenticated ──
   return (
     <div className="min-h-screen">
-      {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-white via-green-50 to-emerald-50 py-24 overflow-hidden">
-        {/* Decorative elements */}
-        <div className="absolute top-0 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-0 left-0 w-96 h-96 bg-accent/10 rounded-full blur-3xl"></div>
-        
-        <div className="container mx-auto px-4 text-center relative z-10">
-          {/* Logo */}
-          <div className="mb-8 flex justify-center animate-fade-in">
-            <div className="relative group">
-              <Image
-                src="/images/preppeo logo package/logo_color_wo_bg.png"
-                alt="Preppeo Logo"
-                width={1200}
-                height={360}
-                priority
-                className="w-auto h-72 md:h-96 object-contain drop-shadow-2xl"
-              />
-            </div>
-          </div>
-
-          <div className="inline-block mb-4 px-4 py-2 bg-primary/10 rounded-full">
-            <span className="text-primary font-semibold text-sm">
-              🎓 Transform Your Learning Journey
-            </span>
-          </div>
-          <h1 className="text-5xl md:text-6xl font-bold text-foreground mb-6 leading-tight">
-            Welcome to Your Learning Platform
+      {/* Hero */}
+      <section className="bg-linear-to-b from-[#f5f5f0] to-white py-20">
+        <div className="max-w-3xl mx-auto px-4 text-center">
+          <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-5 leading-tight">
+            Ace Your Exams with Adaptive Mock Tests &amp; Expert Courses
           </h1>
-          <p className="text-xl text-muted-foreground mb-10 max-w-2xl mx-auto leading-relaxed">
-            A modern learning management system designed to transform education
-            with interactive courses, real-time collaboration, and personalized
-            learning experiences.
+          <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto leading-relaxed">
+            Timed mock tests that mirror real exam conditions, structured courses
+            built by experts, and free study tools — for SAT, GRE, GMAT, Ashoka,
+            and more.
           </p>
-          <div className="flex gap-4 justify-center flex-wrap">
+          <div className="flex gap-3 justify-center flex-wrap">
             <Button
               size="lg"
-              className="bg-primary hover:bg-primary/90 text-white shadow-lg "
-              onClick={() => router.push("/courses/discover")}
+              className="bg-primary hover:bg-primary/90 text-white"
+              onClick={() => router.push("/tests")}
             >
-              Browse Courses
-              <ArrowRight className="ml-2 h-5 w-5" />
+              Explore Mock Tests
+              <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
             <Button
               size="lg"
               variant="outline"
-              className="border-2 border-primary text-primary hover:bg-primary hover:text-white px-8 py-6 text-lg transition-all"
-              onClick={() => router.push("/auth?tab=signin")}
-            >
-              Sign In
-            </Button>
-          </div>
-        </div>
-      </section>
-
-      {/* Features Section */}
-      <section className="py-20 bg-background">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center text-foreground mb-12">
-            Why Choose Preppeo LMS?
-          </h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <Card className="text-center">
-              <CardHeader>
-                <BookOpen className="w-12 h-12 text-primary mx-auto mb-4" />
-                <CardTitle>Rich Content</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <CardDescription>
-                  Access comprehensive course materials, videos, and interactive
-                  content
-                </CardDescription>
-              </CardContent>
-            </Card>
-
-            <Card className="text-center">
-              <CardHeader>
-                <Users className="w-12 h-12 text-accent mx-auto mb-4" />
-                <CardTitle>Collaborative Learning</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <CardDescription>
-                  Connect with peers and instructors through discussion forums
-                  and live sessions
-                </CardDescription>
-              </CardContent>
-            </Card>
-
-            <Card className="text-center">
-              <CardHeader>
-                <Award className="w-12 h-12 text-primary mx-auto mb-4" />
-                <CardTitle>Progress Tracking</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <CardDescription>
-                  Monitor your learning progress with detailed analytics and
-                  achievements
-                </CardDescription>
-              </CardContent>
-            </Card>
-
-            <Card className="text-center">
-              <CardHeader>
-                <Clock className="w-12 h-12 text-accent mx-auto mb-4" />
-                <CardTitle>Flexible Learning</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <CardDescription>
-                  Learn at your own pace with 24/7 access to course materials
-                </CardDescription>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-      </section>
-
-      {/* Exam Cards Section */}
-      <section className="py-20 bg-gradient-to-b from-white to-gray-50">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-foreground mb-4">
-              Explore by Exam
-            </h2>
-            <p className="text-lg text-muted-foreground">
-              Choose your test and start preparing today
-            </p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-2xl mx-auto">
-            {[
-              {
-                name: "SAT",
-                color: "bg-indigo-500",
-                gradient: "from-indigo-500 to-indigo-600",
-              },
-              {
-                name: "GMAT",
-                color: "bg-red-500",
-                gradient: "from-red-500 to-red-600",
-              },
-              {
-                name: "GRE",
-                color: "bg-purple-500",
-                gradient: "from-purple-500 to-purple-600",
-              },
-            ].map((board) => (
-              <Card
-                key={board.name}
-                className="cursor-pointer "
-                onClick={() =>
-                  router.push(`/courses/discover?curriculum=${board.name}`)
-                }
-              >
-                <CardContent className="p-6 text-center relative">
-                  <div
-                    className={`w-14 h-14 bg-gradient-to-br ${board.gradient} rounded-xl flex items-center justify-center mx-auto mb-4 shadow-lg group-hover:scale-110 transition-transform`}
-                  >
-                    <GraduationCap className="w-7 h-7 text-white" />
-                  </div>
-                  <h3 className="font-bold text-foreground text-lg">
-                    {board.name}
-                  </h3>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="relative py-20 bg-primary overflow-hidden">
-        {/* Decorative pattern */}
-        <div className="absolute inset-0 opacity-10">
-          <div
-            className="absolute top-0 left-0 w-full bottom-8"
-            style={{
-              backgroundImage:
-                "radial-gradient(circle, white 1px, transparent 1px)",
-              backgroundSize: "50px 50px",
-            }}
-          ></div>
-        </div>
-        
-        <div className="container mx-auto px-4 text-center relative z-10">
-          <h2 className="text-4xl font-bold text-white mb-6">
-            Ready to Start Learning?
-          </h2>
-          <p className="text-xl text-white/90 mb-10 max-w-2xl mx-auto">
-            Join thousands of learners who are already transforming their skills
-          </p>
-          <div className="flex gap-4 justify-center">
-            <Button
-              size="lg"
-              className="bg-white hover:bg-gray-100 text-primary shadow-xl px-8 py-6 text-lg font-semibold"
-              onClick={() => router.push("/auth?tab=signup")}
-            >
-              Get Started Free
-              <ArrowRight className="ml-2 h-5 w-5" />
-            </Button>
-            <Button
-              size="lg"
-              className="bg-white/10 backdrop-blur-sm border-2 border-white text-white hover:bg-white hover:text-primary px-8 py-6 text-lg"
+              className="border-primary text-primary hover:bg-primary hover:text-white"
               onClick={() => router.push("/courses/discover")}
             >
               Browse Courses
             </Button>
           </div>
+        </div>
+      </section>
+
+      {/* Exam Showcase */}
+      <ExamShowcase />
+
+      {/* Three Pillars — What We Offer */}
+      <section className="py-16 bg-[#fafaf8]">
+        <div className="max-w-6xl mx-auto px-4">
+          <div className="text-center mb-10">
+            <h2 className="text-3xl font-bold text-foreground mb-3">
+              What We Offer
+            </h2>
+            <p className="text-muted-foreground max-w-xl mx-auto">
+              Everything you need to prepare — in one place.
+            </p>
+          </div>
+          <div className="grid md:grid-cols-3 gap-6">
+            <Card className="text-center hover:shadow-md transition-shadow">
+              <CardContent className="p-8">
+                <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mx-auto mb-4">
+                  <ClipboardCheck className="w-6 h-6 text-primary" />
+                </div>
+                <h3 className="font-bold text-foreground text-lg mb-2">Mock Tests</h3>
+                <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
+                  Timed, section-adaptive tests that replicate the real exam experience.
+                  Get detailed score breakdowns after every attempt.
+                </p>
+                <Link
+                  href="/tests"
+                  className="text-sm font-medium text-primary hover:underline inline-flex items-center gap-1"
+                >
+                  Go to Test Hub <ArrowRight className="w-3.5 h-3.5" />
+                </Link>
+              </CardContent>
+            </Card>
+
+            <Card className="text-center hover:shadow-md transition-shadow">
+              <CardContent className="p-8">
+                <div className="w-12 h-12 rounded-xl bg-emerald-50 flex items-center justify-center mx-auto mb-4">
+                  <BookOpen className="w-6 h-6 text-emerald-600" />
+                </div>
+                <h3 className="font-bold text-foreground text-lg mb-2">Courses</h3>
+                <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
+                  Structured, expert-curated courses with progress tracking, quizzes,
+                  and assignments to build deep understanding.
+                </p>
+                <Link
+                  href="/courses/discover"
+                  className="text-sm font-medium text-primary hover:underline inline-flex items-center gap-1"
+                >
+                  Browse Courses <ArrowRight className="w-3.5 h-3.5" />
+                </Link>
+              </CardContent>
+            </Card>
+
+            <Card className="text-center hover:shadow-md transition-shadow">
+              <CardContent className="p-8">
+                <div className="w-12 h-12 rounded-xl bg-amber-50 flex items-center justify-center mx-auto mb-4">
+                  <Wrench className="w-6 h-6 text-amber-600" />
+                </div>
+                <h3 className="font-bold text-foreground text-lg mb-2">Free Tools</h3>
+                <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
+                  Calculators, vocabulary builders, and practice utilities — completely
+                  free, no sign-up required.
+                </p>
+                <Link
+                  href="/tools"
+                  className="text-sm font-medium text-primary hover:underline inline-flex items-center gap-1"
+                >
+                  Explore Tools <ArrowRight className="w-3.5 h-3.5" />
+                </Link>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* How It Works */}
+      <section className="py-16 bg-white">
+        <div className="max-w-4xl mx-auto px-4">
+          <div className="text-center mb-10">
+            <h2 className="text-3xl font-bold text-foreground mb-3">
+              How It Works
+            </h2>
+          </div>
+          <div className="grid md:grid-cols-3 gap-8 text-center">
+            <div>
+              <div className="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center mx-auto mb-4 text-sm font-bold">
+                1
+              </div>
+              <h3 className="font-semibold text-foreground mb-2">Choose Your Exam</h3>
+              <p className="text-sm text-muted-foreground">
+                Pick from SAT, GRE, GMAT, Ashoka, and more.
+              </p>
+            </div>
+            <div>
+              <div className="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center mx-auto mb-4 text-sm font-bold">
+                2
+              </div>
+              <h3 className="font-semibold text-foreground mb-2">Take a Free Mock Test</h3>
+              <p className="text-sm text-muted-foreground">
+                Every exam includes a free test token to get started instantly.
+              </p>
+            </div>
+            <div>
+              <div className="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center mx-auto mb-4 text-sm font-bold">
+                3
+              </div>
+              <h3 className="font-semibold text-foreground mb-2">Review &amp; Improve</h3>
+              <p className="text-sm text-muted-foreground">
+                Get detailed results, enroll in courses, and track your progress.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="py-16 bg-primary">
+        <div className="max-w-2xl mx-auto px-4 text-center">
+          <h2 className="text-3xl font-bold text-white mb-4">
+            Ready to start preparing?
+          </h2>
+          <p className="text-white/80 mb-8">
+            Every exam comes with a free mock test — no credit card needed.
+          </p>
+          <Button
+            size="lg"
+            className="bg-white hover:bg-gray-100 text-primary font-semibold"
+            onClick={() => router.push("/auth?tab=signup")}
+          >
+            Get Started Free
+            <ArrowRight className="ml-2 h-4 w-4" />
+          </Button>
         </div>
       </section>
     </div>

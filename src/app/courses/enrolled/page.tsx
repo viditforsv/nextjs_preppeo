@@ -266,21 +266,36 @@ export default function EnrolledCoursesPage() {
 
   if (!user) {
     return (
-      <div className="container mx-auto px-4 py-8">
-        <div className="text-center">
-          <h1 className="text-2xl font-bold mb-4">
-            Please log in to view your courses
+      <div className="min-h-screen bg-[#fafaf8] flex items-center justify-center px-4">
+        <div className="max-w-md w-full text-center">
+          <div className="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mx-auto mb-6">
+            <BookOpen className="w-8 h-8 text-primary" />
+          </div>
+          <h1 className="text-2xl font-bold text-foreground mb-3">
+            Your enrolled courses live here
           </h1>
-          <Link href="/auth">
-            <Button>Sign In</Button>
-          </Link>
+          <p className="text-muted-foreground mb-8">
+            Sign in to access your courses, track progress, and continue where you left off.
+          </p>
+          <div className="flex gap-3 justify-center">
+            <Link href="/auth?tab=signin">
+              <Button className="bg-primary hover:bg-primary/90 text-white">
+                Sign In
+              </Button>
+            </Link>
+            <Link href="/auth?tab=signup">
+              <Button variant="outline" className="border-primary text-primary hover:bg-primary hover:text-white">
+                Sign Up
+              </Button>
+            </Link>
+          </div>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-white via-green-50 to-emerald-50">
+    <div className="min-h-screen bg-[#fafaf8]">
       <div className="container mx-auto px-4 py-8">
         {/* Page Header */}
         <div className="mb-8">
@@ -295,7 +310,7 @@ export default function EnrolledCoursesPage() {
         {/* Overall Stats */}
         {!isLoading && !error && enrolledCourses.length > 0 && (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-            <Card className="border-0 bg-gradient-to-br from-primary/5 to-emerald-50 hover:-translate-y-1">
+            <Card className="border-0 bg-linear-to-br from-primary/5 to-emerald-50 hover:-translate-y-1">
               <CardContent className="p-6">
                 <div className="flex items-center justify-between">
                   <div>
@@ -306,14 +321,14 @@ export default function EnrolledCoursesPage() {
                       {overallStats.totalCourses}
                     </p>
                   </div>
-                  <div className="w-14 h-14 bg-gradient-to-br from-primary to-emerald-600 rounded-xl flex items-center justify-center shadow-lg">
+                  <div className="w-14 h-14 bg-linear-to-br from-primary to-emerald-600 rounded-xl flex items-center justify-center shadow-lg">
                     <BookOpen className="w-7 h-7 text-white" />
                   </div>
                 </div>
               </CardContent>
             </Card>
 
-            <Card className="border-0 bg-gradient-to-br from-primary/5 to-emerald-50 hover:-translate-y-1">
+            <Card className="border-0 bg-linear-to-br from-primary/5 to-emerald-50 hover:-translate-y-1">
               <CardContent className="p-6">
                 <div className="flex items-center justify-between">
                   <div>
@@ -324,14 +339,14 @@ export default function EnrolledCoursesPage() {
                       {overallStats.totalLessonsCompleted}
                     </p>
                   </div>
-                  <div className="w-14 h-14 bg-gradient-to-br from-primary to-emerald-600 rounded-xl flex items-center justify-center shadow-lg">
+                  <div className="w-14 h-14 bg-linear-to-br from-primary to-emerald-600 rounded-xl flex items-center justify-center shadow-lg">
                     <CheckCircle2 className="w-7 h-7 text-white" />
                   </div>
                 </div>
               </CardContent>
             </Card>
 
-            <Card className="border-0 bg-gradient-to-br from-emerald-50 to-green-50 hover:-translate-y-1">
+            <Card className="border-0 bg-linear-to-br from-emerald-50 to-green-50 hover:-translate-y-1">
               <CardContent className="p-6">
                 <div className="flex items-center justify-between">
                   <div>
@@ -340,14 +355,14 @@ export default function EnrolledCoursesPage() {
                       {formatTime(overallStats.totalTimeSpent)}
                     </p>
                   </div>
-                  <div className="w-14 h-14 bg-gradient-to-br from-emerald-500 to-green-600 rounded-xl flex items-center justify-center shadow-lg">
+                  <div className="w-14 h-14 bg-linear-to-br from-emerald-500 to-green-600 rounded-xl flex items-center justify-center shadow-lg">
                     <Clock className="w-7 h-7 text-white" />
                   </div>
                 </div>
               </CardContent>
             </Card>
 
-            <Card className="border-0 bg-gradient-to-br from-amber-50 to-yellow-50 hover:-translate-y-1">
+            <Card className="border-0 bg-linear-to-br from-amber-50 to-yellow-50 hover:-translate-y-1">
               <CardContent className="p-6">
                 <div className="flex items-center justify-between">
                   <div>
@@ -358,7 +373,7 @@ export default function EnrolledCoursesPage() {
                       {overallStats.studyStreak} days
                     </p>
                   </div>
-                  <div className="w-14 h-14 bg-gradient-to-br from-amber-500 to-yellow-500 rounded-xl flex items-center justify-center shadow-lg">
+                  <div className="w-14 h-14 bg-linear-to-br from-amber-500 to-yellow-500 rounded-xl flex items-center justify-center shadow-lg">
                     <Award className="w-7 h-7 text-white" />
                   </div>
                 </div>
@@ -384,22 +399,75 @@ export default function EnrolledCoursesPage() {
         )}
 
         {!isLoading && !error && enrolledCourses.length === 0 && (
-          <div className="text-center py-12">
-            <div className="w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
-              <BookOpen className="w-12 h-12 text-gray-400" />
+          <div>
+            {/* Empty state banner */}
+            <div className="text-center py-14 bg-white rounded-xl border border-gray-100 mb-8">
+              <div className="w-16 h-16 bg-gray-100 rounded-2xl flex items-center justify-center mx-auto mb-5">
+                <BookOpen className="w-8 h-8 text-gray-400" />
+              </div>
+              <h2 className="text-xl font-bold text-foreground mb-2">
+                You haven&apos;t enrolled in any courses yet
+              </h2>
+              <p className="text-muted-foreground mb-6 max-w-sm mx-auto">
+                Browse our catalogue and enroll in your first course to get started.
+              </p>
+              <Link href="/courses/discover">
+                <Button className="bg-primary hover:bg-primary/90 text-white">
+                  Browse Courses
+                  <ArrowRight className="w-4 h-4 ml-2" />
+                </Button>
+              </Link>
             </div>
-            <h2 className="text-xl font-semibold mb-2">
-              No courses enrolled yet
-            </h2>
-            <p className="text-muted-foreground mb-6">
-              Start your learning journey by enrolling in a course
-            </p>
-            <Link href="/courses/discover">
-              <Button>
-                Browse Courses
-                <ArrowRight className="w-4 h-4 ml-2" />
-              </Button>
-            </Link>
+
+            {/* Getting started suggestions */}
+            <div className="mb-4">
+              <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-4">
+                Not sure where to start?
+              </h3>
+              <div className="grid sm:grid-cols-3 gap-4">
+                <Link href="/courses/discover" className="group">
+                  <div className="bg-white border border-gray-100 rounded-xl p-5 flex items-start gap-4 hover:shadow-md transition-shadow">
+                    <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
+                      <BookOpen className="w-5 h-5 text-primary" />
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-foreground mb-1">Browse All Courses</h4>
+                      <p className="text-sm text-muted-foreground">
+                        Explore our full catalogue of SAT, GRE, GMAT, and more.
+                      </p>
+                    </div>
+                  </div>
+                </Link>
+
+                <Link href="/tests" className="group">
+                  <div className="bg-white border border-gray-100 rounded-xl p-5 flex items-start gap-4 hover:shadow-md transition-shadow">
+                    <div className="w-10 h-10 rounded-lg bg-emerald-50 flex items-center justify-center shrink-0">
+                      <Target className="w-5 h-5 text-emerald-600" />
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-foreground mb-1">Take a Mock Test</h4>
+                      <p className="text-sm text-muted-foreground">
+                        Every exam includes a free test token — no enrollment needed.
+                      </p>
+                    </div>
+                  </div>
+                </Link>
+
+                <Link href="/tools" className="group">
+                  <div className="bg-white border border-gray-100 rounded-xl p-5 flex items-start gap-4 hover:shadow-md transition-shadow">
+                    <div className="w-10 h-10 rounded-lg bg-amber-50 flex items-center justify-center shrink-0">
+                      <BarChart3 className="w-5 h-5 text-amber-600" />
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-foreground mb-1">Try Free Tools</h4>
+                      <p className="text-sm text-muted-foreground">
+                        Calculators and study aids available free, right now.
+                      </p>
+                    </div>
+                  </div>
+                </Link>
+              </div>
+            </div>
           </div>
         )}
 

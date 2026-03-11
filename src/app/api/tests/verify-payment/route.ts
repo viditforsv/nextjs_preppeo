@@ -47,10 +47,10 @@ export async function POST(request: NextRequest) {
 
     const supabase = createSupabaseApiClient();
 
-    // Fetch purchase + pack details
+    // Fetch purchase + pack details (include partner columns)
     const { data: purchase, error: purchaseError } = await supabase
       .from('token_purchases')
-      .select('id, user_id, pack_id, status, token_packs(exam_type, token_count, name)')
+      .select('id, user_id, pack_id, status, amount, partner_id, discount_applied, token_packs(exam_type, token_count, name, price)')
       .eq('id', purchaseId)
       .single();
 
@@ -75,7 +75,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const pack = purchase.token_packs as unknown as { exam_type: string; token_count: number; name: string };
+    const pack = purchase.token_packs as unknown as { exam_type: string; token_count: number; name: string; price: number };
 
     // Generate token codes
     const codes = generateBulkTokenCodes(pack.exam_type, pack.token_count);
@@ -92,7 +92,7 @@ export async function POST(request: NextRequest) {
     const tokenRows = codes.map((code, i) => ({
       code,
       exam_type: pack.exam_type,
-      set_number: (i % totalSets) + 2, // Start from set 2 (set 1 is free)
+      set_number: (i % totalSets) + 2,
       is_free: false,
       owner_id: user.id,
       purchase_id: purchase.id,
@@ -120,6 +120,31 @@ export async function POST(request: NextRequest) {
         tokens_generated: pack.token_count,
       })
       .eq('id', purchase.id);
+
+    // Record partner commission if referral was used
+    if (purchase.partner_id) {
+      const paidAmount = Number(purchase.amount);
+      const originalAmount = pack.price;
+
+      const { data: partner } = await supabase
+        .from('partners')
+        .select('commission_rate')
+        .eq('id', purchase.partner_id)
+        .single();
+
+      const commissionRate = partner?.commission_rate ?? 30;
+      const commissionAmount = Number(((paidAmount * commissionRate) / 100).toFixed(2));
+
+      await supabase.from('partner_commissions').insert({
+        partner_id: purchase.partner_id,
+        purchase_id: purchase.id,
+        student_id: user.id,
+        original_amount: originalAmount,
+        paid_amount: paidAmount,
+        commission_amount: commissionAmount,
+        status: 'pending',
+      });
+    }
 
     return NextResponse.json({
       success: true,

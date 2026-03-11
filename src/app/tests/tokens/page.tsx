@@ -2,11 +2,18 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import { useSearchParams } from 'next/navigation';
-import { ArrowLeft, Loader2, Ticket, CheckCircle2 } from 'lucide-react';
+import { ArrowLeft, Loader2, Ticket, CheckCircle2, Tag, X } from 'lucide-react';
 import Link from 'next/link';
 import TokenStoreCard from '@/components/tests/TokenStoreCard';
 import MyTokens from '@/components/tests/MyTokens';
 import type { TokenPackWithExam } from '@/types/test-tokens';
+
+interface ReferralState {
+  code: string;
+  valid: boolean;
+  discount_rate: number;
+  partner_name: string;
+}
 
 export default function TokenStorePage() {
   const searchParams = useSearchParams();
@@ -16,6 +23,11 @@ export default function TokenStorePage() {
   const [loading, setLoading] = useState(true);
   const [purchasedTokens, setPurchasedTokens] = useState<string[] | null>(null);
   const [activeTab, setActiveTab] = useState<'store' | 'my-tokens'>('store');
+
+  const [referralInput, setReferralInput] = useState('');
+  const [referralLoading, setReferralLoading] = useState(false);
+  const [referral, setReferral] = useState<ReferralState | null>(null);
+  const [referralError, setReferralError] = useState('');
 
   const fetchPacks = useCallback(async () => {
     try {
@@ -43,6 +55,44 @@ export default function TokenStorePage() {
   const handlePurchaseComplete = (tokens: string[]) => {
     setPurchasedTokens(tokens);
     setActiveTab('my-tokens');
+  };
+
+  const handleApplyReferral = async () => {
+    const code = referralInput.trim();
+    if (!code) return;
+
+    setReferralLoading(true);
+    setReferralError('');
+    try {
+      const res = await fetch('/api/referral/validate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ code }),
+      });
+      const data = await res.json();
+
+      if (data.valid) {
+        setReferral({
+          code: code.toUpperCase(),
+          valid: true,
+          discount_rate: data.discount_rate,
+          partner_name: data.partner_name,
+        });
+      } else {
+        setReferralError('Invalid or expired referral code');
+        setReferral(null);
+      }
+    } catch {
+      setReferralError('Failed to validate code');
+    } finally {
+      setReferralLoading(false);
+    }
+  };
+
+  const clearReferral = () => {
+    setReferral(null);
+    setReferralInput('');
+    setReferralError('');
   };
 
   // Group packs by exam type
@@ -90,6 +140,54 @@ export default function TokenStorePage() {
           </div>
         )}
 
+        {/* Referral Code Section */}
+        <div className="mb-6 bg-white border border-gray-200 rounded-xl p-4">
+          {referral ? (
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <Tag className="w-4 h-4 text-emerald-600" />
+                <span className="text-sm font-medium text-emerald-700">
+                  Code <span className="font-bold">{referral.code}</span> applied &mdash; {referral.discount_rate}% off
+                </span>
+                <span className="text-xs text-gray-400">via {referral.partner_name}</span>
+              </div>
+              <button
+                onClick={clearReferral}
+                className="p-1 text-gray-400 hover:text-gray-600 transition-colors"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+          ) : (
+            <div>
+              <p className="text-sm text-gray-600 mb-2">Have a referral code?</p>
+              <div className="flex gap-2">
+                <input
+                  type="text"
+                  value={referralInput}
+                  onChange={(e) => {
+                    setReferralInput(e.target.value.toUpperCase());
+                    setReferralError('');
+                  }}
+                  onKeyDown={(e) => e.key === 'Enter' && handleApplyReferral()}
+                  placeholder="Enter code"
+                  className="flex-1 px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1a365d]/20 focus:border-[#1a365d]"
+                />
+                <button
+                  onClick={handleApplyReferral}
+                  disabled={referralLoading || !referralInput.trim()}
+                  className="px-4 py-2 text-sm font-medium bg-[#1a365d] text-white rounded-lg hover:bg-[#2a4a7f] disabled:opacity-50 transition-colors"
+                >
+                  {referralLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : 'Apply'}
+                </button>
+              </div>
+              {referralError && (
+                <p className="text-xs text-red-600 mt-1">{referralError}</p>
+              )}
+            </div>
+          )}
+        </div>
+
         {/* Tabs */}
         <div className="flex gap-1 bg-white rounded-lg p-1 border border-gray-200 mb-8 w-fit">
           <button
@@ -134,6 +232,8 @@ export default function TokenStorePage() {
                         key={pack.id}
                         pack={pack}
                         onPurchaseComplete={handlePurchaseComplete}
+                        referralCode={referral?.code ?? null}
+                        discountRate={referral?.discount_rate ?? 0}
                       />
                     ))}
                   </div>

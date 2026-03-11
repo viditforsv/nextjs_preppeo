@@ -14,6 +14,8 @@ declare global {
 interface TokenStoreCardProps {
   pack: TokenPackWithExam;
   onPurchaseComplete: (tokens: string[]) => void;
+  referralCode?: string | null;
+  discountRate?: number;
 }
 
 function loadRazorpayScript(): Promise<boolean> {
@@ -27,22 +29,34 @@ function loadRazorpayScript(): Promise<boolean> {
   });
 }
 
-export default function TokenStoreCard({ pack, onPurchaseComplete }: TokenStoreCardProps) {
+export default function TokenStoreCard({
+  pack,
+  onPurchaseComplete,
+  referralCode,
+  discountRate = 0,
+}: TokenStoreCardProps) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
-  const pricePerToken = (pack.price / pack.token_count).toFixed(0);
+  const hasDiscount = !!referralCode && discountRate > 0;
+  const discountedPrice = hasDiscount
+    ? Number((pack.price * (1 - discountRate / 100)).toFixed(2))
+    : pack.price;
+  const displayPrice = hasDiscount ? discountedPrice : pack.price;
+  const pricePerToken = (displayPrice / pack.token_count).toFixed(0);
 
   const handleBuy = async () => {
     setLoading(true);
     setError('');
 
     try {
-      // 1. Create order
       const orderRes = await fetch('/api/tests/create-order', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ packId: pack.id }),
+        body: JSON.stringify({
+          packId: pack.id,
+          ...(referralCode ? { referralCode } : {}),
+        }),
       });
       const orderData = await orderRes.json();
 
@@ -52,7 +66,6 @@ export default function TokenStoreCard({ pack, onPurchaseComplete }: TokenStoreC
         return;
       }
 
-      // 2. Open Razorpay
       const loaded = await loadRazorpayScript();
       if (!loaded) {
         setError('Failed to load payment gateway');
@@ -69,7 +82,6 @@ export default function TokenStoreCard({ pack, onPurchaseComplete }: TokenStoreC
         order_id: orderData.orderId,
         theme: { color: '#1a365d' },
         handler: async (response: { razorpay_payment_id: string; razorpay_signature: string }) => {
-          // 3. Verify payment
           const verifyRes = await fetch('/api/tests/verify-payment', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -111,15 +123,31 @@ export default function TokenStoreCard({ pack, onPurchaseComplete }: TokenStoreC
           <p className="text-xs text-gray-500">{pack.exam_types.name}</p>
         </div>
         <div className="text-right">
-          <div className="text-lg font-bold text-[#1a365d]">
-            ₹{pack.price}
-          </div>
+          {hasDiscount ? (
+            <>
+              <div className="text-sm text-gray-400 line-through">
+                ₹{pack.price}
+              </div>
+              <div className="text-lg font-bold text-emerald-600">
+                ₹{discountedPrice}
+              </div>
+            </>
+          ) : (
+            <div className="text-lg font-bold text-[#1a365d]">
+              ₹{pack.price}
+            </div>
+          )}
           <div className="text-xs text-gray-400">₹{pricePerToken}/test</div>
         </div>
       </div>
 
-      <div className="text-sm text-gray-600 mb-4">
-        {pack.token_count} mock test {pack.token_count === 1 ? 'token' : 'tokens'}
+      <div className="flex items-center gap-2 text-sm text-gray-600 mb-4">
+        <span>{pack.token_count} mock test {pack.token_count === 1 ? 'token' : 'tokens'}</span>
+        {hasDiscount && (
+          <span className="text-xs font-medium text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded">
+            {discountRate}% off
+          </span>
+        )}
       </div>
 
       {error && <p className="text-xs text-red-600 mb-2">{error}</p>}

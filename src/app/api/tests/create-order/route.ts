@@ -5,7 +5,7 @@ import { createSupabaseApiClient } from '@/lib/supabase/api-client';
 
 export async function POST(request: NextRequest) {
   try {
-    const { packId } = await request.json();
+    const { packId, referralCode } = await request.json();
 
     if (!packId) {
       return NextResponse.json(
@@ -47,15 +47,41 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // Resolve referral discount
+    let finalPrice = pack.price;
+    let discountApplied = 0;
+    let partnerId: string | null = null;
+    let resolvedCode: string | null = null;
+
+    if (referralCode && typeof referralCode === 'string') {
+      const code = referralCode.trim().toUpperCase();
+      const { data: partner } = await supabase
+        .from('partners')
+        .select('id, discount_rate')
+        .eq('referral_code', code)
+        .eq('is_active', true)
+        .single();
+
+      if (partner) {
+        discountApplied = Number(((pack.price * partner.discount_rate) / 100).toFixed(2));
+        finalPrice = pack.price - discountApplied;
+        partnerId = partner.id;
+        resolvedCode = code;
+      }
+    }
+
     // Create purchase record
     const { data: purchase, error: purchaseError } = await supabase
       .from('token_purchases')
       .insert({
         user_id: user.id,
         pack_id: pack.id,
-        amount: pack.price,
+        amount: finalPrice,
         currency: 'INR',
         status: 'pending',
+        referral_code: resolvedCode,
+        partner_id: partnerId,
+        discount_applied: discountApplied,
       })
       .select('id')
       .single();
@@ -75,7 +101,7 @@ export async function POST(request: NextRequest) {
     });
 
     const order = await razorpay.orders.create({
-      amount: Math.round(pack.price * 100),
+      amount: Math.round(finalPrice * 100),
       currency: 'INR',
       receipt: `tok_${purchase.id.slice(0, 16)}`,
       notes: {
@@ -83,6 +109,7 @@ export async function POST(request: NextRequest) {
         packId: pack.id,
         examType: pack.exam_type,
         userId: user.id,
+        ...(partnerId ? { partnerId } : {}),
       },
     });
 
@@ -96,7 +123,9 @@ export async function POST(request: NextRequest) {
       success: true,
       orderId: order.id,
       purchaseId: purchase.id,
-      amount: pack.price,
+      amount: finalPrice,
+      originalAmount: pack.price,
+      discountApplied,
       currency: 'INR',
       packName: pack.name,
       tokenCount: pack.token_count,

@@ -1,16 +1,12 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useGRETestStore } from '@/stores/useGRETestStore';
-import QuestionRenderer from './question-types/QuestionRenderer';
-import GRECalculator from './GRECalculator';
+import { useAshokaTestStore } from '@/stores/useAshokaTestStore';
 import ReviewScreen from './ReviewScreen';
-import { renderMixedContent } from '@/components/MathRenderer';
 import {
   Clock,
   Flag,
   Eye,
-  Calculator,
   ChevronLeft,
   ChevronRight,
   AlertCircle,
@@ -19,45 +15,34 @@ import {
 
 export default function TestQuestionView() {
   const {
-    section1,
-    section2,
-    currentSectionNumber,
+    questions,
     currentQuestionIndex,
     answers,
     flags,
     timeLeft,
-    isCalculatorOpen,
-    isReviewOpen,
     timerHidden,
+    isReviewOpen,
     setAnswer,
     toggleFlag,
     navigateQuestion,
     tickTimer,
-    submitSection,
-    toggleCalculator,
-    toggleReview,
+    submitMCQs,
     toggleTimerVisibility,
-  } = useGRETestStore();
+    toggleReview,
+  } = useAshokaTestStore();
 
   const [showSubmitConfirm, setShowSubmitConfirm] = useState(false);
 
-  const section = currentSectionNumber === 1 ? section1 : section2;
-
-  // Timer tick
   useEffect(() => {
     const interval = setInterval(tickTimer, 1000);
     return () => clearInterval(interval);
   }, [tickTimer]);
 
-  if (!section) return null;
+  if (!questions.length) return null;
 
-  const questions = section.questions;
   const question = questions[currentQuestionIndex];
   const total = questions.length;
-  const answered = questions.filter((q) => {
-    const a = answers[q.id];
-    return a !== null && a !== undefined && a !== '' && !(Array.isArray(a) && a.length === 0);
-  }).length;
+  const answered = questions.filter((q) => !!answers[q.id]).length;
 
   const mins = Math.floor(timeLeft / 60);
   const secs = timeLeft % 60;
@@ -65,26 +50,19 @@ export default function TestQuestionView() {
   const isTimeLow = timeLeft < 300;
   const isTimeCritical = timeLeft < 60;
 
-  const handleSubmitClick = () => setShowSubmitConfirm(true);
-
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col">
-      {/* ── Top Toolbar ── */}
+      {/* Top Toolbar */}
       <header className="bg-[#1a365d] text-white px-4 py-2.5 flex items-center justify-between sticky top-0 z-30 shadow-md">
         <div className="flex items-center gap-4">
           <div className="text-sm font-medium">
-            <span className="opacity-70">Section</span>{' '}
-            <span className="font-bold">{currentSectionNumber}</span>{' '}
-            <span className="opacity-70">of 2</span>
+            <span className="font-bold">Ashoka Aptitude Test</span>
           </div>
           <div className="h-5 w-px bg-white/30" />
-          <span className="text-xs opacity-70">
-            Quantitative Reasoning
-          </span>
+          <span className="text-xs opacity-70">MCQ Phase</span>
         </div>
 
         <div className="flex items-center gap-3">
-          {/* Timer */}
           <button
             onClick={toggleTimerVisibility}
             className="flex items-center gap-1.5 text-sm"
@@ -115,9 +93,8 @@ export default function TestQuestionView() {
         </div>
       </header>
 
-      {/* ── Question Area ── */}
+      {/* Question Area */}
       <main className="flex-1 p-6 max-w-4xl mx-auto w-full">
-        {/* Question header */}
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-sm font-medium text-gray-500">
             Question {currentQuestionIndex + 1} of {total}
@@ -141,23 +118,37 @@ export default function TestQuestionView() {
 
         {/* Question card */}
         <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-6 mb-6">
-          {question.type !== 'quantitative-comparison' && (
-            <div className="mb-5">
-              <div className="text-base text-gray-800 leading-relaxed">{renderMixedContent(question.prompt)}</div>
-            </div>
-          )}
-          <QuestionRenderer
-            question={question}
-            answer={answers[question.id] ?? null}
-            onAnswer={(val) => setAnswer(question.id, val)}
-          />
+          <div className="mb-5">
+            <div className="text-base text-gray-800 leading-relaxed">{question.prompt}</div>
+          </div>
+
+          <div className="space-y-3">
+            {(question.options ?? []).map((opt) => {
+              const selected = answers[question.id] === opt.id;
+              return (
+                <button
+                  key={opt.id}
+                  onClick={() => setAnswer(question.id, opt.id)}
+                  className={`w-full text-left px-4 py-3 rounded-lg border-2 transition-all ${
+                    selected
+                      ? 'border-[#1a365d] bg-blue-50 text-[#1a365d]'
+                      : 'border-gray-200 hover:border-gray-300 text-gray-700'
+                  }`}
+                >
+                  <span className="font-semibold mr-2">
+                    {opt.id.toUpperCase()}.
+                  </span>
+                  {opt.text}
+                </button>
+              );
+            })}
+          </div>
         </div>
       </main>
 
-      {/* ── Bottom Navigation Bar ── */}
+      {/* Bottom Navigation */}
       <footer className="sticky bottom-0 bg-white border-t border-gray-300 px-4 py-3 z-20">
         <div className="max-w-4xl mx-auto flex items-center justify-between">
-          {/* Left: nav buttons */}
           <div className="flex items-center gap-2">
             <button
               onClick={() => navigateQuestion(Math.max(0, currentQuestionIndex - 1))}
@@ -175,12 +166,10 @@ export default function TestQuestionView() {
             </button>
           </div>
 
-          {/* Center: question palette */}
+          {/* Question palette */}
           <div className="hidden sm:flex gap-1 flex-wrap max-w-md justify-center">
             {questions.map((q, idx) => {
-              const a = answers[q.id];
-              const isAns =
-                a !== null && a !== undefined && a !== '' && !(Array.isArray(a) && a.length === 0);
+              const isAns = !!answers[q.id];
               const isCurr = idx === currentQuestionIndex;
               const isFlagged = flags[q.id];
 
@@ -205,18 +194,7 @@ export default function TestQuestionView() {
             })}
           </div>
 
-          {/* Right: tools */}
           <div className="flex items-center gap-2">
-            <button
-              onClick={toggleCalculator}
-              className={`inline-flex items-center gap-1.5 px-3 py-2 text-sm border rounded-lg transition-colors ${
-                isCalculatorOpen
-                  ? 'border-blue-400 bg-blue-50 text-blue-700'
-                  : 'border-gray-300 text-gray-600 hover:bg-gray-50'
-              }`}
-            >
-              <Calculator className="w-4 h-4" />
-            </button>
             <button
               onClick={toggleReview}
               className="inline-flex items-center gap-1.5 px-3 py-2 text-sm border border-gray-300 rounded-lg text-gray-600 hover:bg-gray-50"
@@ -224,7 +202,7 @@ export default function TestQuestionView() {
               <Eye className="w-4 h-4" /> Review
             </button>
             <button
-              onClick={handleSubmitClick}
+              onClick={() => setShowSubmitConfirm(true)}
               className="px-4 py-2 text-sm font-semibold text-white bg-[#1a365d] rounded-lg hover:bg-[#2a4a7f] transition-colors"
             >
               Submit
@@ -232,9 +210,6 @@ export default function TestQuestionView() {
           </div>
         </div>
       </footer>
-
-      {/* Calculator overlay */}
-      {isCalculatorOpen && <GRECalculator onClose={toggleCalculator} />}
 
       {/* Review overlay */}
       {isReviewOpen && (
@@ -257,7 +232,7 @@ export default function TestQuestionView() {
         <div className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center p-4">
           <div className="bg-white rounded-xl shadow-2xl max-w-sm w-full p-6">
             <h3 className="text-lg font-bold text-gray-900 mb-2">
-              Submit Section {currentSectionNumber}?
+              Submit MCQs?
             </h3>
             <p className="text-sm text-gray-600 mb-2">
               You have answered <strong>{answered}</strong> of <strong>{total}</strong> questions.
@@ -268,6 +243,9 @@ export default function TestQuestionView() {
                 marked incorrect.
               </p>
             )}
+            <p className="text-sm text-gray-500 mb-4">
+              After submitting, you will proceed to the essay phase.
+            </p>
             <div className="flex gap-3 justify-end mt-4">
               <button
                 onClick={() => setShowSubmitConfirm(false)}
@@ -278,7 +256,7 @@ export default function TestQuestionView() {
               <button
                 onClick={() => {
                   setShowSubmitConfirm(false);
-                  submitSection();
+                  submitMCQs();
                 }}
                 className="px-5 py-2 text-sm font-semibold text-white bg-[#1a365d] rounded-lg hover:bg-[#2a4a7f]"
               >

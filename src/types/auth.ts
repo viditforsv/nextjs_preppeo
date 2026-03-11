@@ -1,6 +1,6 @@
 // Type definitions for authentication and roles
 
-export type UserRole = "student" | "admin" | "content_manager" | "teacher";
+export type UserRole = "student" | "admin" | "content_manager" | "teacher" | "partner";
 
 export interface UserProfile {
   id: string;
@@ -86,6 +86,18 @@ export const ROLE_PERMISSIONS: Record<UserRole, RolePermissions> = {
     canCreateQuestions: false,
     canEditQuestions: false,
     canReviewQuestions: true,
+    canPublishQuestions: false,
+    canManageQuestionBank: false,
+  },
+  partner: {
+    canViewAllUsers: false,
+    canManageCourses: false,
+    canManageUsers: false,
+    canAccessAnalytics: false,
+    canCreateContent: false,
+    canCreateQuestions: false,
+    canEditQuestions: false,
+    canReviewQuestions: false,
     canPublishQuestions: false,
     canManageQuestionBank: false,
   },

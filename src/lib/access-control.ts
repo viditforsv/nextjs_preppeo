@@ -121,6 +121,9 @@ export const ROUTE_ACCESS: RouteAccess[] = [
     requiredRole: "admin",
   },
 
+  // Partner routes
+  { path: "/partner", accessLevel: "authenticated", requiredRole: "partner" },
+
   // Development/Test routes (admin only)
   { path: "/components-demo", accessLevel: "admin", requiredRole: "admin" },
   { path: "/components-test", accessLevel: "admin", requiredRole: "admin" },
@@ -298,6 +301,10 @@ export const NAVIGATION_MENU = {
   content_manager: [
     { label: "My Courses", href: "/courses/enrolled" },
     { label: "Question Bank", href: "/question-bank" },
+    { label: "Profile", href: "/profile" },
+  ],
+  partner: [
+    { label: "Dashboard", href: "/partner/dashboard" },
     { label: "Profile", href: "/profile" },
   ],
 };

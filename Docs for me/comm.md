@@ -1,74 +1,126 @@
-Building a CBT (Computer-Based Testing) platform for the Digital SAT Math section requires a precise implementation of the **Multi-Stage Adaptive Testing (MST)** model.
+This plan is designed for an AI agent (like Cursor/Claude) to implement a robust, scalable token and partner ecosystem. It treats tokens as a **ledger-based currency** rather than just a "coupon code."
 
 ---
 
-## 1. Section Structure
+## 🏗️ Phase 1: Database Schema (Supabase / Postgres)
 
-The Math section is strictly divided into two back-to-back modules.
+The AI should create these core tables. The logic uses a "Ledger" approach for tokens to ensure 100% financial accuracy.
 
-* **Total Questions:** 44 (22 per module).
-* **Operational:** 20 questions (count toward score).
-* **Pretest:** 2 questions (unscored, used for future calibration).
+```sql
+-- 1. Profiles (Extends Auth)
+CREATE TABLE profiles (
+  id UUID REFERENCES auth.users PRIMARY KEY,
+  role TEXT DEFAULT 'student', -- 'student', 'partner', 'admin'
+  partner_commission_rate NUMERIC DEFAULT 10.0 -- Default %
+);
+
+-- 2. Partner Ledger (The "Bank" for Partners)
+CREATE TABLE partner_vaults (
+  partner_id UUID REFERENCES profiles(id) PRIMARY KEY,
+  token_balance INTEGER DEFAULT 0,
+  referral_code TEXT UNIQUE, -- e.g., 'PARTNER30'
+  discount_offered NUMERIC DEFAULT 15.0 -- % discount for students using this code
+);
+
+-- 3. Token Transactions (Audit Trail)
+CREATE TABLE token_transactions (
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  sender_id UUID REFERENCES profiles(id),
+  receiver_id UUID REFERENCES profiles(id),
+  amount INTEGER NOT NULL,
+  transaction_type TEXT, -- 'purchase', 'transfer', 'referral_bonus', 'usage'
+  metadata JSONB, -- Store Razorpay Order ID here
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+-- 4. Active Tokens (Summary Table)
+CREATE TABLE user_tokens (
+  user_id UUID REFERENCES profiles(id) PRIMARY KEY,
+  balance INTEGER DEFAULT 0
+);
+
+```
+
+---
+
+## Phase 2: Backend Logic (Next.js API Routes)
+
+The AI should implement these three specific flows:
+
+### 1. The "Discount Resolver" API
+
+**Goal:** Calculate the price *before* creating a Razorpay order.
+
+* **Logic:** * Input: `token_quantity`, `referral_code` (optional).
+* Check `partner_vaults` for the code.
+* Apply the `discount_offered`.
+* Return `final_amount` to the frontend.
 
 
-* **Total Time:** 70 minutes (35 minutes per module).
-* **Question Formats:** * **MCQ (75%):** Four-option multiple choice.
-* **SPR (25%):** Student-Produced Response (Grid-in).
+
+### 2. Razorpay Order Creation (`/api/payment/create`)
+
+* **Action:** Create a Razorpay Order.
+* **Meta-data:** Attach `partner_id` and `student_id` to the Razorpay `notes` object. This ensures you know who to credit if the webhook fires.
+
+### 3. Payment Verification & Token Minting (`/api/payment/verify`)
+
+* **Action:** Validate Razorpay signature.
+* **Action (Atomic Transaction):** 1. Update `user_tokens` (Student receives tokens).
+2. If a Partner code was used: Update `partner_vaults` (Partner receives commission/tokens).
+3. Log entry in `token_transactions`.
+
+---
+
+## Phase 3: Token Transfer Logic
+
+Since you want students to transfer tokens "as they feel right," the AI must build a **secure transfer function**.
+
+* **Logic:**
+1. Check `user_tokens` to ensure `balance >= transfer_amount`.
+2. Subtract from Sender.
+3. Add to Receiver.
+4. **Critical:** Use a **Supabase RPC (Database Function)** to ensure these two steps happen simultaneously (Atomic). If one fails, both roll back.
 
 
 
 ---
 
-## 2. The Difficulty Matrix
+## Phase 4: Partner Split (Something Extra)
 
-The Digital SAT uses a **2-stage adaptive logic**. Unlike "item-adaptive" tests (like the GMAT) that change after every question, the SAT only adapts **between modules**.
+If you want to automate cash payouts, tell the AI to use **Razorpay Route**.
 
-### Module 1: The "Router"
+* **Setup:**
+* When a Partner signs up, create a "Linked Account" in Razorpay.
+* In the `createOrder` API, add a `transfers` array:
+```json
+"transfers": [
+  {
+    "account": "acc_PARTNER_ID",
+    "amount": 1000, 
+    "currency": "INR"
+  }
+]
 
-* **Goal:** Determine the student's ability range.
-* **Mix:** A broad distribution of **Easy (approx. 25%)**, **Medium (approx. 50%)**, and **Hard (approx. 25%)** questions.
+```
 
-### Module 2: The "Adaptive" Stage
 
-Based on the Module 1 performance, the system routes the student to one of two versions:
-| Module 2 Version | Difficulty Profile | Score Potential |
-| :--- | :--- | :--- |
-| **Lower Difficulty** | Majority Easy/Medium questions. | Capped (Max score ~550–600). |
-| **Higher Difficulty** | Majority Hard/Very Hard questions. | Full range (Up to 800). |
+* Razorpay will automatically split the money at the moment of payment.
 
----
 
-## 3. Marking Scheme & Scoring Conditions
-
-The scoring does **not** follow a simple "10 points per question" rule. It uses **Item Response Theory (IRT)**.
-
-* **No Negative Marking:** There is no penalty for wrong answers.
-* **Weighting:** Every question is assigned a "weight" based on its difficulty and discrimination parameters. A "Hard" question in Module 2 is statistically more valuable for a high score than an "Easy" one.
-* **Routing Threshold:** To enter the "Hard" Module 2, a student typically needs to get **approx. 14–15 out of 22** questions correct in Module 1.
-* **Section Score:** 200–800 scale.
 
 ---
 
-## 4. Question Domains (The "What")
+## 🤖 Prompt for your AI Agent (Cursor)
 
-Your database should categorize questions into these four pillars:
+Copy and paste this into Cursor:
 
-1. **Algebra (35%):** Linear equations, systems, and inequalities.
-2. **Advanced Math (35%):** Quadratics, polynomials, and nonlinear functions.
-3. **Problem Solving & Data Analysis (15%):** Ratios, statistics, and probability.
-4. **Geometry & Trigonometry (15%):** Area/volume, circles, and right triangles.
+> "Build a token-based testing platform infrastructure using Next.js, Supabase, and Razorpay.
+> 1. Create a database schema with `profiles`, `partner_vaults`, `token_transactions`, and `user_tokens`.
+> 2. Implement a Next.js API route to create a Razorpay order that applies a custom discount if a partner referral code is provided.
+> 3. Create a verification webhook that updates the user's token balance in Supabase and logs the transaction.
+> 4. Create a Supabase RPC function for secure peer-to-peer token transfers between users, ensuring atomic updates to prevent double-spending."
+> 
+> 
 
----
-
-## Strategy for Your Platform
-
-To build this correctly, your algorithm must:
-
-1. **Randomize** the 2 pretest questions so students can't identify them.
-2. **Lock** Module 1 once submitted; students cannot return to it after starting Module 2.
-3. **Integrate** a graphing calculator (like Desmos) as it is allowed for the entire duration.
-
-Would you like me to draft the **pseudocode for the routing logic** that determines if a student moves to the Hard or Easy Module 2?
-
-[Mastering Digital SAT Math](https://www.youtube.com/watch?v=5BLaV52DedU)
-This video provides a deep dive into the hardest question types and strategies for the digital adaptive format, which is essential for calibrating your difficulty matrix.
+**Would you like me to refine the transfer logic code for the AI to follow?**
