@@ -400,73 +400,51 @@ export default function EnrolledCoursesPage() {
 
         {!isLoading && !error && enrolledCourses.length === 0 && (
           <div>
-            {/* Empty state banner */}
-            <div className="text-center py-14 bg-white rounded-xl border border-gray-100 mb-8">
-              <div className="w-16 h-16 bg-gray-100 rounded-2xl flex items-center justify-center mx-auto mb-5">
-                <BookOpen className="w-8 h-8 text-gray-400" />
+            {/* Zero-enrollment banner */}
+            <div className="bg-white rounded-xl border border-gray-100 p-8 mb-8">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-10 h-10 rounded-lg bg-gray-100 flex items-center justify-center">
+                  <BookOpen className="w-5 h-5 text-gray-400" />
+                </div>
+                <div>
+                  <p className="text-2xl font-bold text-foreground">0 enrolled courses</p>
+                  <p className="text-sm text-muted-foreground">You haven&apos;t enrolled in any courses yet.</p>
+                </div>
               </div>
-              <h2 className="text-xl font-bold text-foreground mb-2">
-                You haven&apos;t enrolled in any courses yet
-              </h2>
-              <p className="text-muted-foreground mb-6 max-w-sm mx-auto">
-                Browse our catalogue and enroll in your first course to get started.
+
+              <p className="text-sm font-medium text-foreground mb-3">Which exam are you preparing for?</p>
+              <div className="flex flex-wrap gap-2 mb-6">
+                {[
+                  { label: "SAT", value: "SAT" },
+                  { label: "GRE", value: "GRE" },
+                  { label: "GMAT", value: "GMAT" },
+                  { label: "Ashoka", value: "Ashoka" },
+                ].map((exam) => (
+                  <Link
+                    key={exam.value}
+                    href={`/courses/discover?curriculum=${exam.value}`}
+                    className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full border border-primary/30 text-sm font-medium text-primary bg-primary/5 hover:bg-primary hover:text-white transition-colors"
+                  >
+                    {exam.label} courses
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </Link>
+                ))}
+                <Link
+                  href="/courses/discover"
+                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full border border-gray-200 text-sm font-medium text-muted-foreground bg-white hover:bg-gray-50 transition-colors"
+                >
+                  Browse all
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </Link>
+              </div>
+
+              <p className="text-xs text-muted-foreground">
+                Not ready to enroll? Every exam also includes a{" "}
+                <Link href="/tests" className="text-primary hover:underline font-medium">
+                  free mock test
+                </Link>{" "}
+                — no enrollment needed.
               </p>
-              <Link href="/courses/discover">
-                <Button className="bg-primary hover:bg-primary/90 text-white">
-                  Browse Courses
-                  <ArrowRight className="w-4 h-4 ml-2" />
-                </Button>
-              </Link>
-            </div>
-
-            {/* Getting started suggestions */}
-            <div className="mb-4">
-              <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-4">
-                Not sure where to start?
-              </h3>
-              <div className="grid sm:grid-cols-3 gap-4">
-                <Link href="/courses/discover" className="group">
-                  <div className="bg-white border border-gray-100 rounded-xl p-5 flex items-start gap-4 hover:shadow-md transition-shadow">
-                    <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
-                      <BookOpen className="w-5 h-5 text-primary" />
-                    </div>
-                    <div>
-                      <h4 className="font-semibold text-foreground mb-1">Browse All Courses</h4>
-                      <p className="text-sm text-muted-foreground">
-                        Explore our full catalogue of SAT, GRE, GMAT, and more.
-                      </p>
-                    </div>
-                  </div>
-                </Link>
-
-                <Link href="/tests" className="group">
-                  <div className="bg-white border border-gray-100 rounded-xl p-5 flex items-start gap-4 hover:shadow-md transition-shadow">
-                    <div className="w-10 h-10 rounded-lg bg-emerald-50 flex items-center justify-center shrink-0">
-                      <Target className="w-5 h-5 text-emerald-600" />
-                    </div>
-                    <div>
-                      <h4 className="font-semibold text-foreground mb-1">Take a Mock Test</h4>
-                      <p className="text-sm text-muted-foreground">
-                        Every exam includes a free test token — no enrollment needed.
-                      </p>
-                    </div>
-                  </div>
-                </Link>
-
-                <Link href="/tools" className="group">
-                  <div className="bg-white border border-gray-100 rounded-xl p-5 flex items-start gap-4 hover:shadow-md transition-shadow">
-                    <div className="w-10 h-10 rounded-lg bg-amber-50 flex items-center justify-center shrink-0">
-                      <BarChart3 className="w-5 h-5 text-amber-600" />
-                    </div>
-                    <div>
-                      <h4 className="font-semibold text-foreground mb-1">Try Free Tools</h4>
-                      <p className="text-sm text-muted-foreground">
-                        Calculators and study aids available free, right now.
-                      </p>
-                    </div>
-                  </div>
-                </Link>
-              </div>
             </div>
           </div>
         )}
