@@ -272,59 +272,11 @@ export default function GREQuestionsQCPage() {
 
               {/* Question card */}
               <div className="bg-white border border-gray-200 rounded-xl p-6 space-y-5">
-                <div className="prose prose-sm max-w-none text-gray-800">
-                  {renderMixedContent(current.prompt)}
-                </div>
-
-                {/* Image upload / display */}
-                <div className="flex items-center gap-3">
-                  {current.imageUrl ? (
-                    <div className="relative inline-block">
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img
-                        src={current.imageUrl}
-                        alt="Question diagram"
-                        className="max-w-full h-auto rounded-lg border border-gray-200"
-                        style={{ maxHeight: 300 }}
-                      />
-                      <button
-                        onClick={removeImage}
-                        disabled={uploading}
-                        className="absolute top-2 right-2 p-1 bg-red-500 text-white rounded-full hover:bg-red-600 transition-colors"
-                        title="Remove image"
-                      >
-                        <X className="w-4 h-4" />
-                      </button>
-                    </div>
-                  ) : (
-                    <div className="flex items-center gap-2 text-sm text-gray-400">
-                      <ImageIcon className="w-4 h-4" />
-                      No image attached
-                    </div>
-                  )}
-                  <input
-                    ref={fileInputRef}
-                    type="file"
-                    accept="image/*"
-                    className="hidden"
-                    onChange={(e) => {
-                      const f = e.target.files?.[0];
-                      if (f) handleImageUpload(f);
-                    }}
-                  />
-                  <button
-                    onClick={() => fileInputRef.current?.click()}
-                    disabled={uploading}
-                    className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-md border border-gray-300 bg-white hover:bg-gray-50 disabled:opacity-50 transition-colors"
-                  >
-                    {uploading ? (
-                      <Loader2 className="w-3.5 h-3.5 animate-spin" />
-                    ) : (
-                      <Upload className="w-3.5 h-3.5" />
-                    )}
-                    {current.imageUrl ? 'Replace' : 'Upload'} Image
-                  </button>
-                </div>
+                {current.prompt && (
+                  <div className="prose prose-sm max-w-none text-gray-800">
+                    {renderMixedContent(current.prompt)}
+                  </div>
+                )}
 
                 <QuestionRenderer
                   question={current}
@@ -340,6 +292,56 @@ export default function GREQuestionsQCPage() {
                     <div>{renderMixedContent(current.explanation)}</div>
                   </div>
                 )}
+              </div>
+
+              {/* Admin: Image management */}
+              <div className="bg-white border border-gray-200 rounded-xl p-4 mt-4 flex items-center gap-3">
+                {current.imageUrl ? (
+                  <div className="relative inline-block">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={current.imageUrl}
+                      alt="Question diagram"
+                      className="max-w-full h-auto rounded-lg border border-gray-200"
+                      style={{ maxHeight: 300 }}
+                    />
+                    <button
+                      onClick={removeImage}
+                      disabled={uploading}
+                      className="absolute top-2 right-2 p-1 bg-red-500 text-white rounded-full hover:bg-red-600 transition-colors"
+                      title="Remove image"
+                    >
+                      <X className="w-4 h-4" />
+                    </button>
+                  </div>
+                ) : (
+                  <div className="flex items-center gap-2 text-sm text-gray-400">
+                    <ImageIcon className="w-4 h-4" />
+                    No image attached
+                  </div>
+                )}
+                <input
+                  ref={fileInputRef}
+                  type="file"
+                  accept="image/*"
+                  className="hidden"
+                  onChange={(e) => {
+                    const f = e.target.files?.[0];
+                    if (f) handleImageUpload(f);
+                  }}
+                />
+                <button
+                  onClick={() => fileInputRef.current?.click()}
+                  disabled={uploading}
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-md border border-gray-300 bg-white hover:bg-gray-50 disabled:opacity-50 transition-colors"
+                >
+                  {uploading ? (
+                    <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                  ) : (
+                    <Upload className="w-3.5 h-3.5" />
+                  )}
+                  {current.imageUrl ? 'Replace' : 'Upload'} Image
+                </button>
               </div>
 
               {/* Inline navigation */}
