@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { useSATTestStore } from '@/stores/useSATTestStore';
+import Link from 'next/link';
 import {
   BarChart3,
   Target,
@@ -9,6 +10,7 @@ import {
   Clock,
   FileText,
   RotateCcw,
+  History,
 } from 'lucide-react';
 import ScoreOverviewTab from './results/ScoreOverviewTab';
 import DomainBreakdownTab from './results/DomainBreakdownTab';
@@ -54,13 +56,22 @@ export default function ResultsScreen() {
             <BarChart3 className="w-5 h-5" />
             <h1 className="text-lg font-bold">SAT Score Report</h1>
           </div>
-          <button
-            onClick={goToLanding}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 text-sm bg-white/10 hover:bg-white/20 rounded-lg transition-colors"
-          >
-            <RotateCcw className="w-3.5 h-3.5" />
-            New Test
-          </button>
+          <div className="flex items-center gap-2">
+            <Link
+              href="/sat-test/history"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 text-sm bg-white/10 hover:bg-white/20 rounded-lg transition-colors"
+            >
+              <History className="w-3.5 h-3.5" />
+              Score History
+            </Link>
+            <button
+              onClick={goToLanding}
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 text-sm bg-white/10 hover:bg-white/20 rounded-lg transition-colors"
+            >
+              <RotateCcw className="w-3.5 h-3.5" />
+              New Test
+            </button>
+          </div>
         </div>
       </div>
 

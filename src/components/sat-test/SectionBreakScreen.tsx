@@ -7,7 +7,7 @@ import { Coffee, ArrowRight, CheckCircle, Loader2 } from 'lucide-react';
 const BREAK_DURATION = 600; // 10 minutes in seconds
 
 export default function SectionBreakScreen() {
-  const { rwEstimatedScore, rwModule1Result, rwModule2Result, beginMathSection } = useSATTestStore();
+  const { beginMathSection } = useSATTestStore();
   const [secondsLeft, setSecondsLeft] = useState(BREAK_DURATION);
   const [loading, setLoading] = useState(false);
 
@@ -29,9 +29,6 @@ export default function SectionBreakScreen() {
     }
   };
 
-  const rwCorrect = (rwModule1Result?.correct ?? 0) + (rwModule2Result?.correct ?? 0);
-  const rwTotal = (rwModule1Result?.total ?? 0) + (rwModule2Result?.total ?? 0);
-
   return (
     <div className="min-h-screen bg-[#f5f5f0] flex items-center justify-center p-4">
       <div className="bg-white rounded-xl shadow-lg max-w-lg w-full p-8 text-center">
@@ -42,19 +39,6 @@ export default function SectionBreakScreen() {
         <h1 className="text-2xl font-bold text-gray-900 mb-2">
           Reading & Writing Section Complete
         </h1>
-
-        <div className="bg-gray-50 rounded-lg p-4 mb-4">
-          <div className="grid grid-cols-2 gap-4 text-sm">
-            <div>
-              <p className="text-gray-500">Raw Score</p>
-              <p className="text-lg font-bold text-[#0d47a1]">{rwCorrect} / {rwTotal}</p>
-            </div>
-            <div>
-              <p className="text-gray-500">Estimated R&W Score</p>
-              <p className="text-lg font-bold text-[#0d47a1]">{rwEstimatedScore ?? '—'}</p>
-            </div>
-          </div>
-        </div>
 
         <div className="bg-amber-50 border border-amber-200 rounded-lg p-4 mb-6">
           <div className="flex items-center justify-center gap-2 mb-2">

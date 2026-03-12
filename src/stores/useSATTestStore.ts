@@ -217,11 +217,20 @@ export const useSATTestStore = create<SATTestState>()((set, get) => ({
 
   goToLanding: () => set({ ...initialState }),
 
-  // Full test starts with RW Module 1
+  // Full test: try RW first; if no RW questions exist, fall back to Math-only
   startTestMode: async (setNum: number, tokenCode?: string) => {
-    const section: SATSection = 'rw';
+    let section: SATSection = 'rw';
+    let questions: SATQuestion[];
+
+    try {
+      questions = await fetchQuestions('rw', 1, setNum);
+    } catch {
+      // No R&W questions available — start with Math directly
+      section = 'math';
+      questions = await fetchQuestions('math', 1, setNum);
+    }
+
     const duration = durationForSection(section);
-    const questions = await fetchQuestions(section, 1, setNum);
     const mod1: SATModule = {
       moduleNumber: 1,
       section,
@@ -441,8 +450,9 @@ export const useSATTestStore = create<SATTestState>()((set, get) => ({
         const { rwQuestionResponses, rwEstimatedScore, tokenCode, setNumber: sn,
                 rwModule1Result, rwModule2Result, rwModule2Tier } = get();
 
+        const hasRW = rwEstimatedScore !== null;
         const allResponses = [...rwQuestionResponses, ...mathResponses];
-        const totalScore = estimateTotalScore(rwEstimatedScore ?? 200, mathScore);
+        const totalScore = hasRW ? estimateTotalScore(rwEstimatedScore, mathScore) : null;
 
         set({
           module2Result: result,
@@ -454,14 +464,13 @@ export const useSATTestStore = create<SATTestState>()((set, get) => ({
           isCalculatorOpen: false,
         });
 
-        // Persist the full attempt
         fetch('/api/sat/attempts', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             tokenCode,
             setNumber: sn,
-            sectionType: 'full',
+            sectionType: hasRW ? 'full' : 'math',
             // Math
             module1Correct: module1Result!.correct,
             module1Total: module1Result!.total,
@@ -473,16 +482,16 @@ export const useSATTestStore = create<SATTestState>()((set, get) => ({
             answersJson: allAnswers,
             estimatedScore: mathScore,
             questionResponses: mathResponses,
-            // R&W
-            rwModule1Correct: rwModule1Result?.correct ?? 0,
-            rwModule1Total: rwModule1Result?.total ?? 0,
-            rwModule1TimeUsed: rwModule1Result?.timeUsed ?? 0,
-            rwModule2Tier: rwModule2Tier,
-            rwModule2Correct: rwModule2Result?.correct ?? 0,
-            rwModule2Total: rwModule2Result?.total ?? 0,
-            rwModule2TimeUsed: rwModule2Result?.timeUsed ?? 0,
-            rwEstimatedScore: rwEstimatedScore,
-            rwQuestionResponses: rwQuestionResponses,
+            // R&W (null when math-only)
+            rwModule1Correct: rwModule1Result?.correct ?? null,
+            rwModule1Total: rwModule1Result?.total ?? null,
+            rwModule1TimeUsed: rwModule1Result?.timeUsed ?? null,
+            rwModule2Tier: rwModule2Tier ?? null,
+            rwModule2Correct: rwModule2Result?.correct ?? null,
+            rwModule2Total: rwModule2Result?.total ?? null,
+            rwModule2TimeUsed: rwModule2Result?.timeUsed ?? null,
+            rwEstimatedScore: rwEstimatedScore ?? null,
+            rwQuestionResponses: hasRW ? rwQuestionResponses : [],
             // Combined
             totalEstimatedScore: totalScore,
           }),

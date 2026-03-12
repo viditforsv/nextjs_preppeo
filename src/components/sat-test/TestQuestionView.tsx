@@ -17,17 +17,6 @@ import {
   EyeOff,
 } from 'lucide-react';
 
-const DOMAIN_LABELS: Record<string, string> = {
-  algebra: 'Algebra',
-  'advanced-math': 'Advanced Math',
-  'problem-solving': 'Problem Solving & Data Analysis',
-  'geometry-trig': 'Geometry & Trigonometry',
-  'craft-structure': 'Craft & Structure',
-  'information-ideas': 'Information & Ideas',
-  'standard-english': 'Standard English Conventions',
-  'expression-of-ideas': 'Expression of Ideas',
-};
-
 export default function TestQuestionView() {
   const {
     module1,
@@ -78,10 +67,6 @@ export default function TestQuestionView() {
   const isTimeLow = timeLeft < 300;
   const isTimeCritical = timeLeft < 60;
 
-  const domainLabel = question.domain
-    ? DOMAIN_LABELS[question.domain] ?? question.domain
-    : sectionLabel;
-
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col">
       {/* Top Toolbar */}
@@ -93,8 +78,6 @@ export default function TestQuestionView() {
             <span className="font-bold">{currentModuleNumber}</span>{' '}
             <span className="opacity-70">of 2</span>
           </div>
-          <div className="h-5 w-px bg-white/30" />
-          <span className="text-xs opacity-70">{domainLabel}</span>
         </div>
 
         <div className="flex items-center gap-3">

@@ -4,7 +4,8 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useSATTestStore } from '@/stores/useSATTestStore';
 import { useAuth } from '@/contexts/AuthContext';
-import { ClipboardList, BookOpen, GraduationCap } from 'lucide-react';
+import { ClipboardList, BookOpen, GraduationCap, History } from 'lucide-react';
+import Link from 'next/link';
 import AccessCodeModal from './AccessCodeModal';
 
 export default function LandingScreen() {
@@ -124,6 +125,18 @@ export default function LandingScreen() {
             </div>
           </button>
         </div>
+
+        {user && (
+          <div className="text-center mt-6">
+            <Link
+              href="/sat-test/history"
+              className="inline-flex items-center gap-2 text-sm font-medium text-[#0d47a1] hover:underline"
+            >
+              <History className="w-4 h-4" />
+              View Score History
+            </Link>
+          </div>
+        )}
 
         <div className="text-center text-xs text-gray-400 mt-8 space-y-1">
           <p>

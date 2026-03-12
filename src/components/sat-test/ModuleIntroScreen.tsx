@@ -1,7 +1,7 @@
 'use client';
 
 import { useSATTestStore } from '@/stores/useSATTestStore';
-import { Clock, FileText, BarChart3 } from 'lucide-react';
+import { Clock, FileText } from 'lucide-react';
 
 export default function ModuleIntroScreen() {
   const { currentModuleNumber, currentSection, module1, module2, beginModule } = useSATTestStore();
@@ -12,20 +12,6 @@ export default function ModuleIntroScreen() {
   const minutes = Math.floor(mod.durationSeconds / 60);
   const qCount = mod.questions.length;
   const sectionLabel = currentSection === 'rw' ? 'Reading & Writing' : 'Math';
-
-  const tierLabel =
-    mod.difficultyTier === 'mixed'
-      ? 'Mixed'
-      : mod.difficultyTier === 'easy'
-      ? 'Lower Difficulty'
-      : 'Higher Difficulty';
-
-  const tierColor =
-    mod.difficultyTier === 'easy'
-      ? 'text-green-600 bg-green-100'
-      : mod.difficultyTier === 'hard'
-      ? 'text-red-600 bg-red-100'
-      : 'text-blue-700 bg-blue-100';
 
   return (
     <div className="min-h-screen bg-[#f5f5f0] flex items-center justify-center p-4">
@@ -53,16 +39,6 @@ export default function ModuleIntroScreen() {
               <p className="text-lg font-bold text-[#0d47a1]">{qCount}</p>
             </div>
           </div>
-
-          <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
-            <BarChart3 className="w-5 h-5 text-[#0d47a1]" />
-            <div>
-              <p className="text-sm font-medium text-gray-800">Difficulty</p>
-              <span className={`inline-block text-sm font-semibold px-2.5 py-0.5 rounded-full ${tierColor}`}>
-                {tierLabel}
-              </span>
-            </div>
-          </div>
         </div>
 
         <div className="bg-amber-50 border border-amber-200 rounded-lg p-4 mb-6 text-sm text-amber-800">
@@ -77,9 +53,6 @@ export default function ModuleIntroScreen() {
             <li>No penalty for wrong answers — answer every question</li>
             <li>Flag questions for review and return to them</li>
             <li>The timer will auto-submit when time runs out</li>
-            {currentModuleNumber === 1 && (
-              <li>Your performance determines Module 2 difficulty</li>
-            )}
           </ul>
         </div>
 

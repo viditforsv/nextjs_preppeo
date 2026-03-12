@@ -43,21 +43,21 @@ The Digital SAT is a multi-stage adaptive test consisting of two sections taken 
 
 ### Implemented
 - **Math adaptive test** — Module 1 (mixed) → Module 2 (hard/easy based on M1 score)
-- **Question types** — MCQ and SPR with math rendering
-- **Per-question tracking** — Time spent, visit count, flags
-- **Scoring** — Math 200–800 estimated score using raw-to-scaled curves
-- **Results UI** — Tabbed report: Score Overview, Domain Breakdown, Difficulty Breakdown, Time Analysis, Question Review
-- **Data persistence** — `sat_test_attempts` table with full question response data
+- **Reading & Writing adaptive test** — Module 1 (mixed) → Module 2 (hard/easy based on M1 score), 243 questions seeded across 3 sets
+- **Combined test flow** — R&W → 10-min break → Math in one session, matching real Digital SAT order
+- **Combined scoring** — R&W 200–800, Math 200–800, Total 400–1600
+- **Question types** — MCQ and SPR with math rendering; R&W includes passage display
+- **Per-question tracking** — Time spent, visit count, flags for both sections
+- **Results UI** — Tabbed report: Score Overview (per-section + total), Domain Breakdown (filterable by section), Difficulty Breakdown, Time Analysis, Question Review (filterable by section)
+- **Data persistence** — `sat_test_attempts` table with full question response data for both R&W and Math
 - **Token-based access** — Purchase tokens via Razorpay, enter access code to start
 - **Email delivery** — SMTP (ZeptoMail) sends access codes to buyers
 - **Auth gating** — Users must sign in before starting a test
+- **Realistic test mode** — No difficulty labels, M1 scores, or domain labels shown during the test, matching the real Bluebook experience
 
 ### Not Yet Implemented
-- **Reading & Writing section** — Schema, questions, scoring, UI
-- **Combined test flow** — RW → break → Math in one session
-- **Combined scoring** — Total 400–1600
 - **Practice mode** — Placeholder exists, no implementation
-- **Score history / dashboard** — Attempts are saved but no student-facing UI to view past results
+- **Score history / dashboard** — Attempts are saved but no student-facing page to view past results
 
 ---
 
@@ -65,9 +65,9 @@ The Digital SAT is a multi-stage adaptive test consisting of two sections taken 
 
 | Stage | Feature | Status |
 |-------|---------|--------|
-| 1 | R&W section + combined full-test flow | In progress |
+| 1 | R&W section + combined full-test flow | ✅ Complete |
 | 2 | SAT score history on student dashboard | Planned |
-| 3 | Practice mode (question bank exists as .tex files) | Planned |
+| 3 | Practice mode (question bank exists as .tsv/.tex files) | Planned |
 
 ---
 

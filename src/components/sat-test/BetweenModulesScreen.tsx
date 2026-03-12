@@ -9,10 +9,7 @@ export default function BetweenModulesScreen() {
   if (!module1Result || !module2Tier) return null;
 
   const sectionLabel = currentSection === 'rw' ? 'Reading & Writing' : 'Math';
-  const tierLabel = module2Tier === 'hard' ? 'Higher Difficulty' : 'Lower Difficulty';
-  const tierColor = module2Tier === 'hard' ? 'text-red-600' : 'text-green-600';
   const isLoading = !module2;
-
   const qCount = currentSection === 'rw' ? 27 : 22;
   const minutes = currentSection === 'rw' ? 32 : 35;
 
@@ -27,22 +24,13 @@ export default function BetweenModulesScreen() {
           {sectionLabel} Module 1 Complete
         </h1>
         <p className="text-gray-600 mb-6">
-          You answered{' '}
-          <span className="font-bold text-[#0d47a1]">
-            {module1Result.correct} of {module1Result.total}
-          </span>{' '}
-          questions correctly.
+          You have completed Module 1. Module 2 will begin when you click below.
         </p>
 
         <div className="bg-gray-50 rounded-lg p-4 mb-6">
-          <p className="text-sm text-gray-500 mb-1">{sectionLabel} Module 2 Difficulty</p>
-          <p className={`text-2xl font-bold ${tierColor}`}>{tierLabel}</p>
+          <p className="text-sm text-gray-500 mb-1">{sectionLabel} Module 2</p>
           <p className="text-xs text-gray-400 mt-1">{qCount} questions · {minutes} minutes</p>
         </div>
-
-        <p className="text-sm text-gray-500 mb-6">
-          When you are ready, click below to begin Module 2.
-        </p>
 
         <button
           onClick={beginModule2}
