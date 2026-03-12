@@ -4,13 +4,14 @@ import { useSATTestStore } from '@/stores/useSATTestStore';
 import { Clock, FileText, BarChart3 } from 'lucide-react';
 
 export default function ModuleIntroScreen() {
-  const { currentModuleNumber, module1, module2, beginModule } = useSATTestStore();
+  const { currentModuleNumber, currentSection, module1, module2, beginModule } = useSATTestStore();
 
   const mod = currentModuleNumber === 1 ? module1 : module2;
   if (!mod) return null;
 
   const minutes = Math.floor(mod.durationSeconds / 60);
   const qCount = mod.questions.length;
+  const sectionLabel = currentSection === 'rw' ? 'Reading & Writing' : 'Math';
 
   const tierLabel =
     mod.difficultyTier === 'mixed'
@@ -31,9 +32,9 @@ export default function ModuleIntroScreen() {
       <div className="bg-white rounded-xl shadow-lg max-w-lg w-full p-8">
         <div className="text-center mb-6">
           <h1 className="text-2xl font-bold text-[#0d47a1]">
-            Module {currentModuleNumber} of 2
+            {sectionLabel} — Module {currentModuleNumber} of 2
           </h1>
-          <p className="text-gray-500 mt-1">SAT Math Section</p>
+          <p className="text-gray-500 mt-1">SAT {sectionLabel} Section</p>
         </div>
 
         <div className="space-y-4 mb-8">
@@ -67,7 +68,12 @@ export default function ModuleIntroScreen() {
         <div className="bg-amber-50 border border-amber-200 rounded-lg p-4 mb-6 text-sm text-amber-800">
           <p className="font-medium mb-1">Instructions:</p>
           <ul className="list-disc ml-4 space-y-1">
-            <li>Desmos graphing calculator is available throughout</li>
+            {currentSection === 'math' && (
+              <li>Desmos graphing calculator is available throughout</li>
+            )}
+            {currentSection === 'rw' && (
+              <li>Read the passage carefully before answering each question</li>
+            )}
             <li>No penalty for wrong answers — answer every question</li>
             <li>Flag questions for review and return to them</li>
             <li>The timer will auto-submit when time runs out</li>
@@ -81,7 +87,7 @@ export default function ModuleIntroScreen() {
           onClick={beginModule}
           className="w-full py-3 bg-[#0d47a1] text-white font-semibold rounded-lg hover:bg-[#1565c0] transition-colors text-lg"
         >
-          Begin Module {currentModuleNumber}
+          Begin {sectionLabel} Module {currentModuleNumber}
         </button>
       </div>
     </div>

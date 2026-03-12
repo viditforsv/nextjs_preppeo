@@ -2,18 +2,26 @@ import { create } from 'zustand';
 import type {
   SATQuestion,
   SATModule,
+  SATSection,
   DifficultyTier,
   SATAppPhase,
   SATModuleResult,
   SATPracticeConfig,
+  SATQuestionResponse,
 } from '@/types/sat-test';
+import {
+  estimateMathScore,
+  estimateRWScore,
+  estimateTotalScore,
+  routeToTierMath,
+  routeToTierRW,
+} from '@/lib/sat-scoring';
 
-const MODULE_1_DURATION = 2100; // 35 min
-const MODULE_2_DURATION = 2100; // 35 min
+const RW_MODULE_DURATION = 1920; // 32 min
+const MATH_MODULE_DURATION = 2100; // 35 min
 
-// >= 15/22 correct → hard module 2, else → easy
-function routeToTier(correct: number): 'hard' | 'easy' {
-  return correct >= 15 ? 'hard' : 'easy';
+function durationForSection(section: SATSection): number {
+  return section === 'rw' ? RW_MODULE_DURATION : MATH_MODULE_DURATION;
 }
 
 function checkAnswer(
@@ -25,11 +33,13 @@ function checkAnswer(
 }
 
 async function fetchQuestions(
+  section: SATSection,
   moduleNum: number,
   setNumber: number,
   difficulty?: DifficultyTier
 ): Promise<SATQuestion[]> {
   const params = new URLSearchParams({
+    section,
     module: String(moduleNum),
     set: String(setNumber),
   });
@@ -44,11 +54,62 @@ async function fetchQuestions(
   return data.questions;
 }
 
+interface QuestionTiming {
+  enterTime: number;
+  totalMs: number;
+}
+
+function finalizeCurrentQuestionTime(
+  questions: SATQuestion[],
+  currentIndex: number,
+  timestamps: Record<string, QuestionTiming>,
+): Record<string, QuestionTiming> {
+  const q = questions[currentIndex];
+  if (!q) return timestamps;
+  const ts = timestamps[q.id];
+  if (!ts || ts.enterTime === 0) return timestamps;
+  const elapsed = Date.now() - ts.enterTime;
+  return {
+    ...timestamps,
+    [q.id]: { enterTime: 0, totalMs: ts.totalMs + elapsed },
+  };
+}
+
+function buildResponses(
+  section: SATSection,
+  questions: SATQuestion[],
+  answers: Record<string, string | null>,
+  flags: Record<string, boolean>,
+  timestamps: Record<string, QuestionTiming>,
+  visitCounts: Record<string, number>,
+): SATQuestionResponse[] {
+  return questions.map((q) => {
+    const answer = answers[q.id] ?? null;
+    const isOmitted = answer === null || answer === undefined || answer === '';
+    return {
+      questionId: q.id,
+      section,
+      answer,
+      isCorrect: checkAnswer(q, answer),
+      isOmitted,
+      isFlagged: !!flags[q.id],
+      timeSpentMs: timestamps[q.id]?.totalMs ?? 0,
+      visitCount: visitCounts[q.id] ?? 0,
+      domain: q.domain ?? null,
+      difficulty: q.difficulty,
+      questionType: q.type,
+    };
+  });
+}
+
 interface SATTestState {
   phase: SATAppPhase;
   mode: 'test' | 'practice' | null;
 
-  // Test mode
+  // Section tracking
+  currentSection: SATSection;
+
+  // Test mode — current module (reused for both sections)
   tokenCode: string | null;
   setNumber: number | null;
   module1: SATModule | null;
@@ -61,6 +122,23 @@ interface SATTestState {
   module1Result: SATModuleResult | null;
   module2Result: SATModuleResult | null;
   module2Tier: 'hard' | 'easy' | null;
+
+  // Per-question tracking (current module)
+  questionTimestamps: Record<string, QuestionTiming>;
+  visitCounts: Record<string, number>;
+  module1QuestionResponses: SATQuestionResponse[];
+
+  // R&W section results (persisted across section break)
+  rwModule1Result: SATModuleResult | null;
+  rwModule2Result: SATModuleResult | null;
+  rwModule2Tier: 'hard' | 'easy' | null;
+  rwQuestionResponses: SATQuestionResponse[];
+  rwEstimatedScore: number | null;
+
+  // Combined results (set after Math M2 submission)
+  allQuestionResponses: SATQuestionResponse[];
+  mathEstimatedScore: number | null;
+  totalEstimatedScore: number | null;
 
   // Practice mode
   practiceConfig: SATPracticeConfig | null;
@@ -84,6 +162,7 @@ interface SATTestState {
   tickTimer: () => void;
   submitModule: () => void;
   beginModule2: () => void;
+  beginMathSection: () => Promise<void>;
   toggleCalculator: () => void;
   toggleReview: () => void;
   toggleTimerVisibility: () => void;
@@ -99,6 +178,7 @@ interface SATTestState {
 const initialState = {
   phase: 'landing' as SATAppPhase,
   mode: null as 'test' | 'practice' | null,
+  currentSection: 'rw' as SATSection,
   tokenCode: null as string | null,
   setNumber: null as number | null,
   module1: null as SATModule | null,
@@ -111,6 +191,17 @@ const initialState = {
   module1Result: null as SATModuleResult | null,
   module2Result: null as SATModuleResult | null,
   module2Tier: null as 'hard' | 'easy' | null,
+  questionTimestamps: {} as Record<string, QuestionTiming>,
+  visitCounts: {} as Record<string, number>,
+  module1QuestionResponses: [] as SATQuestionResponse[],
+  rwModule1Result: null as SATModuleResult | null,
+  rwModule2Result: null as SATModuleResult | null,
+  rwModule2Tier: null as 'hard' | 'easy' | null,
+  rwQuestionResponses: [] as SATQuestionResponse[],
+  rwEstimatedScore: null as number | null,
+  allQuestionResponses: [] as SATQuestionResponse[],
+  mathEstimatedScore: null as number | null,
+  totalEstimatedScore: null as number | null,
   practiceConfig: null as SATPracticeConfig | null,
   practiceQuestions: [] as SATQuestion[],
   practiceAnswers: {} as Record<string, string | null>,
@@ -126,17 +217,22 @@ export const useSATTestStore = create<SATTestState>()((set, get) => ({
 
   goToLanding: () => set({ ...initialState }),
 
+  // Full test starts with RW Module 1
   startTestMode: async (setNum: number, tokenCode?: string) => {
-    const questions = await fetchQuestions(1, setNum);
+    const section: SATSection = 'rw';
+    const duration = durationForSection(section);
+    const questions = await fetchQuestions(section, 1, setNum);
     const mod1: SATModule = {
       moduleNumber: 1,
+      section,
       difficultyTier: 'mixed',
-      durationSeconds: MODULE_1_DURATION,
+      durationSeconds: duration,
       questions,
     };
     set({
       mode: 'test',
       phase: 'module-intro',
+      currentSection: section,
       tokenCode: tokenCode ?? null,
       setNumber: setNum,
       module1: mod1,
@@ -145,16 +241,35 @@ export const useSATTestStore = create<SATTestState>()((set, get) => ({
       currentQuestionIndex: 0,
       answers: {},
       flags: {},
-      timeLeft: MODULE_1_DURATION,
+      timeLeft: duration,
       module1Result: null,
       module2Result: null,
       module2Tier: null,
+      rwModule1Result: null,
+      rwModule2Result: null,
+      rwModule2Tier: null,
+      rwQuestionResponses: [],
+      rwEstimatedScore: null,
+      mathEstimatedScore: null,
+      totalEstimatedScore: null,
+      allQuestionResponses: [],
       isCalculatorOpen: false,
       isReviewOpen: false,
     });
   },
 
-  beginModule: () => set({ phase: 'in-module' }),
+  beginModule: () => {
+    const { currentModuleNumber, module1, module2 } = get();
+    const mod = currentModuleNumber === 1 ? module1 : module2;
+    const firstQ = mod?.questions[0];
+    set({
+      phase: 'in-module',
+      questionTimestamps: firstQ
+        ? { [firstQ.id]: { enterTime: Date.now(), totalMs: 0 } }
+        : {},
+      visitCounts: firstQ ? { [firstQ.id]: 1 } : {},
+    });
+  },
 
   setAnswer: (qId, value) =>
     set((s) => ({ answers: { ...s.answers, [qId]: value } })),
@@ -162,7 +277,42 @@ export const useSATTestStore = create<SATTestState>()((set, get) => ({
   toggleFlag: (qId) =>
     set((s) => ({ flags: { ...s.flags, [qId]: !s.flags[qId] } })),
 
-  navigateQuestion: (idx) => set({ currentQuestionIndex: idx, isReviewOpen: false }),
+  navigateQuestion: (idx) => {
+    const { currentQuestionIndex, currentModuleNumber, module1, module2, questionTimestamps, visitCounts } = get();
+    if (idx === currentQuestionIndex) {
+      set({ isReviewOpen: false });
+      return;
+    }
+    const mod = currentModuleNumber === 1 ? module1 : module2;
+    if (!mod) {
+      set({ currentQuestionIndex: idx, isReviewOpen: false });
+      return;
+    }
+    const now = Date.now();
+    const prevQ = mod.questions[currentQuestionIndex];
+    const nextQ = mod.questions[idx];
+    const updatedTs = { ...questionTimestamps };
+
+    if (prevQ) {
+      const prev = updatedTs[prevQ.id] || { enterTime: now, totalMs: 0 };
+      const elapsed = prev.enterTime > 0 ? now - prev.enterTime : 0;
+      updatedTs[prevQ.id] = { enterTime: 0, totalMs: prev.totalMs + elapsed };
+    }
+    if (nextQ) {
+      const existing = updatedTs[nextQ.id] || { enterTime: 0, totalMs: 0 };
+      updatedTs[nextQ.id] = { enterTime: now, totalMs: existing.totalMs };
+    }
+
+    set({
+      currentQuestionIndex: idx,
+      isReviewOpen: false,
+      questionTimestamps: updatedTs,
+      visitCounts: {
+        ...visitCounts,
+        [nextQ?.id ?? '']: (visitCounts[nextQ?.id ?? ''] || 0) + 1,
+      },
+    });
+  },
 
   tickTimer: () => {
     const { timeLeft } = get();
@@ -174,39 +324,52 @@ export const useSATTestStore = create<SATTestState>()((set, get) => ({
   },
 
   submitModule: () => {
-    const { currentModuleNumber, module1, module2, answers, timeLeft, setNumber } = get();
+    const {
+      currentSection, currentModuleNumber, module1, module2, answers, flags,
+      timeLeft, setNumber, currentQuestionIndex,
+      questionTimestamps, visitCounts,
+    } = get();
+
+    const duration = durationForSection(currentSection);
 
     if (currentModuleNumber === 1 && module1) {
+      const finalTs = finalizeCurrentQuestionTime(module1.questions, currentQuestionIndex, questionTimestamps);
       let correct = 0;
       module1.questions.forEach((q) => {
         if (checkAnswer(q, answers[q.id] ?? null)) correct++;
       });
       const result: SATModuleResult = {
         moduleNumber: 1,
+        section: currentSection,
         difficultyTier: 'mixed',
         correct,
         total: module1.questions.length,
         answers: { ...answers },
-        timeUsed: MODULE_1_DURATION - timeLeft,
+        timeUsed: duration - timeLeft,
       };
-      const tier = routeToTier(correct);
+      const tier = currentSection === 'rw'
+        ? routeToTierRW(correct)
+        : routeToTierMath(correct);
+
+      const m1Responses = buildResponses(currentSection, module1.questions, answers, flags, finalTs, visitCounts);
 
       set({
         module1Result: result,
         module2Tier: tier,
+        module1QuestionResponses: m1Responses,
         phase: 'between-modules',
         isReviewOpen: false,
         isCalculatorOpen: false,
       });
 
-      // Pre-fetch module 2 questions
       if (setNumber) {
-        fetchQuestions(2, setNumber, tier)
+        fetchQuestions(currentSection, 2, setNumber, tier)
           .then((m2Questions) => {
             const m2: SATModule = {
               moduleNumber: 2,
+              section: currentSection,
               difficultyTier: tier,
-              durationSeconds: MODULE_2_DURATION,
+              durationSeconds: duration,
               questions: m2Questions,
             };
             set({ module2: m2 });
@@ -216,42 +379,112 @@ export const useSATTestStore = create<SATTestState>()((set, get) => ({
           });
       }
     } else if (currentModuleNumber === 2 && module2) {
+      const finalTs = finalizeCurrentQuestionTime(module2.questions, currentQuestionIndex, questionTimestamps);
       let correct = 0;
       module2.questions.forEach((q) => {
         if (checkAnswer(q, answers[q.id] ?? null)) correct++;
       });
       const result: SATModuleResult = {
         moduleNumber: 2,
+        section: currentSection,
         difficultyTier: module2.difficultyTier,
         correct,
         total: module2.questions.length,
         answers: { ...answers },
-        timeUsed: MODULE_2_DURATION - timeLeft,
+        timeUsed: duration - timeLeft,
       };
-      set({
-        module2Result: result,
-        phase: 'results',
-        isReviewOpen: false,
-        isCalculatorOpen: false,
-      });
 
-      const { module1Result, tokenCode, setNumber: sn } = get();
-      if (module1Result) {
-        const allAnswers = { ...module1Result.answers, ...result.answers };
+      const { module1Result, module1QuestionResponses } = get();
+
+      if (currentSection === 'rw') {
+        // R&W M2 done → save R&W results and go to section break
+        const m2Responses = buildResponses('rw', module2.questions, answers, flags, finalTs, visitCounts);
+        const allRWResponses = [...module1QuestionResponses, ...m2Responses];
+        const m2Tier = (result.difficultyTier === 'hard' || result.difficultyTier === 'easy')
+          ? result.difficultyTier
+          : 'easy';
+        const rwScore = estimateRWScore({
+          module1Correct: module1Result!.correct,
+          module1Total: module1Result!.total,
+          module2Correct: result.correct,
+          module2Total: result.total,
+          module2Tier: m2Tier,
+        });
+
+        set({
+          module2Result: result,
+          rwModule1Result: module1Result,
+          rwModule2Result: result,
+          rwModule2Tier: m2Tier,
+          rwQuestionResponses: allRWResponses,
+          rwEstimatedScore: rwScore,
+          phase: 'section-break',
+          isReviewOpen: false,
+          isCalculatorOpen: false,
+        });
+      } else {
+        // Math M2 done → compute combined scores, persist, go to results
+        const m2Responses = buildResponses('math', module2.questions, answers, flags, finalTs, visitCounts);
+        const mathResponses = [...module1QuestionResponses, ...m2Responses];
+        const allAnswers = { ...module1Result!.answers, ...result.answers };
+        const m2Tier = (result.difficultyTier === 'hard' || result.difficultyTier === 'easy')
+          ? result.difficultyTier
+          : 'easy';
+        const mathScore = estimateMathScore({
+          module1Correct: module1Result!.correct,
+          module1Total: module1Result!.total,
+          module2Correct: result.correct,
+          module2Total: result.total,
+          module2Tier: m2Tier,
+        });
+
+        const { rwQuestionResponses, rwEstimatedScore, tokenCode, setNumber: sn,
+                rwModule1Result, rwModule2Result, rwModule2Tier } = get();
+
+        const allResponses = [...rwQuestionResponses, ...mathResponses];
+        const totalScore = estimateTotalScore(rwEstimatedScore ?? 200, mathScore);
+
+        set({
+          module2Result: result,
+          allQuestionResponses: allResponses,
+          mathEstimatedScore: mathScore,
+          totalEstimatedScore: totalScore,
+          phase: 'results',
+          isReviewOpen: false,
+          isCalculatorOpen: false,
+        });
+
+        // Persist the full attempt
         fetch('/api/sat/attempts', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             tokenCode,
             setNumber: sn,
-            module1Correct: module1Result.correct,
-            module1Total: module1Result.total,
-            module1TimeUsed: module1Result.timeUsed,
-            module2Tier: result.difficultyTier,
+            sectionType: 'full',
+            // Math
+            module1Correct: module1Result!.correct,
+            module1Total: module1Result!.total,
+            module1TimeUsed: module1Result!.timeUsed,
+            module2Tier: m2Tier,
             module2Correct: result.correct,
             module2Total: result.total,
             module2TimeUsed: result.timeUsed,
             answersJson: allAnswers,
+            estimatedScore: mathScore,
+            questionResponses: mathResponses,
+            // R&W
+            rwModule1Correct: rwModule1Result?.correct ?? 0,
+            rwModule1Total: rwModule1Result?.total ?? 0,
+            rwModule1TimeUsed: rwModule1Result?.timeUsed ?? 0,
+            rwModule2Tier: rwModule2Tier,
+            rwModule2Correct: rwModule2Result?.correct ?? 0,
+            rwModule2Total: rwModule2Result?.total ?? 0,
+            rwModule2TimeUsed: rwModule2Result?.timeUsed ?? 0,
+            rwEstimatedScore: rwEstimatedScore,
+            rwQuestionResponses: rwQuestionResponses,
+            // Combined
+            totalEstimatedScore: totalScore,
           }),
         }).catch((err) => console.error('Failed to persist SAT attempt:', err));
       }
@@ -259,14 +492,54 @@ export const useSATTestStore = create<SATTestState>()((set, get) => ({
   },
 
   beginModule2: () => {
-    const { module2 } = get();
+    const { module2, currentSection } = get();
     if (!module2) return;
+    const duration = durationForSection(currentSection);
     set({
       currentModuleNumber: 2,
       currentQuestionIndex: 0,
       answers: {},
       flags: {},
-      timeLeft: MODULE_2_DURATION,
+      timeLeft: duration,
+      phase: 'module-intro',
+      isCalculatorOpen: false,
+      isReviewOpen: false,
+      questionTimestamps: {},
+      visitCounts: {},
+    });
+  },
+
+  // Called from SectionBreakScreen after the 10-min break
+  beginMathSection: async () => {
+    const { setNumber } = get();
+    if (!setNumber) return;
+
+    const section: SATSection = 'math';
+    const duration = durationForSection(section);
+    const questions = await fetchQuestions(section, 1, setNumber);
+    const mod1: SATModule = {
+      moduleNumber: 1,
+      section,
+      difficultyTier: 'mixed',
+      durationSeconds: duration,
+      questions,
+    };
+
+    set({
+      currentSection: section,
+      module1: mod1,
+      module2: null,
+      currentModuleNumber: 1,
+      currentQuestionIndex: 0,
+      answers: {},
+      flags: {},
+      timeLeft: duration,
+      module1Result: null,
+      module2Result: null,
+      module2Tier: null,
+      module1QuestionResponses: [],
+      questionTimestamps: {},
+      visitCounts: {},
       phase: 'module-intro',
       isCalculatorOpen: false,
       isReviewOpen: false,

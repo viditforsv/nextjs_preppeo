@@ -1,10 +1,20 @@
 export type SATQuestionType = 'mcq' | 'spr';
 
-export type SATDomain =
+export type SATSection = 'rw' | 'math';
+
+export type SATMathDomain =
   | 'algebra'
   | 'advanced-math'
   | 'problem-solving'
   | 'geometry-trig';
+
+export type SATRWDomain =
+  | 'craft-structure'
+  | 'information-ideas'
+  | 'standard-english'
+  | 'expression-of-ideas';
+
+export type SATDomain = SATMathDomain | SATRWDomain;
 
 export type DifficultyTier = 'easy' | 'medium' | 'hard';
 
@@ -16,9 +26,11 @@ export interface SATQuestionOption {
 export interface SATQuestion {
   id: string;
   type: SATQuestionType;
+  section?: SATSection;
   difficulty: DifficultyTier;
   domain?: SATDomain;
   prompt: string;
+  passage?: string;
   options?: SATQuestionOption[];
   correctAnswer: string;
   explanation: string;
@@ -27,6 +39,7 @@ export interface SATQuestion {
 
 export interface SATModule {
   moduleNumber: 1 | 2;
+  section: SATSection;
   difficultyTier: DifficultyTier | 'mixed';
   durationSeconds: number;
   questions: SATQuestion[];
@@ -34,6 +47,7 @@ export interface SATModule {
 
 export interface SATModuleResult {
   moduleNumber: 1 | 2;
+  section: SATSection;
   difficultyTier: DifficultyTier | 'mixed';
   correct: number;
   total: number;
@@ -46,6 +60,7 @@ export type SATTestPhase =
   | 'module-intro'
   | 'in-module'
   | 'between-modules'
+  | 'section-break'
   | 'results';
 
 export type SATPracticePhase =
@@ -59,4 +74,18 @@ export type SATAppPhase = SATTestPhase | SATPracticePhase;
 export interface SATPracticeConfig {
   difficulty: DifficultyTier | 'mixed';
   questionCount: number;
+}
+
+export interface SATQuestionResponse {
+  questionId: string;
+  section: SATSection;
+  answer: string | null;
+  isCorrect: boolean;
+  isOmitted: boolean;
+  isFlagged: boolean;
+  timeSpentMs: number;
+  visitCount: number;
+  domain: SATDomain | null;
+  difficulty: DifficultyTier;
+  questionType: SATQuestionType;
 }

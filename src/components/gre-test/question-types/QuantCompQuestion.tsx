@@ -27,7 +27,7 @@ export default function QuantCompQuestion({
 }: Props) {
   return (
     <div className="space-y-5">
-      {question.quantityInfo && (
+      {question.quantityInfo && question.quantityInfo !== question.prompt && (
         <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 text-gray-700 text-sm">
           {renderMixedContent(question.quantityInfo)}
         </div>

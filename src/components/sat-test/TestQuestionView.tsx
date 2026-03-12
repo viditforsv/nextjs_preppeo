@@ -22,6 +22,10 @@ const DOMAIN_LABELS: Record<string, string> = {
   'advanced-math': 'Advanced Math',
   'problem-solving': 'Problem Solving & Data Analysis',
   'geometry-trig': 'Geometry & Trigonometry',
+  'craft-structure': 'Craft & Structure',
+  'information-ideas': 'Information & Ideas',
+  'standard-english': 'Standard English Conventions',
+  'expression-of-ideas': 'Expression of Ideas',
 };
 
 export default function TestQuestionView() {
@@ -29,6 +33,7 @@ export default function TestQuestionView() {
     module1,
     module2,
     currentModuleNumber,
+    currentSection,
     currentQuestionIndex,
     answers,
     flags,
@@ -49,6 +54,8 @@ export default function TestQuestionView() {
   const [showSubmitConfirm, setShowSubmitConfirm] = useState(false);
 
   const mod = currentModuleNumber === 1 ? module1 : module2;
+  const isMathSection = currentSection === 'math';
+  const sectionLabel = isMathSection ? 'Math' : 'R&W';
 
   useEffect(() => {
     const interval = setInterval(tickTimer, 1000);
@@ -71,7 +78,9 @@ export default function TestQuestionView() {
   const isTimeLow = timeLeft < 300;
   const isTimeCritical = timeLeft < 60;
 
-  const domainLabel = question.domain ? DOMAIN_LABELS[question.domain] ?? question.domain : 'Math';
+  const domainLabel = question.domain
+    ? DOMAIN_LABELS[question.domain] ?? question.domain
+    : sectionLabel;
 
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col">
@@ -79,6 +88,7 @@ export default function TestQuestionView() {
       <header className="bg-[#0d47a1] text-white px-4 py-2.5 flex items-center justify-between sticky top-0 z-30 shadow-md">
         <div className="flex items-center gap-4">
           <div className="text-sm font-medium">
+            <span className="font-semibold">{sectionLabel}</span>{' '}
             <span className="opacity-70">Module</span>{' '}
             <span className="font-bold">{currentModuleNumber}</span>{' '}
             <span className="opacity-70">of 2</span>
@@ -147,6 +157,15 @@ export default function TestQuestionView() {
         </div>
 
         <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-6 mb-6">
+          {/* Passage for R&W questions */}
+          {question.passage && (
+            <div className="mb-5 pb-5 border-b border-gray-200">
+              <p className="text-xs font-semibold uppercase text-gray-400 mb-2 tracking-wider">Passage</p>
+              <div className="text-sm text-gray-700 leading-relaxed whitespace-pre-line">
+                {renderMixedContent(question.passage)}
+              </div>
+            </div>
+          )}
           <div className="mb-5">
             <div className="text-base text-gray-800 leading-relaxed">
               {renderMixedContent(question.prompt)}
@@ -210,17 +229,19 @@ export default function TestQuestionView() {
           </div>
 
           <div className="flex items-center gap-2">
-            <button
-              onClick={toggleCalculator}
-              className={`inline-flex items-center gap-1.5 px-3 py-2 text-sm border rounded-lg transition-colors ${
-                isCalculatorOpen
-                  ? 'border-blue-400 bg-blue-50 text-blue-700'
-                  : 'border-gray-300 text-gray-600 hover:bg-gray-50'
-              }`}
-              title="Desmos Calculator"
-            >
-              <Calculator className="w-4 h-4" />
-            </button>
+            {isMathSection && (
+              <button
+                onClick={toggleCalculator}
+                className={`inline-flex items-center gap-1.5 px-3 py-2 text-sm border rounded-lg transition-colors ${
+                  isCalculatorOpen
+                    ? 'border-blue-400 bg-blue-50 text-blue-700'
+                    : 'border-gray-300 text-gray-600 hover:bg-gray-50'
+                }`}
+                title="Desmos Calculator"
+              >
+                <Calculator className="w-4 h-4" />
+              </button>
+            )}
             <button
               onClick={toggleReview}
               className="inline-flex items-center gap-1.5 px-3 py-2 text-sm border border-gray-300 rounded-lg text-gray-600 hover:bg-gray-50"
@@ -237,8 +258,8 @@ export default function TestQuestionView() {
         </div>
       </footer>
 
-      {/* Desmos Calculator overlay */}
-      {isCalculatorOpen && <DesmosCalculator onClose={toggleCalculator} />}
+      {/* Desmos Calculator overlay — Math only */}
+      {isMathSection && isCalculatorOpen && <DesmosCalculator onClose={toggleCalculator} />}
 
       {/* Review overlay */}
       {isReviewOpen && (
@@ -261,7 +282,7 @@ export default function TestQuestionView() {
         <div className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center p-4">
           <div className="bg-white rounded-xl shadow-2xl max-w-sm w-full p-6">
             <h3 className="text-lg font-bold text-gray-900 mb-2">
-              Submit Module {currentModuleNumber}?
+              Submit {sectionLabel} Module {currentModuleNumber}?
             </h3>
             <p className="text-sm text-gray-600 mb-2">
               You have answered <strong>{answered}</strong> of <strong>{total}</strong> questions.

@@ -141,7 +141,7 @@ export default function TestQuestionView() {
 
         {/* Question card */}
         <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-6 mb-6">
-          {question.type !== 'quantitative-comparison' && (
+          {question.prompt && (
             <div className="mb-5">
               <div className="text-base text-gray-800 leading-relaxed">{renderMixedContent(question.prompt)}</div>
             </div>

@@ -5,6 +5,7 @@ import LandingScreen from '@/components/sat-test/LandingScreen';
 import ModuleIntroScreen from '@/components/sat-test/ModuleIntroScreen';
 import TestQuestionView from '@/components/sat-test/TestQuestionView';
 import BetweenModulesScreen from '@/components/sat-test/BetweenModulesScreen';
+import SectionBreakScreen from '@/components/sat-test/SectionBreakScreen';
 import ResultsScreen from '@/components/sat-test/ResultsScreen';
 
 export default function SATTestPage() {
@@ -19,12 +20,13 @@ export default function SATTestPage() {
       return <TestQuestionView />;
     case 'between-modules':
       return <BetweenModulesScreen />;
+    case 'section-break':
+      return <SectionBreakScreen />;
     case 'results':
       return <ResultsScreen />;
     case 'practice-config':
     case 'in-practice':
     case 'practice-summary':
-      // Practice mode placeholder — will be built when practice content is ready
       return <LandingScreen />;
     default:
       return <LandingScreen />;

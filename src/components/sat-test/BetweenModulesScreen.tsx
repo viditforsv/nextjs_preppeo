@@ -4,13 +4,17 @@ import { useSATTestStore } from '@/stores/useSATTestStore';
 import { CheckCircle, ArrowRight, Loader2 } from 'lucide-react';
 
 export default function BetweenModulesScreen() {
-  const { module1Result, module2Tier, module2, beginModule2 } = useSATTestStore();
+  const { module1Result, module2Tier, module2, currentSection, beginModule2 } = useSATTestStore();
 
   if (!module1Result || !module2Tier) return null;
 
+  const sectionLabel = currentSection === 'rw' ? 'Reading & Writing' : 'Math';
   const tierLabel = module2Tier === 'hard' ? 'Higher Difficulty' : 'Lower Difficulty';
   const tierColor = module2Tier === 'hard' ? 'text-red-600' : 'text-green-600';
   const isLoading = !module2;
+
+  const qCount = currentSection === 'rw' ? 27 : 22;
+  const minutes = currentSection === 'rw' ? 32 : 35;
 
   return (
     <div className="min-h-screen bg-[#f5f5f0] flex items-center justify-center p-4">
@@ -20,7 +24,7 @@ export default function BetweenModulesScreen() {
         </div>
 
         <h1 className="text-2xl font-bold text-gray-900 mb-2">
-          Module 1 Complete
+          {sectionLabel} Module 1 Complete
         </h1>
         <p className="text-gray-600 mb-6">
           You answered{' '}
@@ -31,9 +35,9 @@ export default function BetweenModulesScreen() {
         </p>
 
         <div className="bg-gray-50 rounded-lg p-4 mb-6">
-          <p className="text-sm text-gray-500 mb-1">Module 2 Difficulty</p>
+          <p className="text-sm text-gray-500 mb-1">{sectionLabel} Module 2 Difficulty</p>
           <p className={`text-2xl font-bold ${tierColor}`}>{tierLabel}</p>
-          <p className="text-xs text-gray-400 mt-1">22 questions · 35 minutes</p>
+          <p className="text-xs text-gray-400 mt-1">{qCount} questions · {minutes} minutes</p>
         </div>
 
         <p className="text-sm text-gray-500 mb-6">
@@ -52,7 +56,7 @@ export default function BetweenModulesScreen() {
             </>
           ) : (
             <>
-              Begin Module 2
+              Begin {sectionLabel} Module 2
               <ArrowRight className="w-5 h-5" />
             </>
           )}

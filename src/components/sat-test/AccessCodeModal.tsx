@@ -62,7 +62,7 @@ export default function AccessCodeModal({ onSuccess, onClose }: AccessCodeModalP
 
         <form onSubmit={handleSubmit} className="p-6 space-y-4">
           <p className="text-sm text-gray-600">
-            Enter the access code to begin the SAT Math test. Free code: <code className="font-mono font-semibold text-[#0d47a1]">SAT-FREE-SET1</code>
+            Enter the access code to begin the SAT test. Free code: <code className="font-mono font-semibold text-[#0d47a1]">SAT-FREE-SET1</code>
           </p>
 
           <input
