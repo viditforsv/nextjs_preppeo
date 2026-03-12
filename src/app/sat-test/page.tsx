@@ -7,6 +7,9 @@ import TestQuestionView from '@/components/sat-test/TestQuestionView';
 import BetweenModulesScreen from '@/components/sat-test/BetweenModulesScreen';
 import SectionBreakScreen from '@/components/sat-test/SectionBreakScreen';
 import ResultsScreen from '@/components/sat-test/ResultsScreen';
+import PracticeConfigScreen from '@/components/sat-test/PracticeConfigScreen';
+import PracticeView from '@/components/sat-test/PracticeView';
+import PracticeSummary from '@/components/sat-test/PracticeSummary';
 
 export default function SATTestPage() {
   const phase = useSATTestStore((s) => s.phase);
@@ -25,9 +28,11 @@ export default function SATTestPage() {
     case 'results':
       return <ResultsScreen />;
     case 'practice-config':
+      return <PracticeConfigScreen />;
     case 'in-practice':
+      return <PracticeView />;
     case 'practice-summary':
-      return <LandingScreen />;
+      return <PracticeSummary />;
     default:
       return <LandingScreen />;
   }

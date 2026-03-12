@@ -154,6 +154,16 @@ export default function TestQuestionView() {
               {renderMixedContent(question.prompt)}
             </div>
           </div>
+          {question.imageUrl && (
+            <div className="mb-5">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={question.imageUrl}
+                alt="Question figure"
+                className="max-w-full rounded-lg border border-gray-200"
+              />
+            </div>
+          )}
           <QuestionRenderer
             question={question}
             answer={answers[question.id] ?? null}

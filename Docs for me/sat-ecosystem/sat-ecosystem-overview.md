@@ -55,9 +55,12 @@ The Digital SAT is a multi-stage adaptive test consisting of two sections taken 
 - **Auth gating** — Users must sign in before starting a test
 - **Realistic test mode** — No difficulty labels, M1 scores, or domain labels shown during the test, matching the real Bluebook experience
 
+- **Score history dashboard** — `/sat-test/history` lists all past attempts; `/sat-test/history/[id]` shows full score report for any attempt, reusing the same tabbed results UI. Accessible from the SAT landing screen and results screen.
+- **Practice mode** — Untimed practice for both Math and R&W. Students select section, domains, difficulty, and question count. Instant check-answer with AI-enhanced explanations (Gemini). 541 practice-only R&W questions seeded (module_number=0, set_number=0), plus test questions are also available. Summary screen with score, domain breakdown, and expandable question review with AI explanations.
+- **Question images** — "Command of Evidence - Quantitative" questions have chart/graph images stored in `sat-question-images` Supabase Storage bucket, rendered during the test.
+
 ### Not Yet Implemented
-- **Practice mode** — Placeholder exists, no implementation
-- **Score history / dashboard** — Attempts are saved but no student-facing page to view past results
+- **More math practice questions** — Currently reusing 67 test questions for math practice; additional math questions can be added later.
 
 ---
 
@@ -66,8 +69,8 @@ The Digital SAT is a multi-stage adaptive test consisting of two sections taken 
 | Stage | Feature | Status |
 |-------|---------|--------|
 | 1 | R&W section + combined full-test flow | ✅ Complete |
-| 2 | SAT score history on student dashboard | Planned |
-| 3 | Practice mode (question bank exists as .tsv/.tex files) | Planned |
+| 2 | SAT score history on student dashboard | ✅ Complete |
+| 3 | Practice mode with AI explanations | ✅ Complete |
 
 ---
 
@@ -88,5 +91,13 @@ The Digital SAT is a multi-stage adaptive test consisting of two sections taken 
 | `src/types/sat-test.ts` | All SAT-related TypeScript types |
 | `src/lib/sat-scoring.ts` | Raw-to-scaled score curves (Math + R&W) |
 | `src/app/api/sat/questions/route.ts` | Fetch questions by section/module/set |
-| `src/app/api/sat/attempts/route.ts` | Persist test attempt results |
-| `src/components/sat-test/` | All UI components (landing, test view, results) |
+| `src/app/api/sat/attempts/route.ts` | List (GET) and persist (POST) test attempts |
+| `src/app/api/sat/attempts/[id]/route.ts` | Fetch single attempt detail |
+| `src/app/sat-test/history/page.tsx` | Score history list page |
+| `src/app/sat-test/history/[id]/page.tsx` | Individual attempt report page |
+| `src/app/api/sat/practice-questions/route.ts` | Fetch practice questions with filters |
+| `src/app/api/sat/explain/route.ts` | AI-enhanced explanations via Gemini |
+| `src/components/sat-test/PracticeConfigScreen.tsx` | Practice mode configuration UI |
+| `src/components/sat-test/PracticeView.tsx` | In-practice question view with AI |
+| `src/components/sat-test/PracticeSummary.tsx` | Practice session summary |
+| `src/components/sat-test/` | All UI components (landing, test view, results, practice) |

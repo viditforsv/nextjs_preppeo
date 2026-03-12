@@ -145,6 +145,8 @@ interface SATTestState {
   practiceQuestions: SATQuestion[];
   practiceAnswers: Record<string, string | null>;
   practiceRevealed: Record<string, boolean>;
+  practiceExplanations: Record<string, string>;
+  practiceLoading: Record<string, boolean>;
   practiceIndex: number;
 
   // UI
@@ -168,7 +170,7 @@ interface SATTestState {
   toggleTimerVisibility: () => void;
 
   // Practice actions
-  startPracticeMode: (config: SATPracticeConfig) => void;
+  startPracticeMode: (config: SATPracticeConfig) => Promise<void>;
   setPracticeAnswer: (qId: string, value: string | null) => void;
   revealAnswer: (qId: string) => void;
   navigatePractice: (idx: number) => void;
@@ -206,6 +208,8 @@ const initialState = {
   practiceQuestions: [] as SATQuestion[],
   practiceAnswers: {} as Record<string, string | null>,
   practiceRevealed: {} as Record<string, boolean>,
+  practiceExplanations: {} as Record<string, string>,
+  practiceLoading: {} as Record<string, boolean>,
   practiceIndex: 0,
   isCalculatorOpen: false,
   isReviewOpen: false,
@@ -559,24 +563,87 @@ export const useSATTestStore = create<SATTestState>()((set, get) => ({
   toggleReview: () => set((s) => ({ isReviewOpen: !s.isReviewOpen })),
   toggleTimerVisibility: () => set((s) => ({ timerHidden: !s.timerHidden })),
 
-  // Practice (placeholder — will need sat_questions rows or mock data)
-  startPracticeMode: (config) => {
+  startPracticeMode: async (config) => {
+    const params = new URLSearchParams({
+      section: config.section,
+      count: String(config.questionCount),
+    });
+    if (config.domains.length > 0) {
+      params.set('domains', config.domains.join(','));
+    }
+    if (config.difficulty !== 'mixed') {
+      params.set('difficulty', config.difficulty);
+    }
+
+    const res = await fetch(`/api/sat/practice-questions?${params}`);
+    if (!res.ok) throw new Error('Failed to fetch practice questions');
+    const data = await res.json();
+
     set({
       mode: 'practice',
       phase: 'in-practice',
+      currentSection: config.section,
       practiceConfig: config,
-      practiceQuestions: [],
+      practiceQuestions: data.questions,
       practiceAnswers: {},
       practiceRevealed: {},
+      practiceExplanations: {},
+      practiceLoading: {},
       practiceIndex: 0,
+      isCalculatorOpen: false,
     });
   },
 
   setPracticeAnswer: (qId, value) =>
     set((s) => ({ practiceAnswers: { ...s.practiceAnswers, [qId]: value } })),
 
-  revealAnswer: (qId) =>
-    set((s) => ({ practiceRevealed: { ...s.practiceRevealed, [qId]: true } })),
+  revealAnswer: (qId) => {
+    const { practiceQuestions, practiceAnswers, practiceRevealed } = get();
+    if (practiceRevealed[qId]) return;
+
+    set((s) => ({
+      practiceRevealed: { ...s.practiceRevealed, [qId]: true },
+      practiceLoading: { ...s.practiceLoading, [qId]: true },
+    }));
+
+    const question = practiceQuestions.find((q) => q.id === qId);
+    if (!question) return;
+
+    fetch('/api/sat/explain', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        prompt: question.prompt,
+        passage: question.passage,
+        options: question.options,
+        userAnswer: practiceAnswers[qId] ?? '',
+        correctAnswer: question.correctAnswer,
+        section: question.section ?? 'math',
+        domain: question.domain,
+        difficulty: question.difficulty,
+        explanation: question.explanation,
+      }),
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        set((s) => ({
+          practiceExplanations: {
+            ...s.practiceExplanations,
+            [qId]: data.explanation ?? question.explanation,
+          },
+          practiceLoading: { ...s.practiceLoading, [qId]: false },
+        }));
+      })
+      .catch(() => {
+        set((s) => ({
+          practiceExplanations: {
+            ...s.practiceExplanations,
+            [qId]: question.explanation,
+          },
+          practiceLoading: { ...s.practiceLoading, [qId]: false },
+        }));
+      });
+  },
 
   navigatePractice: (idx) => set({ practiceIndex: idx }),
 

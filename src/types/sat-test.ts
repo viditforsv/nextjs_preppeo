@@ -72,6 +72,8 @@ export type SATPracticePhase =
 export type SATAppPhase = SATTestPhase | SATPracticePhase;
 
 export interface SATPracticeConfig {
+  section: SATSection;
+  domains: SATDomain[];
   difficulty: DifficultyTier | 'mixed';
   questionCount: number;
 }
