@@ -85,7 +85,7 @@ export default function CartPage() {
                 Add courses to your cart to continue
               </p>
               <Link href="/courses/discover">
-                <Button className="bg-[#e27447] hover:bg-[#d1653a] rounded-sm">
+                <Button className="bg-[#1a365d] hover:bg-[#1a365d] rounded-sm">
                   Browse Courses
                 </Button>
               </Link>
@@ -101,12 +101,12 @@ export default function CartPage() {
                     <div className="flex items-start justify-between">
                       <div className="flex-1">
                         <Link href={`/courses/${item.courseSlug}`}>
-                          <h3 className="text-lg font-semibold hover:text-[#e27447] transition-colors">
+                          <h3 className="text-lg font-semibold hover:text-[#1a365d] transition-colors">
                             {item.title}
                           </h3>
                         </Link>
                         <div className="mt-4">
-                          <span className="text-2xl font-bold text-[#e27447]">
+                          <span className="text-2xl font-bold text-[#1a365d]">
                             ₹{item.price.toLocaleString()}
                           </span>
                         </div>
@@ -149,7 +149,7 @@ export default function CartPage() {
                     <div className="border-t pt-2">
                       <div className="flex justify-between">
                         <span className="text-lg font-semibold">Total</span>
-                        <span className="text-2xl font-bold text-[#e27447]">
+                        <span className="text-2xl font-bold text-[#1a365d]">
                           ₹{totalPrice.toLocaleString()}
                         </span>
                       </div>
@@ -158,7 +158,7 @@ export default function CartPage() {
 
                   <Button
                     onClick={() => setShowPayment(true)}
-                    className="w-full bg-[#e27447] hover:bg-[#d1653a] rounded-sm"
+                    className="w-full bg-[#1a365d] hover:bg-[#1a365d] rounded-sm"
                   >
                     Proceed to Payment
                   </Button>

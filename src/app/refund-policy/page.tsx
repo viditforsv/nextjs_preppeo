@@ -16,7 +16,7 @@ export const metadata: Metadata = {
 
 export default function RefundPolicy() {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-white to-gray-50">
+    <div className="min-h-screen bg-[#f5f5f0]">
       {/* Breadcrumb */}
       <div className="bg-white border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
@@ -138,7 +138,7 @@ export default function RefundPolicy() {
 
           {/* CTA Section */}
           <div className="text-center mt-8 md:mt-12">
-            <div className="bg-gradient-to-br from-primary to-emerald-600 rounded-lg p-6 md:p-8 shadow-xl">
+            <div className="bg-gradient-to-br from-[#1a365d] to-[#2a4a7f] rounded-lg p-6 md:p-8 shadow-xl">
               <h3 className="text-xl md:text-2xl font-bold text-white mb-3 md:mb-4">
                 Need Help with Your Refund?
               </h3>

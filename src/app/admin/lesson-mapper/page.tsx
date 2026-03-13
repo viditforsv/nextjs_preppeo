@@ -476,7 +476,7 @@ export default function LessonMapperPage() {
               <Button
                 onClick={saveAllMappings}
                 disabled={!hasChanges || isSaving}
-                className="rounded-sm bg-[#e27447] hover:bg-[#d1653a] text-white"
+                className="rounded-sm bg-primary hover:bg-primary/90 text-white"
               >
                 <Save className="w-4 h-4 mr-2" />
                 {isSaving

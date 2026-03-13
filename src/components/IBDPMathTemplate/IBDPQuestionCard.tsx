@@ -106,7 +106,7 @@ export function IBDPQuestionCard({
             <Badge
               key={tag}
               variant="secondary"
-              className="rounded-sm cursor-pointer hover:bg-[#e27447] hover:text-white transition-colors"
+              className="rounded-sm cursor-pointer hover:bg-[#1a365d] hover:text-white transition-colors"
               onClick={() => onTagClick?.(tag)}
             >
               <Tag className="w-3 h-3 mr-1" />
@@ -119,9 +119,9 @@ export function IBDPQuestionCard({
       <CardContent className="space-y-4">
         {/* Solution Section */}
         {solution && showSolution && (
-          <div className="p-4 bg-[#feefea] border border-[#e27447] rounded-sm">
+          <div className="p-4 bg-[#1a365d]/5 border border-[#1a365d] rounded-sm">
             <h4 className="font-semibold text-[#1e293b] mb-2 flex items-center gap-2">
-              <Eye className="w-4 h-4 text-[#e27447]" />
+              <Eye className="w-4 h-4 text-[#1a365d]" />
               Solution
             </h4>
             <div className="text-base leading-relaxed text-gray-700">

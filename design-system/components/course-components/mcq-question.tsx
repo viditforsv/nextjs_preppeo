@@ -119,7 +119,7 @@ export function MCQQuestion({
           <Button
             onClick={handleSubmit}
             disabled={!hasAnswered || isSubmitted}
-            className="bg-[#e27447] hover:bg-[#e27447]/90 text-white rounded-sm"
+            className="bg-primary hover:bg-primary/90 text-white rounded-sm"
           >
             {isSubmitted ? 'Submitted' : 'Submit Answer'}
           </Button>

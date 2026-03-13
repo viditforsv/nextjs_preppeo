@@ -340,7 +340,7 @@ export default function UserEnrollmentsPage() {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#e27447] mx-auto mb-4"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
           <p className="text-muted-foreground">Loading enrollment data...</p>
         </div>
       </div>
@@ -374,7 +374,7 @@ export default function UserEnrollmentsPage() {
             </div>
             <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
               <DialogTrigger asChild>
-                <Button className="bg-[#e27447] hover:bg-[#d1653a] rounded-sm">
+                <Button className="bg-primary hover:bg-primary/90 rounded-sm">
                   <Plus className="w-4 h-4 mr-2" />
                   Enroll User
                 </Button>
@@ -382,7 +382,7 @@ export default function UserEnrollmentsPage() {
               <DialogContent className="rounded-sm">
                 <DialogHeader>
                   <DialogTitle className="flex items-center">
-                    <UserPlus className="w-5 h-5 mr-2 text-[#e27447]" />
+                    <UserPlus className="w-5 h-5 mr-2 text-primary" />
                     Enroll User in Course
                   </DialogTitle>
                   <DialogDescription>
@@ -454,7 +454,7 @@ export default function UserEnrollmentsPage() {
                   <Button
                     onClick={handleEnrollUser}
                     disabled={!selectedUserId || !selectedCourseId}
-                    className="bg-[#e27447] hover:bg-[#d1653a] rounded-sm"
+                    className="bg-primary hover:bg-primary/90 rounded-sm"
                   >
                     <Plus className="w-4 h-4 mr-2" />
                     Enroll User
@@ -477,7 +477,7 @@ export default function UserEnrollmentsPage() {
                       {stats.total}
                     </p>
                   </div>
-                  <Users className="w-8 h-8 text-[#e27447]" />
+                  <Users className="w-8 h-8 text-primary" />
                 </div>
               </CardContent>
             </Card>
@@ -521,11 +521,11 @@ export default function UserEnrollmentsPage() {
                     <p className="text-sm text-muted-foreground mb-1">
                       This Month
                     </p>
-                    <p className="text-2xl font-bold text-[#e27447]">
+                    <p className="text-2xl font-bold text-primary">
                       {stats.thisMonth}
                     </p>
                   </div>
-                  <TrendingUp className="w-8 h-8 text-[#e27447]" />
+                  <TrendingUp className="w-8 h-8 text-primary" />
                 </div>
               </CardContent>
             </Card>
@@ -592,7 +592,7 @@ export default function UserEnrollmentsPage() {
               </p>
               {!searchTerm && filterStatus === "all" && (
                 <Button
-                  className="bg-[#e27447] hover:bg-[#d1653a] rounded-sm"
+                  className="bg-primary hover:bg-primary/90 rounded-sm"
                   onClick={() => setIsDialogOpen(true)}
                 >
                   <Plus className="w-4 h-4 mr-2" />

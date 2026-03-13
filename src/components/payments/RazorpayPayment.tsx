@@ -64,7 +64,7 @@ export function RazorpayPayment({
           email: userEmail,
         },
         theme: {
-          color: "#e27447", // Your brand color
+          color: "#1a365d",
         },
         handler: function (response: {
           razorpay_payment_id: string;

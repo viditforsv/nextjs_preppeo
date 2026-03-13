@@ -11,7 +11,6 @@ export default [
   {
     ignores: [
       "dev-templates/**/*",
-      "src/app/components-demo/**/*",
       ".next/**/*",
       "node_modules/**/*",
       "out/**/*",

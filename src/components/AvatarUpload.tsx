@@ -68,7 +68,7 @@ export function AvatarUpload({
               className="object-cover"
             />
           )}
-          <AvatarFallback className="bg-[#e27447] text-white text-lg font-semibold">
+          <AvatarFallback className="bg-[#1a365d] text-white text-lg font-semibold">
             {getInitials(userName)}
           </AvatarFallback>
         </Avatar>

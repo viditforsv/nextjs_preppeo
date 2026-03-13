@@ -14,8 +14,8 @@ export async function GET(request: NextRequest) {
     const price = searchParams.get("price") || "0";
 
     // Color scheme matching your brand
-    const primaryColor = "#e27447";
-    const secondaryColor = "#d1653a";
+    const primaryColor = "#1a365d";
+    const secondaryColor = "#1a365d";
     const textColor = "#1e293b";
     const mutedColor = "#64748b";
 

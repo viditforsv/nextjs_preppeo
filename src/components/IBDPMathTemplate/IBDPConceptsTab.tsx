@@ -166,7 +166,7 @@ export function IBDPConceptsTab({
             <Card className="rounded-sm">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                  <Lightbulb className="w-5 h-5 text-[#e27447]" />
+                  <Lightbulb className="w-5 h-5 text-[#1a365d]" />
                   {conceptSummary.title}
                 </CardTitle>
               </CardHeader>
@@ -187,7 +187,7 @@ export function IBDPConceptsTab({
                             key={index}
                             className="flex items-start gap-2 text-sm text-gray-700"
                           >
-                            <span className="text-[#e27447] font-bold mt-1">
+                            <span className="text-[#1a365d] font-bold mt-1">
                               •
                             </span>
                             <span>{point}</span>
@@ -226,7 +226,7 @@ export function IBDPConceptsTab({
               <Card key={formula.id} className="rounded-sm">
                 <CardHeader>
                   <CardTitle className="text-lg flex items-center gap-2">
-                    <FileText className="w-5 h-5 text-[#e27447]" />
+                    <FileText className="w-5 h-5 text-[#1a365d]" />
                     {formula.title}
                   </CardTitle>
                 </CardHeader>
@@ -259,7 +259,7 @@ export function IBDPConceptsTab({
           <Card className="rounded-sm">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
-                <BookOpen className="w-5 h-5 text-[#e27447]" />
+                <BookOpen className="w-5 h-5 text-[#1a365d]" />
                 Course Resources
               </CardTitle>
               <p className="text-sm text-muted-foreground">
@@ -448,7 +448,7 @@ export function IBDPConceptsTab({
           <Card className="rounded-sm">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
-                <MessageCircle className="w-5 h-5 text-[#e27447]" />
+                <MessageCircle className="w-5 h-5 text-[#1a365d]" />
                 AI Math Tutor
               </CardTitle>
               <p className="text-sm text-muted-foreground">
@@ -469,7 +469,7 @@ export function IBDPConceptsTab({
                     <div
                       className={`max-w-[80%] p-3 rounded-sm ${
                         message.role === "user"
-                          ? "bg-[#e27447] text-white"
+                          ? "bg-[#1a365d] text-white"
                           : "bg-white border border-gray-200 text-gray-800"
                       }`}
                     >
@@ -509,7 +509,7 @@ export function IBDPConceptsTab({
                 <Button
                   onClick={handleSendMessage}
                   disabled={!currentMessage.trim() || isAITyping}
-                  className="rounded-sm bg-[#e27447] hover:bg-[#e27447]/90"
+                  className="rounded-sm bg-[#1a365d] hover:bg-[#1a365d]/90"
                 >
                   <Send className="w-4 h-4" />
                 </Button>
@@ -522,7 +522,7 @@ export function IBDPConceptsTab({
             <Card className="rounded-sm">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                  <TrendingUp className="w-5 h-5 text-[#e27447]" />
+                  <TrendingUp className="w-5 h-5 text-[#1a365d]" />
                   Recommended Practice Questions
                 </CardTitle>
               </CardHeader>

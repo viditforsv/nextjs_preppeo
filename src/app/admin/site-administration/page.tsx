@@ -192,15 +192,9 @@ export default function SiteAdministrationPage() {
     {
       title: "Development & Testing",
       icon: Palette,
-      color: "bg-orange-50 border-orange-200",
-      iconColor: "text-orange-600",
+      color: "bg-primary/5 border-primary/20",
+      iconColor: "text-primary",
       items: [
-        {
-          name: "Component Library",
-          href: "/components-demo",
-          icon: Palette,
-          description: "UI component showcase",
-        },
         {
           name: "Math Renderer Training",
           href: "/math-test",

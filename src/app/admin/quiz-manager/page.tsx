@@ -116,7 +116,7 @@ export default function QuizManagerPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-white via-green-50 to-emerald-50">
+    <div className="min-h-screen bg-[#f5f5f0]">
       <div className="container mx-auto px-4 py-8">
         {/* Header */}
         <div className="mb-8">

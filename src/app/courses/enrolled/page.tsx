@@ -310,7 +310,7 @@ export default function EnrolledCoursesPage() {
         {/* Overall Stats */}
         {!isLoading && !error && enrolledCourses.length > 0 && (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-            <Card className="border-0 bg-linear-to-br from-primary/5 to-emerald-50 hover:-translate-y-1">
+            <Card className="border-0 bg-[#1a365d]/5 hover:-translate-y-1">
               <CardContent className="p-6">
                 <div className="flex items-center justify-between">
                   <div>
@@ -321,14 +321,14 @@ export default function EnrolledCoursesPage() {
                       {overallStats.totalCourses}
                     </p>
                   </div>
-                  <div className="w-14 h-14 bg-linear-to-br from-primary to-emerald-600 rounded-xl flex items-center justify-center shadow-lg">
+                  <div className="w-14 h-14 bg-linear-to-br from-[#1a365d] to-[#2a4a7f] rounded-xl flex items-center justify-center shadow-lg">
                     <BookOpen className="w-7 h-7 text-white" />
                   </div>
                 </div>
               </CardContent>
             </Card>
 
-            <Card className="border-0 bg-linear-to-br from-primary/5 to-emerald-50 hover:-translate-y-1">
+            <Card className="border-0 bg-[#1a365d]/5 hover:-translate-y-1">
               <CardContent className="p-6">
                 <div className="flex items-center justify-between">
                   <div>
@@ -339,7 +339,7 @@ export default function EnrolledCoursesPage() {
                       {overallStats.totalLessonsCompleted}
                     </p>
                   </div>
-                  <div className="w-14 h-14 bg-linear-to-br from-primary to-emerald-600 rounded-xl flex items-center justify-center shadow-lg">
+                  <div className="w-14 h-14 bg-linear-to-br from-[#1a365d] to-[#2a4a7f] rounded-xl flex items-center justify-center shadow-lg">
                     <CheckCircle2 className="w-7 h-7 text-white" />
                   </div>
                 </div>

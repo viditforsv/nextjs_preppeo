@@ -125,7 +125,7 @@ export function CourseSidebar({
       case 'completed':
         return <CheckCircle className="w-3 h-3 text-green-500" />
       case 'active':
-        return <Play className="w-3 h-3 text-[#e27447]" />
+        return <Play className="w-3 h-3 text-primary" />
       case 'preview':
         return <Eye className="w-3 h-3 text-blue-500" />
       default:
@@ -138,7 +138,7 @@ export function CourseSidebar({
       case 'completed':
         return 'bg-green-500 text-white'
       case 'active':
-        return 'bg-[#e27447] text-white'
+        return 'bg-primary text-white'
       case 'preview':
         return 'bg-blue-500 text-white'
       default:
@@ -167,7 +167,7 @@ export function CourseSidebar({
         <div className="flex flex-col space-y-2">
           {data.units.map((unit, index) => (
             <div key={unit.id} className="relative group">
-              <div className="w-8 h-8 bg-[#e27447] rounded-sm flex items-center justify-center text-white text-xs font-medium">
+              <div className="w-8 h-8 bg-primary rounded-sm flex items-center justify-center text-white text-xs font-medium">
                 {index + 1}
               </div>
               <div className="absolute left-10 top-0 bg-gray-900 text-white text-xs px-2 py-1 rounded-sm opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap z-50">
@@ -238,11 +238,11 @@ export function CourseSidebar({
                 onClick={() => toggleUnit(unit.id)}
               >
                 <div className="flex items-center space-x-3 flex-1 min-w-0">
-                  <div className="w-6 h-6 bg-[#e27447] rounded-sm flex items-center justify-center text-white text-xs font-medium flex-shrink-0">
+                  <div className="w-6 h-6 bg-primary rounded-sm flex items-center justify-center text-white text-xs font-medium flex-shrink-0">
                     {unitIndex + 1}
                   </div>
                   <div className="flex items-center space-x-2 flex-1 min-w-0">
-                    <BookOpen className="w-4 h-4 text-[#e27447] flex-shrink-0" />
+                    <BookOpen className="w-4 h-4 text-primary flex-shrink-0" />
                     <span className="font-medium text-[#1e293b] truncate">{unit.title}</span>
                   </div>
                   <div className="flex items-center space-x-2 flex-shrink-0">
@@ -305,7 +305,7 @@ export function CourseSidebar({
                                 href={lesson.slug ? `/courses/${courseSlug}/lesson/${lesson.slug}` : '#'}
                                 className={`flex items-center justify-between p-2 rounded-sm transition-colors group ${
                                   isCurrent 
-                                    ? 'bg-[#feefea] border-r-2 border-[#e27447]' 
+                                    ? 'bg-primary/5 border-r-2 border-primary' 
                                     : 'hover:bg-gray-50'
                                 }`}
                               >

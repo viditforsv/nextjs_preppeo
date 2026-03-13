@@ -287,8 +287,8 @@ export default function AdminDashboard() {
                       type="monotone"
                       dataKey="users"
                       stackId="1"
-                      stroke="#e27447"
-                      fill="#e27447"
+                      stroke="#1a365d"
+                      fill="#1a365d"
                       fillOpacity={0.6}
                     />
                     <Area
@@ -322,7 +322,7 @@ export default function AdminDashboard() {
                     <XAxis dataKey="course" />
                     <YAxis />
                     <Tooltip />
-                    <Bar dataKey="enrollments" fill="#e27447" />
+                    <Bar dataKey="enrollments" fill="#1a365d" />
                   </BarChart>
                 </ResponsiveContainer>
               </CardContent>
@@ -352,7 +352,7 @@ export default function AdminDashboard() {
                     <Line
                       type="monotone"
                       dataKey="activeUsers"
-                      stroke="#e27447"
+                      stroke="#1a365d"
                       strokeWidth={2}
                     />
                     <Line
@@ -387,8 +387,8 @@ export default function AdminDashboard() {
                     <Area
                       type="monotone"
                       dataKey="revenue"
-                      stroke="#e27447"
-                      fill="#e27447"
+                      stroke="#1a365d"
+                      fill="#1a365d"
                       fillOpacity={0.6}
                     />
                   </AreaChart>

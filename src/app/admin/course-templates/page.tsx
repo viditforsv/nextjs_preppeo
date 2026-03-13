@@ -85,7 +85,7 @@ export default function CourseTemplatesPage() {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#e27447] mx-auto mb-4"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
           <p className="text-muted-foreground">Loading templates...</p>
         </div>
       </div>
@@ -140,7 +140,7 @@ export default function CourseTemplatesPage() {
               </p>
             </div>
             <Button
-              className="bg-[#e27447] hover:bg-[#d1653a]"
+              className="bg-primary hover:bg-primary/90"
               onClick={handleCreateTemplate}
             >
               <Plus className="w-4 h-4 mr-2" />
@@ -159,7 +159,7 @@ export default function CourseTemplatesPage() {
                 Create your first course template to get started
               </p>
               <Button
-                className="bg-[#e27447] hover:bg-[#d1653a]"
+                className="bg-primary hover:bg-primary/90"
                 onClick={handleCreateTemplate}
               >
                 <Plus className="w-4 h-4 mr-2" />

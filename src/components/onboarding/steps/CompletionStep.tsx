@@ -142,8 +142,8 @@ export function CompletionStep({ onComplete }: OnboardingStepProps) {
             <Card key={index}>
               <CardContent className="p-4">
                 <div className="flex items-center space-x-3">
-                  <div className="w-10 h-10 bg-[#e27447]/10 rounded-sm flex items-center justify-center flex-shrink-0">
-                    <action.icon className="w-5 h-5 text-[#e27447]" />
+                  <div className="w-10 h-10 bg-[#1a365d]/10 rounded-sm flex items-center justify-center flex-shrink-0">
+                    <action.icon className="w-5 h-5 text-[#1a365d]" />
                   </div>
                   <div className="flex-1">
                     <h4 className="font-medium text-foreground">
@@ -172,7 +172,7 @@ export function CompletionStep({ onComplete }: OnboardingStepProps) {
 
         <Button
           onClick={onComplete}
-          className="w-full bg-[#e27447] hover:bg-[#e27447]/90"
+          className="w-full bg-[#1a365d] hover:bg-[#1a365d]/90"
           size="lg"
         >
           Go to Dashboard

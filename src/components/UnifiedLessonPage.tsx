@@ -581,7 +581,7 @@ export function UnifiedLessonPage({
               onChange={(e) =>
                 setEditValues({ ...editValues, title: e.target.value })
               }
-              className="text-2xl md:text-3xl font-bold text-[#1e293b] border-2 border-[#e27447] rounded-sm px-3 py-2 flex-1"
+              className="text-2xl md:text-3xl font-bold text-[#1e293b] border-2 border-[#1a365d] rounded-sm px-3 py-2 flex-1"
               autoFocus
             />
             <Button
@@ -618,7 +618,7 @@ export function UnifiedLessonPage({
                   className="p-2 hover:bg-gray-100 rounded-sm transition-colors border border-gray-300 bg-white shadow-sm"
                   title="Edit title"
                 >
-                  <Edit className="w-4 h-4 text-[#e27447]" />
+                  <Edit className="w-4 h-4 text-[#1a365d]" />
                 </button>
               )}
             </div>
@@ -642,7 +642,7 @@ export function UnifiedLessonPage({
               onChange={(e) =>
                 setEditValues({ ...editValues, topic_badge: e.target.value })
               }
-              className="text-muted-foreground border-2 border-[#e27447] rounded-sm px-3 py-2 flex-1 max-w-xs"
+              className="text-muted-foreground border-2 border-[#1a365d] rounded-sm px-3 py-2 flex-1 max-w-xs"
               placeholder={`Topic ${lesson.topic_number || ""}`}
               autoFocus
             />
@@ -681,7 +681,7 @@ export function UnifiedLessonPage({
                   className="p-1 hover:bg-gray-100 rounded-sm transition-colors border border-gray-300 bg-white shadow-sm"
                   title="Edit topic badge"
                 >
-                  <Edit className="w-3 h-3 text-[#e27447]" />
+                  <Edit className="w-3 h-3 text-[#1a365d]" />
                 </button>
               )}
             </div>
@@ -735,7 +735,7 @@ export function UnifiedLessonPage({
               {loadingQuestions ? (
                 <Card>
                   <CardContent className="py-12 text-center">
-                    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#e27447] mx-auto mb-4"></div>
+                    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#1a365d] mx-auto mb-4"></div>
                     <p className="text-muted-foreground">
                       Loading questions...
                     </p>
@@ -776,7 +776,7 @@ export function UnifiedLessonPage({
                 <CardContent>
                   {loadingContent ? (
                     <div className="text-center py-8">
-                      <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#e27447] mx-auto"></div>
+                      <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#1a365d] mx-auto"></div>
                     </div>
                   ) : lessonContent.length > 0 ? (
                     <div className="space-y-6">
@@ -820,7 +820,7 @@ export function UnifiedLessonPage({
                   <div className="flex items-center justify-between">
                     <div>
                       <CardTitle className="flex items-center space-x-2">
-                        <FileText className="w-5 h-5 text-[#e27447]" />
+                        <FileText className="w-5 h-5 text-[#1a365d]" />
                         <span>Assignment</span>
                       </CardTitle>
                       <CardDescription>
@@ -833,7 +833,7 @@ export function UnifiedLessonPage({
                         className="p-2 hover:bg-gray-100 rounded-sm transition-colors border border-gray-300 bg-white shadow-sm"
                         title="Edit PDF URL"
                       >
-                        <Edit className="w-4 h-4 text-[#e27447]" />
+                        <Edit className="w-4 h-4 text-[#1a365d]" />
                       </button>
                     )}
                   </div>
@@ -887,7 +887,7 @@ export function UnifiedLessonPage({
                       {/* Assignment PDF Embedder - Full height like CBSE Class 9 */}
                       <div 
                         ref={pdfContainerRef}
-                        className="w-full h-[500px] md:h-[800px] border-2 border-[#feefea] rounded-sm overflow-hidden bg-gray-50"
+                        className="w-full h-[500px] md:h-[800px] border-2 border-[#1a365d]/10 rounded-sm overflow-hidden bg-gray-50"
                       >
                         {isAssignmentTabActive && (
                           <iframe
@@ -1061,7 +1061,7 @@ export function UnifiedLessonPage({
                         className="p-2 hover:bg-gray-100 rounded-sm transition-colors border border-gray-300 bg-white shadow-sm"
                         title="Edit Solution URL"
                       >
-                        <Edit className="w-4 h-4 text-[#e27447]" />
+                        <Edit className="w-4 h-4 text-[#1a365d]" />
                       </button>
                     )}
                   </div>
@@ -1154,7 +1154,7 @@ export function UnifiedLessonPage({
                               className={`rounded-sm w-full sm:w-auto ${
                                 isCompleted
                                   ? "bg-green-600 hover:bg-green-700"
-                                  : "bg-[#e27447] hover:bg-[#e27447]/90"
+                                  : "bg-[#1a365d] hover:bg-[#1a365d]/90"
                               }`}
                               onClick={onMarkComplete}
                               disabled={isMarkingComplete}
@@ -1202,7 +1202,7 @@ export function UnifiedLessonPage({
                   <div className="flex items-center justify-between">
                     <div>
                       <CardTitle className="flex items-center space-x-2">
-                        <Video className="w-5 h-5 text-[#e27447]" />
+                        <Video className="w-5 h-5 text-[#1a365d]" />
                         <span>Video Lesson</span>
                       </CardTitle>
                       <CardDescription>
@@ -1216,7 +1216,7 @@ export function UnifiedLessonPage({
                         className="p-2 hover:bg-gray-100 rounded-sm transition-colors border border-gray-300 bg-white shadow-sm"
                         title="Edit video URL"
                       >
-                        <Edit className="w-4 h-4 text-[#e27447]" />
+                        <Edit className="w-4 h-4 text-[#1a365d]" />
                       </button>
                     )}
                   </div>
@@ -1395,7 +1395,7 @@ export function UnifiedLessonPage({
                               <div>
                                 {editingField === "concept_title" ? (
                                   <div className="flex items-center gap-2">
-                                    <Lightbulb className="w-5 h-5 text-[#e27447]" />
+                                    <Lightbulb className="w-5 h-5 text-[#1a365d]" />
                                     <Input
                                       type="text"
                                       value={
@@ -1438,7 +1438,7 @@ export function UnifiedLessonPage({
                                   </div>
                                 ) : (
                                   <CardTitle className="flex items-center gap-2">
-                                    <Lightbulb className="w-5 h-5 text-[#e27447]" />
+                                    <Lightbulb className="w-5 h-5 text-[#1a365d]" />
                                     {lesson.concept_title ||
                                       "Understanding Concepts"}
                                     {isAdmin && (
@@ -1449,7 +1449,7 @@ export function UnifiedLessonPage({
                                         className="ml-2 p-1 hover:bg-gray-100 rounded-sm transition-colors border border-gray-300 bg-white shadow-sm"
                                         title="Edit concept title"
                                       >
-                                        <Edit className="w-3 h-3 text-[#e27447]" />
+                                        <Edit className="w-3 h-3 text-[#1a365d]" />
                                       </button>
                                     )}
                                   </CardTitle>
@@ -1520,7 +1520,7 @@ export function UnifiedLessonPage({
                                     className="absolute top-0 right-0 p-2 hover:bg-gray-100 rounded-sm transition-colors border border-gray-300 bg-white shadow-sm opacity-0 group-hover:opacity-100"
                                     title="Edit concept content"
                                   >
-                                    <Edit className="w-4 h-4 text-[#e27447]" />
+                                    <Edit className="w-4 h-4 text-[#1a365d]" />
                                   </button>
                                 )}
                               </div>
@@ -1559,7 +1559,7 @@ export function UnifiedLessonPage({
                               <div>
                                 {editingField === "formula_title" ? (
                                   <div className="flex items-center gap-2">
-                                    <Calculator className="w-5 h-5 text-[#e27447]" />
+                                    <Calculator className="w-5 h-5 text-[#1a365d]" />
                                     <Input
                                       type="text"
                                       value={
@@ -1602,7 +1602,7 @@ export function UnifiedLessonPage({
                                   </div>
                                 ) : (
                                   <CardTitle className="flex items-center gap-2">
-                                    <Calculator className="w-5 h-5 text-[#e27447]" />
+                                    <Calculator className="w-5 h-5 text-[#1a365d]" />
                                     {lesson.formula_title || "Key Formulas"}
                                     {isAdmin && (
                                       <button
@@ -1612,7 +1612,7 @@ export function UnifiedLessonPage({
                                         className="ml-2 p-1 hover:bg-gray-100 rounded-sm transition-colors border border-gray-300 bg-white shadow-sm"
                                         title="Edit formula title"
                                       >
-                                        <Edit className="w-3 h-3 text-[#e27447]" />
+                                        <Edit className="w-3 h-3 text-[#1a365d]" />
                                       </button>
                                     )}
                                   </CardTitle>
@@ -1685,7 +1685,7 @@ export function UnifiedLessonPage({
                                     className="absolute top-2 right-2 p-2 hover:bg-gray-100 rounded-sm transition-colors border border-gray-300 bg-white shadow-sm opacity-0 group-hover:opacity-100"
                                     title="Edit formula content"
                                   >
-                                    <Edit className="w-4 h-4 text-[#e27447]" />
+                                    <Edit className="w-4 h-4 text-[#1a365d]" />
                                   </button>
                                 )}
                               </div>
@@ -1723,7 +1723,7 @@ export function UnifiedLessonPage({
                             <div className="flex items-center justify-between">
                               <div>
                                 <CardTitle className="flex items-center gap-2">
-                                  <FileText className="w-5 h-5 text-[#e27447]" />
+                                  <FileText className="w-5 h-5 text-[#1a365d]" />
                                   Lesson Notes
                                 </CardTitle>
                                 <CardDescription>
@@ -1741,7 +1741,7 @@ export function UnifiedLessonPage({
                                   className="p-2 hover:bg-gray-100 rounded-sm transition-colors border border-gray-300 bg-white shadow-sm"
                                   title="Edit notes"
                                 >
-                                  <Edit className="w-4 h-4 text-[#e27447]" />
+                                  <Edit className="w-4 h-4 text-[#1a365d]" />
                                 </button>
                               )}
                             </div>
@@ -1822,7 +1822,7 @@ export function UnifiedLessonPage({
                         <Card className="rounded-sm">
                           <CardHeader>
                             <CardTitle className="flex items-center gap-2">
-                              <MessageCircle className="w-5 h-5 text-[#e27447]" />
+                              <MessageCircle className="w-5 h-5 text-[#1a365d]" />
                               AI Tutor
                             </CardTitle>
                             <CardDescription>
@@ -1845,7 +1845,7 @@ export function UnifiedLessonPage({
                                   <div
                                     className={`max-w-[80%] p-3 rounded-sm ${
                                       message.role === "user"
-                                        ? "bg-[#e27447] text-white"
+                                        ? "bg-[#1a365d] text-white"
                                         : "bg-white border border-gray-200 text-gray-800"
                                     }`}
                                   >
@@ -1891,7 +1891,7 @@ export function UnifiedLessonPage({
                               <Button
                                 onClick={handleSendMessage}
                                 disabled={!currentMessage.trim() || isAITyping}
-                                className="rounded-sm bg-[#e27447] hover:bg-[#e27447]/90"
+                                className="rounded-sm bg-[#1a365d] hover:bg-[#1a365d]/90"
                               >
                                 <Send className="w-4 h-4" />
                               </Button>
@@ -1943,8 +1943,8 @@ export function UnifiedLessonPage({
           <CardContent className="p-4">
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
               <div className="flex items-center space-x-3">
-                <div className="p-2 bg-[#e27447]/10 rounded-sm flex-shrink-0">
-                  <AlertCircle className="w-5 h-5 text-[#e27447]" />
+                <div className="p-2 bg-[#1a365d]/10 rounded-sm flex-shrink-0">
+                  <AlertCircle className="w-5 h-5 text-[#1a365d]" />
                 </div>
                 <div>
                   <h4 className="font-semibold text-[#1e293b] text-sm md:text-base">
@@ -1957,7 +1957,7 @@ export function UnifiedLessonPage({
               </div>
               <Button
                 variant="outline"
-                className="rounded-sm border-[#e27447] text-[#e27447] hover:bg-[#feefea] w-full sm:w-auto text-sm"
+                className="rounded-sm border-[#1a365d] text-[#1a365d] hover:bg-[#1a365d]/5 w-full sm:w-auto text-sm"
                 onClick={() => setShowFeedbackModal(true)}
               >
                 <Flag className="w-4 h-4 mr-2" />
@@ -1985,7 +1985,7 @@ export function UnifiedLessonPage({
             Previous Lesson
           </Button>
           <Button
-            className="bg-[#e27447] hover:bg-[#e27447]/90 rounded-sm w-full sm:w-auto"
+            className="bg-[#1a365d] hover:bg-[#1a365d]/90 rounded-sm w-full sm:w-auto"
             onClick={getNextLesson}
             disabled={
               !allLessons.find(
@@ -2004,7 +2004,7 @@ export function UnifiedLessonPage({
         <DialogContent className="rounded-sm max-w-md">
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2">
-              <Flag className="w-5 h-5 text-[#e27447]" />
+              <Flag className="w-5 h-5 text-[#1a365d]" />
               Report an Issue or Suggest Changes
             </DialogTitle>
             <DialogDescription>
@@ -2021,7 +2021,7 @@ export function UnifiedLessonPage({
               </Label>
               <div className="grid grid-cols-2 gap-3">
                 <Button
-                  variant={feedbackType === "mistake" ? "coral" : "outline"}
+                  variant={feedbackType === "mistake" ? "primary" : "outline"}
                   className={`rounded-sm ${
                     feedbackType === "mistake"
                       ? "bg-red-600 hover:bg-red-700 text-white"
@@ -2033,12 +2033,8 @@ export function UnifiedLessonPage({
                   Found a Mistake
                 </Button>
                 <Button
-                  variant={feedbackType === "suggestion" ? "coral" : "outline"}
-                  className={`rounded-sm ${
-                    feedbackType === "suggestion"
-                      ? "bg-[#e27447] hover:bg-[#e27447]/90 text-white"
-                      : ""
-                  }`}
+                  variant={feedbackType === "suggestion" ? "primary" : "outline"}
+                  className="rounded-sm"
                   onClick={() => setFeedbackType("suggestion")}
                 >
                   <Flag className="w-4 h-4 mr-2" />
@@ -2154,7 +2150,7 @@ export function UnifiedLessonPage({
               disabled={
                 !feedbackType || !feedbackMessage.trim() || submittingFeedback
               }
-              className="bg-[#e27447] hover:bg-[#e27447]/90 rounded-sm"
+              className="bg-[#1a365d] hover:bg-[#1a365d]/90 rounded-sm"
             >
               {submittingFeedback ? (
                 <>

@@ -12,10 +12,8 @@ const footerLinks = {
     { name: "Self-Learning Hub", href: "/platforms/learning-hub" },
   ],
   company: [
-    { name: "About Us", href: "/about" },
-    { name: "Team / Counselors", href: "/team" },
-    { name: "Success Stories", href: "/about/success-stories" },
     { name: "Contact", href: "/contact" },
+    { name: "FAQ", href: "/faq" },
   ],
   resources: [
     { name: "Resources / Blog", href: "/resources" },

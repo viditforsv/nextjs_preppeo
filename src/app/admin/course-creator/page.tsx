@@ -1877,7 +1877,7 @@ export default function CourseCreatorPage() {
                   </Button>
                   <Button
                     onClick={goToNextTab}
-                    className="rounded-sm bg-[#e27447] hover:bg-[#d1653a]"
+                    className="rounded-sm bg-primary hover:bg-primary/90"
                     disabled={
                       !canProceedToNext() || currentTabIndex === tabs.length - 1
                     }
@@ -1906,7 +1906,7 @@ export default function CourseCreatorPage() {
                     )}
                     <Button
                       onClick={addUnit}
-                      className="rounded-sm bg-[#e27447] hover:bg-[#d1653a]"
+                      className="rounded-sm bg-primary hover:bg-primary/90"
                     >
                       <Plus className="w-4 h-4 mr-2" />
                       Add Unit
@@ -2060,7 +2060,7 @@ export default function CourseCreatorPage() {
                       <p className="text-gray-500 mb-4">No units created yet</p>
                       <Button
                         onClick={addUnit}
-                        className="rounded-sm bg-[#e27447] hover:bg-[#d1653a]"
+                        className="rounded-sm bg-primary hover:bg-primary/90"
                       >
                         <Plus className="w-4 h-4 mr-2" />
                         Add Your First Unit
@@ -2081,7 +2081,7 @@ export default function CourseCreatorPage() {
                   </Button>
                   <Button
                     onClick={goToNextTab}
-                    className="rounded-sm bg-[#e27447] hover:bg-[#d1653a]"
+                    className="rounded-sm bg-primary hover:bg-primary/90"
                     disabled={
                       !canProceedToNext() || currentTabIndex === tabs.length - 1
                     }
@@ -2105,7 +2105,7 @@ export default function CourseCreatorPage() {
                     </Button>
                     <Button
                       onClick={saveCourse}
-                      className="rounded-sm bg-[#e27447] hover:bg-[#d1653a]"
+                      className="rounded-sm bg-primary hover:bg-primary/90"
                     >
                       <Save className="w-4 h-4 mr-2" />
                       Save Course
@@ -2207,7 +2207,7 @@ export default function CourseCreatorPage() {
                   <div className="flex space-x-2">
                     <Button
                       onClick={goToNextTab}
-                      className="rounded-sm bg-[#e27447] hover:bg-[#d1653a]"
+                      className="rounded-sm bg-primary hover:bg-primary/90"
                       disabled={
                         !canProceedToNext() ||
                         currentTabIndex === tabs.length - 1
@@ -2505,7 +2505,7 @@ export default function CourseCreatorPage() {
                 </Button>
                 <Button
                   onClick={saveLessonEdits}
-                  className="rounded-sm bg-[#e27447] hover:bg-[#d1653a]"
+                  className="rounded-sm bg-primary hover:bg-primary/90"
                 >
                   Save Lesson
                 </Button>
@@ -2568,10 +2568,10 @@ export default function CourseCreatorPage() {
       </Card>
 
       {/* 5-Tier Hierarchy Summary Info */}
-      <Card className="mb-6 rounded-sm bg-[#feefea]/30 border-[#e27447]/20">
+      <Card className="mb-6 rounded-sm bg-primary/5 border-primary/20">
         <CardHeader>
           <div className="flex items-center gap-2">
-            <Layers className="w-5 h-5 text-[#e27447]" />
+            <Layers className="w-5 h-5 text-primary" />
             <CardTitle className="text-[#1e293b]">
               5-Tier Hierarchy Flow
             </CardTitle>

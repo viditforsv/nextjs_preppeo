@@ -88,7 +88,7 @@ const steps = [
             </p>
             <Button
               onClick={onComplete}
-              className="w-full bg-[#e27447] hover:bg-[#e27447]/90"
+              className="w-full bg-primary hover:bg-primary/90"
               size="lg"
             >
               Go to Dashboard
@@ -193,7 +193,7 @@ export function OnboardingFlow() {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-[#e27447] mx-auto"></div>
+          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-primary mx-auto"></div>
           <p className="mt-4 text-muted-foreground">Loading onboarding...</p>
         </div>
       </div>
@@ -309,7 +309,7 @@ export function OnboardingFlow() {
                 <div
                   key={index}
                   className={`w-2 h-2 rounded-full transition-colors ${
-                    index <= data.currentStep ? "bg-[#e27447]" : "bg-muted"
+                    index <= data.currentStep ? "bg-primary" : "bg-muted"
                   }`}
                 />
               ))}
@@ -329,7 +329,7 @@ export function OnboardingFlow() {
               {data.currentStep === steps.length - 1 ? (
                 <Button
                   onClick={handleComplete}
-                  className="bg-[#e27447] hover:bg-[#e27447]/90"
+                  className="bg-primary hover:bg-primary/90"
                 >
                   <CheckCircle className="w-4 h-4 mr-2" />
                   Complete Setup
@@ -337,7 +337,7 @@ export function OnboardingFlow() {
               ) : (
                 <Button
                   onClick={handleNext}
-                  className="bg-[#e27447] hover:bg-[#e27447]/90"
+                  className="bg-primary hover:bg-primary/90"
                 >
                   Next
                   <ArrowRight className="w-4 h-4 ml-2" />

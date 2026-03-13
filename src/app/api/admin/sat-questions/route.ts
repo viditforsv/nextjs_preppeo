@@ -1,4 +1,4 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { createSupabaseApiClient } from '@/lib/supabase/api-client';
 
 export async function GET() {
@@ -8,7 +8,7 @@ export async function GET() {
     const { data, error } = await supabase
       .from('sat_questions')
       .select(
-        'id, type, section, prompt, passage, options, correct_answer, explanation, domain, difficulty_tier, module_number, set_number, image_url'
+        'id, type, section, prompt, passage, options, correct_answer, explanation, domain, difficulty_tier, module_number, set_number, image_url, ai_explanation, ai_theory'
       )
       .eq('is_active', true)
       .order('section')
@@ -35,11 +35,67 @@ export async function GET() {
       imageUrl: row.image_url ?? undefined,
       moduleNumber: row.module_number,
       setNumber: row.set_number,
+      aiExplanation: row.ai_explanation ?? undefined,
+      aiTheory: row.ai_theory ?? undefined,
     }));
 
     return NextResponse.json({ questions });
   } catch (err) {
     console.error('Error in GET /api/admin/sat-questions:', err);
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+  }
+}
+
+const ALLOWED_FIELDS: Record<string, string> = {
+  prompt: 'prompt',
+  passage: 'passage',
+  explanation: 'explanation',
+  correctAnswer: 'correct_answer',
+  section: 'section',
+  domain: 'domain',
+  difficulty: 'difficulty_tier',
+  type: 'type',
+  moduleNumber: 'module_number',
+  setNumber: 'set_number',
+  aiExplanation: 'ai_explanation',
+  aiTheory: 'ai_theory',
+};
+
+export async function PATCH(request: NextRequest) {
+  try {
+    const body = await request.json();
+    const { questionId, ...fields } = body;
+
+    if (!questionId) {
+      return NextResponse.json({ error: 'questionId is required' }, { status: 400 });
+    }
+
+    const updateData: Record<string, unknown> = {};
+    for (const [key, value] of Object.entries(fields)) {
+      const dbCol = ALLOWED_FIELDS[key];
+      if (dbCol) {
+        updateData[dbCol] = value === '' ? null : value;
+      }
+    }
+
+    if (Object.keys(updateData).length === 0) {
+      return NextResponse.json({ error: 'No valid fields to update' }, { status: 400 });
+    }
+
+    const supabase = createSupabaseApiClient();
+    const { error } = await supabase
+      .from('sat_questions')
+      .update(updateData)
+      .eq('id', questionId);
+
+    if (error) {
+      console.error('Error updating SAT question:', error);
+      return NextResponse.json({ error: 'Failed to update question' }, { status: 500 });
+    }
+
+    return NextResponse.json({ success: true });
+  } catch (err) {
+    console.error('Error in PATCH /api/admin/sat-questions:', err);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 }

@@ -26,7 +26,7 @@ export function ShoppingCart() {
         <Button variant="outline" size="sm" className="relative rounded-sm">
           <CartIcon className="w-4 h-4" />
           {itemCount > 0 && (
-            <Badge className="absolute -top-2 -right-2 h-5 w-5 rounded-full p-0 flex items-center justify-center bg-[#e27447] text-white">
+            <Badge className="absolute -top-2 -right-2 h-5 w-5 rounded-full p-0 flex items-center justify-center bg-[#1a365d] text-white">
               {itemCount}
             </Badge>
           )}
@@ -51,7 +51,7 @@ export function ShoppingCart() {
                     <div className="flex items-start justify-between">
                       <div className="flex-1">
                         <h4 className="font-medium mb-1">{item.title}</h4>
-                        <p className="text-lg font-bold text-[#e27447]">
+                        <p className="text-lg font-bold text-[#1a365d]">
                           ₹{item.price.toLocaleString()}
                         </p>
                       </div>
@@ -69,11 +69,11 @@ export function ShoppingCart() {
               ))}
 
               {/* Total */}
-              <Card className="rounded-sm bg-[#feefea]">
+              <Card className="rounded-sm bg-primary/5">
                 <CardContent className="p-4">
                   <div className="flex justify-between items-center">
                     <span className="text-lg font-semibold">Total:</span>
-                    <span className="text-2xl font-bold text-[#e27447]">
+                    <span className="text-2xl font-bold text-[#1a365d]">
                       ₹{totalPrice.toLocaleString()}
                     </span>
                   </div>
@@ -82,7 +82,7 @@ export function ShoppingCart() {
 
               {/* Checkout Button */}
               <Link href="/cart">
-                <Button className="w-full bg-[#e27447] hover:bg-[#d1653a] rounded-sm">
+                <Button className="w-full bg-[#1a365d] hover:bg-[#1a365d] rounded-sm">
                   Proceed to Checkout
                 </Button>
               </Link>

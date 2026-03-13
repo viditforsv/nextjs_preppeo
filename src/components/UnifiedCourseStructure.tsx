@@ -171,7 +171,7 @@ export function UnifiedCourseStructure({
   if (isLoading) {
     return (
       <div className="flex items-center justify-center py-8">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#e27447]"></div>
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#1a365d]"></div>
       </div>
     );
   }
@@ -259,7 +259,7 @@ export function UnifiedCourseStructure({
                         {/* Chapter Header */}
                         <div className="p-3 pl-8 bg-gray-50">
                           <div className="font-semibold text-gray-800 flex items-center space-x-2">
-                            <BookOpen className="w-4 h-4 text-[#e27447]" />
+                            <BookOpen className="w-4 h-4 text-[#1a365d]" />
                             <span>{chapter.chapter_name}</span>
                           </div>
                           <div className="text-xs text-muted-foreground mt-0.5">
@@ -287,7 +287,7 @@ export function UnifiedCourseStructure({
                                 }}
                                 className={`flex items-center justify-between p-3 border-b last:border-b-0 transition-colors ${
                                   isCurrentLesson
-                                    ? "bg-[#feefea] border-l-4 border-l-[#e27447]"
+                                    ? "bg-[#1a365d]/5 border-l-4 border-l-[#1a365d]"
                                     : "hover:bg-gray-50"
                                 }`}
                               >
@@ -295,7 +295,7 @@ export function UnifiedCourseStructure({
                                   <div
                                     className={`flex items-center justify-center w-6 h-6 rounded-sm text-xs font-medium flex-shrink-0 ${
                                       isCurrentLesson
-                                        ? "bg-[#e27447] text-white"
+                                        ? "bg-[#1a365d] text-white"
                                         : "bg-gray-100 text-gray-600"
                                     }`}
                                   >
@@ -305,7 +305,7 @@ export function UnifiedCourseStructure({
                                     <div
                                       className={`text-sm font-medium truncate ${
                                         isCurrentLesson
-                                          ? "text-[#e27447]"
+                                          ? "text-[#1a365d]"
                                           : "text-gray-700"
                                       }`}
                                     >
@@ -332,7 +332,7 @@ export function UnifiedCourseStructure({
                                     </Badge>
                                   )}
                                   {isCurrentLesson && (
-                                    <div className="w-2 h-2 bg-[#e27447] rounded-full"></div>
+                                    <div className="w-2 h-2 bg-[#1a365d] rounded-full"></div>
                                   )}
                                 </div>
                               </Link>

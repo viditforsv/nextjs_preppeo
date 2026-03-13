@@ -316,7 +316,7 @@ export default function AdminLessonEditorPage({
     return (
       <div className="container mx-auto px-4 py-8">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#e27447] mx-auto mb-4"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
           <p className="text-muted-foreground">Loading lesson data...</p>
         </div>
       </div>
@@ -364,7 +364,7 @@ export default function AdminLessonEditorPage({
           <Button
             onClick={handleSave}
             disabled={isSaving}
-            className="rounded-sm bg-[#e27447] hover:bg-[#d1653a]"
+            className="rounded-sm bg-primary hover:bg-primary/90"
           >
             <Save className="w-4 h-4 mr-2" />
             {isSaving ? "Saving..." : "Save Lesson"}
@@ -634,7 +634,7 @@ export default function AdminLessonEditorPage({
             <Card className="rounded-sm">
               <CardHeader>
                 <div className="flex items-center gap-2">
-                  <Lightbulb className="w-5 h-5 text-[#e27447]" />
+                  <Lightbulb className="w-5 h-5 text-primary" />
                   <CardTitle>Concept</CardTitle>
                 </div>
                 <CardDescription>
@@ -680,7 +680,7 @@ export default function AdminLessonEditorPage({
             <Card className="rounded-sm">
               <CardHeader>
                 <div className="flex items-center gap-2">
-                  <Calculator className="w-5 h-5 text-[#e27447]" />
+                  <Calculator className="w-5 h-5 text-primary" />
                   <CardTitle>Formula</CardTitle>
                 </div>
                 <CardDescription>
@@ -729,7 +729,7 @@ export default function AdminLessonEditorPage({
           <Card className="rounded-sm">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
-                <ClipboardList className="w-5 h-5 text-[#e27447]" />
+                <ClipboardList className="w-5 h-5 text-primary" />
                 Practice & Interactive content
               </CardTitle>
               <CardDescription>
@@ -870,7 +870,7 @@ export default function AdminLessonEditorPage({
               <Button
                 onClick={handleSaveInteractive}
                 disabled={interactiveSaving || !resolvedParams?.lessonId}
-                className="rounded-sm bg-[#e27447] hover:bg-[#d1653a]"
+                className="rounded-sm bg-primary hover:bg-primary/90"
               >
                 {interactiveSaving ? "Saving..." : "Save practice & interactive content"}
               </Button>

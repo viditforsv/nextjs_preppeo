@@ -242,7 +242,7 @@ export function AvatarPicker({
                     {currentAvatar && (
                       <AvatarImage src={currentAvatar} alt={userName} />
                     )}
-                    <AvatarFallback className="bg-[#e27447] text-white text-lg font-semibold">
+                    <AvatarFallback className="bg-[#1a365d] text-white text-lg font-semibold">
                       {getInitials(userName)}
                     </AvatarFallback>
                   </Avatar>
@@ -264,12 +264,12 @@ export function AvatarPicker({
                   <div className="flex items-center space-x-4">
                     <Avatar className={cn(sizeClasses[size])}>
                       <AvatarImage src={previewUrl} alt="Preview" />
-                      <AvatarFallback className="bg-[#e27447] text-white text-lg font-semibold">
+                      <AvatarFallback className="bg-[#1a365d] text-white text-lg font-semibold">
                         {getInitials(userName)}
                       </AvatarFallback>
                     </Avatar>
                     <div>
-                      <p className="font-medium text-[#e27447]">New Avatar</p>
+                      <p className="font-medium text-[#1a365d]">New Avatar</p>
                       <p className="text-sm text-muted-foreground">
                         Click Save to update
                       </p>
@@ -322,12 +322,12 @@ export function AvatarPicker({
                       "w-full p-4 border-2 rounded-sm transition-all hover:bg-accent/10",
                       previewUrl === "" &&
                         selectedAvatar === "default" &&
-                        "border-[#e27447] bg-accent/20"
+                        "border-[#1a365d] bg-accent/20"
                     )}
                   >
                     <div className="flex items-center space-x-4">
                       <Avatar className={cn(sizeClasses[size])}>
-                        <AvatarFallback className="bg-[#e27447] text-white text-lg font-semibold">
+                        <AvatarFallback className="bg-[#1a365d] text-white text-lg font-semibold">
                           {getInitials(userName)}
                         </AvatarFallback>
                       </Avatar>
@@ -358,13 +358,13 @@ export function AvatarPicker({
                         className={cn(
                           "w-full p-4 border-2 rounded-sm transition-all hover:bg-accent/10",
                           previewUrl === googleAvatar &&
-                            "border-[#e27447] bg-accent/20"
+                            "border-[#1a365d] bg-accent/20"
                         )}
                       >
                         <div className="flex items-center space-x-4">
                           <Avatar className={cn(sizeClasses[size])}>
                             <AvatarImage src={googleAvatar} alt="Google" />
-                            <AvatarFallback className="bg-[#e27447] text-white text-lg font-semibold">
+                            <AvatarFallback className="bg-[#1a365d] text-white text-lg font-semibold">
                               {getInitials(userName)}
                             </AvatarFallback>
                           </Avatar>
@@ -403,7 +403,7 @@ export function AvatarPicker({
                         className={cn(
                           "aspect-square rounded-full overflow-hidden transition-all hover:scale-110 active:scale-95 disabled:opacity-50 border-2 border-transparent",
                           selectedAvatar === seed &&
-                            "ring-2 ring-[#e27447] border-[#e27447]"
+                            "ring-2 ring-[#1a365d] border-[#1a365d]"
                         )}
                       >
                         <Image
@@ -438,7 +438,7 @@ export function AvatarPicker({
                 disabled={
                   (activeTab === "dicebear" && !selectedAvatar) || isUpdating
                 }
-                className="flex-1 bg-[#e27447] hover:bg-[#d1653a] text-white rounded-sm"
+                className="flex-1 bg-[#1a365d] hover:bg-[#1a365d] text-white rounded-sm"
               >
                 {isUpdating ? "Saving..." : "Save Avatar"}
               </Button>

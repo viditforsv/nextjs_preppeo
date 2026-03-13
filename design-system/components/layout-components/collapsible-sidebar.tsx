@@ -288,7 +288,7 @@ export function CollapsibleSidebar({
       case "completed":
         return <CheckCircle className="w-4 h-4 text-green-600" />;
       case "current":
-        return <Play className="w-4 h-4 text-[#e27447]" />;
+        return <Play className="w-4 h-4 text-primary" />;
       case "preview":
         return <Eye className="w-4 h-4 text-blue-600" />;
       case "locked":
@@ -305,7 +305,7 @@ export function CollapsibleSidebar({
       case "completed":
         return "text-green-700 font-medium";
       case "current":
-        return "text-[#e27447] font-semibold";
+        return "text-primary font-semibold";
       case "preview":
         return "text-blue-600";
       case "locked":
@@ -319,7 +319,7 @@ export function CollapsibleSidebar({
 
   if (isSidebarCollapsed) {
     return (
-      <div className="w-16 bg-white border-r border-[#feefea] flex flex-col items-center py-4">
+      <div className="w-16 bg-white border-r border-primary/20 flex flex-col items-center py-4">
         <Button
           variant="outline"
           size="sm"
@@ -337,7 +337,7 @@ export function CollapsibleSidebar({
               title={lesson.title}
             >
               {getLessonStatus(lesson) === "current" ? (
-                <Play className="w-4 h-4 text-[#e27447]" />
+                <Play className="w-4 h-4 text-primary" />
               ) : (
                 <FileText className="w-4 h-4 text-gray-500" />
               )}
@@ -349,9 +349,9 @@ export function CollapsibleSidebar({
   }
 
   return (
-    <div className="w-80 bg-white border-r border-[#feefea] flex flex-col h-full min-h-0 overflow-hidden">
+    <div className="w-80 bg-white border-r border-primary/20 flex flex-col h-full min-h-0 overflow-hidden">
       {/* Header - Fixed */}
-      <div className="p-4 border-b border-[#feefea] flex-shrink-0">
+      <div className="p-4 border-b border-primary/20 flex-shrink-0">
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-lg font-semibold text-[#1e293b]">
             Course Content
@@ -384,13 +384,13 @@ export function CollapsibleSidebar({
               <span className="text-sm font-medium text-[#1e293b]">
                 Course Progress
               </span>
-              <span className="text-sm text-[#e27447] font-semibold">
+              <span className="text-sm text-primary font-semibold">
                 {courseProgress.percentage}%
               </span>
             </div>
             <div className="w-full bg-white rounded-full h-2 mb-2">
               <div
-                className="bg-[#e27447] h-2 rounded-full transition-all duration-300"
+                className="bg-primary h-2 rounded-full transition-all duration-300"
                 style={{ width: `${courseProgress.percentage}%` }}
               />
             </div>
@@ -429,7 +429,7 @@ export function CollapsibleSidebar({
         {Object.entries(sortedGroupedLessons).map(([sectionKey, chapters]) => (
           <div
             key={sectionKey}
-            className="border-b border-[#feefea] last:border-b-0"
+            className="border-b border-primary/20 last:border-b-0"
           >
             {/* Section Header */}
             <div
@@ -438,11 +438,11 @@ export function CollapsibleSidebar({
             >
               <div className="flex items-center space-x-2">
                 {expandedSections.has(sectionKey) ? (
-                  <ChevronDown className="w-4 h-4 text-[#e27447]" />
+                  <ChevronDown className="w-4 h-4 text-primary" />
                 ) : (
-                  <ChevronRight className="w-4 h-4 text-[#e27447]" />
+                  <ChevronRight className="w-4 h-4 text-primary" />
                 )}
-                <BookOpen className="w-4 h-4 text-[#e27447]" />
+                <BookOpen className="w-4 h-4 text-primary" />
                 <span className="font-medium text-[#1e293b]">{sectionKey}</span>
               </div>
               <Badge variant="secondary" className="rounded-sm">

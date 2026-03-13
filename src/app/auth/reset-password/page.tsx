@@ -67,8 +67,8 @@ export default function ResetPasswordPage() {
 
   if (!isValidSession) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-[#fef7f0] to-[#feefea] flex items-center justify-center p-4">
-        <Card className="w-full max-w-md border-[#feefea]">
+      <div className="min-h-screen bg-gradient-to-br from-[#1a365d]/5 to-[#1a365d]/10 flex items-center justify-center p-4">
+        <Card className="w-full max-w-md border-[#1a365d]/10">
           <CardHeader className="text-center">
             <AlertCircle className="w-12 h-12 text-red-500 mx-auto mb-4" />
             <CardTitle className="text-xl text-[#1e293b]">Invalid Reset Link</CardTitle>
@@ -79,7 +79,7 @@ export default function ResetPasswordPage() {
           <CardContent>
             <Button 
               onClick={() => router.push('/auth')}
-              className="w-full bg-[#e27447] hover:bg-[#d65a2b] text-white"
+              className="w-full bg-[#1a365d] hover:bg-[#1a365d] text-white"
             >
               Go to Login
             </Button>
@@ -90,10 +90,10 @@ export default function ResetPasswordPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#fef7f0] to-[#feefea] flex items-center justify-center p-4">
-      <Card className="w-full max-w-md border-[#feefea]">
+    <div className="min-h-screen bg-gradient-to-br from-[#1a365d]/5 to-[#1a365d]/10 flex items-center justify-center p-4">
+      <Card className="w-full max-w-md border-[#1a365d]/10">
         <CardHeader className="text-center">
-          <Lock className="w-12 h-12 text-[#e27447] mx-auto mb-4" />
+          <Lock className="w-12 h-12 text-[#1a365d] mx-auto mb-4" />
           <CardTitle className="text-xl text-[#1e293b]">Reset Password</CardTitle>
           <CardDescription>
             Enter your new password below.
@@ -125,7 +125,7 @@ export default function ResetPasswordPage() {
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="Enter new password"
                   required
-                  className="border-[#feefea] focus:border-[#e27447] focus:ring-[#e27447] pr-10"
+                  className="border-[#1a365d]/10 focus:border-[#1a365d] focus:ring-[#1a365d] pr-10"
                 />
                 <button
                   type="button"
@@ -147,7 +147,7 @@ export default function ResetPasswordPage() {
                   onChange={(e) => setConfirmPassword(e.target.value)}
                   placeholder="Confirm new password"
                   required
-                  className="border-[#feefea] focus:border-[#e27447] focus:ring-[#e27447] pr-10"
+                  className="border-[#1a365d]/10 focus:border-[#1a365d] focus:ring-[#1a365d] pr-10"
                 />
                 <button
                   type="button"
@@ -162,7 +162,7 @@ export default function ResetPasswordPage() {
             <Button
               type="submit"
               disabled={isLoading}
-              className="w-full bg-[#e27447] hover:bg-[#d65a2b] text-white disabled:opacity-50"
+              className="w-full bg-[#1a365d] hover:bg-[#1a365d] text-white disabled:opacity-50"
             >
               {isLoading ? 'Updating Password...' : 'Update Password'}
             </Button>

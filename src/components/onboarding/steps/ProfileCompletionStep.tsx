@@ -240,8 +240,8 @@ export function ProfileCompletionStep({ onNext }: OnboardingStepProps) {
     <div className="space-y-6">
       {/* Header */}
       <div className="text-center space-y-2">
-        <div className="w-12 h-12 bg-[#e27447]/10 rounded-full flex items-center justify-center mx-auto">
-          <User className="w-6 h-6 text-[#e27447]" />
+        <div className="w-12 h-12 bg-[#1a365d]/10 rounded-full flex items-center justify-center mx-auto">
+          <User className="w-6 h-6 text-[#1a365d]" />
         </div>
         <h2 className="text-lg font-semibold">Complete Your Profile</h2>
         <p className="text-sm text-muted-foreground">
@@ -254,8 +254,8 @@ export function ProfileCompletionStep({ onNext }: OnboardingStepProps) {
       <Card className="bg-muted/30">
         <CardContent className="p-4">
           <div className="flex items-center space-x-3">
-            <div className="w-10 h-10 bg-[#e27447]/10 rounded-full flex items-center justify-center">
-              <Mail className="w-5 h-5 text-[#e27447]" />
+            <div className="w-10 h-10 bg-[#1a365d]/10 rounded-full flex items-center justify-center">
+              <Mail className="w-5 h-5 text-[#1a365d]" />
             </div>
             <div>
               <p className="font-medium text-sm">Email Address</p>
@@ -339,7 +339,7 @@ export function ProfileCompletionStep({ onNext }: OnboardingStepProps) {
                   border: "1px solid hsl(var(--border))",
                 },
                 "&:focus": {
-                  border: "2px solid #e27447",
+                  border: "2px solid #1a365d",
                   boxShadow: "0 0 0 2px rgba(226, 116, 71, 0.1)",
                 },
               }),
@@ -423,7 +423,7 @@ export function ProfileCompletionStep({ onNext }: OnboardingStepProps) {
                       border: "1px solid hsl(var(--border))",
                     },
                     "&:focus": {
-                      border: "2px solid #e27447",
+                      border: "2px solid #1a365d",
                       boxShadow: "0 0 0 2px rgba(226, 116, 71, 0.1)",
                     },
                   }),
@@ -463,7 +463,7 @@ export function ProfileCompletionStep({ onNext }: OnboardingStepProps) {
             value={formData.bio}
             onChange={(e) => handleInputChange("bio", e.target.value)}
             placeholder="Tell us a bit about yourself..."
-            className="mt-1 w-full px-3 py-2 border border-input rounded-sm resize-none focus:outline-none focus:ring-2 focus:ring-[#e27447] focus:border-transparent"
+            className="mt-1 w-full px-3 py-2 border border-input rounded-sm resize-none focus:outline-none focus:ring-2 focus:ring-[#1a365d] focus:border-transparent"
             rows={3}
           />
         </div>
@@ -486,7 +486,7 @@ export function ProfileCompletionStep({ onNext }: OnboardingStepProps) {
       <Button
         onClick={handleSave}
         disabled={!isFormValid || loading}
-        className="w-full bg-[#e27447] hover:bg-[#e27447]/90"
+        className="w-full bg-[#1a365d] hover:bg-[#1a365d]/90"
         size="lg"
       >
         {loading ? "Saving..." : "Save & Continue"}

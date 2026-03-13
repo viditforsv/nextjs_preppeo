@@ -817,7 +817,7 @@ function CourseCard({ course, viewMode }: CourseCardProps) {
                   />
                 )}
                 <div
-                  className="w-full h-full bg-gradient-to-br from-primary to-emerald-600 rounded-lg flex items-center justify-center absolute inset-0"
+                  className="w-full h-full bg-gradient-to-br from-[#1a365d] to-[#2a4a7f] rounded-lg flex items-center justify-center absolute inset-0"
                   style={{ display: "none" }}
                 >
                   <BookOpen className="w-8 h-8 text-white" />
@@ -945,7 +945,7 @@ function CourseCard({ course, viewMode }: CourseCardProps) {
               />
             )}
             <div
-              className="w-full h-full bg-gradient-to-br from-primary to-emerald-600 rounded-lg flex items-center justify-center absolute inset-0"
+              className="w-full h-full bg-gradient-to-br from-[#1a365d] to-[#2a4a7f] rounded-lg flex items-center justify-center absolute inset-0"
               style={{ display: "none" }}
             >
               <BookOpen className="w-12 h-12 text-white" />

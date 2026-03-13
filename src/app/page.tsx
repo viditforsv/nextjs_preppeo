@@ -194,7 +194,7 @@ export default function Home() {
   // ── Authenticated ──
   if (user) {
     return (
-      <div className="min-h-screen bg-[#fafaf8]">
+      <div className="min-h-screen bg-[#f5f5f0]">
         {/* Compact Hero */}
         <section className="bg-white border-b border-gray-100">
           <div className="max-w-6xl mx-auto px-4 py-12">
@@ -308,7 +308,7 @@ export default function Home() {
   return (
     <div className="min-h-screen">
       {/* Hero */}
-      <section className="bg-linear-to-b from-[#f5f5f0] to-white py-20">
+      <section className="bg-[#f5f5f0] py-20">
         <div className="max-w-3xl mx-auto px-4 text-center">
           <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-5 leading-tight">
             Ace Your Exams with Adaptive Mock Tests &amp; Expert Courses
@@ -343,7 +343,7 @@ export default function Home() {
       <ExamShowcase />
 
       {/* Three Pillars — What We Offer */}
-      <section className="py-16 bg-[#fafaf8]">
+      <section className="py-16 bg-[#f5f5f0]">
         <div className="max-w-6xl mx-auto px-4">
           <div className="text-center mb-10">
             <h2 className="text-3xl font-bold text-foreground mb-3">

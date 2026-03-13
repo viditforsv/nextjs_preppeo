@@ -17,7 +17,7 @@ export default function NotFound() {
   return (
     <div className="min-h-screen bg-background">
       {/* Header Section */}
-      <div className="bg-gradient-to-br from-[#feefea] to-[#fffefd] border-b border-[#e27447] py-8">
+      <div className="bg-gradient-to-br from-[#1a365d]/5 to-white border-b border-[#1a365d] py-8">
         <div className="container mx-auto px-4 text-center">
           <h1 className="text-8xl font-bold text-[#1e293b] mb-4">404</h1>
           <h2 className="text-3xl font-semibold text-[#1e293b] mb-4">
@@ -80,8 +80,8 @@ export default function NotFound() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
             <Card>
               <CardContent className="p-6 text-center">
-                <div className="w-16 h-16 bg-[#feefea] rounded-full flex items-center justify-center mx-auto mb-4">
-                  <BookOpen className="w-8 h-8 text-[#e27447]" />
+                <div className="w-16 h-16 bg-[#1a365d]/5 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <BookOpen className="w-8 h-8 text-[#1a365d]" />
                 </div>
                 <h3 className="text-lg font-semibold text-[#1e293b] mb-2">
                   Courses
@@ -97,8 +97,8 @@ export default function NotFound() {
 
             <Card>
               <CardContent className="p-6 text-center">
-                <div className="w-16 h-16 bg-[#feefea] rounded-full flex items-center justify-center mx-auto mb-4">
-                  <FileText className="w-8 h-8 text-[#e27447]" />
+                <div className="w-16 h-16 bg-[#1a365d]/5 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <FileText className="w-8 h-8 text-[#1a365d]" />
                 </div>
                 <h3 className="text-lg font-semibold text-[#1e293b] mb-2">
                   Templates
@@ -114,8 +114,8 @@ export default function NotFound() {
 
             <Card>
               <CardContent className="p-6 text-center">
-                <div className="w-16 h-16 bg-[#feefea] rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Users className="w-8 h-8 text-[#e27447]" />
+                <div className="w-16 h-16 bg-[#1a365d]/5 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Users className="w-8 h-8 text-[#1a365d]" />
                 </div>
                 <h3 className="text-lg font-semibold text-[#1e293b] mb-2">
                   Dashboard
@@ -131,9 +131,9 @@ export default function NotFound() {
           </div>
 
           {/* Help Section */}
-          <Card className="bg-[#feefea] border-[#e27447]">
+          <Card className="bg-[#1a365d]/5 border-[#1a365d]">
             <CardContent className="p-8 text-center">
-              <div className="w-20 h-20 bg-[#e27447] rounded-full flex items-center justify-center mx-auto mb-6">
+              <div className="w-20 h-20 bg-[#1a365d] rounded-full flex items-center justify-center mx-auto mb-6">
                 <HelpCircle className="w-10 h-10 text-white" />
               </div>
               <h3 className="text-2xl font-bold text-[#1e293b] mb-4">
@@ -173,7 +173,7 @@ export default function NotFound() {
                 <input
                   type="text"
                   placeholder="Search courses, templates, or pages..."
-                  className="w-full px-4 py-3 pl-12 pr-4 border border-[#feefea] rounded-sm focus:outline-none focus:ring-2 focus:ring-[#e27447] focus:border-[#e27447] transition-all bg-white text-[#1e293b] placeholder-[#4a6f73]"
+                  className="w-full px-4 py-3 pl-12 pr-4 border border-[#1a365d]/10 rounded-sm focus:outline-none focus:ring-2 focus:ring-[#1a365d] focus:border-[#1a365d] transition-all bg-white text-[#1e293b] placeholder-[#4a6f73]"
                 />
                 <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-[#4a6f73]" />
               </div>

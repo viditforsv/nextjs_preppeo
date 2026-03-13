@@ -163,7 +163,7 @@ export default function TeacherManagementPage() {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#e27447] mx-auto mb-4"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
           <p className="text-muted-foreground">Loading users...</p>
         </div>
       </div>
@@ -255,7 +255,7 @@ export default function TeacherManagementPage() {
                     {stats.total}
                   </p>
                 </div>
-                <Users className="w-8 h-8 text-[#e27447]" />
+                <Users className="w-8 h-8 text-primary" />
               </div>
             </CardContent>
           </Card>

@@ -269,7 +269,7 @@ export default function QuestionTypesPage() {
                     onClick={() => setSelectedType(type.id)}
                     className={`w-full flex items-center space-x-3 px-4 py-3 text-left rounded-sm transition-colors ${
                       isActive
-                        ? "bg-[#e27447] text-white font-medium"
+                        ? "bg-primary text-white font-medium"
                         : "hover:bg-muted/50 text-foreground"
                     }`}
                   >
@@ -290,7 +290,7 @@ export default function QuestionTypesPage() {
         {/* Footer */}
         <div className="p-4 border-t border-border">
           <Button
-            className="w-full bg-[#e27447] hover:bg-[#d1653a]"
+            className="w-full bg-primary hover:bg-primary/90"
             onClick={() => setIsAdding(true)}
           >
             <Plus className="w-4 h-4 mr-2" />
@@ -721,8 +721,8 @@ export default function QuestionTypesPage() {
                                         <div
                                           className={`w-6 h-6 flex items-center justify-center border-2 rounded-sm text-sm font-medium ${
                                             isSelected || isCorrect
-                                              ? "bg-[#e27447] border-[#e27447] text-white"
-                                              : "border-[#e27447] text-[#e27447]"
+                                              ? "bg-primary border-primary text-white"
+                                              : "border-primary text-primary"
                                           }`}
                                         >
                                           {String.fromCharCode(65 + idx)}
@@ -755,7 +755,7 @@ export default function QuestionTypesPage() {
                                   onClick={() =>
                                     handleCheckAnswer(selectedType)
                                   }
-                                  className="bg-[#e27447] hover:bg-[#d1653a]"
+                                  className="bg-primary hover:bg-primary/90"
                                 >
                                   Check Answer
                                 </Button>

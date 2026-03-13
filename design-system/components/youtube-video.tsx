@@ -146,7 +146,7 @@ export function YouTubeVideo({
 
             {/* Fallback when thumbnails fail */}
             {thumbnailError && (
-              <div className="absolute inset-0 bg-gradient-to-br from-[#e27447] to-[#d1653a] flex flex-col items-center justify-center p-6">
+              <div className="absolute inset-0 bg-gradient-to-br from-primary to-primary/80 flex flex-col items-center justify-center p-6">
                 <div className="text-center">
                   <Play className="w-20 h-20 text-white mx-auto mb-4 opacity-80" />
                   <h3 className="text-white font-semibold text-lg mb-2">
@@ -227,7 +227,7 @@ export function YouTubeVideo({
             {/* Resume Indicator */}
             {startTime && startTime > 0 && (
               <div className="absolute top-4 left-4 z-10">
-                <div className="bg-[#e27447] text-white px-3 py-1 rounded-sm text-xs font-medium shadow-lg">
+                <div className="bg-primary text-white px-3 py-1 rounded-sm text-xs font-medium shadow-lg">
                   Resume from {Math.floor(startTime / 60)}:
                   {String(Math.floor(startTime % 60)).padStart(2, "0")}
                 </div>
@@ -452,7 +452,7 @@ export function VideoResource({
 
                 {/* Fallback when thumbnail fails */}
                 {thumbnailError && (
-                  <div className="absolute inset-0 bg-gradient-to-br from-[#e27447] to-[#d1653a] flex flex-col items-center justify-center p-6">
+                  <div className="absolute inset-0 bg-gradient-to-br from-primary to-primary/80 flex flex-col items-center justify-center p-6">
                     <div className="text-center">
                       <Play className="w-20 h-20 text-white mx-auto mb-4 opacity-80" />
                       <h3 className="text-white font-semibold text-lg mb-2">
@@ -485,7 +485,7 @@ export function VideoResource({
                       generateSignedUrl();
                     }}
                     size="lg"
-                    className="bg-[#e27447] hover:bg-[#d1653a] text-white rounded-full w-20 h-20 shadow-2xl hover:scale-110 transition-transform duration-200 z-10"
+                    className="bg-primary hover:bg-primary/90 text-white rounded-full w-20 h-20 shadow-2xl hover:scale-110 transition-transform duration-200 z-10"
                   >
                     <Play className="w-10 h-10 ml-1" />
                   </Button>
@@ -508,7 +508,7 @@ export function VideoResource({
                       generateSignedUrl();
                     }}
                     size="sm"
-                    className="bg-[#e27447] hover:bg-[#d1653a] text-white rounded-sm"
+                    className="bg-primary hover:bg-primary/90 text-white rounded-sm"
                   >
                     <Play className="w-4 h-4 mr-2" />
                     Play Video
@@ -518,7 +518,7 @@ export function VideoResource({
                 {/* Resume Indicator */}
                 {lastPosition > 0 && (
                   <div className="absolute top-4 left-4 z-10">
-                    <div className="bg-[#e27447] text-white px-3 py-1 rounded-sm text-xs font-medium shadow-lg">
+                    <div className="bg-primary text-white px-3 py-1 rounded-sm text-xs font-medium shadow-lg">
                       Resume from {Math.floor(lastPosition / 60)}:
                       {String(Math.floor(lastPosition % 60)).padStart(2, "0")}
                     </div>
@@ -548,7 +548,7 @@ export function VideoResource({
             <div className="flex justify-center">
               <div className="aspect-video bg-gray-100 rounded-sm flex items-center justify-center w-full max-w-[80%]">
                 <div className="text-center">
-                  <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#e27447] mx-auto mb-4"></div>
+                  <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
                   <p className="text-muted-foreground">Loading video...</p>
                 </div>
               </div>
@@ -618,7 +618,7 @@ export function VideoResource({
 
               {/* Resume indicator */}
               {lastPosition > 0 && hasLoadedPosition && (
-                <div className="absolute top-2 left-2 bg-[#e27447] text-white px-3 py-1 rounded-sm text-xs font-medium">
+                <div className="absolute top-2 left-2 bg-primary text-white px-3 py-1 rounded-sm text-xs font-medium">
                   Resumed from {Math.floor(lastPosition / 60)}:
                   {String(Math.floor(lastPosition % 60)).padStart(2, "0")}
                 </div>

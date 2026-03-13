@@ -312,8 +312,8 @@ export function CourseDiscoveryStep({ onNext }: OnboardingStepProps) {
     <div className="space-y-6">
       {/* Header */}
       <div className="text-center space-y-2">
-        <div className="w-12 h-12 bg-[#e27447]/10 rounded-full flex items-center justify-center mx-auto">
-          <BookOpen className="w-6 h-6 text-[#e27447]" />
+        <div className="w-12 h-12 bg-[#1a365d]/10 rounded-full flex items-center justify-center mx-auto">
+          <BookOpen className="w-6 h-6 text-[#1a365d]" />
         </div>
         <h2 className="text-lg font-semibold">What do you want to study?</h2>
         <p className="text-sm text-muted-foreground">
@@ -353,12 +353,12 @@ export function CourseDiscoveryStep({ onNext }: OnboardingStepProps) {
               }}
               className={`p-4 rounded-sm border text-left transition-all duration-200 ${
                 educationalBackground === "school"
-                  ? "border-[#e27447] bg-[#e27447]/5"
-                  : "border-border hover:border-[#e27447]/50"
+                  ? "border-[#1a365d] bg-[#1a365d]/5"
+                  : "border-border hover:border-[#1a365d]/50"
               }`}
             >
               <div className="flex items-center space-x-3">
-                <GraduationCap className="w-5 h-5 text-[#e27447]" />
+                <GraduationCap className="w-5 h-5 text-[#1a365d]" />
                 <div>
                   <p className="font-medium text-sm">In School</p>
                   <p className="text-xs text-muted-foreground">
@@ -392,12 +392,12 @@ export function CourseDiscoveryStep({ onNext }: OnboardingStepProps) {
               }}
               className={`p-4 rounded-sm border text-left transition-all duration-200 ${
                 educationalBackground === "professional"
-                  ? "border-[#e27447] bg-[#e27447]/5"
-                  : "border-border hover:border-[#e27447]/50"
+                  ? "border-[#1a365d] bg-[#1a365d]/5"
+                  : "border-border hover:border-[#1a365d]/50"
               }`}
             >
               <div className="flex items-center space-x-3">
-                <Briefcase className="w-5 h-5 text-[#e27447]" />
+                <Briefcase className="w-5 h-5 text-[#1a365d]" />
                 <div>
                   <p className="font-medium text-sm">Working Professional</p>
                   <p className="text-xs text-muted-foreground">
@@ -448,8 +448,8 @@ export function CourseDiscoveryStep({ onNext }: OnboardingStepProps) {
                   }}
                   className={`p-3 rounded-sm border text-center transition-all duration-200 ${
                     selectedBoard === board
-                      ? "border-[#e27447] bg-[#e27447]/5"
-                      : "border-border hover:border-[#e27447]/50"
+                      ? "border-[#1a365d] bg-[#1a365d]/5"
+                      : "border-border hover:border-[#1a365d]/50"
                   }`}
                 >
                   <p className="font-medium text-sm">{board}</p>
@@ -497,8 +497,8 @@ export function CourseDiscoveryStep({ onNext }: OnboardingStepProps) {
                   }}
                   className={`p-3 rounded-sm border text-center transition-all duration-200 ${
                     selectedExam === exam
-                      ? "border-[#e27447] bg-[#e27447]/5"
-                      : "border-border hover:border-[#e27447]/50"
+                      ? "border-[#1a365d] bg-[#1a365d]/5"
+                      : "border-border hover:border-[#1a365d]/50"
                   }`}
                 >
                   <p className="font-medium text-sm">{exam}</p>
@@ -522,8 +522,8 @@ export function CourseDiscoveryStep({ onNext }: OnboardingStepProps) {
                   key={course.id}
                   className={`cursor-pointer transition-all duration-200 border-2 rounded-sm p-4 ${
                     selectedCourses.includes(course.id)
-                      ? "ring-2 ring-[#e27447] bg-[#e27447]/5 border-[#e27447]"
-                      : "border-border hover:border-[#e27447]/50"
+                      ? "ring-2 ring-[#1a365d] bg-[#1a365d]/5 border-[#1a365d]"
+                      : "border-border hover:border-[#1a365d]/50"
                   }`}
                   onClick={() => handleCourseSelect(course.id)}
                 >
@@ -576,8 +576,8 @@ export function CourseDiscoveryStep({ onNext }: OnboardingStepProps) {
                     </Badge>
 
                     {selectedCourses.includes(course.id) && (
-                      <div className="flex items-center text-[#e27447] text-xs font-medium">
-                        <div className="w-3 h-3 bg-[#e27447] rounded-full flex items-center justify-center mr-1">
+                      <div className="flex items-center text-[#1a365d] text-xs font-medium">
+                        <div className="w-3 h-3 bg-[#1a365d] rounded-full flex items-center justify-center mr-1">
                           <div className="w-1.5 h-1.5 bg-white rounded-full"></div>
                         </div>
                         Selected
@@ -618,7 +618,7 @@ export function CourseDiscoveryStep({ onNext }: OnboardingStepProps) {
 
         <Button
           onClick={onNext}
-          className="bg-[#e27447] hover:bg-[#e27447]/90"
+          className="bg-[#1a365d] hover:bg-[#1a365d]/90"
           disabled={!educationalBackground}
         >
           Continue

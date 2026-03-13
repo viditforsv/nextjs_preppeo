@@ -130,7 +130,7 @@ export default function StudentDashboard() {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#e27447] mx-auto mb-4"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#1a365d] mx-auto mb-4"></div>
           <p className="text-muted-foreground">Loading dashboard...</p>
         </div>
       </div>
@@ -326,7 +326,7 @@ export default function StudentDashboard() {
                       }
                     >
                       <div className="flex items-center gap-3 p-3 border rounded-sm hover:bg-primary/10 transition-colors cursor-pointer">
-                        <div className="w-12 h-12 bg-[#e27447]/10 rounded-sm flex items-center justify-center">
+                        <div className="w-12 h-12 bg-[#1a365d]/10 rounded-sm flex items-center justify-center">
                           <BookOpen className="w-6 h-6 text-primary" />
                         </div>
                         <div className="flex-1">

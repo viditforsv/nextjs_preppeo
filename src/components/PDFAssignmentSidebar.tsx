@@ -188,7 +188,7 @@ export function PDFAssignmentSidebar({
   const getStatusIcon = (status: string) => {
     switch (status) {
       case "current":
-        return <Play className="w-4 h-4 text-[#e27447]" />;
+        return <Play className="w-4 h-4 text-[#1a365d]" />;
       case "completed":
         return <CheckCircle className="w-4 h-4 text-green-600" />;
       case "pending":
@@ -206,7 +206,7 @@ export function PDFAssignmentSidebar({
   const getStatusColor = (status: string) => {
     switch (status) {
       case "current":
-        return "text-[#e27447] font-semibold";
+        return "text-[#1a365d] font-semibold";
       case "completed":
         return "text-green-600";
       case "pending":
@@ -221,7 +221,7 @@ export function PDFAssignmentSidebar({
 
   if (isSidebarCollapsed) {
     return (
-      <div className="w-16 bg-white border-r border-[#feefea] flex flex-col items-center py-4">
+      <div className="w-16 bg-white border-r border-[#1a365d]/10 flex flex-col items-center py-4">
         <Button
           variant="outline"
           size="sm"
@@ -235,11 +235,11 @@ export function PDFAssignmentSidebar({
             <Link
               key={assignment.id}
               href={`/courses/${courseSlug}/pdf-assignment/${assignment.id}`}
-              className="block p-2 hover:bg-[#feefea]/40 rounded-sm transition-colors"
+              className="block p-2 hover:bg-[#1a365d]/5 rounded-sm transition-colors"
               title={assignment.title}
             >
               {getAssignmentStatus(assignment) === "current" ? (
-                <Play className="w-4 h-4 text-[#e27447]" />
+                <Play className="w-4 h-4 text-[#1a365d]" />
               ) : assignment.isCompleted ? (
                 <CheckCircle className="w-4 h-4 text-green-600" />
               ) : (
@@ -253,9 +253,9 @@ export function PDFAssignmentSidebar({
   }
 
   return (
-    <div className="w-80 bg-white border-r border-[#feefea] flex flex-col h-full">
+    <div className="w-80 bg-white border-r border-[#1a365d]/10 flex flex-col h-full">
       {/* Header */}
-      <div className="p-4 border-b border-[#feefea]">
+      <div className="p-4 border-b border-[#1a365d]/10">
         <div className="flex items-center justify-between mb-3">
           <h2 className="text-lg font-semibold text-[#1e293b] truncate">
             {courseTitle}
@@ -309,20 +309,20 @@ export function PDFAssignmentSidebar({
         {Object.entries(groupedAssignments).map(([sectionKey, chapters]) => (
           <div
             key={sectionKey}
-            className="border-b border-[#feefea] last:border-b-0"
+            className="border-b border-[#1a365d]/10 last:border-b-0"
           >
             {/* Section Header */}
             <div
-              className="flex items-center justify-between p-3 cursor-pointer hover:bg-[#feefea]/50 transition-colors"
+              className="flex items-center justify-between p-3 cursor-pointer hover:bg-[#1a365d]/5 transition-colors"
               onClick={() => toggleSection(sectionKey)}
             >
               <div className="flex items-center space-x-2">
                 {expandedSections.has(sectionKey) ? (
-                  <ChevronDown className="w-4 h-4 text-[#e27447]" />
+                  <ChevronDown className="w-4 h-4 text-[#1a365d]" />
                 ) : (
-                  <ChevronRight className="w-4 h-4 text-[#e27447]" />
+                  <ChevronRight className="w-4 h-4 text-[#1a365d]" />
                 )}
-                <BookOpen className="w-4 h-4 text-[#e27447]" />
+                <BookOpen className="w-4 h-4 text-[#1a365d]" />
                 <span className="font-medium text-[#1e293b]">{sectionKey}</span>
               </div>
               <Badge variant="secondary" className="rounded-sm">
@@ -338,7 +338,7 @@ export function PDFAssignmentSidebar({
                     <div key={chapterKey}>
                       {/* Chapter Header */}
                       <div
-                        className="flex items-center justify-between p-3 pl-8 cursor-pointer hover:bg-[#feefea]/30 transition-colors"
+                        className="flex items-center justify-between p-3 pl-8 cursor-pointer hover:bg-[#1a365d]/5 transition-colors"
                         onClick={() => toggleChapter(chapterKey)}
                       >
                         <div className="flex items-center space-x-2">
@@ -369,9 +369,9 @@ export function PDFAssignmentSidebar({
                               <Link
                                 key={assignment.id}
                                 href={`/courses/${courseSlug}/pdf-assignment/${assignment.id}`}
-                                className={`flex items-center justify-between p-3 pl-16 hover:bg-[#feefea]/40 transition-colors ${
+                                className={`flex items-center justify-between p-3 pl-16 hover:bg-[#1a365d]/5 transition-colors ${
                                   isCurrent
-                                    ? "bg-[#feefea]/60 border-r-2 border-[#e27447]"
+                                    ? "bg-[#1a365d]/10 border-r-2 border-[#1a365d]"
                                     : ""
                                 }`}
                               >

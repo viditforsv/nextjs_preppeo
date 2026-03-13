@@ -173,7 +173,7 @@ const FAQPage = memo(function FAQPage() {
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
-      <div className="bg-gradient-to-br from-[#feefea] to-[#fffefd] border-b border-primary py-6 relative">
+      <div className="bg-gradient-to-br from-[#1a365d]/5 to-white border-b border-primary py-6 relative">
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between">
             <Link
@@ -209,7 +209,7 @@ const FAQPage = memo(function FAQPage() {
               placeholder="Search FAQs..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-12 pr-4 py-3 rounded-sm border-gray-200 focus:border-primary focus:ring-[#e27447]"
+              className="pl-12 pr-4 py-3 rounded-sm border-gray-200 focus:border-primary focus:ring-primary"
             />
           </div>
         </div>

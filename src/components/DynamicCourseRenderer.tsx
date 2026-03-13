@@ -89,7 +89,7 @@ function renderCourseOverview(course: RenderedCourse, template: any) {
                 {template?.courseHighlights?.map(
                   (highlight: string, index: number) => (
                     <div key={index} className="flex items-center space-x-2">
-                      <div className="w-2 h-2 bg-[#e27447] rounded-full"></div>
+                      <div className="w-2 h-2 bg-[#1a365d] rounded-full"></div>
                       <span className="text-sm text-muted-foreground">
                         {highlight}
                       </span>
@@ -152,7 +152,7 @@ function renderCourseOverview(course: RenderedCourse, template: any) {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {template?.syllabusContent?.units?.map(
                 (unit: any, index: number) => (
-                  <div key={index} className="border-l-4 border-[#e27447] pl-3">
+                  <div key={index} className="border-l-4 border-[#1a365d] pl-3">
                     <h5 className="font-medium text-[#1e293b]">
                       Unit {unit.unitNo}: {unit.unitName}
                     </h5>
@@ -193,7 +193,7 @@ function renderCourseOverview(course: RenderedCourse, template: any) {
                         key={index}
                         className="flex items-start space-x-2 text-sm text-muted-foreground"
                       >
-                        <div className="w-1.5 h-1.5 bg-[#e27447] rounded-full mt-2 flex-shrink-0"></div>
+                        <div className="w-1.5 h-1.5 bg-[#1a365d] rounded-full mt-2 flex-shrink-0"></div>
                         <span>{outcome}</span>
                       </li>
                     );
@@ -211,7 +211,7 @@ function renderCourseOverview(course: RenderedCourse, template: any) {
                                 key={itemIndex}
                                 className="flex items-start space-x-2 text-sm text-muted-foreground"
                               >
-                                <div className="w-1.5 h-1.5 bg-[#e27447] rounded-full mt-2 flex-shrink-0"></div>
+                                <div className="w-1.5 h-1.5 bg-[#1a365d] rounded-full mt-2 flex-shrink-0"></div>
                                 <span>{item}</span>
                               </li>
                             )
@@ -249,11 +249,11 @@ function renderOverviewSection(
       {/* Official CBSE Syllabus Link */}
       {(course.slug === "cbse-mathematics-class-9" ||
         course.slug === "cbse-mathematics-class-10") && (
-        <div className="p-4 bg-[#feefea] border border-[#e27447] rounded-sm">
+        <div className="p-4 bg-[#1a365d]/5 border border-[#1a365d] rounded-sm">
           <div className="flex items-start space-x-3">
             <div className="flex-shrink-0">
               <svg
-                className="w-6 h-6 text-[#e27447]"
+                className="w-6 h-6 text-[#1a365d]"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -279,7 +279,7 @@ function renderOverviewSection(
                 href="https://cbseacademic.nic.in/web_material/CurriculumMain26/Sec/Maths_Sec_2025-26.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center text-[#e27447] hover:text-[#d1653a] font-medium text-sm"
+                className="inline-flex items-center text-[#1a365d] hover:text-[#1a365d] font-medium text-sm"
               >
                 <span>Download Official Syllabus PDF</span>
                 <svg
@@ -308,7 +308,7 @@ function renderOverviewSection(
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {course.features.map((feature, index) => (
               <div key={index} className="flex items-center space-x-2">
-                <div className="w-2 h-2 bg-[#e27447] rounded-full"></div>
+                <div className="w-2 h-2 bg-[#1a365d] rounded-full"></div>
                 <span className="text-sm">{feature}</span>
               </div>
             ))}
@@ -380,7 +380,7 @@ function renderSyllabusSection(
                     return (
                       <div
                         key={unitIndex}
-                        className="border-l-4 border-[#e27447] pl-3"
+                        className="border-l-4 border-[#1a365d] pl-3"
                       >
                         <h5 className="font-medium text-[#1e293b]">
                           {String(u.title)}
@@ -526,7 +526,7 @@ function renderBadgesSection(section: TemplateSection, course: RenderedCourse) {
         text: tag,
         variant: "outline" as const,
         className:
-          "border-[#e27447] text-[#e27447] hover:bg-[#e27447] hover:text-white transition-colors",
+          "border-[#1a365d] text-[#1a365d] hover:bg-[#1a365d] hover:text-white transition-colors",
       })) || []),
   ];
 

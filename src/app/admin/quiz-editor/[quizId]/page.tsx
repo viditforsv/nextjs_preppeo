@@ -319,7 +319,7 @@ export default function QuizEditorPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-white via-green-50 to-emerald-50 flex items-center justify-center">
+      <div className="min-h-screen bg-[#f5f5f0] flex items-center justify-center">
         <Loader2 className="w-8 h-8 animate-spin text-primary" />
       </div>
     );
@@ -327,7 +327,7 @@ export default function QuizEditorPage() {
 
   if (!quiz) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-white via-green-50 to-emerald-50">
+      <div className="min-h-screen bg-[#f5f5f0]">
         <div className="container mx-auto px-4 py-8">
           <p className="text-center text-red-600">Quiz not found</p>
           <div className="text-center mt-4">
@@ -341,7 +341,7 @@ export default function QuizEditorPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-white via-green-50 to-emerald-50">
+    <div className="min-h-screen bg-[#f5f5f0]">
       <div className="container mx-auto px-4 py-8">
         {/* Header */}
         <div className="mb-8">

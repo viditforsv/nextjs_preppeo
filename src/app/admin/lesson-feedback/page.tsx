@@ -233,7 +233,7 @@ export default function LessonFeedbackPage() {
         className={`rounded-sm ${
           type === "mistake"
             ? "bg-red-100 text-red-800 border-red-200"
-            : "bg-[#e27447] text-white border-[#e27447]"
+            : "bg-primary text-white border-primary"
         }`}
       >
         {type === "mistake" ? (
@@ -365,14 +365,14 @@ export default function LessonFeedbackPage() {
                 </div>
               </CardContent>
             </Card>
-            <Card className="rounded-sm border-[#e27447] bg-[#feefea]">
+            <Card className="rounded-sm border-primary bg-primary/5">
               <CardHeader className="pb-3">
-                <CardTitle className="text-sm font-medium text-[#e27447]">
+                <CardTitle className="text-sm font-medium text-primary">
                   Suggestions
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold text-[#e27447]">
+                <div className="text-2xl font-bold text-primary">
                   {stats.suggestions}
                 </div>
               </CardContent>
@@ -473,7 +473,7 @@ export default function LessonFeedbackPage() {
                           {" • "}
                           <Link
                             href={`/courses/${item.course_slug}/lesson/${item.lesson_slug}`}
-                            className="text-[#e27447] hover:underline inline-flex items-center gap-1"
+                            className="text-primary hover:underline inline-flex items-center gap-1"
                             target="_blank"
                           >
                             {item.course_slug} / {item.lesson_slug}
@@ -499,7 +499,7 @@ export default function LessonFeedbackPage() {
                           href={item.image_url}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="inline-flex items-center gap-2 text-sm text-[#e27447] hover:underline"
+                          className="inline-flex items-center gap-2 text-sm text-primary hover:underline"
                         >
                           <ImageIcon className="w-4 h-4" />
                           View attached image
@@ -568,7 +568,7 @@ export default function LessonFeedbackPage() {
                   {selectedFeedback?.feedback_type === "mistake" ? (
                     <AlertCircle className="w-5 h-5 text-red-600" />
                   ) : (
-                    <Flag className="w-5 h-5 text-[#e27447]" />
+                    <Flag className="w-5 h-5 text-primary" />
                   )}
                   Review Feedback
                 </DialogTitle>
@@ -593,7 +593,7 @@ export default function LessonFeedbackPage() {
                     <p className="text-sm text-muted-foreground mt-1">
                       <Link
                         href={`/courses/${selectedFeedback.course_slug}/lesson/${selectedFeedback.lesson_slug}`}
-                        className="text-[#e27447] hover:underline inline-flex items-center gap-1"
+                        className="text-primary hover:underline inline-flex items-center gap-1"
                         target="_blank"
                       >
                         {selectedFeedback.course_slug} /{" "}
@@ -681,7 +681,7 @@ export default function LessonFeedbackPage() {
                 <Button
                   onClick={handleUpdateFeedback}
                   disabled={updating}
-                  className="bg-[#e27447] hover:bg-[#e27447]/90 rounded-sm"
+                  className="bg-primary hover:bg-primary/90 rounded-sm"
                 >
                   {updating ? (
                     <>

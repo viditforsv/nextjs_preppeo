@@ -461,7 +461,7 @@ export function StudentProgressPageClient({
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#e27447] mx-auto mb-4"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
           <p className="text-muted-foreground">Loading student progress...</p>
         </div>
       </div>
@@ -564,12 +564,12 @@ export function StudentProgressPageClient({
             <Card>
               <CardHeader className="pb-3">
                 <CardTitle className="text-lg font-semibold flex items-center gap-2">
-                  <Target className="w-5 h-5 text-[#e27447]" />
+                  <Target className="w-5 h-5 text-primary" />
                   Overall Progress
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="text-3xl font-bold text-[#e27447] mb-2">
+                <div className="text-3xl font-bold text-primary mb-2">
                   {stats.overallProgress}%
                 </div>
                 <Progress value={stats.overallProgress} className="h-2" />

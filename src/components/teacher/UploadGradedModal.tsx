@@ -121,7 +121,7 @@ export function UploadGradedModal({
                 className="hidden"
               />
               <label htmlFor="graded-file">
-                <div className="flex items-center justify-center w-full h-32 border-2 border-dashed rounded-sm border-muted-foreground/25 hover:border-[#e27447] cursor-pointer transition-colors">
+                <div className="flex items-center justify-center w-full h-32 border-2 border-dashed rounded-sm border-muted-foreground/25 hover:border-[#1a365d] cursor-pointer transition-colors">
                   {file ? (
                     <div className="text-center">
                       <p className="text-sm font-medium">{file.name}</p>
@@ -211,7 +211,7 @@ export function UploadGradedModal({
           <Button
             onClick={handleSubmit}
             disabled={isUploading || !file || !marksObtained || !maxMarks}
-            className="bg-[#e27447] hover:bg-[#d1653a] rounded-sm"
+            className="bg-[#1a365d] hover:bg-[#1a365d] rounded-sm"
           >
             {isUploading ? "Uploading..." : "Upload Graded"}
           </Button>

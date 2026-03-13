@@ -227,7 +227,7 @@ export default function RoleAssignmentMatrixPage() {
         <div className="container mx-auto px-4 py-12">
           <div className="flex items-center justify-center min-h-[400px]">
             <div className="flex flex-col items-center gap-4">
-              <Loader2 className="w-8 h-8 animate-spin text-[#e27447]" />
+              <Loader2 className="w-8 h-8 animate-spin text-primary" />
               <p className="text-muted-foreground">
                 Loading role assignment matrix...
               </p>
@@ -269,7 +269,7 @@ export default function RoleAssignmentMatrixPage() {
               </Card>
               <Button
                 onClick={fetchData}
-                className="mt-4 bg-[#e27447] hover:bg-[#e27447]/90"
+                className="mt-4 bg-primary hover:bg-primary/90"
               >
                 Try Again
               </Button>
@@ -310,7 +310,7 @@ export default function RoleAssignmentMatrixPage() {
 
         {/* Statistics Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-          <Card className="bg-gradient-to-r from-[#feefea] to-[#fffefd] border-[#e27447]">
+          <Card className="bg-gradient-to-r from-primary/5 to-primary/[0.02] border-primary">
             <CardContent className="p-6">
               <div className="flex items-center gap-4">
                 <Settings className="w-12 h-12 text-[#1e293b]" />
@@ -326,7 +326,7 @@ export default function RoleAssignmentMatrixPage() {
             </CardContent>
           </Card>
 
-          <Card className="bg-gradient-to-r from-[#feefea] to-[#fffefd] border-[#e27447]">
+          <Card className="bg-gradient-to-r from-primary/5 to-primary/[0.02] border-primary">
             <CardContent className="p-6">
               <div className="flex items-center gap-4">
                 <Users className="w-12 h-12 text-[#1e293b]" />
@@ -342,7 +342,7 @@ export default function RoleAssignmentMatrixPage() {
             </CardContent>
           </Card>
 
-          <Card className="bg-gradient-to-r from-[#feefea] to-[#fffefd] border-[#e27447]">
+          <Card className="bg-gradient-to-r from-primary/5 to-primary/[0.02] border-primary">
             <CardContent className="p-6">
               <div className="flex items-center gap-4">
                 <BarChart3 className="w-12 h-12 text-[#1e293b]" />
@@ -360,15 +360,15 @@ export default function RoleAssignmentMatrixPage() {
         </div>
 
         {/* Main Matrix Card */}
-        <Card className="rounded-sm shadow-lg border-[#feefea]">
-          <CardHeader className="bg-gradient-to-r from-[#feefea] to-[#fffefd] border-b border-[#e27447]">
+        <Card className="rounded-sm shadow-lg border-primary/10">
+          <CardHeader className="bg-gradient-to-r from-primary/5 to-primary/[0.02] border-b border-primary">
             <CardTitle className="text-2xl font-bold text-[#1e293b] font-dm-sans">
               Comprehensive Permission Matrix
             </CardTitle>
             <CardDescription className="text-[#4a6f73] text-base">
               Configure which roles can perform specific tasks in the LMS
               system.
-              <span className="font-medium text-[#e27447] ml-1">
+              <span className="font-medium text-primary ml-1">
                 {totalPermissions} permissions × {totalRoles} roles ={" "}
                 {totalCombinations} permission combinations
               </span>
@@ -379,8 +379,8 @@ export default function RoleAssignmentMatrixPage() {
             <div className="overflow-x-auto max-h-[70vh]">
               <Table>
                 <TableHeader className="sticky top-0 bg-white z-10">
-                  <TableRow className="bg-[#feefea]/30 hover:bg-primary/10/30">
-                    <TableHead className="font-semibold text-[#1e293b] w-64 sticky left-0 bg-white border-r border-[#e27447]/20">
+                  <TableRow className="bg-primary/5 hover:bg-primary/10">
+                    <TableHead className="font-semibold text-[#1e293b] w-64 sticky left-0 bg-white border-r border-primary/20">
                       <div className="flex items-center justify-between">
                         <span className="font-dm-sans">Tasks</span>
                         <div className="flex gap-1">
@@ -388,7 +388,7 @@ export default function RoleAssignmentMatrixPage() {
                             onClick={expandAll}
                             size="sm"
                             variant="outline"
-                            className="text-xs px-2 py-1 bg-[#e27447] text-white hover:bg-[#e27447]/90 border-[#e27447]"
+                            className="text-xs px-2 py-1 bg-primary text-white hover:bg-primary/90 border-primary"
                           >
                             Expand All
                           </Button>
@@ -434,12 +434,12 @@ export default function RoleAssignmentMatrixPage() {
                       // Category Header Row
                       <TableRow
                         key={`${category.id}-header`}
-                        className="bg-[#feefea]/20 hover:bg-primary/10/30 border-b-2 border-[#e27447]/20"
+                        className="bg-primary/5 hover:bg-primary/10 border-b-2 border-primary/20"
                       >
-                        <TableCell className="font-semibold text-[#1e293b] py-4 sticky left-0 bg-[#feefea]/20 border-r border-[#e27447]/20">
+                        <TableCell className="font-semibold text-[#1e293b] py-4 sticky left-0 bg-primary/5 border-r border-primary/20">
                           <button
                             onClick={() => toggleCategory(category.id)}
-                            className="flex items-center gap-3 hover:text-[#e27447] transition-colors cursor-pointer w-full text-left bg-transparent border-none p-0"
+                            className="flex items-center gap-3 hover:text-primary transition-colors cursor-pointer w-full text-left bg-transparent border-none p-0"
                           >
                             {isExpanded ? (
                               <ChevronDown className="w-4 h-4" />
@@ -475,7 +475,7 @@ export default function RoleAssignmentMatrixPage() {
                                   {percentage === 100 ? (
                                     <CheckCircle2 className="w-4 h-4 text-green-600" />
                                   ) : percentage > 0 ? (
-                                    <div className="w-4 h-4 rounded-sm bg-[#e27447] flex items-center justify-center">
+                                    <div className="w-4 h-4 rounded-sm bg-primary flex items-center justify-center">
                                       <span className="text-xs text-white font-bold">
                                         {assignedCount}
                                       </span>
@@ -493,7 +493,7 @@ export default function RoleAssignmentMatrixPage() {
                                       percentage === 100
                                         ? "bg-green-500"
                                         : percentage >= 50
-                                        ? "bg-[#e27447]"
+                                        ? "bg-primary"
                                         : percentage > 0
                                         ? "bg-orange-400"
                                         : "bg-gray-300"
@@ -514,7 +514,7 @@ export default function RoleAssignmentMatrixPage() {
                                 key={`${category.id}-${permission.id}`}
                                 className="hover:bg-primary/10/10 transition-colors"
                               >
-                                <TableCell className="font-medium text-[#1e293b] py-3 sticky left-0 bg-white border-r border-[#e27447]/20 pl-8">
+                                <TableCell className="font-medium text-[#1e293b] py-3 sticky left-0 bg-white border-r border-primary/20 pl-8">
                                   <span className="text-sm font-dm-sans">
                                     • {permission.displayName}
                                   </span>
@@ -537,7 +537,7 @@ export default function RoleAssignmentMatrixPage() {
                                             role.id
                                           )
                                         }
-                                        className="w-4 h-4 text-[#e27447] bg-white border-[#e27447] rounded-sm focus:ring-[#e27447] focus:ring-2 hover:scale-110 transition-transform cursor-pointer"
+                                        className="w-4 h-4 text-primary bg-white border-primary rounded-sm focus:ring-primary focus:ring-2 hover:scale-110 transition-transform cursor-pointer"
                                       />
                                     </div>
                                   </TableCell>
@@ -576,7 +576,7 @@ export default function RoleAssignmentMatrixPage() {
               return (
                 <Card
                   key={category.id}
-                  className="rounded-sm border-[#feefea] hover:border-[#e27447] transition-colors"
+                  className="rounded-sm border-primary/10 hover:border-primary transition-colors"
                 >
                   <CardHeader className="pb-3">
                     <CardTitle className="text-lg font-medium flex items-center gap-3 font-dm-sans">
@@ -587,7 +587,7 @@ export default function RoleAssignmentMatrixPage() {
                       {totalAssigned} of {maxPossible} permissions assigned
                       <div className="w-full bg-gray-200 rounded-sm h-2 mt-2">
                         <div
-                          className="bg-[#e27447] h-2 rounded-sm transition-all duration-300"
+                          className="bg-primary h-2 rounded-sm transition-all duration-300"
                           style={{ width: `${percentage}%` }}
                         ></div>
                       </div>
@@ -609,7 +609,7 @@ export default function RoleAssignmentMatrixPage() {
                       </div>
                       <div className="flex justify-between">
                         <span>Assigned:</span>
-                        <span className="font-medium text-[#e27447]">
+                        <span className="font-medium text-primary">
                           {totalAssigned}
                         </span>
                       </div>
@@ -638,7 +638,7 @@ export default function RoleAssignmentMatrixPage() {
               return (
                 <Card
                   key={role.id}
-                  className="rounded-sm border-[#feefea] hover:border-[#e27447] transition-colors"
+                  className="rounded-sm border-primary/10 hover:border-primary transition-colors"
                 >
                   <CardHeader className="pb-3">
                     <CardTitle className="text-lg font-medium font-dm-sans">
@@ -649,7 +649,7 @@ export default function RoleAssignmentMatrixPage() {
                       permissions assigned
                       <div className="w-full bg-gray-200 rounded-sm h-2 mt-2">
                         <div
-                          className="bg-[#e27447] h-2 rounded-sm transition-all duration-300"
+                          className="bg-primary h-2 rounded-sm transition-all duration-300"
                           style={{
                             width: `${
                               (assignedPermissions.length / totalPermissions) *

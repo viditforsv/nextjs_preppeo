@@ -33,8 +33,8 @@ export function WelcomeStep({ onNext }: OnboardingStepProps) {
     <div className="space-y-6">
       {/* Welcome Message */}
       <div className="text-center space-y-4">
-        <div className="w-16 h-16 bg-[#e27447]/10 rounded-full flex items-center justify-center mx-auto">
-          <BookOpen className="w-8 h-8 text-[#e27447]" />
+        <div className="w-16 h-16 bg-[#1a365d]/10 rounded-full flex items-center justify-center mx-auto">
+          <BookOpen className="w-8 h-8 text-[#1a365d]" />
         </div>
 
         <div>
@@ -55,8 +55,8 @@ export function WelcomeStep({ onNext }: OnboardingStepProps) {
           <Card key={index} className="p-4">
             <CardContent className="p-0">
               <div className="flex items-start space-x-3">
-                <div className="w-10 h-10 bg-[#e27447]/10 rounded-sm flex items-center justify-center flex-shrink-0">
-                  <feature.icon className="w-5 h-5 text-[#e27447]" />
+                <div className="w-10 h-10 bg-[#1a365d]/10 rounded-sm flex items-center justify-center flex-shrink-0">
+                  <feature.icon className="w-5 h-5 text-[#1a365d]" />
                 </div>
                 <div>
                   <h3 className="font-medium text-foreground mb-1">
@@ -81,7 +81,7 @@ export function WelcomeStep({ onNext }: OnboardingStepProps) {
 
         <Button
           onClick={onNext}
-          className="w-full bg-[#e27447] hover:bg-[#e27447]/90"
+          className="w-full bg-[#1a365d] hover:bg-[#1a365d]/90"
           size="lg"
         >
           Let&apos;s Get Started

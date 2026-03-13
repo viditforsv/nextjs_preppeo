@@ -121,7 +121,7 @@ export default function GradedAssignmentsPage({
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#e27447] mx-auto mb-4"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#1a365d] mx-auto mb-4"></div>
           <p className="text-muted-foreground">Loading graded assignments...</p>
         </div>
       </div>
@@ -223,7 +223,7 @@ export default function GradedAssignmentsPage({
 
                     {/* Teacher Comments */}
                     {submission.teacher_comments && (
-                      <div className="p-4 bg-primary/10 border-l-4 border-[#e27447] rounded-sm">
+                      <div className="p-4 bg-primary/10 border-l-4 border-[#1a365d] rounded-sm">
                         <p className="text-sm font-medium mb-2">
                           Teacher Comments:
                         </p>
@@ -236,7 +236,7 @@ export default function GradedAssignmentsPage({
                       <Button
                         variant="primary"
                         onClick={() => handleDownload(submission)}
-                        className="bg-[#e27447] hover:bg-[#d1653a] rounded-sm"
+                        className="bg-[#1a365d] hover:bg-[#1a365d] rounded-sm"
                       >
                         <Download className="w-4 h-4 mr-2" />
                         Download Graded PDF

@@ -152,7 +152,7 @@ export function Sidebar({
               )}
             >
               {showNumbers && (
-                <span className="flex-shrink-0 text-sm font-bold text-[#e27447] w-6 text-center">
+                <span className="flex-shrink-0 text-sm font-bold text-primary w-6 text-center">
                   {index + 1}
                 </span>
               )}

@@ -115,8 +115,8 @@ export function PreferencesStep({ onNext }: OnboardingStepProps) {
     <div className="space-y-6">
       {/* Header */}
       <div className="text-center space-y-2">
-        <div className="w-12 h-12 bg-[#e27447]/10 rounded-full flex items-center justify-center mx-auto">
-          <Settings className="w-6 h-6 text-[#e27447]" />
+        <div className="w-12 h-12 bg-[#1a365d]/10 rounded-full flex items-center justify-center mx-auto">
+          <Settings className="w-6 h-6 text-[#1a365d]" />
         </div>
         <h2 className="text-lg font-semibold">Set Your Preferences</h2>
         <p className="text-sm text-muted-foreground">
@@ -129,7 +129,7 @@ export function PreferencesStep({ onNext }: OnboardingStepProps) {
       <Card>
         <CardContent className="p-4">
           <h3 className="font-medium text-foreground mb-3 flex items-center">
-            <Target className="w-4 h-4 mr-2 text-[#e27447]" />
+            <Target className="w-4 h-4 mr-2 text-[#1a365d]" />
             Learning Goals
           </h3>
           <p className="text-sm text-muted-foreground mb-4">
@@ -143,12 +143,12 @@ export function PreferencesStep({ onNext }: OnboardingStepProps) {
                 onClick={() => handleGoalToggle(goal.id)}
                 className={`p-3 rounded-sm border text-left transition-all duration-200 ${
                   selectedGoals.includes(goal.id)
-                    ? "border-[#e27447] bg-[#e27447]/5"
-                    : "border-border hover:border-[#e27447]/50"
+                    ? "border-[#1a365d] bg-[#1a365d]/5"
+                    : "border-border hover:border-[#1a365d]/50"
                 }`}
               >
                 <div className="flex items-center space-x-2">
-                  <goal.icon className="w-4 h-4 text-[#e27447]" />
+                  <goal.icon className="w-4 h-4 text-[#1a365d]" />
                   <span className="text-sm font-medium">{goal.label}</span>
                 </div>
               </button>
@@ -161,7 +161,7 @@ export function PreferencesStep({ onNext }: OnboardingStepProps) {
       <Card>
         <CardContent className="p-4">
           <h3 className="font-medium text-foreground mb-3 flex items-center">
-            <BookOpen className="w-4 h-4 mr-2 text-[#e27447]" />
+            <BookOpen className="w-4 h-4 mr-2 text-[#1a365d]" />
             Subject Interests
           </h3>
           <p className="text-sm text-muted-foreground mb-4">
@@ -174,7 +174,7 @@ export function PreferencesStep({ onNext }: OnboardingStepProps) {
                 onClick={() => handleInterestToggle(interest.id)}
                 className={`px-3 py-2 rounded-sm text-sm font-medium transition-all duration-200 ${
                   selectedInterests.includes(interest.id)
-                    ? `${interest.color} ring-2 ring-[#e27447]`
+                    ? `${interest.color} ring-2 ring-[#1a365d]`
                     : "bg-muted text-muted-foreground hover:bg-muted/80"
                 }`}
               >
@@ -199,8 +199,8 @@ export function PreferencesStep({ onNext }: OnboardingStepProps) {
                 onClick={() => setExperienceLevel(level.id as "beginner" | "intermediate" | "advanced")}
                 className={`w-full p-3 rounded-sm border text-left transition-all duration-200 ${
                   experienceLevel === level.id
-                    ? "border-[#e27447] bg-[#e27447]/5"
-                    : "border-border hover:border-[#e27447]/50"
+                    ? "border-[#1a365d] bg-[#1a365d]/5"
+                    : "border-border hover:border-[#1a365d]/50"
                 }`}
               >
                 <div className="flex items-center justify-between">
@@ -211,7 +211,7 @@ export function PreferencesStep({ onNext }: OnboardingStepProps) {
                     </p>
                   </div>
                   {experienceLevel === level.id && (
-                    <div className="w-4 h-4 bg-[#e27447] rounded-full flex items-center justify-center">
+                    <div className="w-4 h-4 bg-[#1a365d] rounded-full flex items-center justify-center">
                       <div className="w-2 h-2 bg-white rounded-full"></div>
                     </div>
                   )}
@@ -226,7 +226,7 @@ export function PreferencesStep({ onNext }: OnboardingStepProps) {
       <Card>
         <CardContent className="p-4">
           <h3 className="font-medium text-foreground mb-3 flex items-center">
-            <Clock className="w-4 h-4 mr-2 text-[#e27447]" />
+            <Clock className="w-4 h-4 mr-2 text-[#1a365d]" />
             Study Schedule Preference
           </h3>
           <p className="text-sm text-muted-foreground mb-4">
@@ -239,13 +239,13 @@ export function PreferencesStep({ onNext }: OnboardingStepProps) {
                 onClick={() => setStudySchedule(schedule.id as "flexible" | "structured" | "intensive")}
                 className={`w-full p-3 rounded-sm border text-left transition-all duration-200 ${
                   studySchedule === schedule.id
-                    ? "border-[#e27447] bg-[#e27447]/5"
-                    : "border-border hover:border-[#e27447]/50"
+                    ? "border-[#1a365d] bg-[#1a365d]/5"
+                    : "border-border hover:border-[#1a365d]/50"
                 }`}
               >
                 <div className="flex items-center justify-between">
                   <div className="flex items-center space-x-3">
-                    <schedule.icon className="w-4 h-4 text-[#e27447]" />
+                    <schedule.icon className="w-4 h-4 text-[#1a365d]" />
                     <div>
                       <p className="font-medium text-sm">{schedule.label}</p>
                       <p className="text-xs text-muted-foreground">
@@ -254,7 +254,7 @@ export function PreferencesStep({ onNext }: OnboardingStepProps) {
                     </div>
                   </div>
                   {studySchedule === schedule.id && (
-                    <div className="w-4 h-4 bg-[#e27447] rounded-full flex items-center justify-center">
+                    <div className="w-4 h-4 bg-[#1a365d] rounded-full flex items-center justify-center">
                       <div className="w-2 h-2 bg-white rounded-full"></div>
                     </div>
                   )}
@@ -268,7 +268,7 @@ export function PreferencesStep({ onNext }: OnboardingStepProps) {
       {/* Action Button */}
       <Button
         onClick={handleSaveAndContinue}
-        className="w-full bg-[#e27447] hover:bg-[#e27447]/90"
+        className="w-full bg-[#1a365d] hover:bg-[#1a365d]/90"
         size="lg"
       >
         Save Preferences & Continue

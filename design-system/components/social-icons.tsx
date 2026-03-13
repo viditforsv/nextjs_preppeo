@@ -45,7 +45,7 @@ export function SocialIcon({
   const variantClasses = {
     outline: 'border border-gray-200 hover:bg-primary/10 text-foreground',
     filled: 'bg-foreground text-white hover:bg-foreground/90',
-    minimal: 'text-foreground hover:text-[#e27447]'
+    minimal: 'text-foreground hover:text-primary'
   }
 
   return (

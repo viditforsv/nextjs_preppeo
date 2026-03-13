@@ -234,7 +234,7 @@ export function IBDPMathLessonPage({
                 <Button
                   variant="outline"
                   size="sm"
-                  className="w-full rounded-sm mb-3 text-[#e27447] border-[#e27447] hover:bg-gray-100"
+                  className="w-full rounded-sm mb-3 text-[#1a365d] border-[#1a365d] hover:bg-gray-100"
                 >
                   <RotateCcw className="w-4 h-4 mr-2" />
                   Resume Last Lesson
@@ -254,18 +254,18 @@ export function IBDPMathLessonPage({
             </div>
 
             {/* Current Lesson Progress */}
-            <div className="mt-3 p-3 bg-gray-100 rounded-sm border border-[#e27447]">
+            <div className="mt-3 p-3 bg-gray-100 rounded-sm border border-[#1a365d]">
               <div className="flex items-center justify-between mb-2">
                 <span className="text-sm font-medium text-[#1e293b]">
                   Lesson Progress
                 </span>
-                <span className="text-sm text-[#e27447] font-semibold">
+                <span className="text-sm text-[#1a365d] font-semibold">
                   {Math.round(lessonProgress)}%
                 </span>
               </div>
               <div className="w-full bg-white rounded-full h-2">
                 <div
-                  className="bg-[#e27447] h-2 rounded-full transition-all duration-300"
+                  className="bg-[#1a365d] h-2 rounded-full transition-all duration-300"
                   style={{ width: `${lessonProgress}%` }}
                 />
               </div>
@@ -290,11 +290,11 @@ export function IBDPMathLessonPage({
                 >
                   <div className="flex items-center gap-2">
                     {expandedUnits.has(unit.id) ? (
-                      <ChevronDown className="w-4 h-4 text-[#e27447]" />
+                      <ChevronDown className="w-4 h-4 text-[#1a365d]" />
                     ) : (
-                      <ChevronRight className="w-4 h-4 text-[#e27447]" />
+                      <ChevronRight className="w-4 h-4 text-[#1a365d]" />
                     )}
-                    <BookOpen className="w-4 h-4 text-[#e27447]" />
+                    <BookOpen className="w-4 h-4 text-[#1a365d]" />
                     <span className="font-medium text-sm text-[#1e293b]">
                       Unit {unit.unit_order}: {unit.unit_name}
                     </span>
@@ -344,7 +344,7 @@ export function IBDPMathLessonPage({
                                   href={`/courses/${courseSlug}/lesson/${lesson.slug}`}
                                   className={`block p-3 pl-16 text-sm hover:bg-gray-100/40 transition-colors ${
                                     isCurrent
-                                      ? "bg-gray-100 border-r-2 border-[#e27447] font-medium text-[#e27447]"
+                                      ? "bg-gray-100 border-r-2 border-[#1a365d] font-medium text-[#1a365d]"
                                       : "text-gray-600"
                                   }`}
                                 >

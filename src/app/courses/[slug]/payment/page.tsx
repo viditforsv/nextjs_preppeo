@@ -217,7 +217,7 @@ export default function CoursePaymentPage() {
           email: userEmail,
         },
         theme: {
-          color: "#e27447",
+          color: "#1a365d",
         },
         handler: async function (response: RazorpayResponse) {
           setStatus("Verifying payment...");
@@ -284,7 +284,7 @@ export default function CoursePaymentPage() {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#e27447] mx-auto mb-4"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#1a365d] mx-auto mb-4"></div>
           <p className="text-muted-foreground">Loading course...</p>
         </div>
       </div>
@@ -455,7 +455,7 @@ export default function CoursePaymentPage() {
               <Button
                 onClick={handlePayment}
                 disabled={isProcessing}
-                className="w-full bg-[#e27447] hover:bg-[#d1653a] text-white text-lg py-6 rounded-sm"
+                className="w-full bg-[#1a365d] hover:bg-[#1a365d] text-white text-lg py-6 rounded-sm"
                 size="lg"
               >
                 {isProcessing

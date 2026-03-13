@@ -61,9 +61,9 @@ export default function ContactPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-white to-gray-50">
+    <div className="min-h-screen bg-[#f5f5f0]">
       {/* Hero Section */}
-      <section className="relative py-20 bg-gradient-to-br from-white via-green-50 to-emerald-50 border-b border-gray-200">
+      <section className="relative py-20 bg-[#f5f5f0] border-b border-gray-200">
         <div className="container mx-auto px-4 text-center">
           <div className="max-w-4xl mx-auto">
             <h1 className="text-5xl font-bold text-foreground mb-6">
@@ -121,7 +121,7 @@ export default function ContactPage() {
               <div className="space-y-6">
                 <Card className="p-6 ">
                   <div className="flex items-start space-x-4">
-                    <div className="w-12 h-12 bg-gradient-to-br from-primary to-emerald-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg">
+                    <div className="w-12 h-12 bg-gradient-to-br from-[#1a365d] to-[#2a4a7f] rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg">
                       <Mail className="w-6 h-6 text-white" />
                     </div>
                     <div className="flex-1">
@@ -255,7 +255,7 @@ export default function ContactPage() {
                         name="email"
                         value={formData.email}
                         onChange={handleChange}
-                        className="w-full px-4 py-3 border border-0 rounded-sm focus:outline-none focus:ring-2 focus:ring-[#e27447] focus:border-[#e27447] transition-all bg-white"
+                        className="w-full px-4 py-3 border border-0 rounded-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-all bg-white"
                         placeholder="your-email@example.com"
                         required
                       />
@@ -269,7 +269,7 @@ export default function ContactPage() {
                         name="subject"
                         value={formData.subject}
                         onChange={handleChange}
-                        className="w-full px-4 py-3 border border-0 rounded-sm focus:outline-none focus:ring-2 focus:ring-[#e27447] focus:border-[#e27447] transition-all bg-white"
+                        className="w-full px-4 py-3 border border-0 rounded-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-all bg-white"
                         required
                       >
                         <option value="">Select a subject</option>
@@ -291,7 +291,7 @@ export default function ContactPage() {
                         value={formData.message}
                         onChange={handleChange}
                         rows={5}
-                        className="w-full px-4 py-3 border border-0 rounded-sm focus:outline-none focus:ring-2 focus:ring-[#e27447] focus:border-[#e27447] transition-all resize-none bg-white"
+                        className="w-full px-4 py-3 border border-0 rounded-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-all resize-none bg-white"
                         placeholder="Tell us how we can help you..."
                         required
                       ></textarea>
@@ -390,7 +390,7 @@ export default function ContactPage() {
 
         {/* CTA Section */}
         <section className="text-center">
-          <div className="bg-gradient-to-br from-primary to-emerald-600 rounded-xl p-12 shadow-xl">
+          <div className="bg-gradient-to-br from-[#1a365d] to-[#2a4a7f] rounded-xl p-12 shadow-xl">
             <h2 className="text-4xl font-bold text-white mb-4">
               Ready to Start Learning?
             </h2>

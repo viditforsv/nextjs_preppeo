@@ -110,7 +110,7 @@ export function Header() {
         },
         { name: "Free Tools", href: "/tools", hasDropdown: false },
         { name: "Tests", href: "/tests", hasDropdown: false },
-        { name: "About", href: "/about", hasDropdown: false },
+        { name: "Contact", href: "/contact", hasDropdown: false },
       ];
     }
   };

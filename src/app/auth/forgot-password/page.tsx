@@ -40,10 +40,10 @@ export default function ForgotPasswordPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#fef7f0] to-[#feefea] flex items-center justify-center p-4">
-      <Card className="w-full max-w-md border-[#feefea]">
+    <div className="min-h-screen bg-gradient-to-br from-[#1a365d]/5 to-[#1a365d]/10 flex items-center justify-center p-4">
+      <Card className="w-full max-w-md border-[#1a365d]/10">
         <CardHeader className="text-center">
-          <Mail className="w-12 h-12 text-[#e27447] mx-auto mb-4" />
+          <Mail className="w-12 h-12 text-[#1a365d] mx-auto mb-4" />
           <CardTitle className="text-xl text-[#1e293b]">Forgot Password?</CardTitle>
           <CardDescription>
             Enter your email address and we&apos;ll send you a link to reset your password.
@@ -74,14 +74,14 @@ export default function ForgotPasswordPage() {
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Enter your email address"
                 required
-                className="border-[#feefea] focus:border-[#e27447] focus:ring-[#e27447]"
+                className="border-[#1a365d]/10 focus:border-[#1a365d] focus:ring-[#1a365d]"
               />
             </div>
             
             <Button
               type="submit"
               disabled={isLoading}
-              className="w-full bg-[#e27447] hover:bg-[#d65a2b] text-white disabled:opacity-50"
+              className="w-full bg-[#1a365d] hover:bg-[#1a365d] text-white disabled:opacity-50"
             >
               {isLoading ? 'Sending Reset Link...' : 'Send Reset Link'}
             </Button>
@@ -90,7 +90,7 @@ export default function ForgotPasswordPage() {
           <div className="mt-6 text-center">
             <Link 
               href="/auth"
-              className="inline-flex items-center text-[#e27447] hover:text-[#d65a2b] text-sm"
+              className="inline-flex items-center text-[#1a365d] hover:text-[#1a365d] text-sm"
             >
               <ArrowLeft className="w-4 h-4 mr-1" />
               Back to Login

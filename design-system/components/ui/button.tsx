@@ -14,7 +14,6 @@ const buttonVariants = cva(
         secondary: "bg-secondary text-secondary-foreground border border-border hover:bg-secondary/80 focus:ring-primary shadow-sm",
         loadMore: "bg-muted text-muted-foreground hover:bg-muted/80 focus:ring-muted-foreground border border-border",
         outline: "bg-background text-foreground border-2 border-border hover:bg-muted focus:ring-primary",
-        coral: "bg-accent text-accent-foreground hover:bg-accent/90 focus:ring-accent shadow-sm",
         destructive: "bg-red-600 text-white hover:bg-red-700 focus:ring-red-600 shadow-sm",
       },
       size: {

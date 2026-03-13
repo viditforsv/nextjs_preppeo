@@ -73,7 +73,7 @@ export function CourseContentSection({
                 <div className="flex items-center space-x-3">
                   <span className="text-xs text-muted-foreground">{lesson.duration}</span>
                   {lesson.hasPreview && (
-                    <button className="px-3 py-1 bg-[#e27447] text-white text-xs rounded-sm hover:bg-[#e27447]/90">
+                    <button className="px-3 py-1 bg-primary text-white text-xs rounded-sm hover:bg-primary/90">
                       Preview
                     </button>
                   )}
