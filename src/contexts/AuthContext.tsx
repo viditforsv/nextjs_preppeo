@@ -31,7 +31,7 @@ interface AuthContextType {
     role?: UserRole
   ) => Promise<{ user: User; session: Session | null; needsConfirmation: boolean }>;
   signOut: () => Promise<void>;
-  signInWithGoogle: () => Promise<void>;
+  signInWithGoogle: (nextPath?: string) => Promise<void>;
   resetPassword: (email: string) => Promise<void>;
   updatePassword: (newPassword: string) => Promise<void>;
   updateUserRole: (userId: string, newRole: UserRole) => Promise<boolean>;
@@ -839,7 +839,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
   }, [supabase, setProfileCache, router, user, session, loading, profile]);
 
-  const signInWithGoogle = useCallback(async () => {
+  const signInWithGoogle = useCallback(async (nextPath?: string) => {
     // Automatically detect environment and use appropriate URL
     // Always use window.location.origin when available (client-side)
     // This ensures we use the actual deployed URL, not localhost
@@ -871,10 +871,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       typeof window !== "undefined" ? window.location.origin : "server"
     );
 
-    const redirectUrl = `${siteUrl}/auth/callback`;
+    const next = nextPath ? `?next=${encodeURIComponent(nextPath)}` : '';
+    const redirectUrl = `${siteUrl}/auth/callback${next}`;
     console.log("AuthContext - Redirect URL:", redirectUrl);
 
-    // Use the newer auth method that handles PKCE automatically
     const { data, error } = await supabase.auth.signInWithOAuth({
       provider: "google",
       options: {

@@ -13,7 +13,7 @@ import {
 import { Input } from "@/design-system/components/ui/input";
 import { Label } from "@/design-system/components/ui/label";
 import { Badge } from "@/design-system/components/ui/badge";
-import { User, Mail, Shield, Calendar, Edit, Save, X } from "lucide-react";
+import { User, Mail, Shield, Calendar, Edit, Save, X, Gift, Copy, Check } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 import { AvatarUpload } from "@/components/AvatarUpload";
 
@@ -23,6 +23,8 @@ export default function ProfilePage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+  const [referralCode, setReferralCode] = useState("");
+  const [refCopied, setRefCopied] = useState(false);
 
   // Form state
   const [formData, setFormData] = useState({
@@ -41,6 +43,23 @@ export default function ProfilePage() {
       });
     }
   }, [profile, user]);
+
+  // Fetch referral code
+  useEffect(() => {
+    if (user) {
+      fetch("/api/referral/student/code")
+        .then((r) => r.json())
+        .then((d) => { if (d.code) setReferralCode(d.code); })
+        .catch(() => {});
+    }
+  }, [user]);
+
+  function copyReferralLink() {
+    const link = `${window.location.origin}/sat-free?ref=${referralCode}`;
+    navigator.clipboard.writeText(link);
+    setRefCopied(true);
+    setTimeout(() => setRefCopied(false), 2000);
+  }
 
   const handleEdit = () => {
     setIsEditing(true);
@@ -388,6 +407,44 @@ export default function ProfilePage() {
               </div>
             </CardContent>
           </Card>
+
+          {/* Refer a Friend */}
+          {referralCode && (
+            <Card className="md:col-span-2">
+              <CardHeader>
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-lg bg-emerald-100 flex items-center justify-center">
+                    <Gift className="w-5 h-5 text-emerald-600" />
+                  </div>
+                  <div>
+                    <CardTitle className="text-xl">Refer a Friend</CardTitle>
+                    <CardDescription>
+                      Share your code and you both get a bonus mock test
+                    </CardDescription>
+                  </div>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+                  <div className="bg-muted/50 border rounded-lg px-4 py-3 flex items-center gap-3">
+                    <code className="text-lg font-mono font-bold text-primary">{referralCode}</code>
+                  </div>
+                  <Button
+                    onClick={copyReferralLink}
+                    variant="outline"
+                    size="sm"
+                    className="flex items-center gap-2"
+                  >
+                    {refCopied ? <Check className="w-4 h-4 text-emerald-500" /> : <Copy className="w-4 h-4" />}
+                    {refCopied ? "Link Copied!" : "Copy Referral Link"}
+                  </Button>
+                </div>
+                <p className="text-sm text-muted-foreground mt-3">
+                  When a friend signs up using your link and claims their free mock, you both receive an additional complimentary mock test.
+                </p>
+              </CardContent>
+            </Card>
+          )}
         </div>
       </div>
     </div>

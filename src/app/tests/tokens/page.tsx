@@ -118,9 +118,10 @@ export default function TokenStorePage() {
           >
             <ArrowLeft className="w-4 h-4" /> Back to Test Hub
           </Link>
-          <h1 className="text-3xl font-bold text-[#1a365d] mb-2">Token Store</h1>
+          <h1 className="text-3xl font-bold text-[#1a365d] mb-2">Test Packs</h1>
           <p className="text-gray-600">
-            Purchase test tokens to unlock additional mock test sets.
+            Each test is a unique full-length adaptive mock with a detailed score report.
+            Students who take 3+ mocks see the biggest score improvements.
           </p>
         </div>
 
@@ -199,7 +200,7 @@ export default function TokenStorePage() {
             }`}
           >
             <Ticket className="w-4 h-4 inline mr-1.5 -mt-0.5" />
-            Buy Tokens
+            Buy Packs
           </button>
           <button
             onClick={() => setActiveTab('my-tokens')}
@@ -223,6 +224,13 @@ export default function TokenStorePage() {
             <p className="text-gray-500 text-center py-16">No token packs available yet.</p>
           ) : (
             <div className="space-y-8">
+              <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-xs text-gray-500 bg-white border border-gray-200 rounded-lg px-4 py-3">
+                <span className="font-medium text-gray-700">Every mock includes:</span>
+                <span>Adaptive sections</span>
+                <span>400–1600 score</span>
+                <span>Domain breakdown</span>
+                <span>Difficulty analysis</span>
+              </div>
               {Object.entries(grouped).map(([examType, group]) => (
                 <div key={examType}>
                   <h3 className="text-lg font-bold text-gray-900 mb-3">{group.examName}</h3>

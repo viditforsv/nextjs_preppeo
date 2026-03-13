@@ -44,12 +44,14 @@ export const ROUTE_ACCESS: RouteAccess[] = [
   { path: "/password-reset", accessLevel: "public" },
   { path: "/auth/forgot-password", accessLevel: "public" },
   { path: "/auth/reset-password", accessLevel: "public" },
+  { path: "/sat-free", accessLevel: "public" },
   { path: "/faq", accessLevel: "public" },
   { path: "/refund-policy", accessLevel: "public" },
   { path: "/privacy-policy", accessLevel: "public" },
   { path: "/terms-of-use", accessLevel: "public" },
 
   // Authenticated routes (require login)
+  { path: "/referral", accessLevel: "authenticated" },
   { path: "/profile", accessLevel: "authenticated" },
   { path: "/courses/enrolled", accessLevel: "authenticated" },
   { path: "/onboarding", accessLevel: "authenticated" },

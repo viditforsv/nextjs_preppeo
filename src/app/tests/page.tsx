@@ -44,8 +44,8 @@ export default async function TestsHubPage() {
         <div className="text-center mb-10">
           <h1 className="text-3xl font-bold text-[#1a365d] mb-2">Test Hub</h1>
           <p className="text-gray-600 max-w-xl mx-auto">
-            Practice with adaptive, timed mock tests that mirror the real exam experience.
-            Every exam includes a free test — use the token below to get started.
+            Premium adaptive mocks with detailed score reports.
+            Your first mock is complimentary — claim it below to set realistic expectations.
           </p>
           <Link href="/tests/tokens" className="inline-block mt-6">
             <Button
@@ -53,7 +53,7 @@ export default async function TestsHubPage() {
               className="bg-[#1a365d] hover:bg-[#2a4a7f] text-white shadow-md gap-2"
             >
               <Ticket className="w-4 h-4" />
-              Buy more tokens
+              Get More Test Packs
             </Button>
           </Link>
         </div>

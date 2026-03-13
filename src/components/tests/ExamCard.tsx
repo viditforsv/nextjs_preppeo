@@ -44,11 +44,11 @@ export default function ExamCard({ exam, freeCode }: ExamCardProps) {
         </div>
 
         {/* Free token */}
-        <div className="bg-gray-50 border border-dashed border-gray-300 rounded-lg p-3 mb-4">
+        <div className="bg-[#0d47a1]/5 border border-[#0d47a1]/20 rounded-lg p-3 mb-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <Ticket className="w-4 h-4 text-[#1a365d]" />
-              <span className="text-xs font-medium text-gray-700">Free Token (Set 1)</span>
+              <span className="text-xs font-medium text-gray-700">Complimentary Mock (worth ₹499)</span>
             </div>
             <button
               onClick={copyCode}
@@ -81,7 +81,7 @@ export default function ExamCard({ exam, freeCode }: ExamCardProps) {
             href={`/tests/tokens?exam=${exam.id}`}
             className="px-4 py-2.5 border border-gray-200 text-sm font-medium text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
           >
-            Buy Tokens
+            Buy Packs
           </Link>
         </div>
       </div>

@@ -13,6 +13,7 @@ import {
   FileText,
   HelpCircle,
   Mail,
+  Gift,
 } from "lucide-react";
 import Image from "next/image";
 import { useAuth } from "@/contexts/AuthContext";
@@ -73,12 +74,6 @@ export function Header() {
     if (profile?.role === "admin") {
       return [
         { name: "Home", href: "/", hasDropdown: false },
-        {
-          name: "Courses",
-          href: "/courses/discover",
-          hasDropdown: false,
-        },
-        { name: "Free Tools", href: "/tools", hasDropdown: false },
         { name: "Tests", href: "/tests", hasDropdown: false },
         {
           name: "Site Administration",
@@ -87,28 +82,14 @@ export function Header() {
         },
       ];
     } else if (user) {
-      // Authenticated users (students)
       return [
         { name: "Home", href: "/", hasDropdown: false },
-        {
-          name: "Courses",
-          href: "/courses/discover",
-          hasDropdown: false,
-        },
-        { name: "Free Tools", href: "/tools", hasDropdown: false },
         { name: "Tests", href: "/tests", hasDropdown: false },
         { name: "My Courses", href: "/courses/enrolled", hasDropdown: false },
       ];
     } else {
-      // Public users (not logged in)
       return [
         { name: "Home", href: "/", hasDropdown: false },
-        {
-          name: "Courses",
-          href: "/courses/discover",
-          hasDropdown: false,
-        },
-        { name: "Free Tools", href: "/tools", hasDropdown: false },
         { name: "Tests", href: "/tests", hasDropdown: false },
         { name: "Contact", href: "/contact", hasDropdown: false },
       ];
@@ -142,10 +123,10 @@ export function Header() {
 
           {/* Search Bar */}
           <div className="hidden lg:flex flex-1 max-w-lg mx-4">
-            <Link href="/courses/discover" className="relative w-full">
+            <Link href="/tests" className="relative w-full">
               <input
                 type="text"
-                placeholder="Search courses..."
+                placeholder="Search tests..."
                 className="w-full px-4 py-2 pl-10 pr-4 border border-gray-300 rounded-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-all duration-200 bg-gray-50 text-foreground placeholder-gray-500 cursor-pointer"
                 readOnly
               />
@@ -267,6 +248,15 @@ export function Header() {
                         >
                           <User className="w-4 h-4 mr-3 text-primary" />
                           Profile
+                        </Link>
+
+                        <Link
+                          href="/referral"
+                          className="flex items-center px-4 py-2 text-sm text-foreground hover:bg-primary/10 transition-colors"
+                          onClick={() => setIsUserDropdownOpen(false)}
+                        >
+                          <Gift className="w-4 h-4 mr-3 text-emerald-600" />
+                          Refer &amp; Earn
                         </Link>
 
                         <Link

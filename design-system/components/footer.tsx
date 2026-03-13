@@ -16,6 +16,7 @@ const footerLinks = {
     { name: "FAQ", href: "/faq" },
   ],
   resources: [
+    { name: "Free Study Tools", href: "/tools" },
     { name: "Resources / Blog", href: "/resources" },
     { name: "Career Opportunities", href: "/careers" },
   ],
@@ -132,10 +133,9 @@ export function Footer() {
               <div className="space-y-4 lg:col-span-2">
                 <h3 className="text-sm font-semibold uppercase tracking-wider">About Preppeo</h3>
                 <p className="text-sm text-white/80 leading-relaxed max-w-md">
-                  Preppeo is a leading exam preparation platform. Through our comprehensive courses 
-                  and resources, thousands of students learn how to excel in their examinations. 
-                  Preppeo offers an engaging and effective curriculum for students preparing for 
-                  competitive exams, helping them achieve their academic goals.
+                  Preppeo is a premium exam preparation platform specializing in full-length
+                  adaptive mock tests for the Digital SAT, GRE, and GMAT. Our tests mirror
+                  real exam conditions with detailed score reports and domain-level analytics.
                 </p>
               </div>
             </div>

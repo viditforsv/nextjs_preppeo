@@ -20,6 +20,7 @@ export interface TestToken {
   used_at: string | null;
   used_by: string | null;
   purchase_id: string | null;
+  batch_id: string | null;
   is_active: boolean;
   created_at: string;
 }

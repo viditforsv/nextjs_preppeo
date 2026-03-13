@@ -50,16 +50,12 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ valid: false, message: 'This token has already been used' });
     }
 
-    // Get current user (optional — paid tokens should be verified against owner)
+    // Tokens are transferable — anyone with the code can redeem it.
+    // owner_id tracks who purchased; used_by tracks who redeemed.
     const authClient = await createClient();
     const { data: { user } } = await authClient.auth.getUser();
     const userId = user?.id ?? null;
 
-    if (token.owner_id && userId !== token.owner_id) {
-      return NextResponse.json({ valid: false, message: 'This token belongs to another account' });
-    }
-
-    // Mark paid token as used
     await supabase
       .from('test_tokens')
       .update({ is_used: true, used_at: new Date().toISOString(), used_by: userId })

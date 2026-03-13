@@ -28,19 +28,33 @@ export default function AuthPage() {
   const next = searchParams.get("next");
   const error = searchParams.get("error");
   const tab = searchParams.get("tab");
+  const autoClaimFree = searchParams.get("autoClaimFree");
+  const redirect = searchParams.get("redirect") || searchParams.get("redirectTo");
 
-  // Handle tab parameter from URL
   useEffect(() => {
     if (tab === "signup" || tab === "signin") {
       setActiveTab(tab);
+    } else if (autoClaimFree) {
+      setActiveTab("signup");
     }
-  }, [tab]);
+  }, [tab, autoClaimFree]);
+
+  async function claimFreeAndRedirect(targetUrl: string, examType: string) {
+    try {
+      await fetch('/api/tests/claim-free', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ examType }),
+      });
+    } catch {
+      // Non-blocking — continue to redirect even if claim fails
+    }
+    router.push(targetUrl);
+  }
 
   // Redirect authenticated users based on role
   useEffect(() => {
     if (!loading && user && profile) {
-      // Check for redirect parameter first, then next parameter, then role-based default
-      const redirectParam = searchParams.get("redirect") || searchParams.get("redirectTo");
       const roleBasedPath =
         profile.role === "student"
           ? "/student"
@@ -49,10 +63,16 @@ export default function AuthPage() {
           : profile.role === "admin"
           ? "/admin"
           : "/courses/enrolled";
-      const redirectUrl = redirectParam || next || roleBasedPath;
-      router.push(redirectUrl);
+      const redirectUrl = redirect || next || roleBasedPath;
+
+      if (autoClaimFree) {
+        claimFreeAndRedirect(redirectUrl, autoClaimFree);
+      } else {
+        router.push(redirectUrl);
+      }
     }
-  }, [user, profile, loading, router, next, searchParams]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user, profile, loading]);
 
   // Handle OAuth callback
   useEffect(() => {
@@ -88,14 +108,13 @@ export default function AuthPage() {
               ? "/admin"
               : "/courses/enrolled";
 
-          console.log(
-            "Auth page - OAuth success, redirecting to:",
-            roleBasedPath
-          );
-          // Check for redirect parameter first, then next parameter, then role-based default
-          const redirectParam = searchParams.get("redirect") || searchParams.get("redirectTo");
-          const redirectUrl = redirectParam || next || roleBasedPath;
-          router.push(redirectUrl);
+          const redirectUrl = redirect || next || roleBasedPath;
+
+          if (autoClaimFree) {
+            await claimFreeAndRedirect(redirectUrl, autoClaimFree);
+          } else {
+            router.push(redirectUrl);
+          }
         } catch (err) {
           console.error("Auth page - OAuth callback exception:", err);
           router.push("/auth?error=Authentication failed");
@@ -142,6 +161,14 @@ export default function AuthPage() {
             Your gateway to knowledge and growth
           </p>
         </div>
+
+        {autoClaimFree && (
+          <div className="mb-4 p-4 bg-primary/10 border-l-4 border-primary rounded-lg">
+            <p className="text-primary text-sm font-medium">
+              Sign up to start your free {autoClaimFree.toUpperCase()} mock test
+            </p>
+          </div>
+        )}
 
         {error && (
           <div className="mb-4 p-4 bg-red-50 border-l-4 border-red-500 rounded-lg">

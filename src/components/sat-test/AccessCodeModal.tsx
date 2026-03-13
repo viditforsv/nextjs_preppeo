@@ -62,7 +62,7 @@ export default function AccessCodeModal({ onSuccess, onClose }: AccessCodeModalP
 
         <form onSubmit={handleSubmit} className="p-6 space-y-4">
           <p className="text-sm text-gray-600">
-            Enter the access code to begin the SAT test. Free code: <code className="font-mono font-semibold text-[#0d47a1]">SAT-FREE-SET1</code>
+            Enter your access code to begin the SAT test. Get a free code from the <a href="/sat-free" className="text-[#0d47a1] underline hover:no-underline">free mock page</a>.
           </p>
 
           <input
@@ -72,7 +72,7 @@ export default function AccessCodeModal({ onSuccess, onClose }: AccessCodeModalP
               setCode(e.target.value);
               if (error) setError('');
             }}
-            placeholder="e.g. SAT-FREE-SET1"
+            placeholder="e.g. SAT-XXXX-XXXX"
             autoFocus
             className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg text-center text-lg tracking-widest font-mono focus:border-[#0d47a1] focus:outline-none transition-colors"
           />

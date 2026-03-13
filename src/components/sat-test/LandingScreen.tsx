@@ -1,18 +1,47 @@
 'use client';
 
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useState, useEffect } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useSATTestStore } from '@/stores/useSATTestStore';
 import { useAuth } from '@/contexts/AuthContext';
-import { ClipboardList, BookOpen, GraduationCap, History } from 'lucide-react';
+import { ClipboardList, BookOpen, GraduationCap, History, Loader2 } from 'lucide-react';
 import Link from 'next/link';
 import AccessCodeModal from './AccessCodeModal';
 
 export default function LandingScreen() {
   const startTestMode = useSATTestStore((s) => s.startTestMode);
   const [showCodeModal, setShowCodeModal] = useState(false);
+  const [autoStarting, setAutoStarting] = useState(false);
   const { user, loading } = useAuth();
   const router = useRouter();
+  const searchParams = useSearchParams();
+
+  // Auto-start when arriving with a ?token= param (from /sat-free claim flow)
+  useEffect(() => {
+    const tokenParam = searchParams.get('token');
+    if (tokenParam && user && !loading) {
+      setAutoStarting(true);
+      fetch('/api/tests/verify-token', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ code: tokenParam, examType: 'sat' }),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.valid) {
+            startTestMode(data.setNumber, tokenParam);
+          } else {
+            setAutoStarting(false);
+            setShowCodeModal(true);
+          }
+        })
+        .catch(() => {
+          setAutoStarting(false);
+          setShowCodeModal(true);
+        });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchParams, user, loading]);
 
   const handleStartTest = () => {
     if (!user && !loading) {
@@ -25,6 +54,17 @@ export default function LandingScreen() {
   const goToPracticeConfig = () => {
     useSATTestStore.setState({ phase: 'practice-config', mode: 'practice' });
   };
+
+  if (autoStarting) {
+    return (
+      <div className="min-h-screen bg-[#f5f5f0] flex items-center justify-center">
+        <div className="text-center">
+          <Loader2 className="w-8 h-8 animate-spin text-[#0d47a1] mx-auto mb-4" />
+          <p className="text-gray-600 font-medium">Preparing your test...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-[#f5f5f0] flex items-center justify-center p-4">

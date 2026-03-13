@@ -115,11 +115,20 @@ export default function TokenStoreCard({
     }
   };
 
+  const isBulk = pack.token_count >= 50;
+
   return (
-    <div className="bg-white border border-gray-200 rounded-xl p-5 hover:shadow-md transition-shadow">
+    <div className={`bg-white border rounded-xl p-5 hover:shadow-md transition-shadow ${isBulk ? 'border-[#0d47a1]/30 ring-1 ring-[#0d47a1]/10' : 'border-gray-200'}`}>
       <div className="flex items-start justify-between mb-2">
         <div>
-          <h4 className="font-bold text-gray-900">{pack.name}</h4>
+          <div className="flex items-center gap-2">
+            <h4 className="font-bold text-gray-900">{pack.name}</h4>
+            {isBulk && (
+              <span className="text-[10px] font-bold uppercase tracking-wider bg-[#0d47a1] text-white px-1.5 py-0.5 rounded">
+                Institute
+              </span>
+            )}
+          </div>
           <p className="text-xs text-gray-500">{pack.exam_types.name}</p>
         </div>
         <div className="text-right">

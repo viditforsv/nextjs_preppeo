@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import crypto from 'crypto';
+import nodeCrypto from 'crypto';
 import { createClient } from '@/lib/supabase/server';
 import { createSupabaseApiClient } from '@/lib/supabase/api-client';
 import { generateBulkTokenCodes } from '@/lib/tokens/generate';
@@ -24,7 +24,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Verify signature
-    const generatedSignature = crypto
+    const generatedSignature = nodeCrypto
       .createHmac('sha256', process.env.RAZORPAY_KEY_SECRET)
       .update(`${orderId}|${paymentId}`)
       .digest('hex');
@@ -90,6 +90,7 @@ export async function POST(request: NextRequest) {
 
     const totalSets = examType?.total_sets ?? 1;
 
+    const batchId = nodeCrypto.randomUUID();
     const tokenRows = codes.map((code, i) => ({
       code,
       exam_type: pack.exam_type,
@@ -97,6 +98,7 @@ export async function POST(request: NextRequest) {
       is_free: false,
       owner_id: user.id,
       purchase_id: purchase.id,
+      batch_id: batchId,
       is_active: true,
     }));
 

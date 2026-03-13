@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useSATTestStore } from '@/stores/useSATTestStore';
 import Link from 'next/link';
 import {
@@ -11,6 +11,11 @@ import {
   FileText,
   RotateCcw,
   History,
+  ArrowRight,
+  Sparkles,
+  Gift,
+  Copy,
+  Check,
 } from 'lucide-react';
 import ScoreOverviewTab from './results/ScoreOverviewTab';
 import DomainBreakdownTab from './results/DomainBreakdownTab';
@@ -42,6 +47,22 @@ export default function ResultsScreen() {
   } = useSATTestStore();
 
   const [activeTab, setActiveTab] = useState<TabId>('score');
+  const [referralCode, setReferralCode] = useState('');
+  const [refCopied, setRefCopied] = useState(false);
+
+  useEffect(() => {
+    fetch('/api/referral/student/code')
+      .then((r) => r.json())
+      .then((d) => { if (d.code) setReferralCode(d.code); })
+      .catch(() => {});
+  }, []);
+
+  function copyReferralLink() {
+    const link = `${window.location.origin}/sat-free?ref=${referralCode}`;
+    navigator.clipboard.writeText(link);
+    setRefCopied(true);
+    setTimeout(() => setRefCopied(false), 2000);
+  }
 
   if (!module1Result) return null;
 
@@ -124,6 +145,59 @@ export default function ResultsScreen() {
           <QuestionReviewTab
             responses={allQuestionResponses}
           />
+        )}
+
+        {/* Upsell CTA */}
+        <div className="mt-8 bg-linear-to-r from-[#0d47a1] to-[#1565c0] rounded-xl p-6 text-white">
+          <div className="flex items-start gap-4">
+            <div className="w-10 h-10 rounded-lg bg-white/20 flex items-center justify-center shrink-0">
+              <Sparkles className="w-5 h-5" />
+            </div>
+            <div className="flex-1">
+              <h3 className="text-lg font-bold mb-1">Ready to Improve Your Score?</h3>
+              <p className="text-white/80 text-sm mb-4">
+                {totalEstimatedScore
+                  ? `You scored ${totalEstimatedScore}. `
+                  : ''}
+                Students who take 3+ mocks see the biggest improvements. Each test has unique questions and a fresh adaptive challenge.
+              </p>
+              <Link
+                href="/tests/tokens?exam=sat"
+                className="inline-flex items-center gap-2 px-5 py-2.5 bg-white text-[#0d47a1] font-semibold text-sm rounded-lg hover:bg-white/90 transition-colors"
+              >
+                Unlock Premium Practice
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+            </div>
+          </div>
+        </div>
+
+        {referralCode && (
+          <div className="mt-4 bg-white border border-gray-200 rounded-xl p-6">
+            <div className="flex items-start gap-4">
+              <div className="w-10 h-10 rounded-lg bg-emerald-100 flex items-center justify-center shrink-0">
+                <Gift className="w-5 h-5 text-emerald-600" />
+              </div>
+              <div className="flex-1">
+                <h3 className="text-lg font-bold text-[#1a365d] mb-1">Share with a Friend</h3>
+                <p className="text-sm text-gray-600 mb-3">
+                  Refer a friend and you both get a bonus mock test — free.
+                </p>
+                <div className="flex items-center gap-3">
+                  <div className="bg-gray-50 border border-gray-200 rounded-lg px-3 py-2 flex items-center gap-2">
+                    <code className="text-sm font-mono font-semibold text-[#0d47a1]">{referralCode}</code>
+                  </div>
+                  <button
+                    onClick={copyReferralLink}
+                    className="inline-flex items-center gap-1.5 px-4 py-2 text-sm font-medium bg-[#0d47a1] text-white rounded-lg hover:bg-[#1565c0] transition-colors"
+                  >
+                    {refCopied ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
+                    {refCopied ? 'Copied!' : 'Copy Link'}
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
         )}
       </div>
     </div>

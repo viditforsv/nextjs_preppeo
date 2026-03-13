@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
-import { Copy, Check, ExternalLink, Loader2 } from 'lucide-react';
+import { Copy, Check, ExternalLink, Loader2, Download } from 'lucide-react';
 import Link from 'next/link';
 
 interface TokenItem {
@@ -66,18 +66,49 @@ export default function MyTokens() {
     );
   }
 
+  function downloadCSV(examType: string, group: TokenGroup) {
+    const rows = [
+      ['Code', 'Set', 'Status', 'Used At'],
+      ...group.tokens.map((t) => [
+        t.code,
+        `Set ${t.set_number}`,
+        t.is_used ? 'Used' : 'Available',
+        t.used_at ?? '',
+      ]),
+    ];
+    const csv = rows.map((r) => r.join(',')).join('\n');
+    const blob = new Blob([csv], { type: 'text/csv' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `${examType}-tokens.csv`;
+    a.click();
+    URL.revokeObjectURL(url);
+  }
+
   return (
     <div className="space-y-6">
       {groups.map(([examType, group]) => (
         <div key={examType}>
           <div className="flex items-center justify-between mb-2">
             <h4 className="font-semibold text-gray-900">{group.examName}</h4>
-            <Link
-              href={group.testRoute}
-              className="text-xs text-[#1a365d] hover:underline flex items-center gap-1"
-            >
-              Go to test <ExternalLink className="w-3 h-3" />
-            </Link>
+            <div className="flex items-center gap-3">
+              {group.tokens.length >= 10 && (
+                <button
+                  onClick={() => downloadCSV(examType, group)}
+                  className="text-xs text-gray-500 hover:text-[#1a365d] flex items-center gap-1 transition-colors"
+                >
+                  <Download className="w-3 h-3" />
+                  Download CSV
+                </button>
+              )}
+              <Link
+                href={group.testRoute}
+                className="text-xs text-[#1a365d] hover:underline flex items-center gap-1"
+              >
+                Go to test <ExternalLink className="w-3 h-3" />
+              </Link>
+            </div>
           </div>
           <div className="space-y-2">
             {group.tokens.map((token) => (
