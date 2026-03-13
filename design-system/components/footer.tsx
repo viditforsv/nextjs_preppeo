@@ -7,12 +7,9 @@ const footerLinks = {
     { name: "GRE Preparation", href: "/services/gre" },
     { name: "Admissions Consulting", href: "/services/admissions" },
   ],
-  platforms: [
-    { name: "Internal Test Platform", href: "/platforms/test-platform" },
-    { name: "Self-Learning Hub", href: "/platforms/learning-hub" },
-  ],
   company: [
     { name: "Contact", href: "/contact" },
+    { name: "Support", href: "/support" },
     { name: "FAQ", href: "/faq" },
   ],
   resources: [
@@ -21,8 +18,8 @@ const footerLinks = {
     { name: "Career Opportunities", href: "/careers" },
   ],
   legal: [
-    { name: "Privacy Policy", href: "/privacy" },
-    { name: "Terms of Service", href: "/terms" },
+    { name: "Privacy Policy", href: "/privacy-policy" },
+    { name: "Terms of Service", href: "/terms-of-use" },
     { name: "Cookie Policy", href: "/cookies" },
   ],
 }
@@ -60,29 +57,12 @@ export function Footer() {
 
         <div className="w-full px-4 py-12 md:py-16 relative z-10">
           <div className="container max-w-7xl mx-auto">
-            <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-6">
+            <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-5">
               {/* Services Column */}
               <div className="space-y-4">
                 <h3 className="text-sm font-semibold uppercase tracking-wider">Services</h3>
                 <ul className="space-y-2">
                   {footerLinks.services.map((link) => (
-                    <li key={link.href}>
-                      <Link
-                        href={link.href}
-                        className="text-sm text-white/80 hover:text-white transition-colors"
-                      >
-                        {link.name}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              {/* Platforms Column */}
-              <div className="space-y-4">
-                <h3 className="text-sm font-semibold uppercase tracking-wider">Our Platforms</h3>
-                <ul className="space-y-2">
-                  {footerLinks.platforms.map((link) => (
                     <li key={link.href}>
                       <Link
                         href={link.href}
@@ -148,13 +128,13 @@ export function Footer() {
                 <span>© {new Date().getFullYear()} Preppeo. All rights reserved.</span>
                 <div className="flex gap-4">
                   <Link
-                    href="/privacy"
+                    href="/privacy-policy"
                     className="hover:text-white transition-colors"
                   >
                     Privacy Policy
                   </Link>
                   <Link
-                    href="/terms"
+                    href="/terms-of-use"
                     className="hover:text-white transition-colors"
                   >
                     Terms of Service

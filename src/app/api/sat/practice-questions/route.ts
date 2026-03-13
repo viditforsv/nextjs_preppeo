@@ -38,13 +38,15 @@ function toQuestion(row: Record<string, unknown>, fallbackSection: string): SATQ
   };
 }
 
+const GRACE_MS = 30 * 60 * 1000; // 30 minutes grace after expiry
+
 async function checkPremium(supabase: ReturnType<typeof createSupabaseApiClient>, userId: string): Promise<boolean> {
   const { data } = await supabase
     .from('user_subscriptions')
     .select('id')
     .eq('user_id', userId)
     .eq('is_active', true)
-    .gte('ends_at', new Date().toISOString())
+    .gte('ends_at', new Date(Date.now() - GRACE_MS).toISOString())
     .limit(1)
     .maybeSingle();
   return !!data;
@@ -132,31 +134,26 @@ async function handleFreemium(
   section: string,
   domainsParam: string | null,
 ) {
-  const usage = await getDailyUsage(supabase, userId);
-  const remaining = {
-    easy: Math.max(0, FREE_LIMITS.easy - usage.easy_used),
-    medium: Math.max(0, FREE_LIMITS.medium - usage.medium_used),
-    hard: Math.max(0, FREE_LIMITS.hard - usage.hard_used),
-  };
+  const today = new Date().toISOString().slice(0, 10);
 
-  const totalRemaining = remaining.easy + remaining.medium + remaining.hard;
-  if (totalRemaining === 0) {
+  // Read current usage to determine what to request
+  const usage = await getDailyUsage(supabase, userId);
+  const wantEasy = Math.max(0, FREE_LIMITS.easy - usage.easy_used);
+  const wantMedium = Math.max(0, FREE_LIMITS.medium - usage.medium_used);
+  const wantHard = Math.max(0, FREE_LIMITS.hard - usage.hard_used);
+
+  if (wantEasy + wantMedium + wantHard === 0) {
     return NextResponse.json(
       { error: 'daily_limit_reached', remaining: { easy: 0, medium: 0, hard: 0 } },
       { status: 403 }
     );
   }
 
-  let baseQuery = supabase.from('sat_questions').select(FIELDS).eq('section', section).eq('is_active', true);
-  if (domainsParam) {
-    const domains = domainsParam.split(',').filter(Boolean);
-    if (domains.length > 0) baseQuery = baseQuery.in('domain', domains);
-  }
-
+  // Fetch questions per difficulty tier
   const questions: SATQuestion[] = [];
+  const served = { easy: 0, medium: 0, hard: 0 };
 
-  for (const tier of ['easy', 'medium', 'hard'] as const) {
-    const need = remaining[tier];
+  for (const [tier, need] of [['easy', wantEasy], ['medium', wantMedium], ['hard', wantHard]] as const) {
     if (need <= 0) continue;
 
     const { data } = await supabase
@@ -176,7 +173,9 @@ async function handleFreemium(
       });
 
     if (data?.length) {
-      shuffle(data).slice(0, need).forEach((r) => questions.push(toQuestion(r, section)));
+      const picked = shuffle(data).slice(0, need);
+      picked.forEach((r) => questions.push(toQuestion(r, section)));
+      served[tier] = picked.length;
     }
   }
 
@@ -184,37 +183,35 @@ async function handleFreemium(
     return NextResponse.json({ error: 'No questions found for these filters' }, { status: 404 });
   }
 
-  // Update daily usage
-  const today = new Date().toISOString().slice(0, 10);
-  const served = { easy: 0, medium: 0, hard: 0 };
-  questions.forEach((q) => {
-    const d = q.difficulty as 'easy' | 'medium' | 'hard';
-    if (d in served) served[d]++;
+  // Atomically claim usage with row-level lock to prevent race conditions
+  const { data: claimResult } = await supabase.rpc('claim_practice_usage', {
+    p_user_id: userId,
+    p_date: today,
+    p_easy: served.easy,
+    p_medium: served.medium,
+    p_hard: served.hard,
   });
 
-  if (usage.id) {
-    await supabase
-      .from('practice_daily_usage')
-      .update({
-        easy_used: usage.easy_used + served.easy,
-        medium_used: usage.medium_used + served.medium,
-        hard_used: usage.hard_used + served.hard,
-      })
-      .eq('id', usage.id);
-  } else {
-    await supabase.from('practice_daily_usage').insert({
-      user_id: userId,
-      usage_date: today,
-      easy_used: served.easy,
-      medium_used: served.medium,
-      hard_used: served.hard,
-    });
+  const claim = Array.isArray(claimResult) ? claimResult[0] : claimResult;
+  if (!claim?.ok) {
+    const prev = claim ?? { prev_easy: usage.easy_used, prev_medium: usage.medium_used, prev_hard: usage.hard_used };
+    return NextResponse.json(
+      {
+        error: 'daily_limit_reached',
+        remaining: {
+          easy: Math.max(0, FREE_LIMITS.easy - (prev.prev_easy ?? 0)),
+          medium: Math.max(0, FREE_LIMITS.medium - (prev.prev_medium ?? 0)),
+          hard: Math.max(0, FREE_LIMITS.hard - (prev.prev_hard ?? 0)),
+        },
+      },
+      { status: 403 }
+    );
   }
 
   const newRemaining = {
-    easy: remaining.easy - served.easy,
-    medium: remaining.medium - served.medium,
-    hard: remaining.hard - served.hard,
+    easy: Math.max(0, FREE_LIMITS.easy - ((claim.prev_easy ?? 0) + served.easy)),
+    medium: Math.max(0, FREE_LIMITS.medium - ((claim.prev_medium ?? 0) + served.medium)),
+    hard: Math.max(0, FREE_LIMITS.hard - ((claim.prev_hard ?? 0) + served.hard)),
   };
 
   return NextResponse.json({

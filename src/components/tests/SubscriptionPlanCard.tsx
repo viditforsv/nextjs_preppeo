@@ -21,12 +21,20 @@ interface Plan {
 interface SubscriptionPlanCardProps {
   plan: Plan;
   onPurchaseComplete: (planName: string, tokens: string[]) => void;
+  referralCode: string | null;
+  discountRate: number;
 }
 
-export default function SubscriptionPlanCard({ plan, onPurchaseComplete }: SubscriptionPlanCardProps) {
+export default function SubscriptionPlanCard({ plan, onPurchaseComplete, referralCode, discountRate = 0 }: SubscriptionPlanCardProps) {
   const [purchasing, setPurchasing] = useState(false);
   const isBundle = plan.plan_type === 'bundle';
   const months = Math.round(plan.duration_days / 30);
+
+  const hasDiscount = !!referralCode && discountRate > 0;
+  const discountedPrice = hasDiscount
+    ? Number((plan.price * (1 - discountRate / 100)).toFixed(2))
+    : plan.price;
+  const displayPrice = hasDiscount ? discountedPrice : plan.price;
 
   const handlePurchase = async () => {
     setPurchasing(true);
@@ -34,14 +42,14 @@ export default function SubscriptionPlanCard({ plan, onPurchaseComplete }: Subsc
       const orderRes = await fetch('/api/subscriptions/create-order', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ planId: plan.id }),
+        body: JSON.stringify({ planId: plan.id, ...(referralCode ? { referralCode } : {}) }),
       });
       const orderData = await orderRes.json();
       if (!orderData.success) throw new Error(orderData.error);
 
       const options = {
         key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
-        amount: Math.round(plan.price * 100),
+        amount: Math.round(displayPrice * 100),
         currency: 'INR',
         name: 'Preppeo',
         description: plan.name,
@@ -94,7 +102,10 @@ export default function SubscriptionPlanCard({ plan, onPurchaseComplete }: Subsc
           <p className="text-xs text-gray-500 mt-0.5">{months} month{months > 1 ? 's' : ''} access</p>
         </div>
         <div className="text-right">
-          <p className="text-xl font-bold text-gray-900">₹{plan.price.toLocaleString('en-IN')}</p>
+          {hasDiscount && (
+            <p className="text-xs text-gray-400 line-through">₹{plan.price.toLocaleString('en-IN')}</p>
+          )}
+          <p className="text-xl font-bold text-gray-900">₹{displayPrice.toLocaleString('en-IN')}</p>
         </div>
       </div>
 

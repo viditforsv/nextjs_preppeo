@@ -49,6 +49,14 @@ export const ROUTE_ACCESS: RouteAccess[] = [
   { path: "/refund-policy", accessLevel: "public" },
   { path: "/privacy-policy", accessLevel: "public" },
   { path: "/terms-of-use", accessLevel: "public" },
+  { path: "/support", accessLevel: "public" },
+  { path: "/services/sat", accessLevel: "public" },
+  { path: "/services/gmat", accessLevel: "public" },
+  { path: "/services/gre", accessLevel: "public" },
+  { path: "/services/admissions", accessLevel: "public" },
+  { path: "/resources", accessLevel: "public" },
+  { path: "/careers", accessLevel: "public" },
+  { path: "/cookies", accessLevel: "public" },
 
   // Authenticated routes (require login)
   { path: "/referral", accessLevel: "authenticated" },

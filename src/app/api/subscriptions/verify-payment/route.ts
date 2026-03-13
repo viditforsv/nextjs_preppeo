@@ -33,10 +33,10 @@ export async function POST(request: NextRequest) {
 
     const supabase = createSupabaseApiClient();
 
-    // Fetch purchase
+    // Fetch purchase (include partner columns)
     const { data: purchase } = await supabase
       .from('token_purchases')
-      .select('id, user_id, status')
+      .select('id, user_id, status, amount, partner_id, discount_applied')
       .eq('id', purchaseId)
       .single();
 
@@ -109,6 +109,29 @@ export async function POST(request: NextRequest) {
         tokens_generated: tokens.length,
       })
       .eq('id', purchase.id);
+
+    // Record partner commission if referral was used
+    if (purchase.partner_id) {
+      const paidAmount = Number(purchase.amount);
+      const { data: partner } = await supabase
+        .from('partners')
+        .select('commission_rate')
+        .eq('id', purchase.partner_id)
+        .single();
+
+      const commissionRate = partner?.commission_rate ?? 30;
+      const commissionAmount = Number(((paidAmount * commissionRate) / 100).toFixed(2));
+
+      await supabase.from('partner_commissions').insert({
+        partner_id: purchase.partner_id,
+        purchase_id: purchase.id,
+        student_id: user.id,
+        original_amount: plan.price,
+        paid_amount: paidAmount,
+        commission_amount: commissionAmount,
+        status: 'pending',
+      });
+    }
 
     return NextResponse.json({
       success: true,

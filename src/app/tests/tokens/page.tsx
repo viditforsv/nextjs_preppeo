@@ -2,12 +2,18 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import { useSearchParams } from 'next/navigation';
-import { ArrowLeft, Loader2, Ticket, CheckCircle2, Tag, X, BookOpen } from 'lucide-react';
+import { ArrowLeft, Loader2, Ticket, CheckCircle2, Tag, X, Globe, ChevronDown } from 'lucide-react';
 import Link from 'next/link';
-import TokenStoreCard from '@/components/tests/TokenStoreCard';
-import SubscriptionPlanCard from '@/components/tests/SubscriptionPlanCard';
+import PricingTable from '@/components/tests/PricingTable';
 import MyTokens from '@/components/tests/MyTokens';
 import type { TokenPackWithExam } from '@/types/test-tokens';
+import { CURRENCIES, detectCurrency, formatPrice } from '@/lib/currency';
+import type { CurrencyCode } from '@/lib/currency';
+
+declare global {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  interface Window { Razorpay: any }
+}
 
 interface SubscriptionPlan {
   id: string;
@@ -26,73 +32,85 @@ interface ReferralState {
   partner_name: string;
 }
 
+function loadRazorpayScript(): Promise<boolean> {
+  if (typeof window !== 'undefined' && window.Razorpay) return Promise.resolve(true);
+  return new Promise((resolve) => {
+    const script = document.createElement('script');
+    script.src = 'https://checkout.razorpay.com/v1/checkout.js';
+    script.onload = () => resolve(true);
+    script.onerror = () => resolve(false);
+    document.body.appendChild(script);
+  });
+}
+
 export default function TokenStorePage() {
   const searchParams = useSearchParams();
   const examFilter = searchParams.get('exam');
 
-  const [packs, setPacks] = useState<TokenPackWithExam[]>([]);
-  const [subPlans, setSubPlans] = useState<SubscriptionPlan[]>([]);
+  const [allPacks, setAllPacks] = useState<TokenPackWithExam[]>([]);
+  const [allSubPlans, setAllSubPlans] = useState<SubscriptionPlan[]>([]);
   const [loading, setLoading] = useState(true);
   const [purchasedTokens, setPurchasedTokens] = useState<string[] | null>(null);
   const [subSuccess, setSubSuccess] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<'store' | 'my-tokens'>('store');
+  const [currency, setCurrency] = useState<CurrencyCode>('INR');
+  const [buyingId, setBuyingId] = useState<string | null>(null);
+  const [selectedExam, setSelectedExam] = useState<string | null>(examFilter);
 
   const [referralInput, setReferralInput] = useState('');
   const [referralLoading, setReferralLoading] = useState(false);
   const [referral, setReferral] = useState<ReferralState | null>(null);
   const [referralError, setReferralError] = useState('');
+  const [purchaseError, setPurchaseError] = useState('');
+
+  useEffect(() => {
+    setCurrency(detectCurrency());
+  }, []);
 
   const fetchPacks = useCallback(async () => {
     try {
       const res = await fetch('/api/tests/packs');
       const data = await res.json();
       if (data.data) {
-        let allPacks = data.data as TokenPackWithExam[];
-        allPacks = allPacks.filter((p) => p.is_active);
-        if (examFilter) {
-          allPacks = allPacks.filter((p) => p.exam_type === examFilter);
-        }
-        setPacks(allPacks);
+        const active = (data.data as TokenPackWithExam[]).filter((p) => p.is_active);
+        setAllPacks(active);
       }
     } catch {
       // silent
     } finally {
       setLoading(false);
     }
-  }, [examFilter]);
+  }, []);
 
   const fetchSubPlans = useCallback(async () => {
     try {
       const res = await fetch('/api/subscriptions/plans');
       const data = await res.json();
-      if (data.plans) {
-        let plans = data.plans as SubscriptionPlan[];
-        if (examFilter) plans = plans.filter((p) => p.exam_type === examFilter);
-        setSubPlans(plans);
-      }
+      if (data.plans) setAllSubPlans(data.plans as SubscriptionPlan[]);
     } catch { /* silent */ }
-  }, [examFilter]);
+  }, []);
 
   useEffect(() => {
     fetchPacks();
     fetchSubPlans();
   }, [fetchPacks, fetchSubPlans]);
 
-  const handlePurchaseComplete = (tokens: string[]) => {
-    setPurchasedTokens(tokens);
-    setActiveTab('my-tokens');
-  };
+  const examTypes = Array.from(
+    new Map(allPacks.map((p) => [p.exam_type, p.exam_types?.name ?? p.exam_type])).entries()
+  );
 
-  const handleSubPurchaseComplete = (planName: string, tokens: string[]) => {
-    setSubSuccess(planName);
-    if (tokens.length > 0) setPurchasedTokens(tokens);
-    setActiveTab('my-tokens');
-  };
+  useEffect(() => {
+    if (!selectedExam && examTypes.length > 0) {
+      setSelectedExam(examTypes[0][0]);
+    }
+  }, [examTypes, selectedExam]);
+
+  const packs = selectedExam ? allPacks.filter((p) => p.exam_type === selectedExam) : allPacks;
+  const subPlans = selectedExam ? allSubPlans.filter((p) => p.exam_type === selectedExam) : allSubPlans;
 
   const handleApplyReferral = async () => {
     const code = referralInput.trim();
     if (!code) return;
-
     setReferralLoading(true);
     setReferralError('');
     try {
@@ -102,7 +120,6 @@ export default function TokenStorePage() {
         body: JSON.stringify({ code }),
       });
       const data = await res.json();
-
       if (data.valid) {
         setReferral({
           code: code.toUpperCase(),
@@ -127,17 +144,140 @@ export default function TokenStorePage() {
     setReferralError('');
   };
 
-  // Group packs by exam type
-  const grouped: Record<string, { examName: string; packs: TokenPackWithExam[] }> = {};
-  for (const pack of packs) {
-    if (!grouped[pack.exam_type]) {
-      grouped[pack.exam_type] = {
-        examName: pack.exam_types?.name ?? pack.exam_type,
-        packs: [],
-      };
+  const handleBuyPack = async (packId: string) => {
+    const pack = packs.find((p) => p.id === packId);
+    if (!pack) return;
+    setBuyingId(`pack-${packId}`);
+    setPurchaseError('');
+
+    try {
+      const orderRes = await fetch('/api/tests/create-order', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ packId, ...(referral?.code ? { referralCode: referral.code } : {}) }),
+      });
+      const orderData = await orderRes.json();
+      if (!orderData.success) {
+        setPurchaseError(orderData.error || 'Failed to create order');
+        setBuyingId(null);
+        return;
+      }
+
+      const loaded = await loadRazorpayScript();
+      if (!loaded) {
+        setPurchaseError('Failed to load payment gateway');
+        setBuyingId(null);
+        return;
+      }
+
+      const rzp = new window.Razorpay({
+        key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
+        amount: orderData.amount * 100,
+        currency: orderData.currency,
+        name: 'Preppeo',
+        description: orderData.packName,
+        order_id: orderData.orderId,
+        theme: { color: '#1a365d' },
+        handler: async (response: { razorpay_payment_id: string; razorpay_signature: string }) => {
+          const verifyRes = await fetch('/api/tests/verify-payment', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              orderId: orderData.orderId,
+              paymentId: response.razorpay_payment_id,
+              signature: response.razorpay_signature,
+              purchaseId: orderData.purchaseId,
+            }),
+          });
+          const verifyData = await verifyRes.json();
+          if (verifyData.success) {
+            setPurchasedTokens(verifyData.tokens);
+            setActiveTab('my-tokens');
+          } else {
+            setPurchaseError(verifyData.error || 'Payment verification failed');
+          }
+          setBuyingId(null);
+        },
+        modal: { ondismiss: () => setBuyingId(null) },
+      });
+      rzp.open();
+    } catch {
+      setPurchaseError('Something went wrong');
+      setBuyingId(null);
     }
-    grouped[pack.exam_type].packs.push(pack);
-  }
+  };
+
+  const handleBuyPlan = async (planId: string) => {
+    const plan = subPlans.find((p) => p.id === planId);
+    if (!plan) return;
+    setBuyingId(`plan-${planId}`);
+    setPurchaseError('');
+
+    try {
+      const orderRes = await fetch('/api/subscriptions/create-order', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ planId, ...(referral?.code ? { referralCode: referral.code } : {}) }),
+      });
+      const orderData = await orderRes.json();
+      if (!orderData.success) {
+        setPurchaseError(orderData.error || 'Failed to create order');
+        setBuyingId(null);
+        return;
+      }
+
+      const loaded = await loadRazorpayScript();
+      if (!loaded) {
+        setPurchaseError('Failed to load payment gateway');
+        setBuyingId(null);
+        return;
+      }
+
+      const hasDiscount = !!referral?.code && (referral.discount_rate ?? 0) > 0;
+      const displayPrice = hasDiscount
+        ? Number((plan.price * (1 - referral!.discount_rate / 100)).toFixed(2))
+        : plan.price;
+
+      const rzp = new window.Razorpay({
+        key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
+        amount: Math.round(displayPrice * 100),
+        currency: 'INR',
+        name: 'Preppeo',
+        description: plan.name,
+        order_id: orderData.orderId,
+        theme: { color: '#0d47a1' },
+        handler: async (response: { razorpay_order_id: string; razorpay_payment_id: string; razorpay_signature: string }) => {
+          const verifyRes = await fetch('/api/subscriptions/verify-payment', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              orderId: response.razorpay_order_id,
+              paymentId: response.razorpay_payment_id,
+              signature: response.razorpay_signature,
+              purchaseId: orderData.purchaseId,
+              planId,
+            }),
+          });
+          const verifyData = await verifyRes.json();
+          if (verifyData.success) {
+            setSubSuccess(plan.name);
+            if (verifyData.tokens?.length > 0) setPurchasedTokens(verifyData.tokens);
+            setActiveTab('my-tokens');
+          } else {
+            setPurchaseError(verifyData.error || 'Payment verification failed');
+          }
+          setBuyingId(null);
+        },
+        modal: { ondismiss: () => setBuyingId(null) },
+      });
+      rzp.open();
+    } catch {
+      setPurchaseError('Something went wrong');
+      setBuyingId(null);
+    }
+  };
+
+  const currencyKeys = Object.keys(CURRENCIES) as CurrencyCode[];
 
   return (
     <div className="min-h-screen bg-[#f5f5f0]">
@@ -151,13 +291,55 @@ export default function TokenStorePage() {
             <ArrowLeft className="w-4 h-4" /> Back to Test Hub
           </Link>
           <h1 className="text-3xl font-bold text-[#1a365d] mb-2">Plans & Packs</h1>
-          <p className="text-gray-600">
-            Unlimited practice with AI explanations, full-length adaptive mocks, or both.
-            Choose the plan that fits your prep timeline.
+          <p className="text-gray-600 mb-4">
+            Practice questions with AI explanations, full-length adaptive mocks, or both.
           </p>
+
+          <div className="flex items-center justify-between gap-4 flex-wrap">
+            {/* Exam type selector */}
+            {examTypes.length > 1 ? (
+              <div className="relative">
+                <select
+                  value={selectedExam ?? ''}
+                  onChange={(e) => setSelectedExam(e.target.value || null)}
+                  className="appearance-none bg-white border border-gray-200 rounded-lg pl-3 pr-8 py-2 text-sm font-medium text-gray-800 focus:outline-none focus:ring-2 focus:ring-[#1a365d]/20 focus:border-[#1a365d] cursor-pointer"
+                >
+                  {examTypes.map(([id, name]) => (
+                    <option key={id} value={id}>{name}</option>
+                  ))}
+                </select>
+                <ChevronDown className="w-4 h-4 text-gray-400 absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+              </div>
+            ) : examTypes.length === 1 ? (
+              <span className="text-sm font-medium text-gray-700 bg-white border border-gray-200 rounded-lg px-3 py-2">{examTypes[0][1]}</span>
+            ) : <div />}
+
+            {/* Currency selector */}
+            <div className="flex items-center gap-1.5 bg-white border border-gray-200 rounded-lg p-1">
+              <Globe className="w-4 h-4 text-gray-400 ml-2" />
+              {currencyKeys.map((c) => (
+                <button
+                  key={c}
+                  onClick={() => setCurrency(c)}
+                  className={`px-3 py-1.5 text-xs font-semibold rounded-md transition-colors ${
+                    currency === c
+                      ? 'bg-[#1a365d] text-white'
+                      : 'text-gray-500 hover:text-gray-800'
+                  }`}
+                >
+                  {CURRENCIES[c].symbol.trim()} {c}
+                </button>
+              ))}
+            </div>
+          </div>
+          {currency !== 'INR' && (
+            <p className="text-xs text-gray-400 mt-2">
+              Prices shown in {CURRENCIES[currency].label} are approximate. Payment is processed in INR ({formatPrice(100, currency)} ≈ ₹100).
+            </p>
+          )}
         </div>
 
-        {/* Success banner */}
+        {/* Success banners */}
         {purchasedTokens && (
           <div className="mb-6 bg-emerald-50 border border-emerald-200 rounded-xl p-4">
             <div className="flex items-start gap-3">
@@ -172,8 +354,6 @@ export default function TokenStorePage() {
             </div>
           </div>
         )}
-
-        {/* Subscription success banner */}
         {subSuccess && (
           <div className="mb-6 bg-emerald-50 border border-emerald-200 rounded-xl p-4">
             <div className="flex items-start gap-3">
@@ -187,8 +367,13 @@ export default function TokenStorePage() {
             </div>
           </div>
         )}
+        {purchaseError && (
+          <div className="mb-6 bg-red-50 border border-red-200 rounded-xl p-4">
+            <p className="text-sm text-red-700">{purchaseError}</p>
+          </div>
+        )}
 
-        {/* Referral Code Section */}
+        {/* Referral Code — compact inline */}
         <div className="mb-6 bg-white border border-gray-200 rounded-xl p-4">
           {referral ? (
             <div className="flex items-center justify-between">
@@ -199,10 +384,7 @@ export default function TokenStorePage() {
                 </span>
                 <span className="text-xs text-gray-400">via {referral.partner_name}</span>
               </div>
-              <button
-                onClick={clearReferral}
-                className="p-1 text-gray-400 hover:text-gray-600 transition-colors"
-              >
+              <button onClick={clearReferral} className="p-1 text-gray-400 hover:text-gray-600 transition-colors">
                 <X className="w-4 h-4" />
               </button>
             </div>
@@ -213,10 +395,7 @@ export default function TokenStorePage() {
                 <input
                   type="text"
                   value={referralInput}
-                  onChange={(e) => {
-                    setReferralInput(e.target.value.toUpperCase());
-                    setReferralError('');
-                  }}
+                  onChange={(e) => { setReferralInput(e.target.value.toUpperCase()); setReferralError(''); }}
                   onKeyDown={(e) => e.key === 'Enter' && handleApplyReferral()}
                   placeholder="Enter code"
                   className="flex-1 px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1a365d]/20 focus:border-[#1a365d]"
@@ -229,9 +408,7 @@ export default function TokenStorePage() {
                   {referralLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : 'Apply'}
                 </button>
               </div>
-              {referralError && (
-                <p className="text-xs text-red-600 mt-1">{referralError}</p>
-              )}
+              {referralError && <p className="text-xs text-red-600 mt-1">{referralError}</p>}
             </div>
           )}
         </div>
@@ -241,20 +418,16 @@ export default function TokenStorePage() {
           <button
             onClick={() => setActiveTab('store')}
             className={`px-4 py-2 text-sm font-medium rounded-md transition-colors ${
-              activeTab === 'store'
-                ? 'bg-[#1a365d] text-white'
-                : 'text-gray-600 hover:text-gray-900'
+              activeTab === 'store' ? 'bg-[#1a365d] text-white' : 'text-gray-600 hover:text-gray-900'
             }`}
           >
             <Ticket className="w-4 h-4 inline mr-1.5 -mt-0.5" />
-            Plans & Packs
+            Pricing
           </button>
           <button
             onClick={() => setActiveTab('my-tokens')}
             className={`px-4 py-2 text-sm font-medium rounded-md transition-colors ${
-              activeTab === 'my-tokens'
-                ? 'bg-[#1a365d] text-white'
-                : 'text-gray-600 hover:text-gray-900'
+              activeTab === 'my-tokens' ? 'bg-[#1a365d] text-white' : 'text-gray-600 hover:text-gray-900'
             }`}
           >
             My Tokens
@@ -267,61 +440,29 @@ export default function TokenStorePage() {
             <div className="flex items-center justify-center py-16">
               <Loader2 className="w-6 h-6 animate-spin text-gray-400" />
             </div>
-          ) : Object.keys(grouped).length === 0 ? (
-            <p className="text-gray-500 text-center py-16">No token packs available yet.</p>
+          ) : packs.length === 0 && subPlans.length === 0 ? (
+            <p className="text-gray-500 text-center py-16">No plans available yet.</p>
           ) : (
-            <div className="space-y-8">
-              {/* Practice Plans & Bundles */}
-              {subPlans.length > 0 && (
-                <div>
-                  <div className="flex items-center gap-2 mb-3">
-                    <BookOpen className="w-5 h-5 text-emerald-600" />
-                    <h3 className="text-lg font-bold text-gray-900">Practice Plans</h3>
-                  </div>
-                  <p className="text-sm text-gray-500 mb-4">
-                    Unlimited practice questions with AI explanations and theory. Choose standalone or bundled with mocks.
-                  </p>
-                  <div className="grid sm:grid-cols-2 gap-4">
-                    {subPlans.map((plan) => (
-                      <SubscriptionPlanCard
-                        key={plan.id}
-                        plan={plan}
-                        onPurchaseComplete={handleSubPurchaseComplete}
-                      />
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {/* Divider */}
-              {subPlans.length > 0 && Object.keys(grouped).length > 0 && (
-                <div className="border-t border-gray-200" />
-              )}
-
-              {/* Mock Packs */}
+            <div className="space-y-4">
+              {/* Value banner */}
               <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-xs text-gray-500 bg-white border border-gray-200 rounded-lg px-4 py-3">
                 <span className="font-medium text-gray-700">Every mock includes:</span>
                 <span>Adaptive sections</span>
-                <span>400–1600 score</span>
+                <span>Detailed scoring</span>
                 <span>Domain breakdown</span>
                 <span>Difficulty analysis</span>
               </div>
-              {Object.entries(grouped).map(([examType, group]) => (
-                <div key={examType}>
-                  <h3 className="text-lg font-bold text-gray-900 mb-3">{group.examName}</h3>
-                  <div className="grid sm:grid-cols-2 gap-4">
-                    {group.packs.map((pack) => (
-                      <TokenStoreCard
-                        key={pack.id}
-                        pack={pack}
-                        onPurchaseComplete={handlePurchaseComplete}
-                        referralCode={referral?.code ?? null}
-                        discountRate={referral?.discount_rate ?? 0}
-                      />
-                    ))}
-                  </div>
-                </div>
-              ))}
+
+              <PricingTable
+                plans={subPlans}
+                packs={packs}
+                currency={currency}
+                referralCode={referral?.code ?? null}
+                discountRate={referral?.discount_rate ?? 0}
+                buyingId={buyingId}
+                onBuyPlan={handleBuyPlan}
+                onBuyPack={handleBuyPack}
+              />
             </div>
           )
         ) : (

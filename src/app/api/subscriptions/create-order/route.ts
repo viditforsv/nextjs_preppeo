@@ -5,7 +5,7 @@ import { createSupabaseApiClient } from '@/lib/supabase/api-client';
 
 export async function POST(request: NextRequest) {
   try {
-    const { planId } = await request.json();
+    const { planId, referralCode } = await request.json();
 
     if (!planId) {
       return NextResponse.json({ success: false, error: 'Missing required field: planId' }, { status: 400 });
@@ -34,15 +34,41 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ success: false, error: 'Plan not found or unavailable' }, { status: 404 });
     }
 
+    // Resolve referral discount
+    let finalPrice = plan.price;
+    let discountApplied = 0;
+    let partnerId: string | null = null;
+    let resolvedCode: string | null = null;
+
+    if (referralCode && typeof referralCode === 'string') {
+      const code = referralCode.trim().toUpperCase();
+      const { data: partner } = await supabase
+        .from('partners')
+        .select('id, discount_rate')
+        .eq('referral_code', code)
+        .eq('is_active', true)
+        .single();
+
+      if (partner) {
+        discountApplied = Number(((plan.price * partner.discount_rate) / 100).toFixed(2));
+        finalPrice = plan.price - discountApplied;
+        partnerId = partner.id;
+        resolvedCode = code;
+      }
+    }
+
     // Reuse token_purchases table for payment tracking
     const { data: purchase, error: purchaseError } = await supabase
       .from('token_purchases')
       .insert({
         user_id: user.id,
         pack_id: null,
-        amount: plan.price,
+        amount: finalPrice,
         currency: 'INR',
         status: 'pending',
+        referral_code: resolvedCode,
+        partner_id: partnerId,
+        discount_applied: discountApplied,
       })
       .select('id')
       .single();
@@ -58,7 +84,7 @@ export async function POST(request: NextRequest) {
     });
 
     const order = await razorpay.orders.create({
-      amount: Math.round(plan.price * 100),
+      amount: Math.round(finalPrice * 100),
       currency: 'INR',
       receipt: `sub_${purchase.id.slice(0, 16)}`,
       notes: {
@@ -66,6 +92,7 @@ export async function POST(request: NextRequest) {
         planId: plan.id,
         planType: plan.plan_type,
         userId: user.id,
+        ...(partnerId ? { partnerId } : {}),
       },
     });
 
@@ -79,7 +106,9 @@ export async function POST(request: NextRequest) {
       orderId: order.id,
       purchaseId: purchase.id,
       planId: plan.id,
-      amount: plan.price,
+      amount: finalPrice,
+      originalAmount: plan.price,
+      discountApplied,
       currency: 'INR',
       planName: plan.name,
     });

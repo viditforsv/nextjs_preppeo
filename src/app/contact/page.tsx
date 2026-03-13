@@ -33,20 +33,37 @@ export default function ContactPage() {
     subject: "",
     message: "",
   });
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [errorMsg, setErrorMsg] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission here
-    console.log("Form submitted:", formData);
-    // You can integrate with your backend or email service
-    alert("Thank you for your message! We will get back to you soon.");
-    setFormData({
-      firstName: "",
-      lastName: "",
-      email: "",
-      subject: "",
-      message: "",
-    });
+    setStatus("loading");
+    setErrorMsg("");
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: `${formData.firstName} ${formData.lastName}`.trim(),
+          email: formData.email,
+          subject: formData.subject,
+          message: formData.message,
+        }),
+      });
+
+      if (!res.ok) {
+        const data = await res.json();
+        throw new Error(data.error || "Failed to send message");
+      }
+
+      setStatus("success");
+      setFormData({ firstName: "", lastName: "", email: "", subject: "", message: "" });
+    } catch (err) {
+      setStatus("error");
+      setErrorMsg(err instanceof Error ? err.message : "Something went wrong");
+    }
   };
 
   const handleChange = (
@@ -297,12 +314,23 @@ export default function ContactPage() {
                       ></textarea>
                     </div>
 
+                    {status === "success" && (
+                      <div className="p-4 bg-green-50 border border-green-200 rounded-lg text-green-800 text-sm">
+                        Thank you for your message! We&apos;ll get back to you within 24 hours.
+                      </div>
+                    )}
+                    {status === "error" && (
+                      <div className="p-4 bg-red-50 border border-red-200 rounded-lg text-red-800 text-sm">
+                        {errorMsg}
+                      </div>
+                    )}
                     <Button
                       type="submit"
-                      className="w-full bg-primary hover:bg-primary/90 text-white py-3 rounded-lg shadow-lg"
+                      disabled={status === "loading"}
+                      className="w-full bg-primary hover:bg-primary/90 text-white py-3 rounded-lg shadow-lg disabled:opacity-50"
                     >
                       <Send className="w-4 h-4 mr-2" />
-                      Send Message
+                      {status === "loading" ? "Sending..." : "Send Message"}
                     </Button>
                   </form>
                 </CardContent>

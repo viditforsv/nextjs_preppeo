@@ -107,7 +107,6 @@ async function processReferralBonus(
   referralCode: string,
   examType: string,
 ): Promise<boolean> {
-  // Look up referrer by referral_code
   const { data: referrer } = await supabase
     .from('profiles')
     .select('id')
@@ -117,7 +116,6 @@ async function processReferralBonus(
   if (!referrer) return false;
   if (referrer.id === friendId) return false;
 
-  // Check if this pair already has a referral record
   const { data: existingReferral } = await supabase
     .from('student_referrals')
     .select('id')
@@ -127,13 +125,10 @@ async function processReferralBonus(
 
   if (existingReferral) return false;
 
-  // Find the next available set for the friend (they already got Set 1 above)
+  // Friend's bonus is awarded first and unconditionally.
+  // If the referrer's account is deleted between lookup and insert,
+  // the friend still gets their bonus token.
   const friendBonusSet = await findNextAvailableSet(supabase, friendId, examType, 2);
-
-  // Find the next available set for the referrer
-  const referrerBonusSet = await findNextAvailableSet(supabase, referrer.id, examType, 2);
-
-  // Generate bonus tokens
   const friendBonusCode = generateTokenCode(examType);
   const { data: friendToken } = await supabase
     .from('test_tokens')
@@ -148,25 +143,32 @@ async function processReferralBonus(
     .select('id')
     .single();
 
-  const referrerBonusCode = generateTokenCode(examType);
-  const { data: referrerToken } = await supabase
-    .from('test_tokens')
-    .insert({
-      code: referrerBonusCode,
-      exam_type: examType,
-      set_number: referrerBonusSet,
-      is_free: true,
-      owner_id: referrer.id,
-      is_active: true,
-    })
-    .select('id')
-    .single();
+  // Referrer bonus — best-effort; failure does not revoke friend's bonus
+  let referrerTokenId: string | null = null;
+  try {
+    const referrerBonusSet = await findNextAvailableSet(supabase, referrer.id, examType, 2);
+    const referrerBonusCode = generateTokenCode(examType);
+    const { data: referrerToken } = await supabase
+      .from('test_tokens')
+      .insert({
+        code: referrerBonusCode,
+        exam_type: examType,
+        set_number: referrerBonusSet,
+        is_free: true,
+        owner_id: referrer.id,
+        is_active: true,
+      })
+      .select('id')
+      .single();
+    referrerTokenId = referrerToken?.id ?? null;
+  } catch (err) {
+    console.error('Referrer bonus token failed (friend still gets theirs):', err);
+  }
 
-  // Record the referral
   await supabase.from('student_referrals').insert({
     referrer_id: referrer.id,
     referred_id: friendId,
-    referrer_token_id: referrerToken?.id ?? null,
+    referrer_token_id: referrerTokenId,
     referred_token_id: friendToken?.id ?? null,
   });
 

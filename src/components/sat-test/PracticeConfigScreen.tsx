@@ -49,6 +49,7 @@ export default function PracticeConfigScreen() {
   const [isPremium, setIsPremium] = useState<boolean | null>(null);
   const [remaining, setRemaining] = useState<Remaining | null>(null);
   const [usageLoading, setUsageLoading] = useState(true);
+  const [subscriptionExpired, setSubscriptionExpired] = useState(false);
 
   useEffect(() => {
     fetch('/api/sat/practice-usage')
@@ -56,6 +57,7 @@ export default function PracticeConfigScreen() {
       .then((d) => {
         setIsPremium(d.isPremium ?? false);
         if (!d.isPremium && d.remaining) setRemaining(d.remaining);
+        if (d.recentlyExpired) setSubscriptionExpired(true);
       })
       .catch(() => setIsPremium(false))
       .finally(() => setUsageLoading(false));
@@ -123,8 +125,29 @@ export default function PracticeConfigScreen() {
           </div>
         </div>
 
+        {/* Subscription expired banner */}
+        {!usageLoading && subscriptionExpired && (
+          <div className="mb-4 bg-amber-50 border border-amber-200 rounded-xl p-4">
+            <div className="flex items-start justify-between gap-3">
+              <div>
+                <p className="text-sm font-semibold text-amber-800">Your subscription has expired</p>
+                <p className="text-xs text-amber-600 mt-0.5">
+                  Renew to continue with unlimited practice questions.
+                </p>
+              </div>
+              <Link
+                href="/tests/tokens"
+                className="shrink-0 inline-flex items-center gap-1 px-3 py-1.5 bg-[#0d47a1] text-white text-xs font-semibold rounded-lg hover:bg-[#1565c0] transition-colors"
+              >
+                <Sparkles className="w-3 h-3" />
+                Renew
+              </Link>
+            </div>
+          </div>
+        )}
+
         {/* Freemium banner */}
-        {!usageLoading && isPremium === false && (
+        {!usageLoading && isPremium === false && !subscriptionExpired && (
           <div className="mb-4 bg-[#0d47a1]/5 border border-[#0d47a1]/20 rounded-xl p-4">
             <div className="flex items-start justify-between gap-3">
               <div>
