@@ -181,6 +181,12 @@ export default function SiteAdministrationPage() {
           icon: ListChecks,
           description: "Review all GRE questions as they appear in the test",
         },
+        {
+          name: "SAT Questions QC",
+          href: "/admin/sat-questions-qc",
+          icon: ListChecks,
+          description: "Review all SAT questions (Math + R&W, test + practice)",
+        },
       ],
     },
     {
