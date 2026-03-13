@@ -2,11 +2,22 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import { useSearchParams } from 'next/navigation';
-import { ArrowLeft, Loader2, Ticket, CheckCircle2, Tag, X } from 'lucide-react';
+import { ArrowLeft, Loader2, Ticket, CheckCircle2, Tag, X, BookOpen } from 'lucide-react';
 import Link from 'next/link';
 import TokenStoreCard from '@/components/tests/TokenStoreCard';
+import SubscriptionPlanCard from '@/components/tests/SubscriptionPlanCard';
 import MyTokens from '@/components/tests/MyTokens';
 import type { TokenPackWithExam } from '@/types/test-tokens';
+
+interface SubscriptionPlan {
+  id: string;
+  name: string;
+  plan_type: 'practice_only' | 'bundle';
+  duration_days: number;
+  mock_tokens_included: number;
+  price: number;
+  exam_type: string;
+}
 
 interface ReferralState {
   code: string;
@@ -20,8 +31,10 @@ export default function TokenStorePage() {
   const examFilter = searchParams.get('exam');
 
   const [packs, setPacks] = useState<TokenPackWithExam[]>([]);
+  const [subPlans, setSubPlans] = useState<SubscriptionPlan[]>([]);
   const [loading, setLoading] = useState(true);
   const [purchasedTokens, setPurchasedTokens] = useState<string[] | null>(null);
+  const [subSuccess, setSubSuccess] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<'store' | 'my-tokens'>('store');
 
   const [referralInput, setReferralInput] = useState('');
@@ -48,12 +61,31 @@ export default function TokenStorePage() {
     }
   }, [examFilter]);
 
+  const fetchSubPlans = useCallback(async () => {
+    try {
+      const res = await fetch('/api/subscriptions/plans');
+      const data = await res.json();
+      if (data.plans) {
+        let plans = data.plans as SubscriptionPlan[];
+        if (examFilter) plans = plans.filter((p) => p.exam_type === examFilter);
+        setSubPlans(plans);
+      }
+    } catch { /* silent */ }
+  }, [examFilter]);
+
   useEffect(() => {
     fetchPacks();
-  }, [fetchPacks]);
+    fetchSubPlans();
+  }, [fetchPacks, fetchSubPlans]);
 
   const handlePurchaseComplete = (tokens: string[]) => {
     setPurchasedTokens(tokens);
+    setActiveTab('my-tokens');
+  };
+
+  const handleSubPurchaseComplete = (planName: string, tokens: string[]) => {
+    setSubSuccess(planName);
+    if (tokens.length > 0) setPurchasedTokens(tokens);
     setActiveTab('my-tokens');
   };
 
@@ -118,10 +150,10 @@ export default function TokenStorePage() {
           >
             <ArrowLeft className="w-4 h-4" /> Back to Test Hub
           </Link>
-          <h1 className="text-3xl font-bold text-[#1a365d] mb-2">Test Packs</h1>
+          <h1 className="text-3xl font-bold text-[#1a365d] mb-2">Plans & Packs</h1>
           <p className="text-gray-600">
-            Each test is a unique full-length adaptive mock with a detailed score report.
-            Students who take 3+ mocks see the biggest score improvements.
+            Unlimited practice with AI explanations, full-length adaptive mocks, or both.
+            Choose the plan that fits your prep timeline.
           </p>
         </div>
 
@@ -135,6 +167,21 @@ export default function TokenStorePage() {
                 <p className="text-sm text-emerald-700 mt-1">
                   {purchasedTokens.length} token{purchasedTokens.length > 1 ? 's' : ''} generated.
                   Check the &ldquo;My Tokens&rdquo; tab to see your codes.
+                </p>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Subscription success banner */}
+        {subSuccess && (
+          <div className="mb-6 bg-emerald-50 border border-emerald-200 rounded-xl p-4">
+            <div className="flex items-start gap-3">
+              <CheckCircle2 className="w-5 h-5 text-emerald-600 mt-0.5 shrink-0" />
+              <div>
+                <p className="font-semibold text-emerald-800">{subSuccess} activated!</p>
+                <p className="text-sm text-emerald-700 mt-1">
+                  You now have unlimited practice access. Head to SAT Test to start practicing.
                 </p>
               </div>
             </div>
@@ -200,7 +247,7 @@ export default function TokenStorePage() {
             }`}
           >
             <Ticket className="w-4 h-4 inline mr-1.5 -mt-0.5" />
-            Buy Packs
+            Plans & Packs
           </button>
           <button
             onClick={() => setActiveTab('my-tokens')}
@@ -224,6 +271,34 @@ export default function TokenStorePage() {
             <p className="text-gray-500 text-center py-16">No token packs available yet.</p>
           ) : (
             <div className="space-y-8">
+              {/* Practice Plans & Bundles */}
+              {subPlans.length > 0 && (
+                <div>
+                  <div className="flex items-center gap-2 mb-3">
+                    <BookOpen className="w-5 h-5 text-emerald-600" />
+                    <h3 className="text-lg font-bold text-gray-900">Practice Plans</h3>
+                  </div>
+                  <p className="text-sm text-gray-500 mb-4">
+                    Unlimited practice questions with AI explanations and theory. Choose standalone or bundled with mocks.
+                  </p>
+                  <div className="grid sm:grid-cols-2 gap-4">
+                    {subPlans.map((plan) => (
+                      <SubscriptionPlanCard
+                        key={plan.id}
+                        plan={plan}
+                        onPurchaseComplete={handleSubPurchaseComplete}
+                      />
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Divider */}
+              {subPlans.length > 0 && Object.keys(grouped).length > 0 && (
+                <div className="border-t border-gray-200" />
+              )}
+
+              {/* Mock Packs */}
               <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-xs text-gray-500 bg-white border border-gray-200 rounded-lg px-4 py-3">
                 <span className="font-medium text-gray-700">Every mock includes:</span>
                 <span>Adaptive sections</span>

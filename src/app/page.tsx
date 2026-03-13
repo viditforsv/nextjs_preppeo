@@ -308,14 +308,14 @@ export default function Home() {
                 </div>
                 <h3 className="font-bold text-foreground text-lg mb-2">Practice Mode</h3>
                 <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
-                  Not ready for a full test? Practice by topic and difficulty
-                  with instant feedback and explanations.
+                  5 free questions daily with AI explanations and theory.
+                  Upgrade for unlimited access to 2500+ questions by topic and difficulty.
                 </p>
                 <Link
                   href="/sat-test"
                   className="text-sm font-medium text-primary hover:underline inline-flex items-center gap-1"
                 >
-                  Start practicing <ArrowRight className="w-3.5 h-3.5" />
+                  Try Free Practice <ArrowRight className="w-3.5 h-3.5" />
                 </Link>
               </CardContent>
             </Card>

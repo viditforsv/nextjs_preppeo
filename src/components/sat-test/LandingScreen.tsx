@@ -52,6 +52,10 @@ export default function LandingScreen() {
   };
 
   const goToPracticeConfig = () => {
+    if (!user && !loading) {
+      router.push('/auth?redirect=/sat-test');
+      return;
+    }
     useSATTestStore.setState({ phase: 'practice-config', mode: 'practice' });
   };
 
@@ -149,15 +153,15 @@ export default function LandingScreen() {
             <ul className="space-y-2 text-sm text-gray-600 mb-4">
               <li className="flex items-start gap-2">
                 <span className="text-emerald-600 font-bold mt-0.5">✓</span>
-                <span>Choose your difficulty level</span>
+                <span>5 free questions daily with AI explanations</span>
               </li>
               <li className="flex items-start gap-2">
                 <span className="text-emerald-600 font-bold mt-0.5">✓</span>
-                <span>Instant feedback after each question</span>
+                <span>Practice by topic, domain, and difficulty</span>
               </li>
               <li className="flex items-start gap-2">
                 <span className="text-emerald-600 font-bold mt-0.5">✓</span>
-                <span>Desmos graphing calculator for Math</span>
+                <span>Upgrade for unlimited access to 2500+ questions</span>
               </li>
             </ul>
             <div className="text-sm font-semibold text-emerald-600 group-hover:underline">

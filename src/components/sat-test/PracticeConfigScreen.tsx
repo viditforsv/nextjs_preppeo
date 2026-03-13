@@ -1,7 +1,8 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useSATTestStore } from '@/stores/useSATTestStore';
+import Link from 'next/link';
 import type {
   SATSection,
   SATDomain,
@@ -9,7 +10,7 @@ import type {
   SATRWDomain,
   DifficultyTier,
 } from '@/types/sat-test';
-import { BookOpen, ArrowLeft, Loader2, Play } from 'lucide-react';
+import { BookOpen, ArrowLeft, Loader2, Play, Crown, Sparkles, ArrowRight } from 'lucide-react';
 
 const MATH_DOMAINS: { id: SATMathDomain; label: string }[] = [
   { id: 'algebra', label: 'Algebra' },
@@ -34,6 +35,8 @@ const DIFFICULTIES: { id: DifficultyTier | 'mixed'; label: string }[] = [
 
 const COUNTS = [5, 10, 15, 20];
 
+type Remaining = { easy: number; medium: number; hard: number };
+
 export default function PracticeConfigScreen() {
   const { startPracticeMode, goToLanding } = useSATTestStore();
   const [section, setSection] = useState<SATSection>('rw');
@@ -43,6 +46,21 @@ export default function PracticeConfigScreen() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+  const [isPremium, setIsPremium] = useState<boolean | null>(null);
+  const [remaining, setRemaining] = useState<Remaining | null>(null);
+  const [usageLoading, setUsageLoading] = useState(true);
+
+  useEffect(() => {
+    fetch('/api/sat/practice-usage')
+      .then((r) => r.json())
+      .then((d) => {
+        setIsPremium(d.isPremium ?? false);
+        if (!d.isPremium && d.remaining) setRemaining(d.remaining);
+      })
+      .catch(() => setIsPremium(false))
+      .finally(() => setUsageLoading(false));
+  }, []);
+
   const domains = section === 'math' ? MATH_DOMAINS : RW_DOMAINS;
 
   const toggleDomain = (id: SATDomain) => {
@@ -51,6 +69,9 @@ export default function PracticeConfigScreen() {
     );
   };
 
+  const totalRemaining = remaining ? remaining.easy + remaining.medium + remaining.hard : 0;
+  const limitExhausted = isPremium === false && remaining !== null && totalRemaining === 0;
+
   const handleStart = async () => {
     setLoading(true);
     setError(null);
@@ -58,11 +79,16 @@ export default function PracticeConfigScreen() {
       await startPracticeMode({
         section,
         domains: selectedDomains,
-        difficulty,
-        questionCount: count,
+        difficulty: isPremium ? difficulty : 'mixed',
+        questionCount: isPremium ? count : totalRemaining,
       });
-    } catch {
-      setError('No questions found for these filters. Try broader options.');
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : '';
+      if (msg.includes('daily_limit_reached')) {
+        setError("You've used all your free questions for today. Come back tomorrow or upgrade for unlimited access.");
+      } else {
+        setError('No questions found for these filters. Try broader options.');
+      }
       setLoading(false);
     }
   };
@@ -80,14 +106,71 @@ export default function PracticeConfigScreen() {
               <p className="text-sm text-gray-500">Untimed with AI explanations</p>
             </div>
           </div>
-          <button
-            onClick={goToLanding}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 text-sm text-gray-600 hover:text-gray-900 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
-          >
-            <ArrowLeft className="w-3.5 h-3.5" />
-            Back
-          </button>
+          <div className="flex items-center gap-2">
+            {isPremium && (
+              <span className="inline-flex items-center gap-1 px-2.5 py-1 bg-amber-100 text-amber-700 text-xs font-bold rounded-full">
+                <Crown className="w-3 h-3" />
+                Premium
+              </span>
+            )}
+            <button
+              onClick={goToLanding}
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 text-sm text-gray-600 hover:text-gray-900 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
+            >
+              <ArrowLeft className="w-3.5 h-3.5" />
+              Back
+            </button>
+          </div>
         </div>
+
+        {/* Freemium banner */}
+        {!usageLoading && isPremium === false && (
+          <div className="mb-4 bg-[#0d47a1]/5 border border-[#0d47a1]/20 rounded-xl p-4">
+            <div className="flex items-start justify-between gap-3">
+              <div>
+                <p className="text-sm font-semibold text-[#1a365d]">
+                  Free Plan — {totalRemaining} question{totalRemaining !== 1 ? 's' : ''} remaining today
+                </p>
+                <p className="text-xs text-gray-500 mt-0.5">
+                  Daily limit: 2 Easy + 2 Medium + 1 Hard with AI explanations
+                </p>
+                {remaining && (
+                  <div className="flex gap-3 mt-2">
+                    {(['easy', 'medium', 'hard'] as const).map((tier) => (
+                      <span key={tier} className={`text-xs font-medium px-2 py-0.5 rounded-full ${
+                        remaining[tier] > 0 ? 'bg-emerald-100 text-emerald-700' : 'bg-gray-100 text-gray-400'
+                      }`}>
+                        {tier.charAt(0).toUpperCase() + tier.slice(1)}: {remaining[tier]}
+                      </span>
+                    ))}
+                  </div>
+                )}
+              </div>
+              <Link
+                href="/tests/tokens"
+                className="shrink-0 inline-flex items-center gap-1 px-3 py-1.5 bg-[#0d47a1] text-white text-xs font-semibold rounded-lg hover:bg-[#1565c0] transition-colors"
+              >
+                <Sparkles className="w-3 h-3" />
+                Upgrade
+              </Link>
+            </div>
+          </div>
+        )}
+
+        {/* Limit exhausted */}
+        {limitExhausted && (
+          <div className="mb-4 bg-amber-50 border border-amber-200 rounded-xl p-5 text-center">
+            <p className="font-semibold text-amber-800 mb-1">Today&apos;s free questions are used up</p>
+            <p className="text-sm text-amber-600 mb-3">Come back tomorrow or upgrade for unlimited practice.</p>
+            <Link
+              href="/tests/tokens"
+              className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#0d47a1] text-white font-semibold rounded-lg hover:bg-[#1565c0] transition-colors text-sm"
+            >
+              Unlock Unlimited Practice
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
+        )}
 
         <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-6 space-y-6">
           {/* Section */}
@@ -135,9 +218,12 @@ export default function PracticeConfigScreen() {
             </div>
           </div>
 
-          {/* Difficulty */}
-          <div>
-            <label className="text-sm font-semibold text-gray-700 mb-2 block">Difficulty</label>
+          {/* Difficulty — only for premium */}
+          <div className={isPremium === false ? 'opacity-50 pointer-events-none' : ''}>
+            <label className="text-sm font-semibold text-gray-700 mb-2 block">
+              Difficulty
+              {isPremium === false && <span className="ml-2 text-xs font-normal text-amber-600">(Premium only)</span>}
+            </label>
             <div className="flex gap-2">
               {DIFFICULTIES.map((d) => (
                 <button
@@ -155,9 +241,12 @@ export default function PracticeConfigScreen() {
             </div>
           </div>
 
-          {/* Count */}
-          <div>
-            <label className="text-sm font-semibold text-gray-700 mb-2 block">Questions</label>
+          {/* Count — only for premium */}
+          <div className={isPremium === false ? 'opacity-50 pointer-events-none' : ''}>
+            <label className="text-sm font-semibold text-gray-700 mb-2 block">
+              Questions
+              {isPremium === false && <span className="ml-2 text-xs font-normal text-amber-600">(Premium only)</span>}
+            </label>
             <div className="flex gap-2">
               {COUNTS.map((c) => (
                 <button
@@ -181,7 +270,7 @@ export default function PracticeConfigScreen() {
 
           <button
             onClick={handleStart}
-            disabled={loading}
+            disabled={loading || limitExhausted || usageLoading}
             className="w-full py-3 bg-emerald-600 text-white font-semibold rounded-lg hover:bg-emerald-700 disabled:opacity-60 transition-colors text-lg inline-flex items-center justify-center gap-2"
           >
             {loading ? (
@@ -192,7 +281,7 @@ export default function PracticeConfigScreen() {
             ) : (
               <>
                 <Play className="w-5 h-5" />
-                Start Practice
+                {isPremium ? 'Start Practice' : `Start Practice (${totalRemaining} left)`}
               </>
             )}
           </button>

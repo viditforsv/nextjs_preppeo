@@ -2,7 +2,7 @@ import { createSupabaseApiClient } from '@/lib/supabase/api-client';
 import ExamCard from '@/components/tests/ExamCard';
 import { Button } from '@/design-system/components/ui/button';
 import Link from 'next/link';
-import { Ticket } from 'lucide-react';
+import { Ticket, BookOpen, ArrowRight, Sparkles } from 'lucide-react';
 import type { ExamType, TestToken } from '@/types/test-tokens';
 
 export const metadata = {
@@ -56,6 +56,37 @@ export default async function TestsHubPage() {
               Get More Test Packs
             </Button>
           </Link>
+        </div>
+
+        {/* Practice Mode CTA */}
+        <div className="mb-10 bg-white border border-gray-200 rounded-xl p-6">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+            <div className="w-12 h-12 rounded-lg bg-emerald-100 flex items-center justify-center shrink-0">
+              <BookOpen className="w-6 h-6 text-emerald-600" />
+            </div>
+            <div className="flex-1">
+              <h2 className="text-lg font-bold text-[#1a365d]">Practice Mode</h2>
+              <p className="text-sm text-gray-600">
+                5 free questions daily with AI explanations. Practice by topic and difficulty, then upgrade for unlimited access.
+              </p>
+            </div>
+            <div className="flex gap-3 shrink-0">
+              <Link
+                href="/sat-test"
+                className="inline-flex items-center gap-1.5 px-4 py-2.5 bg-emerald-600 text-white text-sm font-semibold rounded-lg hover:bg-emerald-700 transition-colors"
+              >
+                <BookOpen className="w-4 h-4" />
+                Try Free Practice
+              </Link>
+              <Link
+                href="/tests/tokens"
+                className="inline-flex items-center gap-1.5 px-4 py-2.5 border border-[#0d47a1] text-[#0d47a1] text-sm font-semibold rounded-lg hover:bg-[#0d47a1]/5 transition-colors"
+              >
+                <Sparkles className="w-4 h-4" />
+                Upgrade
+              </Link>
+            </div>
+          </div>
         </div>
 
         {/* Exam grid */}

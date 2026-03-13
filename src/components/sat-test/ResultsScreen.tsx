@@ -16,6 +16,7 @@ import {
   Gift,
   Copy,
   Check,
+  BookOpen,
 } from 'lucide-react';
 import ScoreOverviewTab from './results/ScoreOverviewTab';
 import DomainBreakdownTab from './results/DomainBreakdownTab';
@@ -199,6 +200,28 @@ export default function ResultsScreen() {
             </div>
           </div>
         )}
+
+        {/* Practice Mode CTA */}
+        <div className="mt-4 bg-emerald-50 border border-emerald-200 rounded-xl p-6">
+          <div className="flex items-start gap-4">
+            <div className="w-10 h-10 rounded-lg bg-emerald-100 flex items-center justify-center shrink-0">
+              <BookOpen className="w-5 h-5 text-emerald-600" />
+            </div>
+            <div className="flex-1">
+              <h3 className="text-lg font-bold text-[#1a365d] mb-1">Want to Improve Specific Areas?</h3>
+              <p className="text-sm text-gray-600 mb-3">
+                Use Practice Mode to target your weak domains with AI explanations. 5 free questions daily.
+              </p>
+              <Link
+                href="/sat-test"
+                className="inline-flex items-center gap-2 px-4 py-2 text-sm font-semibold bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors"
+              >
+                Start Practicing
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
