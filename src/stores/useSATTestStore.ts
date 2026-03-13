@@ -147,6 +147,8 @@ interface SATTestState {
   practiceRevealed: Record<string, boolean>;
   practiceExplanations: Record<string, string>;
   practiceLoading: Record<string, boolean>;
+  practiceTheory: Record<string, string>;
+  practiceTheoryLoading: Record<string, boolean>;
   practiceIndex: number;
 
   // UI
@@ -173,6 +175,7 @@ interface SATTestState {
   startPracticeMode: (config: SATPracticeConfig) => Promise<void>;
   setPracticeAnswer: (qId: string, value: string | null) => void;
   revealAnswer: (qId: string) => void;
+  fetchTheory: (qId: string) => void;
   navigatePractice: (idx: number) => void;
   finishPractice: () => void;
 }
@@ -210,6 +213,8 @@ const initialState = {
   practiceRevealed: {} as Record<string, boolean>,
   practiceExplanations: {} as Record<string, string>,
   practiceLoading: {} as Record<string, boolean>,
+  practiceTheory: {} as Record<string, string>,
+  practiceTheoryLoading: {} as Record<string, boolean>,
   practiceIndex: 0,
   isCalculatorOpen: false,
   isReviewOpen: false,
@@ -589,6 +594,8 @@ export const useSATTestStore = create<SATTestState>()((set, get) => ({
       practiceRevealed: {},
       practiceExplanations: {},
       practiceLoading: {},
+      practiceTheory: {},
+      practiceTheoryLoading: {},
       practiceIndex: 0,
       isCalculatorOpen: false,
     });
@@ -613,6 +620,7 @@ export const useSATTestStore = create<SATTestState>()((set, get) => ({
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
+        questionId: question.id,
         prompt: question.prompt,
         passage: question.passage,
         options: question.options,
@@ -641,6 +649,48 @@ export const useSATTestStore = create<SATTestState>()((set, get) => ({
             [qId]: question.explanation,
           },
           practiceLoading: { ...s.practiceLoading, [qId]: false },
+        }));
+      });
+  },
+
+  fetchTheory: (qId) => {
+    const { practiceQuestions, practiceTheory, practiceTheoryLoading, practiceAnswers } = get();
+    if (practiceTheory[qId] || practiceTheoryLoading[qId]) return;
+
+    set((s) => ({
+      practiceTheoryLoading: { ...s.practiceTheoryLoading, [qId]: true },
+    }));
+
+    const question = practiceQuestions.find((q) => q.id === qId);
+    if (!question) return;
+
+    fetch('/api/sat/explain', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        questionId: question.id,
+        prompt: question.prompt,
+        passage: question.passage,
+        options: question.options,
+        userAnswer: practiceAnswers[qId] ?? '',
+        correctAnswer: question.correctAnswer,
+        section: question.section ?? 'math',
+        domain: question.domain,
+        difficulty: question.difficulty,
+        mode: 'theory',
+      }),
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        set((s) => ({
+          practiceTheory: { ...s.practiceTheory, [qId]: data.explanation ?? 'Unable to load theory.' },
+          practiceTheoryLoading: { ...s.practiceTheoryLoading, [qId]: false },
+        }));
+      })
+      .catch(() => {
+        set((s) => ({
+          practiceTheory: { ...s.practiceTheory, [qId]: 'Unable to load theory at this time.' },
+          practiceTheoryLoading: { ...s.practiceTheoryLoading, [qId]: false },
         }));
       });
   },

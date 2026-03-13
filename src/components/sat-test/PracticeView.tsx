@@ -13,6 +13,7 @@ import {
   Loader2,
   LogOut,
   Sparkles,
+  Lightbulb,
 } from 'lucide-react';
 
 const DOMAIN_LABELS: Record<string, string> = {
@@ -33,11 +34,14 @@ export default function PracticeView() {
     practiceRevealed,
     practiceExplanations,
     practiceLoading,
+    practiceTheory,
+    practiceTheoryLoading,
     practiceIndex,
     currentSection,
     isCalculatorOpen,
     setPracticeAnswer,
     revealAnswer,
+    fetchTheory,
     navigatePractice,
     finishPractice,
     goToLanding,
@@ -54,6 +58,8 @@ export default function PracticeView() {
   const aiExplanation = practiceExplanations[question.id];
   const isCorrect = answer !== null && answer.trim().toLowerCase() === question.correctAnswer.trim().toLowerCase();
   const isMath = currentSection === 'math';
+  const theory = practiceTheory[question.id];
+  const isTheoryLoading = !!practiceTheoryLoading[question.id];
 
   const reviewed = Object.keys(practiceRevealed).length;
 
@@ -244,6 +250,38 @@ export default function PracticeView() {
                 {aiExplanation ?? question.explanation}
               </div>
             )}
+          </div>
+        )}
+
+        {/* Deep Dive: Theory */}
+        {isRevealed && !theory && !isTheoryLoading && (
+          <button
+            onClick={() => fetchTheory(question.id)}
+            className="w-full mb-4 py-2.5 border-2 border-indigo-200 text-indigo-700 bg-indigo-50 font-semibold rounded-xl hover:bg-indigo-100 transition-colors inline-flex items-center justify-center gap-2 text-sm"
+          >
+            <Lightbulb className="w-4 h-4" />
+            Deep Dive: Theory
+          </button>
+        )}
+
+        {isRevealed && isTheoryLoading && (
+          <div className="bg-indigo-50 rounded-xl border border-indigo-200 p-6 mb-4">
+            <div className="flex items-center gap-2 text-sm text-indigo-600 py-2">
+              <Loader2 className="w-4 h-4 animate-spin" />
+              Loading theory...
+            </div>
+          </div>
+        )}
+
+        {isRevealed && theory && (
+          <div className="bg-indigo-50 rounded-xl border border-indigo-200 shadow-sm p-6 mb-4">
+            <div className="flex items-center gap-2 mb-3">
+              <Lightbulb className="w-4 h-4 text-indigo-500" />
+              <h3 className="text-sm font-semibold text-indigo-700">Deep Dive: Theory</h3>
+            </div>
+            <div className="text-sm text-indigo-900 leading-relaxed whitespace-pre-line">
+              {theory}
+            </div>
           </div>
         )}
       </main>
