@@ -50,7 +50,7 @@ export default function TokenStoreCard({
     setError('');
 
     try {
-      const orderRes = await fetch('/api/tests/create-order', {
+      const orderRes = await fetch('/api/mocks/create-order', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -82,7 +82,7 @@ export default function TokenStoreCard({
         order_id: orderData.orderId,
         theme: { color: '#1a365d' },
         handler: async (response: { razorpay_payment_id: string; razorpay_signature: string }) => {
-          const verifyRes = await fetch('/api/tests/verify-payment', {
+          const verifyRes = await fetch('/api/mocks/verify-payment', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -146,7 +146,7 @@ export default function TokenStoreCard({
               ₹{pack.price}
             </div>
           )}
-          <div className="text-xs text-gray-400">₹{pricePerToken}/test</div>
+          <div className="text-xs text-gray-400">₹{pricePerToken}/mock</div>
         </div>
       </div>
 

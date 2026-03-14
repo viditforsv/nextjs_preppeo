@@ -1,0 +1,309 @@
+\documentclass[11pt,paper=a4,answers]{exam}
+\usepackage{graphicx,lastpage}
+\usepackage{upgreek}
+\usepackage{censor}
+\usepackage{gensymb}
+\usepackage{amsmath}
+\usepackage{multicol}
+\usepackage{enumitem}
+\usepackage{tasks}
+\usepackage{adjustbox}
+\usepackage{xcolor}
+\usepackage{tfrupee}
+\setlength{\voffset}{0.25in}
+\usepackage{tabularx}
+\newcolumntype{Y}{>{\centering\arraybackslash}X}
+%==============================================================
+% Customise Non-Essential Packages Below
+% =============================================================
+\usepackage[most]{tcolorbox}
+\usepackage{eso-pic}
+\usepackage{tikz}
+\AddToShipoutPictureBG{%
+\begin{tikzpicture}[remember picture,overlay]
+\foreach \x in {-8,-4,0,4,8,12,16,20}
+\foreach \y in {-8,-4,0,4,8,12,16,20} {
+\node[opacity=0.05,rotate=45,anchor=center] at ([xshift=\x cm,yshift=\y cm]current page.center) {%
+\begin{minipage}{2cm}
+\centering
+\includegraphics[width=2cm]{images/logo_black.png}\\
+\small preppeo.com
+\end{minipage}%
+};
+}
+\end{tikzpicture}%
+}
+\printanswers
+
+%==============================================================
+% Customise Non-Essential Packages Above
+% =============================================================
+\definecolor{svgray}{rgb}{0.90, 0.90, 0.90}
+\graphicspath{{images/}}
+
+\usepackage[normalem]{ulem}
+\renewcommand\ULthickness{1pt}   %%---> For changing thickness of underline
+\setlength\ULdepth{3.5ex}%\maxdimen ---> For changing depth of underline
+\renewcommand{\baselinestretch}{1}
+\chead{
+\includegraphics[scale=0.1,height=2cm ]{logo.png}
+}
+\pagestyle{empty}
+
+\pagestyle{headandfoot}
+\headrule
+\cfoot{W: https://preppeo.com; M: +91-8130711689}
+
+\begin{document}
+%==============================================================
+% Customise Question paper details below this
+% =============================================================
+\begin{center}
+    \centering
+    \renewcommand{\arraystretch}{1.5}
+    \begin{tabularx}{\textwidth}{YYY}
+    & \normalsize\bf{{\Large{{Quant}}}} & \\
+    By Preppeo & \normalsize\bf{{psda\_sat\_hard\_mcq\_003}} & SAT\\
+    \normalsize{{\textbf{{Algebra}} }} & \normalsize{{\textbf{{ratio,probability, statistics }} }} & \normalsize{{\textbf{{Solving Linear Equations}} }} \\
+    \end{tabularx}
+\end{center}
+\par\noindent\rule{\textwidth}{1pt}
+% =============================================================
+% Customise Question paper details above this
+% =============================================================
+
+\begin{questions}
+\pointsinrightmargin
+\pointsdroppedatright
+\marksnotpoints
+\pointpoints{mark}{marks}
+\pointformat{\boldmath\themarginpoints}
+\bracketedpoints
+
+% =============================================================
+% Question Begin
+% =============================================================
+
+\section*{SAT Advanced Math - Elite Numeric Entry Practice}
+
+% Q1: Based on Bacteria Growth (r constant) logic
+\question
+A population of microorganisms doubles every $15$ hours. The population can be modeled by the function $P(t) = C(2)^{rt}$, where $C$ is the initial population and $t$ is the time in hours. What is the value of $r$?
+
+\begin{solution}
+If the population doubles, then $P(t) = 2C$ when $t = 15$.
+\vspace{5pt}
+\begin{center}
+$2C = C(2)^{r(15)} \implies 2^1 = 2^{15r}$
+\vspace{5pt}
+$1 = 15r \implies r = \dfrac{1}{15} \approx 0.0667$
+\end{center}
+\vspace{5pt}
+Answer: \colorbox{yellow!100}{.0667} (or 1/15)
+\end{solution}
+
+\vspace{1cm}
+
+% Q2: Based on 3(2x^2 + px + 8) Equivalence logic
+\question
+In the expression $5(2x^2 + px + 12) - 2x(3p + 10)$, $p$ is a constant. If this expression is equivalent to $10x^2 - 145x + 60$, what is the value of $p$?
+
+\begin{solution}
+Expand the expression and group the $x$-terms:
+\vspace{5pt}
+\begin{center}
+$10x^2 + 5px + 60 - 6px - 20x$ \\
+$10x^2 + (5p - 6p - 20)x + 60$ \\
+$10x^2 + (-p - 20)x + 60$
+\end{center}
+\vspace{5pt}
+Set the $x$-coefficient equal to $-145$:
+\vspace{5pt}
+\begin{center}
+$-p - 20 = -145 \implies -p = -125 \implies p = 125$
+\end{center}
+\vspace{5pt}
+Answer: \colorbox{yellow!100}{125}
+\end{solution}
+
+\vspace{1cm}
+
+% Q3: Based on Projectile Symmetry logic
+\question
+A ball is thrown from a height of $6$ feet. It reaches its maximum height of $54$ feet at $t = 1.5$ seconds. At what time, in seconds, will the ball be at a height of $6$ feet again?
+
+\begin{solution}
+By the property of quadratic symmetry, the time taken to reach the vertex from a specific height is equal to the time taken to return to that same height from the vertex.
+\vspace{5pt}
+\begin{center}
+Time from launch ($6$ft) to vertex $= 1.5 - 0 = 1.5$ seconds. \\
+Time from vertex back to $6$ft $= 1.5$ seconds. \\
+Total time $= 1.5 + 1.5 = 3.0$ seconds.
+\end{center}
+\vspace{5pt}
+Answer: \colorbox{yellow!100}{3}
+\end{solution}
+
+\vspace{1cm}
+
+% Q4: Based on Radical Structure logic (root 16)
+\question
+For $x \neq 0$ and $y > 0$, the expression $\dfrac{\sqrt{144x^8y^{12}}}{x^2y^2}$ is equivalent to $12x^ay^b$. What is the value of $a + b$?
+
+\begin{solution}
+Simplify the numerator: $\sqrt{144x^8y^{12}} = 12x^4y^6$.
+\vspace{5pt}
+\begin{center}
+Divide by the denominator: $\dfrac{12x^4y^6}{x^2y^2} = 12x^{4-2}y^{6-2} = 12x^2y^4$.
+\vspace{5pt}
+Here $a=2$ and $b=4$. Therefore, $a+b = 6$.
+\end{center}
+\vspace{5pt}
+Answer: \colorbox{yellow!100}{6}
+\end{solution}
+
+\vspace{1cm}
+
+% Q5: Based on Decimal rewriting logic (0.36)
+\question
+$0.28x^2 + 0.56x + 0.84$ \\
+The expression above is rewritten as $a(4x^2 + 8x + 12)$. What is the value of $a$?
+
+\begin{solution}
+Divide the corresponding coefficients:
+\vspace{5pt}
+\begin{center}
+$0.28 / 4 = 0.07$ \\
+$0.56 / 8 = 0.07$ \\
+$0.84 / 12 = 0.07$
+\end{center}
+\vspace{5pt}
+Answer: \colorbox{yellow!100}{.07}
+\end{solution}
+
+\vspace{1cm}
+
+% Q6: Based on Population (n) months growth logic
+\question
+$P(t) = 1,200(1.05)^{\frac{t}{6}}$ \\
+The population of a town increases by $5\%$ every $n$ months. What is the value of $n$?
+
+\begin{solution}
+The growth occurs when the exponent is $1$.
+\vspace{5pt}
+\begin{center}
+$t / 6 = 1 \implies t = 6$ years.
+\vspace{5pt}
+$n = 6 \times 12 = 72$ months.
+\end{center}
+\vspace{5pt}
+Answer: \colorbox{yellow!100}{72}
+\end{solution}
+
+\vspace{1cm}
+
+% Q7: Based on Minimum value vertex shift logic
+\question
+$f(x) = 3x^2 + 24x + 50$. The function $g$ is defined by $g(x) = f(x + 4)$. At what value of $x$ does $g(x)$ reach its minimum?
+
+\begin{solution}
+Find the vertex of $f(x)$: $h = -b/2a = -24 / (2 \cdot 3) = -4$.
+\vspace{5pt}
+The function $g(x) = f(x + 4)$ is a horizontal shift of $f(x)$ to the \textbf{left} by $4$ units.
+\vspace{5pt}
+\begin{center}
+New $x$-coordinate $= -4 - 4 = -8$.
+\end{center}
+\vspace{5pt}
+Answer: \colorbox{yellow!100}{-8}
+\end{solution}
+
+\vspace{1cm}
+
+% Q8: Based on f(x) Translation (g(0)) logic
+\question
+$f(x) = (x - 2)(x - 3)(x + 1)$. The graph of $g(x)$ is the graph of $f(x)$ translated up $5$ units. What is the value of $g(0)$?
+
+\begin{solution}
+$f(0) = (0 - 2)(0 - 3)(0 + 1) = (-2)(-3)(1) = 6$.
+\vspace{5pt}
+$g(0) = f(0) + 5 = 6 + 5 = 11$.
+\vspace{5pt}
+Answer: \colorbox{yellow!100}{11}
+\end{solution}
+
+\vspace{1cm}
+
+% Q9: Based on Rational Exponent radical simplification
+\question
+$\dfrac{x^{-4}y^2}{x^2y^{-1/2}} = x^ay^b$. What is the value of $a \cdot b$? (Express as a decimal).
+
+\begin{solution}
+$a = -4 - 2 = -6$. \\
+$b = 2 - (-1/2) = 2.5$.
+\vspace{5pt}
+\begin{center}
+$a \cdot b = -6 \times 2.5 = -15$.
+\end{center}
+\vspace{5pt}
+Answer: \colorbox{yellow!100}{-15}
+\end{solution}
+
+\vspace{1cm}
+
+% Q10: Based on x^2 - 2x - 9 (k value)
+\question
+$x^2 - 10x - 2 = 0$. One solution is $5 + \sqrt{k}$. What is the value of $k$?
+
+\begin{solution}
+Complete the square: $x^2 - 10x = 2$.
+\vspace{5pt}
+\begin{center}
+$x^2 - 10x + 25 = 2 + 25 \implies (x - 5)^2 = 27$. \\
+$x = 5 + \sqrt{27}$.
+\end{center}
+\vspace{5pt}
+Answer: \colorbox{yellow!100}{27}
+\end{solution}
+
+\vspace{1cm}
+
+% Q11: Zeros and Coefficients
+\question
+The function $f(x) = x^2 + bx + 45$ has a zero at $x = 5$. What is the other zero of the function?
+
+\begin{solution}
+In $x^2 + bx + c$, the product of the zeros is $c$.
+\vspace{5pt}
+\begin{center}
+$5 \times (\text{other zero}) = 45 \implies \text{other zero} = 9$.
+\end{center}
+\vspace{5pt}
+Answer: \colorbox{yellow!100}{9}
+\end{solution}
+
+\vspace{1cm}
+
+% Q12: Based on 30-60-90 logic (Trig in Advanced Math)
+\question
+In a right triangle, $\sin(x^\circ) = \cos(24^\circ)$, where $0 < x < 90$. What is the value of $x$?
+
+\begin{solution}
+By the complementary angle identity: $\sin(\theta) = \cos(90 - \theta)$.
+\vspace{5pt}
+\begin{center}
+$x = 90 - 24 = 66$.
+\end{center}
+\vspace{5pt}
+Answer: \colorbox{yellow!100}{66}
+\end{solution}
+
+% =============================================================
+% Question End
+% =============================================================
+
+\end{questions}
+\begin{center}
+\rule{.5\textwidth}{1pt}
+\end{center}
+\end{document}

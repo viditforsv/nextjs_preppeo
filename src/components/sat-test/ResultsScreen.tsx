@@ -91,7 +91,7 @@ export default function ResultsScreen() {
               className="inline-flex items-center gap-1.5 px-3 py-1.5 text-sm bg-white/10 hover:bg-white/20 rounded-lg transition-colors"
             >
               <RotateCcw className="w-3.5 h-3.5" />
-              New Test
+              New Mock
             </button>
           </div>
         </div>
@@ -160,10 +160,10 @@ export default function ResultsScreen() {
                 {totalEstimatedScore
                   ? `You scored ${totalEstimatedScore}. `
                   : ''}
-                Students who take 3+ mocks see the biggest improvements. Each test has unique questions and a fresh adaptive challenge.
+                Students who take 3+ mocks see the biggest improvements. Each mock has unique questions and a fresh adaptive challenge.
               </p>
               <Link
-                href="/tests/tokens?exam=sat"
+                href="/mocks/tokens?exam=sat"
                 className="inline-flex items-center gap-2 px-5 py-2.5 bg-white text-[#0d47a1] font-semibold text-sm rounded-lg hover:bg-white/90 transition-colors"
               >
                 Unlock Premium Practice

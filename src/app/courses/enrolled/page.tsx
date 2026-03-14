@@ -23,6 +23,11 @@ import {
   Award,
   Target,
   BarChart3,
+  Gift,
+  Sparkles,
+  Users,
+  FileEdit,
+  Zap,
 } from "lucide-react";
 import Link from "next/link";
 
@@ -65,7 +70,6 @@ export default function EnrolledCoursesPage() {
     averageProgress: 0,
   });
   const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
 
   // Memoize the supabase client to prevent recreation on every render
   const supabase = useMemo(() => createClient(), []);
@@ -79,7 +83,6 @@ export default function EnrolledCoursesPage() {
 
       try {
         setIsLoading(true);
-        setError(null);
 
         const { data, error } = await supabase
           .from("courses_enrollments")
@@ -181,7 +184,6 @@ export default function EnrolledCoursesPage() {
         });
       } catch (err) {
         console.error("Error fetching enrolled courses:", err);
-        setError("Failed to load enrolled courses");
       } finally {
         setIsLoading(false);
       }
@@ -300,15 +302,60 @@ export default function EnrolledCoursesPage() {
         {/* Page Header */}
         <div className="mb-8">
           <h1 className="text-4xl font-bold text-foreground mb-2">
-            My Enrolled Courses
+            My Dashboard
           </h1>
           <p className="text-lg text-muted-foreground">
-            Continue your learning journey and track your progress
+            Mock tests, practice, and courses — all in one place
           </p>
         </div>
 
+        {/* Mocks + Practice Quick Actions */}
+        {!isLoading && (
+          <div className="mb-10">
+            <h2 className="text-xl font-bold text-foreground mb-4">Mocks &amp; Practice</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              <Link href="/sat-test" className="group">
+                <div className="bg-white rounded-xl border border-gray-100 p-5 hover:border-primary/40 hover:shadow-md transition-all h-full">
+                  <div className="w-10 h-10 rounded-lg bg-[#1a365d]/10 flex items-center justify-center mb-3 group-hover:bg-[#1a365d]/20 transition-colors">
+                    <FileEdit className="w-5 h-5 text-[#1a365d]" />
+                  </div>
+                  <p className="font-semibold text-foreground mb-1">SAT</p>
+                  <p className="text-xs text-muted-foreground">Full adaptive mock + Practice mode</p>
+                </div>
+              </Link>
+              <Link href="/gre-test" className="group">
+                <div className="bg-white rounded-xl border border-gray-100 p-5 hover:border-primary/40 hover:shadow-md transition-all h-full">
+                  <div className="w-10 h-10 rounded-lg bg-emerald-500/10 flex items-center justify-center mb-3 group-hover:bg-emerald-500/20 transition-colors">
+                    <FileEdit className="w-5 h-5 text-emerald-600" />
+                  </div>
+                  <p className="font-semibold text-foreground mb-1">GRE</p>
+                  <p className="text-xs text-muted-foreground">Quant mock + Practice mode</p>
+                </div>
+              </Link>
+              <Link href="/ashoka-test" className="group">
+                <div className="bg-white rounded-xl border border-gray-100 p-5 hover:border-primary/40 hover:shadow-md transition-all h-full">
+                  <div className="w-10 h-10 rounded-lg bg-amber-500/10 flex items-center justify-center mb-3 group-hover:bg-amber-500/20 transition-colors">
+                    <FileEdit className="w-5 h-5 text-amber-600" />
+                  </div>
+                  <p className="font-semibold text-foreground mb-1">Ashoka AAT</p>
+                  <p className="text-xs text-muted-foreground">Full-length aptitude mock</p>
+                </div>
+              </Link>
+              <Link href="/mocks" className="group">
+                <div className="bg-white rounded-xl border border-gray-100 p-5 hover:border-primary/40 hover:shadow-md transition-all h-full">
+                  <div className="w-10 h-10 rounded-lg bg-violet-500/10 flex items-center justify-center mb-3 group-hover:bg-violet-500/20 transition-colors">
+                    <Zap className="w-5 h-5 text-violet-600" />
+                  </div>
+                  <p className="font-semibold text-foreground mb-1">Mock Hub</p>
+                  <p className="text-xs text-muted-foreground">All mocks, tokens &amp; score history</p>
+                </div>
+              </Link>
+            </div>
+          </div>
+        )}
+
         {/* Overall Stats */}
-        {!isLoading && !error && enrolledCourses.length > 0 && (
+        {!isLoading && enrolledCourses.length > 0 && (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
             <Card className="border-0 bg-[#1a365d]/5 hover:-translate-y-1">
               <CardContent className="p-6">
@@ -391,29 +438,47 @@ export default function EnrolledCoursesPage() {
           </div>
         )}
 
-        {error && (
-          <div className="text-center py-12">
-            <p className="text-red-600 mb-4">{error}</p>
-            <Button onClick={() => window.location.reload()}>Try Again</Button>
-          </div>
-        )}
-
-        {!isLoading && !error && enrolledCourses.length === 0 && (
-          <div>
-            {/* Zero-enrollment banner */}
-            <div className="bg-white rounded-xl border border-gray-100 p-8 mb-8">
-              <div className="flex items-center gap-3 mb-6">
-                <div className="w-10 h-10 rounded-lg bg-gray-100 flex items-center justify-center">
-                  <BookOpen className="w-5 h-5 text-gray-400" />
+        {!isLoading && enrolledCourses.length === 0 && (
+          <div className="space-y-5">
+            {/* Block A -- Start for Free */}
+            <div className="bg-white rounded-xl border border-gray-100 p-6">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-10 h-10 rounded-lg bg-emerald-500/10 flex items-center justify-center">
+                  <Sparkles className="w-5 h-5 text-emerald-600" />
                 </div>
                 <div>
-                  <p className="text-2xl font-bold text-foreground">0 enrolled courses</p>
-                  <p className="text-sm text-muted-foreground">You haven&apos;t enrolled in any courses yet.</p>
+                  <p className="text-lg font-bold text-foreground">Start preparing — for free</p>
+                  <p className="text-sm text-muted-foreground">
+                    Claim a complimentary SAT mock (worth ₹499) or practice 5 questions daily with AI explanations.
+                  </p>
                 </div>
               </div>
+              <div className="flex flex-wrap gap-3">
+                <Link href="/sat-free">
+                  <Button size="sm" className="bg-primary hover:bg-primary/90 text-white gap-1.5">
+                    <Gift className="w-4 h-4" /> Claim Free SAT Mock
+                  </Button>
+                </Link>
+                <Link href="/sat-test">
+                  <Button size="sm" variant="outline" className="gap-1.5">
+                    <Play className="w-4 h-4" /> Try Free Practice
+                  </Button>
+                </Link>
+              </div>
+            </div>
 
-              <p className="text-sm font-medium text-foreground mb-3">Which exam are you preparing for?</p>
-              <div className="flex flex-wrap gap-2 mb-6">
+            {/* Block B -- Browse Courses */}
+            <div className="bg-white rounded-xl border border-gray-100 p-6">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-10 h-10 rounded-lg bg-[#1a365d]/10 flex items-center justify-center">
+                  <BookOpen className="w-5 h-5 text-[#1a365d]" />
+                </div>
+                <div>
+                  <p className="text-lg font-bold text-foreground">Ready for structured learning?</p>
+                  <p className="text-sm text-muted-foreground">Pick your exam and explore our courses.</p>
+                </div>
+              </div>
+              <div className="flex flex-wrap gap-2">
                 {[
                   { label: "SAT", value: "SAT" },
                   { label: "GRE", value: "GRE" },
@@ -425,7 +490,7 @@ export default function EnrolledCoursesPage() {
                     href={`/courses/discover?curriculum=${exam.value}`}
                     className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full border border-primary/30 text-sm font-medium text-primary bg-primary/5 hover:bg-primary hover:text-white transition-colors"
                   >
-                    {exam.label} courses
+                    {exam.label}
                     <ArrowRight className="w-3.5 h-3.5" />
                   </Link>
                 ))}
@@ -437,20 +502,34 @@ export default function EnrolledCoursesPage() {
                   <ArrowRight className="w-3.5 h-3.5" />
                 </Link>
               </div>
+            </div>
 
-              <p className="text-xs text-muted-foreground">
-                Not ready to enroll? Every exam also includes a{" "}
-                <Link href="/tests" className="text-primary hover:underline font-medium">
-                  free mock test
-                </Link>{" "}
-                — no enrollment needed.
-              </p>
+            {/* Block C -- Refer Friends */}
+            <div className="bg-white rounded-xl border border-gray-100 p-6">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-10 h-10 rounded-lg bg-violet-500/10 flex items-center justify-center">
+                  <Users className="w-5 h-5 text-violet-600" />
+                </div>
+                <div>
+                  <p className="text-lg font-bold text-foreground">Invite friends, earn free mocks</p>
+                  <p className="text-sm text-muted-foreground">
+                    Share your referral link — you and your friend both get a bonus mock token.
+                  </p>
+                </div>
+              </div>
+              <Link href="/referral">
+                <Button size="sm" variant="outline" className="gap-1.5">
+                  <Gift className="w-4 h-4" /> Get Your Referral Link
+                </Button>
+              </Link>
             </div>
           </div>
         )}
 
-        {!isLoading && !error && enrolledCourses.length > 0 && (
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        {!isLoading && enrolledCourses.length > 0 && (
+          <div>
+            <h2 className="text-xl font-bold text-foreground mb-4">My Courses</h2>
+            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {enrolledCourses.map((course) => (
               <Card
                 key={course.id}
@@ -546,6 +625,7 @@ export default function EnrolledCoursesPage() {
                 </CardContent>
               </Card>
             ))}
+            </div>
           </div>
         )}
       </div>

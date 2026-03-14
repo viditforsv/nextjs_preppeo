@@ -1,0 +1,245 @@
+\documentclass[11pt,paper=a4,answers]{exam}
+\usepackage{graphicx,lastpage}
+\usepackage{upgreek}
+\usepackage{censor}
+\usepackage{gensymb}
+\usepackage{amsmath}
+\usepackage{multicol}
+\usepackage{enumitem}
+\usepackage{tasks}
+\usepackage{adjustbox}
+\usepackage{xcolor}
+\usepackage{tfrupee}
+\setlength{\voffset}{0.25in}
+\usepackage{tabularx}
+\newcolumntype{Y}{>{\centering\arraybackslash}X}
+%==============================================================
+% Customise Non-Essential Packages Below
+% =============================================================
+\usepackage[most]{tcolorbox}
+\usepackage{eso-pic}
+\usepackage{tikz}
+\AddToShipoutPictureBG{%
+\begin{tikzpicture}[remember picture,overlay]
+\foreach \x in {-8,-4,0,4,8,12,16,20}
+\foreach \y in {-8,-4,0,4,8,12,16,20} {
+\node[opacity=0.05,rotate=45,anchor=center] at ([xshift=\x cm,yshift=\y cm]current page.center) {%
+\begin{minipage}{2cm}
+\centering
+\includegraphics[width=2cm]{images/logo_black.png}\\
+\small preppeo.com
+\end{minipage}%
+};
+}
+\end{tikzpicture}%
+}
+\printanswers
+
+%==============================================================
+% Customise Non-Essential Packages Above
+% =============================================================
+\definecolor{svgray}{rgb}{0.90, 0.90, 0.90}
+\graphicspath{{images/}}
+
+\usepackage[normalem]{ulem}
+\renewcommand\ULthickness{1pt}   %%---> For changing thickness of underline
+\setlength\ULdepth{3.5ex}%\maxdimen ---> For changing depth of underline
+\renewcommand{\baselinestretch}{1}
+\chead{
+\includegraphics[scale=0.1,height=2cm ]{logo.png}
+}
+\pagestyle{empty}
+
+\pagestyle{headandfoot}
+\headrule
+\cfoot{W: https://preppeo.com; M: +91-8130711689}
+
+\begin{document}
+%==============================================================
+% Customise Question paper details below this
+% =============================================================
+\begin{center}
+    \centering
+    \renewcommand{\arraystretch}{1.5}
+    \begin{tabularx}{\textwidth}{YYY}
+    & \normalsize\bf{{\Large{{Quant}}}} & \\
+    By Preppeo & \normalsize\bf{{psda\_sat\_hard\_mcq\_003}} & SAT\\
+    \normalsize{{\textbf{{Algebra}} }} & \normalsize{{\textbf{{ratio,probability, statistics }} }} & \normalsize{{\textbf{{Solving Linear Equations}} }} \\
+    \end{tabularx}
+\end{center}
+\par\noindent\rule{\textwidth}{1pt}
+% =============================================================
+% Customise Question paper details above this
+% =============================================================
+
+\begin{questions}
+\pointsinrightmargin
+\pointsdroppedatright
+\marksnotpoints
+\pointpoints{mark}{marks}
+\pointformat{\boldmath\themarginpoints}
+\bracketedpoints
+
+% =============================================================
+% Question Begin
+% =============================================================
+\section*{SAT Advanced Math - Numeric Entry Practice}
+
+% Q1: Based on Population (n) months growth logic
+\question
+$P(t) = 500(1.06)^{\frac{t}{4}}$ \\
+The function $P$ above models the population of a certain species $t$ years after a study began. According to the model, the population is predicted to increase by $6\%$ every $n$ months. What is the value of $n$?
+
+\begin{solution}
+The base $1.06$ represents a $6\%$ increase. This increase occurs when the exponent equals $1$.
+\vspace{5pt}
+\begin{center}
+$\dfrac{t}{4} = 1 \implies t = 4 \text{ years}$.
+\vspace{5pt}
+Since the question asks for the value in months, convert $4$ years to months:
+\vspace{5pt}
+$n = 4 \times 12 = 48$.
+\end{center}
+\vspace{5pt}
+Answer: \colorbox{yellow!100}{48}
+\end{solution}
+
+\vspace{1cm}
+
+% Q2: Based on Bacteria growth logic (r constant)
+\question
+A scientist initially measures $5,000$ bacteria in a growth medium. $8$ hours later, the scientist measures $10,000$ bacteria. Assuming exponential growth, the formula $P = C(2)^{rt}$ gives the number of bacteria $t$ hours after the initial measurement. What is the value of $r$?
+
+\begin{solution}
+The initial amount $C$ is $5,000$. At $t = 8$, $P = 10,000$.
+\vspace{5pt}
+\begin{center}
+$10,000 = 5,000(2)^{r(8)}$ \\
+$2 = 2^{8r}$
+\vspace{5pt}
+Since the bases are the same, equate the exponents:
+\vspace{5pt}
+$1 = 8r \implies r = \dfrac{1}{8} = 0.125$.
+\end{center}
+\vspace{5pt}
+Answer: \colorbox{yellow!100}{.125} (or 1/8)
+\end{solution}
+
+\vspace{1cm}
+
+% Q3: Based on x^2 - 2x - 9 Quadratic Formula logic - WITH TIKZ
+\question
+$x^2 - 6x - 4 = 0$ \\
+One solution to the given equation can be written as $3 + \sqrt{k}$, where $k$ is a constant. What is the value of $k$?
+\begin{center}
+\begin{tikzpicture}[scale=0.6]
+    \draw[->] (-2,0) -- (8,0) node[right] {\tiny $x$};
+    \draw[->] (0,-15) -- (0,5) node[above] {\tiny $y$};
+    \draw[ultra thick, blue, domain=-0.6:6.6] plot (\x, {\x*\x - 6*\x - 4});
+    \filldraw[red] (6.6,0) circle (2pt) node[above right] {\tiny $3+\sqrt{k}$};
+\end{tikzpicture}
+\end{center}
+
+\begin{solution}
+Use the quadratic formula $x = \dfrac{-b \pm \sqrt{b^2 - 4ac}}{2a}$ with $a=1, b=-6, c=-4$:
+\vspace{5pt}
+\begin{center}
+$x = \dfrac{6 \pm \sqrt{(-6)^2 - 4(1)(-4)}}{2(1)}$ \\
+$x = \dfrac{6 \pm \sqrt{36 + 16}}{2} = \dfrac{6 \pm \sqrt{52}}{2}$
+\vspace{5pt}
+Simplify the radical: $\sqrt{52} = \sqrt{4 \times 13} = 2\sqrt{13}$. \\
+$x = \dfrac{6 \pm 2\sqrt{13}}{2} = 3 \pm \sqrt{13}$.
+\end{center}
+\vspace{5pt}
+Comparing $3 + \sqrt{13}$ to $3 + \sqrt{k}$, we find $k = 13$.
+\vspace{5pt}
+Answer: \colorbox{yellow!100}{13}
+\end{solution}
+
+\vspace{1cm}
+
+% Q4: Based on 3(2x^2 + px + 8) Equivalence logic
+\question
+In the expression $2(4x^2 + px + 10) - 5x(p + 3)$, $p$ is a constant. This expression is equivalent to $8x^2 - 39x + 20$. What is the value of $p$?
+
+\begin{solution}
+Expand and combine like terms for the $x$-coefficient:
+\vspace{5pt}
+\begin{center}
+$8x^2 + 2px + 20 - 5px - 15x$ \\
+$8x^2 + (2p - 5p - 15)x + 20$ \\
+$8x^2 + (-3p - 15)x + 20$
+\end{center}
+\vspace{5pt}
+Set the $x$-coefficient equal to the target value:
+\vspace{5pt}
+\begin{center}
+$-3p - 15 = -39$ \\
+$-3p = -24 \implies p = 8$.
+\end{center}
+\vspace{5pt}
+Answer: \colorbox{yellow!100}{8}
+\end{solution}
+
+\vspace{1cm}
+
+% Q5: Based on Projectile Height Symmetry logic - WITH TIKZ
+\question
+A projectile is launched from an initial height of $15$ meters. It reaches a maximum height of $80$ meters exactly $4$ seconds after launch. How many seconds after launch will the projectile return to its initial height of $15$ meters?
+\begin{center}
+\begin{tikzpicture}[scale=0.1]
+    \draw[thick,->] (0,0) -- (10,0) node[right] {\tiny $t$};
+    \draw[thick,->] (0,0) -- (0,5) node[above] {\tiny $h$};
+    \draw[ultra thick, orange, domain=0:8] plot (\x, {-4*(\x-4)^2/1 + 64}); % Symbolic
+    \draw[dashed] (0,1) -- (8,1);
+    \node[left] at (0,1) {\tiny $15$m};
+    \filldraw (0,2.5) circle (2pt) node[left] {\tiny $t=0$};
+    \filldraw (8,2.5) circle (2pt) node[right] {\tiny $t=?$};
+\end{tikzpicture}
+\end{center}
+
+\begin{solution}
+Quadratic paths are symmetric around the time of the maximum height (the axis of symmetry).
+\vspace{5pt}
+\begin{center}
+Initial height ($15$m) is at $t = 0$. \\
+The vertex (maximum height) is at $t = 4$.
+\end{center}
+\vspace{5pt}
+The time from launch to the vertex is $4 - 0 = 4$ seconds. Due to symmetry, it will take another $4$ seconds to return to the starting height.
+\vspace{5pt}
+$t = 4 + 4 = 8$ seconds.
+\vspace{5pt}
+Answer: \colorbox{yellow!100}{8}
+\end{solution}
+
+\vspace{1cm}
+
+% Q6: Based on a(4x^2 + 7x + 13) Decimal logic
+\question
+$0.48x^2 + 0.84x + 1.56$ \\
+The given expression can be rewritten as $a(4x^2 + 7x + 13)$, where $a$ is a constant. What is the value of $a$?
+
+\begin{solution}
+To find $a$, divide any coefficient of the first expression by the corresponding coefficient of the second.
+\vspace{5pt}
+\begin{center}
+$0.48 / 4 = 0.12$ \\
+$0.84 / 7 = 0.12$ \\
+$1.56 / 13 = 0.12$
+\end{center}
+\vspace{5pt}
+The constant $a$ is $0.12$.
+\vspace{5pt}
+Answer: \colorbox{yellow!100}{.12}
+\end{solution}
+
+% =============================================================
+% Question End
+% =============================================================
+
+\end{questions}
+\begin{center}
+\rule{.5\textwidth}{1pt}
+\end{center}
+\end{document}

@@ -74,7 +74,7 @@ export function Header() {
     if (profile?.role === "admin") {
       return [
         { name: "Home", href: "/", hasDropdown: false },
-        { name: "Tests", href: "/tests", hasDropdown: false },
+        { name: "Mocks", href: "/mocks", hasDropdown: false },
         {
           name: "Site Administration",
           href: "/admin/site-administration",
@@ -84,13 +84,13 @@ export function Header() {
     } else if (user) {
       return [
         { name: "Home", href: "/", hasDropdown: false },
-        { name: "Tests", href: "/tests", hasDropdown: false },
+        { name: "Mocks", href: "/mocks", hasDropdown: false },
         { name: "My Courses", href: "/courses/enrolled", hasDropdown: false },
       ];
     } else {
       return [
         { name: "Home", href: "/", hasDropdown: false },
-        { name: "Tests", href: "/tests", hasDropdown: false },
+        { name: "Mocks", href: "/mocks", hasDropdown: false },
         { name: "Contact", href: "/contact", hasDropdown: false },
       ];
     }
@@ -123,10 +123,10 @@ export function Header() {
 
           {/* Search Bar */}
           <div className="hidden lg:flex flex-1 max-w-lg mx-4">
-            <Link href="/tests" className="relative w-full">
+            <Link href="/mocks" className="relative w-full">
               <input
                 type="text"
-                placeholder="Search tests..."
+                placeholder="Search mocks..."
                 className="w-full px-4 py-2 pl-10 pr-4 border border-gray-300 rounded-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-all duration-200 bg-gray-50 text-foreground placeholder-gray-500 cursor-pointer"
                 readOnly
               />

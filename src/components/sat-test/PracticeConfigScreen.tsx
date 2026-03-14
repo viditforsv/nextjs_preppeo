@@ -136,7 +136,7 @@ export default function PracticeConfigScreen() {
                 </p>
               </div>
               <Link
-                href="/tests/tokens"
+                href="/mocks/tokens"
                 className="shrink-0 inline-flex items-center gap-1 px-3 py-1.5 bg-[#0d47a1] text-white text-xs font-semibold rounded-lg hover:bg-[#1565c0] transition-colors"
               >
                 <Sparkles className="w-3 h-3" />
@@ -170,7 +170,7 @@ export default function PracticeConfigScreen() {
                 )}
               </div>
               <Link
-                href="/tests/tokens"
+                href="/mocks/tokens"
                 className="shrink-0 inline-flex items-center gap-1 px-3 py-1.5 bg-[#0d47a1] text-white text-xs font-semibold rounded-lg hover:bg-[#1565c0] transition-colors"
               >
                 <Sparkles className="w-3 h-3" />
@@ -186,7 +186,7 @@ export default function PracticeConfigScreen() {
             <p className="font-semibold text-amber-800 mb-1">Today&apos;s free questions are used up</p>
             <p className="text-sm text-amber-600 mb-3">Come back tomorrow or upgrade for unlimited practice.</p>
             <Link
-              href="/tests/tokens"
+              href="/mocks/tokens"
               className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#0d47a1] text-white font-semibold rounded-lg hover:bg-[#1565c0] transition-colors text-sm"
             >
               Unlock Unlimited Practice

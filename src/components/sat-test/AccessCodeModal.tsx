@@ -24,7 +24,7 @@ export default function AccessCodeModal({ onSuccess, onClose }: AccessCodeModalP
     setError('');
 
     try {
-      const res = await fetch('/api/tests/verify-token', {
+      const res = await fetch('/api/mocks/verify-token', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ code: code.trim(), examType: 'sat' }),

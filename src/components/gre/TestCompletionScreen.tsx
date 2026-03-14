@@ -86,10 +86,10 @@ export function TestCompletionScreen({
             </div>
           </div>
           <CardTitle className="text-3xl font-semibold text-gray-900">
-            Test Complete!
+            Mock Complete!
           </CardTitle>
           <p className="text-sm text-gray-600 mt-2">
-            You&apos;ve completed the GRE practice test
+            You&apos;ve completed the GRE practice mock
           </p>
         </CardHeader>
         <CardContent className="pt-6">
@@ -191,7 +191,7 @@ export function TestCompletionScreen({
               className="flex-1 border-gray-300"
             >
               <RotateCcw className="w-4 h-4 mr-2" />
-              Retake Test
+              Retake Mock
             </Button>
           </div>
         </CardContent>

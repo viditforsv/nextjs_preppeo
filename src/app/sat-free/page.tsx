@@ -79,7 +79,7 @@ export default function SATFreeMockPage() {
   async function claimAndRedirect() {
     try {
       const referralCode = getStoredRef();
-      const res = await fetch('/api/tests/claim-free', {
+      const res = await fetch('/api/mocks/claim-free', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ examType: 'sat', ...(referralCode ? { referralCode } : {}) }),
@@ -377,7 +377,7 @@ export default function SATFreeMockPage() {
                       <Loader2 className="w-4 h-4 animate-spin" />
                     ) : (
                       <>
-                        Create Account & Start Test
+                        Create Account & Start Mock
                         <ChevronRight className="w-4 h-4" />
                       </>
                     )}
@@ -397,7 +397,7 @@ export default function SATFreeMockPage() {
                 </div>
                 <div className="space-y-4">
                   {[
-                    { icon: Clock, title: '2 hours 14 minutes', desc: 'Full-length timed test with adaptive sections' },
+                    { icon: Clock, title: '2 hours 14 minutes', desc: 'Full-length timed mock with adaptive sections' },
                     { icon: BarChart3, title: 'Instant Score Report', desc: 'SAT scale (400–1600) with domain breakdown' },
                     { icon: GraduationCap, title: 'Real Exam Experience', desc: 'Same format, difficulty, and interface as test day' },
                   ].map(({ icon: Icon, title, desc }) => (

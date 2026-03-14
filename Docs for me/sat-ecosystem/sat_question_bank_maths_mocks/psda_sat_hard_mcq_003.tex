@@ -1,0 +1,190 @@
+\documentclass[11pt,paper=a4,answers]{exam}
+\usepackage{graphicx,lastpage}
+\usepackage{upgreek}
+\usepackage{censor}
+\usepackage{gensymb}
+\usepackage{amsmath}
+\usepackage{multicol}
+\usepackage{enumitem}
+\usepackage{tasks}
+\usepackage{adjustbox}
+\usepackage{xcolor}
+\usepackage{tfrupee}
+\setlength{\voffset}{0.25in}
+\usepackage{tabularx}
+\newcolumntype{Y}{>{\centering\arraybackslash}X}
+%==============================================================
+% Customise Non-Essential Packages Below
+% =============================================================
+\usepackage[most]{tcolorbox}
+\usepackage{eso-pic}
+\usepackage{tikz}
+\AddToShipoutPictureBG{%
+\begin{tikzpicture}[remember picture,overlay]
+\foreach \x in {-8,-4,0,4,8,12,16,20}
+\foreach \y in {-8,-4,0,4,8,12,16,20} {
+\node[opacity=0.05,rotate=45,anchor=center] at ([xshift=\x cm,yshift=\y cm]current page.center) {%
+\begin{minipage}{2cm}
+\centering
+\includegraphics[width=2cm]{images/logo_black.png}\\
+\small preppeo.com
+\end{minipage}%
+};
+}
+\end{tikzpicture}%
+}
+\printanswers
+
+%==============================================================
+% Customise Non-Essential Packages Above
+% =============================================================
+\definecolor{svgray}{rgb}{0.90, 0.90, 0.90}
+\graphicspath{{images/}}
+
+\usepackage[normalem]{ulem}
+\renewcommand\ULthickness{1pt}   %%---> For changing thickness of underline
+\setlength\ULdepth{3.5ex}%\maxdimen ---> For changing depth of underline
+\renewcommand{\baselinestretch}{1}
+\chead{
+\includegraphics[scale=0.1,height=2cm ]{logo.png}
+}
+\pagestyle{empty}
+
+\pagestyle{headandfoot}
+\headrule
+\cfoot{W: https://preppeo.com; M: +91-8130711689}
+
+\begin{document}
+%==============================================================
+% Customise Question paper details below this
+% =============================================================
+\begin{center}
+    \centering
+    \renewcommand{\arraystretch}{1.5}
+    \begin{tabularx}{\textwidth}{YYY}
+    & \normalsize\bf{{\Large{{Quant}}}} & \\
+    By Preppeo & \normalsize\bf{{psda\_sat\_hard\_mcq\_003}} & SAT\\
+    \normalsize{{\textbf{{Algebra}} }} & \normalsize{{\textbf{{ratio,probability, statistics }} }} & \normalsize{{\textbf{{Solving Linear Equations}} }} \\
+    \end{tabularx}
+\end{center}
+\par\noindent\rule{\textwidth}{1pt}
+% =============================================================
+% Customise Question paper details above this
+% =============================================================
+
+\begin{questions}
+\pointsinrightmargin
+\pointsdroppedatright
+\marksnotpoints
+\pointpoints{mark}{marks}
+\pointformat{\boldmath\themarginpoints}
+\bracketedpoints
+
+% =============================================================
+% Question Begin
+% =============================================================
+
+\section*{SAT Problem Solving \& Data Analysis - Elite Practice Set}
+
+% Q1: Based on Park Area / Squared Units (Very Hard)
+\question
+A national forest has a total area of $15,488,000$ square yards. A researcher needs to report this area in square miles for a federal document. Given that $1$ mile is equal to $1,760$ yards, which of the following is the best estimate of the forest's area in square miles?
+\begin{tasks}(2)
+    \task 5.00
+    \task 8.80
+    \task 25.00
+    \task 30.98
+\end{tasks}
+
+\begin{solution}
+When converting area, you must square the linear conversion factor.
+\vspace{5pt}
+\begin{center}
+$1 \text{ mile} = 1,760 \text{ yards}$ \\
+$1 \text{ sq mile} = (1,760)^2 \text{ sq yards} = 3,097,600 \text{ sq yards}$
+\vspace{5pt}
+$\text{Area in sq miles} = \dfrac{15,488,000}{3,097,600} = 5$
+\end{center}
+\vspace{5pt}
+Note: Dividing by $1,760$ only once is a common mistake that leads to much larger, incorrect values.
+\vspace{5pt}
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+\vspace{1cm}
+
+% Q2: Based on Electric Flux / Area Ratios (Very Hard)
+\question
+The electric flux through a surface is defined as the product of the electric field strength and the surface area perpendicular to the field. A composite surface consists of two adjacent squares: Square $A$ and Square $B$. The side length of Square $B$ is $4$ times the side length of Square $A$. An electric field with a strength of $35.00$ volts per meter passes uniformly and perpendicularly through the entire composite surface. If the total electric flux through the composite surface is $11,900$ volts$\cdot$meters, what is the electric flux, in volts$\cdot$meters, through Square $B$ only?
+\begin{tasks}(2)
+    \task 700
+    \task 2,975
+    \task 10,200
+    \task 11,200
+\end{tasks}
+
+\begin{solution}
+Let $s$ be the side length of Square $A$. Its area is $s^2$. \\
+The side length of Square $B$ is $4s$, so its area is $(4s)^2 = 16s^2$.
+\vspace{5pt}
+\begin{center}
+Total Area $= s^2 + 16s^2 = 17s^2$. \\
+Total Flux $= \text{Field} \times \text{Total Area} = 35 \times 17s^2 = 595s^2$.
+\vspace{5pt}
+$11,900 = 595s^2 \implies s^2 = 20$.
+\vspace{5pt}
+Area of Square $B = 16s^2 = 16(20) = 320 \text{ m}^2$. \\
+Flux through Square $B = 35 \times 320 = 11,200$.
+\end{center}
+\vspace{5pt}
+Answer: \colorbox{yellow!100}{D}
+\end{solution}
+
+\vspace{1cm}
+
+% Q3: Based on Sales/Income Tax Table (Very Hard)
+\question
+\begin{center}
+\textbf{2025 State-Level Tax Distribution} \\
+\vspace{5pt}
+\begin{tabular}{|c|c|c|}
+\hline
+ & \textbf{State Sales Tax} & \textbf{No State Sales Tax} \\ \hline
+\textbf{State Income Tax} & 32 & 6 \\ \hline
+\textbf{No State Income Tax} & 8 & 4 \\ \hline
+\end{tabular}
+\end{center}
+The table above shows the distribution of 50 states based on their tax structures. To the nearest tenth of a percent, what percent of states that have \textbf{either} a state-level sales tax \textbf{or} a state-level income tax (but not both) do \textit{not} have a state-level income tax?
+\begin{tasks}(2)
+    \task 16.0\%
+    \task 20.0\%
+    \task 57.1\%
+    \task 80.0\%
+\end{tasks}
+
+\begin{solution}
+This is a conditional probability problem. First, identify the "restricted" population: states with \textit{either} sales \textit{or} income tax, but not both.
+\vspace{5pt}
+\begin{center}
+(Income Tax ONLY) + (Sales Tax ONLY) \\
+$6 (\text{No Sales}) + 8 (\text{No Income}) = 14 \text{ states}$.
+\end{center}
+\vspace{5pt}
+Within this group of 14, we need the percentage that do \textit{not} have an income tax. These are the 8 states in the "No state income tax" row.
+\vspace{5pt}
+\begin{center}
+$\text{Percentage} = \dfrac{8}{14} \approx 0.5714 = 57.1\%$.
+\end{center}
+\vspace{5pt}
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+% =============================================================
+% Question End
+% =============================================================
+
+\end{questions}
+\begin{center}
+\rule{.5\textwidth}{1pt}
+\end{center}
+\end{document}

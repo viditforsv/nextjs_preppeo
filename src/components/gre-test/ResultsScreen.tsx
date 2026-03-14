@@ -149,7 +149,7 @@ export default function ResultsScreen() {
         <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 mb-6 text-center">
           <div className="flex items-center justify-center gap-2 mb-2">
             <BarChart3 className="w-6 h-6 text-[#1a365d]" />
-            <h1 className="text-2xl font-bold text-gray-900">Test Results</h1>
+            <h1 className="text-2xl font-bold text-gray-900">Mock Results</h1>
           </div>
           <div
             className={`inline-block text-5xl font-bold mb-2 ${

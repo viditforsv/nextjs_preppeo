@@ -150,7 +150,7 @@ export default function Home() {
             <div className="flex gap-3 flex-wrap">
               <Button
                 className="bg-primary hover:bg-primary/90 text-white"
-                onClick={() => router.push("/tests")}
+                onClick={() => router.push("/mocks")}
               >
                 Mock Tests
                 <ArrowRight className="ml-2 h-4 w-4" />
@@ -170,7 +170,7 @@ export default function Home() {
         <section className="py-12">
           <div className="max-w-6xl mx-auto px-4">
             <div className="grid sm:grid-cols-2 gap-4">
-              <Link href="/tests" className="group">
+              <Link href="/mocks" className="group">
                 <Card className="h-full hover:shadow-md transition-shadow">
                   <CardContent className="p-6 flex items-start gap-4">
                     <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
@@ -179,7 +179,7 @@ export default function Home() {
                     <div>
                       <h3 className="font-semibold text-foreground mb-1">Mock Tests</h3>
                       <p className="text-sm text-muted-foreground">
-                        Take a full-length adaptive test or continue practice mode.
+                        Take a full-length adaptive mock or continue practice mode.
                       </p>
                     </div>
                   </CardContent>
@@ -194,7 +194,7 @@ export default function Home() {
                     <div>
                       <h3 className="font-semibold text-foreground mb-1">Score History</h3>
                       <p className="text-sm text-muted-foreground">
-                        Review past test results, domain breakdown, and progress over time.
+                        Review past mock results, domain breakdown, and progress over time.
                       </p>
                     </div>
                   </CardContent>
@@ -240,9 +240,9 @@ export default function Home() {
               size="lg"
               variant="outline"
               className="border-primary text-primary hover:bg-primary hover:text-white"
-              onClick={() => router.push("/tests")}
+              onClick={() => router.push("/mocks")}
             >
-              Explore All Tests
+              Explore All Mocks
             </Button>
           </div>
         </div>
@@ -290,13 +290,13 @@ export default function Home() {
                 <h3 className="font-bold text-foreground text-lg mb-2">Detailed Score Reports</h3>
                 <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
                   400–1600 scale with domain breakdown, difficulty analysis,
-                  and question-level review after every test.
+                  and question-level review after every mock.
                 </p>
                 <Link
-                  href="/tests"
+                  href="/mocks"
                   className="text-sm font-medium text-primary hover:underline inline-flex items-center gap-1"
                 >
-                  View Test Hub <ArrowRight className="w-3.5 h-3.5" />
+                  View Mock Hub <ArrowRight className="w-3.5 h-3.5" />
                 </Link>
               </CardContent>
             </Card>

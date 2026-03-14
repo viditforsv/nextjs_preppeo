@@ -40,7 +40,7 @@ export default function ExamCard({ exam, freeCode }: ExamCardProps) {
         <p className="text-sm text-gray-600 mb-4 leading-relaxed">{exam.description}</p>
 
         <div className="text-xs text-gray-500 mb-4">
-          {exam.total_sets} test {exam.total_sets === 1 ? 'set' : 'sets'} available
+          {exam.total_sets} mock {exam.total_sets === 1 ? 'set' : 'sets'} available
         </div>
 
         {/* Free token */}
@@ -70,7 +70,7 @@ export default function ExamCard({ exam, freeCode }: ExamCardProps) {
               href={exam.test_route}
               className="flex-1 flex items-center justify-center gap-2 py-2.5 bg-[#1a365d] text-white text-sm font-semibold rounded-lg hover:bg-[#2a4a7f] transition-colors"
             >
-              Go to Test <ExternalLink className="w-3.5 h-3.5" />
+              Go to Mock <ExternalLink className="w-3.5 h-3.5" />
             </Link>
           ) : (
             <div className="flex-1 flex items-center justify-center gap-2 py-2.5 bg-gray-100 text-gray-400 text-sm font-semibold rounded-lg cursor-not-allowed">
@@ -78,7 +78,7 @@ export default function ExamCard({ exam, freeCode }: ExamCardProps) {
             </div>
           )}
           <Link
-            href={`/tests/tokens?exam=${exam.id}`}
+            href={`/mocks/tokens?exam=${exam.id}`}
             className="px-4 py-2.5 border border-gray-200 text-sm font-medium text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
           >
             Buy Packs

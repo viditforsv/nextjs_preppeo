@@ -41,7 +41,7 @@ export default function AuthPage() {
 
   async function claimFreeAndRedirect(targetUrl: string, examType: string) {
     try {
-      await fetch('/api/tests/claim-free', {
+      await fetch('/api/mocks/claim-free', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ examType }),

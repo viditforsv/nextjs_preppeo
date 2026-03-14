@@ -21,7 +21,7 @@ export default function LandingScreen() {
     const tokenParam = searchParams.get('token');
     if (tokenParam && user && !loading) {
       setAutoStarting(true);
-      fetch('/api/tests/verify-token', {
+      fetch('/api/mocks/verify-token', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ code: tokenParam, examType: 'sat' }),

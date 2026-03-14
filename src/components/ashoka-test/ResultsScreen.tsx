@@ -23,7 +23,7 @@ export default function ResultsScreen() {
             <Trophy className="w-10 h-10 text-[#1a365d]" />
           </div>
           <h1 className="text-3xl font-bold text-[#1a365d] mb-2">
-            Test Complete
+            Mock Complete
           </h1>
           <p className="text-gray-600">
             Ashoka Aptitude Test Results

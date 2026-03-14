@@ -46,20 +46,5 @@ export default function QuestionRenderer({
     }
   })();
 
-  return (
-    <div>
-      {question.imageUrl && (
-        <div className="mb-4">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={question.imageUrl}
-            alt="Question diagram"
-            className="max-w-full h-auto rounded-lg border border-gray-200"
-            style={{ maxHeight: 400 }}
-          />
-        </div>
-      )}
-      {questionBody}
-    </div>
-  );
+  return <div>{questionBody}</div>;
 }

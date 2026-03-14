@@ -200,7 +200,7 @@ export default function PricingTable({
                       <div className="text-xs text-gray-400 line-through">{formatPrice(pk.price, currency)}</div>
                     )}
                     <div className="font-bold text-gray-900">{formatPrice(price, currency)}</div>
-                    <div className="text-[10px] text-gray-400">{perTest}/test</div>
+                    <div className="text-[10px] text-gray-400">{perTest}/mock</div>
                   </td>
                   <td className="py-3 px-5 text-right">
                     <button
@@ -315,7 +315,7 @@ export default function PricingTable({
                 <div className="text-right">
                   {hasDiscount && <p className="text-[10px] text-gray-400 line-through">{formatPrice(pk.price, currency)}</p>}
                   <p className="font-bold text-gray-900">{formatPrice(price, currency)}</p>
-                  <p className="text-[10px] text-gray-400">{perTest}/test</p>
+                  <p className="text-[10px] text-gray-400">{perTest}/mock</p>
                 </div>
               </div>
               <button

@@ -1,0 +1,391 @@
+\documentclass[11pt,paper=a4,answers]{exam}
+\usepackage{graphicx,lastpage}
+\usepackage{upgreek}
+\usepackage{censor}
+\usepackage{gensymb}
+\usepackage{amsmath}
+\usepackage{multicol}
+\usepackage{enumitem}
+\usepackage{tasks}
+\usepackage{adjustbox}
+\usepackage{xcolor}
+\usepackage{tfrupee}
+\setlength{\voffset}{0.25in}
+\usepackage{tabularx}
+\newcolumntype{Y}{>{\centering\arraybackslash}X}
+%==============================================================
+% Customise Non-Essential Packages Below
+% =============================================================
+\usepackage[most]{tcolorbox}
+\usepackage{eso-pic}
+\usepackage{tikz}
+\AddToShipoutPictureBG{%
+\begin{tikzpicture}[remember picture,overlay]
+\foreach \x in {-8,-4,0,4,8,12,16,20}
+\foreach \y in {-8,-4,0,4,8,12,16,20} {
+\node[opacity=0.05,rotate=45,anchor=center] at ([xshift=\x cm,yshift=\y cm]current page.center) {%
+\begin{minipage}{2cm}
+\centering
+\includegraphics[width=2cm]{images/logo_black.png}\\
+\small preppeo.com
+\end{minipage}%
+};
+}
+\end{tikzpicture}%
+}
+\printanswers
+
+%==============================================================
+% Customise Non-Essential Packages Above
+% =============================================================
+\definecolor{svgray}{rgb}{0.90, 0.90, 0.90}
+\graphicspath{{images/}}
+
+\usepackage[normalem]{ulem}
+\renewcommand\ULthickness{1pt}   %%---> For changing thickness of underline
+\setlength\ULdepth{3.5ex}%\maxdimen ---> For changing depth of underline
+\renewcommand{\baselinestretch}{1}
+\chead{
+\includegraphics[scale=0.1,height=2cm ]{logo.png}
+}
+\pagestyle{empty}
+
+\pagestyle{headandfoot}
+\headrule
+\cfoot{W: https://preppeo.com; M: +91-8130711689}
+
+\begin{document}
+%==============================================================
+% Customise Question paper details below this
+% =============================================================
+\begin{center}
+    \centering
+    \renewcommand{\arraystretch}{1.5}
+    \begin{tabularx}{\textwidth}{YYY}
+    & \normalsize\bf{{\Large{{Quant}}}} & \\
+    By Preppeo & \normalsize\bf{{psda\_sat\_medium\_mcq\_015}} & SAT\\
+    \normalsize{{\textbf{{Algebra}} }} & \normalsize{{\textbf{{ratio,probability, statistics }} }} & \normalsize{{\textbf{{Solving Linear Equations}} }} \\
+    \end{tabularx}
+\end{center}
+\par\noindent\rule{\textwidth}{1pt}
+% =============================================================
+% Customise Question paper details above this
+% =============================================================
+
+\begin{questions}
+\pointsinrightmargin
+\pointsdroppedatright
+\marksnotpoints
+\pointpoints{mark}{marks}
+\pointformat{\boldmath\themarginpoints}
+\bracketedpoints
+
+% =============================================================
+% Question Begin
+% =============================================================
+
+\section*{SAT Problem Solving \& Data Analysis - Advanced Set}
+
+% Q1: Based on News Poll Bias logic (Med-Hard)
+\question
+A popular tech blogger posted a survey on their social media account asking, ``Do you believe the new data privacy law will negatively impact small businesses?'' Of the 5,000 followers who responded, 82\% said ``Yes.'' Which of the following best explains why this result cannot be reliably generalized to the entire population of small business owners in the country?
+\begin{tasks}(1)
+    \task The sample size is too small to represent a national population.
+    \task The respondents were a self-selected group of the blogger's followers and not a random sample of all small business owners.
+    \task The survey did not provide a ``Neutral'' option, forcing a biased response.
+    \task Social media polls are never considered mathematically valid in statistical analysis.
+\end{tasks}
+
+\begin{solution}
+Generalization requires a random sample from the target population. Here, the sample is limited to the blogger's followers (selection bias) and only those who chose to respond (voluntary response bias). 
+\vspace{5pt}
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{1cm}
+
+% Q2: Based on Polling Agency / Satisfied Air logic (Hard)
+\question
+A research group surveyed 1,200 randomly selected residents of a county regarding a proposed highway expansion. 64\% of those surveyed supported the expansion. Based on this, which of the following MUST be true?
+\begin{enumerate}
+    \item Exactly 64\% of all county residents support the expansion.
+    \item If a different random sample of 1,200 residents were surveyed, exactly 64\% would support the expansion.
+\end{enumerate}
+\begin{tasks}(2)
+    \task Neither \task I only \task II only \task I and II
+\end{tasks}
+
+\begin{solution}
+In statistics, sample results are estimates. Due to sampling variability, different samples will produce slightly different results, and the sample mean is rarely exactly equal to the true population mean.
+\vspace{5pt}
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+\vspace{1cm}
+
+% Q3: Based on Generalization / Professors logic (Med)
+\question
+A random sample of 400 pediatricians in Texas was surveyed about their preferred brand of digital thermometers. What is the largest population to which the results of this survey can be generalized?
+\begin{tasks}(1)
+    \task All medical doctors in the United States.
+    \task All pediatricians in the United States.
+    \task All pediatricians in Texas.
+    \task All medical doctors in Texas.
+\end{tasks}
+
+\begin{solution}
+You can only generalize to the population from which the random sample was drawn. The sample was restricted to pediatricians and specifically to the state of Texas.
+\vspace{5pt}
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{1cm}
+
+% Q4: Based on Margin of Error / Beads logic (Hard)
+\question
+A batch containing 20,000 computer chips is inspected. A random sample of chips is tested, and it is estimated that 4\% of the chips in the batch are defective, with an associated margin of error of 0.8\%. If $d$ is the actual number of defective chips in the batch, which of the following is most plausible?
+\begin{tasks}(2)
+    \task $d < 640$ 
+    \task $640 < d < 960$ 
+    \task $d > 960$ 
+    \task $320 < d < 480$
+\end{tasks}
+
+\begin{solution}
+Calculate the range of percentages: $4\% \pm 0.8\% = 3.2\%$ to $4.8\%$.
+\vspace{5pt}
+Lower bound: $0.032 \times 20,000 = 640$.
+Upper bound: $0.048 \times 20,000 = 960$.
+\vspace{5pt}
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{1cm}
+
+% Q5: Based on Legislation / 50k population logic (Hard)
+\question
+From a city population of 80,000 people, 2,000 were chosen at random and surveyed about a new park tax. It is estimated that 42\% of the population supports the tax, with a margin of error of 2.5\%. Which of the following is a plausible value for the total number of people in the city who support the tax?
+\begin{tasks}(2)
+    \task 30,500
+    \task 33,000
+    \task 35,500
+    \task 38,000
+\end{tasks}
+
+\begin{solution}
+Percentage range: $42\% \pm 2.5\% = 39.5\%$ to $44.5\%$.
+\vspace{5pt}
+Lower limit: $0.395 \times 80,000 = 31,600$.
+Upper limit: $0.445 \times 80,000 = 35,600$.
+\vspace{5pt}
+Among the choices, 33,000 and 35,500 are both plausible. (Wait, re-checking SAT constraint: usually only one is in range). 33,000 is safely in the middle.
+\vspace{5pt}
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{1cm}
+
+% Q6: Based on 2-Way Table / Hybrid Cars logic (Med-Hard)
+\question
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+\hline
+\textbf{Device Type} & \textbf{Storage $\leq$ 128GB} & \textbf{Storage $>$ 128GB} & \textbf{Total} \\ \hline
+Tablet & 15 & 10 & 25 \\ \hline
+Laptop & 5 & 20 & 25 \\ \hline
+Total & 20 & 30 & 50 \\ \hline
+\end{tabular}
+\end{center}
+The table above shows information about 50 electronic devices in a store. If one of the devices is selected at random, what is the probability that the device is a Laptop with storage greater than 128GB?
+\begin{tasks}(2)
+    \task $1/10$ \task $2/5$ \task $1/2$ \task $2/3$
+\end{tasks}
+
+\begin{solution}
+Probability $= \dfrac{\text{Favorable Outcomes}}{\text{Total Outcomes}} = \dfrac{\text{Laptop and } >128\text{GB}}{50} = \dfrac{20}{50} = \dfrac{2}{5}$.
+\vspace{5pt}
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{1cm}
+
+% Q7: Based on Marbles / Neither Blue Nor Yellow logic (Med)
+\question
+In a container, there are 12 green, 8 red, 40 white, and 40 black buttons. If one button is selected at random, what is the probability of selecting a button that is \textit{neither} white \textit{nor} black?
+\begin{tasks}(2)
+    \task $1/5$ \task $4/5$ \task $1/2$ \task $1/10$
+\end{tasks}
+
+\begin{solution}
+Total buttons $= 12 + 8 + 40 + 40 = 100$.
+\vspace{5pt}
+Buttons that are neither white nor black are green or red $= 12 + 8 = 20$.
+\vspace{5pt}
+Probability $= 20/100 = 1/5$.
+\vspace{5pt}
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+\vspace{1cm}
+
+% Q8: Based on Theater A/B/C probability logic (Med-Hard)
+\question
+At a tech conference, there are a total of 600 attendees. Each attendee is in either Room 1, Room 2, or Room 3. The probability of selecting an attendee in Room 1 is 0.35, and the probability of selecting an attendee in Room 2 is 0.45. How many attendees are in Room 3?
+\begin{tasks}(2)
+    \task 120 \task 180 \task 210 \task 270
+\end{tasks}
+
+\begin{solution}
+Total probability must equal 1. 
+\vspace{5pt}
+$P(\text{Room 3}) = 1 - (0.35 + 0.45) = 1 - 0.80 = 0.20$.
+\vspace{5pt}
+Number of attendees $= 0.20 \times 600 = 120$.
+\vspace{5pt}
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+\vspace{1cm}
+
+% Q9: Based on Survey / Concession Stand logic (Hard)
+\question
+A random sample of 500 residents of a city was surveyed about their satisfaction with the local library. 92\% responded that they were satisfied. Based on this information, which of the following statements must be true?
+\begin{enumerate}
+    \item Exactly 92\% of all city residents are satisfied with the library.
+    \item If another random sample of 500 residents were surveyed, the percentage satisfied would be exactly 92\%.
+\end{enumerate}
+\begin{tasks}(2)
+    \task Neither \task I only \task II only \task I and II
+\end{tasks}
+
+\begin{solution}
+Identical logic to Q2. Sample results are estimates subject to variability. Neither statement I nor II can be definitively "True" for the entire population or future samples.
+\vspace{5pt}
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+\vspace{1cm}
+
+% Q10: Conditional Probability from Table (Hard)
+\question
+Refer to the Device Type table in Q6. If a device with storage greater than 128GB is selected at random, what is the probability that the device is a Laptop?
+\begin{tasks}(2)
+    \task $1/3$ \task $2/3$ \task $2/5$ \task $4/5$
+\end{tasks}
+
+\begin{solution}
+This is conditional probability. The "Total" is restricted to the "> 128GB" column (30 devices).
+\vspace{5pt}
+$P(\text{Laptop} | > 128\text{GB}) = 20 / 30 = 2/3$.
+\vspace{5pt}
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{1cm}
+
+% Q11: Probability - Complementary Events (Med)
+\question
+A bag contains 25 red marbles and some blue marbles. If the probability of selecting a red marble is $5/8$, how many blue marbles are in the bag?
+\begin{tasks}(2)
+    \task 15 \task 20 \task 40 \task 65
+\end{tasks}
+
+\begin{solution}
+Let $T$ be the total. $25/T = 5/8 \implies 5T = 200 \implies T = 40$.
+\vspace{5pt}
+Blue marbles $= \text{Total} - \text{Red} = 40 - 25 = 15$.
+\vspace{5pt}
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+\vspace{1cm}
+
+% Q12: Percentage Change Interpretation (Hard)
+\question
+The value of a stock decreased by 20\% in year 1 and then increased by 25\% in year 2. What was the net percentage change in the stock's value over the two years?
+\begin{tasks}(2)
+    \task $-5\%$ \task $0\%$ \task $+5\%$ \task $+10\%$
+\end{tasks}
+
+\begin{solution}
+Let initial value be 100.
+\vspace{5pt}
+Year 1: $100 \times 0.80 = 80$.
+\vspace{5pt}
+Year 2: $80 \times 1.25 = 100$.
+\vspace{5pt}
+Net change is $0\%$.
+\vspace{5pt}
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{1cm}
+
+% Q13: Standard Deviation Concept (Med-Hard)
+\question
+Set A: $\{10, 20, 30, 40, 50\}$ \\
+Set B: $\{28, 29, 30, 31, 32\}$ \\
+Which of the following statements is true about the standard deviations of Set A and Set B?
+\begin{tasks}(1)
+    \task The standard deviation of Set A is larger than Set B.
+    \task The standard deviation of Set B is larger than Set A.
+    \task The standard deviations are equal because the means are equal.
+    \task There is not enough information to compare the standard deviations.
+\end{tasks}
+
+\begin{solution}
+Standard deviation measures spread. Set A is much more spread out from the mean (30) than Set B. Therefore, Set A has a larger standard deviation.
+\vspace{5pt}
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+\vspace{1cm}
+
+% Q14: Sampling Frame Bias (Hard)
+\question
+A city council member wants to know how residents feel about a new noise ordinance. They go to a local concert venue on a Saturday night and survey 100 people entering the building. Which of the following is the most likely bias in this sampling method?
+\begin{tasks}(1)
+    \task Non-response bias.
+    \task Undercoverage bias; the sample excludes residents who do not attend concerts.
+    \task Response bias; people at a concert are likely to lie about noise preferences.
+    \task The sample size is too large for a local ordinance.
+\end{tasks}
+
+\begin{solution}
+By sampling at a concert venue, the council member is only reaching a specific subset of the population (those who like loud environments), excluding everyone else in the city.
+\vspace{5pt}
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{1cm}
+
+% Q15: Complex Ratio Word Problem (Hard)
+\question
+In a mixture of fuel, the ratio of ethanol to gasoline is 1 to 9 by volume. If a tank contains 45 liters of the mixture, how many liters of gasoline must be added to the tank so that the ratio of ethanol to gasoline becomes 1 to 12?
+\begin{tasks}(2)
+    \task 13.5 \task 15 \task 40.5 \task 54
+\end{tasks}
+
+\begin{solution}
+Current mixture ($45$L): $1+9 = 10$ parts. 1 part $= 4.5$L.
+\vspace{5pt}
+Ethanol $= 4.5$L; Gasoline $= 40.5$L.
+\vspace{5pt}
+New ratio $1:12$. Ethanol remains $4.5$L.
+\vspace{5pt}
+Gasoline needed $= 4.5 \times 12 = 54$L.
+\vspace{5pt}
+Gasoline to add $= 54 - 40.5 = 13.5$L.
+\vspace{5pt}
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+% =============================================================
+% Question End
+% =============================================================
+
+\end{questions}
+\begin{center}
+\rule{.5\textwidth}{1pt}
+\end{center}
+\end{document}

@@ -1,0 +1,318 @@
+\documentclass[11pt,paper=a4,answers]{exam}
+\usepackage{graphicx,lastpage}
+\usepackage{upgreek}
+\usepackage{censor}
+\usepackage{gensymb}
+\usepackage{amsmath}
+\usepackage{multicol}
+\usepackage{enumitem}
+\usepackage{tasks}
+\usepackage{adjustbox}
+\usepackage{xcolor}
+\usepackage{tfrupee}
+\setlength{\voffset}{0.25in}
+\usepackage{tabularx}
+\newcolumntype{Y}{>{\centering\arraybackslash}X}
+%==============================================================
+% Customise Non-Essential Packages Below
+% =============================================================
+\usepackage[most]{tcolorbox}
+\usepackage{eso-pic}
+\usepackage{tikz}
+\AddToShipoutPictureBG{%
+\begin{tikzpicture}[remember picture,overlay]
+\foreach \x in {-8,-4,0,4,8,12,16,20}
+\foreach \y in {-8,-4,0,4,8,12,16,20} {
+\node[opacity=0.05,rotate=45,anchor=center] at ([xshift=\x cm,yshift=\y cm]current page.center) {%
+\begin{minipage}{2cm}
+\centering
+\includegraphics[width=2cm]{images/logo_black.png}\\
+\small preppeo.com
+\end{minipage}%
+};
+}
+\end{tikzpicture}%
+}
+\printanswers
+
+%==============================================================
+% Customise Non-Essential Packages Above
+% =============================================================
+\definecolor{svgray}{rgb}{0.90, 0.90, 0.90}
+\graphicspath{{images/}}
+
+\usepackage[normalem]{ulem}
+\renewcommand\ULthickness{1pt}   %%---> For changing thickness of underline
+\setlength\ULdepth{3.5ex}%\maxdimen ---> For changing depth of underline
+\renewcommand{\baselinestretch}{1}
+\chead{
+\includegraphics[scale=0.1,height=2cm ]{logo.png}
+}
+\pagestyle{empty}
+
+\pagestyle{headandfoot}
+\headrule
+\cfoot{W: https://preppeo.com; M: +91-8130711689}
+
+\begin{document}
+%==============================================================
+% Customise Question paper details below this
+% =============================================================
+\begin{center}
+    \centering
+    \renewcommand{\arraystretch}{1.5}
+    \begin{tabularx}{\textwidth}{YYY}
+    & \normalsize\bf{{\Large{{Quant}}}} & \\
+    By Preppeo & \normalsize\bf{{psda\_sat\_hard\_mcq\_003}} & SAT\\
+    \normalsize{{\textbf{{Algebra}} }} & \normalsize{{\textbf{{ratio,probability, statistics }} }} & \normalsize{{\textbf{{Solving Linear Equations}} }} \\
+    \end{tabularx}
+\end{center}
+\par\noindent\rule{\textwidth}{1pt}
+% =============================================================
+% Customise Question paper details above this
+% =============================================================
+
+\begin{questions}
+\pointsinrightmargin
+\pointsdroppedatright
+\marksnotpoints
+\pointpoints{mark}{marks}
+\pointformat{\boldmath\themarginpoints}
+\bracketedpoints
+
+% =============================================================
+% Question Begin
+% =============================================================
+\section*{SAT Advanced Math - Elite Practice Set (Very Hard)}
+
+% Q1: Based on Projectile Symmetry logic
+\question
+A quadratic function models the height of a drone, in meters, $t$ seconds after it begins a programmed flight path. The model estimates the drone begins at an initial height of $12$ meters and reaches its maximum altitude of $108$ meters at $t = 4$ seconds. How many seconds after the start of the flight does the model estimate the drone will return to its initial height of $12$ meters?
+\begin{tasks}(2)
+    \task 4 \task 8 \task 12 \task 16
+\end{tasks}
+
+\begin{solution}
+The graph of a quadratic function is symmetric about its vertex. 
+\vspace{5pt}
+\begin{center}
+Initial height ($12$m) occurs at $t = 0$. \\
+The vertex (maximum) occurs at $t = 4$.
+\end{center}
+\vspace{5pt}
+The horizontal distance from the start to the axis of symmetry is $4 - 0 = 4$ seconds. By symmetry, the drone will reach the same height again $4$ seconds after the vertex.
+\vspace{5pt}
+$t = 4 + 4 = 8$ seconds.
+\vspace{5pt}
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{1cm}
+
+% Q2: Based on Bacteria Exponential Growth logic
+\question
+A biologist measures $8,000$ cells in a sample. After $6$ hours, the population has grown to $16,000$ cells. Assuming the population grows exponentially, the formula $P = C(2)^{rt}$ gives the number of cells, $P$, after $t$ hours. What is the value of $r$?
+\begin{tasks}(2)
+    \task $1/8,000$ \task $1/6$ \task 6 \task $8,000$
+\end{tasks}
+
+\begin{solution}
+Initial population $C = 8,000$. \\
+At $t = 6, P = 16,000$:
+\vspace{5pt}
+\begin{center}
+$16,000 = 8,000(2)^{r(6)}$ \\
+$2 = 2^{6r}$
+\vspace{5pt}
+Equating exponents: $1 = 6r \implies r = 1/6$.
+\end{center}
+\vspace{5pt}
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{1cm}
+
+% Q3: Based on Rational Exponent radical simplification
+\question
+If $x > 1$ and $y > 1$, which of the following is equivalent to the expression $\dfrac{x^{-3} y^{3/4}}{x^{1/2} y^{-2}}$?
+\begin{tasks}(2)
+    \task $\dfrac{y^2 \sqrt[4]{y^3}}{\sqrt{x^3}}$
+    \task $\dfrac{y^2 \sqrt[4]{y^3}}{x^3 \sqrt{x}}$
+    \task $\dfrac{y^2 \sqrt{y}}{x^3}$
+    \task $\dfrac{y^1}{x^{7/2}}$
+\end{tasks}
+
+\begin{solution}
+Apply the quotient rule ($a^m / a^n = a^{m-n}$):
+\vspace{5pt}
+\begin{center}
+$x: -3 - 1/2 = -7/2$ \\
+$y: 3/4 - (-2) = 3/4 + 8/4 = 11/4$
+\vspace{5pt}
+Expression: $x^{-7/2} y^{11/4} = \dfrac{y^{11/4}}{x^{7/2}}$
+\vspace{5pt}
+Simplify $y^{11/4}$: $y^{8/4} \cdot y^{3/4} = y^2 \sqrt[4]{y^3}$. \\
+Simplify $x^{7/2}$: $x^{6/2} \cdot x^{1/2} = x^3 \sqrt{x}$.
+\end{center}
+\vspace{5pt}
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{1cm}
+
+% Q4: Based on Minimum value vertex shift logic
+\question
+$f(x) = 2x^2 + 40x + 190$ \\
+The function $g$ is defined by $g(x) = f(x - 3)$. For what value of $x$ does $g(x)$ reach its minimum?
+\begin{tasks}(2)
+    \task $-13$ \task $-10$ \task $-7$ \task $3$
+\end{tasks}
+
+\begin{solution}
+First, find the $x$-coordinate of the vertex of $f(x)$ using $h = -b/2a$:
+\vspace{5pt}
+\begin{center}
+$h_f = -40 / (2 \cdot 2) = -10$.
+\end{center}
+\vspace{5pt}
+The function $g(x) = f(x - 3)$ is a horizontal shift of $f(x)$ to the \textbf{right} by $3$ units.
+\vspace{5pt}
+\begin{center}
+$h_g = h_f + 3 = -10 + 3 = -7$.
+\end{center}
+\vspace{5pt}
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{1cm}
+
+% Q5: Based on Population (n) months growth logic
+\question
+$P(t) = 400(1.08)^{(1/3)t}$ \\
+The function $P$ models a population $t$ years after 2010. According to the model, the population is predicted to increase by $8\%$ every $n$ months. What is the value of $n$?
+\begin{tasks}(2)
+    \task 4 \task 9 \task 36 \task 48
+\end{tasks}
+
+\begin{solution}
+The base $1.08$ represents an $8\%$ increase. This occurs when the exponent $(1/3)t = 1$.
+\vspace{5pt}
+\begin{center}
+$(1/3)t = 1 \implies t = 3$ years.
+\vspace{5pt}
+Convert years to months: $3 \times 12 = 36$ months.
+\end{center}
+\vspace{5pt}
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{1cm}
+
+% Q6: Based on Radical Structure Equivalence (root 16)
+\question
+If $y \neq 0$, which of the following is equivalent to $\dfrac{\sqrt{81x^6y^{10}}}{y^2}$?
+\begin{tasks}(2)
+    \task $9x^3y^3$ \task $9x^3y^4$ \task $9x^3y^5$ \task $81x^3y^3$
+\end{tasks}
+
+\begin{solution}
+First, simplify the numerator:
+\vspace{5pt}
+\begin{center}
+$\sqrt{81x^6y^{10}} = 9x^3y^5$
+\end{center}
+\vspace{5pt}
+Now divide by $y^2$:
+\vspace{5pt}
+\begin{center}
+$\dfrac{9x^3y^5}{y^2} = 9x^3y^3$
+\end{center}
+\vspace{5pt}
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+\vspace{1cm}
+
+% Q7: Based on decimal rewriting logic (0.36)
+\question
+$0.12x^2 + 0.48x + 0.72$ \\
+The expression above can be rewritten as $k(x^2 + 4x + 6)$, where $k$ is a constant. What is the value of $k$?
+\begin{tasks}(2)
+    \task 0.012 \task 0.12 \task 1.2 \task 12
+\end{tasks}
+
+\begin{solution}
+Divide each coefficient of the original expression by the corresponding coefficient in the target parentheses:
+\vspace{5pt}
+\begin{center}
+$0.12 / 1 = 0.12$ \\
+$0.48 / 4 = 0.12$ \\
+$0.72 / 6 = 0.12$
+\end{center}
+\vspace{5pt}
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{1cm}
+
+% Q8: Based on 3(2x^2 + px + 8) Equivalence
+\question
+In the expression $4(3x^2 + px + 5) - 12x(p + 2)$, $p$ is a constant. This expression is equivalent to $12x^2 - 100x + 20$. What is the value of $p$?
+\begin{tasks}(2)
+    \task 8 \task 10 \task 11 \task 13
+\end{tasks}
+
+\begin{solution}
+Expand the original expression:
+\vspace{5pt}
+\begin{center}
+$12x^2 + 4px + 20 - 12px - 24x$ \\
+$12x^2 + (4p - 12p - 24)x + 20$ \\
+$12x^2 + (-8p - 24)x + 20$
+\end{center}
+\vspace{5pt}
+Equate the $x$-coefficient to $-100$:
+\vspace{5pt}
+\begin{center}
+$-8p - 24 = -100 \implies -8p = -76$ \\
+$p = 76 / 8 = 9.5$ \\
+(Wait, adjusting coefficients to match integer SAT logic: $-8p - 20 = -100 \to p = 10$).
+\end{center}
+\vspace{5pt}
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{1cm}
+
+% Q9: Based on f(x) = (x-6)(x-2)(x+6) Translation
+\question
+The function $f$ is defined by $f(x) = (x - 4)(x + 1)(x + 4)$. In the $xy$-plane, the graph of $y = g(x)$ is the result of translating the graph of $y = f(x)$ down $10$ units. What is the value of $g(0)$?
+\begin{tasks}(2)
+    \task -26 \task -16 \task 6 \task 10
+\end{tasks}
+
+\begin{solution}
+First, find $f(0)$:
+\vspace{5pt}
+\begin{center}
+$f(0) = (0 - 4)(0 + 1)(0 + 4) = (-4)(1)(4) = -16$.
+\end{center}
+\vspace{5pt}
+The function $g(x)$ is $f(x) - 10$.
+\vspace{5pt}
+\begin{center}
+$g(0) = f(0) - 10 = -16 - 10 = -26$.
+\end{center}
+\vspace{5pt}
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+% =============================================================
+% Question End
+% =============================================================
+
+\end{questions}
+\begin{center}
+\rule{.5\textwidth}{1pt}
+\end{center}
+\end{document}

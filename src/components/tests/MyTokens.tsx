@@ -26,7 +26,7 @@ export default function MyTokens() {
 
   const fetchTokens = useCallback(async () => {
     try {
-      const res = await fetch('/api/tests/my-tokens');
+      const res = await fetch('/api/mocks/my-tokens');
       const data = await res.json();
       if (data.success) {
         setTokensByExam(data.tokensByExam);
@@ -106,7 +106,7 @@ export default function MyTokens() {
                 href={group.testRoute}
                 className="text-xs text-[#1a365d] hover:underline flex items-center gap-1"
               >
-                Go to test <ExternalLink className="w-3 h-3" />
+                Go to mock <ExternalLink className="w-3 h-3" />
               </Link>
             </div>
           </div>
