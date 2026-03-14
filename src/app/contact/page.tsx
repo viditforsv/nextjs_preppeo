@@ -21,11 +21,12 @@ import {
   Globe,
   MessageSquare,
 } from "lucide-react";
-import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useState, useEffect } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 
 export default function ContactPage() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -33,6 +34,13 @@ export default function ContactPage() {
     subject: "",
     message: "",
   });
+
+  useEffect(() => {
+    const subject = searchParams.get("subject");
+    if (subject) {
+      setFormData((prev) => ({ ...prev, subject }));
+    }
+  }, [searchParams]);
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [errorMsg, setErrorMsg] = useState("");
 

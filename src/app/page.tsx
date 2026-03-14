@@ -11,6 +11,10 @@ import {
   GraduationCap,
   ClipboardCheck,
   ExternalLink,
+  Users,
+  Gift,
+  CheckCircle,
+  Zap,
 } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import { useRouter } from "next/navigation";
@@ -248,6 +252,18 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Trust Bar */}
+      <section className="bg-white border-b border-gray-100">
+        <div className="max-w-5xl mx-auto px-4 py-6">
+          <div className="flex flex-wrap justify-center gap-x-10 gap-y-3 text-sm text-muted-foreground">
+            <span className="flex items-center gap-2"><CheckCircle className="w-4 h-4 text-emerald-500" /> Adaptive — mirrors real exam</span>
+            <span className="flex items-center gap-2"><CheckCircle className="w-4 h-4 text-emerald-500" /> Timed — full-length conditions</span>
+            <span className="flex items-center gap-2"><CheckCircle className="w-4 h-4 text-emerald-500" /> Scored — 400-1600 scale</span>
+            <span className="flex items-center gap-2"><CheckCircle className="w-4 h-4 text-emerald-500" /> Domain-level analytics</span>
+          </div>
+        </div>
+      </section>
+
       {/* Exam Showcase */}
       <ExamShowcase />
 
@@ -323,8 +339,98 @@ export default function Home() {
         </div>
       </section>
 
-      {/* How It Works */}
+      {/* Pricing */}
       <section className="py-16 bg-white">
+        <div className="max-w-6xl mx-auto px-4">
+          <div className="text-center mb-10">
+            <h2 className="text-3xl font-bold text-foreground mb-3">
+              Simple, Transparent Pricing
+            </h2>
+            <p className="text-muted-foreground max-w-xl mx-auto">
+              Start free. Pay only when you need more mocks or unlimited practice.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            {/* Mock Tokens */}
+            <div>
+              <h3 className="font-bold text-foreground text-lg mb-4 flex items-center gap-2">
+                <ClipboardCheck className="w-5 h-5 text-primary" /> Mock Tokens
+              </h3>
+              <div className="space-y-3">
+                {[
+                  { name: "1 Mock", price: "₹499", per: "₹499/mock", highlight: false },
+                  { name: "3 Mocks", price: "₹999", per: "₹333/mock", highlight: true },
+                  { name: "5 Mocks", price: "₹1,499", per: "₹300/mock", highlight: false },
+                ].map((pack) => (
+                  <Card key={pack.name} className={`hover:shadow-md transition-shadow ${pack.highlight ? "ring-2 ring-primary" : ""}`}>
+                    <CardContent className="p-4 flex items-center justify-between">
+                      <div>
+                        <p className="font-semibold text-foreground">{pack.name}</p>
+                        <p className="text-xs text-muted-foreground">{pack.per}</p>
+                      </div>
+                      <div className="flex items-center gap-3">
+                        <span className="font-bold text-foreground">{pack.price}</span>
+                        {pack.highlight && (
+                          <span className="text-[10px] font-medium bg-primary/10 text-primary px-2 py-0.5 rounded-full">Popular</span>
+                        )}
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
+                <Link
+                  href="/mocks/tokens"
+                  className="text-sm font-medium text-primary hover:underline inline-flex items-center gap-1 mt-2"
+                >
+                  Buy Mock Tokens <ArrowRight className="w-3.5 h-3.5" />
+                </Link>
+              </div>
+            </div>
+
+            {/* Practice Subscriptions */}
+            <div>
+              <h3 className="font-bold text-foreground text-lg mb-4 flex items-center gap-2">
+                <Zap className="w-5 h-5 text-amber-500" /> Practice Subscriptions
+              </h3>
+              <div className="space-y-3">
+                {[
+                  { name: "Practice — 1 Month", price: "₹9,999", detail: "Unlimited questions", highlight: false },
+                  { name: "Practice — 3 Months", price: "₹14,999", detail: "Unlimited questions", highlight: false },
+                  { name: "Complete Prep — 3 Months", price: "₹19,999", detail: "Unlimited practice + 3 mocks", highlight: true },
+                ].map((plan) => (
+                  <Card key={plan.name} className={`hover:shadow-md transition-shadow ${plan.highlight ? "ring-2 ring-primary" : ""}`}>
+                    <CardContent className="p-4 flex items-center justify-between">
+                      <div>
+                        <p className="font-semibold text-foreground">{plan.name}</p>
+                        <p className="text-xs text-muted-foreground">{plan.detail}</p>
+                      </div>
+                      <div className="flex items-center gap-3">
+                        <span className="font-bold text-foreground">{plan.price}</span>
+                        {plan.highlight && (
+                          <span className="text-[10px] font-medium bg-primary/10 text-primary px-2 py-0.5 rounded-full">Best Value</span>
+                        )}
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
+                <Link
+                  href="/sat-test"
+                  className="text-sm font-medium text-primary hover:underline inline-flex items-center gap-1 mt-2"
+                >
+                  Try Free Practice First <ArrowRight className="w-3.5 h-3.5" />
+                </Link>
+              </div>
+            </div>
+          </div>
+
+          <p className="text-center text-xs text-muted-foreground mt-6">
+            Your first mock is always free. No credit card required to start.
+          </p>
+        </div>
+      </section>
+
+      {/* How It Works */}
+      <section className="py-16 bg-[#f5f5f0]">
         <div className="max-w-4xl mx-auto px-4">
           <div className="text-center mb-10">
             <h2 className="text-3xl font-bold text-foreground mb-3">
@@ -363,7 +469,58 @@ export default function Home() {
         </div>
       </section>
 
-      {/* CTA */}
+      {/* Referral Callout */}
+      <section className="bg-white border-b border-gray-100">
+        <div className="max-w-4xl mx-auto px-4 py-10">
+          <Card className="bg-emerald-50/50 border-emerald-200 hover:shadow-md transition-shadow">
+            <CardContent className="p-6 md:p-8 flex flex-col md:flex-row items-center gap-6">
+              <div className="w-14 h-14 rounded-2xl bg-emerald-100 flex items-center justify-center shrink-0">
+                <Gift className="w-7 h-7 text-emerald-600" />
+              </div>
+              <div className="flex-1 text-center md:text-left">
+                <h3 className="font-bold text-foreground text-lg mb-1">Invite Friends, Both Get a Free Mock</h3>
+                <p className="text-sm text-muted-foreground">
+                  Share your referral link with friends. When they sign up and claim their free mock,
+                  you both receive a bonus mock token.
+                </p>
+              </div>
+              <Link href="/referral">
+                <Button variant="outline" className="border-emerald-600 text-emerald-700 hover:bg-emerald-600 hover:text-white shrink-0">
+                  <Users className="w-4 h-4 mr-2" />
+                  Get Referral Link
+                </Button>
+              </Link>
+            </CardContent>
+          </Card>
+        </div>
+      </section>
+
+      {/* For Institutes Callout */}
+      <section className="bg-[#f5f5f0]">
+        <div className="max-w-4xl mx-auto px-4 py-10">
+          <Card className="bg-primary/5 border-primary/20 hover:shadow-md transition-shadow">
+            <CardContent className="p-6 md:p-8 flex flex-col md:flex-row items-center gap-6">
+              <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center shrink-0">
+                <GraduationCap className="w-7 h-7 text-primary" />
+              </div>
+              <div className="flex-1 text-center md:text-left">
+                <h3 className="font-bold text-foreground text-lg mb-1">Are You a Teacher or Institute?</h3>
+                <p className="text-sm text-muted-foreground">
+                  Offer Preppeo mocks to your students. Earn commission on every purchase with zero upfront cost.
+                </p>
+              </div>
+              <Link href="/for-institutes">
+                <Button variant="outline" className="border-primary text-primary hover:bg-primary hover:text-white shrink-0">
+                  Learn More
+                  <ArrowRight className="w-4 h-4 ml-2" />
+                </Button>
+              </Link>
+            </CardContent>
+          </Card>
+        </div>
+      </section>
+
+      {/* Final CTA */}
       <section className="py-16 bg-primary">
         <div className="max-w-2xl mx-auto px-4 text-center">
           <h2 className="text-3xl font-bold text-white mb-4">
@@ -371,15 +528,26 @@ export default function Home() {
           </h2>
           <p className="text-white/80 mb-8">
             Your first full-length adaptive SAT mock is complimentary — worth ₹499.
+            No credit card needed.
           </p>
-          <Button
-            size="lg"
-            className="bg-white hover:bg-gray-100 text-primary font-semibold"
-            onClick={() => router.push("/sat-free")}
-          >
-            Start with a Free Mock
-            <ArrowRight className="ml-2 h-4 w-4" />
-          </Button>
+          <div className="flex gap-3 justify-center flex-wrap">
+            <Button
+              size="lg"
+              className="bg-white hover:bg-gray-100 text-primary font-semibold"
+              onClick={() => router.push("/sat-free")}
+            >
+              Start with a Free Mock
+              <ArrowRight className="ml-2 h-4 w-4" />
+            </Button>
+            <Button
+              size="lg"
+              variant="outline"
+              className="border-white text-white hover:bg-white/10"
+              onClick={() => router.push("/mocks")}
+            >
+              Explore All Mocks
+            </Button>
+          </div>
         </div>
       </section>
     </div>

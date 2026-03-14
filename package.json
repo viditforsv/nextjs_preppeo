@@ -21,7 +21,10 @@
     "create-course": "npx tsx scripts/create-course.ts",
     "verify-env": "npx tsx scripts/verify-env.ts",
     "sync-google-sheets": "npx tsx scripts/sync-google-sheets.ts",
-    "seed:sat-lid-001-one": "npx tsx scripts/seed-sat-lid-001-one-question.ts"
+    "seed:sat-lid-001-one": "npx tsx scripts/seed-sat-lid-001-one-question.ts",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage"
   },
   "dependencies": {
     "@dnd-kit/core": "^6.3.1",
@@ -94,6 +97,7 @@
     "@types/react": "19.2.7",
     "@types/react-dom": "19.2.3",
     "@types/recharts": "^1.8.29",
+    "@vitest/coverage-v8": "^4.1.0",
     "eslint": "^9.39.1",
     "eslint-config-next": "^16.1.6",
     "eslint-plugin-react": "^7.37.5",
@@ -102,7 +106,8 @@
     "tailwindcss": "^4",
     "tw-animate-css": "^1.3.7",
     "typescript": "^5",
-    "typescript-eslint": "^8.46.4"
+    "typescript-eslint": "^8.46.4",
+    "vitest": "^3.2.4"
   },
   "overrides": {
     "@types/react": "19.2.7",

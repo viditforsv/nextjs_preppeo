@@ -91,6 +91,7 @@ export function Header() {
       return [
         { name: "Home", href: "/", hasDropdown: false },
         { name: "Mocks", href: "/mocks", hasDropdown: false },
+        { name: "For Institutes", href: "/for-institutes", hasDropdown: false },
         { name: "Contact", href: "/contact", hasDropdown: false },
       ];
     }
