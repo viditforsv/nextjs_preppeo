@@ -19,7 +19,7 @@ export default function ExamCard({ exam, freeCode }: ExamCardProps) {
     setTimeout(() => setCopied(false), 2000);
   };
 
-  const isReady = exam.id === 'gre' || exam.id === 'sat' || exam.id === 'ashoka';
+  const isReady = exam.id === 'sat';
 
   return (
     <div className="bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-lg transition-shadow">
@@ -66,23 +66,30 @@ export default function ExamCard({ exam, freeCode }: ExamCardProps) {
         {/* Actions */}
         <div className="flex gap-2">
           {isReady ? (
-            <Link
-              href={exam.test_route}
-              className="flex-1 flex items-center justify-center gap-2 py-2.5 bg-[#1a365d] text-white text-sm font-semibold rounded-lg hover:bg-[#2a4a7f] transition-colors"
-            >
-              Go to Mock <ExternalLink className="w-3.5 h-3.5" />
-            </Link>
+            <>
+              <Link
+                href={exam.test_route}
+                className="flex-1 flex items-center justify-center gap-2 py-2.5 bg-[#1a365d] text-white text-sm font-semibold rounded-lg hover:bg-[#2a4a7f] transition-colors"
+              >
+                Go to Mock <ExternalLink className="w-3.5 h-3.5" />
+              </Link>
+              <Link
+                href={`/mocks/tokens?exam=${exam.id}`}
+                className="px-4 py-2.5 border border-gray-200 text-sm font-medium text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
+              >
+                Buy Packs
+              </Link>
+            </>
           ) : (
-            <div className="flex-1 flex items-center justify-center gap-2 py-2.5 bg-gray-100 text-gray-400 text-sm font-semibold rounded-lg cursor-not-allowed">
-              Coming Soon
-            </div>
+            <>
+              <div className="flex-1 flex items-center justify-center gap-2 py-2.5 bg-gray-100 text-gray-400 text-sm font-semibold rounded-lg cursor-not-allowed">
+                Coming Soon
+              </div>
+              <div className="px-4 py-2.5 border border-gray-200 text-sm font-medium text-gray-400 rounded-lg cursor-not-allowed bg-gray-50">
+                Buy Packs
+              </div>
+            </>
           )}
-          <Link
-            href={`/mocks/tokens?exam=${exam.id}`}
-            className="px-4 py-2.5 border border-gray-200 text-sm font-medium text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
-          >
-            Buy Packs
-          </Link>
         </div>
       </div>
     </div>

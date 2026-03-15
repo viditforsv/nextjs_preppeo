@@ -1,0 +1,373 @@
+\documentclass[11pt,paper=a4,answers]{exam}
+\usepackage{graphicx,lastpage}
+\usepackage{upgreek}
+\usepackage{censor}
+\usepackage{gensymb}
+\usepackage{amsmath}
+\usepackage{multicol}
+\usepackage{enumitem}
+\usepackage{tasks}
+\usepackage{adjustbox}
+\usepackage{xcolor}
+\usepackage{tfrupee}
+\setlength{\voffset}{0.25in}
+\usepackage{tabularx}
+\newcolumntype{Y}{>{\centering\arraybackslash}X}
+%==============================================================
+% Customise Non-Essential Packages Below
+% =============================================================
+\usepackage[most]{tcolorbox}
+\usepackage{eso-pic}
+\usepackage{tikz}
+\AddToShipoutPictureBG{%
+\begin{tikzpicture}[remember picture,overlay]
+\foreach \x in {-8,-4,0,4,8,12,16,20}
+\foreach \y in {-8,-4,0,4,8,12,16,20} {
+\node[opacity=0.05,rotate=45,anchor=center] at ([xshift=\x cm,yshift=\y cm]current page.center) {%
+\begin{minipage}{2cm}
+\centering
+\includegraphics[width=2cm]{images/logo_black.png}\\
+\small preppeo.com
+\end{minipage}%
+};
+}
+\end{tikzpicture}%
+}
+\printanswers
+
+%==============================================================
+% Customise Non-Essential Packages Above
+% =============================================================
+\definecolor{svgray}{rgb}{0.90, 0.90, 0.90}
+\graphicspath{{images/}}
+
+\usepackage[normalem]{ulem}
+\renewcommand\ULthickness{1pt}   %%---> For changing thickness of underline
+\setlength\ULdepth{3.5ex}%\maxdimen ---> For changing depth of underline
+\renewcommand{\baselinestretch}{1}
+\chead{
+\includegraphics[scale=0.1,height=2cm ]{logo.png}
+}
+\pagestyle{empty}
+
+\pagestyle{headandfoot}
+\headrule
+\cfoot{W: https://preppeo.com; M: +91-8130711689}
+
+\begin{document}
+%==============================================================
+% Customise Question paper details below this
+% =============================================================
+\begin{center}
+    \centering
+    \renewcommand{\arraystretch}{1.5}
+    \begin{tabularx}{\textwidth}{YYY}
+    & \normalsize\bf{{\Large{{Quant}}}} & \\
+    By Preppeo & \normalsize\bf{{geo\_sat\_easy\_mcq\_006}} & SAT\\
+    \normalsize{{\textbf{{Algebra}} }} & \normalsize{{\textbf{{Area volumes, circle, triangle }} }} & \normalsize{{\textbf{{Solving Linear Equations}} }} \\
+    \end{tabularx}
+\end{center}
+\par\noindent\rule{\textwidth}{1pt}
+% =============================================================
+% Customise Question paper details above this
+% =============================================================
+
+\begin{questions}
+\pointsinrightmargin
+\pointsdroppedatright
+\marksnotpoints
+\pointpoints{mark}{marks}
+\pointformat{\boldmath\themarginpoints}
+\bracketedpoints
+
+% =============================================================
+% Question Begin
+% =============================================================
+
+% Q1: Square Area
+\question
+The side length of a square is $45$ centimeters (cm). What is the area, in cm$^2$, of the square?
+\begin{center}
+\begin{tikzpicture}[scale=0.8]
+    \draw[thick] (0,0) rectangle (3,3);
+    \node[below] at (1.5,0) {$45\text{ cm}$};
+\end{tikzpicture}
+\end{center}
+\begin{tasks}(2)
+    \task 90
+    \task 180
+    \task 2,025
+    \task 8,100
+\end{tasks}
+
+\begin{solution}
+The area of a square is calculated by squaring the length of one of its sides ($A = s^2$).
+\vspace{5pt}
+\begin{center}
+$A = 45 \times 45 = 2,025$
+\end{center}
+\vspace{5pt}
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{1cm}
+
+% Q2: Triangle Perimeter
+\question
+The perimeter of triangle $ABC$ is $25$ inches. The length of side $AB$ is $5$ inches, and the length of side $AC$ is $8$ inches. What is the length, in inches, of side $BC$?
+\begin{center}
+\begin{tikzpicture}[scale=0.8]
+    \draw[thick] (0,0) coordinate (B) -- (4,0) coordinate (C) -- (1,2) coordinate (A) -- cycle;
+    \node[left] at (0.5,1) {$5$};
+    \node[right] at (2.5,1) {$8$};
+    \node[below] at (2,0) {$BC$};
+    \node[above] at (A) {$A$};
+    \node[below left] at (B) {$B$};
+    \node[below right] at (C) {$C$};
+\end{tikzpicture}
+\end{center}
+\begin{tasks}(2)
+    \task 11
+    \task 12
+    \task 13
+    \task 17
+\end{tasks}
+
+\begin{solution}
+The perimeter of a triangle is the sum of the lengths of its three sides.
+\vspace{5pt}
+\begin{center}
+$5 + 8 + BC = 25$
+\vspace{5pt}
+$13 + BC = 25$
+\vspace{5pt}
+$BC = 25 - 13 = 12$
+\end{center}
+\vspace{5pt}
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{1cm}
+
+% Q3: Minor Arc
+\question
+The circle below with center $O$ has a circumference of $48$. What is the length of minor arc $AC$?
+\begin{center}
+\begin{tikzpicture}[scale=1.2]
+    \draw[thick] (0,0) circle (1);
+    \draw[thick] (-0.707,0.707) -- (0.707,-0.707);
+    \draw[thick] (0.707,0.707) -- (-0.707,-0.707);
+    \draw (0,0.1) -- (0.1,0.1) -- (0.1,0);
+    \node at (0,-0.2) {$O$};
+    \node[above] at (-0.707,0.707) {$A$};
+    \node[above] at (0.707,0.707) {$C$};
+\end{tikzpicture}
+\end{center}
+\begin{tasks}(2)
+    \task 12
+    \task 16
+    \task 24
+    \task 48
+\end{tasks}
+
+\begin{solution}
+The square symbol at center $O$ indicates that the central angle for arc $AC$ is $90^\circ$. 
+\vspace{5pt}
+\begin{center}
+Since a full circle is $360^\circ$, a $90^\circ$ arc represents $\frac{90}{360} = \frac{1}{4}$ of the total circumference.
+\vspace{5pt}
+$\text{Arc length} = \frac{1}{4} \times 48 = 12$
+\end{center}
+\vspace{5pt}
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+\vspace{1cm}
+
+% Q4: Radian Conversion
+\question
+The number of radians in a $540$-degree angle can be written as $a\pi$, where $a$ is a constant. What is the value of $a$?
+\begin{tasks}(2)
+    \task 1.5
+    \task 2
+    \task 3
+    \task 5.4
+\end{tasks}
+
+\begin{solution}
+To convert degrees to radians, multiply the degree measure by $\frac{\pi}{180}$.
+\vspace{5pt}
+\begin{center}
+$\text{Radians} = 540 \times \frac{\pi}{180} = \frac{540}{180}\pi = 3\pi$
+\end{center}
+\vspace{5pt}
+Comparing $3\pi$ to $a\pi$, we find that $a = 3$.
+\vspace{5pt}
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{1cm}
+
+% Q5: Pythagorean Hypotenuse
+\question
+A right triangle has legs with lengths of $12$ centimeters and $5$ centimeters. What is the length of this triangle's hypotenuse, in centimeters?
+\begin{center}
+\begin{tikzpicture}[scale=0.8]
+    \draw[thick] (0,0) -- (4,0) -- (0,1.5) -- cycle;
+    \draw (0,0) rectangle (0.2,0.2);
+    \node[left] at (0,0.75) {$5$};
+    \node[below] at (2,0) {$12$};
+\end{tikzpicture}
+\end{center}
+\begin{tasks}(2)
+    \task $\sqrt{17}$
+    \task 13
+    \task 17
+    \task 169
+\end{tasks}
+
+\begin{solution}
+Use the Pythagorean theorem ($a^2 + b^2 = c^2$) where $a$ and $b$ are the legs and $c$ is the hypotenuse.
+\vspace{5pt}
+\begin{center}
+$5^2 + 12^2 = c^2$
+\vspace{5pt}
+$25 + 144 = c^2$
+\vspace{5pt}
+$169 = c^2 \implies c = \sqrt{169} = 13$
+\end{center}
+\vspace{5pt}
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{1cm}
+
+% Q6: Estimated Hypotenuse
+\question
+The lengths of the legs of a right triangle are shown below. Which of the following is closest to the length of the triangle's hypotenuse?
+\begin{center}
+\begin{tikzpicture}[scale=0.8]
+    \draw[thick] (0,0) -- (5,0) -- (0,2) -- cycle;
+    \draw (0,0) rectangle (0.2,0.2);
+    \node[left] at (0,1) {$4$};
+    \node[below] at (2.5,0) {$8$};
+    \node[below] at (2.5,-0.5) {\small Note: Figure not drawn to scale.};
+\end{tikzpicture}
+\end{center}
+\begin{tasks}(2)
+    \task 4.5
+    \task 8.9
+    \task 12
+    \task 80
+\end{tasks}
+
+\begin{solution}
+First, calculate the exact length of the hypotenuse using the Pythagorean theorem.
+\vspace{5pt}
+\begin{center}
+$c^2 = 4^2 + 8^2$
+\vspace{5pt}
+$c^2 = 16 + 64 = 80$
+\vspace{5pt}
+$c = \sqrt{80}$
+\end{center}
+\vspace{5pt}
+Since $8^2 = 64$ and $9^2 = 81$, $\sqrt{80}$ is slightly less than $9$. Among the choices, $8.9$ is the closest value.
+\vspace{5pt}
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+
+\section*{SAT Geometry - Practice Set 12 (Easy MCQ)}
+
+% Q7: Perimeter to Area
+\question
+A square has a perimeter of $28$ centimeters. What is the area, in square centimeters, of the square?
+\begin{tasks}(2)
+    \task 7
+    \task 14
+    \task 49
+    \task 196
+\end{tasks}
+
+\begin{solution}
+First, we find the length of one side of the square by dividing the total perimeter by $4$.
+\vspace{5pt}
+\begin{center}
+$\text{Side length } (s) = \dfrac{28}{4} = 7 \text{ cm}$
+\end{center}
+\vspace{5pt}
+Once the side length is known, the area ($A$) is calculated by squaring that side length.
+\vspace{5pt}
+\begin{center}
+$A = s^2 = 7^2 = 49 \text{ cm}^2$
+\end{center}
+\vspace{5pt}
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{1cm}
+
+% Q8: Triangle Angle Sum
+\question
+In a triangle, the measures of two angles are $35^\circ$ and $45^\circ$. What is the measure, in degrees, of the third angle?
+\begin{tasks}(2)
+    \task $80^\circ$
+    \task $90^\circ$
+    \task $100^\circ$
+    \task $280^\circ$
+\end{tasks}
+
+\begin{solution}
+The sum of the interior angles of any triangle is always exactly $180^\circ$.
+\vspace{5pt}
+\begin{center}
+$35^\circ + 45^\circ + x = 180^\circ$
+\vspace{5pt}
+$80^\circ + x = 180^\circ$
+\vspace{5pt}
+$x = 180^\circ - 80^\circ = 100^\circ$
+\end{center}
+\vspace{5pt}
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{1cm}
+
+% Q9: Rectangle Perimeter
+\question
+A rectangle has a length of $10$ and a width that is half of its length. What is the perimeter of the rectangle?
+\begin{tasks}(2)
+    \task 15
+    \task 30
+    \task 50
+    \task 60
+\end{tasks}
+
+\begin{solution}
+First, determine the width of the rectangle based on the given ratio.
+\vspace{5pt}
+\begin{center}
+$\text{Width } (w) = \dfrac{1}{2} \times 10 = 5$
+\end{center}
+\vspace{5pt}
+The perimeter ($P$) of a rectangle is the sum of all four sides.
+\vspace{5pt}
+\begin{center}
+$P = 2(\text{length}) + 2(\text{width})$
+\vspace{5pt}
+$P = 2(10) + 2(5) = 20 + 10 = 30$
+\end{center}
+\vspace{5pt}
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+% =============================================================
+% Question End
+% =============================================================
+
+\end{questions}
+\begin{center}
+\rule{.5\textwidth}{1pt}
+\end{center}
+\end{document}

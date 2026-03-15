@@ -17,10 +17,10 @@ import {
 import Link from "next/link";
 
 const institutePacks = [
-  { mocks: 50, price: 29000, perMock: 580 },
-  { mocks: 100, price: 46000, perMock: 460 },
-  { mocks: 300, price: 100000, perMock: 333 },
-  { mocks: 500, price: 125000, perMock: 250 },
+  { mocks: 50, price: 12500, perMock: 250 },
+  { mocks: 100, price: 23750, perMock: 237.5 },
+  { mocks: 300, price: 63750, perMock: 212.5 },
+  { mocks: 500, price: 93750, perMock: 187.5 },
 ];
 
 function formatINR(n: number) {
@@ -32,7 +32,7 @@ function EarningsCalculator() {
   const [mocksPerStudent, setMocksPerStudent] = useState(3);
 
   const totalMocks = students * mocksPerStudent;
-  const pricePerMock = 333;
+  const pricePerMock = 250;
   const commissionRate = 0.3;
   const totalRevenue = totalMocks * pricePerMock;
   const earnings = Math.round(totalRevenue * commissionRate);
@@ -210,6 +210,17 @@ export default function ForInstitutesPage() {
               </CardContent>
             </Card>
           </div>
+          <p className="text-center mt-8 text-sm text-muted-foreground">
+            Need a detailed walkthrough?{" "}
+            <a
+              href="https://help.preppeo.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-primary font-medium hover:underline"
+            >
+              Read the Partner Guide &rarr;
+            </a>
+          </p>
         </div>
       </section>
 

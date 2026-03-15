@@ -10,7 +10,7 @@ const footerLinks = {
   company: [
     { name: "Contact", href: "/contact" },
     { name: "For Institutes", href: "/for-institutes" },
-    { name: "Support", href: "/support" },
+    { name: "Help Center", href: "https://help.preppeo.com" },
     { name: "FAQ", href: "/faq" },
   ],
   resources: [
@@ -82,12 +82,23 @@ export function Footer() {
                 <ul className="space-y-2">
                   {footerLinks.company.map((link) => (
                     <li key={link.href}>
-                      <Link
-                        href={link.href}
-                        className="text-sm text-white/80 hover:text-white transition-colors"
-                      >
-                        {link.name}
-                      </Link>
+                      {link.href.startsWith("http") ? (
+                        <a
+                          href={link.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-sm text-white/80 hover:text-white transition-colors"
+                        >
+                          {link.name}
+                        </a>
+                      ) : (
+                        <Link
+                          href={link.href}
+                          className="text-sm text-white/80 hover:text-white transition-colors"
+                        >
+                          {link.name}
+                        </Link>
+                      )}
                     </li>
                   ))}
                 </ul>

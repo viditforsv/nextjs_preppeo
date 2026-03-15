@@ -1,0 +1,285 @@
+\documentclass[11pt,paper=a4,answers]{exam}
+\usepackage{graphicx,lastpage}
+\usepackage{upgreek}
+\usepackage{censor}
+\usepackage{gensymb}
+\usepackage{amsmath}
+\usepackage{multicol}
+\usepackage{enumitem}
+\usepackage{tasks}
+\usepackage{adjustbox}
+\usepackage{xcolor}
+\usepackage{tfrupee}
+\setlength{\voffset}{0.25in}
+\usepackage{tabularx}
+\newcolumntype{Y}{>{\centering\arraybackslash}X}
+%==============================================================
+% Customise Non-Essential Packages Below
+% =============================================================
+\usepackage[most]{tcolorbox}
+\usepackage{eso-pic}
+\usepackage{tikz}
+\AddToShipoutPictureBG{%
+\begin{tikzpicture}[remember picture,overlay]
+\foreach \x in {-8,-4,0,4,8,12,16,20}
+\foreach \y in {-8,-4,0,4,8,12,16,20} {
+\node[opacity=0.05,rotate=45,anchor=center] at ([xshift=\x cm,yshift=\y cm]current page.center) {%
+\begin{minipage}{2cm}
+\centering
+\includegraphics[width=2cm]{images/logo_black.png}\\
+\small preppeo.com
+\end{minipage}%
+};
+}
+\end{tikzpicture}%
+}
+\printanswers
+
+%==============================================================
+% Customise Non-Essential Packages Above
+% =============================================================
+\definecolor{svgray}{rgb}{0.90, 0.90, 0.90}
+\graphicspath{{images/}}
+
+\usepackage[normalem]{ulem}
+\renewcommand\ULthickness{1pt}   %%---> For changing thickness of underline
+\setlength\ULdepth{3.5ex}%\maxdimen ---> For changing depth of underline
+\renewcommand{\baselinestretch}{1}
+\chead{
+\includegraphics[scale=0.1,height=2cm ]{logo.png}
+}
+\pagestyle{empty}
+
+\pagestyle{headandfoot}
+\headrule
+\cfoot{W: https://preppeo.com; M: +91-8130711689}
+
+\begin{document}
+%==============================================================
+% Customise Question paper details below this
+% =============================================================
+\begin{center}
+    \centering
+    \renewcommand{\arraystretch}{1.5}
+    \begin{tabularx}{\textwidth}{YYY}
+    & \normalsize\bf{{\Large{{Quant}}}} & \\
+    By Preppeo & \normalsize\bf{{psda\_sat\_easy\_mcq\_009}} & SAT\\
+    \normalsize{{\textbf{{Algebra}} }} & \normalsize{{\textbf{{Area volumes, circle, triangle }} }} & \normalsize{{\textbf{{Solving Linear Equations}} }} \\
+    \end{tabularx}
+\end{center}
+\par\noindent\rule{\textwidth}{1pt}
+% =============================================================
+% Customise Question paper details above this
+% =============================================================
+
+\begin{questions}
+\pointsinrightmargin
+\pointsdroppedatright
+\marksnotpoints
+\pointpoints{mark}{marks}
+\pointformat{\boldmath\themarginpoints}
+\bracketedpoints
+
+% =============================================================
+% Question Begin
+% =============================================================
+
+\section*{SAT Problem Solving \& Data Analysis - Practice Set 13 (Easy)}
+
+% Q1: Based on Printer Rate logic
+\question
+A high-speed scanner processes documents at a constant rate of $35$ pages per minute. At what rate, in pages per hour, does the scanner process the documents?
+\begin{tasks}(2)
+    \task 1,050
+    \task 1,800
+    \task 2,100
+    \task 3,500
+\end{tasks}
+
+\begin{solution}
+There are $60$ minutes in $1$ hour. To find the rate per hour, multiply the rate per minute by $60$.
+\vspace{5pt}
+\begin{center}
+$35 \text{ pages/min} \times 60 \text{ min/hr} = 2,100 \text{ pages/hr}$
+\end{center}
+\vspace{5pt}
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{1cm}
+
+% Q2: Based on ISS Speed logic
+\question
+A meteoroid travels through space at an average speed of $12.5$ miles per second. What is the meteoroid's average speed in miles per hour?
+\begin{tasks}(2)
+    \task 750
+    \task 12,500
+    \task 45,000
+    \task 75,000
+\end{tasks}
+
+\begin{solution}
+To convert miles per second to miles per hour, multiply by $60$ (to get miles per minute) and then by $60$ again (to get miles per hour). Total multiplier $= 3,600$.
+\vspace{5pt}
+\begin{center}
+$12.5 \text{ miles/sec} \times 3,600 \text{ sec/hr} = 45,000 \text{ mph}$
+\end{center}
+\vspace{5pt}
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{1cm}
+
+% Q3: Based on Lightning/Thunder Ratio logic
+\question
+For a scientist $x$ kilometers from a volcanic eruption, the time interval from the moment the scientist sees the smoke to the moment they hear the blast is $y$ seconds. The ratio of $x$ to $y$ is estimated to be $1$ to $3$. According to this estimate, how many kilometers is the scientist from the eruption if the time interval is $18$ seconds?
+\begin{tasks}(2)
+    \task 3
+    \task 6
+    \task 18
+    \task 54
+\end{tasks}
+
+\begin{solution}
+The ratio of distance ($x$) to time ($y$) is $1:3$. This can be written as the equation: $\dfrac{x}{y} = \dfrac{1}{3}$.
+\vspace{5pt}
+\begin{center}
+Substitute $y = 18$: \\
+$\dfrac{x}{18} = \dfrac{1}{3} \implies 3x = 18 \implies x = 6$
+\end{center}
+\vspace{5pt}
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{1cm}
+
+% Q4: Based on Spanish Club Survey logic
+\question
+There are $80$ members in the Chess club. A random sample of the club members was asked whether they intend to participate in an upcoming tournament. Of those surveyed, $25\%$ responded that they intend to participate. Based on this survey, what is the best estimate of the total number of Chess club members who intend to participate?
+\begin{tasks}(2)
+    \task 20
+    \task 25
+    \task 60
+    \task 80
+\end{tasks}
+
+\begin{solution}
+The best estimate for the total population is found by applying the sample percentage to the total population size.
+\vspace{5pt}
+\begin{center}
+$25\% \text{ of } 80 = 0.25 \times 80 = 20$
+\end{center}
+\vspace{5pt}
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+\vspace{1cm}
+
+% Q5: Based on City Council Bill logic
+\question
+A county has $60$ board members. A journalist polled a random sample of $15$ board members and found that $3$ of those polled supported a new tax plan. Based on the sample, what is the best estimate of the number of board members in the county who support the tax plan?
+\begin{tasks}(2)
+    \task 3
+    \task 12
+    \task 15
+    \task 20
+\end{tasks}
+
+\begin{solution}
+First, find the proportion of the sample that supports the plan: $3/15 = 1/5 = 20\%$.
+\vspace{5pt}
+\begin{center}
+Apply this proportion to the total population of $60$: \\
+$20\% \text{ of } 60 = 0.20 \times 60 = 12$
+\end{center}
+\vspace{5pt}
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{1cm}
+
+% Q6: Based on Ice Cream Flavor logic
+\question
+A random sample of $40$ residents from a neighborhood with a population of $1,200$ were asked about their preferred park activity. If $6$ people in the sample named "jogging," about how many people in the neighborhood would be expected to prefer jogging?
+\begin{tasks}(2)
+    \task 180
+    \task 240
+    \task 360
+    \task 720
+\end{tasks}
+
+\begin{solution}
+The proportion in the sample is $6/40$.
+\vspace{5pt}
+\begin{center}
+Expected number $= \left( \dfrac{6}{40} \right) \times 1,200$ \\
+Expected number $= 0.15 \times 1,200 = 180$
+\end{center}
+\vspace{5pt}
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+\vspace{1cm}
+
+% Q7: Based on History Professors Generalization logic
+\question
+A survey was conducted using a sample of biology teachers selected at random from public high schools in Florida. The teachers were asked to name the primary textbook they use. What is the largest population to which the results of the survey can be generalized?
+\begin{tasks}(1)
+    \task All teachers in the United States
+    \task All biology teachers in the United States
+    \task All biology teachers in Florida public high schools
+    \task All teachers in Florida public high schools
+\end{tasks}
+
+\begin{solution}
+Results of a survey can only be generalized to the specific population from which the random sample was drawn. Since the sample was only biology teachers from Florida public high schools, we cannot generalize to other subjects or other states.
+\vspace{5pt}
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{1cm}
+
+% Q8: Based on Dog Park Bias logic
+\question
+The administration of a university wanted to assess student opinions about increasing the library's hours. The administration surveyed a sample of $200$ students who were currently in the library at midnight. The survey showed that $90\%$ were in favor of longer hours. Which of the following is true?
+\begin{tasks}(1)
+    \task It shows that the majority of all students are in favor of longer hours.
+    \task The survey sample is biased because it only includes students already using the library late at night.
+    \task The administration should have surveyed more students at midnight.
+    \task The results are representative of the entire student body.
+\end{tasks}
+
+\begin{solution}
+The sample is not random; it only targets students who are already using the library at a specific late hour. This group is much more likely to support longer hours than a student who never uses the library, making the sample biased and non-representative of the whole population.
+\vspace{5pt}
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{1cm}
+
+% Q9: Based on Movie/Book Inference logic
+\question
+A researcher selected $150$ coffee drinkers at random from a group who indicated they liked dark roast coffee. They were given a sample of a new espresso blend and $80\%$ said they preferred it over their current coffee. Which inference can appropriately be drawn?
+\begin{tasks}(1)
+    \task At least $80\%$ of all people will prefer the new espresso.
+    \task Most people who like dark roast coffee will prefer this new espresso.
+    \task Most people who dislike dark roast coffee will like this espresso.
+    \task At least $80\%$ of all tea drinkers will like this espresso.
+\end{tasks}
+
+\begin{solution}
+The sample was taken specifically from "people who like dark roast coffee." Therefore, the results can only be inferred for that specific group. Option B is the only inference that stays within the bounds of the sampled population.
+\vspace{5pt}
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+
+% =============================================================
+% Question End
+% =============================================================
+
+\end{questions}
+\begin{center}
+\rule{.5\textwidth}{1pt}
+\end{center}
+\end{document}

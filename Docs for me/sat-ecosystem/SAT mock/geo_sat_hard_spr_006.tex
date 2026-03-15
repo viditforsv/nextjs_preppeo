@@ -1,0 +1,267 @@
+\documentclass[11pt,paper=a4,answers]{exam}
+\usepackage{graphicx,lastpage}
+\usepackage{upgreek}
+\usepackage{censor}
+\usepackage{gensymb}
+\usepackage{amsmath}
+\usepackage{multicol}
+\usepackage{enumitem}
+\usepackage{tasks}
+\usepackage{adjustbox}
+\usepackage{xcolor}
+\usepackage{tfrupee}
+\setlength{\voffset}{0.25in}
+\usepackage{tabularx}
+\newcolumntype{Y}{>{\centering\arraybackslash}X}
+%==============================================================
+% Customise Non-Essential Packages Below
+% =============================================================
+\usepackage[most]{tcolorbox}
+\usepackage{eso-pic}
+\usepackage{tikz}
+\AddToShipoutPictureBG{%
+\begin{tikzpicture}[remember picture,overlay]
+\foreach \x in {-8,-4,0,4,8,12,16,20}
+\foreach \y in {-8,-4,0,4,8,12,16,20} {
+\node[opacity=0.05,rotate=45,anchor=center] at ([xshift=\x cm,yshift=\y cm]current page.center) {%
+\begin{minipage}{2cm}
+\centering
+\includegraphics[width=2cm]{images/logo_black.png}\\
+\small preppeo.com
+\end{minipage}%
+};
+}
+\end{tikzpicture}%
+}
+\printanswers
+
+%==============================================================
+% Customise Non-Essential Packages Above
+% =============================================================
+\definecolor{svgray}{rgb}{0.90, 0.90, 0.90}
+\graphicspath{{images/}}
+
+\usepackage[normalem]{ulem}
+\renewcommand\ULthickness{1pt}   %%---> For changing thickness of underline
+\setlength\ULdepth{3.5ex}%\maxdimen ---> For changing depth of underline
+\renewcommand{\baselinestretch}{1}
+\chead{
+\includegraphics[scale=0.1,height=2cm ]{logo.png}
+}
+\pagestyle{empty}
+
+\pagestyle{headandfoot}
+\headrule
+\cfoot{W: https://preppeo.com; M: +91-8130711689}
+
+\begin{document}
+%==============================================================
+% Customise Question paper details below this
+% =============================================================
+\begin{center}
+    \centering
+    \renewcommand{\arraystretch}{1.5}
+    \begin{tabularx}{\textwidth}{YYY}
+    & \normalsize\bf{{\Large{{Quant}}}} & \\
+    By Preppeo & \normalsize\bf{{geo\_sat\_hard\_spr\_006}} & SAT\\
+    \normalsize{{\textbf{{Algebra}} }} & \normalsize{{\textbf{{Area volumes, circle, triangle }} }} & \normalsize{{\textbf{{Solving Linear Equations}} }} \\
+    \end{tabularx}
+\end{center}
+\par\noindent\rule{\textwidth}{1pt}
+% =============================================================
+% Customise Question paper details above this
+% =============================================================
+
+\begin{questions}
+\pointsinrightmargin
+\pointsdroppedatright
+\marksnotpoints
+\pointpoints{mark}{marks}
+\pointformat{\boldmath\themarginpoints}
+\bracketedpoints
+
+% =============================================================
+% Question Begin
+% =============================================================
+
+\section*{SAT Geometry \& Trigonometry - Practice Set 8 (Hard Numeric Entry)}
+
+% Q1: Based on Similar Rectangle Area logic
+\question
+Rectangles $PQRS$ and $WXYZ$ are similar. The length of each side of $WXYZ$ is $5$ times the length of the corresponding side of $PQRS$. The area of $PQRS$ is $42$ square units. What is the area, in square units, of $WXYZ$?
+\begin{center}
+\begin{tikzpicture}[scale=0.6]
+    \draw[thick] (0,0) rectangle (2,1.2);
+    \node at (1,0.6) {\small Area 42};
+    \node[below] at (1,0) {\tiny $PQRS$};
+    
+    \draw[thick] (4,0) rectangle (9,3);
+    \node at (6.5,1.5) {\small Area ?};
+    \node[below] at (6.5,0) {\tiny $WXYZ$};
+    
+    \draw[<->] (2.2,0.6) -- (3.8,0.6) node[midway, above]{}; 
+\end{tikzpicture}
+\end{center}
+
+\begin{solution}
+When two figures are similar, the ratio of their areas is the square of the scale factor ($k$).
+\vspace{5pt}
+\begin{center}
+Scale Factor ($k$) $= 5$
+\vspace{5pt}
+Area Ratio $= k^2 = 5^2 = 25$
+\vspace{5pt}
+Area of $WXYZ = 42 \times 25$
+\vspace{5pt}
+$42 \times 25 = 1,050$
+\end{center}
+\vspace{5pt}
+Answer: \colorbox{yellow!100}{1050}
+\end{solution}
+
+\vspace{1cm}
+
+% Q2: Based on Percentage Increase Area logic
+\question
+A rectangular photograph has an area of $200$ square inches. A digital copy of the photograph is made in which the length and width of the original photograph are each increased by $30\%$. What is the area of the digital copy, in square inches?
+\begin{center}
+\begin{tikzpicture}[scale=0.8]
+    \draw[thick, fill=gray!10] (0,0) rectangle (2,1.5);
+    \node at (1,0.75) {\tiny $200$ in$^2$};
+    
+    \draw[thick, dashed] (4,-0.225) rectangle (6.6,1.725);
+    \node at (5.3,0.75) {\tiny Area ?};
+    \node[below] at (5.3,-0.225) {\tiny +30\% Dimensions};
+\end{tikzpicture}
+\end{center}
+
+\begin{solution}
+If the dimensions are each increased by $30\%$, the new dimensions are $1.3$ times the original.
+\vspace{5pt}
+\begin{center}
+New Area $= \text{Original Area} \times (\text{Scale Factor})^2$
+\vspace{5pt}
+New Area $= 200 \times (1.3)^2$
+\vspace{5pt}
+New Area $= 200 \times 1.69 = 338$
+\end{center}
+\vspace{5pt}
+Answer: \colorbox{yellow!100}{338}
+\end{solution}
+
+\vspace{1cm}
+
+% Q3: Based on Arc Fraction logic
+\question
+Points $X$ and $Y$ lie on a circle with radius $3$. Arc $XY$ has a length of $\frac{3\pi}{4}$. What fraction of the circumference of the circle is the length of arc $XY$?
+\begin{center}
+\begin{tikzpicture}[scale=1.2]
+    \draw[thick] (0,0) circle (1);
+    \draw[ultra thick, blue] (0:1) arc (0:45:1);
+    \draw[dashed] (0,0) -- (0:1);
+    \draw[dashed] (0,0) -- (45:1);
+    \node[right] at (0:1) {\tiny $X$};
+    \node[above right] at (45:1) {\tiny $Y$};
+    \node at (0.3,0.1) {\tiny $r=3$};
+\end{tikzpicture}
+\end{center}
+
+\begin{solution}
+Divide the length of the arc by the total circumference ($C = 2\pi r$).
+\vspace{5pt}
+\begin{center}
+Circumference ($C$) $= 2\pi(3) = 6\pi$
+\vspace{5pt}
+Fraction $= \dfrac{\text{Arc Length}}{\text{Circumference}} = \dfrac{\frac{3\pi}{4}}{6\pi}$
+\vspace{5pt}
+Fraction $= \dfrac{3\pi}{4} \times \dfrac{1}{6\pi} = \dfrac{3}{24} = \dfrac{1}{8}$
+\end{center}
+\vspace{5pt}
+Answer: \colorbox{yellow!100}{1/8}
+\end{solution}
+
+\vspace{1cm}
+
+% Q4: Based on Trigo Similarity (tan A) logic
+\question
+Triangle $LMN$ is similar to triangle $PQR$, where $L$ corresponds to $P$ and $N$ corresponds to $R$. Angles $N$ and $R$ are right angles. If $\tan(L) = \frac{4}{3}$ and $PR = 60$, what is the length of $\overline{PQ}$?
+
+\begin{solution}
+Since the triangles are similar, $\tan(P) = \tan(L) = \frac{4}{3}$.
+\vspace{5pt}
+\begin{center}
+$\tan(P) = \dfrac{\text{Opposite}}{\text{Adjacent}} = \dfrac{QR}{PR}$
+\vspace{5pt}
+$\dfrac{4}{3} = \dfrac{QR}{60} \implies QR = 80$
+\vspace{10pt}
+Use the Pythagorean theorem to find the hypotenuse $PQ$:
+\vspace{5pt}
+$PQ = \sqrt{60^2 + 80^2} = \sqrt{3600 + 6400} = 100$
+\end{center}
+\vspace{5pt}
+Answer: \colorbox{yellow!100}{100}
+\end{solution}
+
+\vspace{1cm}
+
+% Q5: Based on Rectangle Diagonal logic
+\question
+The length of a rectangle's diagonal is $2\sqrt{29}$, and the length of the rectangle's shorter side is $4$. What is the length of the rectangle's longer side?
+
+\begin{solution}
+The sides and diagonal form a right triangle. Use $a^2 + b^2 = c^2$.
+\vspace{5pt}
+\begin{center}
+$4^2 + b^2 = (2\sqrt{29})^2$
+\vspace{5pt}
+$16 + b^2 = 4 \times 29 = 116$
+\vspace{5pt}
+$b^2 = 116 - 16 = 100$
+\vspace{5pt}
+$b = \sqrt{100} = 10$
+\end{center}
+\vspace{5pt}
+Answer: \colorbox{yellow!100}{10}
+\end{solution}
+
+\vspace{1cm}
+
+% Q6: Based on Trig Scale logic
+\question
+In the figure below, $\cos(B) = 0.8$ and $BC = 25$. What is the length of $\overline{BD}$?
+\begin{center}
+\begin{tikzpicture}[scale=0.8]
+    \draw[thick] (0,0) coordinate (A) -- (4,0) coordinate (C) -- (0,3) coordinate (B) -- cycle;
+    \draw[thick] (0,0) -- (1.44,1.92) coordinate (D);
+    \draw (0,0) rectangle (0.2,0.2);
+    \node[below left] at (A) {$A$};
+    \node[right] at (C) {$C$};
+    \node[above] at (B) {$B$};
+    \node[above right] at (D) {$D$};
+    \node[left] at (0, 1.5) {$25$};
+    \node at (0.3, 2.5) {\tiny $B$};
+\end{tikzpicture}
+\end{center}
+
+\begin{solution}
+In right triangle $BDC$, side $BD$ is adjacent to angle $B$, and $BC$ is the hypotenuse.
+\vspace{5pt}
+\begin{center}
+$\cos(B) = \dfrac{\text{Adjacent}}{\text{Hypotenuse}} = \dfrac{BD}{BC}$
+\vspace{5pt}
+$0.8 = \dfrac{BD}{25} \implies BD = 20$
+\end{center}
+\vspace{5pt}
+Answer: \colorbox{yellow!100}{20}
+\end{solution}
+
+
+% =============================================================
+% Question End
+% =============================================================
+
+\end{questions}
+\begin{center}
+\rule{.5\textwidth}{1pt}
+\end{center}
+\end{document}

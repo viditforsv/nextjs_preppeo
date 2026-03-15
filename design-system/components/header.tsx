@@ -14,6 +14,7 @@ import {
   HelpCircle,
   Mail,
   Gift,
+  ExternalLink,
 } from "lucide-react";
 import Image from "next/image";
 import { useAuth } from "@/contexts/AuthContext";
@@ -259,6 +260,17 @@ export function Header() {
                           <Gift className="w-4 h-4 mr-3 text-emerald-600" />
                           Refer &amp; Earn
                         </Link>
+
+                        <a
+                          href="https://help.preppeo.com"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center px-4 py-2 text-sm text-foreground hover:bg-primary/10 transition-colors"
+                          onClick={() => setIsUserDropdownOpen(false)}
+                        >
+                          <ExternalLink className="w-4 h-4 mr-3 text-primary" />
+                          Help Center
+                        </a>
 
                         <Link
                           href="/faq"

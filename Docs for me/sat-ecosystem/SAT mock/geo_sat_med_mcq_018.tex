@@ -1,0 +1,625 @@
+\documentclass[11pt,paper=a4,answers]{exam}
+\usepackage{graphicx,lastpage}
+\usepackage{upgreek}
+\usepackage{censor}
+\usepackage{gensymb}
+\usepackage{amsmath}
+\usepackage{multicol}
+\usepackage{enumitem}
+\usepackage{tasks}
+\usepackage{adjustbox}
+\usepackage{xcolor}
+\usepackage{tfrupee}
+\setlength{\voffset}{0.25in}
+\usepackage{tabularx}
+\newcolumntype{Y}{>{\centering\arraybackslash}X}
+%==============================================================
+% Customise Non-Essential Packages Below
+% =============================================================
+\usepackage[most]{tcolorbox}
+\usepackage{eso-pic}
+\usepackage{tikz}
+\AddToShipoutPictureBG{%
+\begin{tikzpicture}[remember picture,overlay]
+\foreach \x in {-8,-4,0,4,8,12,16,20}
+\foreach \y in {-8,-4,0,4,8,12,16,20} {
+\node[opacity=0.05,rotate=45,anchor=center] at ([xshift=\x cm,yshift=\y cm]current page.center) {%
+\begin{minipage}{2cm}
+\centering
+\includegraphics[width=2cm]{images/logo_black.png}\\
+\small preppeo.com
+\end{minipage}%
+};
+}
+\end{tikzpicture}%
+}
+\printanswers
+
+%==============================================================
+% Customise Non-Essential Packages Above
+% =============================================================
+\definecolor{svgray}{rgb}{0.90, 0.90, 0.90}
+\graphicspath{{images/}}
+
+\usepackage[normalem]{ulem}
+\renewcommand\ULthickness{1pt}   %%---> For changing thickness of underline
+\setlength\ULdepth{3.5ex}%\maxdimen ---> For changing depth of underline
+\renewcommand{\baselinestretch}{1}
+\chead{
+\includegraphics[scale=0.1,height=2cm ]{logo.png}
+}
+\pagestyle{empty}
+
+\pagestyle{headandfoot}
+\headrule
+\cfoot{W: https://preppeo.com; M: +91-8130711689}
+
+\begin{document}
+%==============================================================
+% Customise Question paper details below this
+% =============================================================
+\begin{center}
+    \centering
+    \renewcommand{\arraystretch}{1.5}
+    \begin{tabularx}{\textwidth}{YYY}
+    & \normalsize\bf{{\Large{{Quant}}}} & \\
+    By Preppeo & \normalsize\bf{{geo\_sat\_easy\_mcq\_006}} & SAT\\
+    \normalsize{{\textbf{{Algebra}} }} & \normalsize{{\textbf{{Area volumes, circle, triangle }} }} & \normalsize{{\textbf{{Solving Linear Equations}} }} \\
+    \end{tabularx}
+\end{center}
+\par\noindent\rule{\textwidth}{1pt}
+% =============================================================
+% Customise Question paper details above this
+% =============================================================
+
+\begin{questions}
+\pointsinrightmargin
+\pointsdroppedatright
+\marksnotpoints
+\pointpoints{mark}{marks}
+\pointformat{\boldmath\themarginpoints}
+\bracketedpoints
+
+% =============================================================
+% Question Begin
+% =============================================================
+
+\section*{SAT Geometry \& Trigonometry - Practice Set 7 (Medium)}
+
+% Q1: 30-60-90 Triangle Logic
+\question
+\begin{center}
+\begin{tikzpicture}[scale=0.8]
+    \draw[thick] (0,0) coordinate (P) -- (5.196,0) coordinate (R) -- (0,3) coordinate (Q) -- cycle;
+    \draw (0,0) rectangle (0.3,0.3);
+    \node[left] at (P) {$P$};
+    \node[right] at (R) {$R$};
+    \node[above] at (Q) {$Q$};
+    \node[above right] at (2.6, 1.5) {$12$};
+    \node[left] at (4.5, 0.3) {$30^\circ$};
+\end{tikzpicture}
+\end{center}
+In the right triangle shown above, what is the length of $\overline{PQ}$?
+\begin{tasks}(2)
+    \task 6
+    \task $6\sqrt{3}$
+    \task 12
+    \task 24
+\end{tasks}
+
+\begin{solution}
+This is a $30^\circ-60^\circ-90^\circ$ special right triangle. In such a triangle, the side opposite the $30^\circ$ angle is exactly half the length of the hypotenuse.
+\vspace{5pt}
+\begin{center}
+Hypotenuse $QR = 12$.
+\vspace{5pt}
+$PQ = \dfrac{1}{2}(QR) = \dfrac{1}{2}(12) = 6$.
+\end{center}
+\vspace{5pt}
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+\vspace{1cm}
+
+% Q2: Rectangle Diagonal (Pythagorean Theorem)
+\question
+The length of a rectangle's diagonal is $4\sqrt{13}$, and the length of the rectangle's shorter side is $8$. What is the length of the rectangle's longer side?
+\begin{tasks}(2)
+    \task 10
+    \task 12
+    \task $4\sqrt{3}$
+    \task 144
+\end{tasks}
+
+\begin{solution}
+Let the longer side be $x$. The sides and the diagonal form a right triangle, so we use the Pythagorean theorem: $a^2 + b^2 = c^2$.
+\vspace{5pt}
+\begin{center}
+$8^2 + x^2 = (4\sqrt{13})^2$
+\vspace{5pt}
+$64 + x^2 = 16 \times 13$
+\vspace{5pt}
+$64 + x^2 = 208$
+\vspace{5pt}
+$x^2 = 208 - 64 = 144$
+\vspace{5pt}
+$x = \sqrt{144} = 12$.
+\end{center}
+\vspace{5pt}
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{1cm}
+
+% Q3: 30-60-90 Combined Logic
+\question
+\begin{center}
+\begin{tikzpicture}[scale=0.7]
+    \draw[thick] (-3.46,0) coordinate (A) -- (2,0) coordinate (C) -- (0,3.46) coordinate (B) -- cycle;
+    \draw[thick] (0,3.46) -- (0,0) coordinate (D);
+    \draw (0,0) rectangle (0.3,0.3);
+    \node[left] at (A) {$A$};
+    \node[right] at (C) {$C$};
+    \node[above] at (B) {$B$};
+    \node[below] at (D) {$D$};
+    \node[right] at (1, 1.8) {$8$};
+    \node[left] at (-0.2, 2.5) {$30^\circ$};
+    \node[left] at (1.9, 0.4) {$60^\circ$};
+\end{tikzpicture}
+\end{center}
+In $\triangle ABC$ above, what is the length of $\overline{AD}$?
+\begin{tasks}(2)
+    \task 4
+    \task $4\sqrt{3}$
+    \task 8
+    \task 12
+\end{tasks}
+
+\begin{solution}
+First, look at $\triangle BDC$, which is a $30-60-90$ triangle. $BC = 8$ is the hypotenuse. The side $BD$ is opposite the $60^\circ$ angle, so $BD = \frac{8}{2}\sqrt{3} = 4\sqrt{3}$.
+\vspace{5pt}
+Next, look at $\triangle ABD$. It is also a $30-60-90$ triangle where $BD$ is opposite the $30^\circ$ angle. The side $AD$ is opposite the $60^\circ$ angle.
+\vspace{5pt}
+\begin{center}
+$AD = BD \times \sqrt{3}$
+\vspace{5pt}
+$AD = (4\sqrt{3}) \times \sqrt{3} = 4 \times 3 = 12$.
+\end{center}
+\vspace{5pt}
+Answer: \colorbox{yellow!100}{D}
+\end{solution}
+
+\vspace{1cm}
+
+% Q4: Pythagorean Triple Logic
+\question
+A right triangle has legs with lengths of $15$ centimeters and $36$ centimeters. What is the length of this triangle's hypotenuse, in centimeters?
+\begin{tasks}(2)
+    \task 39
+    \task 42
+    \task 51
+    \task 1,521
+\end{tasks}
+
+\begin{solution}
+Use the Pythagorean theorem: $a^2 + b^2 = c^2$.
+\vspace{5pt}
+\begin{center}
+$15^2 + 36^2 = c^2$
+\vspace{5pt}
+$225 + 1,296 = c^2$
+\vspace{5pt}
+$1,521 = c^2$
+\vspace{5pt}
+$c = \sqrt{1,521} = 39$.
+\end{center}
+\vspace{5pt}
+Answer: \colorbox{yellow!100}{A}
+\end{solution}
+
+\vspace{1cm}
+
+% Q5: Similar Triangles (Perimeters)
+\question
+The table gives the perimeters of similar triangles $DEF$ and $PQR$, where $\overline{DE}$ corresponds to $\overline{PQ}$. The length of $\overline{DE}$ is $14$.
+\begin{center}
+\begin{tabular}{|c|c|}
+\hline
+ & \textbf{Perimeter} \\ \hline
+Triangle $DEF$ & 25 \\ \hline
+Triangle $PQR$ & 225 \\ \hline
+\end{tabular}
+\end{center}
+What is the length of $\overline{PQ}$?
+\begin{tasks}(2)
+    \task 14
+    \task 112
+    \task 126
+    \task 214
+\end{tasks}
+
+\begin{solution}
+For similar triangles, the ratio of the lengths of corresponding sides is equal to the ratio of their perimeters.
+\vspace{5pt}
+\begin{center}
+$\dfrac{\text{Perimeter } PQR}{\text{Perimeter } DEF} = \dfrac{225}{25} = 9$
+\vspace{5pt}
+The scale factor is 9.
+\vspace{5pt}
+$PQ = DE \times 9 = 14 \times 9 = 126$.
+\end{center}
+\vspace{5pt}
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{1cm}
+
+% Q6: Sphere Volume
+\question
+A sphere has a radius of $\frac{9}{2}$ feet. What is the volume, in cubic feet, of the sphere?
+\begin{tasks}(2)
+    \task $\frac{81\pi}{2}$
+    \task $\frac{243\pi}{2}$
+    \task $121.5\pi$
+    \task $\frac{729\pi}{6}$
+\end{tasks}
+
+\begin{solution}
+The formula for the volume of a sphere is $V = \frac{4}{3}\pi r^3$.
+\vspace{5pt}
+\begin{center}
+$V = \dfrac{4}{3} \pi \left( \dfrac{9}{2} \right)^3 = \dfrac{4}{3} \pi \left( \dfrac{729}{8} \right)$
+\vspace{5pt}
+$V = \dfrac{1 \times 243}{1 \times 2} \pi = 121.5\pi$.
+\end{center}
+\vspace{5pt}
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{1cm}
+
+% Q7: Cylinder Volume (Scale factor radius)
+\question
+A factory makes two sizes of cylindrical cans that both have a height of $20$ centimeters. The radius of Can X is $10$ centimeters, and the radius of Can Y is $20\%$ longer than the radius of Can X. What is the volume, in cubic centimeters, of Can Y?
+\begin{tasks}(2)
+    \task $2,000\pi$
+    \task $2,400\pi$
+    \task $2,880\pi$
+    \task $4,000\pi$
+\end{tasks}
+
+\begin{solution}
+First, find the radius of Can Y ($r_Y$):
+\vspace{5pt}
+\begin{center}
+$r_Y = 10 + (0.20 \times 10) = 12 \text{ cm}$.
+\vspace{5pt}
+$V = \pi r^2 h = \pi (12)^2 (20) = \pi (144) (20) = 2,880\pi$.
+\end{center}
+\vspace{5pt}
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{1cm}
+
+% Q8: Cylinder Volume from Diameter
+\question
+A cylinder has a diameter of $10$ inches and a height of $15$ inches. What is the volume, in cubic inches, of the cylinder?
+\begin{tasks}(2)
+    \task $150\pi$
+    \task $375\pi$
+    \task $750\pi$
+    \task $1,500\pi$
+\end{tasks}
+
+\begin{solution}
+The radius is half of the diameter: $r = 5 \text{ inches}$.
+\vspace{5pt}
+\begin{center}
+$V = \pi r^2 h = \pi (5)^2 (15) = 375\pi$.
+\end{center}
+\vspace{5pt}
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{1cm}
+
+% Q9: Radian to Degree Conversion
+\question
+An angle has a measure of $\frac{11\pi}{12}$ radians. What is the measure of the angle in degrees?
+\begin{tasks}(2)
+    \task 135
+    \task 150
+    \task 165
+    \task 185
+\end{tasks}
+
+\begin{solution}
+To convert radians to degrees, multiply the measure by $\frac{180}{\pi}$.
+\vspace{5pt}
+\begin{center}
+$\text{Degrees} = \dfrac{11\pi}{12} \times \dfrac{180}{\pi} = 11 \times 15 = 165$.
+\end{center}
+\vspace{5pt}
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{1cm}
+
+% Q10: Compound Angle Radians
+\question
+The measure of angle $A$ is $\frac{\pi}{4}$ radians. The measure of angle $B$ is $\frac{2\pi}{3}$ radians greater than the measure of angle $A$. What is the measure of angle $B$, in degrees?
+\begin{tasks}(2)
+    \task 120
+    \task 150
+    \task 165
+    \task 195
+\end{tasks}
+
+\begin{solution}
+First, find angle $B$ in radians:
+\vspace{5pt}
+\begin{center}
+$B = \dfrac{\pi}{4} + \dfrac{2\pi}{3} = \dfrac{3\pi + 8\pi}{12} = \dfrac{11\pi}{12} \text{ rad}$.
+\vspace{5pt}
+$\text{Degrees} = \dfrac{11\pi}{12} \times \dfrac{180}{\pi} = 165$.
+\end{center}
+\vspace{5pt}
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{1cm}
+
+% Q11: Radian Circle Geometry
+\question
+\begin{center}
+\begin{tikzpicture}[scale=1.2]
+    \draw[thick] (0,0) circle (1);
+    \draw[thick] (0,0) -- (0.866,0.5) coordinate (A);
+    \draw[thick] (0,0) -- (0.866,-0.5) coordinate (C);
+    \node at (0,-0.2) {$O$};
+    \node[above right] at (A) {$A$};
+    \node[below right] at (C) {$C$};
+    \draw (0.3,0.17) arc (30:-30:0.3);
+    \node at (0.6, 0) {\small $\pi/3$};
+\end{tikzpicture}
+\end{center}
+The circle above with center $O$ has a circumference of $72\pi$. What is the length of minor arc $AC$?
+\begin{tasks}(2)
+    \task 6
+    \task 12
+    \task $12\pi$
+    \task $24\pi$
+\end{tasks}
+
+\begin{solution}
+The ratio of the central angle to $2\pi$ (full circle) is equal to the ratio of the arc length to the circumference.
+\vspace{5pt}
+\begin{center}
+$\text{Ratio} = \dfrac{\pi/3}{2\pi} = \dfrac{1}{6}$.
+\vspace{5pt}
+$\text{Arc length} = \dfrac{1}{6} \times (72\pi) = 12\pi$.
+\end{center}
+\vspace{5pt}
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{1cm}
+
+% Q12: Cube Diagonal
+\question
+A cube has a side length $s = 6$ centimeters. What is the length, in centimeters, of the internal diagonal of the cube?
+\begin{tasks}(2)
+    \task $6\sqrt{2}$
+    \task $6\sqrt{3}$
+    \task 18
+    \task 36
+\end{tasks}
+
+\begin{solution}
+The internal diagonal of a cube with side length $s$ is calculated using the formula $d = s\sqrt{3}$.
+\vspace{5pt}
+\begin{center}
+$d = 6\sqrt{3}$.
+\end{center}
+\vspace{5pt}
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+
+\section*{SAT Geometry - Practice Set 10 (Medium MCQ)}
+
+% Q13: Arc Length and Sector Logic
+\question
+A circle has a center at $(0,0)$ and a radius of $18$. An arc on this circle has a length of $6\pi$. What is the measure, in degrees, of the central angle subtended by this arc?
+\begin{tasks}(2)
+    \task $30^\circ$
+    \task $60^\circ$
+    \task $90^\circ$
+    \task $120^\circ$
+\end{tasks}
+
+\begin{solution}
+The relationship between arc length ($s$), radius ($r$), and the central angle in degrees ($\theta$) is given by the formula:
+\vspace{5pt}
+\begin{center}
+$s = \left( \dfrac{\theta}{360} \right) \times 2\pi r$
+\end{center}
+\vspace{5pt}
+Substitute the known values ($s = 6\pi$ and $r = 18$):
+\vspace{5pt}
+\begin{center}
+$6\pi = \left( \dfrac{\theta}{360} \right) \times 2\pi(18)$
+\vspace{5pt}
+$6\pi = \left( \dfrac{\theta}{360} \right) \times 36\pi$
+\end{center}
+\vspace{5pt}
+Divide both sides by $36\pi$:
+\vspace{5pt}
+\begin{center}
+$\dfrac{6\pi}{36\pi} = \dfrac{\theta}{360} \implies \dfrac{1}{6} = \dfrac{\theta}{360}$
+\vspace{5pt}
+$\theta = \dfrac{360}{6} = 60^\circ$
+\end{center}
+\vspace{5pt}
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{1cm}
+
+% Q14: Similar Solids and Volume
+\question
+Two right circular cylinders are similar. The height of the first cylinder is $5$ inches and its volume is $40\pi$ cubic inches. If the height of the second cylinder is $15$ inches, what is the volume, in cubic inches, of the second cylinder?
+\begin{tasks}(2)
+    \task $120\pi$
+    \task $360\pi$
+    \task $1,080\pi$
+    \task $3,240\pi$
+\end{tasks}
+
+\begin{solution}
+For similar solids, the ratio of their volumes is the cube of the ratio of their corresponding linear dimensions (scale factor $k$).
+\vspace{5pt}
+\begin{center}
+Scale Factor $k = \dfrac{\text{Height}_2}{\text{Height}_1} = \dfrac{15}{5} = 3$
+\vspace{5pt}
+$\text{Volume Ratio} = k^3 = 3^3 = 27$
+\vspace{5pt}
+$\text{Volume}_2 = \text{Volume}_1 \times 27$
+\vspace{5pt}
+$\text{Volume}_2 = 40\pi \times 27 = 1,080\pi$
+\end{center}
+\vspace{5pt}
+Answer: \colorbox{yellow!100}{C}
+\end{solution}
+
+\vspace{1cm}
+
+% Q15: Triangle Inequality Theorem
+\question
+A triangle has two sides of lengths $7$ and $11$. Which of the following could be the perimeter of the triangle?
+\begin{tasks}(2)
+    \task 22
+    \task 25
+    \task 36
+    \task 40
+\end{tasks}
+
+\begin{solution}
+According to the Triangle Inequality Theorem, the length of the third side ($x$) must be between the difference and the sum of the other two sides.
+\vspace{5pt}
+\begin{center}
+$(11 - 7) < x < (11 + 7)$
+\vspace{5pt}
+$4 < x < 18$
+\end{center}
+\vspace{5pt}
+The perimeter ($P$) is $7 + 11 + x$, which is $18 + x$. We can find the range for the perimeter by adding $18$ to the inequality:
+\vspace{5pt}
+\begin{center}
+$(18 + 4) < P < (18 + 18)$
+\vspace{5pt}
+$22 < P < 36$
+\end{center}
+\vspace{5pt}
+The only option that falls strictly between $22$ and $36$ is $25$.
+\vspace{5pt}
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{1cm}
+
+% Q16: Equation of a Circle
+\question
+In the $xy$-plane, the graph of $(x - 4)^2 + (y + 1)^2 = 25$ is a circle. What is the length of the circle's diameter?
+\begin{tasks}(2)
+    \task 5
+    \task 10
+    \task 25
+    \task 50
+\end{tasks}
+
+\begin{solution}
+The standard form of a circle's equation is $(x - h)^2 + (y - k)^2 = r^2$, where $(h, k)$ is the center and $r$ is the radius.
+\vspace{5pt}
+\begin{center}
+In this equation, $r^2 = 25 \implies r = \sqrt{25} = 5$.
+\end{center}
+\vspace{5pt}
+The question asks for the **diameter**, which is twice the radius:
+\vspace{5pt}
+\begin{center}
+$d = 2r = 2(5) = 10$
+\end{center}
+\vspace{5pt}
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+
+% Q17: Arc Length and Central Angle
+\question
+A circle has a center at $(0,0)$ and a radius of $18$. An arc on this circle has a length of $6\pi$. What is the measure, in degrees, of the central angle subtended by this arc?
+\begin{tasks}(2)
+    \task $30^\circ$
+    \task $60^\circ$
+    \task $90^\circ$
+    \task $120^\circ$
+\end{tasks}
+
+\begin{solution}
+The relationship between arc length ($s$), radius ($r$), and the central angle in degrees ($\theta$) is:
+\vspace{5pt}
+\begin{center}
+$s = \left( \dfrac{\theta}{360} \right) \times 2\pi r$
+\end{center}
+\vspace{5pt}
+Substitute $s = 6\pi$ and $r = 18$:
+\vspace{5pt}
+\begin{center}
+$6\pi = \left( \dfrac{\theta}{360} \right) \times 36\pi$
+\vspace{5pt}
+$1 = \dfrac{\theta}{360} \times 6$
+\vspace{5pt}
+$\dfrac{1}{6} = \dfrac{\theta}{360} \implies \theta = 60^\circ$
+\end{center}
+\vspace{5pt}
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+\vspace{1cm}
+
+% Q18: Equation of a Circle Diameter
+\question
+In the $xy$-plane, the graph of $(x - 4)^2 + (y + 1)^2 = 25$ is a circle. What is the length of the circle's diameter?
+\begin{tasks}(2)
+    \task 5
+    \task 10
+    \task 25
+    \task 50
+\end{tasks}
+
+\begin{solution}
+The standard form of a circle is $(x - h)^2 + (y - k)^2 = r^2$.
+\vspace{5pt}
+\begin{center}
+From the equation, $r^2 = 25$, so $r = 5$.
+\end{center}
+\vspace{5pt}
+The diameter is twice the radius:
+\vspace{5pt}
+\begin{center}
+$d = 2r = 2(5) = 10$
+\end{center}
+\vspace{5pt}
+Answer: \colorbox{yellow!100}{B}
+\end{solution}
+
+% =============================================================
+% Question End
+% =============================================================
+
+\end{questions}
+\begin{center}
+\rule{.5\textwidth}{1pt}
+\end{center}
+\end{document}

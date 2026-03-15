@@ -542,7 +542,7 @@ export default function Home() {
             <Button
               size="lg"
               variant="outline"
-              className="border-white text-white hover:bg-white/10"
+              className="border-2 border-white bg-transparent text-white hover:bg-white/10 focus-visible:ring-white"
               onClick={() => router.push("/mocks")}
             >
               Explore All Mocks

@@ -2,13 +2,15 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import { useSearchParams } from 'next/navigation';
-import { ArrowLeft, Loader2, Ticket, CheckCircle2, Tag, X, Globe, ChevronDown } from 'lucide-react';
+import { ArrowLeft, Loader2, Ticket, CheckCircle2, Tag, X, Globe } from 'lucide-react';
 import Link from 'next/link';
 import PricingTable from '@/components/tests/PricingTable';
 import MyTokens from '@/components/tests/MyTokens';
 import type { TokenPackWithExam } from '@/types/test-tokens';
-import { CURRENCIES, detectCurrency, formatPrice } from '@/lib/currency';
+import { CURRENCIES, formatPrice } from '@/lib/currency';
 import type { CurrencyCode } from '@/lib/currency';
+
+const LIVE_EXAM_TYPES = ['sat'];
 
 declare global {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -63,10 +65,6 @@ export default function TokenStorePage() {
   const [referralError, setReferralError] = useState('');
   const [purchaseError, setPurchaseError] = useState('');
 
-  useEffect(() => {
-    setCurrency(detectCurrency());
-  }, []);
-
   const fetchPacks = useCallback(async () => {
     try {
       const res = await fetch('/api/mocks/packs');
@@ -96,12 +94,19 @@ export default function TokenStorePage() {
   }, [fetchPacks, fetchSubPlans]);
 
   const examTypes = Array.from(
-    new Map(allPacks.map((p) => [p.exam_type, p.exam_types?.name ?? p.exam_type])).entries()
+    new Map(
+      allPacks
+        .filter((p) => LIVE_EXAM_TYPES.includes(p.exam_type))
+        .map((p) => [p.exam_type, p.exam_types?.name ?? p.exam_type])
+    ).entries()
   );
 
   useEffect(() => {
-    if (!selectedExam && examTypes.length > 0) {
-      setSelectedExam(examTypes[0][0]);
+    if (examTypes.length === 0) return;
+    const validExam = LIVE_EXAM_TYPES.includes(selectedExam ?? '') ? selectedExam : null;
+    if (!validExam) {
+      const sat = examTypes.find(([code]) => code === 'sat');
+      setSelectedExam(sat ? 'sat' : examTypes[0][0]);
     }
   }, [examTypes, selectedExam]);
 
@@ -298,20 +303,23 @@ export default function TokenStorePage() {
           <div className="flex items-center justify-between gap-4 flex-wrap">
             {/* Exam type selector */}
             {examTypes.length > 1 ? (
-              <div className="relative">
-                <select
-                  value={selectedExam ?? ''}
-                  onChange={(e) => setSelectedExam(e.target.value || null)}
-                  className="appearance-none bg-white border border-gray-200 rounded-lg pl-3 pr-8 py-2 text-sm font-medium text-gray-800 focus:outline-none focus:ring-2 focus:ring-[#1a365d]/20 focus:border-[#1a365d] cursor-pointer"
-                >
-                  {examTypes.map(([id, name]) => (
-                    <option key={id} value={id}>{name}</option>
-                  ))}
-                </select>
-                <ChevronDown className="w-4 h-4 text-gray-400 absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+              <div className="flex gap-2 flex-wrap">
+                {examTypes.map(([id, name]) => (
+                  <button
+                    key={id}
+                    onClick={() => setSelectedExam(id)}
+                    className={`px-5 py-2.5 text-sm font-semibold rounded-lg border-2 transition-all ${
+                      selectedExam === id
+                        ? 'bg-[#1a365d] text-white border-[#1a365d] shadow-md'
+                        : 'bg-white text-gray-700 border-gray-200 hover:border-[#1a365d]/40 hover:text-[#1a365d]'
+                    }`}
+                  >
+                    {name}
+                  </button>
+                ))}
               </div>
             ) : examTypes.length === 1 ? (
-              <span className="text-sm font-medium text-gray-700 bg-white border border-gray-200 rounded-lg px-3 py-2">{examTypes[0][1]}</span>
+              <span className="px-5 py-2.5 text-sm font-semibold text-[#1a365d] bg-[#1a365d]/10 border-2 border-[#1a365d]/20 rounded-lg">{examTypes[0][1]}</span>
             ) : <div />}
 
             {/* Currency selector */}
