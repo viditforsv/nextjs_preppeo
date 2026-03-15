@@ -66,7 +66,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
   }, [profile]);
 
-  // Create user profile if it doesn't exist
+  // Create user profile if it doesn't exist (via service-role API)
   const createProfile = useCallback(
     async (userId: string) => {
       try {
@@ -75,7 +75,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           userId
         );
 
-        // Get user data from auth.users
         const { data: userData, error: userError } =
           await supabase.auth.getUser();
 
@@ -89,19 +88,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
         const user = userData.user;
         const email = user.email || "";
-        console.log("✅ createProfile - Got user data:", {
-          userId: user.id,
-          email,
-        });
-
-        // All new users get student role by default
-        const role: UserRole = "student";
-        console.log(
-          "🔵 createProfile - Setting default role 'student' for email:",
-          email
-        );
-
-        // Extract name from user metadata
         const fullName =
           user.user_metadata?.full_name || user.user_metadata?.name || "";
         const firstName =
@@ -111,63 +97,34 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           fullName.split(" ").slice(1).join(" ") ||
           "";
 
-        console.log("🔵 createProfile - Extracted name:", {
-          fullName,
-          firstName,
-          lastName,
+        const res = await fetch("/api/profiles/create", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            userId,
+            email,
+            firstName,
+            lastName,
+            role: "student",
+            avatarUrl:
+              user.user_metadata?.avatar_url ||
+              user.user_metadata?.picture ||
+              null,
+          }),
         });
 
-        const profileData = {
-          id: userId,
-          first_name: firstName,
-          last_name: lastName,
-          email: email,
-          role: role,
-          avatar_url:
-            user.user_metadata?.avatar_url ||
-            user.user_metadata?.picture ||
-            null,
-        };
-
-        console.log(
-          "🔵 createProfile - Attempting to insert profile:",
-          profileData
-        );
-
-        // Insert new profile
-        const { data, error } = await supabase
-          .from("profiles")
-          .insert(profileData)
-          .select()
-          .single();
-
-        if (error) {
-          console.error(
-            "❌ createProfile - Database error creating profile:",
-            error
-          );
-          console.error("❌ createProfile - Error code:", error.code);
-          console.error("❌ createProfile - Error message:", error.message);
-          console.error("❌ createProfile - Error details:", error.details);
-          console.error(
-            "❌ createProfile - Profile data attempted:",
-            profileData
-          );
+        if (!res.ok) {
+          const err = await res.json().catch(() => ({}));
+          console.error("❌ createProfile - API error:", err);
           return null;
         }
 
+        const { profile } = await res.json();
         console.log(
-          "✅ createProfile - Successfully created profile with role:",
-          role,
-          "for email:",
-          email
+          "✅ createProfile - Successfully created profile:",
+          profile
         );
-        console.log("✅ createProfile - Profile data:", data);
-
-        // Remove client-side role update to prevent admin demotion
-        // Role should only be managed server-side for security
-
-        return data as UserProfile;
+        return profile as UserProfile;
       } catch (error) {
         console.error("❌ createProfile - Exception caught:", error);
         return null;

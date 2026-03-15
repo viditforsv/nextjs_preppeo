@@ -90,23 +90,23 @@ export default function AuthPage() {
             return;
           }
 
-          const {
-            data: { user: authUser },
-          } = await supabase.auth.getUser();
-          const { data: userProfile } = await supabase
-            .from("profiles")
-            .select("role")
-            .eq("id", authUser?.id)
-            .single();
-
-          const roleBasedPath =
-            userProfile?.role === "student"
-              ? "/student"
-              : userProfile?.role === "teacher"
-              ? "/teacher/dashboard"
-              : userProfile?.role === "admin"
-              ? "/admin"
-              : "/courses/enrolled";
+          let roleBasedPath = "/courses/enrolled";
+          try {
+            const meRes = await fetch("/api/profiles/me");
+            if (meRes.ok) {
+              const { profile: userProfile } = await meRes.json();
+              roleBasedPath =
+                userProfile?.role === "student"
+                  ? "/student"
+                  : userProfile?.role === "teacher"
+                  ? "/teacher/dashboard"
+                  : userProfile?.role === "admin"
+                  ? "/admin"
+                  : "/courses/enrolled";
+            }
+          } catch {
+            // Fall through to default redirect
+          }
 
           const redirectUrl = redirect || next || roleBasedPath;
 
