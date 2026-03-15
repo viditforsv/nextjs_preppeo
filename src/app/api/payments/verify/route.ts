@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { PaymentService } from "@/lib/payments";
 import { createClient } from "@/lib/supabase/server";
+import { createSupabaseApiClient } from "@/lib/supabase/api-client";
 
 export async function POST(request: NextRequest) {
   try {
@@ -71,6 +72,8 @@ export async function POST(request: NextRequest) {
 
     // Create enrollment record(s) (only if user is authenticated)
     if (user && !authError) {
+      const serviceClient = createSupabaseApiClient();
+
       // Handle multiple course IDs (comma-separated for cart checkout)
       const courseIds = courseId.includes(",") 
         ? courseId.split(",") 
@@ -83,7 +86,7 @@ export async function POST(request: NextRequest) {
         enrolled_at: new Date().toISOString(),
       }));
 
-      const { error: enrollmentError } = await supabase
+      const { error: enrollmentError } = await serviceClient
         .from("courses_enrollments")
         .insert(enrollments);
 
@@ -95,8 +98,7 @@ export async function POST(request: NextRequest) {
         );
       }
 
-      // Create payment record (you might want to create a payments table)
-      const { error: paymentRecordError } = await supabase
+      const { error: paymentRecordError } = await serviceClient
         .from("payments")
         .insert({
           user_id: user.id,
@@ -111,7 +113,6 @@ export async function POST(request: NextRequest) {
 
       if (paymentRecordError) {
         console.error("Payment record creation error:", paymentRecordError);
-        // Don't fail the request if payment record creation fails
       }
     }
 

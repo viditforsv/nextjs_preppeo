@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import crypto from "crypto";
 import { createClient } from "@/lib/supabase/server";
+import { createSupabaseApiClient } from "@/lib/supabase/api-client";
 import Razorpay from "razorpay";
 
 export async function POST(request: NextRequest) {
@@ -85,7 +86,9 @@ export async function POST(request: NextRequest) {
         courseId
       );
 
-      const { error: enrollmentError } = await supabase
+      const serviceClient = createSupabaseApiClient();
+
+      const { error: enrollmentError } = await serviceClient
         .from("courses_enrollments")
         .insert({
           student_id: user.id,
@@ -96,31 +99,30 @@ export async function POST(request: NextRequest) {
 
       if (enrollmentError) {
         console.error("Enrollment error:", enrollmentError);
-        // Don't fail the payment if enrollment fails
       } else {
         console.log("✅ Enrollment created");
       }
 
-      // Save payment record
-      const { error: paymentError } = await supabase.from("payments").insert({
-        user_id: user.id,
-        course_id: courseId,
-        amount: amount,
-        currency: currency,
-        provider: "razorpay",
-        payment_id: paymentId,
-        order_id: orderId,
-        status: "completed",
-        metadata: {
-          razorpay_payment_id: paymentId,
-          razorpay_order_id: orderId,
-          razorpay_signature: signature,
-        },
-      });
+      const { error: paymentError } = await serviceClient
+        .from("payments")
+        .insert({
+          user_id: user.id,
+          course_id: courseId,
+          amount: amount,
+          currency: currency,
+          provider: "razorpay",
+          payment_id: paymentId,
+          order_id: orderId,
+          status: "completed",
+          metadata: {
+            razorpay_payment_id: paymentId,
+            razorpay_order_id: orderId,
+            razorpay_signature: signature,
+          },
+        });
 
       if (paymentError) {
         console.error("Payment record error:", paymentError);
-        // Don't fail if payment record creation fails
       } else {
         console.log("✅ Payment record created");
       }

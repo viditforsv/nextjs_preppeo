@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
+import { createSupabaseApiClient } from '@/lib/supabase/api-client';
 
 export async function GET() {
   try {
@@ -13,7 +14,8 @@ export async function GET() {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const { data, error } = await supabase
+    const serviceClient = createSupabaseApiClient();
+    const { data, error } = await serviceClient
       .from('sat_test_attempts')
       .select(
         'id, section_type, set_number, estimated_score, rw_estimated_score, total_estimated_score, total_correct, total_questions, score_pct, completed_at'
@@ -97,7 +99,8 @@ export async function POST(request: NextRequest) {
     const totalQuestions = mathTotal + rwTotal;
     const scorePct = totalQuestions > 0 ? Math.round((totalCorrect / totalQuestions) * 10000) / 100 : 0;
 
-    const { data, error } = await supabase
+    const serviceClient = createSupabaseApiClient();
+    const { data, error } = await serviceClient
       .from('sat_test_attempts')
       .insert({
         user_id: user.id,

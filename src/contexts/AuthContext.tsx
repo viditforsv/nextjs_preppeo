@@ -270,87 +270,38 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           return cachedProfile;
         }
 
-        // Add timeout to prevent hanging
-        const timeoutPromise = new Promise((_, reject) => {
-          setTimeout(() => reject(new Error("Profile fetch timeout")), 5000);
+        console.log("🔵 fetchProfile - Fetching via /api/profiles/me...");
+
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 5000);
+
+        const response = await fetch("/api/profiles/me", {
+          signal: controller.signal,
         });
+        clearTimeout(timeoutId);
 
-        console.log("🔵 fetchProfile - Querying profiles table...");
-        const fetchPromise = supabase
-          .from("profiles")
-          .select(
-            "id, first_name, last_name, email, role, created_at, updated_at, avatar_url"
-          )
-          .eq("id", userId)
-          .single();
+        if (!response.ok) {
+          const status = response.status;
+          console.error(
+            "❌ fetchProfile - API returned status:",
+            status
+          );
 
-        const { data, error } = (await Promise.race([
-          fetchPromise,
-          timeoutPromise,
-        ])) as {
-          data: UserProfile | null;
-          error: { code?: string; message?: string } | null;
-        };
-
-        console.log("🔵 fetchProfile - Query result:", {
-          hasData: !!data,
-          errorCode: error?.code,
-          errorMessage: error?.message,
-        });
-
-        if (error) {
-          // Log error with safe property access
-          const errorInfo = {
-            code: error.code || "NO_CODE",
-            message: error.message || "NO_MESSAGE",
-            fullError: error,
-            errorType: error.constructor?.name || typeof error,
-          };
-          console.error("❌ fetchProfile - Error:", errorInfo);
-
-          // Handle RLS policy errors (empty error object)
-          if (!error.code && !error.message) {
+          if (status === 404) {
             console.log(
-              "⚠️ fetchProfile - RLS policy error detected, creating fallback profile for user:",
-              userId
-            );
-            const fallbackProfile = await createFallbackProfile(userId);
-            if (fallbackProfile) {
-              setProfileCache((prev) =>
-                new Map(prev).set(userId, fallbackProfile)
-              );
-            }
-            return fallbackProfile;
-          }
-
-          // If profile doesn't exist (PGRST116), create it
-          if (error.code === "PGRST116") {
-            console.log(
-              "🔵 fetchProfile - Profile not found (PGRST116), creating new profile for user:",
+              "🔵 fetchProfile - Profile not found, creating new profile for user:",
               userId
             );
             const newProfile = await createProfile(userId);
             if (newProfile) {
-              console.log(
-                "✅ fetchProfile - Profile created successfully:",
-                newProfile
-              );
               setProfileCache((prev) => new Map(prev).set(userId, newProfile));
-            } else {
-              console.error("❌ fetchProfile - createProfile returned null");
             }
             return newProfile;
           }
 
-          // If it's a timeout or network error, create a fallback profile
-          if (
-            error.message?.includes("timeout") ||
-            error.message?.includes("network") ||
-            error.message?.includes("fetch")
-          ) {
+          if (status === 401) {
             console.log(
-              "Network/timeout error, creating fallback profile for user:",
-              userId
+              "⚠️ fetchProfile - Not authenticated, creating fallback profile"
             );
             const fallbackProfile = await createFallbackProfile(userId);
             if (fallbackProfile) {
@@ -364,9 +315,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           return null;
         }
 
+        const { profile: data } = await response.json();
         console.log("Successfully fetched profile:", data);
 
-        // Cache the profile
         setProfileCache((prev) =>
           new Map(prev).set(userId, data as UserProfile)
         );
@@ -375,13 +326,15 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       } catch (error) {
         console.error("Error fetching profile:", error);
 
-        // Retry logic for timeout errors with exponential backoff
-        if (
-          retries > 0 &&
+        const isAbortOrNetwork =
           error instanceof Error &&
-          error.message.includes("timeout")
-        ) {
-          const delay = Math.pow(2, 3 - retries) * 1000; // Exponential backoff: 1s, 2s, 4s
+          (error.name === "AbortError" ||
+            error.message.includes("timeout") ||
+            error.message.includes("network") ||
+            error.message.includes("fetch"));
+
+        if (retries > 0 && isAbortOrNetwork) {
+          const delay = Math.pow(2, 3 - retries) * 1000;
           console.log(
             `Retrying profile fetch (${retries} attempts left) after ${delay}ms...`
           );
@@ -401,7 +354,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         return fallbackProfile;
       }
     },
-    [supabase, profileCache, createFallbackProfile, createProfile]
+    [profileCache, createFallbackProfile, createProfile]
   );
 
   // Check if user has specific permission
