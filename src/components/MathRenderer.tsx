@@ -319,6 +319,9 @@ function PlaintextDataTable({
 
 // Helper function to render LaTeX strings with mixed content and environments
 export function renderMixedContent(content: string): ReactNode {
+  // Normalize leaked dollar placeholders from data early
+  content = content.replace(/__LITERAL_DOLLAR__/g, '\\$');
+
   // Detect plaintext data tables before any other processing
   const dataTable = parseDataTablePrompt(content);
   if (dataTable) {
@@ -426,17 +429,15 @@ function renderMathContent(content: string, baseIndex: number) {
     .replace(/\\newline/g, "<br>")
     .replace(/\\par/g, "<br><br>");
 
-  // Escape literal dollar signs (\$) before math delimiter parsing
-  const DOLLAR_PLACEHOLDER = '__LITERAL_DOLLAR__';
-  const contentWithEscapedDollars = finalContent.replace(/\\\$/g, DOLLAR_PLACEHOLDER);
+  // Convert escaped dollars (\$) and leaked placeholders to HTML entity
+  // so they render as $ without confusing math delimiter parsing
+  const contentWithSafeDollars = finalContent
+    .replace(/__LITERAL_DOLLAR__/g, '&#36;')
+    .replace(/\\\$/g, '&#36;');
 
-  // Split by all math delimiters: $, $$, \(, \), \[, \]
-  // Use a more robust regex that handles edge cases and multiline content
-  const parts = contentWithEscapedDollars.split(
+  const parts = contentWithSafeDollars.split(
     /(\$\$[\s\S]*?\$\$|\$[^$\n]*?\$|\\\[[\s\S]*?\\\]|\\\([^\\]*?\\\))/g
   );
-
-  const restoreDollars = (s: string) => s.replace(/__LITERAL_DOLLAR__/g, '$');
 
   return parts.map((part, index) => {
     // Check for image placeholders first
@@ -524,7 +525,7 @@ function renderMathContent(content: string, baseIndex: number) {
       return (
         <span
           key={`${baseIndex}-${index}`}
-          dangerouslySetInnerHTML={{ __html: restoreDollars(part) }}
+          dangerouslySetInnerHTML={{ __html: part }}
         />
       );
     }
@@ -741,29 +742,31 @@ function TasksRenderer({ content }: { content: string }) {
 
 // Tabular environment renderer for LaTeX tables
 function TabularRenderer({ content }: { content: string }) {
-  // Parse the tabular content to extract table structure
   const parseTabular = (tabularContent: string) => {
     const lines = tabularContent.split("\n").filter((line) => line.trim());
     const rows: string[][] = [];
 
     for (const line of lines) {
-      // Skip empty lines and lines that are just separators
-      if (!line.trim() || line.trim() === "\\hline") continue;
+      const trimmed = line.trim();
+      if (!trimmed || trimmed === "\\hline") continue;
+      // Skip column spec lines like {|c|c|} or {lrr}
+      if (/^\{[|clrp{}\d. ]+\}$/.test(trimmed)) continue;
 
-      // Handle lines that contain both \hline and data
       let cleanLine = line;
       if (line.includes("\\hline") && line.includes("&")) {
-        // Remove \hline from the beginning and end, but keep the data
         cleanLine = line.replace(/^\\hline\s*/, "").replace(/\s*\\hline$/, "");
       }
 
-      // Split by & and clean up
       const cells = cleanLine.split("&").map((cell) => {
-        // Remove any remaining \hline, \\, and trim
-        return cell
+        let c = cell
           .replace(/\\hline/g, "")
           .replace(/\\\\/g, "")
           .trim();
+        // Convert markdown bold to LaTeX \textbf
+        c = c.replace(/\*\*(.+?)\*\*/g, "\\textbf{$1}");
+        // Unwrap $...$ since MathRenderer already treats input as LaTeX
+        c = c.replace(/^\$(.+)\$$/, "$1");
+        return c;
       });
 
       if (cells.length > 0 && cells.some((cell) => cell.length > 0)) {

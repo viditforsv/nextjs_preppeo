@@ -227,7 +227,7 @@ export default function PracticeSummary() {
                             <span className="text-xs font-semibold text-amber-700">AI Explanation</span>
                           </div>
                           <div className="text-sm text-amber-900 leading-relaxed whitespace-pre-line">
-                            {practiceExplanations[r.question.id]}
+                            {renderMixedContent(practiceExplanations[r.question.id] ?? '')}
                           </div>
                         </div>
                       )}
@@ -235,7 +235,7 @@ export default function PracticeSummary() {
                       {!practiceExplanations[r.question.id] && r.question.explanation && (
                         <div className="mt-3 p-3 bg-gray-50 rounded-lg">
                           <p className="text-xs font-semibold text-gray-500 mb-1">Explanation</p>
-                          <p className="text-sm text-gray-700 leading-relaxed">{r.question.explanation}</p>
+                          <div className="text-sm text-gray-700 leading-relaxed">{renderMixedContent(r.question.explanation ?? '')}</div>
                         </div>
                       )}
                     </div>

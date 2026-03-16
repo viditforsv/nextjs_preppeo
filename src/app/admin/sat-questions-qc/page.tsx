@@ -11,6 +11,7 @@ type SATQuestionQC = SATQuestion & {
   setNumber?: number;
   aiExplanation?: string;
   aiTheory?: string;
+  qcDone?: boolean;
 };
 import QuestionRenderer from '@/components/sat-test/question-types/QuestionRenderer';
 import { renderMixedContent } from '@/components/MathRenderer';
@@ -26,6 +27,7 @@ import {
   Sparkles,
   Eye,
   Pencil,
+  CheckCircle2,
 } from 'lucide-react';
 
 interface SATQCQuestion {
@@ -44,6 +46,7 @@ interface SATQCQuestion {
   setNumber: number;
   aiExplanation?: string;
   aiTheory?: string;
+  qcDone?: boolean;
 }
 
 const DIFFICULTY_COLORS: Record<DifficultyTier, string> = {
@@ -72,6 +75,7 @@ const DIFF_ORDER: Record<DifficultyTier, number> = { easy: 0, medium: 1, hard: 2
 type SectionFilter = 'all' | SATSection;
 type PoolFilter = 'all' | 'test' | 'practice';
 type DifficultyFilter = 'all' | DifficultyTier;
+type QCFilter = 'all' | 'done' | 'pending';
 
 export default function SATQuestionsQCPage() {
   const [questions, setQuestions] = useState<SATQCQuestion[]>([]);
@@ -85,6 +89,7 @@ export default function SATQuestionsQCPage() {
   const [difficultyFilter, setDifficultyFilter] = useState<DifficultyFilter>('all');
   const [setFilter, setSetFilter] = useState<string>('all');
   const [moduleFilter, setModuleFilter] = useState<string>('all');
+  const [qcFilter, setQCFilter] = useState<QCFilter>('all');
 
   const [editMode, setEditMode] = useState(false);
   const [saving, setSaving] = useState(false);
@@ -135,6 +140,8 @@ export default function SATQuestionsQCPage() {
         if (difficultyFilter !== 'all' && q.difficulty !== difficultyFilter) return false;
         if (setFilter !== 'all' && q.setNumber !== Number(setFilter)) return false;
         if (moduleFilter !== 'all' && q.moduleNumber !== Number(moduleFilter)) return false;
+        if (qcFilter === 'done' && !q.qcDone) return false;
+        if (qcFilter === 'pending' && q.qcDone) return false;
         return true;
       })
       .sort((a, b) => {
@@ -145,11 +152,11 @@ export default function SATQuestionsQCPage() {
         if (a.difficulty !== b.difficulty) return DIFF_ORDER[a.difficulty] - DIFF_ORDER[b.difficulty];
         return 0;
       });
-  }, [questions, sectionFilter, poolFilter, domainFilter, difficultyFilter, setFilter, moduleFilter]);
+  }, [questions, sectionFilter, poolFilter, domainFilter, difficultyFilter, setFilter, moduleFilter, qcFilter]);
 
   useEffect(() => {
     setCurrentIndex(0);
-  }, [sectionFilter, poolFilter, domainFilter, difficultyFilter, setFilter, moduleFilter]);
+  }, [sectionFilter, poolFilter, domainFilter, difficultyFilter, setFilter, moduleFilter, qcFilter]);
 
   useEffect(() => {
     if (domainFilter !== 'all' && !availableDomains.includes(domainFilter as SATDomain)) {
@@ -274,6 +281,25 @@ export default function SATQuestionsQCPage() {
     setEditMode(false);
     setSaveMsg(null);
   }, []);
+
+  const [togglingQC, setTogglingQC] = useState(false);
+  const handleToggleQC = useCallback(async () => {
+    if (!current) return;
+    const newVal = !current.qcDone;
+    setTogglingQC(true);
+    try {
+      const res = await fetch('/api/admin/sat-questions', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ questionId: current.id, qcDone: newVal }),
+      });
+      if (res.ok) {
+        setQuestions((prev) => prev.map((q) => (q.id === current.id ? { ...q, qcDone: newVal } : q)));
+      }
+    } finally {
+      setTogglingQC(false);
+    }
+  }, [current]);
 
   // AI Regeneration
   const handleRegenerate = useCallback(
@@ -416,6 +442,16 @@ export default function SATQuestionsQCPage() {
                 ...availableSets.map((s) => ({ value: String(s), label: s === 0 ? 'Practice (0)' : `Set ${s}` })),
               ]}
             />
+            <FilterSelect
+              label="QC"
+              value={qcFilter}
+              onChange={(v) => setQCFilter(v as QCFilter)}
+              options={[
+                { value: 'all', label: 'All' },
+                { value: 'pending', label: 'Pending' },
+                { value: 'done', label: 'Done' },
+              ]}
+            />
             <div className="ml-auto text-sm text-gray-500">
               {filtered.length} question{filtered.length !== 1 ? 's' : ''}
             </div>
@@ -458,6 +494,9 @@ export default function SATQuestionsQCPage() {
                   <span className="text-sm text-gray-500">
                     {merged.moduleNumber === 0 ? 'Practice' : `Module ${merged.moduleNumber} / Set ${merged.setNumber}`}
                   </span>
+                  <Badge className={merged.qcDone ? 'bg-emerald-100 text-emerald-800' : 'bg-gray-100 text-gray-500'}>
+                    {merged.qcDone ? 'QC Done' : 'QC Pending'}
+                  </Badge>
                   <span className="text-xs text-gray-400 ml-auto font-mono">{merged.id}</span>
                 </div>
               ) : (
@@ -822,9 +861,27 @@ export default function SATQuestionsQCPage() {
                 <ChevronLeft className="w-4 h-4" />
                 Previous
               </button>
-              <span className="text-sm font-semibold text-gray-700 tabular-nums">
-                {currentIndex + 1} / {filtered.length}
-              </span>
+              <div className="flex items-center gap-3">
+                <button
+                  onClick={handleToggleQC}
+                  disabled={togglingQC}
+                  className={`inline-flex items-center gap-1.5 px-4 py-2 text-sm font-medium rounded-lg transition-colors disabled:opacity-50 ${
+                    current?.qcDone
+                      ? 'bg-emerald-100 text-emerald-700 border border-emerald-300 hover:bg-emerald-200'
+                      : 'bg-gray-100 text-gray-700 border border-gray-300 hover:bg-gray-200'
+                  }`}
+                >
+                  {togglingQC ? (
+                    <Loader2 className="w-4 h-4 animate-spin" />
+                  ) : (
+                    <CheckCircle2 className="w-4 h-4" />
+                  )}
+                  {current?.qcDone ? 'QC Done' : 'Mark QC Done'}
+                </button>
+                <span className="text-sm font-semibold text-gray-700 tabular-nums">
+                  {currentIndex + 1} / {filtered.length}
+                </span>
+              </div>
               <button
                 onClick={goNext}
                 disabled={currentIndex === filtered.length - 1}

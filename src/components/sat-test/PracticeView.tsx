@@ -247,7 +247,7 @@ export default function PracticeView() {
               </div>
             ) : (
               <div className="text-sm text-gray-700 leading-relaxed whitespace-pre-line">
-                {aiExplanation ?? question.explanation}
+                {renderMixedContent(aiExplanation ?? question.explanation ?? '')}
               </div>
             )}
           </div>

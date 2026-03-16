@@ -8,7 +8,7 @@ export async function GET() {
     const { data, error } = await supabase
       .from('sat_questions')
       .select(
-        'id, type, section, prompt, passage, options, correct_answer, explanation, domain, difficulty_tier, module_number, set_number, image_url, ai_explanation, ai_theory'
+        'id, type, section, prompt, passage, options, correct_answer, explanation, domain, difficulty_tier, module_number, set_number, image_url, ai_explanation, ai_theory, qc_done'
       )
       .eq('is_active', true)
       .order('section')
@@ -37,6 +37,7 @@ export async function GET() {
       setNumber: row.set_number,
       aiExplanation: row.ai_explanation ?? undefined,
       aiTheory: row.ai_theory ?? undefined,
+      qcDone: row.qc_done ?? false,
     }));
 
     return NextResponse.json({ questions });
@@ -59,6 +60,7 @@ const ALLOWED_FIELDS: Record<string, string> = {
   setNumber: 'set_number',
   aiExplanation: 'ai_explanation',
   aiTheory: 'ai_theory',
+  qcDone: 'qc_done',
 };
 
 export async function PATCH(request: NextRequest) {
