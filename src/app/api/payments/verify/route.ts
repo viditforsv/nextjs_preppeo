@@ -117,26 +117,33 @@ export async function POST(request: NextRequest) {
         console.error("Payment record creation error:", paymentRecordError);
       }
 
-      // Fire-and-forget: send purchase confirmation email
-      (async () => {
-        try {
-          const [profileRes, coursesRes] = await Promise.all([
-            serviceClient.from('profiles').select('first_name, email').eq('id', user.id).single(),
-            serviceClient.from('courses').select('title').in('id', courseIds),
-          ]);
+      try {
+        const [profileRes, coursesRes] = await Promise.all([
+          serviceClient.from('profiles').select('first_name, email').eq('id', user.id).single(),
+          serviceClient.from('courses').select('title').in('id', courseIds),
+        ]);
 
-          const firstName = profileRes.data?.first_name || '';
-          const email = profileRes.data?.email || user.email || '';
-          const courseTitles = (coursesRes.data || []).map(c => c.title);
+        const firstName = profileRes.data?.first_name || '';
+        const emailAddr = profileRes.data?.email || user.email || '';
+        const courseTitles = (coursesRes.data || []).map((c) => c.title);
 
-          if (email && courseTitles.length > 0) {
-            const { subject, html } = coursePurchaseEmail(firstName, courseTitles, amount, currency);
-            await sendTransactionalEmail({ to: email, toName: firstName || undefined, subject, htmlBody: html });
-          }
-        } catch (err) {
-          console.error('Purchase email failed (non-blocking):', err);
+        if (emailAddr && courseTitles.length > 0) {
+          const { subject, html } = coursePurchaseEmail(
+            firstName,
+            courseTitles,
+            amount,
+            currency,
+          );
+          await sendTransactionalEmail({
+            to: emailAddr,
+            toName: firstName || undefined,
+            subject,
+            htmlBody: html,
+          });
         }
-      })();
+      } catch (err) {
+        console.error('Purchase email failed (non-blocking):', err);
+      }
     }
 
     return NextResponse.json({

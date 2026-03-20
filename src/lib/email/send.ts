@@ -19,6 +19,7 @@ function getTransporter() {
   });
 }
 
+/** Await in route handlers — unawaited sends often never finish on serverless (e.g. Vercel). */
 export async function sendTransactionalEmail({
   to,
   toName,

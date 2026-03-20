@@ -135,26 +135,33 @@ export async function POST(request: NextRequest) {
       });
     }
 
-    // Fire-and-forget: send subscription confirmation email
-    (async () => {
-      try {
-        const { data: profile } = await supabase
-          .from('profiles')
-          .select('first_name, email')
-          .eq('id', user.id)
-          .single();
+    try {
+      const { data: profile } = await supabase
+        .from('profiles')
+        .select('first_name, email')
+        .eq('id', user.id)
+        .single();
 
-        const email = profile?.email || user.email || '';
-        const firstName = profile?.first_name || '';
+      const emailAddr = profile?.email || user.email || '';
+      const firstName = profile?.first_name || '';
 
-        if (email) {
-          const { subject, html } = subscriptionEmail(firstName, plan.name, endsAt.toISOString(), tokens.length);
-          await sendTransactionalEmail({ to: email, toName: firstName || undefined, subject, htmlBody: html });
-        }
-      } catch (err) {
-        console.error('Subscription email failed (non-blocking):', err);
+      if (emailAddr) {
+        const { subject, html } = subscriptionEmail(
+          firstName,
+          plan.name,
+          endsAt.toISOString(),
+          tokens.length,
+        );
+        await sendTransactionalEmail({
+          to: emailAddr,
+          toName: firstName || undefined,
+          subject,
+          htmlBody: html,
+        });
       }
-    })();
+    } catch (err) {
+      console.error('Subscription email failed (non-blocking):', err);
+    }
 
     return NextResponse.json({
       success: true,

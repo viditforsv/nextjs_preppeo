@@ -58,11 +58,19 @@ export async function POST(request: NextRequest) {
 
     console.log("✅ Profile created successfully:", data);
 
-    // Fire-and-forget: send welcome email
+    // Await so serverless runtimes complete SMTP before the handler exits
     if (email) {
-      const { subject, html } = welcomeEmail(firstName || '');
-      sendTransactionalEmail({ to: email, toName: firstName || undefined, subject, htmlBody: html })
-        .catch((err) => console.error('Welcome email failed (non-blocking):', err));
+      try {
+        const { subject, html } = welcomeEmail(firstName || '');
+        await sendTransactionalEmail({
+          to: email,
+          toName: firstName || undefined,
+          subject,
+          htmlBody: html,
+        });
+      } catch (err) {
+        console.error("Welcome email failed (non-blocking):", err);
+      }
     }
 
     return NextResponse.json({ profile: data }, { status: 201 });

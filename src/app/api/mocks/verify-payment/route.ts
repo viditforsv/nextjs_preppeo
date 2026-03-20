@@ -149,18 +149,18 @@ export async function POST(request: NextRequest) {
       });
     }
 
-    // Email tokens to the buyer (non-blocking)
     if (user.email) {
-      const appUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://courses.preppeo.com';
-      const examLabel = pack.exam_type.toUpperCase();
-      const tokenListHtml = codes
-        .map((c) => `<li style="font-family:monospace;font-size:16px;padding:4px 0">${c}</li>`)
-        .join('');
+      try {
+        const appUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://courses.preppeo.com';
+        const examLabel = pack.exam_type.toUpperCase();
+        const tokenListHtml = codes
+          .map((c) => `<li style="font-family:monospace;font-size:16px;padding:4px 0">${c}</li>`)
+          .join('');
 
-      sendTransactionalEmail({
-        to: user.email,
-        subject: `Your ${examLabel} Mock Access Codes`,
-        htmlBody: `
+        await sendTransactionalEmail({
+          to: user.email,
+          subject: `Your ${examLabel} Mock Access Codes`,
+          htmlBody: `
           <div style="font-family:sans-serif;max-width:600px;margin:0 auto">
             <h2 style="color:#0d47a1">Your ${examLabel} Access Codes</h2>
             <p>Thank you for your purchase! Here are your <strong>${codes.length}</strong> access code${codes.length > 1 ? 's' : ''}:</p>
@@ -175,7 +175,10 @@ export async function POST(request: NextRequest) {
             </p>
           </div>
         `,
-      }).catch((err) => console.error('Token email failed:', err));
+        });
+      } catch (err) {
+        console.error('Token email failed:', err);
+      }
     }
 
     return NextResponse.json({

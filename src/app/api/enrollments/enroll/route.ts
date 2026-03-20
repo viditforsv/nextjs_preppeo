@@ -38,26 +38,28 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Failed to enroll' }, { status: 500 });
     }
 
-    // Fire-and-forget: send enrollment confirmation email
-    (async () => {
-      try {
-        const [profileRes, courseRes] = await Promise.all([
-          supabase.from('profiles').select('first_name, email').eq('id', user.id).single(),
-          supabase.from('courses').select('title').eq('id', courseId).single(),
-        ]);
+    try {
+      const [profileRes, courseRes] = await Promise.all([
+        supabase.from('profiles').select('first_name, email').eq('id', user.id).single(),
+        supabase.from('courses').select('title').eq('id', courseId).single(),
+      ]);
 
-        const firstName = profileRes.data?.first_name || '';
-        const email = profileRes.data?.email || user.email || '';
-        const courseTitle = courseRes.data?.title || 'your course';
+      const firstName = profileRes.data?.first_name || '';
+      const emailAddr = profileRes.data?.email || user.email || '';
+      const courseTitle = courseRes.data?.title || 'your course';
 
-        if (email) {
-          const { subject, html } = courseEnrollmentEmail(firstName, courseTitle);
-          await sendTransactionalEmail({ to: email, toName: firstName, subject, htmlBody: html });
-        }
-      } catch (err) {
-        console.error('Enrollment email failed (non-blocking):', err);
+      if (emailAddr) {
+        const { subject, html } = courseEnrollmentEmail(firstName, courseTitle);
+        await sendTransactionalEmail({
+          to: emailAddr,
+          toName: firstName || undefined,
+          subject,
+          htmlBody: html,
+        });
       }
-    })();
+    } catch (err) {
+      console.error('Enrollment email failed (non-blocking):', err);
+    }
 
     return NextResponse.json({ success: true, enrollment });
   } catch (error) {
