@@ -85,9 +85,11 @@ interface ParsedQuestion {
   explanation: string;
   domain: string;
   difficulty: string;
-  imageUrls: string[]; // local filenames
+  imageUrls: string[];
   sourceFile: string;
   questionIndex: number;
+  hasDiagram: boolean;
+  diagramOrder: number; // 1-based: which diagram in the file (0 = no diagram)
 }
 
 // ── LaTeX cleanup ───────────────────────────────────────────────────────────
@@ -95,15 +97,15 @@ interface ParsedQuestion {
 function cleanLatex(text: string): string {
   return text
     .replace(/\\vspace\{[^}]*\}/g, '')
+    .replace(/\\hspace\{[^}]*\}/g, '')
     .replace(/\\begin\{center\}/g, '')
     .replace(/\\end\{center\}/g, '')
     .replace(/\\noindent/g, '')
-    .replace(/\\textbf\{([^}]*)\}/g, '**$1**')
-    .replace(/\\textit\{([^}]*)\}/g, '*$1*')
-    .replace(/\\text\{([^}]*)\}/g, '$1')
     .replace(/\\colorbox\{yellow!100\}\{[^}]*\}/g, '')
-    .replace(/\\\\$/gm, '')
-    .replace(/\\\\/g, '\n')
+    // Only strip \\ that are standalone line breaks (end of line or followed by space/newline)
+    // Preserve \\ inside math environments (e.g. \\frac is actually \frac in the file)
+    .replace(/\\\\[\t ]*$/gm, '')
+    .replace(/\\\\(?=\s*\n)/g, '')
     .replace(/^\s*Answer:\s*$/gm, '')
     .replace(/\n{3,}/g, '\n\n')
     .trim();
@@ -122,13 +124,19 @@ function cleanPrompt(text: string): string {
 }
 
 function cleanOption(text: string): string {
-  return text.replace(/\\vspace\{[^}]*\}/g, '').replace(/\\\\/g, '').trim();
+  return text
+    .replace(/\\vspace\{[^}]*\}/g, '')
+    .replace(/\\hspace\{[^}]*\}/g, '')
+    .replace(/\\\\[\t ]*$/gm, '')
+    .trim();
 }
 
 function cleanExplanation(text: string): string {
   let cleaned = stripTikz(text);
   cleaned = cleanLatex(cleaned);
   cleaned = cleaned.replace(/^\s*%.*$/gm, '');
+  // Strip the "Answer: X" line from explanations since we extract correctAnswer separately
+  cleaned = cleaned.replace(/^\s*Answer:\s*$/gm, '');
   cleaned = cleaned.replace(/\n{3,}/g, '\n\n').trim();
   return cleaned;
 }
@@ -168,9 +176,21 @@ function parseTexFile(filePath: string): ParsedQuestion[] {
   const questionChunks = questionsBlock.split(/\\question\s*\n/).slice(1);
 
   const results: ParsedQuestion[] = [];
+  let diagramCounter = 0;
 
   for (let i = 0; i < questionChunks.length; i++) {
     const chunk = questionChunks[i];
+
+    // Detect diagrams BEFORE stripping
+    const solStart = chunk.indexOf('\\begin{solution}');
+    const promptPart = solStart >= 0 ? chunk.substring(0, solStart) : chunk;
+    const hasDiagramInPrompt = /\\begin\{tikzpicture\}/.test(promptPart) ||
+                               /\\includegraphics/.test(promptPart);
+    // Count diagrams anywhere in the chunk (prompt OR solution) for image numbering
+    const hasDiagramAnywhere = /\\begin\{tikzpicture\}/.test(chunk) ||
+                               /\\includegraphics/.test(chunk);
+    const hasDiagram = hasDiagramInPrompt;
+    const diagramOrder = hasDiagramAnywhere ? ++diagramCounter : 0;
 
     // Extract solution
     const solMatch = chunk.match(/\\begin\{solution\}([\s\S]*?)\\end\{solution\}/);
@@ -195,11 +215,9 @@ function parseTexFile(filePath: string): ParsedQuestion[] {
     if (qType === 'mcq') {
       const tasksMatch = chunk.match(/\\begin\{tasks\}[\s\S]*?\\end\{tasks\}/);
       if (tasksMatch) {
-        // Prompt is everything before \begin{tasks}
         const beforeTasks = chunk.substring(0, chunk.indexOf('\\begin{tasks}'));
         prompt = cleanPrompt(beforeTasks);
 
-        // Parse options
         const tasksBlock = tasksMatch[0];
         const taskItems = tasksBlock.split(/\\task\s+/).slice(1);
         const optionIds = ['a', 'b', 'c', 'd'];
@@ -208,12 +226,10 @@ function parseTexFile(filePath: string): ParsedQuestion[] {
           text: cleanOption(t.replace(/\\end\{tasks\}.*$/s, '').trim()),
         }));
       } else {
-        // Fallback: no tasks block found, treat as text
         const beforeSol = chunk.substring(0, chunk.indexOf('\\begin{solution}'));
         prompt = cleanPrompt(beforeSol);
       }
     } else {
-      // SPR: no options, prompt is everything before solution
       const beforeSol = chunk.substring(0, chunk.indexOf('\\begin{solution}'));
       prompt = cleanPrompt(beforeSol);
     }
@@ -236,6 +252,8 @@ function parseTexFile(filePath: string): ParsedQuestion[] {
       imageUrls: [],
       sourceFile: fileName,
       questionIndex: i + 1,
+      hasDiagram,
+      diagramOrder,
     });
   }
 
@@ -244,47 +262,68 @@ function parseTexFile(filePath: string): ParsedQuestion[] {
 
 // ── Image mapping ───────────────────────────────────────────────────────────
 
-function mapImagesToQuestions(questions: ParsedQuestion[]): void {
-  if (!fs.existsSync(IMG_DIR)) return;
+function mapImagesToQuestions(questions: ParsedQuestion[]): string[] {
+  const unmatchedImages: string[] = [];
+  if (!fs.existsSync(IMG_DIR)) return unmatchedImages;
 
   const imageFiles = fs.readdirSync(IMG_DIR).filter(f => f.endsWith('.png'));
 
   for (const imgFile of imageFiles) {
-    // Naming conventions observed:
-    // alg_sat_easy_018_image_mcq_003.png.png -> file alg_sat_easy_mcq_018, question 3
-    // am_sat_med_mcq_030_image_001.png -> file am_sat_med_mcq_030, question 1
-    // geo_sat_med_mcq_018_image_002.png.png -> file geo_sat_med_mcq_018, question 2
-
     const nameNoExt = imgFile.replace(/\.png(\.png)?$/, '');
+    let matched = false;
 
-    // Try pattern: {domain}_sat_{diff}_{count}_image_{type}_{qnum}
-    let match = nameNoExt.match(/^(\w+)_sat_(\w+)_(\d+)_image_(\w+)_(\d+)$/);
-    let sourceFile = '';
-    let qIndex = 0;
-
-    if (match) {
-      const [, dom, diff, count, type, qNum] = match;
-      sourceFile = `${dom}_sat_${diff}_${type}_${count}`;
-      qIndex = parseInt(qNum, 10);
-    } else {
-      // Try pattern: {domain}_sat_{diff}_{type}_{count}_image_{qnum}
-      match = nameNoExt.match(/^(\w+)_sat_(\w+)_(\w+)_(\d+)_image_(\d+)$/);
-      if (match) {
-        const [, dom, diff, type, count, qNum] = match;
-        sourceFile = `${dom}_sat_${diff}_${type}_${count}`;
-        qIndex = parseInt(qNum, 10);
+    // Pattern NEW (preferred): {sourceFile}_q{questionIndex}[_{subIndex}]
+    //   e.g. alg_sat_easy_mcq_018_q3.png, geo_sat_med_mcq_018_q1_2.png
+    const newMatch = nameNoExt.match(/^(.+)_q(\d+)(?:_(\d+))?$/);
+    if (newMatch) {
+      const [, srcFile, qNumStr] = newMatch;
+      const qNum = parseInt(qNumStr, 10);
+      const q = questions.find(
+        (q) => q.sourceFile === srcFile && q.questionIndex === qNum
+      );
+      if (q) {
+        q.imageUrls.push(imgFile);
+        matched = true;
       }
     }
 
-    if (!sourceFile || !qIndex) continue;
+    if (!matched) {
+      // Pattern A (legacy): {dom}_sat_{diff}_{count}_image_{type}_{qnum}
+      let match = nameNoExt.match(/^([a-z]+)_sat_([a-z]+)_(\d+)_image_([a-z]+)_(\d+)$/);
+      let sourceFile = '';
+      let qIndex = 0;
 
-    const q = questions.find(
-      (q) => q.sourceFile === sourceFile && q.questionIndex === qIndex
-    );
-    if (q) {
-      q.imageUrls.push(imgFile);
+      if (match) {
+        const [, dom, diff, count, type, qNum] = match;
+        sourceFile = `${dom}_sat_${diff}_${type}_${count}`;
+        qIndex = parseInt(qNum, 10);
+      } else {
+        // Pattern B (legacy): {dom}_sat_{diff}_{type}_{count}_image_{qnum}
+        match = nameNoExt.match(/^([a-z]+)_sat_([a-z]+)_([a-z]+)_(\d+)_image_(\d+)$/);
+        if (match) {
+          const [, dom, diff, type, count, qNum] = match;
+          sourceFile = `${dom}_sat_${diff}_${type}_${count}`;
+          qIndex = parseInt(qNum, 10);
+        }
+      }
+
+      if (sourceFile && qIndex) {
+        const q = questions.find(
+          (q) => q.sourceFile === sourceFile && q.diagramOrder === qIndex
+        );
+        if (q) {
+          q.imageUrls.push(imgFile);
+          matched = true;
+        }
+      }
+    }
+
+    if (!matched) {
+      unmatchedImages.push(imgFile);
     }
   }
+
+  return unmatchedImages;
 }
 
 // ── Module assignment ───────────────────────────────────────────────────────
@@ -304,9 +343,12 @@ function assignToSets(questions: ParsedQuestion[]): AssignedQuestion[] {
     pools[key].push(q);
   }
 
-  // Shuffle each pool for even distribution
+  // Sort each pool deterministically for reproducible assignment
   for (const key of Object.keys(pools)) {
-    pools[key] = pools[key].sort(() => Math.random() - 0.5);
+    pools[key] = pools[key].sort((a, b) => {
+      if (a.sourceFile !== b.sourceFile) return a.sourceFile.localeCompare(b.sourceFile);
+      return a.questionIndex - b.questionIndex;
+    });
   }
 
   const assigned: AssignedQuestion[] = [];
@@ -498,9 +540,55 @@ async function main() {
   console.log(`\nTotal parsed: ${allQuestions.length} questions`);
 
   // 2. Map images
-  mapImagesToQuestions(allQuestions);
+  const unmatchedImages = mapImagesToQuestions(allQuestions);
   const withImages = allQuestions.filter((q) => q.imageUrls.length > 0);
   console.log(`Questions with images: ${withImages.length}`);
+
+  // ── Validation report ──────────────────────────────────────────────────
+  console.log('\n══════════════════ VALIDATION REPORT ══════════════════');
+
+  if (unmatchedImages.length > 0) {
+    console.log(`\n⚠ Unmatched images (${unmatchedImages.length}):`);
+    for (const img of unmatchedImages) console.log(`  - ${img}`);
+  } else {
+    console.log('\n✓ All images matched to questions.');
+  }
+
+  const diagramNoImage = allQuestions.filter(
+    (q) => q.prompt.includes('[See diagram]') && q.imageUrls.length === 0
+  );
+  if (diagramNoImage.length > 0) {
+    console.log(`\n⚠ Questions with [See diagram] but NO image (${diagramNoImage.length}):`);
+    for (const q of diagramNoImage) {
+      console.log(`  - ${q.sourceFile} Q${q.questionIndex}: ${q.prompt.substring(0, 60)}...`);
+    }
+  } else {
+    console.log('✓ All [See diagram] questions have images.');
+  }
+
+  const noAnswer = allQuestions.filter((q) => !q.correctAnswer);
+  if (noAnswer.length > 0) {
+    console.log(`\n⚠ Questions with no correct answer (${noAnswer.length}):`);
+    for (const q of noAnswer) console.log(`  - ${q.sourceFile} Q${q.questionIndex}`);
+  }
+
+  const noPrompt = allQuestions.filter((q) => !q.prompt.trim());
+  if (noPrompt.length > 0) {
+    console.log(`\n⚠ Questions with empty prompt (${noPrompt.length}):`);
+    for (const q of noPrompt) console.log(`  - ${q.sourceFile} Q${q.questionIndex}`);
+  }
+
+  const mcqNoOptions = allQuestions.filter((q) => q.type === 'mcq' && (!q.options || q.options.length < 2));
+  if (mcqNoOptions.length > 0) {
+    console.log(`\n⚠ MCQ questions with missing/too-few options (${mcqNoOptions.length}):`);
+    for (const q of mcqNoOptions) console.log(`  - ${q.sourceFile} Q${q.questionIndex}`);
+  }
+
+  if (!noAnswer.length && !noPrompt.length && !mcqNoOptions.length) {
+    console.log('✓ All questions have prompts, answers, and options.');
+  }
+
+  console.log('══════════════════════════════════════════════════════\n');
 
   // Print pool summary
   const poolSummary: Record<string, number> = {};

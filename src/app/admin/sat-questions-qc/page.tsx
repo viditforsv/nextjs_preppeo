@@ -99,6 +99,8 @@ export default function SATQuestionsQCPage() {
   // Draft state for editable fields
   const [draft, setDraft] = useState<Partial<SATQCQuestion>>({});
 
+  const handleSaveRef = useRef<() => void>(() => {});
+
   useEffect(() => {
     (async () => {
       try {
@@ -190,13 +192,27 @@ export default function SATQuestionsQCPage() {
 
   useEffect(() => {
     const handleKey = (e: KeyboardEvent) => {
-      if (editMode) return;
+      const tag = (e.target as HTMLElement)?.tagName;
+      const isInput = tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT';
+
+      if (editMode) {
+        if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') {
+          e.preventDefault();
+          handleSaveRef.current();
+        }
+        return;
+      }
+
+      if (!isInput && e.key.toLowerCase() === 'e' && current) {
+        e.preventDefault();
+        setEditMode(true);
+      }
       if (e.key === 'ArrowRight') goNext();
       if (e.key === 'ArrowLeft') goPrev();
     };
     window.addEventListener('keydown', handleKey);
     return () => window.removeEventListener('keydown', handleKey);
-  }, [goNext, goPrev, editMode]);
+  }, [goNext, goPrev, editMode, current]);
 
   // Image upload
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -275,6 +291,7 @@ export default function SATQuestionsQCPage() {
       setSaving(false);
     }
   }, [current, draft]);
+  handleSaveRef.current = handleSave;
 
   const handleDiscard = useCallback(() => {
     setDraft({});
@@ -351,7 +368,12 @@ export default function SATQuestionsQCPage() {
             <div>
               <h1 className="text-3xl font-bold text-foreground">SAT Questions QC</h1>
               <p className="text-muted-foreground mt-1">
-                Review and edit all SAT questions. {editMode ? 'Edit mode active.' : 'Arrow keys to navigate.'}
+                Review and edit all SAT questions.{' '}
+                {editMode ? (
+                  <span>Edit mode active. <kbd className="px-1.5 py-0.5 bg-gray-200 rounded text-xs font-mono">⌘/Ctrl+Enter</kbd> to save.</span>
+                ) : (
+                  <span><kbd className="px-1.5 py-0.5 bg-gray-200 rounded text-xs font-mono">←→</kbd> navigate · <kbd className="px-1.5 py-0.5 bg-gray-200 rounded text-xs font-mono">E</kbd> edit</span>
+                )}
               </p>
             </div>
             {current && (

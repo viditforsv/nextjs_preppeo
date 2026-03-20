@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
 import { createSupabaseApiClient } from '@/lib/supabase/api-client';
 import { generateTokenCode } from '@/lib/tokens/generate';
+import { sendTransactionalEmail } from '@/lib/email/send';
+import { freeTokenEmail } from '@/lib/email/templates';
 
 /**
  * POST /api/mocks/claim-free
@@ -87,6 +89,27 @@ export async function POST(request: NextRequest) {
         console.error('Referral bonus processing failed (non-blocking):', err);
       }
     }
+
+    // Fire-and-forget: send free token email
+    (async () => {
+      try {
+        const { data: profile } = await supabase
+          .from('profiles')
+          .select('first_name, email')
+          .eq('id', user.id)
+          .single();
+
+        const email = profile?.email || user.email || '';
+        const firstName = profile?.first_name || '';
+
+        if (email) {
+          const { subject, html } = freeTokenEmail(firstName, examType, code);
+          await sendTransactionalEmail({ to: email, toName: firstName || undefined, subject, htmlBody: html });
+        }
+      } catch (err) {
+        console.error('Free token email failed (non-blocking):', err);
+      }
+    })();
 
     return NextResponse.json({
       success: true,

@@ -18,7 +18,7 @@ export function useCourseEnrollment() {
   const [error, setError] = useState<string | null>(null);
   const supabase = createClient();
 
-  // Enroll in a course
+  // Enroll in a course (via API so server can send confirmation email)
   const enroll = useCallback(
     async (courseId: string): Promise<Enrollment | null> => {
       if (!user) {
@@ -30,18 +30,19 @@ export function useCourseEnrollment() {
       setError(null);
 
       try {
-        const { data, error: enrollError } = await supabase
-          .from("courses_enrollments")
-          .insert({
-            student_id: user.id,
-            course_id: courseId,
-            is_active: true,
-          })
-          .select()
-          .single();
+        const res = await fetch("/api/enrollments/enroll", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ courseId }),
+        });
 
-        if (enrollError) throw enrollError;
-        return data;
+        if (!res.ok) {
+          const body = await res.json().catch(() => ({}));
+          throw new Error(body.error || "Failed to enroll in course");
+        }
+
+        const { enrollment } = await res.json();
+        return enrollment;
       } catch (err) {
         const message =
           err instanceof Error ? err.message : "Failed to enroll in course";
@@ -51,7 +52,7 @@ export function useCourseEnrollment() {
         setLoading(null);
       }
     },
-    [user, supabase]
+    [user]
   );
 
   // Cancel enrollment

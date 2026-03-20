@@ -322,6 +322,13 @@ export function renderMixedContent(content: string): ReactNode {
   // Normalize leaked dollar placeholders from data early
   content = content.replace(/__LITERAL_DOLLAR__/g, '\\$');
 
+  // Convert \$...\$ pairs to $...$ when content contains math operators,
+  // so they render as math. Standalone \$ (currency like \$15) is left for later.
+  content = content.replace(/\\\$([^$\\\n]+?)\\\$/g, (match, inner) => {
+    if (/[=<>+\-*/^]/.test(inner)) return `$${inner}$`;
+    return match;
+  });
+
   // Detect plaintext data tables before any other processing
   const dataTable = parseDataTablePrompt(content);
   if (dataTable) {

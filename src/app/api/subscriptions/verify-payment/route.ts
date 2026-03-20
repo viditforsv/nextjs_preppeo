@@ -3,6 +3,8 @@ import nodeCrypto from 'crypto';
 import { createClient } from '@/lib/supabase/server';
 import { createSupabaseApiClient } from '@/lib/supabase/api-client';
 import { generateBulkTokenCodes } from '@/lib/tokens/generate';
+import { sendTransactionalEmail } from '@/lib/email/send';
+import { subscriptionEmail } from '@/lib/email/templates';
 
 export async function POST(request: NextRequest) {
   try {
@@ -132,6 +134,27 @@ export async function POST(request: NextRequest) {
         status: 'pending',
       });
     }
+
+    // Fire-and-forget: send subscription confirmation email
+    (async () => {
+      try {
+        const { data: profile } = await supabase
+          .from('profiles')
+          .select('first_name, email')
+          .eq('id', user.id)
+          .single();
+
+        const email = profile?.email || user.email || '';
+        const firstName = profile?.first_name || '';
+
+        if (email) {
+          const { subject, html } = subscriptionEmail(firstName, plan.name, endsAt.toISOString(), tokens.length);
+          await sendTransactionalEmail({ to: email, toName: firstName || undefined, subject, htmlBody: html });
+        }
+      } catch (err) {
+        console.error('Subscription email failed (non-blocking):', err);
+      }
+    })();
 
     return NextResponse.json({
       success: true,

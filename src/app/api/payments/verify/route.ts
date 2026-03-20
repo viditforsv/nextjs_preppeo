@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import { PaymentService } from "@/lib/payments";
 import { createClient } from "@/lib/supabase/server";
 import { createSupabaseApiClient } from "@/lib/supabase/api-client";
+import { sendTransactionalEmail } from "@/lib/email/send";
+import { coursePurchaseEmail } from "@/lib/email/templates";
 
 export async function POST(request: NextRequest) {
   try {
@@ -114,6 +116,27 @@ export async function POST(request: NextRequest) {
       if (paymentRecordError) {
         console.error("Payment record creation error:", paymentRecordError);
       }
+
+      // Fire-and-forget: send purchase confirmation email
+      (async () => {
+        try {
+          const [profileRes, coursesRes] = await Promise.all([
+            serviceClient.from('profiles').select('first_name, email').eq('id', user.id).single(),
+            serviceClient.from('courses').select('title').in('id', courseIds),
+          ]);
+
+          const firstName = profileRes.data?.first_name || '';
+          const email = profileRes.data?.email || user.email || '';
+          const courseTitles = (coursesRes.data || []).map(c => c.title);
+
+          if (email && courseTitles.length > 0) {
+            const { subject, html } = coursePurchaseEmail(firstName, courseTitles, amount, currency);
+            await sendTransactionalEmail({ to: email, toName: firstName || undefined, subject, htmlBody: html });
+          }
+        } catch (err) {
+          console.error('Purchase email failed (non-blocking):', err);
+        }
+      })();
     }
 
     return NextResponse.json({
