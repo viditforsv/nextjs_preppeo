@@ -541,6 +541,13 @@ function renderMathContent(content: string, baseIndex: number) {
 
 // Helper function to preprocess LaTeX content for better textcolor handling
 function preprocessLatex(latex: string): string {
+  // Normalize double-escaped backslash commands (e.g. \\circ → \circ).
+  // This happens when data is inserted with an extra escaping pass, leaving
+  // \\command (two backslashes + word) where LaTeX expects \command (one backslash).
+  // We only collapse when \\ is immediately followed by a letter so that a lone
+  // \\ (line-break in display environments) is left untouched.
+  latex = latex.replace(/\\\\([a-zA-Z])/g, '\\$1');
+
   // Handle textcolor commands - convert to KaTeX compatible format
   // Use a more robust regex that handles nested braces
   return (
