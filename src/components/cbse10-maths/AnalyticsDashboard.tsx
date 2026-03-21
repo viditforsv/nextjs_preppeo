@@ -1,0 +1,149 @@
+'use client';
+
+import { useEffect, useState } from 'react';
+import { useCBSE10MathsStore } from '@/stores/useCBSE10MathsStore';
+import { ArrowLeft, BarChart3, Loader2, TrendingDown, TrendingUp, Target } from 'lucide-react';
+import type { AnalyticsData } from '@/types/cbse10-maths';
+
+const DOMAIN_LABELS: Record<string, string> = {
+  'real-numbers': 'Real Numbers',
+  'polynomials': 'Polynomials',
+  'linear-equations': 'Linear Equations',
+  'quadratic-equations': 'Quadratic Equations',
+  'arithmetic-progressions': 'Arithmetic Progressions',
+  'triangles': 'Triangles',
+  'coordinate-geometry': 'Coordinate Geometry',
+  'trigonometry': 'Trigonometry',
+  'applications-of-trig': 'Applications of Trig',
+  'circles': 'Circles',
+  'areas-related-to-circles': 'Areas Related to Circles',
+  'surface-areas-volumes': 'Surface Areas & Volumes',
+  'statistics': 'Statistics',
+  'probability': 'Probability',
+};
+
+export default function AnalyticsDashboard() {
+  const { goToLanding } = useCBSE10MathsStore();
+  const [data, setData] = useState<AnalyticsData | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch('/api/cbse10-maths/analytics')
+      .then((r) => r.json())
+      .then(setData)
+      .catch(() => setData(null))
+      .finally(() => setLoading(false));
+  }, []);
+
+  const overallAccuracy = data && data.totalAttempted > 0
+    ? Math.round((data.totalCorrect / data.totalAttempted) * 100)
+    : 0;
+
+  return (
+    <div className="min-h-screen bg-[#f5f5f0]">
+      <div className="text-white px-4 py-4" style={{ backgroundColor: '#8a8c00' }}>
+        <div className="max-w-4xl mx-auto flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <BarChart3 className="w-5 h-5" />
+            <h1 className="text-lg font-bold">Analytics</h1>
+          </div>
+          <button onClick={goToLanding}
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 text-sm bg-white/10 hover:bg-white/20 rounded-lg transition-colors"
+          >
+            <ArrowLeft className="w-3.5 h-3.5" /> Back
+          </button>
+        </div>
+      </div>
+
+      <div className="max-w-4xl mx-auto p-4 space-y-4">
+        {loading && (
+          <div className="flex items-center justify-center py-16">
+            <Loader2 className="w-6 h-6 animate-spin" style={{ color: '#8a8c00' }} />
+          </div>
+        )}
+
+        {!loading && (!data || data.totalAttempted === 0) && (
+          <div className="bg-white rounded-xl border border-gray-200 p-8 text-center">
+            <Target className="w-10 h-10 text-gray-300 mx-auto mb-3" />
+            <p className="text-gray-500 font-medium">No practice data yet</p>
+            <p className="text-sm text-gray-400 mt-1">Complete some practice questions to see your analytics</p>
+          </div>
+        )}
+
+        {!loading && data && data.totalAttempted > 0 && (
+          <>
+            <div className="bg-white rounded-xl border border-gray-200 p-6">
+              <div className="text-center mb-4">
+                <p className="text-sm text-gray-500 mb-1">Overall Accuracy</p>
+                <p className="text-5xl font-bold" style={{ color: '#8a8c00' }}>{overallAccuracy}%</p>
+                <p className="text-gray-500 mt-1">{data.totalCorrect} of {data.totalAttempted} correct</p>
+              </div>
+            </div>
+
+            {data.strongest.length > 0 && (
+              <div className="grid sm:grid-cols-2 gap-4">
+                <div className="bg-white rounded-xl border border-gray-200 p-5">
+                  <div className="flex items-center gap-2 mb-3">
+                    <TrendingUp className="w-4 h-4 text-green-600" />
+                    <h3 className="text-sm font-semibold text-gray-700">Strongest Chapters</h3>
+                  </div>
+                  <div className="space-y-2">
+                    {data.strongest.map((d) => (
+                      <div key={d} className="flex items-center gap-2">
+                        <span className="w-2 h-2 bg-green-500 rounded-full shrink-0" />
+                        <span className="text-sm text-gray-700">{DOMAIN_LABELS[d] ?? d}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                <div className="bg-white rounded-xl border border-gray-200 p-5">
+                  <div className="flex items-center gap-2 mb-3">
+                    <TrendingDown className="w-4 h-4 text-red-500" />
+                    <h3 className="text-sm font-semibold text-gray-700">Focus Areas</h3>
+                  </div>
+                  <div className="space-y-2">
+                    {data.weakest.map((d) => (
+                      <div key={d} className="flex items-center gap-2">
+                        <span className="w-2 h-2 bg-red-500 rounded-full shrink-0" />
+                        <span className="text-sm text-gray-700">{DOMAIN_LABELS[d] ?? d}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            )}
+
+            <div className="bg-white rounded-xl border border-gray-200 p-6">
+              <h3 className="text-sm font-semibold text-gray-700 mb-4">Chapter-wise Accuracy</h3>
+              <div className="space-y-4">
+                {data.chapters.map((ch) => (
+                  <div key={ch.domain}>
+                    <div className="flex items-center justify-between text-sm mb-1.5">
+                      <span className="text-gray-700 font-medium">{ch.label}</span>
+                      <span className="text-gray-500">
+                        {ch.correct}/{ch.attempted}{' '}
+                        <span className={`font-semibold ${
+                          ch.accuracy >= 70 ? 'text-green-600' : ch.accuracy >= 40 ? 'text-amber-600' : 'text-red-600'
+                        }`}>
+                          ({ch.accuracy}%)
+                        </span>
+                      </span>
+                    </div>
+                    <div className="w-full bg-gray-100 rounded-full h-2.5">
+                      <div
+                        className={`h-2.5 rounded-full transition-all ${
+                          ch.accuracy >= 70 ? 'bg-green-500' : ch.accuracy >= 40 ? 'bg-amber-500' : 'bg-red-500'
+                        }`}
+                        style={{ width: `${ch.accuracy}%` }}
+                      />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </>
+        )}
+      </div>
+    </div>
+  );
+}

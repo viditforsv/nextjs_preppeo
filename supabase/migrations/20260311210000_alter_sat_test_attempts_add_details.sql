@@ -1,4 +1,1 @@
--- Add per-question responses and estimated SAT score
-ALTER TABLE sat_test_attempts
-  ADD COLUMN estimated_score INT,
-  ADD COLUMN question_responses JSONB NOT NULL DEFAULT '[]';
+sat/20260311210000_alter_sat_test_attempts_add_details.sql

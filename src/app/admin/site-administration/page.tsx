@@ -187,6 +187,12 @@ export default function SiteAdministrationPage() {
           icon: ListChecks,
           description: "Review all SAT questions (Math + R&W, test + practice)",
         },
+        {
+          name: "CBSE 10 Maths QC",
+          href: "/admin/cbse10-maths-qc",
+          icon: ListChecks,
+          description: "Review all CBSE Class 10 Mathematics questions",
+        },
       ],
     },
     {

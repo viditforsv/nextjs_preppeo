@@ -30,6 +30,14 @@ const exams = [
     live: true,
   },
   {
+    name: "CBSE 10 Maths",
+    description: "CBSE Class 10 Mathematics — practice with AI explanations and analytics.",
+    gradient: "from-indigo-600 to-violet-600",
+    testRoute: "/cbse10-maths",
+    courseQuery: "CBSE10",
+    live: true,
+  },
+  {
     name: "GRE",
     description: "Graduate school entrance exam — verbal, quant, and AWA.",
     gradient: "from-purple-500 to-purple-600",

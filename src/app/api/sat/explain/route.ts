@@ -14,7 +14,13 @@ interface ExplainRequestBody {
   difficulty?: string;
   explanation?: string;
   mode?: 'answer' | 'theory';
+  course?: string;
 }
+
+const COURSE_TABLE: Record<string, string> = {
+  sat: 'sat_questions',
+  'cbse10-maths': 'cbse10_maths_questions',
+};
 
 // In-memory rate limit: userId -> { count, resetAt }
 const rateLimits = new Map<string, { count: number; resetAt: number }>();
@@ -177,12 +183,13 @@ export async function POST(request: NextRequest) {
 
     const mode = body.mode ?? 'answer';
     const cacheCol = mode === 'theory' ? 'ai_theory' : 'ai_explanation';
+    const tableName = COURSE_TABLE[body.course ?? 'sat'] ?? 'sat_questions';
 
     // Check cache if questionId provided
     if (body.questionId) {
       const adminSupabase = createSupabaseApiClient();
       const { data: cached } = await adminSupabase
-        .from('sat_questions')
+        .from(tableName)
         .select(cacheCol)
         .eq('id', body.questionId)
         .single();
@@ -212,7 +219,7 @@ export async function POST(request: NextRequest) {
       if (body.questionId) {
         const adminSupabase = createSupabaseApiClient();
         await adminSupabase
-          .from('sat_questions')
+          .from(tableName)
           .update({ [cacheCol]: text })
           .eq('id', body.questionId)
           .then(({ error }) => {

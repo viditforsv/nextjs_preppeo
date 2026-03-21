@@ -1,1 +1,1 @@
-ALTER TABLE public.sat_questions ADD COLUMN qc_done BOOLEAN NOT NULL DEFAULT false;
+sat/20260316100000_sat_questions_add_qc_done.sql

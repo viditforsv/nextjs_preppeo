@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useSATTestStore } from '@/stores/useSATTestStore';
 import Link from 'next/link';
 import type {
@@ -37,10 +37,15 @@ const COUNTS = [5, 10, 15, 20];
 
 type Remaining = { easy: number; medium: number; hard: number };
 
+interface FilterChapter { name: string; subtopics: string[] }
+interface FilterDomain { id: string; chapters: FilterChapter[] }
+
 export default function PracticeConfigScreen() {
   const { startPracticeMode, goToLanding } = useSATTestStore();
   const [section, setSection] = useState<SATSection>('rw');
   const [selectedDomains, setSelectedDomains] = useState<SATDomain[]>([]);
+  const [selectedChapters, setSelectedChapters] = useState<string[]>([]);
+  const [selectedSubtopics, setSelectedSubtopics] = useState<string[]>([]);
   const [difficulty, setDifficulty] = useState<DifficultyTier | 'mixed'>('mixed');
   const [count, setCount] = useState(10);
   const [loading, setLoading] = useState(false);
@@ -50,6 +55,8 @@ export default function PracticeConfigScreen() {
   const [remaining, setRemaining] = useState<Remaining | null>(null);
   const [usageLoading, setUsageLoading] = useState(true);
   const [subscriptionExpired, setSubscriptionExpired] = useState(false);
+
+  const [filterData, setFilterData] = useState<FilterDomain[]>([]);
 
   useEffect(() => {
     fetch('/api/sat/practice-usage')
@@ -63,11 +70,49 @@ export default function PracticeConfigScreen() {
       .finally(() => setUsageLoading(false));
   }, []);
 
+  useEffect(() => {
+    fetch(`/api/sat/practice-filters?section=${section}`)
+      .then((r) => r.json())
+      .then((d) => setFilterData(d.domains ?? []))
+      .catch(() => setFilterData([]));
+  }, [section]);
+
   const domains = section === 'math' ? MATH_DOMAINS : RW_DOMAINS;
+
+  const availableChapters = useMemo(() => {
+    if (selectedDomains.length === 0) {
+      return filterData.flatMap((d) => d.chapters);
+    }
+    return filterData
+      .filter((d) => selectedDomains.includes(d.id as SATDomain))
+      .flatMap((d) => d.chapters);
+  }, [filterData, selectedDomains]);
+
+  const availableSubtopics = useMemo(() => {
+    const chapters = selectedChapters.length > 0
+      ? availableChapters.filter((ch) => selectedChapters.includes(ch.name))
+      : availableChapters;
+    return [...new Set(chapters.flatMap((ch) => ch.subtopics))].sort();
+  }, [availableChapters, selectedChapters]);
 
   const toggleDomain = (id: SATDomain) => {
     setSelectedDomains((prev) =>
       prev.includes(id) ? prev.filter((d) => d !== id) : [...prev, id]
+    );
+    setSelectedChapters([]);
+    setSelectedSubtopics([]);
+  };
+
+  const toggleChapter = (name: string) => {
+    setSelectedChapters((prev) =>
+      prev.includes(name) ? prev.filter((c) => c !== name) : [...prev, name]
+    );
+    setSelectedSubtopics([]);
+  };
+
+  const toggleSubtopic = (name: string) => {
+    setSelectedSubtopics((prev) =>
+      prev.includes(name) ? prev.filter((s) => s !== name) : [...prev, name]
     );
   };
 
@@ -81,6 +126,8 @@ export default function PracticeConfigScreen() {
       await startPracticeMode({
         section,
         domains: selectedDomains,
+        chapters: selectedChapters,
+        subtopics: selectedSubtopics,
         difficulty: isPremium ? difficulty : 'mixed',
         questionCount: isPremium ? count : totalRemaining,
       });
@@ -203,7 +250,7 @@ export default function PracticeConfigScreen() {
               {(['rw', 'math'] as SATSection[]).map((s) => (
                 <button
                   key={s}
-                  onClick={() => { setSection(s); setSelectedDomains([]); }}
+                  onClick={() => { setSection(s); setSelectedDomains([]); setSelectedChapters([]); setSelectedSubtopics([]); }}
                   className={`py-3 px-4 rounded-lg border-2 text-sm font-semibold transition-all ${
                     section === s
                       ? 'border-emerald-500 bg-emerald-50 text-emerald-700'
@@ -240,6 +287,60 @@ export default function PracticeConfigScreen() {
               })}
             </div>
           </div>
+
+          {/* Chapters */}
+          {availableChapters.length > 0 && (
+            <div>
+              <label className="text-sm font-semibold text-gray-700 mb-2 block">
+                Chapter <span className="font-normal text-gray-400">(none = all)</span>
+              </label>
+              <div className="flex flex-wrap gap-2">
+                {availableChapters.map((ch) => {
+                  const active = selectedChapters.includes(ch.name);
+                  return (
+                    <button
+                      key={ch.name}
+                      onClick={() => toggleChapter(ch.name)}
+                      className={`px-3 py-1.5 rounded-full text-xs font-medium border transition-colors ${
+                        active
+                          ? 'border-blue-400 bg-blue-50 text-blue-700'
+                          : 'border-gray-200 text-gray-500 hover:border-gray-300'
+                      }`}
+                    >
+                      {ch.name}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+
+          {/* Subtopics */}
+          {availableSubtopics.length > 0 && (
+            <div>
+              <label className="text-sm font-semibold text-gray-700 mb-2 block">
+                Subtopic <span className="font-normal text-gray-400">(none = all)</span>
+              </label>
+              <div className="flex flex-wrap gap-2">
+                {availableSubtopics.map((st) => {
+                  const active = selectedSubtopics.includes(st);
+                  return (
+                    <button
+                      key={st}
+                      onClick={() => toggleSubtopic(st)}
+                      className={`px-3 py-1.5 rounded-full text-xs font-medium border transition-colors ${
+                        active
+                          ? 'border-purple-400 bg-purple-50 text-purple-700'
+                          : 'border-gray-200 text-gray-500 hover:border-gray-300'
+                      }`}
+                    >
+                      {st}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          )}
 
           {/* Difficulty — only for premium */}
           <div className={isPremium === false ? 'opacity-50 pointer-events-none' : ''}>

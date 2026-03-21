@@ -53,7 +53,8 @@ export async function GET(request: NextRequest) {
       .eq('section', section)
       .eq('module_number', moduleNum)
       .eq('set_number', setNum)
-      .eq('is_active', true);
+      .eq('is_active', true)
+      .eq('qc_done', true);
 
     if (moduleNum === 2) {
       query = query.eq('difficulty_tier', difficulty!);

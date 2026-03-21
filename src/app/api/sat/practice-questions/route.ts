@@ -3,7 +3,7 @@ import { createClient } from '@/lib/supabase/server';
 import { createSupabaseApiClient } from '@/lib/supabase/api-client';
 import type { SATQuestion, SATQuestionType, SATSection, DifficultyTier, SATDomain, SATQuestionOption } from '@/types/sat-test';
 
-const FIELDS = 'id, type, prompt, passage, options, correct_answer, explanation, domain, difficulty_tier, image_url, section';
+const FIELDS = 'id, type, prompt, passage, options, correct_answer, explanation, domain, difficulty_tier, image_url, section, chapter, subtopic';
 
 const FREE_LIMITS = { easy: 2, medium: 2, hard: 1 } as const;
 
@@ -29,6 +29,8 @@ function toQuestion(row: Record<string, unknown>, fallbackSection: string): SATQ
     section: ((row.section as string) ?? fallbackSection) as SATSection,
     difficulty: (row.difficulty_tier as string) as DifficultyTier,
     domain: (row.domain as string) as SATDomain | undefined ?? undefined,
+    chapter: (row.chapter as string) ?? undefined,
+    subtopic: (row.subtopic as string) ?? undefined,
     prompt: row.prompt as string,
     passage: (row.passage as string) ?? undefined,
     options: toOptions(row.options),
@@ -39,6 +41,29 @@ function toQuestion(row: Record<string, unknown>, fallbackSection: string): SATQ
 }
 
 const GRACE_MS = 30 * 60 * 1000; // 30 minutes grace after expiry
+
+/** Supabase filter chain after `.select()` — generic so row/table generics stay consistent */
+function applyFilters<T extends { in(column: string, values: readonly string[]): T }>(
+  query: T,
+  domainsParam: string | null,
+  chaptersParam: string | null,
+  subtopicsParam: string | null,
+): T {
+  let q = query;
+  if (domainsParam) {
+    const domains = domainsParam.split(',').filter(Boolean);
+    if (domains.length > 0) q = q.in('domain', domains);
+  }
+  if (chaptersParam) {
+    const chapters = chaptersParam.split(',').filter(Boolean);
+    if (chapters.length > 0) q = q.in('chapter', chapters);
+  }
+  if (subtopicsParam) {
+    const subtopics = subtopicsParam.split(',').filter(Boolean);
+    if (subtopics.length > 0) q = q.in('subtopic', subtopics);
+  }
+  return q;
+}
 
 async function checkPremium(supabase: ReturnType<typeof createSupabaseApiClient>, userId: string): Promise<boolean> {
   const { data } = await supabase
@@ -79,6 +104,8 @@ export async function GET(request: NextRequest) {
     const { searchParams } = new URL(request.url);
     const section = searchParams.get('section');
     const domainsParam = searchParams.get('domains');
+    const chaptersParam = searchParams.get('chapters');
+    const subtopicsParam = searchParams.get('subtopics');
     const difficulty = searchParams.get('difficulty') ?? 'mixed';
     const count = Math.min(parseInt(searchParams.get('count') ?? '10', 10) || 10, 30);
 
@@ -93,10 +120,10 @@ export async function GET(request: NextRequest) {
     const isPremium = await checkPremium(supabase, user.id);
 
     if (isPremium) {
-      return handlePremium(supabase, section, domainsParam, difficulty, count);
+      return handlePremium(supabase, section, domainsParam, chaptersParam, subtopicsParam, difficulty, count);
     }
 
-    return handleFreemium(supabase, user.id, section, domainsParam);
+    return handleFreemium(supabase, user.id, section, domainsParam, chaptersParam, subtopicsParam);
   } catch (error) {
     console.error('Error in GET /api/sat/practice-questions:', error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
@@ -107,15 +134,14 @@ async function handlePremium(
   supabase: ReturnType<typeof createSupabaseApiClient>,
   section: string,
   domainsParam: string | null,
+  chaptersParam: string | null,
+  subtopicsParam: string | null,
   difficulty: string,
   count: number,
 ) {
-  let query = supabase.from('sat_questions').select(FIELDS).eq('section', section).eq('is_active', true);
+  let query = supabase.from('sat_questions').select(FIELDS).eq('section', section).eq('is_active', true).eq('qc_done', true);
+  query = applyFilters(query, domainsParam, chaptersParam, subtopicsParam);
 
-  if (domainsParam) {
-    const domains = domainsParam.split(',').filter(Boolean);
-    if (domains.length > 0) query = query.in('domain', domains);
-  }
   if (difficulty && difficulty !== 'mixed') {
     query = query.eq('difficulty_tier', difficulty);
   }
@@ -133,6 +159,8 @@ async function handleFreemium(
   userId: string,
   section: string,
   domainsParam: string | null,
+  chaptersParam: string | null,
+  subtopicsParam: string | null,
 ) {
   const today = new Date().toISOString().slice(0, 10);
 
@@ -156,21 +184,16 @@ async function handleFreemium(
   for (const [tier, need] of [['easy', wantEasy], ['medium', wantMedium], ['hard', wantHard]] as const) {
     if (need <= 0) continue;
 
-    const { data } = await supabase
+    let tierQuery = supabase
       .from('sat_questions')
       .select(FIELDS)
       .eq('section', section)
       .eq('is_active', true)
-      .eq('difficulty_tier', tier)
-      .then((res) => {
-        if (domainsParam) {
-          const domains = domainsParam.split(',').filter(Boolean);
-          if (domains.length && res.data) {
-            return { ...res, data: res.data.filter((q) => domains.includes(q.domain as string)) };
-          }
-        }
-        return res;
-      });
+      .eq('qc_done', true)
+      .eq('difficulty_tier', tier);
+    tierQuery = applyFilters(tierQuery, domainsParam, chaptersParam, subtopicsParam);
+
+    const { data } = await tierQuery;
 
     if (data?.length) {
       const picked = shuffle(data).slice(0, need);

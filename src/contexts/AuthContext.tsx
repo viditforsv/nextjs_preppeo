@@ -641,6 +641,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             firstName: firstName,
             lastName: lastName,
             role: role,
+            // Profile row may already exist from Supabase handle_new_user() trigger — still send welcome
+            sendWelcomeEmail: true,
           }),
         });
 

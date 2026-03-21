@@ -89,11 +89,18 @@ export default function PracticeView() {
           <h2 className="text-sm font-medium text-gray-500">
             Question {practiceIndex + 1} of {total}
           </h2>
-          {question.domain && (
-            <span className="text-xs px-2 py-1 rounded bg-gray-100 text-gray-500 font-medium">
-              {DOMAIN_LABELS[question.domain] ?? question.domain}
-            </span>
-          )}
+          <div className="flex items-center gap-1.5 flex-wrap">
+            {question.domain && (
+              <span className="text-xs px-2 py-1 rounded bg-gray-100 text-gray-500 font-medium">
+                {DOMAIN_LABELS[question.domain] ?? question.domain}
+              </span>
+            )}
+            {question.subtopic && (
+              <span className="text-xs px-2 py-1 rounded bg-purple-50 text-purple-600 font-medium">
+                {question.subtopic}
+              </span>
+            )}
+          </div>
         </div>
 
         <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-6 mb-4">

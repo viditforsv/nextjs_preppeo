@@ -576,6 +576,12 @@ export const useSATTestStore = create<SATTestState>()((set, get) => ({
     if (config.domains.length > 0) {
       params.set('domains', config.domains.join(','));
     }
+    if (config.chapters?.length > 0) {
+      params.set('chapters', config.chapters.join(','));
+    }
+    if (config.subtopics?.length > 0) {
+      params.set('subtopics', config.subtopics.join(','));
+    }
     if (config.difficulty !== 'mixed') {
       params.set('difficulty', config.difficulty);
     }
@@ -615,6 +621,23 @@ export const useSATTestStore = create<SATTestState>()((set, get) => ({
 
     const question = practiceQuestions.find((q) => q.id === qId);
     if (!question) return;
+
+    const userAnswer = practiceAnswers[qId] ?? '';
+    const isCorrect = userAnswer.trim().toLowerCase() === question.correctAnswer.trim().toLowerCase();
+
+    fetch('/api/sat/record-answer', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        questionId: question.id,
+        answerGiven: userAnswer,
+        isCorrect,
+        domain: question.domain,
+        chapter: question.chapter,
+        subtopic: question.subtopic,
+        difficultyTier: question.difficulty,
+      }),
+    }).catch(() => {});
 
     fetch('/api/sat/explain', {
       method: 'POST',

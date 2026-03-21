@@ -1,0 +1,1051 @@
+-- Practice-mode math from lid_028.tex (sat_lid_028)
+-- Chapter: Function Notation Function notation and interpreting functions | Topic: Function Transformations
+-- sat_questions: section=math, domain=advanced-math, bank_item_id=sat_lid_028_N, practice module/set 0.
+
+INSERT INTO public.sat_questions (
+  type,
+  section,
+  prompt,
+  options,
+  correct_answer,
+  explanation,
+  domain,
+  difficulty_tier,
+  module_number,
+  set_number,
+  bank_item_id,
+  chapter,
+  subtopic
+)
+VALUES
+  (
+  'mcq',
+  'math',
+  'The graph of $y = f(x)$ is shown in the $xy$-plane. Which of the following equations represents a graph that is the result of shifting the graph of $f$ upward by 4 units?',
+  '[{"id":"a","text":"$y = f(x + 4)$"},{"id":"b","text":"$y = f(x - 4)$"},{"id":"c","text":"$y = f(x) + 4$"},{"id":"d","text":"$y = f(x) - 4$"}]'::jsonb,
+  'c',
+  '\\textbf{Conceptual Explanation:}
+
+A vertical shift is achieved by adding or subtracting a constant outside the function notation. Adding a positive constant $k$ shifts the graph upward.',
+  'advanced-math',
+  'medium',
+  0,
+  0,
+  'sat_lid_028_1',
+  'Function Notation Function notation and interpreting functions',
+  'Function Transformations'
+),
+  (
+  'spr',
+  'math',
+  '\\begin{center} \\begin{tikzpicture}[scale=0.6] \\draw[->] (-3,0) -- (3,0) node[right] {$x$}; \\draw[->] (0,-1) -- (0,5) node[above] {$y$}; \\draw[domain=-2:2, smooth, variable=\\x, blue, thick] plot ({\\x}, {\\x*\\x}); \\filldraw[black] (0,0) circle (2pt) node[below] {$(0, 0)$}; \\node at (1.5,4) {$f(x)$}; \\end{tikzpicture} \\end{center} The vertex of the parabola $f(x) = x^2$ is $(0, 0)$. If $g(x) = f(x-5) + 3$, what is the $y$-coordinate of the vertex of the graph of $g$?',
+  NULL,
+  '3',
+  '\\textbf{Conceptual Explanation:}
+
+The transformation $f(x-h) + k$ shifts the original graph $h$ units horizontally and $k$ units vertically.
+
+\\textbf{Calculation and Logic:}
+
+Original vertex: $(0, 0)$.
+
+Horizontal shift: $x-5$ means 5 units to the right ($h=5$).
+
+Vertical shift: $+3$ means 3 units up ($k=3$).
+
+New vertex: $(5, 3)$.
+
+The $y$-coordinate is 3.',
+  'advanced-math',
+  'hard',
+  0,
+  0,
+  'sat_lid_028_2',
+  'Function Notation Function notation and interpreting functions',
+  'Function Transformations'
+),
+  (
+  'mcq',
+  'math',
+  'If the point $(2, 10)$ is on the graph of $y = f(x)$, which point must be on the graph of $y = f(x + 3)$?',
+  '[{"id":"a","text":"$(5, 10)$"},{"id":"b","text":"$(-1, 10)$"},{"id":"c","text":"$(2, 13)$"},{"id":"d","text":"$(2, 7)$"}]'::jsonb,
+  'b',
+  '\\textbf{Conceptual Explanation:}
+
+The transformation $f(x + h)$ represents a horizontal shift to the left by $h$ units. This affects only the $x$-coordinate by subtracting $h$.
+
+\\textbf{Calculation and Logic:}
+
+Original $x = 2$.
+
+Shift left 3 units: $2 - 3 = -1$.
+
+The $y$-coordinate remains 10.
+
+New point: $(-1, 10)$.',
+  'advanced-math',
+  'medium',
+  0,
+  0,
+  'sat_lid_028_3',
+  'Function Notation Function notation and interpreting functions',
+  'Function Transformations'
+),
+  (
+  'spr',
+  'math',
+  'The function $g$ is defined by $g(x) = f(x) - 7$. If the $y$-intercept of the graph of $f$ is $(0, 15)$, what is the $y$-coordinate of the $y$-intercept of the graph of $g$?',
+  NULL,
+  '8',
+  '\\textbf{Conceptual Explanation:}
+
+A vertical shift affects the $y$-intercept directly. If a graph moves down 7 units, its $y$-intercept also moves down 7 units.
+
+\\textbf{Calculation and Logic:}
+
+$g(0) = f(0) - 7$.
+
+Since $f(0) = 15$:
+
+$g(0) = 15 - 7 = 8$.',
+  'advanced-math',
+  'hard',
+  0,
+  0,
+  'sat_lid_028_4',
+  'Function Notation Function notation and interpreting functions',
+  'Function Transformations'
+),
+  (
+  'mcq',
+  'math',
+  '\\begin{center} \\begin{tikzpicture}[scale=0.6] \\draw[->] (-1,0) -- (5,0) node[right] {$x$}; \\draw[->] (0,-1) -- (0,5) node[above] {$y$}; \\draw[domain=0.5:4.5, smooth, variable=\\x, red, thick] plot ({\\x}, {sqrt(\\x)}); \\node[red] at (4,1.5) {$f$}; \\end{tikzpicture} \\end{center} Which transformation of function $f$ would result in a reflection across the $x$-axis?',
+  '[{"id":"a","text":"$y = f(-x)$"},{"id":"b","text":"$y = -f(x)$"},{"id":"c","text":"$y = f(x) - 1$"},{"id":"d","text":"$y = \\\\frac{1}{f(x)}$"}]'::jsonb,
+  'b',
+  '\\textbf{Conceptual Explanation:}
+
+Reflecting a graph across the $x$-axis means negating all of its $y$-values. This is represented by placing a negative sign outside the function: $-f(x)$.',
+  'advanced-math',
+  'medium',
+  0,
+  0,
+  'sat_lid_028_5',
+  'Function Notation Function notation and interpreting functions',
+  'Function Transformations'
+),
+  (
+  'spr',
+  'math',
+  'A line has a $y$-intercept of $(0, 4)$ and a slope of 2. The line is shifted 3 units to the right to create a new line. What is the $y$-intercept of the new line?',
+  NULL,
+  '-2',
+  '\\textbf{Calculation and Logic:}
+
+Original line: $f(x) = 2x + 4$.
+
+Shift right 3: $g(x) = f(x - 3) = 2(x - 3) + 4$.
+
+Simplify: $g(x) = 2x - 6 + 4 = 2x - 2$.
+
+The $y$-intercept of the new line is $-2$.',
+  'advanced-math',
+  'hard',
+  0,
+  0,
+  'sat_lid_028_6',
+  'Function Notation Function notation and interpreting functions',
+  'Function Transformations'
+),
+  (
+  'mcq',
+  'math',
+  '$g(x) = f(x + 2) - 5$ The graph of function $g$ is the result of which sequence of transformations on function $f$?',
+  '[{"id":"a","text":"Shift 2 units left and 5 units down"},{"id":"b","text":"Shift 2 units right and 5 units down"},{"id":"c","text":"Shift 2 units left and 5 units up"},{"id":"d","text":"Shift 2 units right and 5 units up"}]'::jsonb,
+  'a',
+  '\\textbf{Conceptual Explanation:}
+
+$(x+2)$ inside the function shifts left. $-5$ outside shifts down.',
+  'advanced-math',
+  'medium',
+  0,
+  0,
+  'sat_lid_028_7',
+  'Function Notation Function notation and interpreting functions',
+  'Function Transformations'
+),
+  (
+  'spr',
+  'math',
+  'If the point $(a, b)$ is on the graph of $y = f(x)$, and the point $(a+4, b-6)$ is on the graph of $y = f(x-h) + k$, what is the value of $h + k$?',
+  NULL,
+  '-2',
+  '\\textbf{Calculation and Logic:}
+
+Moving from $a$ to $a+4$ is a shift 4 units to the right, so $h = 4$.
+
+Moving from $b$ to $b-6$ is a shift 6 units down, so $k = -6$.
+
+$h + k = 4 + (-6) = -2$.',
+  'advanced-math',
+  'hard',
+  0,
+  0,
+  'sat_lid_028_8',
+  'Function Notation Function notation and interpreting functions',
+  'Function Transformations'
+),
+  (
+  'mcq',
+  'math',
+  'If the graph of $f(x) = x^2$ is reflected across the $x$-axis and then shifted up 10 units, which of the following defines the new function $g$?',
+  '[{"id":"a","text":"$g(x) = -x^2 + 10$"},{"id":"b","text":"$g(x) = -(x^2 + 10)$"},{"id":"c","text":"$g(x) = (-x)^2 + 10$"},{"id":"d","text":"$g(x) = -x^2 - 10$"}]'::jsonb,
+  'a',
+  '\\textbf{Calculation and Logic:}
+
+Reflect across x-axis: $-f(x) = -x^2$.
+
+Shift up 10: $-x^2 + 10$.',
+  'advanced-math',
+  'medium',
+  0,
+  0,
+  'sat_lid_028_9',
+  'Function Notation Function notation and interpreting functions',
+  'Function Transformations'
+),
+  (
+  'spr',
+  'math',
+  'The vertex of a parabola is $(3, -4)$. After a transformation, the new vertex is $(1, 2)$. If the transformation is written as $f(x-h)+k$, what is the value of $h$?',
+  NULL,
+  '-2',
+  '\\textbf{Calculation and Logic:}
+
+Original $x = 3$. New $x = 1$.
+
+Shift left 2 units: $3 - 2 = 1$.
+
+A shift left 2 is represented as $f(x+2)$, so $h = -2$.',
+  'advanced-math',
+  'hard',
+  0,
+  0,
+  'sat_lid_028_10',
+  'Function Notation Function notation and interpreting functions',
+  'Function Transformations'
+),
+  (
+  'mcq',
+  'math',
+  '\\begin{center} \\begin{tikzpicture}[scale=0.5] \\draw[->] (-3,0) -- (3,0) node[right] {$x$}; \\draw[->] (0,-1) -- (0,5) node[above] {$y$}; \\draw[domain=-2:2, smooth, variable=\\x, blue, thick] plot ({\\x}, {\\x*\\x + 1}); \\node at (1.5,4.5) {$y=f(x)$}; \\end{tikzpicture} \\end{center} The graph of $y=f(x)$ is shown. Which of the following is the graph of $y=f(x)-3$?',
+  '[{"id":"a","text":"The graph of $f$ shifted 3 units left."},{"id":"b","text":"The graph of $f$ shifted 3 units right."},{"id":"c","text":"The graph of $f$ shifted 3 units up."},{"id":"d","text":"The graph of $f$ shifted 3 units down."}]'::jsonb,
+  'd',
+  '\\textbf{Conceptual Explanation:}
+
+Subtracting 3 from the function value moves every point on the graph downward by 3 units.',
+  'advanced-math',
+  'medium',
+  0,
+  0,
+  'sat_lid_028_11',
+  'Function Notation Function notation and interpreting functions',
+  'Function Transformations'
+),
+  (
+  'spr',
+  'math',
+  '$f(x) = 2x - 8$ $g(x) = f(x+k)$ If the $x$-intercept of $g$ is $(0, 0)$, what is the value of $k$?',
+  NULL,
+  '4',
+  '\\textbf{Calculation and Logic:}
+
+$x$-intercept of $g$ is $(0,0) → g(0) = 0$.
+
+$f(0+k) = 0 → f(k) = 0$.
+
+$2k - 8 = 0 → 2k = 8 → k = 4$.',
+  'advanced-math',
+  'hard',
+  0,
+  0,
+  'sat_lid_028_12',
+  'Function Notation Function notation and interpreting functions',
+  'Function Transformations'
+),
+  (
+  'mcq',
+  'math',
+  'How does the graph of $y = 5f(x)$ compare to the graph of $y = f(x)$?',
+  '[{"id":"a","text":"It is shifted 5 units up."},{"id":"b","text":"It is shifted 5 units right."},{"id":"c","text":"It is vertically stretched by a factor of 5."},{"id":"d","text":"It is horizontally compressed by a factor of 5."}]'::jsonb,
+  'c',
+  '\\textbf{Conceptual Explanation:}
+
+Multiplying the output of a function by a constant $a > 1$ results in a vertical stretch.',
+  'advanced-math',
+  'medium',
+  0,
+  0,
+  'sat_lid_028_13',
+  'Function Notation Function notation and interpreting functions',
+  'Function Transformations'
+),
+  (
+  'spr',
+  'math',
+  'A function $f$ has a domain of $0 ≤ x ≤ 10$. What is the width of the domain of the function $g(x) = f(2x)$?',
+  NULL,
+  '5',
+  '\\textbf{Conceptual Explanation:}
+
+$f(ax)$ results in a horizontal compression if $a > 1$. The $x$-values are divided by $a$.
+
+\\textbf{Calculation and Logic:}
+
+Original domain: $[0, 10]$, width = 10.
+
+New domain: $0 ≤ 2x ≤ 10 → 0 ≤ x ≤ 5$.
+
+Width of new domain = 5.',
+  'advanced-math',
+  'hard',
+  0,
+  0,
+  'sat_lid_028_14',
+  'Function Notation Function notation and interpreting functions',
+  'Function Transformations'
+),
+  (
+  'mcq',
+  'math',
+  '\\begin{center} \\begin{tikzpicture}[scale=0.6] \\draw[->] (-3,0) -- (3,0) node[right] {$x$}; \\draw[->] (0,-3) -- (0,3) node[above] {$y$}; \\draw[thick, blue] (-2,-1) -- (2,2); \\node at (1.5,1) {$f$}; \\draw[thick, red, dashed] (2,-1) -- (-2,2); \\node at (-1.5,1) {$g$}; \\end{tikzpicture} \\end{center} Which transformation maps the solid line $f$ to the dashed line $g$?',
+  '[{"id":"a","text":"$g(x) = f(-x)$"},{"id":"b","text":"$g(x) = -f(x)$"},{"id":"c","text":"$g(x) = f(x-2)$"},{"id":"d","text":"$g(x) = f(x+2)$"}]'::jsonb,
+  'a',
+  '\\textbf{Conceptual Explanation:}
+
+Negating the input $x \\rightarrow -x$ reflects the graph across the $y$-axis.',
+  'advanced-math',
+  'medium',
+  0,
+  0,
+  'sat_lid_028_15',
+  'Function Notation Function notation and interpreting functions',
+  'Function Transformations'
+),
+  (
+  'spr',
+  'math',
+  'If the point $(4, 8)$ is on the graph of $y = f(x)$, what is the $y$-coordinate of the corresponding point on the graph of $y = \\frac{1}{2}f(x) + 5$?',
+  NULL,
+  '9',
+  '\\textbf{Calculation and Logic:}
+
+Apply transformations to the $y$-value:
+
+1. Vertical compression: $8 × (1/2) = 4$.
+
+2. Vertical shift up: $4 + 5 = 9$.',
+  'advanced-math',
+  'hard',
+  0,
+  0,
+  'sat_lid_028_16',
+  'Function Notation Function notation and interpreting functions',
+  'Function Transformations'
+),
+  (
+  'mcq',
+  'math',
+  'Which of the following describes the graph of $y = f(x-10)$?',
+  '[{"id":"a","text":"Shift 10 units up"},{"id":"b","text":"Shift 10 units down"},{"id":"c","text":"Shift 10 units left"},{"id":"d","text":"Shift 10 units right"}]'::jsonb,
+  'd',
+  '\\textbf{Conceptual Explanation:}
+
+Subtracting from the input $x$ shifts the graph horizontally to the right.',
+  'advanced-math',
+  'medium',
+  0,
+  0,
+  'sat_lid_028_17',
+  'Function Notation Function notation and interpreting functions',
+  'Function Transformations'
+),
+  (
+  'spr',
+  'math',
+  'The function $f(x) = |x|$ is shifted 4 units left and 2 units up. What is the value of the new function at $x = 0$?',
+  NULL,
+  '6',
+  '\\textbf{Calculation and Logic:}
+
+New function: $g(x) = |x + 4| + 2$.
+
+Evaluate at $x = 0$:
+
+$g(0) = |0 + 4| + 2 = 4 + 2 = 6$.',
+  'advanced-math',
+  'hard',
+  0,
+  0,
+  'sat_lid_028_18',
+  'Function Notation Function notation and interpreting functions',
+  'Function Transformations'
+),
+  (
+  'mcq',
+  'math',
+  'If the point $(3, 5)$ is on the graph of $y = f(x)$, which point must be on the graph of $y = f(-x)$?',
+  '[{"id":"a","text":"$(3, -5)$"},{"id":"b","text":"$(-3, 5)$"},{"id":"c","text":"$(-3, -5)$"},{"id":"d","text":"$(5, 3)$"}]'::jsonb,
+  'b',
+  '\\textbf{Conceptual Explanation:}
+
+$f(-x)$ reflects the $x$-coordinates.',
+  'advanced-math',
+  'medium',
+  0,
+  0,
+  'sat_lid_028_19',
+  'Function Notation Function notation and interpreting functions',
+  'Function Transformations'
+),
+  (
+  'spr',
+  'math',
+  '$f(x) = (x-2)^2 + 1$ $g(x) = f(x+3) - 4$ What is the $x$-coordinate of the vertex of $g$?',
+  NULL,
+  '-1',
+  '\\textbf{Calculation and Logic:}
+
+Vertex of $f$: $(2, 1)$.
+
+Transformation $g$: shift left 3, down 4.
+
+$x$-coordinate: $2 - 3 = -1$.',
+  'advanced-math',
+  'hard',
+  0,
+  0,
+  'sat_lid_028_20',
+  'Function Notation Function notation and interpreting functions',
+  'Function Transformations'
+),
+  (
+  'mcq',
+  'math',
+  'How does the graph of $y = f(3x)$ compare to $y = f(x)$?',
+  '[{"id":"a","text":"Vertically stretched by 3"},{"id":"b","text":"Vertically compressed by 1/3"},{"id":"c","text":"Horizontally stretched by 3"},{"id":"d","text":"Horizontally compressed by 1/3"}]'::jsonb,
+  'd',
+  '\\textbf{Conceptual Explanation:}
+
+Input multipliers $> 1$ compress the graph horizontally.',
+  'advanced-math',
+  'medium',
+  0,
+  0,
+  'sat_lid_028_21',
+  'Function Notation Function notation and interpreting functions',
+  'Function Transformations'
+),
+  (
+  'spr',
+  'math',
+  'If $f(x) = x^2 + 4$, what is the minimum value of $g(x) = f(x-10) + 5$?',
+  NULL,
+  '9',
+  '\\textbf{Calculation and Logic:}
+
+Minimum of $f$ is 4 (at $x=0$).
+
+$g(x)$ is $f$ shifted 10 right and 5 up.
+
+The vertical shift up 5 changes the minimum from 4 to $4 + 5 = 9$.',
+  'advanced-math',
+  'hard',
+  0,
+  0,
+  'sat_lid_028_22',
+  'Function Notation Function notation and interpreting functions',
+  'Function Transformations'
+),
+  (
+  'mcq',
+  'math',
+  'If $g(x) = f(x) + k$, and the graph of $g$ is lower than the graph of $f$, what must be true about $k$?',
+  '[{"id":"a","text":"$k > 0$"},{"id":"b","text":"$k < 0$"},{"id":"c","text":"$k = 0$"},{"id":"d","text":"$k = x$"}]'::jsonb,
+  'b',
+  '\\textbf{Conceptual Explanation:}
+
+A downward shift occurs when the constant being added is negative.',
+  'advanced-math',
+  'medium',
+  0,
+  0,
+  'sat_lid_028_23',
+  'Function Notation Function notation and interpreting functions',
+  'Function Transformations'
+),
+  (
+  'spr',
+  'math',
+  'If $(2, 4)$ is on the graph of $f(x)$, and $(2, -4)$ is on the graph of $a \\cdot f(x)$, what is the value of $a$?',
+  NULL,
+  '-1',
+  '\\textbf{Calculation and Logic:}
+
+$a \\cdot f(2) = -4 → a(4) = -4 → a = -1$.',
+  'advanced-math',
+  'hard',
+  0,
+  0,
+  'sat_lid_028_24',
+  'Function Notation Function notation and interpreting functions',
+  'Function Transformations'
+),
+  (
+  'mcq',
+  'math',
+  'Which transformation results in a graph that is wider than the original $y = |x|$?',
+  '[{"id":"a","text":"$y = 2|x|$"},{"id":"b","text":"$y = 0.5|x|$"},{"id":"c","text":"$y = |x| + 2$"},{"id":"d","text":"$y = |x+2|$"}]'::jsonb,
+  'b',
+  '\\textbf{Conceptual Explanation:}
+
+A vertical compression ($0 < a < 1$) makes a graph appear wider.',
+  'advanced-math',
+  'medium',
+  0,
+  0,
+  'sat_lid_028_25',
+  'Function Notation Function notation and interpreting functions',
+  'Function Transformations'
+),
+  (
+  'spr',
+  'math',
+  '\\begin{center} \\begin{tikzpicture}[scale=0.6] \\draw[->] (-1,0) -- (6,0) node[right] {$x$}; \\draw[->] (0,-1) -- (0,5) node[above] {$y$}; \\draw[domain=0:4.5, smooth, variable=\\x, blue, thick] plot ({\\x}, {sqrt(\\x)}); \\filldraw[black] (4,2) circle (2pt) node[above] {$(4, 2)$}; \\node[blue] at (2,1.8) {$y = f(x)$}; \\end{tikzpicture} \\end{center} The point $(4, 2)$ is on the graph of the function $f$ shown above. If $g(x) = f(x+5) + 6$, what is the $y$-coordinate of the corresponding point on the graph of $g$?',
+  NULL,
+  '8',
+  '\\textbf{Conceptual Explanation:}
+
+A function transformation in the form $g(x) = f(x-h) + k$ shifts the original coordinates. The value inside the parentheses ($h$) affects the $x$-coordinate, while the value outside ($k$) affects the $y$-coordinate.
+
+\\textbf{Calculation and Logic:}
+
+Original point: $(4, 2)$.
+
+1. \\textbf{Identify the Vertical Transformation:} The $+6$ outside the function indicates a vertical shift upward by 6 units.
+
+2. \\textbf{Apply to the y-coordinate:} Original $y = 2$. New $y = 2 + 6 = 8$.
+
+Note: The $(x+5)$ would shift the $x$-coordinate 5 units to the left ($4 - 5 = -1$), but the question specifically asks for the $y$-coordinate.',
+  'advanced-math',
+  'hard',
+  0,
+  0,
+  'sat_lid_028_26',
+  'Function Notation Function notation and interpreting functions',
+  'Function Transformations'
+),
+  (
+  'mcq',
+  'math',
+  'If $f(x) = x^2$, which of the following defines a function $g$ whose graph is the result of reflecting the graph of $f$ across the $y$-axis?',
+  '[{"id":"a","text":"$g(x) = -x^2$"},{"id":"b","text":"$g(x) = (-x)^2$"},{"id":"c","text":"$g(x) = x^2 - 1$"},{"id":"d","text":"$g(x) = \\\\frac{1}{x^2}$"}]'::jsonb,
+  'b',
+  '\\textbf{Conceptual Explanation:}
+
+A reflection across the $y$-axis is achieved by replacing the input $x$ with its negative counterpart, $-x$. This is represented as $f(-x)$.
+
+\\textbf{Calculation and Logic:}
+
+Given $f(x) = x^2$.
+
+Applying the transformation: $g(x) = f(-x) = (-x)^2$.
+
+(Interestingly, for $x^2$, the graph remains identical because $(-x)^2 = x^2$, illustrating that parabolas centered at the $y$-axis have $y$-axis symmetry).',
+  'advanced-math',
+  'medium',
+  0,
+  0,
+  'sat_lid_028_27',
+  'Function Notation Function notation and interpreting functions',
+  'Function Transformations'
+),
+  (
+  'spr',
+  'math',
+  'The function $f$ is defined by $f(x) = 3x + 4$. The graph of $g$ is the result of shifting the graph of $f$ down by 10 units. What is the $x$-intercept of the graph of $g$?',
+  NULL,
+  '2',
+  '\\textbf{Conceptual Explanation:}
+
+First, determine the equation of the new function $g$ by applying the vertical shift. Then, solve for the $x$-intercept by setting $g(x) = 0$.
+
+\\textbf{Calculation and Logic:}
+
+1. \\textbf{Define g(x):} $g(x) = f(x) - 10 = (3x + 4) - 10 = 3x - 6$.
+
+2. \\textbf{Find x-intercept:} Set $y = 0$:
+
+$0 = 3x - 6$
+
+$6 = 3x$
+
+$x = 2$',
+  'advanced-math',
+  'hard',
+  0,
+  0,
+  'sat_lid_028_28',
+  'Function Notation Function notation and interpreting functions',
+  'Function Transformations'
+),
+  (
+  'mcq',
+  'math',
+  '\\begin{center} \\begin{tikzpicture}[scale=0.5] \\draw[->] (-4,0) -- (4,0) node[right] {$x$}; \\draw[->] (0,-1) -- (0,5) node[above] {$y$}; \\draw[domain=-2:2, smooth, variable=\\x, blue, thick] plot ({\\x}, {\\x*\\x}); \\draw[domain=-1:1, smooth, variable=\\x, red, dashed, ultra thick] plot ({\\x}, {4*\\x*\\x}); \\node[blue] at (2.2,4) {$f$}; \\node[red] at (0.5,3.5) {$g$}; \\end{tikzpicture} \\end{center} The graph of $f(x) = x^2$ is transformed into the graph of $g$. Which of the following could define $g$?',
+  '[{"id":"a","text":"$g(x) = \\\\frac{1}{4}x^2$"},{"id":"b","text":"$g(x) = 4x^2$"},{"id":"c","text":"$g(x) = x^2 + 4$"},{"id":"d","text":"$g(x) = (x+4)^2$"}]'::jsonb,
+  'b',
+  '\\textbf{Conceptual Explanation:}
+
+A graph that becomes "steeper" or "narrower" is undergoing a vertical stretch. This happens when the function is multiplied by a constant $a > 1$.
+
+\\textbf{Calculation and Logic:}
+
+Looking at the diagram, the dashed line $g$ is narrower than the original $f$. This indicates the $y$-values are increasing faster for the same $x$-values. Only $g(x) = 4x^2$ represents a vertical stretch.',
+  'advanced-math',
+  'medium',
+  0,
+  0,
+  'sat_lid_028_29',
+  'Function Notation Function notation and interpreting functions',
+  'Function Transformations'
+),
+  (
+  'spr',
+  'math',
+  'If the graph of $y = f(x)$ is shifted 7 units to the right and 2 units up, the resulting graph is $y = f(x-h) + k$. What is the value of $hk$?',
+  NULL,
+  '14',
+  '\\textbf{Calculation and Logic:}
+
+1. \\textbf{Identify h:} A shift 7 units right is represented by $(x - 7)$. Thus, $h = 7$.
+
+2. \\textbf{Identify k:} A shift 2 units up is represented by $+ 2$. Thus, $k = 2$.
+
+3. \\textbf{Calculate product:} $7 × 2 = 14$.',
+  'advanced-math',
+  'hard',
+  0,
+  0,
+  'sat_lid_028_30',
+  'Function Notation Function notation and interpreting functions',
+  'Function Transformations'
+),
+  (
+  'mcq',
+  'math',
+  '$f(x) = 2^x$ Which of the following defines a function $g$ whose graph is the result of reflecting the graph of $f$ across the $x$-axis and then shifting it 5 units up?',
+  '[{"id":"a","text":"$g(x) = 2^{-x} + 5$"},{"id":"b","text":"$g(x) = -2^x + 5$"},{"id":"c","text":"$g(x) = -2^{x+5}$"},{"id":"d","text":"$g(x) = 2^x - 5$"}]'::jsonb,
+  'b',
+  '\\textbf{Calculation and Logic:}
+
+1. \\textbf{Reflect across x-axis:} Multiply the whole function by $-1 \\rightarrow -f(x) = -2^x$.
+
+2. \\textbf{Shift up 5:} Add 5 to the result $\\rightarrow -2^x + 5$.',
+  'advanced-math',
+  'hard',
+  0,
+  0,
+  'sat_lid_028_31',
+  'Function Notation Function notation and interpreting functions',
+  'Function Transformations'
+),
+  (
+  'mcq',
+  'math',
+  '\\begin{center} \\begin{tikzpicture}[scale=0.6] \\draw[->] (-1,0) -- (6,0) node[right] {$x$}; \\draw[->] (0,-1) -- (0,5) node[above] {$y$}; \\draw[thick, blue] (1,1) -- (4,4); \\draw[thick, red, dashed] (2,1) -- (5,4); \\node[blue] at (1.5,2.5) {$f$}; \\node[red] at (4.5,2.5) {$g$}; \\end{tikzpicture} \\end{center} Which equation describes the relationship between function $f$ and function $g$ shown above?',
+  '[{"id":"a","text":"$g(x) = f(x) + 1$"},{"id":"b","text":"$g(x) = f(x) - 1$"},{"id":"c","text":"$g(x) = f(x - 1)$"},{"id":"d","text":"$g(x) = f(x + 1)$"}]'::jsonb,
+  'c',
+  '\\textbf{Conceptual Explanation:}
+
+A horizontal movement of the entire graph indicates a shift. Moving to the right is represented by subtracting a constant from the $x$ input.
+
+\\textbf{Calculation and Logic:}
+
+The graph of $g$ is the graph of $f$ shifted exactly 1 unit to the right. This is represented by the notation $f(x-1)$.',
+  'advanced-math',
+  'medium',
+  0,
+  0,
+  'sat_lid_028_32',
+  'Function Notation Function notation and interpreting functions',
+  'Function Transformations'
+),
+  (
+  'spr',
+  'math',
+  'The function $f$ is defined by $f(x) = |x-2| + 1$. If $g(x) = f(x+4) - 3$, what is the $x$-coordinate of the vertex (minimum point) of the graph of $g$?',
+  NULL,
+  '-2',
+  '\\textbf{Calculation and Logic:}
+
+1. \\textbf{Original vertex of f:} The vertex is $(2, 1)$.
+
+2. \\textbf{Transformations for g:} $f(x+4)$ shifts the graph 4 units left. $-3$ shifts the graph 3 units down.
+
+3. \\textbf{Calculate new x:} $2 - 4 = -2$.',
+  'advanced-math',
+  'hard',
+  0,
+  0,
+  'sat_lid_028_33',
+  'Function Notation Function notation and interpreting functions',
+  'Function Transformations'
+),
+  (
+  'mcq',
+  'math',
+  'How does the graph of $y = f(x+8)$ compare to the graph of $y = f(x)$?',
+  '[{"id":"a","text":"It is shifted 8 units up."},{"id":"b","text":"It is shifted 8 units down."},{"id":"c","text":"It is shifted 8 units left."},{"id":"d","text":"It is shifted 8 units right."}]'::jsonb,
+  'c',
+  '\\textbf{Conceptual Explanation:}
+
+A constant added inside the function parentheses results in a horizontal shift to the left.',
+  'advanced-math',
+  'medium',
+  0,
+  0,
+  'sat_lid_028_34',
+  'Function Notation Function notation and interpreting functions',
+  'Function Transformations'
+),
+  (
+  'spr',
+  'math',
+  'The point $(3, 12)$ is on the graph of $y = f(x)$. What is the $y$-coordinate of the corresponding point on the graph of $y = f(x) - 15$?',
+  NULL,
+  '-3',
+  '\\textbf{Calculation and Logic:}
+
+A transformation of the form $f(x) + k$ only changes the $y$-coordinate.
+
+Original $y = 12$.
+
+Shift: $-15$.
+
+New $y = 12 - 15 = -3$.',
+  'advanced-math',
+  'hard',
+  0,
+  0,
+  'sat_lid_028_35',
+  'Function Notation Function notation and interpreting functions',
+  'Function Transformations'
+),
+  (
+  'mcq',
+  'math',
+  '\\begin{center} \\begin{tikzpicture}[scale=0.6] \\draw[->] (-3,0) -- (3,0) node[right] {$x$}; \\draw[->] (0,-3) -- (0,3) node[above] {$y$}; \\draw[thick, blue] (-2,-2) -- (2,2); \\node at (1,0.5) {$f$}; \\draw[thick, red, dashed] (-2,2) -- (2,-2); \\node at (1,-1.5) {$g$}; \\end{tikzpicture} \\end{center} Which transformation maps the solid line $f(x) = x$ to the dashed line $g(x) = -x$?',
+  '[{"id":"a","text":"Reflection across the $x$-axis only."},{"id":"b","text":"Reflection across the $y$-axis only."},{"id":"c","text":"Both A and B are correct for this specific function."},{"id":"d","text":"Neither A nor B."}]'::jsonb,
+  'c',
+  '\\textbf{Conceptual Explanation:}
+
+For the function $f(x) = x$, a reflection across the $x$-axis gives $-f(x) = -x$, and a reflection across the $y$-axis gives $f(-x) = -x$. For this specific identity line, both transformations result in the same graph.',
+  'advanced-math',
+  'medium',
+  0,
+  0,
+  'sat_lid_028_36',
+  'Function Notation Function notation and interpreting functions',
+  'Function Transformations'
+),
+  (
+  'spr',
+  'math',
+  'The function $f(x) = x^2 + 6x + 9$ is shifted 2 units to the right to create function $g$. What is the value of $g(0)$?',
+  NULL,
+  '1',
+  '\\textbf{Calculation and Logic:}
+
+1. \\textbf{Define g(x):} Shifting 2 units right means $g(x) = f(x-2)$.
+
+2. \\textbf{Substitute 0 into g:} $g(0) = f(0-2) = f(-2)$.
+
+3. \\textbf{Evaluate f(-2):}
+
+$f(-2) = (-2)^2 + 6(-2) + 9$
+
+$f(-2) = 4 - 12 + 9 = 1$.',
+  'advanced-math',
+  'hard',
+  0,
+  0,
+  'sat_lid_028_37',
+  'Function Notation Function notation and interpreting functions',
+  'Function Transformations'
+),
+  (
+  'mcq',
+  'math',
+  'If $g(x) = 3f(x-4) + 2$, which of the following is NOT one of the transformations applied to $f$ to get $g$?',
+  '[{"id":"a","text":"A vertical stretch by a factor of 3."},{"id":"b","text":"A horizontal shift to the right by 4 units."},{"id":"c","text":"A vertical shift up by 2 units."},{"id":"d","text":"A reflection across the $x$-axis."}]'::jsonb,
+  'd',
+  '\\textbf{Conceptual Explanation:}
+
+Analyze each part of the expression: $3$ is a stretch, $-4$ is a right shift, and $+2$ is an upward shift. No negative multiplier is present, so there is no reflection.',
+  'advanced-math',
+  'hard',
+  0,
+  0,
+  'sat_lid_028_38',
+  'Function Notation Function notation and interpreting functions',
+  'Function Transformations'
+),
+  (
+  'mcq',
+  'math',
+  '\\begin{center} \\begin{tikzpicture}[scale=0.5] \\draw[->] (-4,0) -- (4,0) node[right] {$x$}; \\draw[->] (0,-1) -- (0,5) node[above] {$y$}; \\draw[domain=-2.2:2.2, smooth, variable=\\x, blue, thick] plot ({\\x}, {\\x*\\x}); \\draw[domain=-2.2:2.2, smooth, variable=\\x, red, dashed, thick] plot ({\\x}, {(\\x-3)*(\\x-3)}); \\node[blue] at (-1,2) {$f$}; \\node[red] at (3.5,2) {$g$}; \\end{tikzpicture} \\end{center} If $f(x) = x^2$ and $g(x) = (x-c)^2$, what is the value of $c$ based on the graph?',
+  '[{"id":"a","text":"-3"},{"id":"b","text":"0"},{"id":"c","text":"3"},{"id":"d","text":"9"}]'::jsonb,
+  'c',
+  '\\textbf{Calculation and Logic:}
+
+The vertex of $f$ is at $x = 0$. The vertex of $g$ is at $x = 3$.
+
+Since the graph shifted 3 units to the right, the equation must be $(x-3)^2$. Thus, $c = 3$.',
+  'advanced-math',
+  'medium',
+  0,
+  0,
+  'sat_lid_028_39',
+  'Function Notation Function notation and interpreting functions',
+  'Function Transformations'
+),
+  (
+  'spr',
+  'math',
+  'The function $f$ has a minimum value of $-8$. What is the minimum value of the function $g(x) = f(x+10) + 12$?',
+  NULL,
+  '4',
+  '\\textbf{Conceptual Explanation:}
+
+The horizontal shift $f(x+10)$ does not change the minimum value (the $y$-value), it only changes where it occurs. Only the vertical shift $+12$ affects the value.
+
+\\textbf{Calculation and Logic:}
+
+Original min $y = -8$.
+
+Vertical shift: $+12$.
+
+New min $y = -8 + 12 = 4$.',
+  'advanced-math',
+  'hard',
+  0,
+  0,
+  'sat_lid_028_40',
+  'Function Notation Function notation and interpreting functions',
+  'Function Transformations'
+),
+  (
+  'mcq',
+  'math',
+  'The graph of $y = f(x)$ is reflected across the $y$-axis. Which of the following is the new equation?',
+  '[{"id":"a","text":"$y = -f(x)$"},{"id":"b","text":"$y = f(-x)$"},{"id":"c","text":"$y = f(x) - 1$"},{"id":"d","text":"$y = \\\\frac{1}{f(x)}$"}]'::jsonb,
+  'b',
+  '\\textbf{Conceptual Explanation:}
+
+Replacing $x$ with $-x$ results in a horizontal reflection over the $y$-axis.',
+  'advanced-math',
+  'medium',
+  0,
+  0,
+  'sat_lid_028_41',
+  'Function Notation Function notation and interpreting functions',
+  'Function Transformations'
+),
+  (
+  'spr',
+  'math',
+  'If the graph of $f(x) = 5x - 2$ is shifted 4 units up and 1 unit left, what is the $y$-intercept of the resulting graph?',
+  NULL,
+  '7',
+  '\\textbf{Calculation and Logic:}
+
+1. \\textbf{Apply Shifts:} $g(x) = f(x+1) + 4$.
+
+2. \\textbf{Substitute f:} $g(x) = [5(x+1) - 2] + 4$.
+
+3. \\textbf{Simplify:} $g(x) = 5x + 5 - 2 + 4 = 5x + 7$.
+
+4. \\textbf{Identify y-intercept:} The constant term is 7.',
+  'advanced-math',
+  'hard',
+  0,
+  0,
+  'sat_lid_028_42',
+  'Function Notation Function notation and interpreting functions',
+  'Function Transformations'
+),
+  (
+  'mcq',
+  'math',
+  '\\begin{center} \\begin{tikzpicture}[scale=0.6] \\draw[->] (-1,0) -- (5,0) node[right] {$x$}; \\draw[->] (0,-4) -- (0,1) node[above] {$y$}; \\draw[domain=0.5:4.5, smooth, variable=\\x, blue, thick] plot ({\\x}, {-sqrt(\\x)}); \\node at (2,-2.5) {$f$}; \\end{tikzpicture} \\end{center} Which equation could represent the function $f$ shown above if the original function was $y = \\sqrt{x}$?',
+  '[{"id":"a","text":"$y = \\\\sqrt{-x}$"},{"id":"b","text":"$y = -\\\\sqrt{x}$"},{"id":"c","text":"$y = \\\\sqrt{x} - 4$"},{"id":"d","text":"$y = \\\\sqrt{x-4}$"}]'::jsonb,
+  'b',
+  '\\textbf{Conceptual Explanation:}
+
+The graph is below the $x$-axis. This indicates a reflection across the $x$-axis, which is achieved by negating the output of the function.',
+  'advanced-math',
+  'medium',
+  0,
+  0,
+  'sat_lid_028_43',
+  'Function Notation Function notation and interpreting functions',
+  'Function Transformations'
+),
+  (
+  'spr',
+  'math',
+  'The function $g$ is defined by $g(x) = f(x/3)$. If the domain of $f$ is $[0, 6]$, what is the maximum value of the domain of $g$?',
+  NULL,
+  '18',
+  '\\textbf{Conceptual Explanation:}
+
+A transformation $f(x/c)$ where $c > 1$ results in a horizontal stretch. Every $x$-value in the domain is multiplied by $c$.
+
+\\textbf{Calculation and Logic:}
+
+Original domain: $0 ≤ x ≤ 6$.
+
+New domain requirement: $0 ≤ x/3 ≤ 6$.
+
+Multiply by 3: $0 ≤ x ≤ 18$.
+
+The maximum value is 18.',
+  'advanced-math',
+  'hard',
+  0,
+  0,
+  'sat_lid_028_44',
+  'Function Notation Function notation and interpreting functions',
+  'Function Transformations'
+),
+  (
+  'mcq',
+  'math',
+  'Which transformation of $f(x) = x^2$ would result in a vertex at $(-5, 0)$?',
+  '[{"id":"a","text":"$g(x) = (x-5)^2$"},{"id":"b","text":"$g(x) = (x+5)^2$"},{"id":"c","text":"$g(x) = x^2 - 5$"},{"id":"d","text":"$g(x) = x^2 + 5$"}]'::jsonb,
+  'b',
+  '\\textbf{Calculation and Logic:}
+
+A vertex at $x = -5$ indicates a shift 5 units to the left. Left shifts are represented by adding the constant inside the parentheses: $(x+5)^2$.',
+  'advanced-math',
+  'medium',
+  0,
+  0,
+  'sat_lid_028_45',
+  'Function Notation Function notation and interpreting functions',
+  'Function Transformations'
+),
+  (
+  'spr',
+  'math',
+  'If $(a, b)$ is a point on $f(x)$, and $(3a, b)$ is a point on $g(x) = f(kx)$, what is the value of $k$?',
+  NULL,
+  '1/3',
+  '\\textbf{Conceptual Explanation:}
+
+Multiplying the input by $k$ results in a horizontal scaling. To get from $a$ to $3a$, the graph was stretched horizontally.
+
+\\textbf{Calculation and Logic:}
+
+To map $x \\rightarrow 3x$, we need $k$ such that when we input $3a$, the function sees $a$.
+
+$k(3a) = a → 3k = 1 → k = 1/3$.',
+  'advanced-math',
+  'hard',
+  0,
+  0,
+  'sat_lid_028_46',
+  'Function Notation Function notation and interpreting functions',
+  'Function Transformations'
+),
+  (
+  'mcq',
+  'math',
+  'If $g(x) = \\frac{1}{2}f(x)$, how do the $y$-intercepts of $f$ and $g$ compare?',
+  '[{"id":"a","text":"They are the same."},{"id":"b","text":"The $y$-intercept of $g$ is half the $y$-intercept of $f$."},{"id":"c","text":"The $y$-intercept of $g$ is 2 units higher than $f$."},{"id":"d","text":"The $y$-intercept of $g$ is 2 units lower than $f$."}]'::jsonb,
+  'b',
+  '\\textbf{Calculation and Logic:}
+
+$y$-intercept occurs at $x=0$.
+
+$g(0) = (1)/(2)f(0)$.
+
+The output is halved.',
+  'advanced-math',
+  'medium',
+  0,
+  0,
+  'sat_lid_028_47',
+  'Function Notation Function notation and interpreting functions',
+  'Function Transformations'
+),
+  (
+  'spr',
+  'math',
+  'The function $f(x) = 10$ is a constant function. What is the value of $f(x+100) + 100$?',
+  NULL,
+  '110',
+  '\\textbf{Calculation and Logic:}
+
+1. \\textbf{Evaluate f(x+100):} Since $f$ is constant, any input results in 10. Thus, $f(x+100) = 10$.
+
+2. \\textbf{Add 100:} $10 + 100 = 110$.',
+  'advanced-math',
+  'hard',
+  0,
+  0,
+  'sat_lid_028_48',
+  'Function Notation Function notation and interpreting functions',
+  'Function Transformations'
+),
+  (
+  'mcq',
+  'math',
+  'The graph of $y = f(x)$ is shifted 3 units left and 4 units down. Which of the following is the new equation?',
+  '[{"id":"a","text":"$y = f(x-3) + 4$"},{"id":"b","text":"$y = f(x+3) - 4$"},{"id":"c","text":"$y = f(x-3) - 4$"},{"id":"d","text":"$y = f(x+3) + 4$"}]'::jsonb,
+  'b',
+  '\\textbf{Calculation and Logic:}
+
+Left 3 $\\rightarrow (x+3)$.
+
+Down 4 $\\rightarrow - 4$.',
+  'advanced-math',
+  'medium',
+  0,
+  0,
+  'sat_lid_028_49',
+  'Function Notation Function notation and interpreting functions',
+  'Function Transformations'
+),
+  (
+  'spr',
+  'math',
+  'The vertex of $f(x) = x^2$ is $(0, 0)$. If $g(x) = -(x+7)^2 - 9$, what is the sum of the coordinates of the vertex of $g$?',
+  NULL,
+  '-16',
+  '\\textbf{Calculation and Logic:}
+
+1. \\textbf{Identify Vertex:} The transformation $(x+7)$ means $x = -7$. The transformation $-9$ means $y = -9$.
+
+Vertex of g: $(-7, -9)$.
+
+2. \\textbf{Calculate Sum:} $-7 + (-9) = -16$.',
+  'advanced-math',
+  'hard',
+  0,
+  0,
+  'sat_lid_028_50',
+  'Function Notation Function notation and interpreting functions',
+  'Function Transformations'
+)
+ON CONFLICT (bank_item_id) DO NOTHING;

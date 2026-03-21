@@ -96,6 +96,9 @@ export default function SATQuestionsQCPage() {
   const [saveMsg, setSaveMsg] = useState<string | null>(null);
   const [regenLoading, setRegenLoading] = useState<'answer' | 'theory' | null>(null);
 
+  const [uuidSearch, setUuidSearch] = useState('');
+  const pendingUuidRef = useRef<string | null>(null);
+
   // Draft state for editable fields
   const [draft, setDraft] = useState<Partial<SATQCQuestion>>({});
 
@@ -165,6 +168,43 @@ export default function SATQuestionsQCPage() {
       setDomainFilter('all');
     }
   }, [sectionFilter, domainFilter, availableDomains]);
+
+  // Resolve pending UUID jump after filters are cleared
+  useEffect(() => {
+    const uuid = pendingUuidRef.current;
+    if (!uuid) return;
+    const idx = filtered.findIndex((q) => q.id === uuid);
+    if (idx !== -1) {
+      setCurrentIndex(idx);
+      pendingUuidRef.current = null;
+    }
+  }, [filtered]);
+
+  const jumpToUUID = useCallback((uuid: string) => {
+    const trimmed = uuid.trim();
+    if (!trimmed) return;
+    const idx = filtered.findIndex((q) => q.id === trimmed);
+    if (idx !== -1) {
+      setCurrentIndex(idx);
+      setUuidSearch('');
+      return;
+    }
+    if (!questions.some((q) => q.id === trimmed)) {
+      setSaveMsg('Question UUID not found');
+      setTimeout(() => setSaveMsg(null), 3000);
+      return;
+    }
+    // Clear all filters so the question becomes visible, then jump via effect
+    pendingUuidRef.current = trimmed;
+    setSectionFilter('all');
+    setPoolFilter('all');
+    setDomainFilter('all');
+    setDifficultyFilter('all');
+    setSetFilter('all');
+    setModuleFilter('all');
+    setQCFilter('all');
+    setUuidSearch('');
+  }, [filtered, questions]);
 
   const current = filtered[currentIndex] ?? null;
 
@@ -474,8 +514,27 @@ export default function SATQuestionsQCPage() {
                 { value: 'done', label: 'Done' },
               ]}
             />
-            <div className="ml-auto text-sm text-gray-500">
-              {filtered.length} question{filtered.length !== 1 ? 's' : ''}
+            <div className="flex items-center gap-2 ml-auto">
+              <div className="flex items-center gap-1">
+                <label className="text-xs font-medium text-gray-600 whitespace-nowrap">UUID</label>
+                <input
+                  type="text"
+                  placeholder="Paste question ID…"
+                  value={uuidSearch}
+                  onChange={(e) => setUuidSearch(e.target.value)}
+                  onKeyDown={(e) => { if (e.key === 'Enter') jumpToUUID(uuidSearch); }}
+                  className="w-48 border border-gray-300 rounded-md px-2 py-1 text-xs font-mono"
+                />
+                <button
+                  onClick={() => jumpToUUID(uuidSearch)}
+                  className="px-2 py-1 text-xs bg-gray-800 text-white rounded-md hover:bg-gray-700"
+                >
+                  Go
+                </button>
+              </div>
+              <span className="text-sm text-gray-500">
+                {filtered.length} question{filtered.length !== 1 ? 's' : ''}
+              </span>
             </div>
           </div>
 

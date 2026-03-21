@@ -29,6 +29,8 @@ export interface SATQuestion {
   section?: SATSection;
   difficulty: DifficultyTier;
   domain?: SATDomain;
+  chapter?: string;
+  subtopic?: string;
   prompt: string;
   passage?: string;
   options?: SATQuestionOption[];
@@ -74,6 +76,8 @@ export type SATAppPhase = SATTestPhase | SATPracticePhase;
 export interface SATPracticeConfig {
   section: SATSection;
   domains: SATDomain[];
+  chapters: string[];
+  subtopics: string[];
   difficulty: DifficultyTier | 'mixed';
   questionCount: number;
 }
