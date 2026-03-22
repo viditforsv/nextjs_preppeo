@@ -1,0 +1,38 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [main, dev]
+  push:
+    branches: [dev]
+
+jobs:
+  lint-and-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+
+      - name: Type check
+        run: npm run type-check
+
+      - name: Lint
+        run: npm run lint -- --max-warnings=0
+
+      - name: Build
+        run: npm run build
+        env:
+          NEXT_PUBLIC_ENVIRONMENT: dev
+          NEXT_PUBLIC_SUPABASE_URL_DEV: https://placeholder.supabase.co
+          NEXT_PUBLIC_SUPABASE_ANON_KEY_DEV: placeholder
+          NEXT_PUBLIC_SUPABASE_URL: https://placeholder.supabase.co
+          NEXT_PUBLIC_SUPABASE_ANON_KEY: placeholder
+          NEXT_PUBLIC_APP_URL: https://dev.preppeo.com
+          NEXT_PUBLIC_RAZORPAY_KEY_ID: rzp_test_placeholder
+          NEXT_PUBLIC_DESMOS_API_KEY: placeholder
