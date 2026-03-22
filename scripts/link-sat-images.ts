@@ -1,11 +1,16 @@
 import * as fs from 'fs';
 import * as path from 'path';
+import { config } from 'dotenv';
+import { getSupabaseUrl } from '../src/lib/supabase/env';
 
-const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL;
+config({ path: path.resolve(__dirname, '../.env.local') });
+
+const SUPABASE_URL = getSupabaseUrl();
 if (!SUPABASE_URL) {
-  console.error('Set NEXT_PUBLIC_SUPABASE_URL env var before running.');
+  console.error('Missing Supabase URL. Check .env.local and NEXT_PUBLIC_ENVIRONMENT.');
   process.exit(1);
 }
+console.log(`Using Supabase: ${SUPABASE_URL}`);
 
 const BUCKET = 'sat-question-images';
 

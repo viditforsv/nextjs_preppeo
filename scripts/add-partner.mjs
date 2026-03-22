@@ -4,13 +4,26 @@ import { resolve } from 'path';
 
 config({ path: resolve(process.cwd(), '.env.local') });
 
-const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
+function getEnv() {
+  const e = (process.env.NEXT_PUBLIC_ENVIRONMENT || '').toLowerCase();
+  if (e === 'prod' || e === 'production') return 'prod';
+  if (e === 'dev' || e === 'development') return 'dev';
+  return process.env.NODE_ENV === 'production' ? 'prod' : 'dev';
+}
+
+const env = getEnv();
+const url = env === 'prod'
+  ? (process.env.NEXT_PUBLIC_SUPABASE_URL_PROD || process.env.NEXT_PUBLIC_SUPABASE_URL)
+  : (process.env.NEXT_PUBLIC_SUPABASE_URL_DEV || process.env.NEXT_PUBLIC_SUPABASE_URL);
+const key = env === 'prod'
+  ? (process.env.SUPABASE_SERVICE_ROLE_KEY_PROD || process.env.SUPABASE_SERVICE_ROLE_KEY)
+  : (process.env.SUPABASE_SERVICE_ROLE_KEY_DEV || process.env.SUPABASE_SERVICE_ROLE_KEY);
 
 if (!url || !key) {
   console.error('Missing Supabase credentials');
   process.exit(1);
 }
+console.log(`Using ${env} Supabase: ${url}`);
 
 const supabase = createClient(url, key);
 

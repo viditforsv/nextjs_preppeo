@@ -175,15 +175,22 @@ ${entry.tikzContent}
 /* ── --generate-sql: read manifest, emit UPDATE migration ── */
 
 function loadSupabaseUrl() {
-  if (process.env.NEXT_PUBLIC_SUPABASE_URL) return process.env.NEXT_PUBLIC_SUPABASE_URL;
   const envLocal = path.join(ROOT, '.env.local');
+  const vars = {};
   if (fs.existsSync(envLocal)) {
-    const line = fs.readFileSync(envLocal, 'utf-8')
-      .split('\n')
-      .find((l) => l.startsWith('NEXT_PUBLIC_SUPABASE_URL='));
-    if (line) return line.split('=').slice(1).join('=').trim().replace(/^["']|["']$/g, '');
+    for (const line of fs.readFileSync(envLocal, 'utf-8').split('\n')) {
+      const m = line.match(/^([A-Z_]+)=(.+)$/);
+      if (m) vars[m[1]] = m[2].trim().replace(/^["']|["']$/g, '');
+    }
   }
-  return null;
+  const merged = { ...vars, ...process.env };
+  const e = (merged.NEXT_PUBLIC_ENVIRONMENT || '').toLowerCase();
+  const isProd = e === 'prod' || e === 'production' || (!e && process.env.NODE_ENV === 'production');
+  const url = isProd
+    ? (merged.NEXT_PUBLIC_SUPABASE_URL_PROD || merged.NEXT_PUBLIC_SUPABASE_URL)
+    : (merged.NEXT_PUBLIC_SUPABASE_URL_DEV || merged.NEXT_PUBLIC_SUPABASE_URL);
+  if (url) console.log(`Using ${isProd ? 'prod' : 'dev'} Supabase: ${url}`);
+  return url || null;
 }
 
 function generateSql() {

@@ -15,10 +15,13 @@ import dotenv from 'dotenv';
 
 dotenv.config({ path: path.resolve(__dirname, '../.env.local') });
 
+import { getSupabaseUrl, getSupabaseServiceRoleKey, getCurrentEnvironment } from '../src/lib/supabase/env';
+
 const DRY_RUN = process.argv.includes('--dry-run');
 
-const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-const SUPABASE_SERVICE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY!;
+const SUPABASE_URL = getSupabaseUrl();
+const SUPABASE_SERVICE_KEY = getSupabaseServiceRoleKey();
+console.log(`Using ${getCurrentEnvironment()} Supabase: ${SUPABASE_URL}`);
 
 const TEX_DIR = path.resolve(__dirname, '../Docs for me/sat-ecosystem/sat_question_bank_maths_mocks');
 const IMG_DIR = path.join(TEX_DIR, 'images');
