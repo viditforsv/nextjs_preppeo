@@ -4,6 +4,17 @@
 -- the study features migration (20251221153306_add_gre_study_features.sql)
 -- ============================================================================
 
+-- Ensure the shared trigger function exists (needed for fresh branch DBs)
+CREATE OR REPLACE FUNCTION public.update_updated_at_column()
+ RETURNS trigger
+ LANGUAGE plpgsql
+AS $function$
+BEGIN
+    NEW.updated_at = now();
+    RETURN NEW;
+END;
+$function$;
+
 -- Create gre_questions table
 CREATE TABLE IF NOT EXISTS public.gre_questions (
   id uuid NOT NULL DEFAULT gen_random_uuid(),

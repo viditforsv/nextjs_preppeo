@@ -528,11 +528,16 @@ function renderMathContent(content: string, baseIndex: number) {
         />
       );
     } else {
-      // Regular text - restore literal dollar signs and handle HTML line breaks
+      // Regular text - convert LaTeX formatting commands to HTML
+      const html = part
+        .replace(/\\textbf\{([^{}]*(?:\{[^{}]*\}[^{}]*)*)\}/g, '<strong>$1</strong>')
+        .replace(/\\textit\{([^{}]*(?:\{[^{}]*\}[^{}]*)*)\}/g, '<em>$1</em>')
+        .replace(/\\underline\{([^{}]*(?:\{[^{}]*\}[^{}]*)*)\}/g, '<u>$1</u>')
+        .replace(/\\emph\{([^{}]*(?:\{[^{}]*\}[^{}]*)*)\}/g, '<em>$1</em>');
       return (
         <span
           key={`${baseIndex}-${index}`}
-          dangerouslySetInnerHTML={{ __html: part }}
+          dangerouslySetInnerHTML={{ __html: html }}
         />
       );
     }

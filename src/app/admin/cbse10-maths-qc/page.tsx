@@ -19,6 +19,7 @@ import {
   Eye,
   Pencil,
   CheckCircle2,
+  Trash2,
 } from 'lucide-react';
 
 interface CBSE10QCQuestion {
@@ -92,6 +93,10 @@ export default function CBSE10MathsQCPage() {
   const [regenLoading, setRegenLoading] = useState<'answer' | 'theory' | null>(null);
 
   const [draft, setDraft] = useState<Partial<CBSE10QCQuestion>>({});
+  const [optionsJsonStr, setOptionsJsonStr] = useState('[]');
+  const [optionsJsonValid, setOptionsJsonValid] = useState(true);
+  const [uuidSearch, setUuidSearch] = useState('');
+  const pendingUuidRef = useRef<string | null>(null);
   const handleSaveRef = useRef<() => void>(() => {});
 
   useEffect(() => {
@@ -143,10 +148,47 @@ export default function CBSE10MathsQCPage() {
     setCurrentIndex(0);
   }, [domainFilter, chapterFilter, subtopicFilter, difficultyFilter, qcFilter]);
 
+  useEffect(() => {
+    const uuid = pendingUuidRef.current;
+    if (!uuid) return;
+    const idx = filtered.findIndex((q) => q.id === uuid || q.bankItemId === uuid);
+    if (idx !== -1) {
+      setCurrentIndex(idx);
+      pendingUuidRef.current = null;
+    }
+  }, [filtered]);
+
+  const jumpToUUID = useCallback((uuid: string) => {
+    const trimmed = uuid.trim();
+    if (!trimmed) return;
+    const idx = filtered.findIndex((q) => q.id === trimmed || q.bankItemId === trimmed);
+    if (idx !== -1) {
+      setCurrentIndex(idx);
+      setUuidSearch('');
+      return;
+    }
+    if (!questions.some((q) => q.id === trimmed || q.bankItemId === trimmed)) {
+      setSaveMsg('Question UUID not found');
+      setTimeout(() => setSaveMsg(null), 3000);
+      return;
+    }
+    pendingUuidRef.current = trimmed;
+    setDomainFilter('all');
+    setChapterFilter('all');
+    setSubtopicFilter('all');
+    setDifficultyFilter('all');
+    setQCFilter('all');
+    setUuidSearch('');
+  }, [filtered, questions]);
+
   const current = filtered[currentIndex] ?? null;
 
   useEffect(() => {
-    if (current) setDraft({});
+    if (current) {
+      setDraft({});
+      setOptionsJsonStr(JSON.stringify(current.options ?? [], null, 2));
+      setOptionsJsonValid(true);
+    }
     setEditMode(false);
     setSaveMsg(null);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -271,6 +313,34 @@ export default function CBSE10MathsQCPage() {
     setEditMode(false);
     setSaveMsg(null);
   }, []);
+
+  const [deleting, setDeleting] = useState(false);
+  const handleDelete = useCallback(async () => {
+    if (!current) return;
+    if (!confirm(`Delete this question? (${current.id})\nThis will soft-delete it (mark inactive).`)) return;
+    setDeleting(true);
+    try {
+      const res = await fetch('/api/admin/cbse10-maths-questions', {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ questionId: current.id }),
+      });
+      if (!res.ok) {
+        const d = await res.json();
+        alert(d.error ?? 'Delete failed');
+        return;
+      }
+      setQuestions((prev) => prev.filter((q) => q.id !== current.id));
+      setDraft({});
+      setEditMode(false);
+      setSaveMsg('Deleted');
+      setTimeout(() => setSaveMsg(null), 2000);
+    } catch {
+      alert('Delete failed');
+    } finally {
+      setDeleting(false);
+    }
+  }, [current]);
 
   const [togglingQC, setTogglingQC] = useState(false);
   const handleToggleQC = useCallback(async () => {
@@ -418,8 +488,27 @@ export default function CBSE10MathsQCPage() {
                 { value: 'done', label: 'Done' },
               ]}
             />
-            <div className="ml-auto text-sm text-gray-500">
-              {filtered.length} question{filtered.length !== 1 ? 's' : ''}
+            <div className="flex items-center gap-2 ml-auto">
+              <div className="flex items-center gap-1">
+                <label className="text-xs font-medium text-gray-600 whitespace-nowrap">UUID</label>
+                <input
+                  type="text"
+                  placeholder="Paste question ID…"
+                  value={uuidSearch}
+                  onChange={(e) => setUuidSearch(e.target.value)}
+                  onKeyDown={(e) => { if (e.key === 'Enter') jumpToUUID(uuidSearch); }}
+                  className="w-48 border border-gray-300 rounded-md px-2 py-1 text-xs font-mono"
+                />
+                <button
+                  onClick={() => jumpToUUID(uuidSearch)}
+                  className="px-2 py-1 text-xs bg-gray-800 text-white rounded-md hover:bg-gray-700"
+                >
+                  Go
+                </button>
+              </div>
+              <span className="text-sm text-gray-500">
+                {filtered.length} question{filtered.length !== 1 ? 's' : ''}
+              </span>
             </div>
           </div>
 
@@ -562,13 +651,21 @@ export default function CBSE10MathsQCPage() {
                   <div>
                     <label className="text-xs font-semibold uppercase text-gray-400 tracking-wider">Options (JSON)</label>
                     <textarea
-                      value={JSON.stringify(draft.options ?? current.options ?? [], null, 2)}
+                      value={optionsJsonStr}
                       onChange={(e) => {
-                        try { updateDraft('options', JSON.parse(e.target.value)); } catch { /* let user keep typing */ }
+                        const val = e.target.value;
+                        setOptionsJsonStr(val);
+                        try {
+                          updateDraft('options', JSON.parse(val));
+                          setOptionsJsonValid(true);
+                        } catch {
+                          setOptionsJsonValid(false);
+                        }
                       }}
                       rows={6}
-                      className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm mt-1 font-mono"
+                      className={`w-full border rounded-md px-3 py-2 text-sm mt-1 font-mono ${optionsJsonValid ? 'border-gray-300' : 'border-red-500 bg-red-50'}`}
                     />
+                    {!optionsJsonValid && <p className="text-xs text-red-500 mt-1">Invalid JSON</p>}
                   </div>
                 ) : (
                   merged.options && merged.options.length > 0 && (
@@ -722,11 +819,17 @@ export default function CBSE10MathsQCPage() {
                   >
                     Discard
                   </button>
+                  <button onClick={handleDelete} disabled={deleting}
+                    className="inline-flex items-center gap-1.5 px-4 py-2 text-sm font-medium rounded-lg bg-red-600 text-white hover:bg-red-700 disabled:opacity-50 transition-colors ml-auto"
+                  >
+                    {deleting ? <Loader2 className="w-4 h-4 animate-spin" /> : <Trash2 className="w-4 h-4" />}
+                    Delete
+                  </button>
                   {saveMsg && (
-                    <span className={`text-sm font-medium ${saveMsg.startsWith('Error') ? 'text-red-600' : 'text-green-600'}`}>{saveMsg}</span>
+                    <span className={`text-sm font-medium ${saveMsg.startsWith('Error') || saveMsg === 'Deleted' ? 'text-red-600' : 'text-green-600'}`}>{saveMsg}</span>
                   )}
                   {Object.keys(draft).length > 0 && (
-                    <span className="text-xs text-yellow-700 ml-auto">{Object.keys(draft).length} field{Object.keys(draft).length !== 1 ? 's' : ''} changed</span>
+                    <span className="text-xs text-yellow-700">{Object.keys(draft).length} field{Object.keys(draft).length !== 1 ? 's' : ''} changed</span>
                   )}
                 </div>
               )}

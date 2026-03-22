@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createSupabaseApiClient } from '@/lib/supabase/api-client';
 
-const TABLE = 'cbse10_maths_questions';
+const TABLE = 'cbse10_science_questions';
 
 export async function GET() {
   try {
@@ -17,7 +17,7 @@ export async function GET() {
       .order('difficulty_tier');
 
     if (error) {
-      console.error('Error fetching CBSE10 questions:', error);
+      console.error('Error fetching CBSE10 Science questions:', error);
       return NextResponse.json({ error: 'Failed to fetch questions' }, { status: 500 });
     }
 
@@ -41,7 +41,7 @@ export async function GET() {
 
     return NextResponse.json({ questions });
   } catch (err) {
-    console.error('Error in GET /api/admin/cbse10-maths-questions:', err);
+    console.error('Error in GET /api/admin/cbse10-science-questions:', err);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 }
@@ -89,13 +89,13 @@ export async function PATCH(request: NextRequest) {
       .eq('id', questionId);
 
     if (error) {
-      console.error('Error updating CBSE10 question:', error);
+      console.error('Error updating CBSE10 Science question:', error);
       return NextResponse.json({ error: 'Failed to update question' }, { status: 500 });
     }
 
     return NextResponse.json({ success: true });
   } catch (err) {
-    console.error('Error in PATCH /api/admin/cbse10-maths-questions:', err);
+    console.error('Error in PATCH /api/admin/cbse10-science-questions:', err);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 }
@@ -116,13 +116,13 @@ export async function DELETE(request: NextRequest) {
       .eq('id', questionId);
 
     if (error) {
-      console.error('Error deleting CBSE10 Maths question:', error);
+      console.error('Error deleting CBSE10 Science question:', error);
       return NextResponse.json({ error: 'Failed to delete question' }, { status: 500 });
     }
 
     return NextResponse.json({ success: true });
   } catch (err) {
-    console.error('Error in DELETE /api/admin/cbse10-maths-questions:', err);
+    console.error('Error in DELETE /api/admin/cbse10-science-questions:', err);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 }

@@ -234,14 +234,16 @@ switch (phase) {
 
 ## Step 6: QC Page (Admin)
 
+**IMPORTANT: Use `src/app/admin/sat-questions-qc/page.tsx` as the canonical benchmark for all QC pages.** It has the most complete feature set. When creating a new QC page, start from SAT QC and adapt (remove SAT-specific fields like `section`, `passage`, `moduleNumber`, `setNumber`; add course-specific fields).
+
 ### 6a. Admin API
 
 Directory: `src/app/api/admin/<course-slug>-questions/`
 
-Reference: `src/app/api/admin/cbse10-maths-questions/`
+Reference: `src/app/api/admin/sat-questions/route.ts`
 
 Three files:
-- `route.ts` — GET all questions + PATCH editable fields
+- `route.ts` — GET all questions + PATCH editable fields + DELETE (soft-delete via `is_active = false`). Ensure `options` is in `ALLOWED_FIELDS` so JSON options are editable.
 - `regenerate-ai/route.ts` — regenerate AI explanation/theory with course-specific prompts
 - `upload-image/route.ts` — upload/replace/remove images (can reuse `sat-question-images` bucket with a subfolder prefix like `<slug>/`)
 
@@ -249,12 +251,14 @@ Three files:
 
 File: `src/app/admin/<course-slug>-qc/page.tsx`
 
-Reference: `src/app/admin/cbse10-maths-qc/page.tsx`
+Reference: `src/app/admin/sat-questions-qc/page.tsx` (primary benchmark)
 
-Features:
+Required features (all present in SAT QC):
 - Filters: Domain (chapters), Topic, Subtopic, Difficulty, QC status
+- **UUID search**: input field + Go button to jump to any question by ID (or `bankItemId`). Auto-clears filters if the question is hidden.
 - View mode: metadata badges, rendered prompt/options, explanation, AI content, image
-- Edit mode: editable metadata, prompt, options JSON, explanation, AI fields
+- Edit mode: editable metadata, prompt, options JSON (with raw string state — do NOT use `JSON.stringify` as `value` directly), explanation, AI fields
+- **Delete button**: soft-deletes the question (sets `is_active = false`). Shown in edit mode save bar.
 - QC toggle button in sticky bottom bar
 - Image upload/replace/remove
 - AI regeneration

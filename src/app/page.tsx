@@ -38,6 +38,14 @@ const exams = [
     live: true,
   },
   {
+    name: "CBSE 10 Science",
+    description: "CBSE Class 10 Science — physics, chemistry, biology with AI explanations.",
+    gradient: "from-emerald-500 to-emerald-600",
+    testRoute: "/cbse10-science",
+    courseQuery: "CBSE10SCI",
+    live: true,
+  },
+  {
     name: "GRE",
     description: "Graduate school entrance exam — verbal, quant, and AWA.",
     gradient: "from-purple-500 to-purple-600",

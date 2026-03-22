@@ -52,6 +52,7 @@ const ALLOWED_FIELDS: Record<string, string> = {
   passage: 'passage',
   explanation: 'explanation',
   correctAnswer: 'correct_answer',
+  options: 'options',
   section: 'section',
   domain: 'domain',
   difficulty: 'difficulty_tier',
@@ -98,6 +99,33 @@ export async function PATCH(request: NextRequest) {
     return NextResponse.json({ success: true });
   } catch (err) {
     console.error('Error in PATCH /api/admin/sat-questions:', err);
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+  }
+}
+
+export async function DELETE(request: NextRequest) {
+  try {
+    const body = await request.json();
+    const { questionId } = body;
+
+    if (!questionId) {
+      return NextResponse.json({ error: 'questionId is required' }, { status: 400 });
+    }
+
+    const supabase = createSupabaseApiClient();
+    const { error } = await supabase
+      .from('sat_questions')
+      .update({ is_active: false })
+      .eq('id', questionId);
+
+    if (error) {
+      console.error('Error deleting SAT question:', error);
+      return NextResponse.json({ error: 'Failed to delete question' }, { status: 500 });
+    }
+
+    return NextResponse.json({ success: true });
+  } catch (err) {
+    console.error('Error in DELETE /api/admin/sat-questions:', err);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 }

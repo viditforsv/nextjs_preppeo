@@ -20,6 +20,7 @@ interface ExplainRequestBody {
 const COURSE_TABLE: Record<string, string> = {
   sat: 'sat_questions',
   'cbse10-maths': 'cbse10_maths_questions',
+  'cbse10-science': 'cbse10_science_questions',
 };
 
 // In-memory rate limit: userId -> { count, resetAt }

@@ -68,6 +68,8 @@ alter table "public"."qa_history" drop constraint if exists "qa_history_qa_id_fk
 
 alter table "public"."courses_enrollments" drop constraint "courses_enrollments_pkey";
 
+alter table "public"."lesson_interactive_content" drop constraint if exists "lesson_interactive_content_lesson_id_fkey";
+
 alter table "public"."courses_lessons" drop constraint "courses_lessons_pkey";
 
 alter table "public"."courses_templates" drop constraint "courses_templates_pkey";
@@ -145,6 +147,8 @@ alter table "public"."payments" enable row level security;
 alter table "public"."permission_categories" enable row level security;
 
 alter table "public"."qa_history" enable row level security;
+
+drop view if exists "public"."question_bank_enhanced";
 
 alter table "public"."qa_questions" drop column "overall_rating";
 
@@ -347,6 +351,10 @@ CREATE UNIQUE INDEX user_roles_pkey ON public.user_role_assignments USING btree 
 alter table "public"."courses_enrollments" add constraint "enrollments_pkey" PRIMARY KEY using index "enrollments_pkey";
 
 alter table "public"."courses_lessons" add constraint "lessons_pkey" PRIMARY KEY using index "lessons_pkey";
+
+alter table "public"."lesson_interactive_content" add constraint "lesson_interactive_content_lesson_id_fkey"
+  FOREIGN KEY (lesson_id) REFERENCES public.courses_lessons(id) ON DELETE CASCADE not valid;
+alter table "public"."lesson_interactive_content" validate constraint "lesson_interactive_content_lesson_id_fkey";
 
 alter table "public"."courses_templates" add constraint "course_templates_pkey" PRIMARY KEY using index "course_templates_pkey";
 

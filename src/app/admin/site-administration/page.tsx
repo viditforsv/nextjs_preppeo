@@ -193,6 +193,12 @@ export default function SiteAdministrationPage() {
           icon: ListChecks,
           description: "Review all CBSE Class 10 Mathematics questions",
         },
+        {
+          name: "CBSE 10 Science QC",
+          href: "/admin/cbse10-science-qc",
+          icon: ListChecks,
+          description: "Review all CBSE Class 10 Science questions",
+        },
       ],
     },
     {
