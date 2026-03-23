@@ -6,10 +6,12 @@ import {
   AppPhase,
   SectionResult,
   PracticeConfig,
+  GREQuestionResponse,
 } from '@/types/gre-test';
 import {
   getQuestionsByDifficulty,
 } from '@/lib/mock-gre-math-data';
+import { estimateGREScore } from '@/lib/gre-scoring';
 
 const SECTION_1_DURATION = 1260; // 21 min
 const SECTION_2_DURATION = 1560; // 26 min
@@ -56,6 +58,53 @@ async function fetchQuestions(
   return data.questions;
 }
 
+function buildResponses(
+  sectionNumber: 1 | 2,
+  questions: GREQuestion[],
+  answers: Record<string, string | string[] | null>,
+  flags: Record<string, boolean>,
+  timeAccum: Record<string, number>,
+  visits: Record<string, number>,
+): GREQuestionResponse[] {
+  return questions.map((q) => {
+    const answer = answers[q.id] ?? null;
+    const isOmitted = answer === null || (Array.isArray(answer) && answer.length === 0);
+    return {
+      questionId: q.id,
+      answer,
+      isCorrect: checkAnswer(q, answer),
+      isOmitted,
+      isFlagged: !!flags[q.id],
+      timeSpentMs: timeAccum[q.id] ?? 0,
+      visitCount: visits[q.id] ?? 0,
+      topics: q.topics ?? [],
+      difficulty: q.difficulty,
+      questionType: q.type,
+      sectionNumber,
+    };
+  });
+}
+
+function flushCurrentQuestion(state: GRETestState): {
+  questionTimeAccum: Record<string, number>;
+  lastNavigatedAt: number;
+} {
+  const section = state.currentSectionNumber === 1 ? state.section1 : state.section2;
+  if (!section) return { questionTimeAccum: state.questionTimeAccum, lastNavigatedAt: state.lastNavigatedAt };
+  const q = section.questions[state.currentQuestionIndex];
+  if (!q) return { questionTimeAccum: state.questionTimeAccum, lastNavigatedAt: state.lastNavigatedAt };
+
+  const now = Date.now();
+  const elapsed = now - state.lastNavigatedAt;
+  return {
+    questionTimeAccum: {
+      ...state.questionTimeAccum,
+      [q.id]: (state.questionTimeAccum[q.id] ?? 0) + elapsed,
+    },
+    lastNavigatedAt: now,
+  };
+}
+
 // ── State Shape ─────────────────────────────────────────────────────────────
 
 interface GRETestState {
@@ -74,6 +123,14 @@ interface GRETestState {
   section1Result: SectionResult | null;
   section2Result: SectionResult | null;
   section2Tier: DifficultyTier | null;
+
+  // Per-question analytics tracking
+  lastNavigatedAt: number;
+  questionTimeAccum: Record<string, number>;
+  visitCounts: Record<string, number>;
+  section1Responses: GREQuestionResponse[];
+  allQuestionResponses: GREQuestionResponse[];
+  estimatedScore: number | null;
 
   // Practice mode
   practiceConfig: PracticeConfig | null;
@@ -109,6 +166,15 @@ interface GRETestState {
   finishPractice: () => void;
 }
 
+const INITIAL_ANALYTICS = {
+  lastNavigatedAt: 0,
+  questionTimeAccum: {} as Record<string, number>,
+  visitCounts: {} as Record<string, number>,
+  section1Responses: [] as GREQuestionResponse[],
+  allQuestionResponses: [] as GREQuestionResponse[],
+  estimatedScore: null as number | null,
+};
+
 export const useGRETestStore = create<GRETestState>()((set, get) => ({
   phase: 'landing',
   mode: null,
@@ -123,6 +189,7 @@ export const useGRETestStore = create<GRETestState>()((set, get) => ({
   section1Result: null,
   section2Result: null,
   section2Tier: null,
+  ...INITIAL_ANALYTICS,
   practiceConfig: null,
   practiceQuestions: [],
   practiceAnswers: {},
@@ -147,6 +214,7 @@ export const useGRETestStore = create<GRETestState>()((set, get) => ({
       section1Result: null,
       section2Result: null,
       section2Tier: null,
+      ...INITIAL_ANALYTICS,
       practiceConfig: null,
       practiceQuestions: [],
       practiceAnswers: {},
@@ -179,12 +247,22 @@ export const useGRETestStore = create<GRETestState>()((set, get) => ({
       section1Result: null,
       section2Result: null,
       section2Tier: null,
+      ...INITIAL_ANALYTICS,
       isCalculatorOpen: false,
       isReviewOpen: false,
     });
   },
 
-  beginSection: () => set({ phase: 'in-section' }),
+  beginSection: () => {
+    const state = get();
+    const section = state.currentSectionNumber === 1 ? state.section1 : state.section2;
+    const firstQ = section?.questions[0];
+    set({
+      phase: 'in-section',
+      lastNavigatedAt: Date.now(),
+      visitCounts: firstQ ? { [firstQ.id]: 1 } : {},
+    });
+  },
 
   setAnswer: (qId, value) =>
     set((s) => ({ answers: { ...s.answers, [qId]: value } })),
@@ -192,7 +270,25 @@ export const useGRETestStore = create<GRETestState>()((set, get) => ({
   toggleFlag: (qId) =>
     set((s) => ({ flags: { ...s.flags, [qId]: !s.flags[qId] } })),
 
-  navigateQuestion: (idx) => set({ currentQuestionIndex: idx, isReviewOpen: false }),
+  navigateQuestion: (idx) => {
+    const state = get();
+    const { questionTimeAccum, lastNavigatedAt } = flushCurrentQuestion(state);
+
+    const section = state.currentSectionNumber === 1 ? state.section1 : state.section2;
+    const targetQ = section?.questions[idx];
+    const newVisits = { ...state.visitCounts };
+    if (targetQ) {
+      newVisits[targetQ.id] = (newVisits[targetQ.id] ?? 0) + 1;
+    }
+
+    set({
+      currentQuestionIndex: idx,
+      isReviewOpen: false,
+      questionTimeAccum,
+      lastNavigatedAt,
+      visitCounts: newVisits,
+    });
+  },
 
   tickTimer: () => {
     const { timeLeft } = get();
@@ -204,7 +300,10 @@ export const useGRETestStore = create<GRETestState>()((set, get) => ({
   },
 
   submitSection: () => {
-    const { currentSectionNumber, section1, section2, answers, timeLeft, setNumber } = get();
+    const state = get();
+    const { currentSectionNumber, section1, section2, answers, flags, timeLeft, setNumber, visitCounts } = state;
+
+    const { questionTimeAccum } = flushCurrentQuestion(state);
 
     if (currentSectionNumber === 1 && section1) {
       let correct = 0;
@@ -220,10 +319,12 @@ export const useGRETestStore = create<GRETestState>()((set, get) => ({
         timeUsed: SECTION_1_DURATION - timeLeft,
       };
       const tier = scoreToTier(correct);
+      const s1Responses = buildResponses(1, section1.questions, answers, flags, questionTimeAccum, visitCounts);
 
       set({
         section1Result: result,
         section2Tier: tier,
+        section1Responses: s1Responses,
         phase: 'between-sections',
         isReviewOpen: false,
         isCalculatorOpen: false,
@@ -257,18 +358,59 @@ export const useGRETestStore = create<GRETestState>()((set, get) => ({
         answers: { ...answers },
         timeUsed: SECTION_2_DURATION - timeLeft,
       };
+
+      const s2Responses = buildResponses(2, section2.questions, answers, flags, questionTimeAccum, visitCounts);
+      const s1Responses = state.section1Responses;
+      const all = [...s1Responses, ...s2Responses];
+
+      const s1Correct = state.section1Result?.correct ?? 0;
+      const score = estimateGREScore({
+        section1Correct: s1Correct,
+        section2Correct: correct,
+        section2Tier: section2.difficultyTier,
+      });
+
       set({
         section2Result: result,
+        allQuestionResponses: all,
+        estimatedScore: score,
         phase: 'results',
         isReviewOpen: false,
         isCalculatorOpen: false,
       });
+
+      // Persist attempt to DB
+      const s1Result = state.section1Result;
+      const totalCorrect = s1Correct + correct;
+      const totalQuestions = (s1Result?.total ?? 0) + section2.questions.length;
+      const scorePct = totalQuestions > 0 ? Math.round((totalCorrect / totalQuestions) * 10000) / 100 : 0;
+
+      fetch('/api/gre/attempts', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          setNumber: state.setNumber,
+          section1Correct: s1Correct,
+          section1Total: s1Result?.total ?? 0,
+          section1TimeUsed: s1Result?.timeUsed ?? 0,
+          section2Tier: section2.difficultyTier,
+          section2Correct: correct,
+          section2Total: section2.questions.length,
+          section2TimeUsed: SECTION_2_DURATION - timeLeft,
+          totalCorrect,
+          totalQuestions,
+          scorePct,
+          estimatedScore: score,
+          questionResponses: all,
+        }),
+      }).catch((err) => console.error('Failed to persist GRE attempt:', err));
     }
   },
 
   beginSection2: () => {
     const { section2 } = get();
     if (!section2) return;
+    const firstQ = section2.questions[0];
     set({
       currentSectionNumber: 2,
       currentQuestionIndex: 0,
@@ -278,6 +420,9 @@ export const useGRETestStore = create<GRETestState>()((set, get) => ({
       phase: 'section-intro',
       isCalculatorOpen: false,
       isReviewOpen: false,
+      lastNavigatedAt: 0,
+      questionTimeAccum: {},
+      visitCounts: firstQ ? { [firstQ.id]: 0 } : {},
     });
   },
 

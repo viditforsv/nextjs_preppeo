@@ -146,3 +146,19 @@ export interface PracticeSession {
   answers: Record<string, string | string[] | null>;
   revealed: Record<string, boolean>;
 }
+
+// ── Per-Question Analytics ──────────────────────────────────────────────────
+
+export interface GREQuestionResponse {
+  questionId: string;
+  answer: string | string[] | null;
+  isCorrect: boolean;
+  isOmitted: boolean;
+  isFlagged: boolean;
+  timeSpentMs: number;
+  visitCount: number;
+  topics: string[];
+  difficulty: DifficultyTier;
+  questionType: GREQuestionType;
+  sectionNumber: 1 | 2;
+}

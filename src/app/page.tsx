@@ -30,43 +30,11 @@ const exams = [
     live: true,
   },
   {
-    name: "CBSE 10 Maths",
-    description: "CBSE Class 10 Mathematics — practice with AI explanations and analytics.",
-    gradient: "from-indigo-600 to-violet-600",
-    testRoute: "/cbse10-maths",
-    courseQuery: "CBSE10",
-    live: true,
-  },
-  {
-    name: "CBSE 10 Science",
-    description: "CBSE Class 10 Science — physics, chemistry, biology with AI explanations.",
-    gradient: "from-emerald-500 to-emerald-600",
-    testRoute: "/cbse10-science",
-    courseQuery: "CBSE10SCI",
-    live: true,
-  },
-  {
     name: "GRE",
     description: "Graduate school entrance exam — verbal, quant, and AWA.",
     gradient: "from-purple-500 to-purple-600",
     testRoute: "/gre-test",
     courseQuery: "GRE",
-    live: true,
-  },
-  {
-    name: "Ashoka",
-    description: "Ashoka University aptitude test for undergraduate admissions.",
-    gradient: "from-teal-500 to-teal-600",
-    testRoute: "/ashoka-test",
-    courseQuery: "Ashoka",
-    live: true,
-  },
-  {
-    name: "GMAT",
-    description: "Business school admission test — quant, verbal, and data insights.",
-    gradient: "from-red-500 to-red-600",
-    testRoute: "/gmat-test",
-    courseQuery: "GMAT",
     live: false,
   },
 ];
@@ -245,7 +213,7 @@ export default function Home() {
             that free alternatives don&apos;t offer.
           </p>
           <p className="text-sm text-muted-foreground mb-8">
-            Also available for GRE, GMAT, and Ashoka.
+            GRE coming soon.
           </p>
           <div className="flex gap-3 justify-center flex-wrap">
             <Button
@@ -460,7 +428,7 @@ export default function Home() {
               </div>
               <h3 className="font-semibold text-foreground mb-2">Choose Your Exam</h3>
               <p className="text-sm text-muted-foreground">
-                Pick from SAT, GRE, GMAT, Ashoka, and more.
+                SAT is live now. GRE coming soon.
               </p>
             </div>
             <div>

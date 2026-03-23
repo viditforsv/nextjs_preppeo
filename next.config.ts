@@ -1,6 +1,16 @@
 import type { NextConfig } from "next";
+import path from "path";
+import { fileURLToPath } from "url";
+
+/** Directory containing this config = app root (avoids wrong root when a lockfile exists above the repo, e.g. ~/package-lock.json). */
+const projectRoot = path.dirname(fileURLToPath(import.meta.url));
 
 const nextConfig: NextConfig = {
+  // Pin Turbopack/workspace root to this app (silences “multiple lockfiles” when parent dirs have package-lock.json)
+  turbopack: {
+    root: projectRoot,
+  },
+
   // Handle environment variables during build
   env: {
     NEXT_PUBLIC_SUPABASE_URL: process.env.NEXT_PUBLIC_SUPABASE_URL,

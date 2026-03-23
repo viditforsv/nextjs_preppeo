@@ -1,0 +1,4 @@
+ALTER TABLE public.gre_questions
+  ADD COLUMN IF NOT EXISTS qc_done BOOLEAN NOT NULL DEFAULT false,
+  ADD COLUMN IF NOT EXISTS ai_explanation TEXT,
+  ADD COLUMN IF NOT EXISTS ai_theory TEXT;
