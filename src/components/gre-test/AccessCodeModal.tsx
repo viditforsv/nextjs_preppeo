@@ -24,10 +24,10 @@ export default function AccessCodeModal({ onSuccess, onClose }: AccessCodeModalP
     setError('');
 
     try {
-      const res = await fetch('/api/gre/verify-code', {
+      const res = await fetch('/api/mocks/verify-token', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ code: code.trim() }),
+        body: JSON.stringify({ code: code.trim(), examType: 'gre' }),
       });
 
       const data = await res.json();

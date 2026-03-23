@@ -38,6 +38,12 @@ interface Props {
   responses: SATQuestionResponse[];
 }
 
+function optionLabel(optId: string, options?: { id: string; text: string }[]): string {
+  if (!options) return optId;
+  const opt = options.find((o) => o.id === optId);
+  return opt ? opt.text : optId;
+}
+
 export default function QuestionReviewTab({ responses }: Props) {
   const [filter, setFilter] = useState<FilterType>('all');
   const [sectionFilter, setSectionFilter] = useState<SectionFilterType>('all');
@@ -79,7 +85,6 @@ export default function QuestionReviewTab({ responses }: Props) {
 
   return (
     <div className="space-y-4">
-      {/* Section filter */}
       {hasRW && hasMath && (
         <div className="flex gap-2">
           {(['all', 'rw', 'math'] as const).map((f) => (
@@ -98,7 +103,6 @@ export default function QuestionReviewTab({ responses }: Props) {
         </div>
       )}
 
-      {/* Status filter */}
       <div className="flex flex-wrap gap-2">
         {FILTERS.map((f) => (
           <button
@@ -115,7 +119,6 @@ export default function QuestionReviewTab({ responses }: Props) {
         ))}
       </div>
 
-      {/* Question list */}
       {filtered.length === 0 ? (
         <p className="text-gray-500 text-center py-8">No questions match this filter.</p>
       ) : (
@@ -124,6 +127,7 @@ export default function QuestionReviewTab({ responses }: Props) {
             const isOpen = expandedId === r.questionId;
             const timeSec = Math.round(r.timeSpentMs / 1000);
             const sectionTag = r.section === 'rw' ? 'R&W' : 'Math';
+            const hasContent = !!r.prompt;
 
             return (
               <div key={r.questionId} className="bg-white rounded-xl border border-gray-200 overflow-hidden">
@@ -141,14 +145,17 @@ export default function QuestionReviewTab({ responses }: Props) {
 
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 flex-wrap">
-                      <span className="text-sm font-medium text-gray-800">
-                        Q{idx + 1}
-                      </span>
+                      <span className="text-sm font-medium text-gray-800">Q{idx + 1}</span>
                       <span className="text-xs px-1.5 py-0.5 rounded bg-gray-100 text-gray-600 font-medium">
                         {sectionTag}
                       </span>
                       {r.isFlagged && <Flag className="w-3 h-3 text-yellow-500 fill-yellow-500" />}
                     </div>
+                    {hasContent && (
+                      <p className="text-xs text-gray-500 mt-0.5 truncate max-w-md">
+                        {r.prompt!.slice(0, 80)}{r.prompt!.length > 80 ? '...' : ''}
+                      </p>
+                    )}
                   </div>
 
                   <div className="hidden sm:flex items-center gap-1.5 shrink-0">
@@ -179,7 +186,7 @@ export default function QuestionReviewTab({ responses }: Props) {
                 </button>
 
                 {isOpen && (
-                  <div className="border-t border-gray-100 p-4 space-y-3">
+                  <div className="border-t border-gray-100 p-4 space-y-4">
                     <div className="flex sm:hidden items-center gap-2 flex-wrap text-xs">
                       {r.domain && (
                         <span className="px-1.5 py-0.5 rounded bg-blue-50 text-blue-700 font-medium">
@@ -201,16 +208,94 @@ export default function QuestionReviewTab({ responses }: Props) {
                       </span>
                     </div>
 
-                    <div className="text-sm text-gray-600">
-                      <span className="font-medium">Your answer: </span>
-                      {r.isOmitted ? (
-                        <span className="text-gray-400 italic">Omitted</span>
-                      ) : (
-                        <span className={r.isCorrect ? 'text-green-600 font-medium' : 'text-red-600 font-medium'}>
-                          {r.answer}
-                        </span>
-                      )}
-                    </div>
+                    {/* Passage */}
+                    {r.passage && (
+                      <div className="bg-amber-50 border border-amber-200 rounded-lg p-3">
+                        <p className="text-xs font-semibold text-amber-700 mb-1">Passage</p>
+                        <div className="text-sm text-gray-700 leading-relaxed whitespace-pre-line">
+                          {renderMixedContent(r.passage)}
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Question prompt */}
+                    {r.prompt && (
+                      <div className="bg-gray-50 rounded-lg p-3 text-sm text-gray-800 leading-relaxed">
+                        {renderMixedContent(r.prompt)}
+                      </div>
+                    )}
+
+                    {/* Image */}
+                    {r.imageUrl && (
+                      <div className="flex justify-center">
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img src={r.imageUrl} alt="Question figure" className="max-h-48 rounded-lg border border-gray-200" />
+                      </div>
+                    )}
+
+                    {/* Options with correct/user highlights */}
+                    {r.options && r.options.length > 0 && (
+                      <div className="space-y-1.5">
+                        {r.options.map((opt) => {
+                          const isCorrectOpt = r.correctAnswer === opt.id;
+                          const isUserOpt = r.answer === opt.id;
+
+                          let borderClass = 'border-gray-200';
+                          let bgClass = 'bg-white';
+                          if (isCorrectOpt) {
+                            borderClass = 'border-green-400';
+                            bgClass = 'bg-green-50';
+                          }
+                          if (isUserOpt && !isCorrectOpt) {
+                            borderClass = 'border-red-400';
+                            bgClass = 'bg-red-50';
+                          }
+
+                          return (
+                            <div key={opt.id} className={`flex items-start gap-2 p-2.5 rounded-lg border text-sm ${borderClass} ${bgClass}`}>
+                              <span className="font-medium text-gray-500 shrink-0 w-5 text-center">
+                                {opt.id.toUpperCase()}
+                              </span>
+                              <span className="text-gray-800 flex-1">{renderMixedContent(opt.text)}</span>
+                              {isCorrectOpt && <CheckCircle className="w-4 h-4 text-green-500 shrink-0 mt-0.5" />}
+                              {isUserOpt && !isCorrectOpt && <XCircle className="w-4 h-4 text-red-500 shrink-0 mt-0.5" />}
+                            </div>
+                          );
+                        })}
+                      </div>
+                    )}
+
+                    {/* Answer summary for SPR (student-produced response) */}
+                    {r.questionType === 'spr' && (
+                      <div className="flex gap-4 text-sm">
+                        <div>
+                          <span className="text-gray-500">Your answer: </span>
+                          {r.isOmitted ? (
+                            <span className="text-gray-400 italic">Omitted</span>
+                          ) : (
+                            <span className={r.isCorrect ? 'text-green-600 font-medium' : 'text-red-600 font-medium'}>
+                              {r.answer}
+                            </span>
+                          )}
+                        </div>
+                        <div>
+                          <span className="text-gray-500">Correct answer: </span>
+                          <span className="text-green-600 font-medium">
+                            {optionLabel(r.correctAnswer ?? '', r.options)}
+                          </span>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Explanation */}
+                    {r.explanation && (
+                      <div className="bg-emerald-50 border border-emerald-200 rounded-lg p-3">
+                        <p className="text-xs font-semibold text-emerald-700 mb-1">Explanation</p>
+                        <div className="text-sm text-gray-700 leading-relaxed">
+                          {renderMixedContent(r.explanation)}
+                        </div>
+                      </div>
+                    )}
                   </div>
                 )}
               </div>

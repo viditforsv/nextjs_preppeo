@@ -161,4 +161,12 @@ export interface GREQuestionResponse {
   difficulty: DifficultyTier;
   questionType: GREQuestionType;
   sectionNumber: 1 | 2;
+  prompt?: string;
+  options?: GREQuestionOption[];
+  correctAnswer?: string | string[];
+  explanation?: string;
+  quantityA?: string;
+  quantityB?: string;
+  quantityInfo?: string;
+  imageUrl?: string;
 }

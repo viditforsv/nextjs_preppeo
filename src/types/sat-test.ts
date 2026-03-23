@@ -94,4 +94,10 @@ export interface SATQuestionResponse {
   domain: SATDomain | null;
   difficulty: DifficultyTier;
   questionType: SATQuestionType;
+  prompt?: string;
+  passage?: string;
+  options?: SATQuestionOption[];
+  correctAnswer?: string;
+  explanation?: string;
+  imageUrl?: string;
 }

@@ -2,6 +2,7 @@
 
 import { useState, useMemo } from 'react';
 import type { GREQuestionResponse } from '@/types/gre-test';
+import { renderMixedContent } from '@/components/MathRenderer';
 import {
   CheckCircle,
   XCircle,
@@ -31,6 +32,21 @@ type SectionFilterType = 'all' | '1' | '2';
 
 interface Props {
   responses: GREQuestionResponse[];
+}
+
+function optionLabel(optId: string, options?: { id: string; text: string }[]): string {
+  if (!options) return optId;
+  const opt = options.find((o) => o.id === optId);
+  return opt ? opt.text : optId;
+}
+
+function formatAnswer(
+  answer: string | string[] | null,
+  options?: { id: string; text: string }[],
+): string {
+  if (answer === null) return '';
+  if (Array.isArray(answer)) return answer.map((a) => optionLabel(a, options)).join(', ');
+  return optionLabel(answer, options);
 }
 
 export default function QuestionReviewTab({ responses }: Props) {
@@ -115,6 +131,7 @@ export default function QuestionReviewTab({ responses }: Props) {
           {filtered.map((r, idx) => {
             const isOpen = expandedId === r.questionId;
             const timeSec = Math.round(r.timeSpentMs / 1000);
+            const hasContent = !!r.prompt;
 
             return (
               <div key={r.questionId} className="bg-white rounded-xl border border-gray-200 overflow-hidden">
@@ -138,6 +155,11 @@ export default function QuestionReviewTab({ responses }: Props) {
                       </span>
                       {r.isFlagged && <Flag className="w-3 h-3 text-yellow-500 fill-yellow-500" />}
                     </div>
+                    {hasContent && (
+                      <p className="text-xs text-gray-500 mt-0.5 truncate max-w-md">
+                        {r.prompt!.slice(0, 80)}{r.prompt!.length > 80 ? '...' : ''}
+                      </p>
+                    )}
                   </div>
 
                   <div className="hidden sm:flex items-center gap-1.5 shrink-0">
@@ -166,7 +188,7 @@ export default function QuestionReviewTab({ responses }: Props) {
                 </button>
 
                 {isOpen && (
-                  <div className="border-t border-gray-100 p-4 space-y-3">
+                  <div className="border-t border-gray-100 p-4 space-y-4">
                     <div className="flex sm:hidden items-center gap-2 flex-wrap text-xs">
                       <span className="px-1.5 py-0.5 rounded bg-blue-50 text-blue-700 font-medium">
                         {TYPE_LABELS[r.questionType] ?? r.questionType}
@@ -196,16 +218,109 @@ export default function QuestionReviewTab({ responses }: Props) {
                       </div>
                     )}
 
-                    <div className="text-sm text-gray-600">
-                      <span className="font-medium">Your answer: </span>
-                      {r.isOmitted ? (
-                        <span className="text-gray-400 italic">Omitted</span>
-                      ) : (
-                        <span className={r.isCorrect ? 'text-green-600 font-medium' : 'text-red-600 font-medium'}>
-                          {Array.isArray(r.answer) ? r.answer.join(', ') : r.answer}
-                        </span>
-                      )}
-                    </div>
+                    {/* Question prompt */}
+                    {r.prompt && (
+                      <div className="bg-gray-50 rounded-lg p-3 text-sm text-gray-800 leading-relaxed">
+                        {renderMixedContent(r.prompt)}
+                      </div>
+                    )}
+
+                    {/* Quantitative Comparison info */}
+                    {r.questionType === 'quantitative-comparison' && (r.quantityA || r.quantityB) && (
+                      <div className="grid grid-cols-2 gap-3">
+                        <div className="bg-blue-50 rounded-lg p-3">
+                          <p className="text-xs font-semibold text-blue-700 mb-1">Quantity A</p>
+                          <div className="text-sm text-gray-800">{renderMixedContent(r.quantityA ?? '')}</div>
+                        </div>
+                        <div className="bg-blue-50 rounded-lg p-3">
+                          <p className="text-xs font-semibold text-blue-700 mb-1">Quantity B</p>
+                          <div className="text-sm text-gray-800">{renderMixedContent(r.quantityB ?? '')}</div>
+                        </div>
+                      </div>
+                    )}
+                    {r.quantityInfo && (
+                      <div className="bg-yellow-50 rounded-lg p-3 text-sm text-gray-700">
+                        {renderMixedContent(r.quantityInfo)}
+                      </div>
+                    )}
+
+                    {/* Image */}
+                    {r.imageUrl && (
+                      <div className="flex justify-center">
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img src={r.imageUrl} alt="Question figure" className="max-h-48 rounded-lg border border-gray-200" />
+                      </div>
+                    )}
+
+                    {/* Options with correct/user highlights */}
+                    {r.options && r.options.length > 0 && (
+                      <div className="space-y-1.5">
+                        {r.options.map((opt) => {
+                          const correctAns = r.correctAnswer;
+                          const isCorrectOpt = Array.isArray(correctAns)
+                            ? correctAns.includes(opt.id)
+                            : correctAns === opt.id;
+                          const userAns = r.answer;
+                          const isUserOpt = Array.isArray(userAns)
+                            ? userAns.includes(opt.id)
+                            : userAns === opt.id;
+
+                          let borderClass = 'border-gray-200';
+                          let bgClass = 'bg-white';
+                          if (isCorrectOpt) {
+                            borderClass = 'border-green-400';
+                            bgClass = 'bg-green-50';
+                          }
+                          if (isUserOpt && !isCorrectOpt) {
+                            borderClass = 'border-red-400';
+                            bgClass = 'bg-red-50';
+                          }
+
+                          return (
+                            <div key={opt.id} className={`flex items-start gap-2 p-2.5 rounded-lg border text-sm ${borderClass} ${bgClass}`}>
+                              <span className="font-medium text-gray-500 shrink-0 w-5 text-center">
+                                {opt.id.toUpperCase()}
+                              </span>
+                              <span className="text-gray-800 flex-1">{renderMixedContent(opt.text)}</span>
+                              {isCorrectOpt && <CheckCircle className="w-4 h-4 text-green-500 shrink-0 mt-0.5" />}
+                              {isUserOpt && !isCorrectOpt && <XCircle className="w-4 h-4 text-red-500 shrink-0 mt-0.5" />}
+                            </div>
+                          );
+                        })}
+                      </div>
+                    )}
+
+                    {/* Answer summary for numeric-entry type */}
+                    {r.questionType === 'numeric-entry' && (
+                      <div className="flex gap-4 text-sm">
+                        <div>
+                          <span className="text-gray-500">Your answer: </span>
+                          {r.isOmitted ? (
+                            <span className="text-gray-400 italic">Omitted</span>
+                          ) : (
+                            <span className={r.isCorrect ? 'text-green-600 font-medium' : 'text-red-600 font-medium'}>
+                              {formatAnswer(r.answer, r.options)}
+                            </span>
+                          )}
+                        </div>
+                        <div>
+                          <span className="text-gray-500">Correct answer: </span>
+                          <span className="text-green-600 font-medium">
+                            {formatAnswer(r.correctAnswer ?? null, r.options)}
+                          </span>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Explanation */}
+                    {r.explanation && (
+                      <div className="bg-emerald-50 border border-emerald-200 rounded-lg p-3">
+                        <p className="text-xs font-semibold text-emerald-700 mb-1">Explanation</p>
+                        <div className="text-sm text-gray-700 leading-relaxed">
+                          {renderMixedContent(r.explanation)}
+                        </div>
+                      </div>
+                    )}
                   </div>
                 )}
               </div>

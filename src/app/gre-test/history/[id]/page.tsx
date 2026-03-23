@@ -3,7 +3,6 @@
 import { useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { useAuth } from '@/contexts/AuthContext';
-import Link from 'next/link';
 import type { GREQuestionResponse, SectionResult, DifficultyTier } from '@/types/gre-test';
 import {
   BarChart3,
@@ -13,22 +12,17 @@ import {
   FileText,
   ArrowLeft,
   Loader2,
+  Lightbulb,
 } from 'lucide-react';
+import Link from 'next/link';
+import ResultsShell from '@/components/shared-results/ResultsShell';
+import RecommendationsTab from '@/components/shared-results/RecommendationsTab';
+import type { ResultsConfig, NormalizedResponse } from '@/components/shared-results/results-types';
 import ScoreOverviewTab from '@/components/gre-test/results/ScoreOverviewTab';
 import TopicBreakdownTab from '@/components/gre-test/results/TopicBreakdownTab';
 import DifficultyBreakdownTab from '@/components/gre-test/results/DifficultyBreakdownTab';
 import TimeAnalysisTab from '@/components/gre-test/results/TimeAnalysisTab';
 import QuestionReviewTab from '@/components/gre-test/results/QuestionReviewTab';
-
-const TABS = [
-  { id: 'score', label: 'Score', icon: BarChart3 },
-  { id: 'topics', label: 'Topics', icon: Target },
-  { id: 'difficulty', label: 'Difficulty', icon: Layers },
-  { id: 'time', label: 'Time', icon: Clock },
-  { id: 'review', label: 'Review', icon: FileText },
-] as const;
-
-type TabId = (typeof TABS)[number]['id'];
 
 interface AttemptRow {
   id: string;
@@ -55,14 +49,7 @@ function buildSectionResult(
   timeUsed: number,
   tier: DifficultyTier,
 ): SectionResult {
-  return {
-    sectionNumber,
-    difficultyTier: tier,
-    correct,
-    total,
-    answers: {},
-    timeUsed,
-  };
+  return { sectionNumber, difficultyTier: tier, correct, total, answers: {}, timeUsed };
 }
 
 export default function GREHistoryDetailPage() {
@@ -73,7 +60,6 @@ export default function GREHistoryDetailPage() {
   const [attempt, setAttempt] = useState<AttemptRow | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [activeTab, setActiveTab] = useState<TabId>('score');
 
   useEffect(() => {
     if (authLoading) return;
@@ -113,25 +99,20 @@ export default function GREHistoryDetailPage() {
     );
   }
 
-  const section1Result = buildSectionResult(
-    1,
-    attempt.section1_correct,
-    attempt.section1_total,
-    attempt.section1_time_used,
-    'medium',
-  );
-
+  const section1Result = buildSectionResult(1, attempt.section1_correct, attempt.section1_total, attempt.section1_time_used, 'medium');
   const section2Result = attempt.section2_correct !== null
-    ? buildSectionResult(
-        2,
-        attempt.section2_correct,
-        attempt.section2_total ?? 0,
-        attempt.section2_time_used ?? 0,
-        attempt.section2_tier ?? 'medium',
-      )
+    ? buildSectionResult(2, attempt.section2_correct, attempt.section2_total ?? 0, attempt.section2_time_used ?? 0, attempt.section2_tier ?? 'medium')
     : null;
 
   const responses = attempt.question_responses ?? [];
+
+  const normalized: NormalizedResponse[] = responses.map((r) => ({
+    isCorrect: r.isCorrect,
+    isOmitted: r.isOmitted,
+    timeSpentMs: r.timeSpentMs,
+    difficulty: r.difficulty,
+    topic: r.topics?.[0] ?? '',
+  }));
 
   const date = new Date(attempt.completed_at).toLocaleDateString('en-US', {
     year: 'numeric',
@@ -139,72 +120,60 @@ export default function GREHistoryDetailPage() {
     day: 'numeric',
   });
 
-  return (
-    <div className="min-h-screen bg-[#f5f5f0]">
-      <div className="bg-[#1a365d] text-white px-4 py-4">
-        <div className="max-w-4xl mx-auto flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <BarChart3 className="w-5 h-5" />
-            <div>
-              <h1 className="text-lg font-bold">GRE Score Report</h1>
-              <p className="text-xs text-white/60">Set {attempt.set_number} &middot; {date}</p>
-            </div>
-          </div>
-          <Link
-            href="/gre-test/history"
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 text-sm bg-white/10 hover:bg-white/20 rounded-lg transition-colors"
-          >
-            <ArrowLeft className="w-3.5 h-3.5" />
-            History
-          </Link>
-        </div>
-      </div>
-
-      <div className="bg-white border-b border-gray-200 sticky top-0 z-10">
-        <div className="max-w-4xl mx-auto flex overflow-x-auto">
-          {TABS.map((tab) => {
-            const Icon = tab.icon;
-            const isActive = activeTab === tab.id;
-            return (
-              <button
-                key={tab.id}
-                onClick={() => setActiveTab(tab.id)}
-                className={`flex items-center gap-1.5 px-4 py-3 text-sm font-medium border-b-2 whitespace-nowrap transition-colors ${
-                  isActive
-                    ? 'border-[#1a365d] text-[#1a365d]'
-                    : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
-                }`}
-              >
-                <Icon className="w-4 h-4" />
-                {tab.label}
-              </button>
-            );
-          })}
-        </div>
-      </div>
-
-      <div className="max-w-4xl mx-auto p-4">
-        {activeTab === 'score' && (
+  const config: ResultsConfig = {
+    title: 'GRE Score Report',
+    subtitle: `Set ${attempt.set_number} · ${date}`,
+    headerColor: '#1a365d',
+    accentColor: '#1a365d',
+    headerActions: [
+      { label: 'History', icon: ArrowLeft, href: '/gre-test/history' },
+    ],
+    tabs: [
+      {
+        id: 'score',
+        label: 'Score',
+        icon: BarChart3,
+        render: () => (
           <ScoreOverviewTab
             section1Result={section1Result}
             section2Result={section2Result}
             estimatedScore={attempt.estimated_score}
             responses={responses}
           />
-        )}
-        {activeTab === 'topics' && (
-          <TopicBreakdownTab responses={responses} />
-        )}
-        {activeTab === 'difficulty' && (
-          <DifficultyBreakdownTab responses={responses} />
-        )}
-        {activeTab === 'time' && (
-          <TimeAnalysisTab responses={responses} />
-        )}
-        {activeTab === 'review' && (
-          <QuestionReviewTab responses={responses} />
-        )}
-      </div>
-    </div>
-  );
+        ),
+      },
+      {
+        id: 'topics',
+        label: 'Topics',
+        icon: Target,
+        render: () => <TopicBreakdownTab responses={responses} />,
+      },
+      {
+        id: 'difficulty',
+        label: 'Difficulty',
+        icon: Layers,
+        render: () => <DifficultyBreakdownTab responses={responses} />,
+      },
+      {
+        id: 'time',
+        label: 'Time',
+        icon: Clock,
+        render: () => <TimeAnalysisTab responses={responses} />,
+      },
+      {
+        id: 'review',
+        label: 'Review',
+        icon: FileText,
+        render: () => <QuestionReviewTab responses={responses} />,
+      },
+      {
+        id: 'recommendations',
+        label: 'Tips',
+        icon: Lightbulb,
+        render: () => <RecommendationsTab responses={normalized} />,
+      },
+    ],
+  };
+
+  return <ResultsShell config={config} />;
 }

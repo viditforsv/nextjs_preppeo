@@ -98,6 +98,12 @@ function buildResponses(
       domain: q.domain ?? null,
       difficulty: q.difficulty,
       questionType: q.type,
+      prompt: q.prompt,
+      passage: q.passage,
+      options: q.options,
+      correctAnswer: q.correctAnswer,
+      explanation: q.explanation,
+      imageUrl: q.imageUrl,
     };
   });
 }

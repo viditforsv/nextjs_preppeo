@@ -81,6 +81,14 @@ function buildResponses(
       difficulty: q.difficulty,
       questionType: q.type,
       sectionNumber,
+      prompt: q.prompt,
+      options: q.options,
+      correctAnswer: q.correctAnswer,
+      explanation: q.explanation,
+      quantityA: q.quantityA,
+      quantityB: q.quantityB,
+      quantityInfo: q.quantityInfo,
+      imageUrl: q.imageUrl,
     };
   });
 }
