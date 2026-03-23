@@ -78,7 +78,9 @@ export async function GET(request: NextRequest) {
       quantityA: row.quantity_a ?? undefined,
       quantityB: row.quantity_b ?? undefined,
       quantityInfo: row.quantity_info ?? undefined,
-      correctAnswer: row.correct_answer,
+      correctAnswer: row.type === 'multi-select'
+        ? JSON.parse(row.correct_answer)
+        : row.correct_answer,
       explanation: row.explanation ?? '',
       topics: row.topics ?? undefined,
       imageUrl: row.image_url ?? undefined,

@@ -26,6 +26,8 @@ interface QCPageTemplateProps<Q extends QCQuestion> {
 }
 
 export default function QCPageTemplate<Q extends QCQuestion>({ config }: QCPageTemplateProps<Q>) {
+  const isProd = process.env.NEXT_PUBLIC_ENVIRONMENT === 'prod' || process.env.NEXT_PUBLIC_ENVIRONMENT === 'production';
+
   const [questions, setQuestions] = useState<Q[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -160,7 +162,7 @@ export default function QCPageTemplate<Q extends QCQuestion>({ config }: QCPageT
         return;
       }
 
-      if (!isInput && e.key.toLowerCase() === 'e' && current) {
+      if (!isInput && e.key.toLowerCase() === 'e' && current && !isProd) {
         e.preventDefault();
         setEditMode(true);
       }
@@ -465,7 +467,7 @@ export default function QCPageTemplate<Q extends QCQuestion>({ config }: QCPageT
                 )}
               </p>
             </div>
-            {current && (
+            {current && !isProd && (
               <button
                 onClick={() => {
                   if (editMode && Object.keys(draft).length > 0) {
@@ -533,6 +535,12 @@ export default function QCPageTemplate<Q extends QCQuestion>({ config }: QCPageT
             </div>
           </div>
 
+          {isProd && (
+            <div className="mb-6 bg-amber-50 border border-amber-300 rounded-lg px-4 py-3 text-sm text-amber-800 font-medium">
+              Production is read-only. QC editing is only available on Dev.
+            </div>
+          )}
+
           {/* Content */}
           {loading && (
             <div className="flex items-center justify-center py-20">
@@ -585,18 +593,20 @@ export default function QCPageTemplate<Q extends QCQuestion>({ config }: QCPageT
                   <div>
                     <div className="flex items-center justify-between mb-1">
                       <label className="text-xs font-medium text-gray-600">AI Explanation</label>
-                      <button
-                        onClick={() => handleRegenerate('answer')}
-                        disabled={regenLoading !== null}
-                        className="inline-flex items-center gap-1 text-xs font-medium text-blue-600 hover:text-blue-800 disabled:opacity-50"
-                      >
-                        {regenLoading === 'answer' ? (
-                          <Loader2 className="w-3 h-3 animate-spin" />
-                        ) : (
-                          <RotateCcw className="w-3 h-3" />
-                        )}
-                        Regenerate
-                      </button>
+                      {!isProd && (
+                        <button
+                          onClick={() => handleRegenerate('answer')}
+                          disabled={regenLoading !== null}
+                          className="inline-flex items-center gap-1 text-xs font-medium text-blue-600 hover:text-blue-800 disabled:opacity-50"
+                        >
+                          {regenLoading === 'answer' ? (
+                            <Loader2 className="w-3 h-3 animate-spin" />
+                          ) : (
+                            <RotateCcw className="w-3 h-3" />
+                          )}
+                          Regenerate
+                        </button>
+                      )}
                     </div>
                     {editMode ? (
                       <textarea
@@ -621,18 +631,20 @@ export default function QCPageTemplate<Q extends QCQuestion>({ config }: QCPageT
                   <div>
                     <div className="flex items-center justify-between mb-1">
                       <label className="text-xs font-medium text-gray-600">AI Theory</label>
-                      <button
-                        onClick={() => handleRegenerate('theory')}
-                        disabled={regenLoading !== null}
-                        className="inline-flex items-center gap-1 text-xs font-medium text-indigo-600 hover:text-indigo-800 disabled:opacity-50"
-                      >
-                        {regenLoading === 'theory' ? (
-                          <Loader2 className="w-3 h-3 animate-spin" />
-                        ) : (
-                          <RotateCcw className="w-3 h-3" />
-                        )}
-                        Regenerate
-                      </button>
+                      {!isProd && (
+                        <button
+                          onClick={() => handleRegenerate('theory')}
+                          disabled={regenLoading !== null}
+                          className="inline-flex items-center gap-1 text-xs font-medium text-indigo-600 hover:text-indigo-800 disabled:opacity-50"
+                        >
+                          {regenLoading === 'theory' ? (
+                            <Loader2 className="w-3 h-3 animate-spin" />
+                          ) : (
+                            <RotateCcw className="w-3 h-3" />
+                          )}
+                          Regenerate
+                        </button>
+                      )}
                     </div>
                     {editMode ? (
                       <textarea
@@ -667,14 +679,16 @@ export default function QCPageTemplate<Q extends QCQuestion>({ config }: QCPageT
                         className="max-w-full h-auto rounded-lg border border-gray-200"
                         style={{ maxHeight: 300 }}
                       />
-                      <button
-                        onClick={removeImage}
-                        disabled={uploading}
-                        className="absolute top-2 right-2 p-1 bg-red-500 text-white rounded-full hover:bg-red-600 transition-colors"
-                        title="Remove image"
-                      >
-                        <X className="w-4 h-4" />
-                      </button>
+                      {!isProd && (
+                        <button
+                          onClick={removeImage}
+                          disabled={uploading}
+                          className="absolute top-2 right-2 p-1 bg-red-500 text-white rounded-full hover:bg-red-600 transition-colors"
+                          title="Remove image"
+                        >
+                          <X className="w-4 h-4" />
+                        </button>
+                      )}
                     </div>
                   ) : (
                     <div className="flex items-center gap-2 text-sm text-gray-400">
@@ -682,24 +696,28 @@ export default function QCPageTemplate<Q extends QCQuestion>({ config }: QCPageT
                       No image attached
                     </div>
                   )}
-                  <input
-                    ref={fileInputRef}
-                    type="file"
-                    accept="image/*"
-                    className="hidden"
-                    onChange={(e) => {
-                      const f = e.target.files?.[0];
-                      if (f) handleImageUpload(f);
-                    }}
-                  />
-                  <button
-                    onClick={() => fileInputRef.current?.click()}
-                    disabled={uploading}
-                    className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-md border border-gray-300 bg-white hover:bg-gray-50 disabled:opacity-50 transition-colors"
-                  >
-                    {uploading ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Upload className="w-3.5 h-3.5" />}
-                    {current.imageUrl ? 'Replace' : 'Upload'} Image
-                  </button>
+                  {!isProd && (
+                    <>
+                      <input
+                        ref={fileInputRef}
+                        type="file"
+                        accept="image/*"
+                        className="hidden"
+                        onChange={(e) => {
+                          const f = e.target.files?.[0];
+                          if (f) handleImageUpload(f);
+                        }}
+                      />
+                      <button
+                        onClick={() => fileInputRef.current?.click()}
+                        disabled={uploading}
+                        className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-md border border-gray-300 bg-white hover:bg-gray-50 disabled:opacity-50 transition-colors"
+                      >
+                        {uploading ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Upload className="w-3.5 h-3.5" />}
+                        {current.imageUrl ? 'Replace' : 'Upload'} Image
+                      </button>
+                    </>
+                  )}
                 </div>
               )}
 
@@ -784,18 +802,25 @@ export default function QCPageTemplate<Q extends QCQuestion>({ config }: QCPageT
                 Previous
               </button>
               <div className="flex items-center gap-3">
-                <button
-                  onClick={handleToggleQC}
-                  disabled={togglingQC}
-                  className={`inline-flex items-center gap-1.5 px-4 py-2 text-sm font-medium rounded-lg transition-colors disabled:opacity-50 ${
-                    current?.qcDone
-                      ? 'bg-emerald-100 text-emerald-700 border border-emerald-300 hover:bg-emerald-200'
-                      : 'bg-gray-100 text-gray-700 border border-gray-300 hover:bg-gray-200'
-                  }`}
-                >
-                  {togglingQC ? <Loader2 className="w-4 h-4 animate-spin" /> : <CheckCircle2 className="w-4 h-4" />}
-                  {current?.qcDone ? 'QC Done' : 'Mark QC Done'}
-                </button>
+                {!isProd && (
+                  <button
+                    onClick={handleToggleQC}
+                    disabled={togglingQC}
+                    className={`inline-flex items-center gap-1.5 px-4 py-2 text-sm font-medium rounded-lg transition-colors disabled:opacity-50 ${
+                      current?.qcDone
+                        ? 'bg-emerald-100 text-emerald-700 border border-emerald-300 hover:bg-emerald-200'
+                        : 'bg-gray-100 text-gray-700 border border-gray-300 hover:bg-gray-200'
+                    }`}
+                  >
+                    {togglingQC ? <Loader2 className="w-4 h-4 animate-spin" /> : <CheckCircle2 className="w-4 h-4" />}
+                    {current?.qcDone ? 'QC Done' : 'Mark QC Done'}
+                  </button>
+                )}
+                {isProd && current?.qcDone && (
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-lg bg-emerald-100 text-emerald-700 border border-emerald-300">
+                    <CheckCircle2 className="w-3.5 h-3.5" /> QC Done
+                  </span>
+                )}
                 <span className="text-sm font-semibold text-gray-700 tabular-nums">
                   {currentIndex + 1} / {filtered.length}
                 </span>

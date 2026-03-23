@@ -1,5 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createSupabaseApiClient } from '@/lib/supabase/api-client';
+import { getCurrentEnvironment } from '@/lib/supabase/env';
+
+const PROD_WRITE_ERROR = NextResponse.json(
+  { error: 'Editing is disabled in production. Use Dev for QC.' },
+  { status: 403 }
+);
 
 export async function GET() {
   try {
@@ -32,7 +38,9 @@ export async function GET() {
       quantityA: row.quantity_a ?? undefined,
       quantityB: row.quantity_b ?? undefined,
       quantityInfo: row.quantity_info ?? undefined,
-      correctAnswer: row.correct_answer,
+      correctAnswer: row.type === 'multi-select'
+        ? JSON.parse(row.correct_answer)
+        : row.correct_answer,
       explanation: row.explanation ?? '',
       topics: row.topics ?? undefined,
       imageUrl: row.image_url ?? undefined,
@@ -72,6 +80,7 @@ const ALLOWED_FIELDS: Record<string, string> = {
 };
 
 export async function PATCH(request: NextRequest) {
+  if (getCurrentEnvironment() === 'prod') return PROD_WRITE_ERROR;
   try {
     const body = await request.json();
     const { questionId, ...fields } = body;
@@ -111,6 +120,7 @@ export async function PATCH(request: NextRequest) {
 }
 
 export async function DELETE(request: NextRequest) {
+  if (getCurrentEnvironment() === 'prod') return PROD_WRITE_ERROR;
   try {
     const body = await request.json();
     const { questionId } = body;
