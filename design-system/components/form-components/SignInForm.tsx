@@ -63,6 +63,9 @@ export function SignInForm() {
 
     try {
       console.log("🔐 SignInForm - Attempting login for:", email);
+      // #region agent log
+      fetch('http://127.0.0.1:7462/ingest/186332eb-1487-4ab5-80d9-b66314434ea3',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'5b2e41'},body:JSON.stringify({sessionId:'5b2e41',runId:'run1',hypothesisId:'H2',location:'SignInForm.tsx:handleSubmit',message:'credentials being sent',data:{email,emailLength:email.length,emailTrimmed:email.trim(),emailTrimmedLength:email.trim().length,passwordLength:password.length,hasLeadingSpace:email!==email.trimStart(),hasTrailingSpace:email!==email.trimEnd()},timestamp:Date.now()})}).catch(()=>{});
+      // #endregion
       await signIn(email, password);
       console.log(
         "✅ SignInForm - Login successful, waiting for auth state change"

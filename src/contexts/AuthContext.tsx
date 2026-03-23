@@ -12,6 +12,11 @@ import { useRouter } from "next/navigation";
 import { User, Session } from "@supabase/supabase-js";
 import { createClient } from "@/lib/supabase/client";
 import {
+  getCurrentEnvironment,
+  getSupabaseAnonKey,
+  getSupabaseUrl,
+} from "@/lib/supabase/env";
+import {
   UserProfile,
   UserRole,
   RolePermissions,
@@ -561,6 +566,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     async (email: string, password: string) => {
       console.log("🔵 signIn - Starting signin for email:", email);
 
+      // #region agent log
+      {
+        const url = getSupabaseUrl();
+        const anonKey = getSupabaseAnonKey();
+        fetch('http://127.0.0.1:7462/ingest/186332eb-1487-4ab5-80d9-b66314434ea3',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'5b2e41'},body:JSON.stringify({sessionId:'5b2e41',runId:'run1',hypothesisId:'H1',location:'AuthContext.tsx:signIn:pre',message:'supabase config at signin time',data:{supabaseUrl:url,supabaseUrlHost:url?new URL(url).host:'missing',anonKeyPrefix:anonKey?.substring(0,20),env:getCurrentEnvironment(),nodeEnv:process.env.NODE_ENV,emailBeingSent:email,emailLength:email.length},timestamp:Date.now()})}).catch(()=>{});
+      }
+      // #endregion
+
       const { data, error } = await supabase.auth.signInWithPassword({
         email,
         password,
@@ -568,6 +581,33 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
       if (error) {
         console.error("❌ signIn - Signin failed:", error);
+        // #region agent log
+        fetch('http://127.0.0.1:7462/ingest/186332eb-1487-4ab5-80d9-b66314434ea3',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'5b2e41'},body:JSON.stringify({sessionId:'5b2e41',runId:'run1',hypothesisId:'H3-H4',location:'AuthContext.tsx:signIn:error',message:'signInWithPassword error details',data:{errorName:error.name,errorMessage:error.message,errorStatus:error.status,errorCode:(error as Error & { code?: string }).code,email,emailLength:email.length},timestamp:Date.now()})}).catch(()=>{});
+        // #endregion
+        // #region agent log
+        fetch(
+          "http://127.0.0.1:7462/ingest/186332eb-1487-4ab5-80d9-b66314434ea3",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "X-Debug-Session-Id": "e34cb8",
+            },
+            body: JSON.stringify({
+              sessionId: "e34cb8",
+              runId: "pre-fix",
+              hypothesisId: "H4",
+              location: "AuthContext.tsx:signIn:error",
+              message: "signInWithPassword failed",
+              data: {
+                errName: error.name,
+                errMessage: error.message,
+              },
+              timestamp: Date.now(),
+            }),
+          }
+        ).catch(() => {});
+        // #endregion
         throw error;
       }
 
@@ -576,6 +616,34 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         email: data.user?.email,
         hasSession: !!data.session,
       });
+
+      // #region agent log
+      {
+        const u = getSupabaseUrl();
+        fetch(
+          "http://127.0.0.1:7462/ingest/186332eb-1487-4ab5-80d9-b66314434ea3",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "X-Debug-Session-Id": "e34cb8",
+            },
+            body: JSON.stringify({
+              sessionId: "e34cb8",
+              runId: "pre-fix",
+              hypothesisId: "H2",
+              location: "AuthContext.tsx:signIn:ok",
+              message: "signInWithPassword ok",
+              data: {
+                env: getCurrentEnvironment(),
+                supabaseHost: u ? new URL(u).host : "missing",
+              },
+              timestamp: Date.now(),
+            }),
+          }
+        ).catch(() => {});
+      }
+      // #endregion
 
       // The auth state change handler will update the state automatically
       // No need to manually update state here
@@ -786,6 +854,30 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const next = nextPath ? `?next=${encodeURIComponent(nextPath)}` : '';
     const redirectUrl = `${siteUrl}/auth/callback${next}`;
     console.log("AuthContext - Redirect URL:", redirectUrl);
+
+    // #region agent log
+    fetch("http://127.0.0.1:7462/ingest/186332eb-1487-4ab5-80d9-b66314434ea3", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-Debug-Session-Id": "e34cb8",
+      },
+      body: JSON.stringify({
+        sessionId: "e34cb8",
+        runId: "pre-fix",
+        hypothesisId: "H1",
+        location: "AuthContext.tsx:signInWithGoogle",
+        message: "google oauth redirectTo built",
+        data: {
+          siteUrl,
+          redirectPath: "/auth/callback",
+          nodeEnv: process.env.NODE_ENV,
+          hasPublicAppUrl: Boolean(process.env.NEXT_PUBLIC_APP_URL),
+        },
+        timestamp: Date.now(),
+      }),
+    }).catch(() => {});
+    // #endregion
 
     const { data, error } = await supabase.auth.signInWithOAuth({
       provider: "google",

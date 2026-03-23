@@ -80,15 +80,88 @@ export default function AuthPage() {
       const handleOAuthCallback = async () => {
         try {
           console.log("Auth page - Handling OAuth callback with code:", code);
+          // #region agent log
+          fetch(
+            "http://127.0.0.1:7462/ingest/186332eb-1487-4ab5-80d9-b66314434ea3",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                "X-Debug-Session-Id": "e34cb8",
+              },
+              body: JSON.stringify({
+                sessionId: "e34cb8",
+                runId: "pre-fix",
+                hypothesisId: "H3",
+                location: "auth/page.tsx:oauth:start",
+                message: "oauth exchange starting",
+                data: {
+                  host:
+                    typeof window !== "undefined"
+                      ? window.location.host
+                      : "ssr",
+                  hasCode: Boolean(code),
+                },
+                timestamp: Date.now(),
+              }),
+            }
+          ).catch(() => {});
+          // #endregion
           const supabase = createClient();
 
           const { error } = await supabase.auth.exchangeCodeForSession(code);
 
           if (error) {
             console.error("Auth page - OAuth callback error:", error);
+            // #region agent log
+            fetch(
+              "http://127.0.0.1:7462/ingest/186332eb-1487-4ab5-80d9-b66314434ea3",
+              {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                  "X-Debug-Session-Id": "e34cb8",
+                },
+                body: JSON.stringify({
+                  sessionId: "e34cb8",
+                  runId: "pre-fix",
+                  hypothesisId: "H3",
+                  location: "auth/page.tsx:oauth:exchange-error",
+                  message: "exchangeCodeForSession failed",
+                  data: {
+                    errName: error.name,
+                    errMessage: error.message,
+                  },
+                  timestamp: Date.now(),
+                }),
+              }
+            ).catch(() => {});
+            // #endregion
             router.push("/auth?error=Could not authenticate user");
             return;
           }
+
+          // #region agent log
+          fetch(
+            "http://127.0.0.1:7462/ingest/186332eb-1487-4ab5-80d9-b66314434ea3",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                "X-Debug-Session-Id": "e34cb8",
+              },
+              body: JSON.stringify({
+                sessionId: "e34cb8",
+                runId: "pre-fix",
+                hypothesisId: "H3",
+                location: "auth/page.tsx:oauth:exchange-ok",
+                message: "exchangeCodeForSession ok",
+                data: { host: window.location.host },
+                timestamp: Date.now(),
+              }),
+            }
+          ).catch(() => {});
+          // #endregion
 
           let roleBasedPath = "/courses/enrolled";
           try {
@@ -117,6 +190,30 @@ export default function AuthPage() {
           }
         } catch (err) {
           console.error("Auth page - OAuth callback exception:", err);
+          // #region agent log
+          fetch(
+            "http://127.0.0.1:7462/ingest/186332eb-1487-4ab5-80d9-b66314434ea3",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                "X-Debug-Session-Id": "e34cb8",
+              },
+              body: JSON.stringify({
+                sessionId: "e34cb8",
+                runId: "pre-fix",
+                hypothesisId: "H3",
+                location: "auth/page.tsx:oauth:exception",
+                message: "oauth callback threw",
+                data: {
+                  err:
+                    err instanceof Error ? err.message : String(err ?? "unknown"),
+                },
+                timestamp: Date.now(),
+              }),
+            }
+          ).catch(() => {});
+          // #endregion
           router.push("/auth?error=Authentication failed");
         }
       };
