@@ -1,7 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef, useMemo } from "react";
-import Image from "next/image";
+import { useState, useEffect, useMemo } from "react";
 import {
   Card,
   CardContent,
@@ -23,19 +22,14 @@ import {
   CheckCircle2,
   CheckCircle,
   Upload,
-  ArrowLeft,
-  ArrowRight,
   Lightbulb,
   Calculator,
-  MessageCircle,
-  Send,
-  Edit,
-  Save,
-  X,
   Loader2,
   AlertCircle,
   Flag,
-  Image as ImageIcon,
+  Save,
+  X,
+  Edit,
 } from "lucide-react";
 import { Input } from "@/design-system/components/ui/input";
 import { Textarea } from "@/design-system/components/textarea";
@@ -46,56 +40,18 @@ import { renderMixedContent } from "@/components/MathRenderer";
 import { Switch } from "@/design-system/components/switch";
 import { Label } from "@/design-system/components/ui/label";
 import { IBDPQuestionSession } from "@/components/IBDPMathTemplate/IBDPQuestionSession";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from "@/design-system/components/dialog";
 import { QuizPlayer } from "@/components/QuizPlayer";
 import { useScreenshotPrevention } from "@/hooks/useScreenshotPrevention";
+import { useEditableField } from "@/hooks/useEditableField";
+import { useAITutor } from "@/hooks/useAITutor";
+import { useFeedbackForm } from "@/hooks/useFeedbackForm";
+import { LessonHeader } from "./lesson/LessonHeader";
+import { LessonNavigation } from "./lesson/LessonNavigation";
+import { ChatInterface } from "./lesson/ChatInterface";
+import { FeedbackModal } from "./lesson/FeedbackModal";
+import type { Lesson, LessonContent } from "./lesson/types";
 
-interface LessonContent {
-  id: string;
-  content_type: "concepts" | "formulas";
-  title: string;
-  content: string;
-  order_index: number;
-}
-
-interface Lesson {
-  id: string;
-  title: string;
-  slug: string;
-  description?: string;
-  topic_number?: string;
-  lesson_order?: number;
-  is_preview?: boolean;
-  video_url?: string;
-  video_thumbnail_url?: string;
-  topic_badge?: string;
-  pdf_url?: string;
-  solution_url?: string;
-  quiz_id?: string;
-  content?: string;
-  concept_title?: string;
-  concept_content?: string;
-  formula_title?: string;
-  formula_content?: string;
-  course_lesson_content?: LessonContent[];
-  chapter?: {
-    id: string;
-    chapter_name: string;
-    chapter_order: number;
-    unit?: {
-      id: string;
-      unit_name: string;
-      unit_order: number;
-    };
-  };
-}
+export type { Lesson };
 
 interface UnifiedLessonPageProps {
   lesson: Lesson;
@@ -114,10 +70,18 @@ interface UnifiedLessonPageProps {
   onLessonUpdate?: (updatedLesson: Partial<Lesson>) => void;
 }
 
-interface ChatMessage {
-  role: "user" | "assistant";
-  content: string;
-  timestamp: Date;
+// Extract YouTube video ID from URL
+function extractYouTubeId(url: string): string | null {
+  if (!url) return null;
+  const patterns = [
+    /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/|youtube\.com\/v\/)([^#&?]{11})/,
+    /^([a-zA-Z0-9_-]{11})$/,
+  ];
+  for (const pattern of patterns) {
+    const match = url.match(pattern);
+    if (match && match[1] && match[1].length === 11) return match[1];
+  }
+  return null;
 }
 
 export function UnifiedLessonPage({
@@ -150,38 +114,21 @@ export function UnifiedLessonPage({
     }>
   >([]);
   const [loadingQuestions, setLoadingQuestions] = useState(false);
-  const [chatMessages, setChatMessages] = useState<ChatMessage[]>([
-    {
-      role: "assistant",
-      content: `Hello! I'm your AI tutor. I'm here to help you with "${lesson.title}". Ask me questions about this lesson or request practice problems!`,
-      timestamp: new Date(),
-    },
-  ]);
-  const [currentMessage, setCurrentMessage] = useState("");
-  const [isAITyping, setIsAITyping] = useState(false);
   const [isAssignmentTabActive, setIsAssignmentTabActive] = useState(false);
 
+  // Hooks
+  const editable = useEditableField({ lesson, isAdmin, onLessonUpdate });
+  const aiTutor = useAITutor(lesson.title);
+  const feedback = useFeedbackForm({ lesson, courseSlug });
+
   // Screenshot prevention for PDF viewer
-  const pdfContainerRef = useScreenshotPrevention(!!lesson.pdf_url && isAssignmentTabActive);
+  const pdfContainerRef = useScreenshotPrevention(
+    !!lesson.pdf_url && isAssignmentTabActive
+  );
 
-  // Inline editing state for admins
-  const [editingField, setEditingField] = useState<string | null>(null);
-  const [editValues, setEditValues] = useState<Record<string, unknown>>({});
-  const [saving, setSaving] = useState(false);
-  const [showFeedbackModal, setShowFeedbackModal] = useState(false);
-  const [feedbackType, setFeedbackType] = useState<
-    "mistake" | "suggestion" | null
-  >(null);
-  const [feedbackMessage, setFeedbackMessage] = useState("");
-  const [submittingFeedback, setSubmittingFeedback] = useState(false);
-  const [feedbackImage, setFeedbackImage] = useState<File | null>(null);
-  const [feedbackImagePreview, setFeedbackImagePreview] = useState<
-    string | null
-  >(null);
-  const [uploadingImage, setUploadingImage] = useState(false);
-  const fileInputRef = useRef<HTMLInputElement>(null);
-
+  // Fetch lesson content (concepts/formulas)
   useEffect(() => {
+    if (!lesson.id) return;
     const fetchLessonContent = async () => {
       try {
         setLoadingContent(true);
@@ -196,14 +143,12 @@ export function UnifiedLessonPage({
         setLoadingContent(false);
       }
     };
-
-    if (lesson.id) {
-      fetchLessonContent();
-    }
+    fetchLessonContent();
   }, [lesson.id]);
 
   // Fetch questions for the lesson
   useEffect(() => {
+    if (!lesson.id) return;
     const fetchQuestions = async () => {
       try {
         setLoadingQuestions(true);
@@ -218,98 +163,10 @@ export function UnifiedLessonPage({
         setLoadingQuestions(false);
       }
     };
-
-    if (lesson.id) {
-      fetchQuestions();
-    }
+    fetchQuestions();
   }, [lesson.id]);
 
-  // Save lesson field changes (admin only)
-  const handleSaveField = async (field: string) => {
-    if (!isAdmin || !lesson?.id) return;
-
-    setSaving(true);
-    try {
-      const updateData: Record<string, unknown> = {
-        [field]: editValues[field],
-      };
-
-      const response = await fetch(`/api/lessons/${lesson.id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(updateData),
-      });
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || "Failed to update lesson");
-      }
-
-      const { lesson: updatedLesson } = await response.json();
-
-      // Call update callback if provided
-      if (onLessonUpdate) {
-        onLessonUpdate(updatedLesson);
-      }
-
-      // Reset editing state
-      setEditingField(null);
-      setEditValues({});
-
-      // Reload page to reflect changes
-      window.location.reload();
-    } catch (err) {
-      console.error("Error saving field:", err);
-      alert(
-        err instanceof Error
-          ? err.message
-          : "Failed to save changes. Please try again."
-      );
-    } finally {
-      setSaving(false);
-    }
-  };
-
-  // Start editing a field
-  const handleStartEdit = (field: string) => {
-    if (!isAdmin || !lesson) return;
-
-    setEditingField(field);
-    const currentValue = lesson[field as keyof Lesson];
-    setEditValues({
-      [field]: currentValue || "",
-    });
-  };
-
-  // Cancel editing
-  const handleCancelEdit = () => {
-    setEditingField(null);
-    setEditValues({});
-  };
-
-  // Helper function to extract YouTube video ID (improved regex)
-  const extractYouTubeId = (url: string): string | null => {
-    if (!url) return null;
-
-    // More comprehensive YouTube URL patterns
-    const patterns = [
-      /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/|youtube\.com\/v\/)([^#&?]{11})/,
-      /^([a-zA-Z0-9_-]{11})$/,
-    ];
-
-    for (const pattern of patterns) {
-      const match = url.match(pattern);
-      if (match && match[1] && match[1].length === 11) {
-        return match[1];
-      }
-    }
-
-    return null;
-  };
-
-  // Determine which tabs to show based on available content
+  // Tab availability
   const hasConcepts = lessonContent.some((c) => c.content_type === "concepts");
   const hasFormulas = lessonContent.some((c) => c.content_type === "formulas");
   const hasVideo = !!lesson.video_url;
@@ -317,17 +174,6 @@ export function UnifiedLessonPage({
   const hasPDFSolution = !!lesson.solution_url;
   const hasQuiz = !!lesson.quiz_id;
   const hasQuestions = questions.length > 0;
-
-  // Debug logging
-  useEffect(() => {
-    console.log("UnifiedLessonPage - Lesson data:", {
-      id: lesson.id,
-      title: lesson.title,
-      quiz_id: lesson.quiz_id,
-      hasQuiz,
-    });
-  }, [lesson, hasQuiz]);
-  // Check for notes - can be in content, concept, or formula fields
   const hasNotes = !!(
     lesson.content ||
     lesson.concept_title ||
@@ -336,7 +182,6 @@ export function UnifiedLessonPage({
     lesson.formula_content
   );
 
-  // Build tabs array dynamically
   interface TabItem {
     id: string;
     label: string;
@@ -344,379 +189,105 @@ export function UnifiedLessonPage({
   }
   const availableTabs: TabItem[] = useMemo(() => {
     const tabs: TabItem[] = [];
-    // Questions tab - prioritize it as first tab if available
-    if (hasQuestions) {
-      tabs.push({
-        id: "questions",
-        label: "Questions",
-        icon: FileCheck,
-      });
-    }
-    if (hasConcepts || hasFormulas) {
-      tabs.push({
-        id: "content",
-        label: "Concepts & Formulas",
-        icon: BookOpen,
-      });
-    }
-    if (hasVideo) {
-      tabs.push({ id: "video", label: "Video", icon: Video });
-    }
-    if (hasNotes) {
-      tabs.push({ id: "notes", label: "Concepts", icon: FileText });
-    }
-    if (hasPDFAssignment) {
-      tabs.push({
-        id: "assignment",
-        label: "Assignment",
-        icon: FileText,
-      });
-    }
-    if (hasPDFSolution) {
-      tabs.push({
-        id: "solution",
-        label: "Solution",
-        icon: CheckCircle2,
-      });
-    }
-    if (hasQuiz) {
-      tabs.push({ id: "quiz", label: "Quiz", icon: FileCheck });
-    }
+    if (hasQuestions) tabs.push({ id: "questions", label: "Questions", icon: FileCheck });
+    if (hasConcepts || hasFormulas) tabs.push({ id: "content", label: "Concepts & Formulas", icon: BookOpen });
+    if (hasVideo) tabs.push({ id: "video", label: "Video", icon: Video });
+    if (hasNotes) tabs.push({ id: "notes", label: "Concepts", icon: FileText });
+    if (hasPDFAssignment) tabs.push({ id: "assignment", label: "Assignment", icon: FileText });
+    if (hasPDFSolution) tabs.push({ id: "solution", label: "Solution", icon: CheckCircle2 });
+    if (hasQuiz) tabs.push({ id: "quiz", label: "Quiz", icon: FileCheck });
     return tabs;
   }, [hasQuestions, hasConcepts, hasFormulas, hasVideo, hasNotes, hasPDFAssignment, hasPDFSolution, hasQuiz]);
 
   const defaultTab = availableTabs[0]?.id || "content";
 
-  // Debug logging for tabs
   useEffect(() => {
-    console.log(
-      "UnifiedLessonPage - Available tabs:",
-      availableTabs.map((t) => t.id)
-    );
+    console.log("UnifiedLessonPage - Lesson data:", { id: lesson.id, title: lesson.title, quiz_id: lesson.quiz_id, hasQuiz });
+  }, [lesson, hasQuiz]);
+
+  useEffect(() => {
+    console.log("UnifiedLessonPage - Available tabs:", availableTabs.map((t) => t.id));
     console.log("UnifiedLessonPage - Default tab:", defaultTab);
   }, [availableTabs, defaultTab]);
 
-  // Initialize PDF tab states based on current tab
   useEffect(() => {
     const currentTab = activeTab || defaultTab;
     setIsAssignmentTabActive(currentTab === "assignment");
   }, [activeTab, defaultTab]);
 
-  // Set default tab on mount
   useEffect(() => {
-    if (!activeTab && availableTabs.length > 0) {
-      setActiveTab(defaultTab);
-    }
+    if (!activeTab && availableTabs.length > 0) setActiveTab(defaultTab);
   }, [activeTab, availableTabs.length, defaultTab]);
 
-  const getNextLesson = () => {
-    if (!lesson || !allLessons.length || !onNavigateLesson) return;
-    const currentIndex = allLessons.findIndex((l) => l.slug === lesson.slug);
-    if (currentIndex < allLessons.length - 1) {
-      onNavigateLesson("next");
-    }
-  };
+  const tabsGridClass = availableTabs.length === 1
+    ? "grid-cols-1"
+    : availableTabs.length === 2
+    ? "grid-cols-2"
+    : availableTabs.length === 3
+    ? "grid-cols-3"
+    : availableTabs.length === 4
+    ? "grid-cols-2 md:grid-cols-4"
+    : availableTabs.length === 5
+    ? "grid-cols-3 md:grid-cols-5"
+    : availableTabs.length === 6
+    ? "grid-cols-3 md:grid-cols-6"
+    : "grid-cols-3 md:grid-cols-7";
 
-  const handleSendMessage = async () => {
-    if (!currentMessage.trim()) return;
+  const { editingField, editValues, saving, handleStartEdit, handleCancelEdit, handleValueChange, handleSaveField } = editable;
 
-    // Add user message
-    const userMessage: ChatMessage = {
-      role: "user",
-      content: currentMessage,
-      timestamp: new Date(),
-    };
-
-    setChatMessages((prev) => [...prev, userMessage]);
-    const messageText = currentMessage;
-    setCurrentMessage("");
-    setIsAITyping(true);
-
-    // Simulate AI response (replace with actual API call later)
-    setTimeout(() => {
-      const aiMessage: ChatMessage = {
-        role: "assistant",
-        content: `I understand you're asking about "${messageText}". This is related to ${lesson.title}. Here's a helpful explanation... [AI response would go here. This is a placeholder - integrate with your AI service when ready.]`,
-        timestamp: new Date(),
-      };
-      setChatMessages((prev) => [...prev, aiMessage]);
-      setIsAITyping(false);
-    }, 1500);
-  };
-
-  const getPreviousLesson = () => {
-    if (!lesson || !allLessons.length || !onNavigateLesson) return;
-    const currentIndex = allLessons.findIndex((l) => l.slug === lesson.slug);
-    if (currentIndex > 0) {
-      onNavigateLesson("prev");
-    }
-  };
-
-  const handleImageSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-
-    // Validate file type
-    if (!file.type.startsWith("image/")) {
-      alert("Please select an image file");
-      return;
-    }
-
-    // Validate file size (max 10MB)
-    const maxSize = 10 * 1024 * 1024; // 10MB
-    if (file.size > maxSize) {
-      alert("Image size must be less than 10MB");
-      return;
-    }
-
-    setFeedbackImage(file);
-
-    // Create preview
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      setFeedbackImagePreview(reader.result as string);
-    };
-    reader.readAsDataURL(file);
-  };
-
-  const handleRemoveImage = () => {
-    setFeedbackImage(null);
-    setFeedbackImagePreview(null);
-    if (fileInputRef.current) {
-      fileInputRef.current.value = "";
-    }
-  };
-
-  const handleSubmitFeedback = async () => {
-    if (!feedbackType || !feedbackMessage.trim()) return;
-
-    setSubmittingFeedback(true);
-    let imageUrl: string | null = null;
-
-    try {
-      // Upload image if selected
-      if (feedbackImage) {
-        setUploadingImage(true);
-        const formData = new FormData();
-        formData.append("file", feedbackImage);
-        formData.append("type", "feedback-image");
-        formData.append("title", `Feedback Image - ${feedbackImage.name}`);
-
-        const authToken = localStorage.getItem("supabase.auth.token");
-        const uploadResponse = await fetch("/api/upload", {
-          method: "POST",
-          body: formData,
-          headers: authToken
-            ? {
-                Authorization: `Bearer ${authToken}`,
-              }
-            : {},
-        });
-
-        if (uploadResponse.ok) {
-          const uploadData = await uploadResponse.json();
-          if (uploadData.success && uploadData.url) {
-            imageUrl = uploadData.url;
-          }
-        } else {
-          const errorData = await uploadResponse.json();
-          throw new Error(errorData.error || "Image upload failed");
-        }
-        setUploadingImage(false);
-      }
-
-      // Submit feedback to API
-      const response = await fetch("/api/lesson-feedback", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          lesson_id: lesson.id,
-          lesson_slug: lesson.slug,
-          course_slug: courseSlug,
-          feedback_type: feedbackType,
-          message: feedbackMessage,
-          image_url: imageUrl,
-        }),
-      });
-
-      if (response.ok) {
-        // Reset form and close modal
-        setFeedbackMessage("");
-        setFeedbackType(null);
-        setFeedbackImage(null);
-        setFeedbackImagePreview(null);
-        setShowFeedbackModal(false);
-        if (fileInputRef.current) {
-          fileInputRef.current.value = "";
-        }
-        alert("Thank you for your feedback! We'll review it soon.");
-      } else {
-        const data = await response.json();
-        alert(`Error: ${data.error || "Failed to submit feedback"}`);
-      }
-    } catch (error) {
-      console.error("Error submitting feedback:", error);
-      alert(
-        `Failed to submit feedback: ${
-          error instanceof Error ? error.message : "Unknown error"
-        }`
-      );
-    } finally {
-      setSubmittingFeedback(false);
-      setUploadingImage(false);
-    }
-  };
+  // Helper: inline edit row (URL field)
+  const EditableURLField = ({
+    field,
+    label,
+    placeholder,
+  }: {
+    field: string;
+    label: string;
+    placeholder: string;
+  }) => (
+    <div className="mb-6 space-y-4">
+      <div>
+        <label className="text-sm font-medium mb-2 block">{label}</label>
+        <div className="flex gap-2">
+          <Input
+            type="url"
+            value={(editValues[field] as string) || ""}
+            onChange={(e) => handleValueChange(field, e.target.value)}
+            placeholder={placeholder}
+            className="flex-1"
+          />
+          <Button size="sm" onClick={() => handleSaveField(field)} disabled={saving}
+            className="rounded-sm bg-green-600 hover:bg-green-700">
+            {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
+          </Button>
+          <Button size="sm" onClick={handleCancelEdit} disabled={saving}
+            variant="outline" className="rounded-sm">
+            <X className="w-4 h-4" />
+          </Button>
+        </div>
+      </div>
+    </div>
+  );
 
   return (
     <div>
-      {/* Lesson Header - Clean and elegant like IBDP */}
-      <div className="mb-4 md:mb-6">
-        {editingField === "title" ? (
-          <div className="flex items-center gap-2 mb-2">
-            <input
-              type="text"
-              value={(editValues.title as string) || ""}
-              onChange={(e) =>
-                setEditValues({ ...editValues, title: e.target.value })
-              }
-              className="text-2xl md:text-3xl font-bold text-[#1e293b] border-2 border-[#1a365d] rounded-sm px-3 py-2 flex-1"
-              autoFocus
-            />
-            <Button
-              size="sm"
-              onClick={() => handleSaveField("title")}
-              disabled={saving}
-              className="rounded-sm bg-green-600 hover:bg-green-700"
-            >
-              {saving ? (
-                <Loader2 className="w-4 h-4 animate-spin" />
-              ) : (
-                <Save className="w-4 h-4" />
-              )}
-            </Button>
-            <Button
-              size="sm"
-              onClick={handleCancelEdit}
-              disabled={saving}
-              variant="outline"
-              className="rounded-sm"
-            >
-              <X className="w-4 h-4" />
-            </Button>
-          </div>
-        ) : (
-          <>
-            <div className="flex items-center gap-2 mb-2">
-              <h1 className="text-2xl md:text-3xl font-bold text-[#1e293b]">
-                {lesson.title}
-              </h1>
-              {isAdmin && (
-                <button
-                  onClick={() => handleStartEdit("title")}
-                  className="p-2 hover:bg-gray-100 rounded-sm transition-colors border border-gray-300 bg-white shadow-sm"
-                  title="Edit title"
-                >
-                  <Edit className="w-4 h-4 text-[#1a365d]" />
-                </button>
-              )}
-            </div>
-            {/* Unit → Chapter Mapping */}
-            {lesson.chapter?.unit?.unit_name &&
-              lesson.chapter?.chapter_name && (
-                <div className="mb-4">
-                  <p className="text-sm text-muted-foreground">
-                    {lesson.chapter.unit.unit_name} →{" "}
-                    {lesson.chapter.chapter_name}
-                  </p>
-                </div>
-              )}
-          </>
-        )}
-        {editingField === "topic_badge" ? (
-          <div className="flex items-center gap-2">
-            <input
-              type="text"
-              value={(editValues.topic_badge as string) || ""}
-              onChange={(e) =>
-                setEditValues({ ...editValues, topic_badge: e.target.value })
-              }
-              className="text-muted-foreground border-2 border-[#1a365d] rounded-sm px-3 py-2 flex-1 max-w-xs"
-              placeholder={`Topic ${lesson.topic_number || ""}`}
-              autoFocus
-            />
-            <Button
-              size="sm"
-              onClick={() => handleSaveField("topic_badge")}
-              disabled={saving}
-              className="rounded-sm bg-green-600 hover:bg-green-700"
-            >
-              {saving ? (
-                <Loader2 className="w-4 h-4 animate-spin" />
-              ) : (
-                <Save className="w-4 h-4" />
-              )}
-            </Button>
-            <Button
-              size="sm"
-              onClick={handleCancelEdit}
-              disabled={saving}
-              variant="outline"
-              className="rounded-sm"
-            >
-              <X className="w-4 h-4" />
-            </Button>
-          </div>
-        ) : (
-          showTopicNumber &&
-          lesson.topic_number && (
-            <div className="flex items-center gap-2">
-              <p className="text-muted-foreground">
-                {lesson.topic_badge || `Topic ${lesson.topic_number}`}
-              </p>
-              {isAdmin && (
-                <button
-                  onClick={() => handleStartEdit("topic_badge")}
-                  className="p-1 hover:bg-gray-100 rounded-sm transition-colors border border-gray-300 bg-white shadow-sm"
-                  title="Edit topic badge"
-                >
-                  <Edit className="w-3 h-3 text-[#1a365d]" />
-                </button>
-              )}
-            </div>
-          )
-        )}
-      </div>
+      <LessonHeader
+        lesson={lesson}
+        showTopicNumber={showTopicNumber}
+        isAdmin={isAdmin}
+        editable={editable}
+      />
 
-      {/* Dynamic Lesson Tabs */}
       {availableTabs.length > 0 ? (
         <Tabs
           value={activeTab || defaultTab}
           onValueChange={(value) => {
             setActiveTab(value);
-            // Force PDF iframes to reload when tab becomes active
             setIsAssignmentTabActive(value === "assignment");
           }}
           className="w-full"
         >
-          <TabsList
-            className={`grid w-full rounded-sm bg-gray-100 p-1 shadow-sm border border-gray-200 overflow-x-auto ${
-              availableTabs.length === 1
-                ? "grid-cols-1"
-                : availableTabs.length === 2
-                ? "grid-cols-2"
-                : availableTabs.length === 3
-                ? "grid-cols-3"
-                : availableTabs.length === 4
-                ? "grid-cols-2 md:grid-cols-4"
-                : availableTabs.length === 5
-                ? "grid-cols-3 md:grid-cols-5"
-                : availableTabs.length === 6
-                ? "grid-cols-3 md:grid-cols-6"
-                : "grid-cols-3 md:grid-cols-7"
-            }`}
-          >
+          <TabsList className={`grid w-full rounded-sm bg-gray-100 p-1 shadow-sm border border-gray-200 overflow-x-auto ${tabsGridClass}`}>
             {availableTabs.map((tab) => (
               <TabsTrigger
                 key={tab.id}
@@ -736,9 +307,7 @@ export function UnifiedLessonPage({
                 <Card>
                   <CardContent className="py-12 text-center">
                     <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#1a365d] mx-auto mb-4"></div>
-                    <p className="text-muted-foreground">
-                      Loading questions...
-                    </p>
+                    <p className="text-muted-foreground">Loading questions...</p>
                   </CardContent>
                 </Card>
               ) : (
@@ -746,20 +315,6 @@ export function UnifiedLessonPage({
                   questions={questions}
                   onSessionComplete={(results) => {
                     console.log("Question session completed:", results);
-                    // Calculate progress based on results
-                    const correctAnswers = results.filter(
-                      (r) => r.result === "correct"
-                    ).length;
-                    const progress =
-                      questions.length > 0
-                        ? (correctAnswers / questions.length) * 100
-                        : 0;
-
-                    // Optionally update lesson progress here
-                    if (onMarkComplete && progress >= 80) {
-                      // Auto-mark as complete if 80%+ correct
-                      // onMarkComplete(); // Uncomment if desired
-                    }
                   }}
                 />
               )}
@@ -783,10 +338,7 @@ export function UnifiedLessonPage({
                       {lessonContent
                         .sort((a, b) => a.order_index - b.order_index)
                         .map((content) => (
-                          <div
-                            key={content.id}
-                            className="border rounded-sm p-4"
-                          >
+                          <div key={content.id} className="border rounded-sm p-4">
                             <h3 className="font-semibold mb-2 flex items-center space-x-2">
                               <Badge variant="secondary" className="capitalize">
                                 {content.content_type}
@@ -795,9 +347,7 @@ export function UnifiedLessonPage({
                             </h3>
                             <div
                               className="prose max-w-none"
-                              dangerouslySetInnerHTML={{
-                                __html: content.content || "",
-                              }}
+                              dangerouslySetInnerHTML={{ __html: content.content || "" }}
                             />
                           </div>
                         ))}
@@ -812,7 +362,7 @@ export function UnifiedLessonPage({
             </TabsContent>
           )}
 
-          {/* PDF Assignment Tab */}
+          {/* Assignment Tab */}
           {hasPDFAssignment && (
             <TabsContent value="assignment" className="mt-6 space-y-4">
               <Card className="rounded-sm">
@@ -828,11 +378,9 @@ export function UnifiedLessonPage({
                       </CardDescription>
                     </div>
                     {isAdmin && (
-                      <button
-                        onClick={() => handleStartEdit("pdf_url")}
+                      <button onClick={() => handleStartEdit("pdf_url")}
                         className="p-2 hover:bg-gray-100 rounded-sm transition-colors border border-gray-300 bg-white shadow-sm"
-                        title="Edit PDF URL"
-                      >
+                        title="Edit PDF URL">
                         <Edit className="w-4 h-4 text-[#1a365d]" />
                       </button>
                     )}
@@ -840,56 +388,14 @@ export function UnifiedLessonPage({
                 </CardHeader>
                 <CardContent>
                   {editingField === "pdf_url" ? (
-                    <div className="mb-6 space-y-4">
-                      <div>
-                        <label className="text-sm font-medium mb-2 block">
-                          Assignment PDF URL
-                        </label>
-                        <div className="flex gap-2">
-                          <Input
-                            type="url"
-                            value={(editValues.pdf_url as string) || ""}
-                            onChange={(e) =>
-                              setEditValues({
-                                ...editValues,
-                                pdf_url: e.target.value,
-                              })
-                            }
-                            placeholder="https://..."
-                            className="flex-1"
-                          />
-                          <Button
-                            size="sm"
-                            onClick={() => handleSaveField("pdf_url")}
-                            disabled={saving}
-                            className="rounded-sm bg-green-600 hover:bg-green-700"
-                          >
-                            {saving ? (
-                              <Loader2 className="w-4 h-4 animate-spin" />
-                            ) : (
-                              <Save className="w-4 h-4" />
-                            )}
-                          </Button>
-                          <Button
-                            size="sm"
-                            onClick={handleCancelEdit}
-                            disabled={saving}
-                            variant="outline"
-                            className="rounded-sm"
-                          >
-                            <X className="w-4 h-4" />
-                          </Button>
-                        </div>
-                      </div>
-                    </div>
+                    <EditableURLField field="pdf_url" label="Assignment PDF URL" placeholder="https://..." />
                   ) : lesson.pdf_url ? (
                     <div className="space-y-4">
-                      {/* Assignment PDF Embedder - Full height like CBSE Class 9 */}
-                      <div 
+                      <div
                         ref={pdfContainerRef}
                         className="w-full h-[500px] md:h-[800px] border-2 border-[#1a365d]/10 rounded-sm overflow-hidden bg-gray-50"
                       >
-                        {isAssignmentTabActive && (
+                        {isAssignmentTabActive ? (
                           <iframe
                             key={`assignment-${lesson.id}-${lesson.pdf_url}`}
                             src={lesson.pdf_url}
@@ -898,45 +404,28 @@ export function UnifiedLessonPage({
                             allow="autoplay; fullscreen"
                             sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
                           />
-                        )}
-                        {!isAssignmentTabActive && (
+                        ) : (
                           <div className="w-full h-full flex items-center justify-center">
-                            <p className="text-muted-foreground">
-                              Loading PDF...
-                            </p>
+                            <p className="text-muted-foreground">Loading PDF...</p>
                           </div>
                         )}
                       </div>
 
-                      {/* Submit Your Work Section */}
                       {(onFileUpload || onMarkComplete) && (
                         <div className="border-t pt-4 mt-4">
-                          <h3 className="text-lg font-semibold mb-3">
-                            Submit Your Work
-                          </h3>
+                          <h3 className="text-lg font-semibold mb-3">Submit Your Work</h3>
                           <div className="space-y-4">
                             {onFileUpload && (
                               <div>
-                                <label
-                                  htmlFor="assignment-file"
-                                  className="block text-sm font-medium mb-2"
-                                >
-                                  Upload your completed assignment (PDF only,
-                                  max 5MB)
+                                <label htmlFor="assignment-file" className="block text-sm font-medium mb-2">
+                                  Upload your completed assignment (PDF only, max 5MB)
                                 </label>
                                 <div className="flex items-center gap-3">
-                                  <input
-                                    id="assignment-file"
-                                    type="file"
-                                    accept=".pdf"
-                                    onChange={onFileUpload}
-                                    className="hidden"
-                                    disabled={submissionStatus === "uploading"}
-                                  />
-                                  <label
-                                    htmlFor="assignment-file"
-                                    className="flex items-center gap-2 px-4 py-2 border rounded-sm cursor-pointer hover:bg-gray-50 transition-colors"
-                                  >
+                                  <input id="assignment-file" type="file" accept=".pdf"
+                                    onChange={onFileUpload} className="hidden"
+                                    disabled={submissionStatus === "uploading"} />
+                                  <label htmlFor="assignment-file"
+                                    className="flex items-center gap-2 px-4 py-2 border rounded-sm cursor-pointer hover:bg-gray-50 transition-colors">
                                     <Upload className="w-4 h-4" />
                                     Choose PDF File
                                   </label>
@@ -947,20 +436,15 @@ export function UnifiedLessonPage({
                                   )}
                                 </div>
                                 {submissionError && (
-                                  <p className="text-sm text-red-600 mt-2">
-                                    {submissionError}
-                                  </p>
+                                  <p className="text-sm text-red-600 mt-2">{submissionError}</p>
                                 )}
                                 {submissionStatus === "success" && (
                                   <p className="text-sm text-green-600 mt-2">
-                                    Assignment submitted successfully! Your
-                                    teacher will review it.
+                                    Assignment submitted successfully! Your teacher will review it.
                                   </p>
                                 )}
                                 {submissionStatus === "uploading" && (
-                                  <p className="text-sm text-blue-600 mt-2">
-                                    Uploading...
-                                  </p>
+                                  <p className="text-sm text-blue-600 mt-2">Uploading...</p>
                                 )}
                               </div>
                             )}
@@ -968,36 +452,23 @@ export function UnifiedLessonPage({
                         </div>
                       )}
 
-                      {/* Assignment Actions */}
                       <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between mt-4 gap-3">
-                        <Button
-                          variant="outline"
-                          className="rounded-sm w-full md:w-auto"
-                          onClick={() => window.open(lesson.pdf_url, "_blank")}
-                        >
+                        <Button variant="outline" className="rounded-sm w-full md:w-auto"
+                          onClick={() => window.open(lesson.pdf_url, "_blank")}>
                           <FileText className="w-4 h-4 mr-2" />
                           Open in New Tab
                         </Button>
                         <div className="flex flex-col sm:flex-row items-stretch sm:items-center space-y-2 sm:space-y-0 sm:space-x-3">
                           {hasPDFSolution && (
-                            <Button
-                              variant="outline"
-                              className="rounded-sm w-full sm:w-auto"
-                              onClick={() => {
-                                setActiveTab("solution");
-                                setIsAssignmentTabActive(false);
-                              }}
-                            >
+                            <Button variant="outline" className="rounded-sm w-full sm:w-auto"
+                              onClick={() => { setActiveTab("solution"); setIsAssignmentTabActive(false); }}>
                               <CheckCircle className="w-4 h-4 mr-2" />
                               View Solution
                             </Button>
                           )}
                           {onMarkComplete && (
                             <div className="flex items-center justify-between sm:justify-start space-x-3 p-3 sm:p-0 border sm:border-0 rounded-sm">
-                              <Label
-                                htmlFor="complete-toggle"
-                                className="text-sm font-medium"
-                              >
+                              <Label htmlFor="complete-toggle" className="text-sm font-medium">
                                 {isCompleted ? "Completed" : "Mark as Complete"}
                               </Label>
                               <div className="relative">
@@ -1005,11 +476,8 @@ export function UnifiedLessonPage({
                                   id="complete-toggle"
                                   checked={isCompleted}
                                   onCheckedChange={(checked) => {
-                                    if (!isMarkingComplete && onMarkComplete) {
-                                      // Only call if state is changing
-                                      if (checked !== isCompleted) {
-                                        onMarkComplete();
-                                      }
+                                    if (!isMarkingComplete && onMarkComplete && checked !== isCompleted) {
+                                      onMarkComplete();
                                     }
                                   }}
                                   disabled={isMarkingComplete}
@@ -1030,9 +498,7 @@ export function UnifiedLessonPage({
                     <div className="text-center py-12 text-muted-foreground">
                       <FileText className="w-16 h-16 mx-auto mb-4 opacity-50" />
                       <p className="text-lg mb-2">Assignment not available</p>
-                      <p className="text-sm">
-                        The assignment for this lesson will be available soon
-                      </p>
+                      <p className="text-sm">The assignment for this lesson will be available soon</p>
                     </div>
                   )}
                 </CardContent>
@@ -1040,7 +506,7 @@ export function UnifiedLessonPage({
             </TabsContent>
           )}
 
-          {/* PDF Solution Tab */}
+          {/* Solution Tab */}
           {hasPDFSolution && (
             <TabsContent value="solution" className="mt-6 space-y-4">
               <Card className="rounded-sm">
@@ -1051,16 +517,12 @@ export function UnifiedLessonPage({
                         <CheckCircle className="w-5 h-5 text-green-600" />
                         <span>Solution</span>
                       </CardTitle>
-                      <CardDescription>
-                        Check your answers with the complete solution
-                      </CardDescription>
+                      <CardDescription>Check your answers with the complete solution</CardDescription>
                     </div>
                     {isAdmin && (
-                      <button
-                        onClick={() => handleStartEdit("solution_url")}
+                      <button onClick={() => handleStartEdit("solution_url")}
                         className="p-2 hover:bg-gray-100 rounded-sm transition-colors border border-gray-300 bg-white shadow-sm"
-                        title="Edit Solution URL"
-                      >
+                        title="Edit Solution URL">
                         <Edit className="w-4 h-4 text-[#1a365d]" />
                       </button>
                     )}
@@ -1068,112 +530,40 @@ export function UnifiedLessonPage({
                 </CardHeader>
                 <CardContent>
                   {editingField === "solution_url" ? (
-                    <div className="mb-6 space-y-4">
-                      <div>
-                        <label className="text-sm font-medium mb-2 block">
-                          Solution PDF URL
-                        </label>
-                        <div className="flex gap-2">
-                          <Input
-                            type="url"
-                            value={(editValues.solution_url as string) || ""}
-                            onChange={(e) =>
-                              setEditValues({
-                                ...editValues,
-                                solution_url: e.target.value,
-                              })
-                            }
-                            placeholder="https://..."
-                            className="flex-1"
-                          />
-                          <Button
-                            size="sm"
-                            onClick={() => handleSaveField("solution_url")}
-                            disabled={saving}
-                            className="rounded-sm bg-green-600 hover:bg-green-700"
-                          >
-                            {saving ? (
-                              <Loader2 className="w-4 h-4 animate-spin" />
-                            ) : (
-                              <Save className="w-4 h-4" />
-                            )}
-                          </Button>
-                          <Button
-                            size="sm"
-                            onClick={handleCancelEdit}
-                            disabled={saving}
-                            variant="outline"
-                            className="rounded-sm"
-                          >
-                            <X className="w-4 h-4" />
-                          </Button>
-                        </div>
-                      </div>
-                    </div>
+                    <EditableURLField field="solution_url" label="Solution PDF URL" placeholder="https://..." />
                   ) : lesson.solution_url ? (
                     <div className="space-y-4">
-                      {/* Solution PDF Embedder - Full height like CBSE Class 9 */}
                       <div className="w-full h-[500px] md:h-[800px] border-2 border-green-100 rounded-sm overflow-hidden bg-gray-50">
-                        <iframe
-                          src={lesson.solution_url}
-                          className="w-full h-full"
-                          title={`${lesson.title} - Solution`}
-                          allow="autoplay; fullscreen"
-                          sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
-                        />
+                        <iframe src={lesson.solution_url} className="w-full h-full"
+                          title={`${lesson.title} - Solution`} allow="autoplay; fullscreen"
+                          sandbox="allow-same-origin allow-scripts allow-popups allow-forms" />
                       </div>
-
-                      {/* Solution Actions */}
                       <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3">
-                        <Button
-                          variant="outline"
-                          className="rounded-sm w-full md:w-auto"
-                          onClick={() =>
-                            window.open(lesson.solution_url, "_blank")
-                          }
-                        >
+                        <Button variant="outline" className="rounded-sm w-full md:w-auto"
+                          onClick={() => window.open(lesson.solution_url, "_blank")}>
                           <FileText className="w-4 h-4 mr-2" />
                           Open in New Tab
                         </Button>
                         <div className="flex flex-col sm:flex-row items-stretch sm:items-center space-y-2 sm:space-y-0 sm:space-x-3">
                           {hasPDFAssignment && (
-                            <Button
-                              variant="outline"
-                              className="rounded-sm w-full sm:w-auto"
-                              onClick={() => {
-                                setActiveTab("assignment");
-                                setIsAssignmentTabActive(true);
-                              }}
-                            >
+                            <Button variant="outline" className="rounded-sm w-full sm:w-auto"
+                              onClick={() => { setActiveTab("assignment"); setIsAssignmentTabActive(true); }}>
                               <FileText className="w-4 h-4 mr-2" />
                               Back to Assignment
                             </Button>
                           )}
                           {onMarkComplete && (
                             <Button
-                              className={`rounded-sm w-full sm:w-auto ${
-                                isCompleted
-                                  ? "bg-green-600 hover:bg-green-700"
-                                  : "bg-[#1a365d] hover:bg-[#1a365d]/90"
-                              }`}
+                              className={`rounded-sm w-full sm:w-auto ${isCompleted ? "bg-green-600 hover:bg-green-700" : "bg-[#1a365d] hover:bg-[#1a365d]/90"}`}
                               onClick={onMarkComplete}
                               disabled={isMarkingComplete}
                             >
                               {isMarkingComplete ? (
-                                <>
-                                  <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                                  Saving...
-                                </>
+                                <><Loader2 className="w-4 h-4 mr-2 animate-spin" />Saving...</>
                               ) : isCompleted ? (
-                                <>
-                                  <CheckCircle className="w-4 h-4 mr-2" />
-                                  Mark as Incomplete
-                                </>
+                                <><CheckCircle className="w-4 h-4 mr-2" />Mark as Incomplete</>
                               ) : (
-                                <>
-                                  <CheckCircle className="w-4 h-4 mr-2" />
-                                  Mark as Complete
-                                </>
+                                <><CheckCircle className="w-4 h-4 mr-2" />Mark as Complete</>
                               )}
                             </Button>
                           )}
@@ -1184,9 +574,7 @@ export function UnifiedLessonPage({
                     <div className="text-center py-12 text-muted-foreground">
                       <CheckCircle className="w-16 h-16 mx-auto mb-4 opacity-50" />
                       <p className="text-lg mb-2">Solution not available</p>
-                      <p className="text-sm">
-                        The solution for this lesson will be available soon
-                      </p>
+                      <p className="text-sm">The solution for this lesson will be available soon</p>
                     </div>
                   )}
                 </CardContent>
@@ -1206,16 +594,13 @@ export function UnifiedLessonPage({
                         <span>Video Lesson</span>
                       </CardTitle>
                       <CardDescription>
-                        Watch the complete lesson video with explanations and
-                        examples
+                        Watch the complete lesson video with explanations and examples
                       </CardDescription>
                     </div>
                     {isAdmin && (
-                      <button
-                        onClick={() => handleStartEdit("video_url")}
+                      <button onClick={() => handleStartEdit("video_url")}
                         className="p-2 hover:bg-gray-100 rounded-sm transition-colors border border-gray-300 bg-white shadow-sm"
-                        title="Edit video URL"
-                      >
+                        title="Edit video URL">
                         <Edit className="w-4 h-4 text-[#1a365d]" />
                       </button>
                     )}
@@ -1223,48 +608,11 @@ export function UnifiedLessonPage({
                 </CardHeader>
                 <CardContent>
                   {editingField === "video_url" ? (
-                    <div className="mb-6 space-y-4">
-                      <div>
-                        <label className="text-sm font-medium mb-2 block">
-                          Video URL
-                        </label>
-                        <div className="flex gap-2">
-                          <Input
-                            type="url"
-                            value={(editValues.video_url as string) || ""}
-                            onChange={(e) =>
-                              setEditValues({
-                                ...editValues,
-                                video_url: e.target.value,
-                              })
-                            }
-                            placeholder="https://www.youtube.com/watch?v=..."
-                            className="flex-1"
-                          />
-                          <Button
-                            size="sm"
-                            onClick={() => handleSaveField("video_url")}
-                            disabled={saving}
-                            className="rounded-sm bg-green-600 hover:bg-green-700"
-                          >
-                            {saving ? (
-                              <Loader2 className="w-4 h-4 animate-spin" />
-                            ) : (
-                              <Save className="w-4 h-4" />
-                            )}
-                          </Button>
-                          <Button
-                            size="sm"
-                            onClick={handleCancelEdit}
-                            disabled={saving}
-                            variant="outline"
-                            className="rounded-sm"
-                          >
-                            <X className="w-4 h-4" />
-                          </Button>
-                        </div>
-                      </div>
-                    </div>
+                    <EditableURLField
+                      field="video_url"
+                      label="Video URL"
+                      placeholder="https://www.youtube.com/watch?v=..."
+                    />
                   ) : lesson.video_url ? (
                     <div className="mb-6">
                       <VideoResource
@@ -1278,116 +626,70 @@ export function UnifiedLessonPage({
                           isYouTube:
                             lesson.video_url.includes("youtube.com") ||
                             lesson.video_url.includes("youtu.be"),
-                          youtubeId: lesson.video_url
-                            ? extractYouTubeId(lesson.video_url) || undefined
-                            : undefined,
+                          youtubeId: extractYouTubeId(lesson.video_url) || undefined,
                           thumbnail: lesson.video_thumbnail_url || undefined,
                         }}
                         lessonId={lesson.id}
                         courseSlug={courseSlug}
                         onProgressUpdate={(progress) => {
-                          // Video progress can be tracked here if needed
                           console.log("Video progress:", progress);
                         }}
                       />
                     </div>
                   ) : (
-                    <p className="text-muted-foreground text-center py-8">
-                      Video not available.
-                    </p>
+                    <p className="text-muted-foreground text-center py-8">Video not available.</p>
                   )}
                 </CardContent>
               </Card>
             </TabsContent>
           )}
 
-          {/* Notes Tab with nested tabs for Concepts & Formulas */}
+          {/* Notes / Concepts / AI Tutor Tab */}
           {hasNotes && (
             <TabsContent value="notes" className="mt-6 space-y-4">
-              {/* Context Breadcrumb */}
               <div className="flex items-center gap-2 text-sm text-muted-foreground mb-4">
                 <BookOpen className="w-4 h-4" />
                 <span>{lesson.title}</span>
               </div>
 
-              {/* Nested Tabs for Concepts, Formulas, Notes, AI Tutor */}
               {(() => {
-                const hasConceptTab =
-                  lesson.concept_title || lesson.concept_content;
-                const hasFormulaTab =
-                  lesson.formula_title || lesson.formula_content;
+                const hasConceptTab = lesson.concept_title || lesson.concept_content;
+                const hasFormulaTab = lesson.formula_title || lesson.formula_content;
                 const hasNotesTab = lesson.content;
-                const hasAITutorTab = true; // Always available
                 const nestedTabCount =
                   (hasConceptTab ? 1 : 0) +
                   (hasFormulaTab ? 1 : 0) +
                   (hasNotesTab ? 1 : 0) +
-                  (hasAITutorTab ? 1 : 0);
+                  1; // AI Tutor always shows
+
+                const nestedGridClass =
+                  nestedTabCount === 1 ? "grid-cols-1"
+                  : nestedTabCount === 2 ? "grid-cols-2"
+                  : nestedTabCount === 3 ? "grid-cols-3"
+                  : "grid-cols-2 md:grid-cols-4";
+
+                const nestedTriggerClass =
+                  "rounded-sm data-[state=active]:bg-primary data-[state=active]:text-white data-[state=active]:shadow-sm font-medium transition-all duration-200 hover:bg-gray-100 data-[state=inactive]:text-gray-700 data-[state=inactive]:bg-gray-50 data-[state=inactive]:border data-[state=inactive]:border-gray-200 text-xs md:text-sm";
 
                 return (
                   <Tabs
                     defaultValue={
-                      hasConceptTab
-                        ? "concepts"
-                        : hasFormulaTab
-                        ? "formulas"
-                        : hasNotesTab
-                        ? "notes"
-                        : "ai-tutor"
+                      hasConceptTab ? "concepts"
+                      : hasFormulaTab ? "formulas"
+                      : hasNotesTab ? "notes"
+                      : "ai-tutor"
                     }
                     className="w-full"
                   >
-                    <TabsList
-                      className={`grid w-full rounded-sm bg-white p-1 shadow-sm border border-gray-200 gap-1 ${
-                        nestedTabCount === 1
-                          ? "grid-cols-1"
-                          : nestedTabCount === 2
-                          ? "grid-cols-2"
-                          : nestedTabCount === 3
-                          ? "grid-cols-3"
-                          : nestedTabCount === 4
-                          ? "grid-cols-2 md:grid-cols-4"
-                          : "grid-cols-2 md:grid-cols-4"
-                      }`}
-                    >
-                      {hasConceptTab && (
-                        <TabsTrigger
-                          value="concepts"
-                          className="rounded-sm data-[state=active]:bg-primary data-[state=active]:text-white data-[state=active]:shadow-sm font-medium transition-all duration-200 hover:bg-gray-100 data-[state=inactive]:text-gray-700 data-[state=inactive]:bg-gray-50 data-[state=inactive]:border data-[state=inactive]:border-gray-200 text-xs md:text-sm"
-                        >
-                          Concepts
-                        </TabsTrigger>
-                      )}
-                      {hasFormulaTab && (
-                        <TabsTrigger
-                          value="formulas"
-                          className="rounded-sm data-[state=active]:bg-primary data-[state=active]:text-white data-[state=active]:shadow-sm font-medium transition-all duration-200 hover:bg-gray-100 data-[state=inactive]:text-gray-700 data-[state=inactive]:bg-gray-50 data-[state=inactive]:border data-[state=inactive]:border-gray-200 text-xs md:text-sm"
-                        >
-                          Formulas
-                        </TabsTrigger>
-                      )}
-                      {hasNotesTab && (
-                        <TabsTrigger
-                          value="notes"
-                          className="rounded-sm data-[state=active]:bg-primary data-[state=active]:text-white data-[state=active]:shadow-sm font-medium transition-all duration-200 hover:bg-gray-100 data-[state=inactive]:text-gray-700 data-[state=inactive]:bg-gray-50 data-[state=inactive]:border data-[state=inactive]:border-gray-200 text-xs md:text-sm"
-                        >
-                          Notes
-                        </TabsTrigger>
-                      )}
-                      {hasAITutorTab && (
-                        <TabsTrigger
-                          value="ai-tutor"
-                          className="rounded-sm data-[state=active]:bg-primary data-[state=active]:text-white data-[state=active]:shadow-sm font-medium transition-all duration-200 hover:bg-gray-100 data-[state=inactive]:text-gray-700 data-[state=inactive]:bg-gray-50 data-[state=inactive]:border data-[state=inactive]:border-gray-200 text-xs md:text-sm"
-                        >
-                          AI Tutor
-                        </TabsTrigger>
-                      )}
+                    <TabsList className={`grid w-full rounded-sm bg-white p-1 shadow-sm border border-gray-200 gap-1 ${nestedGridClass}`}>
+                      {hasConceptTab && <TabsTrigger value="concepts" className={nestedTriggerClass}>Concepts</TabsTrigger>}
+                      {hasFormulaTab && <TabsTrigger value="formulas" className={nestedTriggerClass}>Formulas</TabsTrigger>}
+                      {hasNotesTab && <TabsTrigger value="notes" className={nestedTriggerClass}>Notes</TabsTrigger>}
+                      <TabsTrigger value="ai-tutor" className={nestedTriggerClass}>AI Tutor</TabsTrigger>
                     </TabsList>
 
-                    {/* Concepts Sub-Tab */}
-                    {(lesson.concept_title ||
-                      lesson.concept_content ||
-                      isAdmin) && (
+                    {/* Concepts */}
+                    {(lesson.concept_title || lesson.concept_content || isAdmin) && (
                       <TabsContent value="concepts" className="space-y-4 mt-6">
                         <Card className="rounded-sm">
                           <CardHeader>
@@ -1398,65 +700,33 @@ export function UnifiedLessonPage({
                                     <Lightbulb className="w-5 h-5 text-[#1a365d]" />
                                     <Input
                                       type="text"
-                                      value={
-                                        (editValues.concept_title as string) ||
-                                        ""
-                                      }
-                                      onChange={(e) =>
-                                        setEditValues({
-                                          ...editValues,
-                                          concept_title: e.target.value,
-                                        })
-                                      }
-                                      className="flex-1"
-                                      placeholder="Concept title"
-                                      autoFocus
+                                      value={(editValues.concept_title as string) || ""}
+                                      onChange={(e) => handleValueChange("concept_title", e.target.value)}
+                                      className="flex-1" placeholder="Concept title" autoFocus
                                     />
-                                    <Button
-                                      size="sm"
-                                      onClick={() =>
-                                        handleSaveField("concept_title")
-                                      }
-                                      disabled={saving}
-                                      className="rounded-sm bg-green-600 hover:bg-green-700"
-                                    >
-                                      {saving ? (
-                                        <Loader2 className="w-4 h-4 animate-spin" />
-                                      ) : (
-                                        <Save className="w-4 h-4" />
-                                      )}
+                                    <Button size="sm" onClick={() => handleSaveField("concept_title")} disabled={saving}
+                                      className="rounded-sm bg-green-600 hover:bg-green-700">
+                                      {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
                                     </Button>
-                                    <Button
-                                      size="sm"
-                                      onClick={handleCancelEdit}
-                                      disabled={saving}
-                                      variant="outline"
-                                      className="rounded-sm"
-                                    >
+                                    <Button size="sm" onClick={handleCancelEdit} disabled={saving}
+                                      variant="outline" className="rounded-sm">
                                       <X className="w-4 h-4" />
                                     </Button>
                                   </div>
                                 ) : (
                                   <CardTitle className="flex items-center gap-2">
                                     <Lightbulb className="w-5 h-5 text-[#1a365d]" />
-                                    {lesson.concept_title ||
-                                      "Understanding Concepts"}
+                                    {lesson.concept_title || "Understanding Concepts"}
                                     {isAdmin && (
-                                      <button
-                                        onClick={() =>
-                                          handleStartEdit("concept_title")
-                                        }
+                                      <button onClick={() => handleStartEdit("concept_title")}
                                         className="ml-2 p-1 hover:bg-gray-100 rounded-sm transition-colors border border-gray-300 bg-white shadow-sm"
-                                        title="Edit concept title"
-                                      >
+                                        title="Edit concept title">
                                         <Edit className="w-3 h-3 text-[#1a365d]" />
                                       </button>
                                     )}
                                   </CardTitle>
                                 )}
-                                <CardDescription>
-                                  Key concepts and principles for this lesson
-                                </CardDescription>
+                                <CardDescription>Key concepts and principles for this lesson</CardDescription>
                               </div>
                             </div>
                           </CardHeader>
@@ -1464,41 +734,18 @@ export function UnifiedLessonPage({
                             {editingField === "concept_content" ? (
                               <div className="space-y-2">
                                 <Textarea
-                                  value={
-                                    (editValues.concept_content as string) || ""
-                                  }
-                                  onChange={(e) =>
-                                    setEditValues({
-                                      ...editValues,
-                                      concept_content: e.target.value,
-                                    })
-                                  }
+                                  value={(editValues.concept_content as string) || ""}
+                                  onChange={(e) => handleValueChange("concept_content", e.target.value)}
                                   placeholder="Enter concept content (HTML or markdown supported)"
-                                  className="min-h-[300px] font-mono text-sm"
-                                  autoFocus
+                                  className="min-h-[300px] font-mono text-sm" autoFocus
                                 />
                                 <div className="flex gap-2 justify-end">
-                                  <Button
-                                    size="sm"
-                                    onClick={() =>
-                                      handleSaveField("concept_content")
-                                    }
-                                    disabled={saving}
-                                    className="rounded-sm bg-green-600 hover:bg-green-700"
-                                  >
-                                    {saving ? (
-                                      <Loader2 className="w-4 h-4 animate-spin" />
-                                    ) : (
-                                      <Save className="w-4 h-4" />
-                                    )}
+                                  <Button size="sm" onClick={() => handleSaveField("concept_content")} disabled={saving}
+                                    className="rounded-sm bg-green-600 hover:bg-green-700">
+                                    {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
                                   </Button>
-                                  <Button
-                                    size="sm"
-                                    onClick={handleCancelEdit}
-                                    disabled={saving}
-                                    variant="outline"
-                                    className="rounded-sm"
-                                  >
+                                  <Button size="sm" onClick={handleCancelEdit} disabled={saving}
+                                    variant="outline" className="rounded-sm">
                                     <X className="w-4 h-4" />
                                   </Button>
                                 </div>
@@ -1506,20 +753,12 @@ export function UnifiedLessonPage({
                             ) : lesson.concept_content ? (
                               <div className="relative group">
                                 <div className="text-base leading-relaxed text-gray-700 prose prose-sm max-w-none">
-                                  <div
-                                    dangerouslySetInnerHTML={{
-                                      __html: lesson.concept_content,
-                                    }}
-                                  />
+                                  <div dangerouslySetInnerHTML={{ __html: lesson.concept_content }} />
                                 </div>
                                 {isAdmin && (
-                                  <button
-                                    onClick={() =>
-                                      handleStartEdit("concept_content")
-                                    }
+                                  <button onClick={() => handleStartEdit("concept_content")}
                                     className="absolute top-0 right-0 p-2 hover:bg-gray-100 rounded-sm transition-colors border border-gray-300 bg-white shadow-sm opacity-0 group-hover:opacity-100"
-                                    title="Edit concept content"
-                                  >
+                                    title="Edit concept content">
                                     <Edit className="w-4 h-4 text-[#1a365d]" />
                                   </button>
                                 )}
@@ -1529,16 +768,9 @@ export function UnifiedLessonPage({
                                 <Lightbulb className="w-12 h-12 mx-auto mb-4 opacity-50" />
                                 <p>Concept content will be available soon</p>
                                 {isAdmin && (
-                                  <Button
-                                    size="sm"
-                                    onClick={() =>
-                                      handleStartEdit("concept_content")
-                                    }
-                                    className="mt-4 rounded-sm"
-                                    variant="outline"
-                                  >
-                                    <Edit className="w-4 h-4 mr-2" />
-                                    Add Content
+                                  <Button size="sm" onClick={() => handleStartEdit("concept_content")}
+                                    className="mt-4 rounded-sm" variant="outline">
+                                    <Edit className="w-4 h-4 mr-2" />Add Content
                                   </Button>
                                 )}
                               </div>
@@ -1548,10 +780,8 @@ export function UnifiedLessonPage({
                       </TabsContent>
                     )}
 
-                    {/* Formulas Sub-Tab */}
-                    {(lesson.formula_title ||
-                      lesson.formula_content ||
-                      isAdmin) && (
+                    {/* Formulas */}
+                    {(lesson.formula_title || lesson.formula_content || isAdmin) && (
                       <TabsContent value="formulas" className="space-y-4 mt-6">
                         <Card className="rounded-sm">
                           <CardHeader>
@@ -1562,41 +792,16 @@ export function UnifiedLessonPage({
                                     <Calculator className="w-5 h-5 text-[#1a365d]" />
                                     <Input
                                       type="text"
-                                      value={
-                                        (editValues.formula_title as string) ||
-                                        ""
-                                      }
-                                      onChange={(e) =>
-                                        setEditValues({
-                                          ...editValues,
-                                          formula_title: e.target.value,
-                                        })
-                                      }
-                                      className="flex-1"
-                                      placeholder="Formula title"
-                                      autoFocus
+                                      value={(editValues.formula_title as string) || ""}
+                                      onChange={(e) => handleValueChange("formula_title", e.target.value)}
+                                      className="flex-1" placeholder="Formula title" autoFocus
                                     />
-                                    <Button
-                                      size="sm"
-                                      onClick={() =>
-                                        handleSaveField("formula_title")
-                                      }
-                                      disabled={saving}
-                                      className="rounded-sm bg-green-600 hover:bg-green-700"
-                                    >
-                                      {saving ? (
-                                        <Loader2 className="w-4 h-4 animate-spin" />
-                                      ) : (
-                                        <Save className="w-4 h-4" />
-                                      )}
+                                    <Button size="sm" onClick={() => handleSaveField("formula_title")} disabled={saving}
+                                      className="rounded-sm bg-green-600 hover:bg-green-700">
+                                      {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
                                     </Button>
-                                    <Button
-                                      size="sm"
-                                      onClick={handleCancelEdit}
-                                      disabled={saving}
-                                      variant="outline"
-                                      className="rounded-sm"
-                                    >
+                                    <Button size="sm" onClick={handleCancelEdit} disabled={saving}
+                                      variant="outline" className="rounded-sm">
                                       <X className="w-4 h-4" />
                                     </Button>
                                   </div>
@@ -1605,21 +810,15 @@ export function UnifiedLessonPage({
                                     <Calculator className="w-5 h-5 text-[#1a365d]" />
                                     {lesson.formula_title || "Key Formulas"}
                                     {isAdmin && (
-                                      <button
-                                        onClick={() =>
-                                          handleStartEdit("formula_title")
-                                        }
+                                      <button onClick={() => handleStartEdit("formula_title")}
                                         className="ml-2 p-1 hover:bg-gray-100 rounded-sm transition-colors border border-gray-300 bg-white shadow-sm"
-                                        title="Edit formula title"
-                                      >
+                                        title="Edit formula title">
                                         <Edit className="w-3 h-3 text-[#1a365d]" />
                                       </button>
                                     )}
                                   </CardTitle>
                                 )}
-                                <CardDescription>
-                                  Essential formulas for this lesson
-                                </CardDescription>
+                                <CardDescription>Essential formulas for this lesson</CardDescription>
                               </div>
                             </div>
                           </CardHeader>
@@ -1627,41 +826,18 @@ export function UnifiedLessonPage({
                             {editingField === "formula_content" ? (
                               <div className="space-y-2">
                                 <Textarea
-                                  value={
-                                    (editValues.formula_content as string) || ""
-                                  }
-                                  onChange={(e) =>
-                                    setEditValues({
-                                      ...editValues,
-                                      formula_content: e.target.value,
-                                    })
-                                  }
+                                  value={(editValues.formula_content as string) || ""}
+                                  onChange={(e) => handleValueChange("formula_content", e.target.value)}
                                   placeholder="Enter formula content (HTML or markdown supported)"
-                                  className="min-h-[300px] font-mono text-sm"
-                                  autoFocus
+                                  className="min-h-[300px] font-mono text-sm" autoFocus
                                 />
                                 <div className="flex gap-2 justify-end">
-                                  <Button
-                                    size="sm"
-                                    onClick={() =>
-                                      handleSaveField("formula_content")
-                                    }
-                                    disabled={saving}
-                                    className="rounded-sm bg-green-600 hover:bg-green-700"
-                                  >
-                                    {saving ? (
-                                      <Loader2 className="w-4 h-4 animate-spin" />
-                                    ) : (
-                                      <Save className="w-4 h-4" />
-                                    )}
+                                  <Button size="sm" onClick={() => handleSaveField("formula_content")} disabled={saving}
+                                    className="rounded-sm bg-green-600 hover:bg-green-700">
+                                    {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
                                   </Button>
-                                  <Button
-                                    size="sm"
-                                    onClick={handleCancelEdit}
-                                    disabled={saving}
-                                    variant="outline"
-                                    className="rounded-sm"
-                                  >
+                                  <Button size="sm" onClick={handleCancelEdit} disabled={saving}
+                                    variant="outline" className="rounded-sm">
                                     <X className="w-4 h-4" />
                                   </Button>
                                 </div>
@@ -1670,21 +846,13 @@ export function UnifiedLessonPage({
                               <div className="relative group">
                                 <div className="p-4 bg-gray-50 rounded-sm border border-gray-200">
                                   <div className="text-xl prose prose-sm max-w-none">
-                                    <div
-                                      dangerouslySetInnerHTML={{
-                                        __html: lesson.formula_content,
-                                      }}
-                                    />
+                                    <div dangerouslySetInnerHTML={{ __html: lesson.formula_content }} />
                                   </div>
                                 </div>
                                 {isAdmin && (
-                                  <button
-                                    onClick={() =>
-                                      handleStartEdit("formula_content")
-                                    }
+                                  <button onClick={() => handleStartEdit("formula_content")}
                                     className="absolute top-2 right-2 p-2 hover:bg-gray-100 rounded-sm transition-colors border border-gray-300 bg-white shadow-sm opacity-0 group-hover:opacity-100"
-                                    title="Edit formula content"
-                                  >
+                                    title="Edit formula content">
                                     <Edit className="w-4 h-4 text-[#1a365d]" />
                                   </button>
                                 )}
@@ -1692,20 +860,11 @@ export function UnifiedLessonPage({
                             ) : (
                               <div className="text-center py-8 text-muted-foreground relative">
                                 <Calculator className="w-12 h-12 mx-auto mb-3 opacity-30" />
-                                <p>
-                                  No formulas available for this lesson yet.
-                                </p>
+                                <p>No formulas available for this lesson yet.</p>
                                 {isAdmin && (
-                                  <Button
-                                    size="sm"
-                                    onClick={() =>
-                                      handleStartEdit("formula_content")
-                                    }
-                                    className="mt-4 rounded-sm"
-                                    variant="outline"
-                                  >
-                                    <Edit className="w-4 h-4 mr-2" />
-                                    Add Content
+                                  <Button size="sm" onClick={() => handleStartEdit("formula_content")}
+                                    className="mt-4 rounded-sm" variant="outline">
+                                    <Edit className="w-4 h-4 mr-2" />Add Content
                                   </Button>
                                 )}
                               </div>
@@ -1715,7 +874,7 @@ export function UnifiedLessonPage({
                       </TabsContent>
                     )}
 
-                    {/* Notes Sub-Tab */}
+                    {/* Notes */}
                     {(lesson.content || isAdmin) && (
                       <TabsContent value="notes" className="space-y-4 mt-6">
                         <Card className="rounded-sm">
@@ -1726,21 +885,13 @@ export function UnifiedLessonPage({
                                   <FileText className="w-5 h-5 text-[#1a365d]" />
                                   Lesson Notes
                                 </CardTitle>
-                                <CardDescription>
-                                  Comprehensive notes from this lesson
-                                </CardDescription>
+                                <CardDescription>Comprehensive notes from this lesson</CardDescription>
                               </div>
                               {!editingField && isAdmin && (
                                 <button
-                                  onClick={() => {
-                                    setEditingField("content");
-                                    setEditValues({
-                                      content: lesson.content || "",
-                                    });
-                                  }}
+                                  onClick={() => { handleStartEdit("content"); }}
                                   className="p-2 hover:bg-gray-100 rounded-sm transition-colors border border-gray-300 bg-white shadow-sm"
-                                  title="Edit notes"
-                                >
+                                  title="Edit notes">
                                   <Edit className="w-4 h-4 text-[#1a365d]" />
                                 </button>
                               )}
@@ -1751,36 +902,17 @@ export function UnifiedLessonPage({
                               <div className="space-y-2">
                                 <Textarea
                                   value={(editValues.content as string) || ""}
-                                  onChange={(e) =>
-                                    setEditValues({
-                                      ...editValues,
-                                      content: e.target.value,
-                                    })
-                                  }
+                                  onChange={(e) => handleValueChange("content", e.target.value)}
                                   placeholder="Enter lesson notes (LaTeX supported: use $ for inline math, $$ for display math)"
-                                  className="min-h-[400px] font-mono text-sm"
-                                  autoFocus
+                                  className="min-h-[400px] font-mono text-sm" autoFocus
                                 />
                                 <div className="flex gap-2 justify-end">
-                                  <Button
-                                    size="sm"
-                                    onClick={() => handleSaveField("content")}
-                                    disabled={saving}
-                                    className="rounded-sm bg-green-600 hover:bg-green-700"
-                                  >
-                                    {saving ? (
-                                      <Loader2 className="w-4 h-4 animate-spin" />
-                                    ) : (
-                                      <Save className="w-4 h-4" />
-                                    )}
+                                  <Button size="sm" onClick={() => handleSaveField("content")} disabled={saving}
+                                    className="rounded-sm bg-green-600 hover:bg-green-700">
+                                    {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
                                   </Button>
-                                  <Button
-                                    size="sm"
-                                    onClick={handleCancelEdit}
-                                    disabled={saving}
-                                    variant="outline"
-                                    className="rounded-sm"
-                                  >
+                                  <Button size="sm" onClick={handleCancelEdit} disabled={saving}
+                                    variant="outline" className="rounded-sm">
                                     <X className="w-4 h-4" />
                                   </Button>
                                 </div>
@@ -1794,19 +926,9 @@ export function UnifiedLessonPage({
                                 <FileText className="w-12 h-12 mx-auto mb-3 opacity-30" />
                                 <p>No notes available for this lesson yet.</p>
                                 {isAdmin && (
-                                  <Button
-                                    size="sm"
-                                    onClick={() => {
-                                      setEditingField("content");
-                                      setEditValues({
-                                        content: "",
-                                      });
-                                    }}
-                                    className="mt-4 rounded-sm"
-                                    variant="outline"
-                                  >
-                                    <Edit className="w-4 h-4 mr-2" />
-                                    Add Notes
+                                  <Button size="sm" onClick={() => handleStartEdit("content")}
+                                    className="mt-4 rounded-sm" variant="outline">
+                                    <Edit className="w-4 h-4 mr-2" />Add Notes
                                   </Button>
                                 )}
                               </div>
@@ -1816,90 +938,10 @@ export function UnifiedLessonPage({
                       </TabsContent>
                     )}
 
-                    {/* AI Tutor Sub-Tab */}
-                    {hasAITutorTab && (
-                      <TabsContent value="ai-tutor" className="space-y-4 mt-6">
-                        <Card className="rounded-sm">
-                          <CardHeader>
-                            <CardTitle className="flex items-center gap-2">
-                              <MessageCircle className="w-5 h-5 text-[#1a365d]" />
-                              AI Tutor
-                            </CardTitle>
-                            <CardDescription>
-                              Ask questions about {lesson.title} or request
-                              practice problems
-                            </CardDescription>
-                          </CardHeader>
-                          <CardContent className="space-y-4">
-                            {/* Messages */}
-                            <div className="h-96 overflow-y-auto space-y-3 p-4 bg-gray-50 rounded-sm border border-gray-200">
-                              {chatMessages.map((message, index) => (
-                                <div
-                                  key={index}
-                                  className={`flex ${
-                                    message.role === "user"
-                                      ? "justify-end"
-                                      : "justify-start"
-                                  }`}
-                                >
-                                  <div
-                                    className={`max-w-[80%] p-3 rounded-sm ${
-                                      message.role === "user"
-                                        ? "bg-[#1a365d] text-white"
-                                        : "bg-white border border-gray-200 text-gray-800"
-                                    }`}
-                                  >
-                                    <p className="text-sm leading-relaxed">
-                                      {message.content}
-                                    </p>
-                                    <p
-                                      className={`text-xs mt-1 ${
-                                        message.role === "user"
-                                          ? "text-white/70"
-                                          : "text-gray-400"
-                                      }`}
-                                    >
-                                      {message.timestamp.toLocaleTimeString()}
-                                    </p>
-                                  </div>
-                                </div>
-                              ))}
-                              {isAITyping && (
-                                <div className="flex justify-start">
-                                  <div className="bg-white border border-gray-200 p-3 rounded-sm">
-                                    <p className="text-sm text-gray-500">
-                                      AI is typing...
-                                    </p>
-                                  </div>
-                                </div>
-                              )}
-                            </div>
-
-                            {/* Input */}
-                            <div className="flex gap-2">
-                              <Input
-                                placeholder="Ask a question about this lesson..."
-                                value={currentMessage}
-                                onChange={(e) =>
-                                  setCurrentMessage(e.target.value)
-                                }
-                                onKeyPress={(e) =>
-                                  e.key === "Enter" && handleSendMessage()
-                                }
-                                className="rounded-sm"
-                              />
-                              <Button
-                                onClick={handleSendMessage}
-                                disabled={!currentMessage.trim() || isAITyping}
-                                className="rounded-sm bg-[#1a365d] hover:bg-[#1a365d]/90"
-                              >
-                                <Send className="w-4 h-4" />
-                              </Button>
-                            </div>
-                          </CardContent>
-                        </Card>
-                      </TabsContent>
-                    )}
+                    {/* AI Tutor */}
+                    <TabsContent value="ai-tutor" className="space-y-4 mt-6">
+                      <ChatInterface lessonTitle={lesson.title} {...aiTutor} />
+                    </TabsContent>
                   </Tabs>
                 );
               })()}
@@ -1915,9 +957,7 @@ export function UnifiedLessonPage({
                 <Card>
                   <CardHeader>
                     <CardTitle>Quiz</CardTitle>
-                    <CardDescription>
-                      Test your understanding with this quiz
-                    </CardDescription>
+                    <CardDescription>Test your understanding with this quiz</CardDescription>
                   </CardHeader>
                   <CardContent>
                     <p className="text-muted-foreground text-center py-8">
@@ -1937,7 +977,7 @@ export function UnifiedLessonPage({
         </Card>
       )}
 
-      {/* Feedback Section - Suggest Changes */}
+      {/* Feedback section */}
       <div className="mt-6 md:mt-8 mb-6">
         <Card className="rounded-sm border-2 border-dashed border-gray-300 bg-gray-50/50">
           <CardContent className="p-4">
@@ -1947,9 +987,7 @@ export function UnifiedLessonPage({
                   <AlertCircle className="w-5 h-5 text-[#1a365d]" />
                 </div>
                 <div>
-                  <h4 className="font-semibold text-[#1e293b] text-sm md:text-base">
-                    Found an issue?
-                  </h4>
+                  <h4 className="font-semibold text-[#1e293b] text-sm md:text-base">Found an issue?</h4>
                   <p className="text-xs md:text-sm text-muted-foreground">
                     Help us improve by reporting mistakes or suggesting changes
                   </p>
@@ -1958,7 +996,7 @@ export function UnifiedLessonPage({
               <Button
                 variant="outline"
                 className="rounded-sm border-[#1a365d] text-[#1a365d] hover:bg-[#1a365d]/5 w-full sm:w-auto text-sm"
-                onClick={() => setShowFeedbackModal(true)}
+                onClick={feedback.openFeedbackModal}
               >
                 <Flag className="w-4 h-4 mr-2" />
                 Report Issue
@@ -1968,205 +1006,21 @@ export function UnifiedLessonPage({
         </Card>
       </div>
 
-      {/* Navigation Buttons - Like CBSE Class 9 */}
-      {allLessons.length > 0 && (
-        <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between mt-4 gap-3">
-          <Button
-            variant="outline"
-            className="rounded-sm w-full sm:w-auto"
-            onClick={getPreviousLesson}
-            disabled={
-              !allLessons.find(
-                (l) => l.lesson_order === (lesson.lesson_order || 0) - 1
-              )
-            }
-          >
-            <ArrowLeft className="w-4 h-4 mr-2" />
-            Previous Lesson
-          </Button>
-          <Button
-            className="bg-[#1a365d] hover:bg-[#1a365d]/90 rounded-sm w-full sm:w-auto"
-            onClick={getNextLesson}
-            disabled={
-              !allLessons.find(
-                (l) => l.lesson_order === (lesson.lesson_order || 0) + 1
-              )
-            }
-          >
-            Next Lesson
-            <ArrowRight className="w-4 h-4 ml-2" />
-          </Button>
-        </div>
+      {/* Navigation */}
+      {onNavigateLesson && (
+        <LessonNavigation
+          lesson={lesson}
+          allLessons={allLessons}
+          onNavigateLesson={onNavigateLesson}
+        />
       )}
 
       {/* Feedback Modal */}
-      <Dialog open={showFeedbackModal} onOpenChange={setShowFeedbackModal}>
-        <DialogContent className="rounded-sm max-w-md">
-          <DialogHeader>
-            <DialogTitle className="flex items-center gap-2">
-              <Flag className="w-5 h-5 text-[#1a365d]" />
-              Report an Issue or Suggest Changes
-            </DialogTitle>
-            <DialogDescription>
-              Help us improve this lesson by reporting mistakes or suggesting
-              improvements.
-            </DialogDescription>
-          </DialogHeader>
-
-          <div className="space-y-4 py-4">
-            {/* Feedback Type Selection */}
-            <div>
-              <Label className="mb-2 block">
-                What would you like to report?
-              </Label>
-              <div className="grid grid-cols-2 gap-3">
-                <Button
-                  variant={feedbackType === "mistake" ? "primary" : "outline"}
-                  className={`rounded-sm ${
-                    feedbackType === "mistake"
-                      ? "bg-red-600 hover:bg-red-700 text-white"
-                      : ""
-                  }`}
-                  onClick={() => setFeedbackType("mistake")}
-                >
-                  <AlertCircle className="w-4 h-4 mr-2" />
-                  Found a Mistake
-                </Button>
-                <Button
-                  variant={feedbackType === "suggestion" ? "primary" : "outline"}
-                  className="rounded-sm"
-                  onClick={() => setFeedbackType("suggestion")}
-                >
-                  <Flag className="w-4 h-4 mr-2" />
-                  Suggest Changes
-                </Button>
-              </div>
-            </div>
-
-            {/* Feedback Message */}
-            <div>
-              <Label htmlFor="feedback-message" className="mb-2 block">
-                Your feedback *
-              </Label>
-              <Textarea
-                id="feedback-message"
-                value={feedbackMessage}
-                onChange={(e) => setFeedbackMessage(e.target.value)}
-                placeholder="Describe the mistake or your suggestion in detail..."
-                className="min-h-[120px] rounded-sm"
-                rows={5}
-              />
-            </div>
-
-            {/* Image Attachment */}
-            <div>
-              <Label className="mb-2 block">Attach an image (optional)</Label>
-              {!feedbackImagePreview ? (
-                <div className="border-2 border-dashed border-gray-300 rounded-sm p-4">
-                  <div className="flex flex-col items-center justify-center space-y-3">
-                    <div className="p-2 bg-gray-100 rounded-sm">
-                      <ImageIcon className="w-6 h-6 text-gray-500" />
-                    </div>
-                    <div className="text-center">
-                      <p className="text-sm text-gray-600 mb-1">
-                        Upload a screenshot or image to help explain your
-                        feedback
-                      </p>
-                      <p className="text-xs text-gray-400">Max size: 10MB</p>
-                    </div>
-                    <Button
-                      type="button"
-                      variant="outline"
-                      className="rounded-sm"
-                      onClick={() => fileInputRef.current?.click()}
-                      disabled={uploadingImage}
-                    >
-                      <Upload className="w-4 h-4 mr-2" />
-                      Select Image
-                    </Button>
-                    <input
-                      ref={fileInputRef}
-                      type="file"
-                      accept="image/*"
-                      onChange={handleImageSelect}
-                      className="hidden"
-                    />
-                  </div>
-                </div>
-              ) : (
-                <div className="space-y-2">
-                  <div className="relative border rounded-sm overflow-hidden">
-                    <Image
-                      src={feedbackImagePreview}
-                      alt="Feedback preview"
-                      width={800}
-                      height={192}
-                      className="w-full h-48 object-contain bg-gray-50"
-                    />
-                    <Button
-                      type="button"
-                      variant="destructive"
-                      size="sm"
-                      className="absolute top-2 right-2 rounded-sm"
-                      onClick={handleRemoveImage}
-                    >
-                      <X className="w-4 h-4" />
-                    </Button>
-                  </div>
-                  <p className="text-xs text-muted-foreground">
-                    {feedbackImage?.name}
-                  </p>
-                </div>
-              )}
-            </div>
-
-            <p className="text-xs text-muted-foreground">
-              Lesson: <strong>{lesson.title}</strong>
-              <br />
-              Course: <strong>{courseSlug}</strong>
-            </p>
-          </div>
-
-          <DialogFooter>
-            <Button
-              variant="outline"
-              onClick={() => {
-                setShowFeedbackModal(false);
-                setFeedbackMessage("");
-                setFeedbackType(null);
-                setFeedbackImage(null);
-                setFeedbackImagePreview(null);
-                if (fileInputRef.current) {
-                  fileInputRef.current.value = "";
-                }
-              }}
-              className="rounded-sm"
-              disabled={submittingFeedback}
-            >
-              Cancel
-            </Button>
-            <Button
-              onClick={handleSubmitFeedback}
-              disabled={
-                !feedbackType || !feedbackMessage.trim() || submittingFeedback
-              }
-              className="bg-[#1a365d] hover:bg-[#1a365d]/90 rounded-sm"
-            >
-              {submittingFeedback ? (
-                <>
-                  <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                  Submitting...
-                </>
-              ) : (
-                <>
-                  <Send className="w-4 h-4 mr-2" />
-                  Submit Feedback
-                </>
-              )}
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
+      <FeedbackModal
+        lessonTitle={lesson.title}
+        courseSlug={courseSlug}
+        {...feedback}
+      />
     </div>
   );
 }
