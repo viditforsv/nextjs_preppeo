@@ -16,7 +16,7 @@ export async function GET() {
     const { data, error } = await supabase
       .from(TABLE)
       .select(
-        'id, type, prompt, options, correct_answer, explanation, domain, difficulty_tier, chapter, subtopic, bank_item_id, image_url, ai_explanation, ai_theory, qc_done'
+        'id, type, prompt, options, correct_answer, explanation, domain, difficulty_tier, chapter, subtopic, bank_item_id, image_url, ai_explanation, ai_theory, qc_done, is_pyq, pyq_year'
       )
       .eq('is_active', true)
       .order('domain')
@@ -43,6 +43,8 @@ export async function GET() {
       aiExplanation: row.ai_explanation ?? undefined,
       aiTheory: row.ai_theory ?? undefined,
       qcDone: row.qc_done ?? false,
+      isPyq: row.is_pyq ?? false,
+      pyqYear: row.pyq_year ?? undefined,
     }));
 
     return NextResponse.json({ questions });

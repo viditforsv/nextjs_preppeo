@@ -68,14 +68,27 @@ const HEADERS = [
   'correct_answer_b',
 ];
 
+// PostgreSQL uses standard_conforming_strings=on by default, so backslashes
+// are stored literally — no doubling needed. Only single quotes need escaping.
+// Doubling backslashes would corrupt LaTeX delimiters like \( \) and \[ \].
 function esc(s) {
-  return String(s).replace(/\\/g, '\\\\').replace(/'/g, "''");
+  return String(s).replace(/'/g, "''");
 }
 
 function unescapeCell(s) {
   return String(s ?? '')
     .replace(/\r\n/g, '\n')
     .replace(/\\n/g, '\n');
+}
+
+// Normalise LaTeX math delimiters to the $...$ / $$...$$ style that
+// renderMixedContent in MathRenderer.tsx expects.
+// \(...\)  →  $...$
+// \[...\]  →  $$...$$
+function normaliseMath(s) {
+  return s
+    .replace(/\\\(([^]*?)\\\)/g, (_, inner) => `$${inner}$`)
+    .replace(/\\\[([^]*?)\\\]/g, (_, inner) => `$$${inner}$$`);
 }
 
 function sqlStr(s) {
@@ -94,7 +107,7 @@ function buildOptions(row) {
   const keys = ['option_a', 'option_b', 'option_c', 'option_d'];
   const out = [];
   for (let i = 0; i < keys.length; i++) {
-    const text = unescapeCell(row[keys[i]]).trim();
+    const text = normaliseMath(unescapeCell(row[keys[i]]).trim());
     if (text) out.push({ id: ids[i], text });
   }
   return out;
@@ -142,10 +155,10 @@ function rowSql(row, lineHint) {
   const chapter = unescapeCell(row.chapter).trim();
   if (!chapter) throw new Error(`${bid}: chapter is required`);
 
-  const prompt = unescapeCell(row.prompt).trim();
+  const prompt = normaliseMath(unescapeCell(row.prompt).trim());
   if (!prompt) throw new Error(`${bid}: prompt is required`);
 
-  const explanation = unescapeCell(row.explanation ?? '').trim();
+  const explanation = normaliseMath(unescapeCell(row.explanation ?? '').trim());
   if (!explanation) throw new Error(`${bid}: explanation should be non-empty for minimal QC`);
 
   const correct = unescapeCell(row.correct_answer).trim();
@@ -271,6 +284,7 @@ function main() {
     `  chapter           = EXCLUDED.chapter,\n` +
     `  subtopic          = EXCLUDED.subtopic,\n` +
     `  image_url         = EXCLUDED.image_url,\n` +
+    `  qc_done           = false,\n` +
     `  is_pyq            = EXCLUDED.is_pyq,\n` +
     `  pyq_year          = EXCLUDED.pyq_year,\n` +
     `  correct_answer_b  = EXCLUDED.correct_answer_b;\n`;

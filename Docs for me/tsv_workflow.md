@@ -12,7 +12,7 @@ node scripts/cbse10-science-sheets-sync.mjs --push
 
 ## 3. Convert TSV → SQL migration
 ```
-node scripts/cbse10-science-tsv-to-sql.mjs "Docs for me/latex_with_rijay/cbse_10_science/12_electricity/questions.tsv" --out=supabase/migrations/cbse10-science/20260325120000_seed_electricity.sql
+node scripts/cbse10-science-tsv-to-sql.mjs "Docs for me/latex_with_rijay/cbse_10_science/12_electricity/questions.tsv" --out=supabase/migrations/cbse10-science/20260325130000_seed_electricity_12_local_tsv.sql
 ```
 
 one chapter at a time, sql file names are timestamped. 

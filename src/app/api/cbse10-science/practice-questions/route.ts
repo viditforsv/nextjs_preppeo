@@ -64,16 +64,19 @@ function toQuestion(row: Record<string, unknown>): CBSE10ScienceQuestion {
   };
 }
 
-async function checkPremium(supabase: ReturnType<typeof createSupabaseApiClient>, userId: string): Promise<boolean> {
-  const { data } = await supabase
-    .from('user_subscriptions')
-    .select('id')
-    .eq('user_id', userId)
-    .gte('ends_at', new Date(Date.now() - GRACE_MS).toISOString())
-    .eq('is_active', true)
-    .limit(1)
-    .maybeSingle();
-  return !!data;
+async function checkFullAccess(supabase: ReturnType<typeof createSupabaseApiClient>, userId: string): Promise<boolean> {
+  const [{ data: sub }, { data: profile }] = await Promise.all([
+    supabase
+      .from('user_subscriptions')
+      .select('id')
+      .eq('user_id', userId)
+      .gte('ends_at', new Date(Date.now() - GRACE_MS).toISOString())
+      .eq('is_active', true)
+      .limit(1)
+      .maybeSingle(),
+    supabase.from('profiles').select('role').eq('id', userId).maybeSingle(),
+  ]);
+  return !!sub || profile?.role === 'admin';
 }
 
 export async function GET(request: NextRequest) {
@@ -90,7 +93,7 @@ export async function GET(request: NextRequest) {
     const count = Math.min(parseInt(searchParams.get('count') ?? '10', 10) || 10, 30);
 
     const supabase = createSupabaseApiClient();
-    const isPremium = await checkPremium(supabase, user.id);
+    const isPremium = await checkFullAccess(supabase, user.id);
 
     if (isPremium) {
       let query = supabase.from(TABLE).select(FIELDS).eq('is_active', true);

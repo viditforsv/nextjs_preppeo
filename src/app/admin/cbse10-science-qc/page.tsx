@@ -183,6 +183,15 @@ const config: QCPageConfig<ScienceQCQuestion> = {
         ) : null,
     },
     {
+      key: 'isPyq',
+      render: (q) =>
+        q.isPyq ? (
+          <Badge className="bg-amber-50 text-amber-700 border border-amber-200">
+            PYQ{q.pyqYear ? ` ${q.pyqYear}` : ''}
+          </Badge>
+        ) : null,
+    },
+    {
       key: 'qcDone',
       render: (q) => (
         <Badge className={q.qcDone ? 'bg-emerald-100 text-emerald-800' : 'bg-gray-100 text-gray-500'}>
