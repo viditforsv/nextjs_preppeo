@@ -4,7 +4,7 @@ import { createSupabaseApiClient } from '@/lib/supabase/api-client';
 import type { CBSE10ScienceQuestion, QuestionType, CBSE10ScienceDomain, DifficultyTier, QuestionOption } from '@/types/cbse10-science';
 
 const TABLE = 'cbse10_science_questions';
-const FIELDS = 'id, type, prompt, options, correct_answer, explanation, domain, difficulty_tier, image_url, chapter, subtopic';
+const FIELDS = 'id, type, prompt, options, correct_answer, explanation, domain, difficulty_tier, image_url, chapter, subtopic, is_pyq, pyq_year, correct_answer_b';
 const FREE_LIMITS = { easy: 2, medium: 2, hard: 1 } as const;
 const GRACE_MS = 30 * 60 * 1000;
 
@@ -56,8 +56,11 @@ function toQuestion(row: Record<string, unknown>): CBSE10ScienceQuestion {
     prompt: row.prompt as string,
     options: toOptions(row.options),
     correctAnswer: row.correct_answer as string,
+    correctAnswerB: (row.correct_answer_b as string) ?? undefined,
     explanation: (row.explanation as string) ?? '',
     imageUrl: (row.image_url as string) ?? undefined,
+    isPyq: (row.is_pyq as boolean) ?? false,
+    pyqYear: (row.pyq_year as string) ?? undefined,
   };
 }
 

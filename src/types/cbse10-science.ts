@@ -32,8 +32,11 @@ export interface CBSE10ScienceQuestion {
   prompt: string;
   options?: QuestionOption[];
   correctAnswer: string;
+  correctAnswerB?: string;
   explanation: string;
   imageUrl?: string;
+  isPyq?: boolean;
+  pyqYear?: string;
 }
 
 export interface CBSE10SciencePracticeConfig {

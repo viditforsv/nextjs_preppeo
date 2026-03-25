@@ -109,13 +109,13 @@ export function Header() {
             href="/"
             className="flex items-center space-x-3 hover:opacity-80 transition-opacity"
           >
-            <div className="w-10 h-10 rounded-lg flex items-center justify-center overflow-hidden">
+            <div className="relative w-10 h-10 shrink-0 rounded-lg overflow-hidden">
               <Image
                 src="/images/preppeo_logo.png"
                 alt="Preppeo LMS Logo"
-                width={120}
-                height={40}
+                fill
                 className="object-contain"
+                sizes="40px"
               />
             </div>
             <div>

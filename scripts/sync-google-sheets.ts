@@ -13,6 +13,9 @@
  *   GOOGLE_APPLICATION_CREDENTIALS - Path to service account JSON key file (standard Google env var)
  *   GOOGLE_SHEETS_URL - Full Google Sheets URL
  *   GOOGLE_SHEETS_NAME - Specific sheet name to sync to (overrides gid from URL)
+ *
+ * If none of the credential env vars are set, the script looks for (in order):
+ *   credentials.json, google-service-account-key.json (project root; both gitignored)
  */
 
 import { config } from "dotenv";
@@ -75,19 +78,23 @@ async function authenticateGoogleSheets() {
     credentials = JSON.parse(readFileSync(keyPath, "utf-8"));
     console.log(`   Using credentials from GOOGLE_SERVICE_ACCOUNT_KEY: ${keyPath}`);
   }
-  // Method 4: Default file path
+  // Method 4: Default file paths (project root)
   else {
-    const defaultPath = resolve(process.cwd(), "google-service-account-key.json");
-    if (existsSync(defaultPath)) {
-      credentials = JSON.parse(readFileSync(defaultPath, "utf-8"));
-      console.log(`   Using credentials from default path: ${defaultPath}`);
+    const candidates = [
+      resolve(process.cwd(), "credentials.json"),
+      resolve(process.cwd(), "google-service-account-key.json"),
+    ];
+    const keyPath = candidates.find((p) => existsSync(p));
+    if (keyPath) {
+      credentials = JSON.parse(readFileSync(keyPath, "utf-8"));
+      console.log(`   Using credentials from: ${keyPath}`);
     } else {
       throw new Error(
         "No service account credentials found. Set one of:\n" +
         "  - GOOGLE_SERVICE_ACCOUNT_JSON (JSON content)\n" +
         "  - GOOGLE_APPLICATION_CREDENTIALS (file path)\n" +
         "  - GOOGLE_SERVICE_ACCOUNT_KEY (file path)\n" +
-        "  - Or place key file at: google-service-account-key.json"
+        "  - Or place a key file at project root: credentials.json or google-service-account-key.json"
       );
     }
   }

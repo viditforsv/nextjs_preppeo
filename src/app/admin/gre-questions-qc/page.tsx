@@ -255,12 +255,6 @@ const config: QCPageConfig<GREQCQuestion> = {
       {q.prompt && (
         <div className="prose prose-sm max-w-none text-gray-800">{renderMixedContent(q.prompt)}</div>
       )}
-      {q.imageUrl && (
-        <div>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={q.imageUrl} alt="Question figure" className="max-w-full rounded-lg border border-gray-200" />
-        </div>
-      )}
       <QuestionRenderer
         question={q as Parameters<typeof QuestionRenderer>[0]['question']}
         answer={q.correctAnswer}

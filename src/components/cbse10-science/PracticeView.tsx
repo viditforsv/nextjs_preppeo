@@ -65,7 +65,16 @@ export default function PracticeView() {
   const isRevealed = !!practiceRevealed[question.id];
   const isLoading = !!practiceLoading[question.id];
   const aiExplanation = practiceExplanations[question.id];
-  const isCorrect = answer !== null && answer.trim().toLowerCase() === question.correctAnswer.trim().toLowerCase();
+  const isTwoInput = question.type === 'spr' && !!question.correctAnswerB;
+  const [answerA, answerB] = isTwoInput
+    ? (answer ?? '|').split('|')
+    : [answer ?? '', ''];
+  const isCorrect = answer !== null && (
+    isTwoInput
+      ? answerA.trim().toLowerCase() === question.correctAnswer.trim().toLowerCase() &&
+        answerB.trim().toLowerCase() === (question.correctAnswerB ?? '').trim().toLowerCase()
+      : answer.trim().toLowerCase() === question.correctAnswer.trim().toLowerCase()
+  );
   const theory = practiceTheory[question.id];
   const isTheoryLoading = !!practiceTheoryLoading[question.id];
   const reviewed = Object.keys(practiceRevealed).length;
@@ -95,6 +104,11 @@ export default function PracticeView() {
             {question.subtopic && (
               <span className="text-xs px-2 py-1 rounded bg-violet-50 text-violet-600 font-medium">
                 {question.subtopic}
+              </span>
+            )}
+            {question.isPyq && (
+              <span className="text-xs px-2 py-1 rounded bg-amber-50 text-amber-600 font-medium border border-amber-200">
+                PYQ{question.pyqYear ? ` ${question.pyqYear}` : ''}
               </span>
             )}
           </div>
@@ -155,7 +169,7 @@ export default function PracticeView() {
             </div>
           )}
 
-          {question.type === 'spr' && (
+          {question.type === 'spr' && !isTwoInput && (
             <div className="mt-4">
               <input type="text" value={answer ?? ''} onChange={(e) => !isRevealed && setPracticeAnswer(question.id, e.target.value)} disabled={isRevealed}
                 placeholder="Type your answer..."
@@ -171,8 +185,41 @@ export default function PracticeView() {
             </div>
           )}
 
+          {question.type === 'spr' && isTwoInput && (
+            <div className="mt-4 space-y-3">
+              <div className="flex items-center gap-3 flex-wrap">
+                <div className="flex items-center gap-2 flex-1 min-w-0">
+                  <span className="text-sm font-medium text-gray-600 shrink-0">m =</span>
+                  <input type="text" value={answerA} onChange={(e) => { if (!isRevealed) setPracticeAnswer(question.id, e.target.value + '|' + answerB); }} disabled={isRevealed}
+                    placeholder="e.g. 6.25"
+                    className={`flex-1 min-w-0 px-3 py-2.5 border-2 rounded-lg text-base ${
+                      isRevealed ? (isCorrect ? 'border-green-400 bg-green-50' : 'border-red-400 bg-red-50')
+                        : 'border-gray-300 focus:outline-none'
+                    } outline-none transition-colors`}
+                    style={!isRevealed ? { ['--tw-ring-color' as string]: ACCENT } : undefined}
+                  />
+                </div>
+                <span className="text-sm font-medium text-gray-600 shrink-0">× 10^</span>
+                <div className="flex items-center gap-2 flex-1 min-w-0">
+                  <span className="text-sm font-medium text-gray-600 shrink-0">n =</span>
+                  <input type="text" value={answerB} onChange={(e) => { if (!isRevealed) setPracticeAnswer(question.id, answerA + '|' + e.target.value); }} disabled={isRevealed}
+                    placeholder="e.g. 18"
+                    className={`flex-1 min-w-0 px-3 py-2.5 border-2 rounded-lg text-base ${
+                      isRevealed ? (isCorrect ? 'border-green-400 bg-green-50' : 'border-red-400 bg-red-50')
+                        : 'border-gray-300 focus:outline-none'
+                    } outline-none transition-colors`}
+                    style={!isRevealed ? { ['--tw-ring-color' as string]: ACCENT } : undefined}
+                  />
+                </div>
+              </div>
+              {isRevealed && !isCorrect && (
+                <p className="text-sm text-green-700">Correct answer: <strong>m = {question.correctAnswer}, n = {question.correctAnswerB}</strong></p>
+              )}
+            </div>
+          )}
+
           {!isRevealed && (
-            <button onClick={() => revealAnswer(question.id)} disabled={answer === null || answer === ''}
+            <button onClick={() => revealAnswer(question.id)} disabled={isTwoInput ? (!answerA.trim() || !answerB.trim()) : (answer === null || answer === '')}
               className="mt-5 w-full py-2.5 text-white font-semibold rounded-lg hover:brightness-95 disabled:opacity-40 disabled:cursor-not-allowed transition-all inline-flex items-center justify-center gap-2"
               style={{ backgroundColor: ACCENT }}
             >
@@ -253,7 +300,14 @@ export default function PracticeView() {
             {practiceQuestions.map((q, idx) => {
               const revealed = !!practiceRevealed[q.id];
               const ans = practiceAnswers[q.id];
-              const correct = revealed && ans !== null && ans !== undefined && ans.trim().toLowerCase() === q.correctAnswer.trim().toLowerCase();
+              const qIsTwoInput = q.type === 'spr' && !!q.correctAnswerB;
+              const [footerA, footerB] = qIsTwoInput ? (ans ?? '|').split('|') : [ans ?? '', ''];
+              const correct = revealed && ans !== null && ans !== undefined && (
+                qIsTwoInput
+                  ? footerA.trim().toLowerCase() === q.correctAnswer.trim().toLowerCase() &&
+                    footerB.trim().toLowerCase() === (q.correctAnswerB ?? '').trim().toLowerCase()
+                  : ans.trim().toLowerCase() === q.correctAnswer.trim().toLowerCase()
+              );
               const isCurr = idx === practiceIndex;
               return (
                 <button key={q.id} onClick={() => navigatePractice(idx)}
