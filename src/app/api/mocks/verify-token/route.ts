@@ -21,9 +21,14 @@ export async function POST(request: NextRequest) {
 
     const supabase = createSupabaseApiClient();
 
+    // Get the authenticated user first — needed for same-user retry check
+    const authClient = await createClient();
+    const { data: { user } } = await authClient.auth.getUser();
+    const userId = user?.id ?? null;
+
     const { data: token, error } = await supabase
       .from('test_tokens')
-      .select('id, code, exam_type, set_number, is_free, is_used, owner_id, is_active')
+      .select('id, code, exam_type, set_number, is_free, is_used, owner_id, used_by, is_active')
       .eq('code', code.trim().toUpperCase())
       .eq('exam_type', examType)
       .eq('is_active', true)
@@ -47,15 +52,15 @@ export async function POST(request: NextRequest) {
     }
 
     if (token.is_used) {
+      // Allow the original user to re-enter their own test (e.g. after a page refresh)
+      if (userId && token.used_by === userId) {
+        return NextResponse.json({ valid: true, setNumber: token.set_number, resumed: true });
+      }
       return NextResponse.json({ valid: false, message: 'This token has already been used' });
     }
 
     // Tokens are transferable — anyone with the code can redeem it.
     // owner_id tracks who purchased; used_by tracks who redeemed.
-    const authClient = await createClient();
-    const { data: { user } } = await authClient.auth.getUser();
-    const userId = user?.id ?? null;
-
     await supabase
       .from('test_tokens')
       .update({ is_used: true, used_at: new Date().toISOString(), used_by: userId })

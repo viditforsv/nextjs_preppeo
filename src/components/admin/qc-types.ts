@@ -65,4 +65,18 @@ export interface QCPageConfig<Q extends QCQuestion = QCQuestion> {
   filterFn: (q: Q, filters: Record<string, string>) => boolean;
   /** Called when filters are cleared (for UUID jump) – returns reset filter state */
   getResetFilters: () => Record<string, string>;
+  /**
+   * When true, questions are NOT fetched on page load.
+   * An "Apply Filters" button is shown — clicking it triggers a server-side fetch
+   * using the params built by buildServerParams. Limit is enforced server-side.
+   */
+  fetchOnApply?: boolean;
+  /** Maps the current filter state to server-side query params for the fetch. */
+  buildServerParams?: (filters: Record<string, string>) => Record<string, string>;
+  /**
+   * URL to fetch summary stats shown in a banner above the filters.
+   * Response must be: { pending: { [key: string]: number } }
+   * The banner renders each key-value pair as "Key: N".
+   */
+  statsUrl?: string;
 }

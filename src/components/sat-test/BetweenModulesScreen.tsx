@@ -4,12 +4,12 @@ import { useSATTestStore } from '@/stores/useSATTestStore';
 import { CheckCircle, ArrowRight, Loader2 } from 'lucide-react';
 
 export default function BetweenModulesScreen() {
-  const { module1Result, module2Tier, module2, currentSection, beginModule2 } = useSATTestStore();
+  const { module1Result, module2Tier, module2, currentSection, beginModule2, module2LoadError, retryModule2Fetch } = useSATTestStore();
 
   if (!module1Result || !module2Tier) return null;
 
   const sectionLabel = currentSection === 'rw' ? 'Reading & Writing' : 'Math';
-  const isLoading = !module2;
+  const isLoading = !module2 && !module2LoadError;
   const qCount = currentSection === 'rw' ? 27 : 22;
   const minutes = currentSection === 'rw' ? 32 : 35;
 
@@ -32,23 +32,35 @@ export default function BetweenModulesScreen() {
           <p className="text-xs text-gray-400 mt-1">{qCount} questions · {minutes} minutes</p>
         </div>
 
-        <button
-          onClick={beginModule2}
-          disabled={isLoading}
-          className="w-full py-3 bg-[#0d47a1] text-white font-semibold rounded-lg hover:bg-[#1565c0] disabled:opacity-60 transition-colors text-lg inline-flex items-center justify-center gap-2"
-        >
-          {isLoading ? (
-            <>
-              <Loader2 className="w-5 h-5 animate-spin" />
-              Loading Module 2...
-            </>
-          ) : (
-            <>
-              Begin {sectionLabel} Module 2
-              <ArrowRight className="w-5 h-5" />
-            </>
-          )}
-        </button>
+        {module2LoadError ? (
+          <div className="space-y-3">
+            <p className="text-red-600 text-sm">{module2LoadError}</p>
+            <button
+              onClick={retryModule2Fetch}
+              className="w-full py-3 bg-[#0d47a1] text-white font-semibold rounded-lg hover:bg-[#1565c0] transition-colors text-lg"
+            >
+              Try Again
+            </button>
+          </div>
+        ) : (
+          <button
+            onClick={beginModule2}
+            disabled={isLoading}
+            className="w-full py-3 bg-[#0d47a1] text-white font-semibold rounded-lg hover:bg-[#1565c0] disabled:opacity-60 transition-colors text-lg inline-flex items-center justify-center gap-2"
+          >
+            {isLoading ? (
+              <>
+                <Loader2 className="w-5 h-5 animate-spin" />
+                Loading Module 2...
+              </>
+            ) : (
+              <>
+                Begin {sectionLabel} Module 2
+                <ArrowRight className="w-5 h-5" />
+              </>
+            )}
+          </button>
+        )}
       </div>
     </div>
   );

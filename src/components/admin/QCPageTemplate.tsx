@@ -29,8 +29,10 @@ export default function QCPageTemplate<Q extends QCQuestion>({ config }: QCPageT
   const isProd = process.env.NEXT_PUBLIC_ENVIRONMENT === 'prod' || process.env.NEXT_PUBLIC_ENVIRONMENT === 'production';
 
   const [questions, setQuestions] = useState<Q[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(!config.fetchOnApply);
   const [error, setError] = useState<string | null>(null);
+  const [hasFetched, setHasFetched] = useState(false);
+  const [stats, setStats] = useState<Record<string, number> | null>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const initialFilters = config.getResetFilters();
@@ -50,21 +52,43 @@ export default function QCPageTemplate<Q extends QCQuestion>({ config }: QCPageT
 
   const handleSaveRef = useRef<() => void>(() => {});
 
-  // Fetch questions
-  useEffect(() => {
-    (async () => {
-      try {
-        const res = await fetch(config.apiBase);
-        if (!res.ok) throw new Error('Failed to fetch questions');
-        const data = await res.json();
-        setQuestions(data.questions ?? []);
-      } catch (err) {
-        setError(err instanceof Error ? err.message : 'Unknown error');
-      } finally {
-        setLoading(false);
+  const fetchQuestions = useCallback(async (serverParams?: Record<string, string>) => {
+    setLoading(true);
+    setError(null);
+    setCurrentIndex(0);
+    try {
+      let url = config.apiBase;
+      if (serverParams) {
+        const qs = new URLSearchParams(
+          Object.entries(serverParams).filter(([, v]) => v && v !== 'all')
+        ).toString();
+        if (qs) url = `${url}?${qs}`;
       }
-    })();
+      const res = await fetch(url);
+      if (!res.ok) throw new Error('Failed to fetch questions');
+      const data = await res.json();
+      setQuestions(data.questions ?? []);
+      setHasFetched(true);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Unknown error');
+    } finally {
+      setLoading(false);
+    }
   }, [config.apiBase]);
+
+  // Auto-fetch on mount unless fetchOnApply mode is enabled
+  useEffect(() => {
+    if (!config.fetchOnApply) {
+      fetchQuestions();
+    }
+    if (config.statsUrl) {
+      fetch(config.statsUrl)
+        .then((r) => r.json())
+        .then((d) => setStats(d.pending ?? null))
+        .catch(() => {});
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   // Derive dynamic filter options from the questions
   const dynamicOptions = useMemo(() => {
@@ -494,6 +518,20 @@ export default function QCPageTemplate<Q extends QCQuestion>({ config }: QCPageT
             )}
           </div>
 
+          {/* Stats banner */}
+          {stats && (
+            <div className="flex gap-3 mb-4 text-sm flex-wrap">
+              <div className="bg-yellow-50 border border-yellow-200 rounded-lg px-4 py-2 flex gap-3 items-center flex-wrap">
+                <span className="font-semibold text-yellow-800">Pending QC</span>
+                {Object.entries(stats).map(([key, val]) => (
+                  <span key={key} className="text-yellow-700">
+                    {key.charAt(0).toUpperCase() + key.slice(1)}: <strong>{val}</strong>
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
+
           {/* Filters */}
           <div className="flex flex-wrap items-center gap-4 mb-6 p-4 bg-gray-50 rounded-xl border border-gray-200">
             {config.filters.map((fd) => (
@@ -509,6 +547,16 @@ export default function QCPageTemplate<Q extends QCQuestion>({ config }: QCPageT
               />
             ))}
             <div className="flex items-center gap-2 ml-auto">
+              {config.fetchOnApply && (
+                <button
+                  onClick={() => fetchQuestions(config.buildServerParams?.(filters))}
+                  disabled={loading}
+                  className="px-3 py-1.5 text-xs font-semibold bg-blue-600 text-white rounded-md hover:bg-blue-700 disabled:opacity-50 flex items-center gap-1"
+                >
+                  {loading ? <Loader2 className="w-3 h-3 animate-spin" /> : null}
+                  Apply Filters
+                </button>
+              )}
               <div className="flex items-center gap-1">
                 <label className="text-xs font-medium text-gray-600 whitespace-nowrap">UUID</label>
                 <input
@@ -550,7 +598,11 @@ export default function QCPageTemplate<Q extends QCQuestion>({ config }: QCPageT
           {error && <div className="bg-red-50 border border-red-200 rounded-lg p-4 text-red-700">{error}</div>}
 
           {!loading && !error && filtered.length === 0 && (
-            <div className="text-center py-20 text-gray-500">No questions match the current filters.</div>
+            <div className="text-center py-20 text-gray-500">
+              {config.fetchOnApply && !hasFetched
+                ? 'Set filters above and click "Apply Filters" to load questions.'
+                : 'No questions match the current filters.'}
+            </div>
           )}
 
           {!loading && !error && merged && current && (

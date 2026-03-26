@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+import { persist } from 'zustand/middleware';
 import type {
   SATQuestion,
   SATModule,
@@ -158,6 +159,9 @@ interface SATTestState {
   practiceTheoryLoading: Record<string, boolean>;
   practiceIndex: number;
 
+  // Loading / error states
+  module2LoadError: string | null;
+
   // UI
   isCalculatorOpen: boolean;
   isReviewOpen: boolean;
@@ -177,6 +181,7 @@ interface SATTestState {
   toggleCalculator: () => void;
   toggleReview: () => void;
   toggleTimerVisibility: () => void;
+  retryModule2Fetch: () => void;
 
   // Practice actions
   startPracticeMode: (config: SATPracticeConfig) => Promise<void>;
@@ -223,15 +228,23 @@ const initialState = {
   practiceTheory: {} as Record<string, string>,
   practiceTheoryLoading: {} as Record<string, boolean>,
   practiceIndex: 0,
+  module2LoadError: null as string | null,
   isCalculatorOpen: false,
   isReviewOpen: false,
   timerHidden: false,
 };
 
-export const useSATTestStore = create<SATTestState>()((set, get) => ({
+export const useSATTestStore = create<SATTestState>()(
+  persist(
+    (set, get) => ({
   ...initialState,
 
-  goToLanding: () => set({ ...initialState }),
+  goToLanding: () => {
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem('sat-test-storage');
+    }
+    set({ ...initialState });
+  },
 
   // Full test: try RW first; if no RW questions exist, fall back to Math-only
   startTestMode: async (setNum: number, tokenCode?: string) => {
@@ -401,6 +414,7 @@ export const useSATTestStore = create<SATTestState>()((set, get) => ({
           })
           .catch((err) => {
             console.error('Failed to fetch Module 2 questions:', err);
+            set({ module2LoadError: 'Failed to load Module 2. Please try again.' });
           });
       }
     } else if (currentModuleNumber === 2 && module2) {
@@ -571,6 +585,28 @@ export const useSATTestStore = create<SATTestState>()((set, get) => ({
     });
   },
 
+  retryModule2Fetch: () => {
+    const { currentSection, setNumber, module2Tier } = get();
+    if (!setNumber || !module2Tier) return;
+    set({ module2LoadError: null, module2: null });
+    fetchQuestions(currentSection, 2, setNumber, module2Tier)
+      .then((m2Questions) => {
+        const duration = durationForSection(currentSection);
+        const m2: SATModule = {
+          moduleNumber: 2,
+          section: currentSection,
+          difficultyTier: module2Tier,
+          durationSeconds: duration,
+          questions: m2Questions,
+        };
+        set({ module2: m2 });
+      })
+      .catch((err) => {
+        console.error('Failed to fetch Module 2 questions on retry:', err);
+        set({ module2LoadError: 'Failed to load Module 2. Please try again.' });
+      });
+  },
+
   toggleCalculator: () => set((s) => ({ isCalculatorOpen: !s.isCalculatorOpen })),
   toggleReview: () => set((s) => ({ isReviewOpen: !s.isReviewOpen })),
   toggleTimerVisibility: () => set((s) => ({ timerHidden: !s.timerHidden })),
@@ -728,4 +764,37 @@ export const useSATTestStore = create<SATTestState>()((set, get) => ({
   navigatePractice: (idx) => set({ practiceIndex: idx }),
 
   finishPractice: () => set({ phase: 'practice-summary' }),
-}));
+    }),
+    {
+      name: 'sat-test-storage',
+      partialize: (state) => ({
+        phase: state.phase,
+        mode: state.mode,
+        currentSection: state.currentSection,
+        tokenCode: state.tokenCode,
+        setNumber: state.setNumber,
+        module1: state.module1,
+        module2: state.module2,
+        currentModuleNumber: state.currentModuleNumber,
+        currentQuestionIndex: state.currentQuestionIndex,
+        answers: state.answers,
+        flags: state.flags,
+        timeLeft: state.timeLeft,
+        module1Result: state.module1Result,
+        module2Result: state.module2Result,
+        module2Tier: state.module2Tier,
+        questionTimestamps: state.questionTimestamps,
+        visitCounts: state.visitCounts,
+        module1QuestionResponses: state.module1QuestionResponses,
+        rwModule1Result: state.rwModule1Result,
+        rwModule2Result: state.rwModule2Result,
+        rwModule2Tier: state.rwModule2Tier,
+        rwQuestionResponses: state.rwQuestionResponses,
+        rwEstimatedScore: state.rwEstimatedScore,
+        allQuestionResponses: state.allQuestionResponses,
+        mathEstimatedScore: state.mathEstimatedScore,
+        totalEstimatedScore: state.totalEstimatedScore,
+      }),
+    }
+  )
+);

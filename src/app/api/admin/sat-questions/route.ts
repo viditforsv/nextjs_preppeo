@@ -23,11 +23,20 @@ const PROD_WRITE_ERROR = NextResponse.json(
   { status: 403 }
 );
 
-export async function GET() {
+export async function GET(request: NextRequest) {
   try {
+    const { searchParams } = new URL(request.url);
+    const section = searchParams.get('section');
+    const pool = searchParams.get('pool');
+    const domain = searchParams.get('domain');
+    const difficulty = searchParams.get('difficulty');
+    const module = searchParams.get('module');
+    const set = searchParams.get('set');
+    const qc = searchParams.get('qc');
+
     const supabase = createSupabaseApiClient();
 
-    const { data, error } = await supabase
+    let query = supabase
       .from('sat_questions')
       .select(
         'id, type, section, prompt, passage, options, correct_answer, explanation, domain, difficulty_tier, module_number, set_number, image_url, image_urls, ai_explanation, ai_theory, qc_done'
@@ -36,7 +45,20 @@ export async function GET() {
       .order('section')
       .order('module_number')
       .order('set_number')
-      .order('difficulty_tier');
+      .order('difficulty_tier')
+      .limit(100);
+
+    if (section) query = query.eq('section', section);
+    if (pool === 'test') query = query.gt('module_number', 0);
+    if (pool === 'practice') query = query.eq('module_number', 0);
+    if (domain) query = query.eq('domain', domain);
+    if (difficulty) query = query.eq('difficulty_tier', difficulty);
+    if (module) query = query.eq('module_number', Number(module));
+    if (set) query = query.eq('set_number', Number(set));
+    if (qc === 'pending') query = query.eq('qc_done', false);
+    if (qc === 'done') query = query.eq('qc_done', true);
+
+    const { data, error } = await query;
 
     if (error) {
       console.error('Error fetching SAT questions:', error);

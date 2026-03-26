@@ -158,6 +158,21 @@ const config: QCPageConfig<SATQCQuestion> = {
     qc: 'all',
   }),
 
+  fetchOnApply: true,
+  statsUrl: '/api/admin/sat-questions/stats',
+
+  buildServerParams: (filters) => {
+    const params: Record<string, string> = {};
+    if (filters.section !== 'all') params.section = filters.section;
+    if (filters.pool !== 'all') params.pool = filters.pool;
+    if (filters.domain !== 'all') params.domain = filters.domain;
+    if (filters.difficulty !== 'all') params.difficulty = filters.difficulty;
+    if (filters.module !== 'all') params.module = filters.module;
+    if (filters.set !== 'all') params.set = filters.set;
+    if (filters.qc !== 'all') params.qc = filters.qc;
+    return params;
+  },
+
   metadataBadges: [
     {
       key: 'section',
