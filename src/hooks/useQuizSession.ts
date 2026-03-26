@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useCallback } from "react";
+import { fetchWithRetry } from "@/lib/fetch-with-retry";
 
 interface QuizOption {
   value: string;
@@ -51,7 +52,7 @@ export function useQuizSession(quizId: string) {
     try {
       setLoading(true);
 
-      const quizResponse = await fetch(`/api/quizzes?id=${quizId}`);
+      const quizResponse = await fetchWithRetry(`/api/quizzes?id=${quizId}`);
       if (quizResponse.ok) {
         const quizData = await quizResponse.json();
         if (quizData.quizzes && quizData.quizzes.length > 0) {
@@ -59,7 +60,7 @@ export function useQuizSession(quizId: string) {
         }
       }
 
-      const questionsResponse = await fetch(`/api/quizzes/${quizId}/questions`);
+      const questionsResponse = await fetchWithRetry(`/api/quizzes/${quizId}/questions`);
       if (questionsResponse.ok) {
         const questionsData = await questionsResponse.json();
         setQuestions(questionsData.questions || []);

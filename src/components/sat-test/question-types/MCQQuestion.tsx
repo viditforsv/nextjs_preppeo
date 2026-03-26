@@ -62,7 +62,19 @@ export default function MCQQuestion({
               disabled={disabled}
               className="sr-only"
             />
-            <span className="flex-1 text-gray-800">{renderMixedContent(opt.text)}</span>
+            <span className="flex-1 text-gray-800 flex flex-col gap-2">
+              {opt.imageUrl && (
+                <>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={opt.imageUrl}
+                    alt={`Option ${letter}`}
+                    className="max-w-full rounded border border-gray-200"
+                  />
+                </>
+              )}
+              {opt.text ? renderMixedContent(opt.text) : null}
+            </span>
           </label>
         );
       })}

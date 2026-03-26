@@ -1,6 +1,7 @@
 import type { NextConfig } from "next";
 import path from "path";
 import { fileURLToPath } from "url";
+import { withSentryConfig } from "@sentry/nextjs";
 
 /** Directory containing this config = app root (avoids wrong root when a lockfile exists above the repo, e.g. ~/package-lock.json). */
 const projectRoot = path.dirname(fileURLToPath(import.meta.url));
@@ -60,7 +61,7 @@ const nextConfig: NextConfig = {
               "style-src 'self' 'unsafe-inline'",
               "img-src 'self' data: https:",
               "font-src 'self' data:",
-              "connect-src 'self' https://*.supabase.co https://shrividhyaclasses.b-cdn.net https://acrobatservices.adobe.com https://api.razorpay.com https://www.desmos.com",
+              "connect-src 'self' https://*.supabase.co https://shrividhyaclasses.b-cdn.net https://acrobatservices.adobe.com https://api.razorpay.com https://www.desmos.com https://*.ingest.de.sentry.io",
               "frame-src 'self' https: data:",
               "frame-ancestors 'self' https:",
               "object-src 'self' data:",
@@ -73,4 +74,12 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default nextConfig;
+export default withSentryConfig(nextConfig, {
+  org: "preppeo",
+  project: "nextjs-preppeo",
+  silent: !process.env.CI,
+  // Upload source maps to Sentry during build (requires SENTRY_AUTH_TOKEN in env)
+  widenClientFileUpload: true,
+  disableLogger: true,
+  automaticVercelMonitors: false,
+});

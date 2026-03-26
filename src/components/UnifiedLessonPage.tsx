@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useMemo } from "react";
+import { fetchWithRetry } from "@/lib/fetch-with-retry";
 import {
   Card,
   CardContent,
@@ -132,7 +133,7 @@ export function UnifiedLessonPage({
     const fetchLessonContent = async () => {
       try {
         setLoadingContent(true);
-        const response = await fetch(`/api/lessons/${lesson.id}/content`);
+        const response = await fetchWithRetry(`/api/lessons/${lesson.id}/content`);
         if (response.ok) {
           const data = await response.json();
           setLessonContent(data.content || []);
@@ -152,7 +153,7 @@ export function UnifiedLessonPage({
     const fetchQuestions = async () => {
       try {
         setLoadingQuestions(true);
-        const response = await fetch(`/api/lessons/${lesson.id}/questions`);
+        const response = await fetchWithRetry(`/api/lessons/${lesson.id}/questions`);
         if (response.ok) {
           const data = await response.json();
           setQuestions(data.questions || []);

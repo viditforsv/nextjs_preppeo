@@ -104,6 +104,7 @@ function buildResponses(
       correctAnswer: q.correctAnswer,
       explanation: q.explanation,
       imageUrl: q.imageUrl,
+      imageUrls: q.imageUrls,
     };
   });
 }

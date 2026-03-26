@@ -604,7 +604,7 @@ Mean = $100 / 4 = 25$.',
   (
   'mcq',
   'math',
-  '\\begin{center} \\begin{tikzpicture} \\draw (0,0) -- (6,0); \\foreach \\x in {0,1,2,3,4,5,6} \\draw (\\x,0.1) -- (\\x,-0.1) node[below] {\\x}; \\foreach \\x/\\y in {1/1, 2/2, 3/5, 4/2, 5/1} { \\foreach \\i in {1,...,\\y} \\fill (\\x, \\i*0.2) circle (2pt); } \\end{tikzpicture} \\end{center} For the dot plot above, which of the following is true?',
+  'For the dot plot below, which of the following is true?',
   '[{"id":"a","text":"Mean = Median"},{"id":"b","text":"Mean > Median"},{"id":"c","text":"Mean < Median"},{"id":"d","text":"Standard Deviation = 0"}]'::jsonb,
   'a',
   '\\textbf{Logic:}

@@ -1,6 +1,22 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createSupabaseApiClient } from '@/lib/supabase/api-client';
 import { getCurrentEnvironment } from '@/lib/supabase/env';
+import type { SATQuestionOption } from '@/types/sat-test';
+
+function mapSatOptions(val: unknown): SATQuestionOption[] | undefined {
+  if (!val) return undefined;
+  if (!Array.isArray(val)) return undefined;
+  return val.map((o) => {
+    const rec = o as Record<string, unknown>;
+    return {
+      id: String(rec.id),
+      text: String(rec.text ?? ''),
+      imageUrl:
+        (typeof rec.image_url === 'string' ? rec.image_url : undefined) ??
+        (typeof rec.imageUrl === 'string' ? rec.imageUrl : undefined),
+    };
+  });
+}
 
 const PROD_WRITE_ERROR = NextResponse.json(
   { error: 'Editing is disabled in production. Use Dev for QC.' },
@@ -14,7 +30,7 @@ export async function GET() {
     const { data, error } = await supabase
       .from('sat_questions')
       .select(
-        'id, type, section, prompt, passage, options, correct_answer, explanation, domain, difficulty_tier, module_number, set_number, image_url, ai_explanation, ai_theory, qc_done'
+        'id, type, section, prompt, passage, options, correct_answer, explanation, domain, difficulty_tier, module_number, set_number, image_url, image_urls, ai_explanation, ai_theory, qc_done'
       )
       .eq('is_active', true)
       .order('section')
@@ -35,10 +51,12 @@ export async function GET() {
       domain: row.domain ?? undefined,
       prompt: row.prompt,
       passage: row.passage ?? undefined,
-      options: row.options ?? undefined,
+      options: mapSatOptions(row.options),
       correctAnswer: row.correct_answer,
       explanation: row.explanation ?? '',
       imageUrl: row.image_url ?? undefined,
+      imageUrls:
+        Array.isArray(row.image_urls) && row.image_urls.length > 0 ? row.image_urls : undefined,
       moduleNumber: row.module_number,
       setNumber: row.set_number,
       aiExplanation: row.ai_explanation ?? undefined,

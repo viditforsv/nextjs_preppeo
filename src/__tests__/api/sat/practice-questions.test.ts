@@ -26,6 +26,7 @@ function makeQuestion(overrides: Record<string, unknown> = {}) {
     domain: 'algebra',
     difficulty_tier: 'easy',
     image_url: null,
+    image_urls: null,
     section: 'math',
     ...overrides,
   };

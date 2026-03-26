@@ -5,6 +5,7 @@ import { AuthProvider } from "@/contexts/AuthContext";
 import { CartProvider } from "@/contexts/CartContext";
 import { Header } from "@/design-system/components/header";
 import { Footer } from "@/design-system/components/footer";
+import { ErrorBoundary } from "@/components/ErrorBoundary";
 
 // Force dynamic rendering to prevent static generation issues
 export const dynamic = "force-dynamic";
@@ -98,7 +99,9 @@ export default function RootLayout({
           <CartProvider>
             <div className="min-h-screen bg-background flex flex-col">
               <Header />
-              <main className="flex-1">{children}</main>
+              <ErrorBoundary>
+                <main className="flex-1">{children}</main>
+              </ErrorBoundary>
               <Footer />
             </div>
           </CartProvider>

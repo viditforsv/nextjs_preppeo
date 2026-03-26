@@ -6,6 +6,7 @@ import { Badge } from '@/design-system/components/ui/badge';
 import type { SATSection, SATDomain, DifficultyTier, SATQuestion } from '@/types/sat-test';
 import QuestionRenderer from '@/components/sat-test/question-types/QuestionRenderer';
 import { renderMixedContent } from '@/components/MathRenderer';
+import { satPromptImageUrls } from '@/lib/sat-prompt-images';
 
 type SATQCQuestion = QCQuestion & SATQuestion & {
   section?: SATSection;
@@ -309,12 +310,16 @@ const config: QCPageConfig<SATQCQuestion> = {
       {q.prompt && (
         <div className="prose prose-sm max-w-none text-gray-800">{renderMixedContent(q.prompt)}</div>
       )}
-      {q.imageUrl && (
-        <div>
+      {satPromptImageUrls(q).map((url, i) => (
+        <div key={`${url}-${i}`}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={q.imageUrl} alt="Question figure" className="max-w-full rounded-lg border border-gray-200" />
+          <img
+            src={url}
+            alt={`Question figure ${i + 1}`}
+            className="max-w-full rounded-lg border border-gray-200 mb-2"
+          />
         </div>
-      )}
+      ))}
       <QuestionRenderer question={q} answer={q.correctAnswer} onAnswer={() => {}} disabled showCorrect />
       {q.explanation && (
         <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 text-sm text-blue-800">

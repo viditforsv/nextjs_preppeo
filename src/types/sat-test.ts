@@ -21,6 +21,8 @@ export type DifficultyTier = 'easy' | 'medium' | 'hard';
 export interface SATQuestionOption {
   id: string;
   text: string;
+  /** Optional image for this answer choice (DB: options[].image_url) */
+  imageUrl?: string;
 }
 
 export interface SATQuestion {
@@ -37,6 +39,8 @@ export interface SATQuestion {
   correctAnswer: string;
   explanation: string;
   imageUrl?: string;
+  /** Ordered prompt figures; takes precedence over imageUrl when non-empty */
+  imageUrls?: string[];
 }
 
 export interface SATModule {
@@ -100,4 +104,5 @@ export interface SATQuestionResponse {
   correctAnswer?: string;
   explanation?: string;
   imageUrl?: string;
+  imageUrls?: string[];
 }

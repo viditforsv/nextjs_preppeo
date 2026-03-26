@@ -3,7 +3,8 @@ import { createClient } from '@/lib/supabase/server';
 import { createSupabaseApiClient } from '@/lib/supabase/api-client';
 import type { SATQuestion, SATQuestionType, SATSection, DifficultyTier, SATDomain, SATQuestionOption } from '@/types/sat-test';
 
-const FIELDS = 'id, type, prompt, passage, options, correct_answer, explanation, domain, difficulty_tier, image_url, section, chapter, subtopic';
+const FIELDS =
+  'id, type, prompt, passage, options, correct_answer, explanation, domain, difficulty_tier, image_url, image_urls, section, chapter, subtopic';
 
 const FREE_LIMITS = { easy: 2, medium: 2, hard: 1 } as const;
 
@@ -17,7 +18,18 @@ function shuffle<T>(arr: T[]): T[] {
 
 function toOptions(val: unknown): SATQuestionOption[] | undefined {
   if (!val) return undefined;
-  if (Array.isArray(val)) return val as SATQuestionOption[];
+  if (Array.isArray(val)) {
+    return val.map((o) => {
+      const rec = o as Record<string, unknown>;
+      return {
+        id: String(rec.id),
+        text: String(rec.text ?? ''),
+        imageUrl:
+          (typeof rec.image_url === 'string' ? rec.image_url : undefined) ??
+          (typeof rec.imageUrl === 'string' ? rec.imageUrl : undefined),
+      };
+    });
+  }
   const rec = val as Record<string, string>;
   return Object.entries(rec).map(([id, text]) => ({ id, text }));
 }
@@ -37,6 +49,10 @@ function toQuestion(row: Record<string, unknown>, fallbackSection: string): SATQ
     correctAnswer: row.correct_answer as string,
     explanation: (row.explanation as string) ?? '',
     imageUrl: (row.image_url as string) ?? undefined,
+    imageUrls:
+      Array.isArray(row.image_urls) && (row.image_urls as unknown[]).length > 0
+        ? (row.image_urls as string[])
+        : undefined,
   };
 }
 

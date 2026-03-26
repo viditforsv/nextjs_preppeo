@@ -8,7 +8,19 @@ export default defineConfig({
     include: ['src/__tests__/**/*.test.ts'],
     coverage: {
       provider: 'v8',
-      include: ['src/app/api/**/*.ts'],
+      include: [
+        'src/app/api/**/*.ts',
+        'src/lib/sat-scoring.ts',
+        'src/lib/fetch-with-retry.ts',
+        'src/stores/useSATTestStore.ts',
+        'src/stores/useGRETestStore.ts',
+      ],
+      thresholds: {
+        lines: 60,
+        functions: 60,
+        branches: 50,
+        statements: 60,
+      },
     },
   },
   resolve: {

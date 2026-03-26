@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useAuth } from "@/contexts/AuthContext";
 import { createClient } from "@/lib/supabase/client";
+import { fetchWithRetry } from "@/lib/fetch-with-retry";
 import { LMSLessonView } from "@/components/lms/LMSLessonView";
 import { Button } from "@/design-system/components/ui/button";
 import type { InteractiveStep, InteractiveQuizItem } from "@/components/lms/InteractiveLessonView";
@@ -64,7 +65,7 @@ export function LearnLessonPageClient({
         setIsLoading(true);
         setNotFound(false);
 
-        const res = await fetch(`/api/courses/${courseSlug}/with-template`);
+        const res = await fetchWithRetry(`/api/courses/${courseSlug}/with-template`);
         if (!res.ok) {
           setNotFound(true);
           return;
@@ -134,7 +135,7 @@ export function LearnLessonPageClient({
         setLesson(current);
 
         if (current.lesson_type === "interactive") {
-          const icRes = await fetch(`/api/lessons/${current.id}/interactive`);
+          const icRes = await fetchWithRetry(`/api/lessons/${current.id}/interactive`);
           if (icRes.ok) {
             const ic = await icRes.json();
             setInteractiveContent({

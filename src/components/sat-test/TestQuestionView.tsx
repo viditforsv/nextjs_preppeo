@@ -6,6 +6,7 @@ import QuestionRenderer from './question-types/QuestionRenderer';
 import DesmosCalculator from './DesmosCalculator';
 import ReviewScreen from './ReviewScreen';
 import { renderMixedContent } from '@/components/MathRenderer';
+import { satPromptImageUrls } from '@/lib/sat-prompt-images';
 import {
   Clock,
   Flag,
@@ -154,16 +155,16 @@ export default function TestQuestionView() {
               {renderMixedContent(question.prompt)}
             </div>
           </div>
-          {question.imageUrl && (
-            <div className="mb-5">
+          {satPromptImageUrls(question).map((url, i) => (
+            <div key={`${url}-${i}`} className="mb-5">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src={question.imageUrl}
-                alt="Question figure"
+                src={url}
+                alt={`Question figure ${i + 1}`}
                 className="max-w-full rounded-lg border border-gray-200"
               />
             </div>
-          )}
+          ))}
           <QuestionRenderer
             question={question}
             answer={answers[question.id] ?? null}

@@ -3,6 +3,7 @@
 import { useState, useMemo } from 'react';
 import type { SATQuestionResponse } from '@/types/sat-test';
 import { renderMixedContent } from '@/components/MathRenderer';
+import { satPromptImageUrls } from '@/lib/sat-prompt-images';
 import {
   CheckCircle,
   XCircle,
@@ -225,13 +226,17 @@ export default function QuestionReviewTab({ responses }: Props) {
                       </div>
                     )}
 
-                    {/* Image */}
-                    {r.imageUrl && (
-                      <div className="flex justify-center">
+                    {/* Prompt images */}
+                    {satPromptImageUrls(r).map((url, i) => (
+                      <div key={`${url}-${i}`} className="flex justify-center">
                         {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img src={r.imageUrl} alt="Question figure" className="max-h-48 rounded-lg border border-gray-200" />
+                        <img
+                          src={url}
+                          alt={`Question figure ${i + 1}`}
+                          className="max-h-48 rounded-lg border border-gray-200 mb-2"
+                        />
                       </div>
-                    )}
+                    ))}
 
                     {/* Options with correct/user highlights */}
                     {r.options && r.options.length > 0 && (
@@ -256,7 +261,19 @@ export default function QuestionReviewTab({ responses }: Props) {
                               <span className="font-medium text-gray-500 shrink-0 w-5 text-center">
                                 {opt.id.toUpperCase()}
                               </span>
-                              <span className="text-gray-800 flex-1">{renderMixedContent(opt.text)}</span>
+                              <span className="text-gray-800 flex-1 flex flex-col gap-2">
+                                {opt.imageUrl && (
+                                  <>
+                                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                                    <img
+                                      src={opt.imageUrl}
+                                      alt={`Option ${opt.id}`}
+                                      className="max-h-40 rounded border border-gray-200"
+                                    />
+                                  </>
+                                )}
+                                {opt.text ? renderMixedContent(opt.text) : null}
+                              </span>
                               {isCorrectOpt && <CheckCircle className="w-4 h-4 text-green-500 shrink-0 mt-0.5" />}
                               {isUserOpt && !isCorrectOpt && <XCircle className="w-4 h-4 text-red-500 shrink-0 mt-0.5" />}
                             </div>

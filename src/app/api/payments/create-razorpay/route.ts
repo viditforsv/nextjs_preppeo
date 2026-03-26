@@ -21,6 +21,27 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    if (typeof amount !== "number" || amount <= 0 || amount > 1_000_000) {
+      return NextResponse.json(
+        { success: false, error: "Invalid amount" },
+        { status: 400 }
+      );
+    }
+
+    if (typeof currency !== "string" || !/^[A-Z]{3}$/.test(currency)) {
+      return NextResponse.json(
+        { success: false, error: "Invalid currency code" },
+        { status: 400 }
+      );
+    }
+
+    if (typeof courseId !== "string" || courseId.length < 1) {
+      return NextResponse.json(
+        { success: false, error: "Invalid courseId" },
+        { status: 400 }
+      );
+    }
+
     // Validate Razorpay credentials
     if (!process.env.RAZORPAY_KEY_ID || !process.env.RAZORPAY_KEY_SECRET) {
       console.error("❌ Razorpay credentials not configured");

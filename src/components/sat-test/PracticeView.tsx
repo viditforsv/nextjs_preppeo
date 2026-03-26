@@ -2,6 +2,7 @@
 
 import { useSATTestStore } from '@/stores/useSATTestStore';
 import { renderMixedContent } from '@/components/MathRenderer';
+import { satPromptImageUrls } from '@/lib/sat-prompt-images';
 import DesmosCalculator from './DesmosCalculator';
 import {
   BookOpen,
@@ -121,13 +122,17 @@ export default function PracticeView() {
             </div>
           </div>
 
-          {/* Image */}
-          {question.imageUrl && (
-            <div className="mb-5">
+          {/* Prompt images */}
+          {satPromptImageUrls(question).map((url, i) => (
+            <div key={`${url}-${i}`} className="mb-5">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={question.imageUrl} alt="Question figure" className="max-w-full rounded-lg border border-gray-200" />
+              <img
+                src={url}
+                alt={`Question figure ${i + 1}`}
+                className="max-w-full rounded-lg border border-gray-200"
+              />
             </div>
-          )}
+          ))}
 
           {/* Options */}
           {question.options && (
@@ -177,8 +182,18 @@ export default function PracticeView() {
                         opt.id
                       )}
                     </span>
-                    <span className="text-sm text-gray-800 leading-relaxed pt-0.5">
-                      {renderMixedContent(opt.text)}
+                    <span className="text-sm text-gray-800 leading-relaxed pt-0.5 flex-1 flex flex-col gap-2">
+                      {opt.imageUrl && (
+                        <>
+                          {/* eslint-disable-next-line @next/next/no-img-element */}
+                          <img
+                            src={opt.imageUrl}
+                            alt={`Option ${opt.id}`}
+                            className="max-w-full rounded border border-gray-200"
+                          />
+                        </>
+                      )}
+                      {opt.text ? renderMixedContent(opt.text) : null}
                     </span>
                   </button>
                 );

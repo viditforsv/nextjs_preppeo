@@ -1,6 +1,21 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createSupabaseApiClient } from '@/lib/supabase/api-client';
-import type { SATQuestion } from '@/types/sat-test';
+import type { SATQuestion, SATQuestionOption } from '@/types/sat-test';
+
+function mapSatOptions(val: unknown): SATQuestionOption[] | undefined {
+  if (!val) return undefined;
+  if (!Array.isArray(val)) return undefined;
+  return val.map((o) => {
+    const rec = o as Record<string, unknown>;
+    return {
+      id: String(rec.id),
+      text: String(rec.text ?? ''),
+      imageUrl:
+        (typeof rec.image_url === 'string' ? rec.image_url : undefined) ??
+        (typeof rec.imageUrl === 'string' ? rec.imageUrl : undefined),
+    };
+  });
+}
 
 /**
  * GET /api/sat/questions?section=math&module=1&set=1
@@ -49,7 +64,7 @@ export async function GET(request: NextRequest) {
 
     let query = supabase
       .from('sat_questions')
-      .select('id, type, prompt, passage, options, correct_answer, explanation, domain, difficulty_tier, image_url, section')
+      .select('id, type, prompt, passage, options, correct_answer, explanation, domain, difficulty_tier, image_url, image_urls, section')
       .eq('section', section)
       .eq('module_number', moduleNum)
       .eq('set_number', setNum)
@@ -85,10 +100,11 @@ export async function GET(request: NextRequest) {
       domain: row.domain ?? undefined,
       prompt: row.prompt,
       passage: row.passage ?? undefined,
-      options: row.options ?? undefined,
+      options: mapSatOptions(row.options),
       correctAnswer: row.correct_answer,
       explanation: row.explanation ?? '',
       imageUrl: row.image_url ?? undefined,
+      imageUrls: Array.isArray(row.image_urls) && row.image_urls.length > 0 ? row.image_urls : undefined,
     }));
 
     return NextResponse.json({ questions });

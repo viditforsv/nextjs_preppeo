@@ -77,6 +77,18 @@ export async function POST(request: NextRequest) {
       status: payment.status,
     });
 
+    // Reject if Razorpay reports the payment was not actually captured
+    if (payment.status !== "captured") {
+      console.error("❌ Payment not captured, status:", payment.status);
+      return NextResponse.json(
+        {
+          success: false,
+          error: `Payment not completed (status: ${payment.status})`,
+        },
+        { status: 400 }
+      );
+    }
+
     // Create enrollment if user is authenticated
     if (user && courseId) {
       console.log(
