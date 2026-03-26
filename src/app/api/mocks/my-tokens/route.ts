@@ -18,7 +18,7 @@ export async function GET() {
 
     const { data: tokens, error } = await supabase
       .from('test_tokens')
-      .select('id, code, exam_type, set_number, is_used, used_at, created_at, exam_types(name, test_route)')
+      .select('id, code, exam_type, set_number, is_free, is_used, used_at, expires_at, created_at, exam_types(name, test_route)')
       .eq('owner_id', user.id)
       .eq('is_active', true)
       .order('created_at', { ascending: false });

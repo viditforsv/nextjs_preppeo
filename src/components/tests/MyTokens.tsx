@@ -9,8 +9,10 @@ interface TokenItem {
   code: string;
   exam_type: string;
   set_number: number;
+  is_free: boolean;
   is_used: boolean;
   used_at: string | null;
+  expires_at: string | null;
 }
 
 interface TokenGroup {
@@ -66,13 +68,22 @@ export default function MyTokens() {
     );
   }
 
+  function isExpired(token: TokenItem) {
+    return !token.is_free && token.expires_at && new Date(token.expires_at) < new Date();
+  }
+
+  function formatExpiry(expiresAt: string) {
+    return new Date(expiresAt).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' });
+  }
+
   function downloadCSV(examType: string, group: TokenGroup) {
     const rows = [
-      ['Code', 'Set', 'Status', 'Used At'],
+      ['Code', 'Mock Test', 'Status', 'Expires', 'Used At'],
       ...group.tokens.map((t) => [
         t.code,
-        `Set ${t.set_number}`,
-        t.is_used ? 'Used' : 'Available',
+        `Mock Test #${t.set_number}`,
+        t.is_used ? 'Used' : (isExpired(t) ? 'Expired' : 'Available'),
+        t.expires_at ? formatExpiry(t.expires_at) : '',
         t.used_at ?? '',
       ]),
     ];
@@ -111,41 +122,57 @@ export default function MyTokens() {
             </div>
           </div>
           <div className="space-y-2">
-            {group.tokens.map((token) => (
-              <div
-                key={token.id}
-                className={`flex items-center justify-between p-3 rounded-lg border text-sm ${
-                  token.is_used
-                    ? 'bg-gray-50 border-gray-200 opacity-60'
-                    : 'bg-white border-gray-200'
-                }`}
-              >
-                <div className="flex items-center gap-3">
-                  <code className="font-mono font-semibold tracking-wider text-[#1a365d]">
-                    {token.code}
-                  </code>
-                  <span className="text-xs text-gray-400">Set {token.set_number}</span>
-                  {token.is_used && (
-                    <span className="text-xs bg-gray-200 text-gray-500 px-2 py-0.5 rounded-full">
-                      Used
-                    </span>
+            {group.tokens.map((token) => {
+              const expired = isExpired(token);
+              const unavailable = token.is_used || !!expired;
+              return (
+                <div
+                  key={token.id}
+                  className={`flex items-center justify-between p-3 rounded-lg border text-sm ${
+                    unavailable
+                      ? 'bg-gray-50 border-gray-200 opacity-60'
+                      : 'bg-white border-gray-200'
+                  }`}
+                >
+                  <div className="flex flex-col gap-0.5">
+                    <div className="flex items-center gap-3">
+                      <code className="font-mono font-semibold tracking-wider text-[#1a365d]">
+                        {token.code}
+                      </code>
+                      <span className="text-xs text-gray-400">Mock Test #{token.set_number}</span>
+                      {token.is_used && (
+                        <span className="text-xs bg-gray-200 text-gray-500 px-2 py-0.5 rounded-full">
+                          Used
+                        </span>
+                      )}
+                      {!token.is_used && expired && (
+                        <span className="text-xs bg-red-100 text-red-500 px-2 py-0.5 rounded-full">
+                          Expired
+                        </span>
+                      )}
+                    </div>
+                    {!token.is_free && token.expires_at && (
+                      <span className={`text-xs ${expired ? 'text-red-400' : 'text-gray-400'}`}>
+                        {expired ? 'Expired' : 'Valid until'} {formatExpiry(token.expires_at)}
+                      </span>
+                    )}
+                  </div>
+                  {!unavailable && (
+                    <button
+                      onClick={() => copyCode(token.code)}
+                      className="text-gray-400 hover:text-[#1a365d] transition-colors"
+                      title="Copy token"
+                    >
+                      {copiedCode === token.code ? (
+                        <Check className="w-4 h-4 text-emerald-500" />
+                      ) : (
+                        <Copy className="w-4 h-4" />
+                      )}
+                    </button>
                   )}
                 </div>
-                {!token.is_used && (
-                  <button
-                    onClick={() => copyCode(token.code)}
-                    className="text-gray-400 hover:text-[#1a365d] transition-colors"
-                    title="Copy token"
-                  >
-                    {copiedCode === token.code ? (
-                      <Check className="w-4 h-4 text-emerald-500" />
-                    ) : (
-                      <Copy className="w-4 h-4" />
-                    )}
-                  </button>
-                )}
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       ))}

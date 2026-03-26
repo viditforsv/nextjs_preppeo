@@ -22,6 +22,7 @@ export interface TestToken {
   purchase_id: string | null;
   batch_id: string | null;
   is_active: boolean;
+  expires_at: string | null;
   created_at: string;
 }
 

@@ -28,7 +28,7 @@ export async function POST(request: NextRequest) {
 
     const { data: token, error } = await supabase
       .from('test_tokens')
-      .select('id, code, exam_type, set_number, is_free, is_used, owner_id, used_by, is_active')
+      .select('id, code, exam_type, set_number, is_free, is_used, owner_id, used_by, is_active, expires_at')
       .eq('code', code.trim().toUpperCase())
       .eq('exam_type', examType)
       .eq('is_active', true)
@@ -49,6 +49,11 @@ export async function POST(request: NextRequest) {
     // Free tokens are perpetually reusable
     if (token.is_free) {
       return NextResponse.json({ valid: true, setNumber: token.set_number });
+    }
+
+    // Check expiry for paid tokens
+    if (token.expires_at && new Date(token.expires_at) < new Date()) {
+      return NextResponse.json({ valid: false, message: 'This token has expired' });
     }
 
     if (token.is_used) {

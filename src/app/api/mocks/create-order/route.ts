@@ -47,6 +47,24 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // Validate pack size against available sets to prevent duplicate set assignments
+    const { data: examType } = await supabase
+      .from('exam_types')
+      .select('total_sets')
+      .eq('id', pack.exam_type)
+      .single();
+
+    const totalSets = examType?.total_sets ?? 1;
+    if (pack.token_count > totalSets) {
+      return NextResponse.json(
+        {
+          success: false,
+          error: `This pack includes ${pack.token_count} mock tests, but only ${totalSets} unique test set${totalSets > 1 ? 's are' : ' is'} available for this exam. Please contact us for bulk or institute purchases.`,
+        },
+        { status: 400 }
+      );
+    }
+
     // Resolve referral discount
     let finalPrice = pack.price;
     let discountApplied = 0;

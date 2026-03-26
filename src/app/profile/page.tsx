@@ -13,9 +13,10 @@ import {
 import { Input } from "@/design-system/components/ui/input";
 import { Label } from "@/design-system/components/ui/label";
 import { Badge } from "@/design-system/components/ui/badge";
-import { User, Mail, Shield, Calendar, Edit, Save, X, Gift, Copy, Check } from "lucide-react";
+import { User, Mail, Shield, Calendar, Edit, Save, X, Gift, Copy, Check, Ticket, ExternalLink } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 import { AvatarUpload } from "@/components/AvatarUpload";
+import Link from "next/link";
 
 export default function ProfilePage() {
   const { user, profile, refreshProfile } = useAuth();
@@ -25,6 +26,16 @@ export default function ProfilePage() {
   const [success, setSuccess] = useState("");
   const [referralCode, setReferralCode] = useState("");
   const [refCopied, setRefCopied] = useState(false);
+
+  interface TokenSummary {
+    examName: string;
+    testRoute: string;
+    available: number;
+    used: number;
+    expired: number;
+    total: number;
+  }
+  const [tokenSummary, setTokenSummary] = useState<TokenSummary[]>([]);
 
   // Form state
   const [formData, setFormData] = useState({
@@ -50,6 +61,31 @@ export default function ProfilePage() {
       fetch("/api/referral/student/code")
         .then((r) => r.json())
         .then((d) => { if (d.code) setReferralCode(d.code); })
+        .catch(() => {});
+    }
+  }, [user]);
+
+  // Fetch token summary
+  useEffect(() => {
+    if (user) {
+      fetch("/api/mocks/my-tokens")
+        .then((r) => r.json())
+        .then((d) => {
+          if (d.success && d.tokensByExam) {
+            const now = new Date();
+            const summaries = Object.values(d.tokensByExam as Record<string, {
+              examName: string; testRoute: string;
+              tokens: Array<{ is_free: boolean; is_used: boolean; expires_at: string | null }>;
+            }>).map((group) => {
+              const paid = group.tokens.filter((t) => !t.is_free);
+              const available = paid.filter((t) => !t.is_used && (!t.expires_at || new Date(t.expires_at) >= now)).length;
+              const used = paid.filter((t) => t.is_used).length;
+              const expired = paid.filter((t) => !t.is_used && t.expires_at && new Date(t.expires_at) < now).length;
+              return { examName: group.examName, testRoute: group.testRoute, available, used, expired, total: paid.length };
+            }).filter((s) => s.total > 0);
+            setTokenSummary(summaries);
+          }
+        })
         .catch(() => {});
     }
   }, [user]);
@@ -407,6 +443,62 @@ export default function ProfilePage() {
               </div>
             </CardContent>
           </Card>
+
+          {/* Mock Tokens */}
+          {tokenSummary.length > 0 && (
+            <Card className="md:col-span-2">
+              <CardHeader>
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-lg bg-blue-100 flex items-center justify-center">
+                      <Ticket className="w-5 h-5 text-blue-600" />
+                    </div>
+                    <div>
+                      <CardTitle className="text-xl">Mock Test Tokens</CardTitle>
+                      <CardDescription>Your purchased access codes</CardDescription>
+                    </div>
+                  </div>
+                  <Link
+                    href="/mocks/tokens"
+                    className="text-sm text-[#1a365d] hover:underline flex items-center gap-1"
+                  >
+                    View all <ExternalLink className="w-3 h-3" />
+                  </Link>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                  {tokenSummary.map((s) => (
+                    <div key={s.examName} className="border rounded-lg p-4 space-y-2">
+                      <div className="flex items-center justify-between">
+                        <span className="font-semibold text-sm text-gray-900">{s.examName}</span>
+                        <Link href={s.testRoute} className="text-xs text-[#1a365d] hover:underline flex items-center gap-1">
+                          Take mock <ExternalLink className="w-3 h-3" />
+                        </Link>
+                      </div>
+                      <div className="flex gap-3 text-xs">
+                        {s.available > 0 && (
+                          <span className="bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full font-medium">
+                            {s.available} available
+                          </span>
+                        )}
+                        {s.used > 0 && (
+                          <span className="bg-gray-100 text-gray-500 px-2 py-0.5 rounded-full">
+                            {s.used} used
+                          </span>
+                        )}
+                        {s.expired > 0 && (
+                          <span className="bg-red-100 text-red-500 px-2 py-0.5 rounded-full">
+                            {s.expired} expired
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          )}
 
           {/* Refer a Friend */}
           {referralCode && (
