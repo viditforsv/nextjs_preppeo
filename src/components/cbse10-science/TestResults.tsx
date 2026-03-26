@@ -8,8 +8,6 @@ import {
   ChevronDown, ChevronUp, RotateCcw, ArrowLeft,
 } from 'lucide-react';
 
-const ACCENT = '#1e40af';
-
 const DOMAIN_LABELS: Record<string, string> = {
   'chemical-reactions': 'Chemical Reactions',
   'acids-bases-salts': 'Acids, Bases & Salts',
