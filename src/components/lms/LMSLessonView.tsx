@@ -106,6 +106,7 @@ export function LMSLessonView({
   const chapterName = lesson.chapter?.chapter_name ?? "Section";
 
   const steps = interactiveContent?.steps ?? [];
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const quiz = interactiveContent?.quiz ?? [];
   const conceptHtml = lesson.concept_content || (interactiveContent?.intro ?? "");
   const conceptTitle = lesson.concept_title || lesson.title;

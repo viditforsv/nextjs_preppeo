@@ -153,6 +153,7 @@ export function LearnLessonPageClient({
     };
 
     load();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [courseSlug, lessonSlug, user?.id]);
 
   const handleMarkComplete = async () => {

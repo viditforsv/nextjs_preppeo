@@ -21,7 +21,8 @@ export function LearnCoursePageClient({ courseSlug }: LearnCoursePageClientProps
   const router = useRouter();
   const { user, loading: authLoading } = useAuth();
   const [course, setCourse] = useState<Record<string, unknown> | null>(null);
-  const [template, setTemplate] = useState<{ slug?: string } | null>(null);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [_template, setTemplate] = useState<{ slug?: string } | null>(null);
   const [lessons, setLessons] = useState<Array<{ id: string; slug: string; title: string; lesson_order: number }>>([]);
   const [units, setUnits] = useState<Array<{ id: string; unit_name: string; unit_order: number }>>([]);
   const [chapters, setChapters] = useState<Array<{ id: string; chapter_name: string; chapter_order: number; unit_id: string }>>([]);
@@ -123,6 +124,7 @@ export function LearnCoursePageClient({ courseSlug }: LearnCoursePageClientProps
     };
 
     load();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [courseSlug, user?.id]);
 
   if (isLoading) {

@@ -39,7 +39,6 @@ export default function ResultsScreen() {
     module2Result,
     rwModule1Result,
     rwModule2Result,
-    rwQuestionResponses,
     rwEstimatedScore,
     allQuestionResponses,
     mathEstimatedScore,

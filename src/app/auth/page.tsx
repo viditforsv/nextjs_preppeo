@@ -220,6 +220,7 @@ export default function AuthPage() {
 
       handleOAuthCallback();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [code, next, router, searchParams]);
 
   // Show loading state while checking authentication

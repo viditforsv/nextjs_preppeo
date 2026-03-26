@@ -1,0 +1,1378 @@
+[
+  {
+    "bank_item_id": "sat_lid_005_3",
+    "texFile": "sat_lid_005.tex",
+    "questionNumber": 3,
+    "lidNumber": 5,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_005_3.png"
+  },
+  {
+    "bank_item_id": "sat_lid_010_2",
+    "texFile": "sat_lid_010.tex",
+    "questionNumber": 2,
+    "lidNumber": 10,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_010_2.png"
+  },
+  {
+    "bank_item_id": "sat_lid_010_9",
+    "texFile": "sat_lid_010.tex",
+    "questionNumber": 9,
+    "lidNumber": 10,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_010_9.png"
+  },
+  {
+    "bank_item_id": "sat_lid_010_12",
+    "texFile": "sat_lid_010.tex",
+    "questionNumber": 12,
+    "lidNumber": 10,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_010_12.png"
+  },
+  {
+    "bank_item_id": "sat_lid_010_19",
+    "texFile": "sat_lid_010.tex",
+    "questionNumber": 19,
+    "lidNumber": 10,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_010_19.png"
+  },
+  {
+    "bank_item_id": "sat_lid_010_32",
+    "texFile": "sat_lid_010.tex",
+    "questionNumber": 32,
+    "lidNumber": 10,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_010_32.png"
+  },
+  {
+    "bank_item_id": "sat_lid_012_2",
+    "texFile": "sat_lid_012.tex",
+    "questionNumber": 2,
+    "lidNumber": 12,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_012_2.png"
+  },
+  {
+    "bank_item_id": "sat_lid_012_5",
+    "texFile": "sat_lid_012.tex",
+    "questionNumber": 5,
+    "lidNumber": 12,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_012_5.png"
+  },
+  {
+    "bank_item_id": "sat_lid_012_10",
+    "texFile": "sat_lid_012.tex",
+    "questionNumber": 10,
+    "lidNumber": 12,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_012_10.png"
+  },
+  {
+    "bank_item_id": "sat_lid_012_14",
+    "texFile": "sat_lid_012.tex",
+    "questionNumber": 14,
+    "lidNumber": 12,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_012_14.png"
+  },
+  {
+    "bank_item_id": "sat_lid_012_28",
+    "texFile": "sat_lid_012.tex",
+    "questionNumber": 28,
+    "lidNumber": 12,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_012_28.png"
+  },
+  {
+    "bank_item_id": "sat_lid_017_3",
+    "texFile": "sat_lid_017.tex",
+    "questionNumber": 3,
+    "lidNumber": 17,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_017_3.png"
+  },
+  {
+    "bank_item_id": "sat_lid_017_8",
+    "texFile": "sat_lid_017.tex",
+    "questionNumber": 8,
+    "lidNumber": 17,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_017_8.png"
+  },
+  {
+    "bank_item_id": "sat_lid_017_9",
+    "texFile": "sat_lid_017.tex",
+    "questionNumber": 9,
+    "lidNumber": 17,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_017_9.png"
+  },
+  {
+    "bank_item_id": "sat_lid_017_16",
+    "texFile": "sat_lid_017.tex",
+    "questionNumber": 16,
+    "lidNumber": 17,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_017_16.png"
+  },
+  {
+    "bank_item_id": "sat_lid_021_9",
+    "texFile": "sat_lid_021.tex",
+    "questionNumber": 9,
+    "lidNumber": 21,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_021_9.png"
+  },
+  {
+    "bank_item_id": "sat_lid_021_26",
+    "texFile": "sat_lid_021.tex",
+    "questionNumber": 26,
+    "lidNumber": 21,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_021_26.png"
+  },
+  {
+    "bank_item_id": "sat_lid_021_28",
+    "texFile": "sat_lid_021.tex",
+    "questionNumber": 28,
+    "lidNumber": 21,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_021_28.png"
+  },
+  {
+    "bank_item_id": "sat_lid_021_30",
+    "texFile": "sat_lid_021.tex",
+    "questionNumber": 30,
+    "lidNumber": 21,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_021_30.png"
+  },
+  {
+    "bank_item_id": "sat_lid_021_32",
+    "texFile": "sat_lid_021.tex",
+    "questionNumber": 32,
+    "lidNumber": 21,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_021_32.png"
+  },
+  {
+    "bank_item_id": "sat_lid_021_35",
+    "texFile": "sat_lid_021.tex",
+    "questionNumber": 35,
+    "lidNumber": 21,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_021_35.png"
+  },
+  {
+    "bank_item_id": "sat_lid_021_37",
+    "texFile": "sat_lid_021.tex",
+    "questionNumber": 37,
+    "lidNumber": 21,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_021_37.png"
+  },
+  {
+    "bank_item_id": "sat_lid_021_39",
+    "texFile": "sat_lid_021.tex",
+    "questionNumber": 39,
+    "lidNumber": 21,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_021_39.png"
+  },
+  {
+    "bank_item_id": "sat_lid_021_43",
+    "texFile": "sat_lid_021.tex",
+    "questionNumber": 43,
+    "lidNumber": 21,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_021_43.png"
+  },
+  {
+    "bank_item_id": "sat_lid_022_3",
+    "texFile": "sat_lid_022.tex",
+    "questionNumber": 3,
+    "lidNumber": 22,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_022_3.png"
+  },
+  {
+    "bank_item_id": "sat_lid_022_6",
+    "texFile": "sat_lid_022.tex",
+    "questionNumber": 6,
+    "lidNumber": 22,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_022_6.png"
+  },
+  {
+    "bank_item_id": "sat_lid_022_24",
+    "texFile": "sat_lid_022.tex",
+    "questionNumber": 24,
+    "lidNumber": 22,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_022_24.png"
+  },
+  {
+    "bank_item_id": "sat_lid_022_28",
+    "texFile": "sat_lid_022.tex",
+    "questionNumber": 28,
+    "lidNumber": 22,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_022_28.png"
+  },
+  {
+    "bank_item_id": "sat_lid_022_30",
+    "texFile": "sat_lid_022.tex",
+    "questionNumber": 30,
+    "lidNumber": 22,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_022_30.png"
+  },
+  {
+    "bank_item_id": "sat_lid_022_35",
+    "texFile": "sat_lid_022.tex",
+    "questionNumber": 35,
+    "lidNumber": 22,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_022_35.png"
+  },
+  {
+    "bank_item_id": "sat_lid_023_10",
+    "texFile": "sat_lid_023.tex",
+    "questionNumber": 10,
+    "lidNumber": 23,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_023_10.png"
+  },
+  {
+    "bank_item_id": "sat_lid_026_48",
+    "texFile": "sat_lid_026.tex",
+    "questionNumber": 48,
+    "lidNumber": 26,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_026_48.png"
+  },
+  {
+    "bank_item_id": "sat_lid_028_2",
+    "texFile": "sat_lid_028.tex",
+    "questionNumber": 2,
+    "lidNumber": 28,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_028_2.png"
+  },
+  {
+    "bank_item_id": "sat_lid_028_5",
+    "texFile": "sat_lid_028.tex",
+    "questionNumber": 5,
+    "lidNumber": 28,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_028_5.png"
+  },
+  {
+    "bank_item_id": "sat_lid_028_11",
+    "texFile": "sat_lid_028.tex",
+    "questionNumber": 11,
+    "lidNumber": 28,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_028_11.png"
+  },
+  {
+    "bank_item_id": "sat_lid_028_15",
+    "texFile": "sat_lid_028.tex",
+    "questionNumber": 15,
+    "lidNumber": 28,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_028_15.png"
+  },
+  {
+    "bank_item_id": "sat_lid_028_26",
+    "texFile": "sat_lid_028.tex",
+    "questionNumber": 26,
+    "lidNumber": 28,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_028_26.png"
+  },
+  {
+    "bank_item_id": "sat_lid_028_29",
+    "texFile": "sat_lid_028.tex",
+    "questionNumber": 29,
+    "lidNumber": 28,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_028_29.png"
+  },
+  {
+    "bank_item_id": "sat_lid_028_32",
+    "texFile": "sat_lid_028.tex",
+    "questionNumber": 32,
+    "lidNumber": 28,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_028_32.png"
+  },
+  {
+    "bank_item_id": "sat_lid_028_36",
+    "texFile": "sat_lid_028.tex",
+    "questionNumber": 36,
+    "lidNumber": 28,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_028_36.png"
+  },
+  {
+    "bank_item_id": "sat_lid_028_39",
+    "texFile": "sat_lid_028.tex",
+    "questionNumber": 39,
+    "lidNumber": 28,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_028_39.png"
+  },
+  {
+    "bank_item_id": "sat_lid_028_43",
+    "texFile": "sat_lid_028.tex",
+    "questionNumber": 43,
+    "lidNumber": 28,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_028_43.png"
+  },
+  {
+    "bank_item_id": "sat_lid_029_3",
+    "texFile": "sat_lid_029.tex",
+    "questionNumber": 3,
+    "lidNumber": 29,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_029_3.png"
+  },
+  {
+    "bank_item_id": "sat_lid_029_11",
+    "texFile": "sat_lid_029.tex",
+    "questionNumber": 11,
+    "lidNumber": 29,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_029_11.png"
+  },
+  {
+    "bank_item_id": "sat_lid_029_19",
+    "texFile": "sat_lid_029.tex",
+    "questionNumber": 19,
+    "lidNumber": 29,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_029_19.png"
+  },
+  {
+    "bank_item_id": "sat_lid_029_27",
+    "texFile": "sat_lid_029.tex",
+    "questionNumber": 27,
+    "lidNumber": 29,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_029_27.png"
+  },
+  {
+    "bank_item_id": "sat_lid_029_31",
+    "texFile": "sat_lid_029.tex",
+    "questionNumber": 31,
+    "lidNumber": 29,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_029_31.png"
+  },
+  {
+    "bank_item_id": "sat_lid_029_33",
+    "texFile": "sat_lid_029.tex",
+    "questionNumber": 33,
+    "lidNumber": 29,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_029_33.png"
+  },
+  {
+    "bank_item_id": "sat_lid_029_37",
+    "texFile": "sat_lid_029.tex",
+    "questionNumber": 37,
+    "lidNumber": 29,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_029_37.png"
+  },
+  {
+    "bank_item_id": "sat_lid_029_43",
+    "texFile": "sat_lid_029.tex",
+    "questionNumber": 43,
+    "lidNumber": 29,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_029_43.png"
+  },
+  {
+    "bank_item_id": "sat_lid_031_3",
+    "texFile": "sat_lid_031.tex",
+    "questionNumber": 3,
+    "lidNumber": 31,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_031_3.png"
+  },
+  {
+    "bank_item_id": "sat_lid_031_10",
+    "texFile": "sat_lid_031.tex",
+    "questionNumber": 10,
+    "lidNumber": 31,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_031_10.png"
+  },
+  {
+    "bank_item_id": "sat_lid_031_26",
+    "texFile": "sat_lid_031.tex",
+    "questionNumber": 26,
+    "lidNumber": 31,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_031_26.png"
+  },
+  {
+    "bank_item_id": "sat_lid_032_2",
+    "texFile": "sat_lid_032.tex",
+    "questionNumber": 2,
+    "lidNumber": 32,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_032_2.png"
+  },
+  {
+    "bank_item_id": "sat_lid_032_28",
+    "texFile": "sat_lid_032.tex",
+    "questionNumber": 28,
+    "lidNumber": 32,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_032_28.png"
+  },
+  {
+    "bank_item_id": "sat_lid_033_5",
+    "texFile": "sat_lid_033.tex",
+    "questionNumber": 5,
+    "lidNumber": 33,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_033_5.png"
+  },
+  {
+    "bank_item_id": "sat_lid_033_28",
+    "texFile": "sat_lid_033.tex",
+    "questionNumber": 28,
+    "lidNumber": 33,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_033_28.png"
+  },
+  {
+    "bank_item_id": "sat_lid_035_2",
+    "texFile": "sat_lid_035.tex",
+    "questionNumber": 2,
+    "lidNumber": 35,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_035_2.png"
+  },
+  {
+    "bank_item_id": "sat_lid_035_2_b",
+    "texFile": "sat_lid_035.tex",
+    "questionNumber": 2,
+    "lidNumber": 35,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_035_2_b.png"
+  },
+  {
+    "bank_item_id": "sat_lid_035_7",
+    "texFile": "sat_lid_035.tex",
+    "questionNumber": 7,
+    "lidNumber": 35,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_035_7.png"
+  },
+  {
+    "bank_item_id": "sat_lid_035_9",
+    "texFile": "sat_lid_035.tex",
+    "questionNumber": 9,
+    "lidNumber": 35,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_035_9.png"
+  },
+  {
+    "bank_item_id": "sat_lid_035_11",
+    "texFile": "sat_lid_035.tex",
+    "questionNumber": 11,
+    "lidNumber": 35,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_035_11.png"
+  },
+  {
+    "bank_item_id": "sat_lid_035_14",
+    "texFile": "sat_lid_035.tex",
+    "questionNumber": 14,
+    "lidNumber": 35,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_035_14.png"
+  },
+  {
+    "bank_item_id": "sat_lid_035_18",
+    "texFile": "sat_lid_035.tex",
+    "questionNumber": 18,
+    "lidNumber": 35,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_035_18.png"
+  },
+  {
+    "bank_item_id": "sat_lid_035_22",
+    "texFile": "sat_lid_035.tex",
+    "questionNumber": 22,
+    "lidNumber": 35,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_035_22.png"
+  },
+  {
+    "bank_item_id": "sat_lid_035_30",
+    "texFile": "sat_lid_035.tex",
+    "questionNumber": 30,
+    "lidNumber": 35,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_035_30.png"
+  },
+  {
+    "bank_item_id": "sat_lid_035_35",
+    "texFile": "sat_lid_035.tex",
+    "questionNumber": 35,
+    "lidNumber": 35,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_035_35.png"
+  },
+  {
+    "bank_item_id": "sat_lid_035_42",
+    "texFile": "sat_lid_035.tex",
+    "questionNumber": 42,
+    "lidNumber": 35,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_035_42.png"
+  },
+  {
+    "bank_item_id": "sat_lid_036_1",
+    "texFile": "sat_lid_036.tex",
+    "questionNumber": 1,
+    "lidNumber": 36,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_036_1.png"
+  },
+  {
+    "bank_item_id": "sat_lid_036_2",
+    "texFile": "sat_lid_036.tex",
+    "questionNumber": 2,
+    "lidNumber": 36,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_036_2.png"
+  },
+  {
+    "bank_item_id": "sat_lid_036_3",
+    "texFile": "sat_lid_036.tex",
+    "questionNumber": 3,
+    "lidNumber": 36,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_036_3.png"
+  },
+  {
+    "bank_item_id": "sat_lid_036_4",
+    "texFile": "sat_lid_036.tex",
+    "questionNumber": 4,
+    "lidNumber": 36,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_036_4.png"
+  },
+  {
+    "bank_item_id": "sat_lid_036_5",
+    "texFile": "sat_lid_036.tex",
+    "questionNumber": 5,
+    "lidNumber": 36,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_036_5.png"
+  },
+  {
+    "bank_item_id": "sat_lid_036_6",
+    "texFile": "sat_lid_036.tex",
+    "questionNumber": 6,
+    "lidNumber": 36,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_036_6.png"
+  },
+  {
+    "bank_item_id": "sat_lid_036_7",
+    "texFile": "sat_lid_036.tex",
+    "questionNumber": 7,
+    "lidNumber": 36,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_036_7.png"
+  },
+  {
+    "bank_item_id": "sat_lid_036_8",
+    "texFile": "sat_lid_036.tex",
+    "questionNumber": 8,
+    "lidNumber": 36,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_036_8.png"
+  },
+  {
+    "bank_item_id": "sat_lid_036_9",
+    "texFile": "sat_lid_036.tex",
+    "questionNumber": 9,
+    "lidNumber": 36,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_036_9.png"
+  },
+  {
+    "bank_item_id": "sat_lid_036_12",
+    "texFile": "sat_lid_036.tex",
+    "questionNumber": 12,
+    "lidNumber": 36,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_036_12.png"
+  },
+  {
+    "bank_item_id": "sat_lid_036_15",
+    "texFile": "sat_lid_036.tex",
+    "questionNumber": 15,
+    "lidNumber": 36,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_036_15.png"
+  },
+  {
+    "bank_item_id": "sat_lid_036_19",
+    "texFile": "sat_lid_036.tex",
+    "questionNumber": 19,
+    "lidNumber": 36,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_036_19.png"
+  },
+  {
+    "bank_item_id": "sat_lid_036_22",
+    "texFile": "sat_lid_036.tex",
+    "questionNumber": 22,
+    "lidNumber": 36,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_036_22.png"
+  },
+  {
+    "bank_item_id": "sat_lid_036_25",
+    "texFile": "sat_lid_036.tex",
+    "questionNumber": 25,
+    "lidNumber": 36,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_036_25.png"
+  },
+  {
+    "bank_item_id": "sat_lid_036_31",
+    "texFile": "sat_lid_036.tex",
+    "questionNumber": 31,
+    "lidNumber": 36,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_036_31.png"
+  },
+  {
+    "bank_item_id": "sat_lid_037_2",
+    "texFile": "sat_lid_037.tex",
+    "questionNumber": 2,
+    "lidNumber": 37,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_037_2.png"
+  },
+  {
+    "bank_item_id": "sat_lid_037_4",
+    "texFile": "sat_lid_037.tex",
+    "questionNumber": 4,
+    "lidNumber": 37,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_037_4.png"
+  },
+  {
+    "bank_item_id": "sat_lid_037_5",
+    "texFile": "sat_lid_037.tex",
+    "questionNumber": 5,
+    "lidNumber": 37,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_037_5.png"
+  },
+  {
+    "bank_item_id": "sat_lid_037_7",
+    "texFile": "sat_lid_037.tex",
+    "questionNumber": 7,
+    "lidNumber": 37,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_037_7.png"
+  },
+  {
+    "bank_item_id": "sat_lid_037_8",
+    "texFile": "sat_lid_037.tex",
+    "questionNumber": 8,
+    "lidNumber": 37,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_037_8.png"
+  },
+  {
+    "bank_item_id": "sat_lid_037_12",
+    "texFile": "sat_lid_037.tex",
+    "questionNumber": 12,
+    "lidNumber": 37,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_037_12.png"
+  },
+  {
+    "bank_item_id": "sat_lid_037_14",
+    "texFile": "sat_lid_037.tex",
+    "questionNumber": 14,
+    "lidNumber": 37,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_037_14.png"
+  },
+  {
+    "bank_item_id": "sat_lid_037_15",
+    "texFile": "sat_lid_037.tex",
+    "questionNumber": 15,
+    "lidNumber": 37,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_037_15.png"
+  },
+  {
+    "bank_item_id": "sat_lid_037_18",
+    "texFile": "sat_lid_037.tex",
+    "questionNumber": 18,
+    "lidNumber": 37,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_037_18.png"
+  },
+  {
+    "bank_item_id": "sat_lid_037_23",
+    "texFile": "sat_lid_037.tex",
+    "questionNumber": 23,
+    "lidNumber": 37,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_037_23.png"
+  },
+  {
+    "bank_item_id": "sat_lid_037_29",
+    "texFile": "sat_lid_037.tex",
+    "questionNumber": 29,
+    "lidNumber": 37,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_037_29.png"
+  },
+  {
+    "bank_item_id": "sat_lid_037_38",
+    "texFile": "sat_lid_037.tex",
+    "questionNumber": 38,
+    "lidNumber": 37,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_037_38.png"
+  },
+  {
+    "bank_item_id": "sat_lid_042_1",
+    "texFile": "sat_lid_042.tex",
+    "questionNumber": 1,
+    "lidNumber": 42,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_042_1.png"
+  },
+  {
+    "bank_item_id": "sat_lid_042_2",
+    "texFile": "sat_lid_042.tex",
+    "questionNumber": 2,
+    "lidNumber": 42,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_042_2.png"
+  },
+  {
+    "bank_item_id": "sat_lid_042_3",
+    "texFile": "sat_lid_042.tex",
+    "questionNumber": 3,
+    "lidNumber": 42,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_042_3.png"
+  },
+  {
+    "bank_item_id": "sat_lid_042_4",
+    "texFile": "sat_lid_042.tex",
+    "questionNumber": 4,
+    "lidNumber": 42,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_042_4.png"
+  },
+  {
+    "bank_item_id": "sat_lid_042_5",
+    "texFile": "sat_lid_042.tex",
+    "questionNumber": 5,
+    "lidNumber": 42,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_042_5.png"
+  },
+  {
+    "bank_item_id": "sat_lid_042_6",
+    "texFile": "sat_lid_042.tex",
+    "questionNumber": 6,
+    "lidNumber": 42,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_042_6.png"
+  },
+  {
+    "bank_item_id": "sat_lid_042_7",
+    "texFile": "sat_lid_042.tex",
+    "questionNumber": 7,
+    "lidNumber": 42,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_042_7.png"
+  },
+  {
+    "bank_item_id": "sat_lid_042_8",
+    "texFile": "sat_lid_042.tex",
+    "questionNumber": 8,
+    "lidNumber": 42,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_042_8.png"
+  },
+  {
+    "bank_item_id": "sat_lid_042_9",
+    "texFile": "sat_lid_042.tex",
+    "questionNumber": 9,
+    "lidNumber": 42,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_042_9.png"
+  },
+  {
+    "bank_item_id": "sat_lid_042_10",
+    "texFile": "sat_lid_042.tex",
+    "questionNumber": 10,
+    "lidNumber": 42,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_042_10.png"
+  },
+  {
+    "bank_item_id": "sat_lid_042_11",
+    "texFile": "sat_lid_042.tex",
+    "questionNumber": 11,
+    "lidNumber": 42,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_042_11.png"
+  },
+  {
+    "bank_item_id": "sat_lid_042_13",
+    "texFile": "sat_lid_042.tex",
+    "questionNumber": 13,
+    "lidNumber": 42,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_042_13.png"
+  },
+  {
+    "bank_item_id": "sat_lid_042_15",
+    "texFile": "sat_lid_042.tex",
+    "questionNumber": 15,
+    "lidNumber": 42,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_042_15.png"
+  },
+  {
+    "bank_item_id": "sat_lid_042_16",
+    "texFile": "sat_lid_042.tex",
+    "questionNumber": 16,
+    "lidNumber": 42,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_042_16.png"
+  },
+  {
+    "bank_item_id": "sat_lid_042_17",
+    "texFile": "sat_lid_042.tex",
+    "questionNumber": 17,
+    "lidNumber": 42,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_042_17.png"
+  },
+  {
+    "bank_item_id": "sat_lid_042_19",
+    "texFile": "sat_lid_042.tex",
+    "questionNumber": 19,
+    "lidNumber": 42,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_042_19.png"
+  },
+  {
+    "bank_item_id": "sat_lid_042_22",
+    "texFile": "sat_lid_042.tex",
+    "questionNumber": 22,
+    "lidNumber": 42,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_042_22.png"
+  },
+  {
+    "bank_item_id": "sat_lid_042_26",
+    "texFile": "sat_lid_042.tex",
+    "questionNumber": 26,
+    "lidNumber": 42,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_042_26.png"
+  },
+  {
+    "bank_item_id": "sat_lid_042_33",
+    "texFile": "sat_lid_042.tex",
+    "questionNumber": 33,
+    "lidNumber": 42,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_042_33.png"
+  },
+  {
+    "bank_item_id": "sat_lid_042_39",
+    "texFile": "sat_lid_042.tex",
+    "questionNumber": 39,
+    "lidNumber": 42,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_042_39.png"
+  },
+  {
+    "bank_item_id": "sat_lid_043_2",
+    "texFile": "sat_lid_043.tex",
+    "questionNumber": 2,
+    "lidNumber": 43,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_043_2.png"
+  },
+  {
+    "bank_item_id": "sat_lid_043_5",
+    "texFile": "sat_lid_043.tex",
+    "questionNumber": 5,
+    "lidNumber": 43,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_043_5.png"
+  },
+  {
+    "bank_item_id": "sat_lid_043_9",
+    "texFile": "sat_lid_043.tex",
+    "questionNumber": 9,
+    "lidNumber": 43,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_043_9.png"
+  },
+  {
+    "bank_item_id": "sat_lid_043_14",
+    "texFile": "sat_lid_043.tex",
+    "questionNumber": 14,
+    "lidNumber": 43,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_043_14.png"
+  },
+  {
+    "bank_item_id": "sat_lid_043_20",
+    "texFile": "sat_lid_043.tex",
+    "questionNumber": 20,
+    "lidNumber": 43,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_043_20.png"
+  },
+  {
+    "bank_item_id": "sat_lid_044_1",
+    "texFile": "sat_lid_044.tex",
+    "questionNumber": 1,
+    "lidNumber": 44,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_044_1.png"
+  },
+  {
+    "bank_item_id": "sat_lid_044_2",
+    "texFile": "sat_lid_044.tex",
+    "questionNumber": 2,
+    "lidNumber": 44,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_044_2.png"
+  },
+  {
+    "bank_item_id": "sat_lid_044_3",
+    "texFile": "sat_lid_044.tex",
+    "questionNumber": 3,
+    "lidNumber": 44,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_044_3.png"
+  },
+  {
+    "bank_item_id": "sat_lid_044_7",
+    "texFile": "sat_lid_044.tex",
+    "questionNumber": 7,
+    "lidNumber": 44,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_044_7.png"
+  },
+  {
+    "bank_item_id": "sat_lid_044_11",
+    "texFile": "sat_lid_044.tex",
+    "questionNumber": 11,
+    "lidNumber": 44,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_044_11.png"
+  },
+  {
+    "bank_item_id": "sat_lid_044_12",
+    "texFile": "sat_lid_044.tex",
+    "questionNumber": 12,
+    "lidNumber": 44,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_044_12.png"
+  },
+  {
+    "bank_item_id": "sat_lid_044_20",
+    "texFile": "sat_lid_044.tex",
+    "questionNumber": 20,
+    "lidNumber": 44,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_044_20.png"
+  },
+  {
+    "bank_item_id": "sat_lid_045_2",
+    "texFile": "sat_lid_045.tex",
+    "questionNumber": 2,
+    "lidNumber": 45,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_045_2.png"
+  },
+  {
+    "bank_item_id": "sat_lid_045_5",
+    "texFile": "sat_lid_045.tex",
+    "questionNumber": 5,
+    "lidNumber": 45,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_045_5.png"
+  },
+  {
+    "bank_item_id": "sat_lid_045_7",
+    "texFile": "sat_lid_045.tex",
+    "questionNumber": 7,
+    "lidNumber": 45,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_045_7.png"
+  },
+  {
+    "bank_item_id": "sat_lid_045_9",
+    "texFile": "sat_lid_045.tex",
+    "questionNumber": 9,
+    "lidNumber": 45,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_045_9.png"
+  },
+  {
+    "bank_item_id": "sat_lid_045_16",
+    "texFile": "sat_lid_045.tex",
+    "questionNumber": 16,
+    "lidNumber": 45,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_045_16.png"
+  },
+  {
+    "bank_item_id": "sat_lid_045_26",
+    "texFile": "sat_lid_045.tex",
+    "questionNumber": 26,
+    "lidNumber": 45,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_045_26.png"
+  },
+  {
+    "bank_item_id": "sat_lid_045_30",
+    "texFile": "sat_lid_045.tex",
+    "questionNumber": 30,
+    "lidNumber": 45,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_045_30.png"
+  },
+  {
+    "bank_item_id": "sat_lid_045_35",
+    "texFile": "sat_lid_045.tex",
+    "questionNumber": 35,
+    "lidNumber": 45,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_045_35.png"
+  },
+  {
+    "bank_item_id": "sat_lid_046_1",
+    "texFile": "sat_lid_046.tex",
+    "questionNumber": 1,
+    "lidNumber": 46,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_046_1.png"
+  },
+  {
+    "bank_item_id": "sat_lid_046_2",
+    "texFile": "sat_lid_046.tex",
+    "questionNumber": 2,
+    "lidNumber": 46,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_046_2.png"
+  },
+  {
+    "bank_item_id": "sat_lid_046_4",
+    "texFile": "sat_lid_046.tex",
+    "questionNumber": 4,
+    "lidNumber": 46,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_046_4.png"
+  },
+  {
+    "bank_item_id": "sat_lid_046_5",
+    "texFile": "sat_lid_046.tex",
+    "questionNumber": 5,
+    "lidNumber": 46,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_046_5.png"
+  },
+  {
+    "bank_item_id": "sat_lid_046_7",
+    "texFile": "sat_lid_046.tex",
+    "questionNumber": 7,
+    "lidNumber": 46,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_046_7.png"
+  },
+  {
+    "bank_item_id": "sat_lid_046_8",
+    "texFile": "sat_lid_046.tex",
+    "questionNumber": 8,
+    "lidNumber": 46,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_046_8.png"
+  },
+  {
+    "bank_item_id": "sat_lid_046_11",
+    "texFile": "sat_lid_046.tex",
+    "questionNumber": 11,
+    "lidNumber": 46,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_046_11.png"
+  },
+  {
+    "bank_item_id": "sat_lid_046_12",
+    "texFile": "sat_lid_046.tex",
+    "questionNumber": 12,
+    "lidNumber": 46,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_046_12.png"
+  },
+  {
+    "bank_item_id": "sat_lid_046_27",
+    "texFile": "sat_lid_046.tex",
+    "questionNumber": 27,
+    "lidNumber": 46,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_046_27.png"
+  },
+  {
+    "bank_item_id": "sat_lid_047_5",
+    "texFile": "sat_lid_047.tex",
+    "questionNumber": 5,
+    "lidNumber": 47,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_047_5.png"
+  },
+  {
+    "bank_item_id": "sat_lid_047_6",
+    "texFile": "sat_lid_047.tex",
+    "questionNumber": 6,
+    "lidNumber": 47,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_047_6.png"
+  },
+  {
+    "bank_item_id": "sat_lid_047_34",
+    "texFile": "sat_lid_047.tex",
+    "questionNumber": 34,
+    "lidNumber": 47,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_047_34.png"
+  },
+  {
+    "bank_item_id": "sat_lid_048_6",
+    "texFile": "sat_lid_048.tex",
+    "questionNumber": 6,
+    "lidNumber": 48,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_048_6.png"
+  },
+  {
+    "bank_item_id": "sat_lid_048_9",
+    "texFile": "sat_lid_048.tex",
+    "questionNumber": 9,
+    "lidNumber": 48,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_048_9.png"
+  },
+  {
+    "bank_item_id": "sat_lid_049_1",
+    "texFile": "sat_lid_049.tex",
+    "questionNumber": 1,
+    "lidNumber": 49,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_049_1.png"
+  },
+  {
+    "bank_item_id": "sat_lid_049_2",
+    "texFile": "sat_lid_049.tex",
+    "questionNumber": 2,
+    "lidNumber": 49,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_049_2.png"
+  },
+  {
+    "bank_item_id": "sat_lid_049_3",
+    "texFile": "sat_lid_049.tex",
+    "questionNumber": 3,
+    "lidNumber": 49,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_049_3.png"
+  },
+  {
+    "bank_item_id": "sat_lid_049_8",
+    "texFile": "sat_lid_049.tex",
+    "questionNumber": 8,
+    "lidNumber": 49,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_049_8.png"
+  },
+  {
+    "bank_item_id": "sat_lid_051_7",
+    "texFile": "sat_lid_051.tex",
+    "questionNumber": 7,
+    "lidNumber": 51,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_051_7.png"
+  },
+  {
+    "bank_item_id": "sat_lid_051_8",
+    "texFile": "sat_lid_051.tex",
+    "questionNumber": 8,
+    "lidNumber": 51,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_051_8.png"
+  },
+  {
+    "bank_item_id": "sat_lid_051_10",
+    "texFile": "sat_lid_051.tex",
+    "questionNumber": 10,
+    "lidNumber": 51,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_051_10.png"
+  },
+  {
+    "bank_item_id": "sat_lid_051_15",
+    "texFile": "sat_lid_051.tex",
+    "questionNumber": 15,
+    "lidNumber": 51,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_051_15.png"
+  },
+  {
+    "bank_item_id": "sat_lid_051_16",
+    "texFile": "sat_lid_051.tex",
+    "questionNumber": 16,
+    "lidNumber": 51,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_051_16.png"
+  },
+  {
+    "bank_item_id": "sat_lid_051_19",
+    "texFile": "sat_lid_051.tex",
+    "questionNumber": 19,
+    "lidNumber": 51,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_051_19.png"
+  },
+  {
+    "bank_item_id": "sat_lid_051_20",
+    "texFile": "sat_lid_051.tex",
+    "questionNumber": 20,
+    "lidNumber": 51,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_051_20.png"
+  },
+  {
+    "bank_item_id": "sat_lid_051_22",
+    "texFile": "sat_lid_051.tex",
+    "questionNumber": 22,
+    "lidNumber": 51,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_051_22.png"
+  },
+  {
+    "bank_item_id": "sat_lid_051_27",
+    "texFile": "sat_lid_051.tex",
+    "questionNumber": 27,
+    "lidNumber": 51,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_051_27.png"
+  },
+  {
+    "bank_item_id": "sat_lid_051_35",
+    "texFile": "sat_lid_051.tex",
+    "questionNumber": 35,
+    "lidNumber": 51,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_051_35.png"
+  },
+  {
+    "bank_item_id": "sat_lid_051_39",
+    "texFile": "sat_lid_051.tex",
+    "questionNumber": 39,
+    "lidNumber": 51,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_051_39.png"
+  },
+  {
+    "bank_item_id": "sat_lid_051_46",
+    "texFile": "sat_lid_051.tex",
+    "questionNumber": 46,
+    "lidNumber": 51,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_051_46.png"
+  },
+  {
+    "bank_item_id": "sat_lid_051_48",
+    "texFile": "sat_lid_051.tex",
+    "questionNumber": 48,
+    "lidNumber": 51,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_051_48.png"
+  },
+  {
+    "bank_item_id": "sat_lid_052_1",
+    "texFile": "sat_lid_052.tex",
+    "questionNumber": 1,
+    "lidNumber": 52,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_052_1.png"
+  },
+  {
+    "bank_item_id": "sat_lid_052_2",
+    "texFile": "sat_lid_052.tex",
+    "questionNumber": 2,
+    "lidNumber": 52,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_052_2.png"
+  },
+  {
+    "bank_item_id": "sat_lid_052_4",
+    "texFile": "sat_lid_052.tex",
+    "questionNumber": 4,
+    "lidNumber": 52,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_052_4.png"
+  },
+  {
+    "bank_item_id": "sat_lid_052_7",
+    "texFile": "sat_lid_052.tex",
+    "questionNumber": 7,
+    "lidNumber": 52,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_052_7.png"
+  },
+  {
+    "bank_item_id": "sat_lid_052_9",
+    "texFile": "sat_lid_052.tex",
+    "questionNumber": 9,
+    "lidNumber": 52,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_052_9.png"
+  },
+  {
+    "bank_item_id": "sat_lid_052_19",
+    "texFile": "sat_lid_052.tex",
+    "questionNumber": 19,
+    "lidNumber": 52,
+    "figureKind": "tikz",
+    "objectPath": "math/lid/sat_lid_052_19.png"
+  }
+]

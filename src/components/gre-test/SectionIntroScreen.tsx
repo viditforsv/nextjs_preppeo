@@ -4,7 +4,7 @@ import { useGRETestStore } from '@/stores/useGRETestStore';
 import { Clock, FileText } from 'lucide-react';
 
 export default function SectionIntroScreen() {
-  const { currentSectionNumber, section1, section2, section2Tier, beginSection } =
+  const { currentSectionNumber, section1, section2, beginSection } =
     useGRETestStore();
 
   const section = currentSectionNumber === 1 ? section1 : section2;

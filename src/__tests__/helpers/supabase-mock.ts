@@ -1,6 +1,5 @@
 import { vi } from 'vitest';
 
-type Row = Record<string, unknown>;
 type ChainResult = { data: unknown; error: unknown };
 
 /**
@@ -49,6 +48,7 @@ export function createMockSupabase() {
 
   const supabase = {
     from: vi.fn().mockImplementation((table: string) => getTable(table)),
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     rpc: vi.fn().mockImplementation((_fn: string, _params?: unknown) => {
       return Promise.resolve({ data: null, error: null });
     }),

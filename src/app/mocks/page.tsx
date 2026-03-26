@@ -2,7 +2,7 @@ import { createSupabaseApiClient } from '@/lib/supabase/api-client';
 import ExamCard from '@/components/tests/ExamCard';
 import { Button } from '@/design-system/components/ui/button';
 import Link from 'next/link';
-import { Ticket, BookOpen, ArrowRight, Sparkles } from 'lucide-react';
+import { Ticket, BookOpen, Sparkles } from 'lucide-react';
 import type { ExamType, TestToken } from '@/types/test-tokens';
 
 export const metadata = {

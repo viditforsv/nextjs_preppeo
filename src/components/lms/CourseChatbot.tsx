@@ -116,6 +116,7 @@ export function CourseChatbot({
     if (messageToSend?.trim()) {
       sendText(messageToSend).then(() => onMessageSent?.());
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [messageToSend]);
 
   if (!embedded && !isOpen) {
