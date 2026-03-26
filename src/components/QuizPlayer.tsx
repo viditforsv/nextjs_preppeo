@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, useRef } from "react";
 import { useQuizSession } from "@/hooks/useQuizSession";
 import { useQuizTimer } from "@/hooks/useQuizTimer";
 import { useAnswerTracking } from "@/hooks/useAnswerTracking";
@@ -30,10 +30,10 @@ export function QuizPlayer({ quizId }: QuizPlayerProps) {
     retryQuiz,
   } = useQuizSession(quizId);
 
-  // submitQuiz needs answers — wrap in a stable callback
-  const handleSubmit = useCallback(() => {
-    submitQuiz(answers);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+  const answersRef = useRef<Record<string, string>>({});
+
+  const handleTimerExpired = useCallback(() => {
+    submitQuiz(answersRef.current);
   }, [submitQuiz]);
 
   const { timeRemaining, currentQuestionTime, questionStartTimes, resetTimer } =
@@ -43,7 +43,7 @@ export function QuizPlayer({ quizId }: QuizPlayerProps) {
       started,
       submitted,
       currentQuestionIndex,
-      onExpired: handleSubmit,
+      onExpired: handleTimerExpired,
     });
 
   const {
@@ -56,6 +56,10 @@ export function QuizPlayer({ quizId }: QuizPlayerProps) {
     handleToggleExplanation,
     resetAll: resetAnswers,
   } = useAnswerTracking({ quiz, questions, quizSessionId, questionStartTimes });
+
+  useEffect(() => {
+    answersRef.current = answers;
+  }, [answers]);
 
   useEffect(() => {
     fetchQuizData();

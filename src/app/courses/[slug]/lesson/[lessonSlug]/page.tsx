@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import {
@@ -188,10 +188,8 @@ export default function DynamicLessonPage({
     setAuthChecked(true);
   }, [user, loading, router, resolvedParams]);
 
-  useEffect(() => {
-    if (!resolvedParams || !authChecked) return;
-
-    const loadLesson = async () => {
+  const loadLesson = useCallback(async () => {
+    if (!resolvedParams) return;
       try {
         console.log("Starting to load lesson with params:", resolvedParams);
         setIsLoading(true);
@@ -468,11 +466,12 @@ export default function DynamicLessonPage({
       } finally {
         setIsLoading(false);
       }
-    };
+  }, [resolvedParams, user, profile]);
 
-    loadLesson();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [resolvedParams?.slug, resolvedParams?.lessonSlug, user?.id, authChecked]);
+  useEffect(() => {
+    if (!resolvedParams || !authChecked) return;
+    void loadLesson();
+  }, [resolvedParams, authChecked, loadLesson]);
 
   const hasAccess = () => {
     // Admin has access to everything

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useAuth } from "@/contexts/AuthContext";
 import {
   Card,
@@ -264,10 +264,7 @@ export function CoursePageClient({
   }, [user]);
 
   // Load course data
-  useEffect(() => {
-    if (!authChecked) return;
-
-    const loadCourse = async () => {
+  const loadCourse = useCallback(async () => {
       try {
         setIsLoading(true);
         setError(null);
@@ -548,11 +545,12 @@ export function CoursePageClient({
       } finally {
         setIsLoading(false);
       }
-    };
+  }, [courseParams.slug, user, profile]);
 
-    loadCourse();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [courseParams.slug, user?.id, authChecked, profile?.role]);
+  useEffect(() => {
+    if (!authChecked) return;
+    void loadCourse();
+  }, [authChecked, loadCourse]);
 
   const handleAddToCart = () => {
     if (!course) return;

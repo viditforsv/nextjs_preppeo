@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import { Button } from "@/design-system/components/ui/button";
 import { Input } from "@/design-system/components/ui/input";
 import { MessageCircle, X, Send, ChevronRight } from "lucide-react";
@@ -64,46 +64,49 @@ export function CourseChatbot({
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
-  const sendText = async (text: string) => {
-    if (!text.trim()) return;
-    const userMsg: ChatMessage = {
-      role: "user",
-      content: text.trim(),
-      timestamp: new Date(),
-    };
-    setMessages((prev) => [...prev, userMsg]);
-    setIsAITyping(true);
-    try {
-      const res = await fetch("/api/courses/chatbot", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          message: text.trim(),
-          course_title: courseTitle,
-          lesson_title: lessonTitle || undefined,
-        }),
-      });
-      const data = await res.json();
-      const content =
-        data.response ||
-        "I couldn't generate a response. Please try again.";
-      setMessages((prev) => [
-        ...prev,
-        { role: "assistant", content, timestamp: new Date() },
-      ]);
-    } catch {
-      setMessages((prev) => [
-        ...prev,
-        {
-          role: "assistant",
-          content: "Something went wrong. Please try again.",
-          timestamp: new Date(),
-        },
-      ]);
-    } finally {
-      setIsAITyping(false);
-    }
-  };
+  const sendText = useCallback(
+    async (text: string) => {
+      if (!text.trim()) return;
+      const userMsg: ChatMessage = {
+        role: "user",
+        content: text.trim(),
+        timestamp: new Date(),
+      };
+      setMessages((prev) => [...prev, userMsg]);
+      setIsAITyping(true);
+      try {
+        const res = await fetch("/api/courses/chatbot", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            message: text.trim(),
+            course_title: courseTitle,
+            lesson_title: lessonTitle || undefined,
+          }),
+        });
+        const data = await res.json();
+        const content =
+          data.response ||
+          "I couldn't generate a response. Please try again.";
+        setMessages((prev) => [
+          ...prev,
+          { role: "assistant", content, timestamp: new Date() },
+        ]);
+      } catch {
+        setMessages((prev) => [
+          ...prev,
+          {
+            role: "assistant",
+            content: "Something went wrong. Please try again.",
+            timestamp: new Date(),
+          },
+        ]);
+      } finally {
+        setIsAITyping(false);
+      }
+    },
+    [courseTitle, lessonTitle]
+  );
 
   const handleSend = async () => {
     if (!currentMessage.trim()) return;
@@ -114,10 +117,9 @@ export function CourseChatbot({
 
   useEffect(() => {
     if (messageToSend?.trim()) {
-      sendText(messageToSend).then(() => onMessageSent?.());
+      void sendText(messageToSend).then(() => onMessageSent?.());
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [messageToSend]);
+  }, [messageToSend, sendText, onMessageSent]);
 
   if (!embedded && !isOpen) {
     return (

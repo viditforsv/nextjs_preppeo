@@ -40,8 +40,7 @@ export default function LandingScreen() {
           setShowCodeModal(true);
         });
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [searchParams, user, loading]);
+  }, [searchParams, user, loading, startTestMode]);
 
   const handleStartTest = () => {
     if (!user && !loading) {

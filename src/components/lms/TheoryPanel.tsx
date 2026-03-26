@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { ChevronRight, Lightbulb, ListChecks, Calculator } from "lucide-react";
 import { VideoResource } from "@/design-system/components/youtube-video";
 import type { InteractiveStep } from "./InteractiveLessonView";
@@ -65,19 +65,21 @@ export function TheoryPanel({
   const hasMethod = steps.length > 0;
   const hasExample = !!(formulaTitle || formulaContent);
 
-  const availableTabs: TheoryTab[] = [
-    ...(hasConcept ? ["concept" as const] : []),
-    ...(hasMethod ? ["method" as const] : []),
-    ...(hasExample ? ["example" as const] : []),
-  ];
+  const availableTabs = useMemo<TheoryTab[]>(
+    () => [
+      ...(hasConcept ? ["concept" as const] : []),
+      ...(hasMethod ? ["method" as const] : []),
+      ...(hasExample ? ["example" as const] : []),
+    ],
+    [hasConcept, hasMethod, hasExample],
+  );
 
   const [activeTab, setActiveTab] = useState<TheoryTab>(availableTabs[0] ?? "concept");
 
   useEffect(() => {
     setStepsDone({});
     setActiveTab(availableTabs[0] ?? "concept");
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [lessonId]);
+  }, [lessonId, availableTabs]);
 
   const hasContent = hasConcept || hasMethod || hasExample || videoUrl;
   const allStepsDone = hasMethod && steps.every((_, i) => stepsDone[i]);

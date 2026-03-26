@@ -5,7 +5,7 @@ import Link from "next/link";
 import { ChevronLeft, ChevronRight, BookOpen, Pencil, MessageCircle } from "lucide-react";
 import { CollapsibleSidebar } from "@/design-system/components/layout-components/collapsible-sidebar";
 import { CourseChatbot } from "./CourseChatbot";
-import type { InteractiveStep, InteractiveQuizItem } from "./InteractiveLessonView";
+import type { InteractiveQuizItem, InteractiveStep } from "./InteractiveLessonView";
 import { Button } from "@/design-system/components/ui/button";
 import { useQuestionAttempt } from "@/hooks/useQuestionAttempt";
 import {
@@ -18,6 +18,8 @@ import { PracticeQuestionCard } from "./PracticeQuestionCard";
 import { CompletionCard } from "./CompletionCard";
 import { PracticeNavFooter } from "./PracticeNavFooter";
 import { buildAskAIMessage, buildRecapMessage, resetQuestionState } from "./practiceHelpers";
+
+const EMPTY_INTERACTIVE_QUIZ: InteractiveQuizItem[] = [];
 
 interface Lesson {
   id: string;
@@ -106,8 +108,10 @@ export function LMSLessonView({
   const chapterName = lesson.chapter?.chapter_name ?? "Section";
 
   const steps = interactiveContent?.steps ?? [];
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const quiz = interactiveContent?.quiz ?? [];
+  const quiz = useMemo(
+    () => interactiveContent?.quiz ?? EMPTY_INTERACTIVE_QUIZ,
+    [interactiveContent?.quiz],
+  );
   const conceptHtml = lesson.concept_content || (interactiveContent?.intro ?? "");
   const conceptTitle = lesson.concept_title || lesson.title;
 

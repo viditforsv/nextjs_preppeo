@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import {
   Tabs,
@@ -39,18 +39,21 @@ export default function AuthPage() {
     }
   }, [tab, autoClaimFree]);
 
-  async function claimFreeAndRedirect(targetUrl: string, examType: string) {
-    try {
-      await fetch('/api/mocks/claim-free', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ examType }),
-      });
-    } catch {
-      // Non-blocking — continue to redirect even if claim fails
-    }
-    router.push(targetUrl);
-  }
+  const claimFreeAndRedirect = useCallback(
+    async (targetUrl: string, examType: string) => {
+      try {
+        await fetch("/api/mocks/claim-free", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ examType }),
+        });
+      } catch {
+        // Non-blocking — continue to redirect even if claim fails
+      }
+      router.push(targetUrl);
+    },
+    [router]
+  );
 
   // Redirect authenticated users based on role
   useEffect(() => {
@@ -59,20 +62,28 @@ export default function AuthPage() {
         profile.role === "student"
           ? "/student"
           : profile.role === "teacher"
-          ? "/teacher/dashboard"
-          : profile.role === "admin"
-          ? "/admin"
-          : "/courses/enrolled";
+            ? "/teacher/dashboard"
+            : profile.role === "admin"
+              ? "/admin"
+              : "/courses/enrolled";
       const redirectUrl = redirect || next || roleBasedPath;
 
       if (autoClaimFree) {
-        claimFreeAndRedirect(redirectUrl, autoClaimFree);
+        void claimFreeAndRedirect(redirectUrl, autoClaimFree);
       } else {
         router.push(redirectUrl);
       }
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user, profile, loading]);
+  }, [
+    user,
+    profile,
+    loading,
+    redirect,
+    next,
+    autoClaimFree,
+    router,
+    claimFreeAndRedirect,
+  ]);
 
   // Handle OAuth callback
   useEffect(() => {
@@ -220,8 +231,7 @@ export default function AuthPage() {
 
       handleOAuthCallback();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [code, next, router, searchParams]);
+  }, [code, next, redirect, autoClaimFree, router, claimFreeAndRedirect]);
 
   // Show loading state while checking authentication
   if (loading) {

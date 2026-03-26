@@ -132,8 +132,7 @@ export default function QCPageTemplate<Q extends QCQuestion>({ config }: QCPageT
     }
     setEditMode(false);
     setSaveMsg(null);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [current?.id]);
+  }, [current]);
 
   const merged = useMemo(() => {
     if (!current) return null;
@@ -171,8 +170,7 @@ export default function QCPageTemplate<Q extends QCQuestion>({ config }: QCPageT
     };
     window.addEventListener('keydown', handleKey);
     return () => window.removeEventListener('keydown', handleKey);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [goNext, goPrev, editMode, current]);
+  }, [goNext, goPrev, editMode, current, isProd]);
 
   // Image upload
   const fileInputRef = useRef<HTMLInputElement>(null);

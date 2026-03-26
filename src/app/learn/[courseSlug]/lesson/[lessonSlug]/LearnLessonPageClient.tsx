@@ -153,8 +153,7 @@ export function LearnLessonPageClient({
     };
 
     load();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [courseSlug, lessonSlug, user?.id]);
+  }, [courseSlug, lessonSlug, user]);
 
   const handleMarkComplete = async () => {
     if (!user || !lesson || !course) return;

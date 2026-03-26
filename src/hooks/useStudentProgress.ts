@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 
 interface TagMastery {
   id: string;
@@ -65,7 +65,7 @@ export function useStudentProgress(options: UseStudentProgressOptions = {}) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const fetchAnalytics = async () => {
+  const fetchAnalytics = useCallback(async () => {
     setLoading(true);
     setError(null);
 
@@ -89,9 +89,9 @@ export function useStudentProgress(options: UseStudentProgressOptions = {}) {
     } finally {
       setLoading(false);
     }
-  };
+  }, [studentId, courseId]);
 
-  const fetchTagMastery = async () => {
+  const fetchTagMastery = useCallback(async () => {
     setLoading(true);
     setError(null);
 
@@ -115,7 +115,7 @@ export function useStudentProgress(options: UseStudentProgressOptions = {}) {
     } finally {
       setLoading(false);
     }
-  };
+  }, [studentId, courseId]);
 
   const getTagMasteryLevel = (tagName: string): TagMastery | undefined => {
     return tagMastery.find((t) => t.tag_name === tagName);
@@ -131,11 +131,10 @@ export function useStudentProgress(options: UseStudentProgressOptions = {}) {
 
   useEffect(() => {
     if (autoFetch) {
-      fetchAnalytics();
-      fetchTagMastery();
+      void fetchAnalytics();
+      void fetchTagMastery();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [studentId, courseId, autoFetch]);
+  }, [autoFetch, fetchAnalytics, fetchTagMastery]);
 
   return {
     analytics,

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useAuth } from "@/contexts/AuthContext";
 import { createClient } from "@/lib/supabase/client";
 import { Button } from "@/design-system/components/ui/button";
@@ -69,11 +69,6 @@ export default function StudentTeacherAssignmentPage() {
       loadData();
     }
   }, [currentUser, profile]);
-
-  useEffect(() => {
-    filterStudents();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedTeacher, selectedCourse, searchTerm, students]);
 
   const loadData = async () => {
     try {
@@ -212,7 +207,7 @@ export default function StudentTeacherAssignmentPage() {
     }
   };
 
-  const filterStudents = () => {
+  const filterStudents = useCallback(() => {
     let filtered = students;
 
     // Filter by search term
@@ -242,7 +237,11 @@ export default function StudentTeacherAssignmentPage() {
     }
 
     setFilteredStudents(filtered);
-  };
+  }, [students, searchTerm, selectedTeacher, selectedCourse]);
+
+  useEffect(() => {
+    filterStudents();
+  }, [filterStudents]);
 
   const handleAssignTeacher = async (
     enrollmentId: string,

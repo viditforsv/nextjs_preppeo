@@ -103,12 +103,26 @@ export default function LessonFeedbackPage() {
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
 
-  useEffect(() => {
-    if (fetchFeedback) {
-      fetchFeedback();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [filterStatus, filterType, filterCourse, page]);
+  const calculateStats = useCallback((feedbackList: Feedback[]) => {
+    const newStats: FeedbackStats = {
+      total: feedbackList.length,
+      pending: 0,
+      reviewed: 0,
+      resolved: 0,
+      mistakes: 0,
+      suggestions: 0,
+    };
+
+    feedbackList.forEach((item) => {
+      if (item.status === "pending") newStats.pending++;
+      if (item.status === "reviewed") newStats.reviewed++;
+      if (item.status === "resolved") newStats.resolved++;
+      if (item.feedback_type === "mistake") newStats.mistakes++;
+      if (item.feedback_type === "suggestion") newStats.suggestions++;
+    });
+
+    setStats(newStats);
+  }, []);
 
   const fetchFeedback = useCallback(async () => {
     setLoading(true);
@@ -135,28 +149,11 @@ export default function LessonFeedbackPage() {
     } finally {
       setLoading(false);
     }
-  }, [filterStatus, filterType, filterCourse, page]);
+  }, [filterStatus, filterType, filterCourse, page, calculateStats]);
 
-  const calculateStats = (feedbackList: Feedback[]) => {
-    const newStats: FeedbackStats = {
-      total: feedbackList.length,
-      pending: 0,
-      reviewed: 0,
-      resolved: 0,
-      mistakes: 0,
-      suggestions: 0,
-    };
-
-    feedbackList.forEach((item) => {
-      if (item.status === "pending") newStats.pending++;
-      if (item.status === "reviewed") newStats.reviewed++;
-      if (item.status === "resolved") newStats.resolved++;
-      if (item.feedback_type === "mistake") newStats.mistakes++;
-      if (item.feedback_type === "suggestion") newStats.suggestions++;
-    });
-
-    setStats(newStats);
-  };
+  useEffect(() => {
+    void fetchFeedback();
+  }, [fetchFeedback]);
 
   const handleOpenModal = (item: Feedback) => {
     setSelectedFeedback(item);

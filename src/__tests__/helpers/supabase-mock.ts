@@ -48,10 +48,9 @@ export function createMockSupabase() {
 
   const supabase = {
     from: vi.fn().mockImplementation((table: string) => getTable(table)),
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    rpc: vi.fn().mockImplementation((_fn: string, _params?: unknown) => {
-      return Promise.resolve({ data: null, error: null });
-    }),
+    rpc: vi.fn().mockImplementation(() =>
+      Promise.resolve({ data: null, error: null }),
+    ),
 
     mockTable(name: string, data: unknown, error: unknown = null) {
       (getTable(name) as { mockResult: (d: unknown, e?: unknown) => unknown }).mockResult(data, error);

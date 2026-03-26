@@ -136,40 +136,7 @@ export default function QuizCreatorPage() {
     questionTypes: [] as string[],
   });
 
-  // Fetch courses, lessons, and filter options
-  useEffect(() => {
-    fetchCourses();
-    fetchFilterOptions();
-  }, []);
-
-  // Fetch lessons when course is selected
-  useEffect(() => {
-    if (courseFilter && courseFilter !== "any") {
-      fetchLessons(courseFilter);
-    } else {
-      setLessons([]);
-    }
-    // Reset lesson selection and search when course changes
-    setQuizForm({ ...quizForm, lesson_id: null });
-    setLessonSearch("");
-    setLessonPopoverOpen(false);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [courseFilter]);
-
-  // Fetch questions with filters
-  useEffect(() => {
-    fetchQuestions();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [
-    page,
-    searchTerm,
-    subjectFilter,
-    difficultyFilter,
-    questionTypeFilter,
-    topicFilter,
-  ]);
-
-  const fetchCourses = async () => {
+  const fetchCourses = useCallback(async () => {
     try {
       const response = await fetch("/api/courses");
       if (response.ok) {
@@ -179,9 +146,9 @@ export default function QuizCreatorPage() {
     } catch (error) {
       console.error("Error fetching courses:", error);
     }
-  };
+  }, []);
 
-  const fetchLessons = async (courseId: string) => {
+  const fetchLessons = useCallback(async (courseId: string) => {
     try {
       const response = await fetch(
         `/api/lessons?course_id=${courseId}&limit=1000`
@@ -193,9 +160,9 @@ export default function QuizCreatorPage() {
     } catch (error) {
       console.error("Error fetching lessons:", error);
     }
-  };
+  }, []);
 
-  const fetchFilterOptions = async () => {
+  const fetchFilterOptions = useCallback(async () => {
     try {
       const response = await fetch("/api/question-bank/filters");
       if (response.ok) {
@@ -209,7 +176,7 @@ export default function QuizCreatorPage() {
     } catch (error) {
       console.error("Error fetching filter options:", error);
     }
-  };
+  }, []);
 
   const fetchQuestions = useCallback(async () => {
     setLoading(true);
@@ -248,6 +215,29 @@ export default function QuizCreatorPage() {
     questionTypeFilter,
     topicFilter,
   ]);
+
+  // Fetch courses, lessons, and filter options
+  useEffect(() => {
+    void fetchCourses();
+    void fetchFilterOptions();
+  }, [fetchCourses, fetchFilterOptions]);
+
+  // Fetch lessons when course is selected
+  useEffect(() => {
+    if (courseFilter && courseFilter !== "any") {
+      void fetchLessons(courseFilter);
+    } else {
+      setLessons([]);
+    }
+    setQuizForm((prev) => ({ ...prev, lesson_id: null }));
+    setLessonSearch("");
+    setLessonPopoverOpen(false);
+  }, [courseFilter, fetchLessons]);
+
+  // Fetch questions with filters
+  useEffect(() => {
+    void fetchQuestions();
+  }, [fetchQuestions]);
 
   const handleQuestionToggle = (questionId: string) => {
     const newSelected = new Set(selectedQuestions);

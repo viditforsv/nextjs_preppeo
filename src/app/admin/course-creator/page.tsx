@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import {
   Card,
   CardContent,
@@ -1229,7 +1229,7 @@ export default function CourseCreatorPage() {
   };
 
   // Load course structure dynamically from database
-  const loadCourseStructure = async (courseSlug: string) => {
+  const loadCourseStructure = useCallback(async (courseSlug: string) => {
     try {
       // Fetch units
       const unitsResponse = await fetch(
@@ -1340,9 +1340,9 @@ export default function CourseCreatorPage() {
         }`
       );
     }
-  };
+  }, []);
 
-  const loadCourseForEditing = async (courseId: string) => {
+  const loadCourseForEditing = useCallback(async (courseId: string) => {
     try {
       console.log("Loading course with ID:", courseId);
       const response = await fetch(`/api/courses?id=${courseId}`);
@@ -1396,7 +1396,7 @@ export default function CourseCreatorPage() {
         }`
       );
     }
-  };
+  }, [loadCourseStructure]);
 
   // Load courses on component mount
   useEffect(() => {
@@ -1434,11 +1434,10 @@ export default function CourseCreatorPage() {
       const searchParams = new URLSearchParams(window.location.search);
       const courseId = searchParams.get("courseId");
       if (courseId && !isEditing) {
-        loadCourseForEditing(courseId);
+        void loadCourseForEditing(courseId);
       }
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [isEditing, loadCourseForEditing]);
 
   // Load course structure when Structure tab is active and course is loaded
   useEffect(() => {
@@ -1448,10 +1447,9 @@ export default function CourseCreatorPage() {
       course.slug &&
       course.units.length === 0
     ) {
-      loadCourseStructure(course.slug);
+      void loadCourseStructure(course.slug);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [activeTab, isEditing, course.slug]);
+  }, [activeTab, isEditing, course.slug, course.units.length, loadCourseStructure]);
 
   // If editing, show the editing interface
   if (isEditing) {

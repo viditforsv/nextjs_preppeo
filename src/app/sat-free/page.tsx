@@ -68,15 +68,7 @@ export default function SATFreeMockPage() {
     return refParam || sessionStorage.getItem('sat-free-ref') || '';
   }, [refParam]);
 
-  // If already logged in and they click CTA, go straight to claiming
-  useEffect(() => {
-    if (phase === 'claiming' && user) {
-      claimAndRedirect();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [phase, user]);
-
-  async function claimAndRedirect() {
+  const claimAndRedirect = useCallback(async () => {
     try {
       const referralCode = getStoredRef();
       const res = await fetch('/api/mocks/claim-free', {
@@ -96,7 +88,14 @@ export default function SATFreeMockPage() {
       setFormError('Something went wrong. Please try again.');
       setPhase('hero');
     }
-  }
+  }, [getStoredRef, router]);
+
+  // If already logged in and they click CTA, go straight to claiming
+  useEffect(() => {
+    if (phase === 'claiming' && user) {
+      void claimAndRedirect();
+    }
+  }, [phase, user, claimAndRedirect]);
 
   function copyReferralLink() {
     const link = `${window.location.origin}/sat-free?ref=${myReferralCode}`;

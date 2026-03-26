@@ -7,6 +7,7 @@ import {
   useState,
   useCallback,
   useMemo,
+  useRef,
 } from "react";
 import { useRouter } from "next/navigation";
 import { User, Session } from "@supabase/supabase-js";
@@ -57,6 +58,17 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [isInitialized, setIsInitialized] = useState(false);
   const [isSigningOut, setIsSigningOut] = useState(false);
   const router = useRouter();
+
+  const authListenerDebugRef = useRef({
+    userId: undefined as string | undefined,
+    loading: true,
+    profileId: undefined as string | undefined,
+  });
+  authListenerDebugRef.current = {
+    userId: user?.id,
+    loading,
+    profileId: profile?.id,
+  };
 
   // Create a single Supabase client instance using useMemo to prevent recreation
   const supabase = useMemo(() => createClient(), []);
@@ -461,10 +473,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           session?.user?.email || "no user"
         );
         console.log("🔐 Current state before update:", {
-          user: user?.id || "none",
+          user: authListenerDebugRef.current.userId || "none",
           session: !!session,
-          loading,
-          profile: profile?.id || "none",
+          loading: authListenerDebugRef.current.loading,
+          profile: authListenerDebugRef.current.profileId || "none",
         });
 
         // Update state immediately
@@ -559,7 +571,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       console.log("🔵 AuthContext - Not in browser, setting loading to false");
       setLoading(false);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [supabase.auth, fetchProfile, isSigningOut, router, isInitialized]);
 
   const signIn = useCallback(
