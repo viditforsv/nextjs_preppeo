@@ -3,30 +3,22 @@
 import { useRouter } from 'next/navigation';
 import { useCBSE10ScienceStore } from '@/stores/useCBSE10ScienceStore';
 import { useAuth } from '@/contexts/AuthContext';
-import { BookOpen, BarChart3, FlaskConical } from 'lucide-react';
+import { BookOpen, ClipboardList, FlaskConical, BarChart3 } from 'lucide-react';
 import Link from 'next/link';
 
 const ACCENT = '#059669';
 
 export default function LandingScreen() {
-  const { goToPracticeConfig, goToAnalytics } = useCBSE10ScienceStore();
+  const { goToStudyModeSelect, goToTestConfig, goToAnalytics } = useCBSE10ScienceStore();
   const { user, loading } = useAuth();
   const router = useRouter();
 
-  const handlePractice = () => {
+  const requireAuth = (callback: () => void) => {
     if (!user && !loading) {
       router.push('/auth?redirect=/cbse10-science');
       return;
     }
-    goToPracticeConfig();
-  };
-
-  const handleAnalytics = () => {
-    if (!user && !loading) {
-      router.push('/auth?redirect=/cbse10-science');
-      return;
-    }
-    goToAnalytics();
+    callback();
   };
 
   return (
@@ -42,13 +34,47 @@ export default function LandingScreen() {
             </span>
           </div>
           <p className="text-gray-600">
-            Practice mode with AI-powered explanations — 13 chapters, all difficulty levels
+            13 chapters · Test mode, practice, and flashcard study
           </p>
         </div>
 
         <div className="grid md:grid-cols-2 gap-6">
+          {/* Test Mode Card */}
           <button
-            onClick={handlePractice}
+            onClick={() => requireAuth(goToTestConfig)}
+            className="group text-left bg-white border-2 border-gray-200 rounded-xl p-6 hover:border-[#1e40af] hover:shadow-lg transition-all"
+          >
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-12 h-12 rounded-lg bg-[#1e40af] flex items-center justify-center group-hover:scale-105 transition-transform">
+                <ClipboardList className="w-6 h-6 text-white" />
+              </div>
+              <div>
+                <h2 className="text-xl font-bold text-gray-900">Test Mode</h2>
+                <p className="text-sm text-gray-500">Timed &amp; Scored</p>
+              </div>
+            </div>
+            <ul className="space-y-2 text-sm text-gray-600 mb-4">
+              <li className="flex items-start gap-2">
+                <span className="text-[#1e40af] font-bold mt-0.5">1</span>
+                <span>Choose chapters, difficulty &amp; question count</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-[#1e40af] font-bold mt-0.5">2</span>
+                <span>Timed exam — answer without hints</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-[#1e40af] font-bold mt-0.5">3</span>
+                <span>Score report with chapter &amp; difficulty breakdown</span>
+              </li>
+            </ul>
+            <div className="text-sm font-semibold text-[#1e40af] group-hover:underline">
+              Start Test →
+            </div>
+          </button>
+
+          {/* Study Mode Card */}
+          <button
+            onClick={() => requireAuth(goToStudyModeSelect)}
             className="group text-left bg-white border-2 border-gray-200 rounded-xl p-6 hover:shadow-lg transition-all"
             onMouseEnter={(e) => (e.currentTarget.style.borderColor = ACCENT)}
             onMouseLeave={(e) => (e.currentTarget.style.borderColor = '')}
@@ -58,67 +84,45 @@ export default function LandingScreen() {
                 <BookOpen className="w-6 h-6 text-white" />
               </div>
               <div>
-                <h2 className="text-xl font-bold text-gray-900">Practice Mode</h2>
-                <p className="text-sm text-gray-500">Untimed &amp; Guided</p>
+                <h2 className="text-xl font-bold text-gray-900">Study Mode</h2>
+                <p className="text-sm text-gray-500">Practice &amp; Flashcards</p>
               </div>
             </div>
             <ul className="space-y-2 text-sm text-gray-600 mb-4">
               <li className="flex items-start gap-2">
                 <span className="font-bold mt-0.5" style={{ color: '#047857' }}>✓</span>
-                <span>5 free questions daily with AI explanations</span>
+                <span>Untimed practice with AI explanations &amp; theory</span>
               </li>
               <li className="flex items-start gap-2">
                 <span className="font-bold mt-0.5" style={{ color: '#047857' }}>✓</span>
-                <span>Practice by chapter, topic, and difficulty</span>
+                <span>Flashcard study — flip cards, memorize concepts</span>
               </li>
               <li className="flex items-start gap-2">
                 <span className="font-bold mt-0.5" style={{ color: '#047857' }}>✓</span>
-                <span>Deep-dive theory for every question</span>
+                <span>Filter by chapter, topic, and difficulty</span>
               </li>
               <li className="flex items-start gap-2">
                 <span className="font-bold mt-0.5" style={{ color: '#047857' }}>✓</span>
-                <span>Upgrade for unlimited access</span>
+                <span>5 free questions daily · Upgrade for unlimited</span>
               </li>
             </ul>
             <div className="text-sm font-semibold group-hover:underline" style={{ color: '#047857' }}>
-              Configure Practice →
-            </div>
-          </button>
-
-          <button
-            onClick={handleAnalytics}
-            className="group text-left bg-white border-2 border-gray-200 rounded-xl p-6 hover:shadow-lg transition-all"
-            onMouseEnter={(e) => (e.currentTarget.style.borderColor = ACCENT)}
-            onMouseLeave={(e) => (e.currentTarget.style.borderColor = '')}
-          >
-            <div className="flex items-center gap-3 mb-4">
-              <div className="w-12 h-12 rounded-lg bg-gray-800 flex items-center justify-center group-hover:scale-105 transition-transform">
-                <BarChart3 className="w-6 h-6 text-white" />
-              </div>
-              <div>
-                <h2 className="text-xl font-bold text-gray-900">My Analytics</h2>
-                <p className="text-sm text-gray-500">Strengths &amp; Weaknesses</p>
-              </div>
-            </div>
-            <ul className="space-y-2 text-sm text-gray-600 mb-4">
-              <li className="flex items-start gap-2">
-                <span className="font-bold mt-0.5 text-gray-800">✓</span>
-                <span>Chapter-wise accuracy breakdown</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="font-bold mt-0.5 text-gray-800">✓</span>
-                <span>Strongest and weakest areas highlighted</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="font-bold mt-0.5 text-gray-800">✓</span>
-                <span>Track improvement over time</span>
-              </li>
-            </ul>
-            <div className="text-sm font-semibold text-gray-800 group-hover:underline">
-              View Analytics →
+              Start Studying →
             </div>
           </button>
         </div>
+
+        {user && (
+          <div className="text-center mt-6">
+            <button
+              onClick={goToAnalytics}
+              className="inline-flex items-center gap-2 text-sm font-medium text-gray-600 hover:text-gray-900 hover:underline transition-colors"
+            >
+              <BarChart3 className="w-4 h-4" />
+              View My Analytics
+            </button>
+          </div>
+        )}
 
         <div className="text-center text-xs text-gray-400 mt-8 space-y-1">
           <p>

@@ -1,30 +1,16 @@
 'use client';
 
 import { useState, useEffect, useMemo } from 'react';
-import { useCBSE10ScienceStore } from '@/stores/useCBSE10ScienceStore';
 import Link from 'next/link';
-import type { CBSE10ScienceDomain, DifficultyTier } from '@/types/cbse10-science';
-import { FlaskConical, ArrowLeft, Loader2, Play, Crown, Sparkles, ArrowRight } from 'lucide-react';
+import { BookOpen, ArrowLeft, Loader2, Play, Crown, Sparkles, ArrowRight } from 'lucide-react';
+import { IBDP_DOMAINS } from '@/lib/ibdp-maths-courses';
+import type { IBDPMathsDomain, DifficultyTier, IBDPMathsCourseConfig } from '@/types/ibdp-maths';
+import type { IBDPMathsState } from '@/stores/useIBDPMathsStore';
 
-const ACCENT = '#059669';
-const ACCENT_DARK = '#047857';
-const ACCENT_LIGHT = '#d1fae5';
-
-const DOMAINS: { id: CBSE10ScienceDomain; label: string }[] = [
-  { id: 'chemical-reactions', label: 'Chemical Reactions' },
-  { id: 'acids-bases-salts', label: 'Acids, Bases & Salts' },
-  { id: 'metals-non-metals', label: 'Metals & Non-metals' },
-  { id: 'carbon-compounds', label: 'Carbon Compounds' },
-  { id: 'life-processes', label: 'Life Processes' },
-  { id: 'control-coordination', label: 'Control & Coordination' },
-  { id: 'reproduction', label: 'Reproduction' },
-  { id: 'heredity-evolution', label: 'Heredity & Evolution' },
-  { id: 'light', label: 'Light' },
-  { id: 'human-eye', label: 'Human Eye' },
-  { id: 'electricity', label: 'Electricity' },
-  { id: 'magnetic-effects', label: 'Magnetic Effects' },
-  { id: 'our-environment', label: 'Our Environment' },
-];
+interface Props {
+  config: IBDPMathsCourseConfig;
+  useStore: () => IBDPMathsState;
+}
 
 const DIFFICULTIES: { id: DifficultyTier | 'mixed'; label: string }[] = [
   { id: 'mixed', label: 'Mixed' },
@@ -39,10 +25,9 @@ type Remaining = { easy: number; medium: number; hard: number };
 interface FilterChapter { name: string; subtopics: string[] }
 interface FilterDomain { id: string; chapters: FilterChapter[] }
 
-export default function PracticeConfigScreen() {
-  const { startPracticeMode, goToStudyModeSelect } = useCBSE10ScienceStore();
-  const goToLanding = goToStudyModeSelect;
-  const [selectedDomains, setSelectedDomains] = useState<CBSE10ScienceDomain[]>([]);
+export default function PracticeConfigScreen({ config, useStore }: Props) {
+  const { startPracticeMode, goToLanding } = useStore();
+  const [selectedDomains, setSelectedDomains] = useState<IBDPMathsDomain[]>([]);
   const [selectedChapters, setSelectedChapters] = useState<string[]>([]);
   const [selectedSubtopics, setSelectedSubtopics] = useState<string[]>([]);
   const [difficulty, setDifficulty] = useState<DifficultyTier | 'mixed'>('mixed');
@@ -57,7 +42,7 @@ export default function PracticeConfigScreen() {
   const [filterData, setFilterData] = useState<FilterDomain[]>([]);
 
   useEffect(() => {
-    fetch('/api/cbse10-science/practice-usage')
+    fetch(`/api/${config.apiPrefix}/practice-usage`)
       .then((r) => r.json())
       .then((d) => {
         setIsPremium(d.isPremium ?? false);
@@ -66,18 +51,18 @@ export default function PracticeConfigScreen() {
       })
       .catch(() => setIsPremium(false))
       .finally(() => setUsageLoading(false));
-  }, []);
+  }, [config.apiPrefix]);
 
   useEffect(() => {
-    fetch('/api/cbse10-science/practice-filters')
+    fetch(`/api/${config.apiPrefix}/practice-filters`)
       .then((r) => r.json())
       .then((d) => setFilterData(d.domains ?? []))
       .catch(() => setFilterData([]));
-  }, []);
+  }, [config.apiPrefix]);
 
   const availableChapters = useMemo(() => {
     if (selectedDomains.length === 0) return filterData.flatMap((d) => d.chapters);
-    return filterData.filter((d) => selectedDomains.includes(d.id as CBSE10ScienceDomain)).flatMap((d) => d.chapters);
+    return filterData.filter((d) => selectedDomains.includes(d.id as IBDPMathsDomain)).flatMap((d) => d.chapters);
   }, [filterData, selectedDomains]);
 
   const availableSubtopics = useMemo(() => {
@@ -87,7 +72,7 @@ export default function PracticeConfigScreen() {
     return [...new Set(chapters.flatMap((ch) => ch.subtopics))].sort();
   }, [availableChapters, selectedChapters]);
 
-  const toggleDomain = (id: CBSE10ScienceDomain) => {
+  const toggleDomain = (id: IBDPMathsDomain) => {
     setSelectedDomains((prev) => prev.includes(id) ? prev.filter((d) => d !== id) : [...prev, id]);
     setSelectedChapters([]);
     setSelectedSubtopics([]);
@@ -132,11 +117,11 @@ export default function PracticeConfigScreen() {
       <div className="w-full max-w-lg">
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center gap-2">
-            <div className="w-10 h-10 rounded-lg flex items-center justify-center text-white" style={{ backgroundColor: ACCENT }}>
-              <FlaskConical className="w-5 h-5" />
+            <div className="w-10 h-10 rounded-lg flex items-center justify-center" style={{ backgroundColor: config.accentColor }}>
+              <BookOpen className="w-5 h-5 text-white" />
             </div>
             <div>
-              <h1 className="text-xl font-bold text-gray-900">CBSE 10 Science</h1>
+              <h1 className="text-xl font-bold text-gray-900">{config.title}</h1>
               <p className="text-sm text-gray-500">Untimed with AI explanations</p>
             </div>
           </div>
@@ -164,7 +149,7 @@ export default function PracticeConfigScreen() {
                 <p className="text-sm font-semibold text-amber-800">Your subscription has expired</p>
                 <p className="text-xs text-amber-600 mt-0.5">Renew to continue with unlimited practice questions.</p>
               </div>
-              <Link href="/mocks/tokens" className="shrink-0 inline-flex items-center gap-1 px-3 py-1.5 text-white text-xs font-semibold rounded-lg hover:brightness-95 transition-all" style={{ backgroundColor: ACCENT }}>
+              <Link href="/mocks/tokens" className="shrink-0 inline-flex items-center gap-1 px-3 py-1.5 text-white text-xs font-semibold rounded-lg hover:brightness-95 transition-all" style={{ backgroundColor: config.accentColor }}>
                 <Sparkles className="w-3 h-3" />
                 Renew
               </Link>
@@ -173,20 +158,18 @@ export default function PracticeConfigScreen() {
         )}
 
         {!usageLoading && isPremium === false && !subscriptionExpired && (
-          <div className="mb-4 rounded-xl p-4 border" style={{ backgroundColor: 'rgba(209, 250, 229, 0.65)', borderColor: ACCENT }}>
+          <div className="mb-4 rounded-xl p-4 border" style={{ backgroundColor: config.accentLight, borderColor: config.accentText + '44' }}>
             <div className="flex items-start justify-between gap-3">
               <div>
-                <p className="text-sm font-semibold" style={{ color: ACCENT_DARK }}>
+                <p className="text-sm font-semibold" style={{ color: config.accentText }}>
                   Free Plan — {totalRemaining} question{totalRemaining !== 1 ? 's' : ''} remaining today
                 </p>
                 <p className="text-xs text-gray-500 mt-0.5">Daily limit: 2 Easy + 2 Medium + 1 Hard with AI explanations</p>
                 {remaining && (
                   <div className="flex gap-3 mt-2">
                     {(['easy', 'medium', 'hard'] as const).map((tier) => (
-                      <span key={tier} className={`text-xs font-medium px-2 py-0.5 rounded-full ${
-                        remaining[tier] > 0 ? '' : 'bg-gray-100 text-gray-400'
-                      }`}
-                        style={remaining[tier] > 0 ? { backgroundColor: ACCENT_LIGHT, color: ACCENT_DARK } : undefined}
+                      <span key={tier} className={`text-xs font-medium px-2 py-0.5 rounded-full ${remaining[tier] === 0 ? 'bg-gray-100 text-gray-400' : ''}`}
+                        style={remaining[tier] > 0 ? { backgroundColor: config.accentLight, color: config.accentText } : undefined}
                       >
                         {tier.charAt(0).toUpperCase() + tier.slice(1)}: {remaining[tier]}
                       </span>
@@ -194,7 +177,7 @@ export default function PracticeConfigScreen() {
                   </div>
                 )}
               </div>
-              <Link href="/mocks/tokens" className="shrink-0 inline-flex items-center gap-1 px-3 py-1.5 text-white text-xs font-semibold rounded-lg hover:brightness-95 transition-all" style={{ backgroundColor: ACCENT }}>
+              <Link href="/mocks/tokens" className="shrink-0 inline-flex items-center gap-1 px-3 py-1.5 text-white text-xs font-semibold rounded-lg hover:brightness-95 transition-all" style={{ backgroundColor: config.accentColor }}>
                 <Sparkles className="w-3 h-3" />
                 Upgrade
               </Link>
@@ -206,7 +189,7 @@ export default function PracticeConfigScreen() {
           <div className="mb-4 bg-amber-50 border border-amber-200 rounded-xl p-5 text-center">
             <p className="font-semibold text-amber-800 mb-1">Today&apos;s free questions are used up</p>
             <p className="text-sm text-amber-600 mb-3">Come back tomorrow or upgrade for unlimited practice.</p>
-            <Link href="/mocks/tokens" className="inline-flex items-center gap-2 px-5 py-2.5 text-white font-semibold rounded-lg hover:brightness-95 transition-all text-sm" style={{ backgroundColor: ACCENT }}>
+            <Link href="/mocks/tokens" className="inline-flex items-center gap-2 px-5 py-2.5 text-white font-semibold rounded-lg hover:brightness-95 transition-all text-sm" style={{ backgroundColor: config.accentColor }}>
               Unlock Unlimited Practice
               <ArrowRight className="w-4 h-4" />
             </Link>
@@ -214,19 +197,20 @@ export default function PracticeConfigScreen() {
         )}
 
         <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-6 space-y-6">
+          {/* Topic (domain) */}
           <div>
             <label className="text-sm font-semibold text-gray-700 mb-2 block">
-              Chapter <span className="font-normal text-gray-400">(none = all)</span>
+              Topic <span className="font-normal text-gray-400">(none = all)</span>
             </label>
             <div className="flex flex-wrap gap-2">
-              {DOMAINS.map((d) => {
+              {IBDP_DOMAINS.map((d) => {
                 const active = selectedDomains.includes(d.id);
                 return (
                   <button key={d.id} onClick={() => toggleDomain(d.id)}
                     className={`px-3 py-1.5 rounded-full text-xs font-medium border transition-colors ${
                       active ? 'text-white' : 'border-gray-200 text-gray-500 hover:border-gray-300'
                     }`}
-                    style={active ? { borderColor: ACCENT, backgroundColor: ACCENT } : undefined}
+                    style={active ? { borderColor: config.accentColor, backgroundColor: config.accentColor } : undefined}
                   >
                     {d.label}
                   </button>
@@ -235,10 +219,11 @@ export default function PracticeConfigScreen() {
             </div>
           </div>
 
+          {/* Chapters from filters */}
           {availableChapters.length > 0 && (
             <div>
               <label className="text-sm font-semibold text-gray-700 mb-2 block">
-                Topic <span className="font-normal text-gray-400">(none = all)</span>
+                Chapter <span className="font-normal text-gray-400">(none = all)</span>
               </label>
               <div className="flex flex-wrap gap-2">
                 {availableChapters.map((ch) => {
@@ -279,6 +264,7 @@ export default function PracticeConfigScreen() {
             </div>
           )}
 
+          {/* Difficulty */}
           <div className={isPremium === false ? 'opacity-50 pointer-events-none' : ''}>
             <label className="text-sm font-semibold text-gray-700 mb-2 block">
               Difficulty
@@ -290,7 +276,7 @@ export default function PracticeConfigScreen() {
                   className={`flex-1 py-2 rounded-lg text-xs font-semibold border-2 transition-all ${
                     difficulty === d.id ? 'text-white' : 'border-gray-200 text-gray-500 hover:border-gray-300'
                   }`}
-                  style={difficulty === d.id ? { borderColor: ACCENT, backgroundColor: ACCENT } : undefined}
+                  style={difficulty === d.id ? { borderColor: config.accentColor, backgroundColor: config.accentColor } : undefined}
                 >
                   {d.label}
                 </button>
@@ -298,6 +284,7 @@ export default function PracticeConfigScreen() {
             </div>
           </div>
 
+          {/* Count */}
           <div className={isPremium === false ? 'opacity-50 pointer-events-none' : ''}>
             <label className="text-sm font-semibold text-gray-700 mb-2 block">
               Questions
@@ -309,7 +296,7 @@ export default function PracticeConfigScreen() {
                   className={`flex-1 py-2 rounded-lg text-sm font-semibold border-2 transition-all ${
                     count === c ? 'text-white' : 'border-gray-200 text-gray-500 hover:border-gray-300'
                   }`}
-                  style={count === c ? { borderColor: ACCENT, backgroundColor: ACCENT } : undefined}
+                  style={count === c ? { borderColor: config.accentColor, backgroundColor: config.accentColor } : undefined}
                 >
                   {c}
                 </button>
@@ -321,9 +308,12 @@ export default function PracticeConfigScreen() {
 
           <button onClick={handleStart} disabled={loading || limitExhausted || usageLoading}
             className="w-full py-3 text-white font-semibold rounded-lg hover:brightness-95 disabled:opacity-60 transition-all text-lg inline-flex items-center justify-center gap-2"
-            style={{ backgroundColor: ACCENT }}
+            style={{ backgroundColor: config.accentColor }}
           >
-            {loading ? (<><Loader2 className="w-5 h-5 animate-spin" />Loading Questions...</>) : (<><Play className="w-5 h-5" />{isPremium ? 'Start Practice' : `Start Practice (${totalRemaining} left)`}</>)}
+            {loading
+              ? (<><Loader2 className="w-5 h-5 animate-spin" />Loading Questions...</>)
+              : (<><Play className="w-5 h-5" />{isPremium ? 'Start Practice' : `Start Practice (${totalRemaining} left)`}</>)
+            }
           </button>
         </div>
       </div>

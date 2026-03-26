@@ -199,6 +199,30 @@ export default function SiteAdministrationPage() {
           icon: ListChecks,
           description: "Review all CBSE Class 10 Science questions",
         },
+        {
+          name: "IB AA HL QC",
+          href: "/admin/ibdp-aa-hl-qc",
+          icon: ListChecks,
+          description: "Review all IB Mathematics Analysis & Approaches HL questions",
+        },
+        {
+          name: "IB AA SL QC",
+          href: "/admin/ibdp-aa-sl-qc",
+          icon: ListChecks,
+          description: "Review all IB Mathematics Analysis & Approaches SL questions",
+        },
+        {
+          name: "IB AI HL QC",
+          href: "/admin/ibdp-ai-hl-qc",
+          icon: ListChecks,
+          description: "Review all IB Mathematics Applications & Interpretation HL questions",
+        },
+        {
+          name: "IB AI SL QC",
+          href: "/admin/ibdp-ai-sl-qc",
+          icon: ListChecks,
+          description: "Review all IB Mathematics Applications & Interpretation SL questions",
+        },
       ],
     },
     {

@@ -96,7 +96,7 @@ export async function GET(request: NextRequest) {
     const isPremium = await checkFullAccess(supabase, user.id);
 
     if (isPremium) {
-      let query = supabase.from(TABLE).select(FIELDS).eq('is_active', true);
+      let query = supabase.from(TABLE).select(FIELDS).eq('is_active', true).eq('is_flashcard', false);
       query = applyFilters(query, domainsParam, chaptersParam, subtopicsParam);
       if (difficulty && difficulty !== 'mixed') query = query.eq('difficulty_tier', difficulty);
 
@@ -130,7 +130,7 @@ export async function GET(request: NextRequest) {
 
     for (const [tier, need] of [['easy', wantEasy], ['medium', wantMedium], ['hard', wantHard]] as const) {
       if (need <= 0) continue;
-      let tierQuery = supabase.from(TABLE).select(FIELDS).eq('is_active', true).eq('difficulty_tier', tier);
+      let tierQuery = supabase.from(TABLE).select(FIELDS).eq('is_active', true).eq('is_flashcard', false).eq('difficulty_tier', tier);
       tierQuery = applyFilters(tierQuery, domainsParam, chaptersParam, subtopicsParam);
       const { data } = await tierQuery;
       if (data?.length) {

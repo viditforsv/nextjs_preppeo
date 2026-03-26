@@ -49,10 +49,31 @@ export interface CBSE10SciencePracticeConfig {
 
 export type CBSE10SciencePracticePhase =
   | 'landing'
+  | 'study-mode-select'
   | 'practice-config'
   | 'in-practice'
   | 'practice-summary'
-  | 'analytics';
+  | 'analytics'
+  | 'test-config'
+  | 'in-test'
+  | 'test-results'
+  | 'flashcard-config'
+  | 'in-flashcards';
+
+export interface CBSE10ScienceTestConfig {
+  domains: CBSE10ScienceDomain[];
+  chapters: string[];
+  subtopics: string[];
+  difficulty: DifficultyTier | 'mixed';
+  questionCount: number;
+  timeLimitMinutes: number;
+}
+
+export interface CBSE10ScienceFlashcardConfig {
+  domains: CBSE10ScienceDomain[];
+  chapters: string[];
+  cardCount: number;
+}
 
 export interface PracticeAnswer {
   questionId: string;
