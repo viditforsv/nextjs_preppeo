@@ -89,7 +89,7 @@ function EarningsCalculator() {
             <p className="text-sm text-muted-foreground mb-1">Your estimated earnings</p>
             <p className="text-4xl font-bold text-primary mb-2">{formatINR(earnings)}</p>
             <p className="text-xs text-muted-foreground text-center">
-              {totalMocks} mocks &times; {formatINR(pricePerMock)} &times; 30% commission
+              Based on {totalMocks} mocks across {students} students
             </p>
           </div>
         </div>
@@ -113,7 +113,7 @@ export default function ForInstitutesPage() {
           </h1>
           <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto leading-relaxed">
             Adaptive, timed, and scored — just like the real Digital SAT.
-            We handle the tech. You earn commission on every purchase.
+            We handle the tech. You focus on your students.
           </p>
           <div className="flex gap-3 justify-center flex-wrap">
             <Link href="/contact?subject=partnership">
@@ -151,7 +151,7 @@ export default function ForInstitutesPage() {
               <h2 className="text-2xl font-bold text-foreground mb-4">The Solution</h2>
               <p className="text-muted-foreground leading-relaxed mb-4">
                 Recommend Preppeo to your students. They get exam-realistic mocks with detailed score reports.
-                You earn commission on every purchase — zero tech, zero upfront cost.
+                You get a seamless, trusted tool to offer — zero tech, zero upfront cost.
               </p>
               <ul className="space-y-2 text-sm text-muted-foreground">
                 <li className="flex items-start gap-2"><CheckCircle className="w-4 h-4 text-emerald-500 mt-0.5 shrink-0" /> Fully adaptive (Module 2 adjusts to Module 1)</li>
@@ -168,7 +168,7 @@ export default function ForInstitutesPage() {
         <div className="max-w-4xl mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-foreground mb-3">How It Works</h2>
-            <p className="text-muted-foreground">Three steps to start earning</p>
+            <p className="text-muted-foreground">Three simple steps</p>
           </div>
           <div className="grid md:grid-cols-3 gap-8">
             <Card className="text-center hover:shadow-md transition-shadow">
@@ -203,9 +203,9 @@ export default function ForInstitutesPage() {
                   <Wallet className="w-6 h-6 text-amber-600" />
                 </div>
                 <div className="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center mx-auto mb-3 text-sm font-bold">3</div>
-                <h3 className="font-bold text-foreground mb-2">Earn 30% Commission</h3>
+                <h3 className="font-bold text-foreground mb-2">Get Rewarded</h3>
                 <p className="text-sm text-muted-foreground">
-                  Earn on every purchase your students make. Commissions are tracked and paid out periodically.
+                  Earn on every purchase your students make. Your earnings are tracked and paid out periodically.
                 </p>
               </CardContent>
             </Card>
@@ -257,9 +257,9 @@ export default function ForInstitutesPage() {
       <section className="py-16 bg-[#f5f5f0]">
         <div className="max-w-3xl mx-auto px-4">
           <div className="text-center mb-10">
-            <h2 className="text-3xl font-bold text-foreground mb-3">How Much Can You Earn?</h2>
+            <h2 className="text-3xl font-bold text-foreground mb-3">Estimate Your Partnership Benefit</h2>
             <p className="text-muted-foreground">
-              Drag the sliders to estimate your commission earnings.
+              Drag the sliders to see your estimated earnings.
             </p>
           </div>
           <EarningsCalculator />
@@ -273,7 +273,7 @@ export default function ForInstitutesPage() {
             Ready to Partner with Preppeo?
           </h2>
           <p className="text-white/80 mb-8">
-            Zero upfront cost. Zero tech overhead. Start earning from day one.
+            Zero upfront cost. Zero tech overhead. Your students get better prep — and so do you.
           </p>
           <div className="flex gap-3 justify-center flex-wrap">
             <Link href="/contact?subject=partnership">
