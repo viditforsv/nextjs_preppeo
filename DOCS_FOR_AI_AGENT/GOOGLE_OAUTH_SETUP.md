@@ -27,12 +27,12 @@ This guide will help you enable Google OAuth authentication in both your **Dev**
    - **Name**: Preppeo (or your app name)
    - **Authorized JavaScript origins**:
      - `https://ootnqmojcqnzfrtvzzec.supabase.co` (Production)
-     - `https://tqeyguvxcsebzhvhzngx.supabase.co` (Dev)
+     - `https://dxhxpfouzjlzpeazwrqo.supabase.co` (Dev)
      - `https://courses.preppeo.com` (Production domain)
      - `https://dev.courses.preppeo.com` (Dev domain, if applicable)
    - **Authorized redirect URIs**:
      - `https://ootnqmojcqnzfrtvzzec.supabase.co/auth/v1/callback` (Production)
-     - `https://tqeyguvxcsebzhvhzngx.supabase.co/auth/v1/callback` (Dev)
+     - `https://dxhxpfouzjlzpeazwrqo.supabase.co/auth/v1/callback` (Dev)
      - `https://courses.preppeo.com/auth/callback` (Production)
      - `https://dev.courses.preppeo.com/auth/callback` (Dev, if applicable)
 
@@ -75,7 +75,7 @@ https://ootnqmojcqnzfrtvzzec.supabase.co/auth/v1/callback
 ### 3.1 Access Dev Supabase Dashboard
 
 1. Go to [supabase.com/dashboard](https://supabase.com/dashboard)
-2. Select your **Dev** project (`tqeyguvxcsebzhvhzngx`)
+2. Select your **Dev** project (`dxhxpfouzjlzpeazwrqo`)
 
 ### 3.2 Enable Google Provider
 
@@ -92,7 +92,7 @@ https://ootnqmojcqnzfrtvzzec.supabase.co/auth/v1/callback
 
 The redirect URL should be automatically set to:
 ```
-https://tqeyguvxcsebzhvhzngx.supabase.co/auth/v1/callback
+https://dxhxpfouzjlzpeazwrqo.supabase.co/auth/v1/callback
 ```
 
 **Important:** Make sure this exact URL is added to your Google Cloud Console's authorized redirect URIs.

@@ -1,16 +1,11 @@
 # Supabase Branching Setup Guide
 
-Complete guide for migrating from two separate Supabase projects to a single project with branches.
-
 ## Overview
 
-**Current Setup:**
-- Dev Project: `tqeyguvxcsebzhvhzngx.supabase.co` (can be discarded)
-- Prod Project: `ootnqmojcqnzfrtvzzec.supabase.co` (will become main branch)
-
-**Target Setup:**
-- Main Project: `ootnqmojcqnzfrtvzzec.supabase.co` (production)
-- Dev Branch: Persistent branch created from main (for development)
+**Current Setup (completed):**
+- Single project: `ootnqmojcqnzfrtvzzec` (`preppeo_lms_prod`)
+- `main` branch → production (`courses.preppeo.com`)
+- `dev` branch → development (`dxhxpfouzjlzpeazwrqo.supabase.co`)
 
 ---
 
@@ -130,10 +125,8 @@ Update your Vercel project settings:
 
 ## Important Notes
 
-⚠️ **Dev Branch is Empty:** The new dev branch starts with a fresh database - no data from main/prod  
-⚠️ **Old Dev Project:** The old dev project (`tqeyguvxcsebzhvhzngx`) can be deleted after migration  
-⚠️ **Migrations:** You'll need to apply all migrations to the dev branch to recreate your schema  
-⚠️ **Data Migration:** If you need specific dev data, export it from the old dev project and import to the new branch  
+⚠️ **Dev Branch Data:** Dev branch has its own data separate from prod/main
+⚠️ **Migrations:** Apply migrations to the dev branch before promoting to main  
 
 ---
 

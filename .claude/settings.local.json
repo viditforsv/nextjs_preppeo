@@ -9,7 +9,11 @@
       "Bash(node -e \"const l=require\\(''''./package-lock.json''''\\); console.log\\(l.packages?.[''''node_modules/yaml'''']?.version\\)\")",
       "Bash(ls \"/Users/viditvia/Documents/GitHub/2. nextjs_projects/2. SVI and Preppeo/nextjs_preppeo\"/.eslint*)",
       "Bash(ls \"/Users/viditvia/Documents/GitHub/2. nextjs_projects/2. SVI and Preppeo/nextjs_preppeo\"/eslint*)",
-      "Bash(npx eslint:*)"
+      "Bash(npx eslint:*)",
+      "mcp__claude_ai_Supabase__list_projects",
+      "mcp__claude_ai_Supabase__restore_project",
+      "mcp__claude_ai_Supabase__execute_sql",
+      "mcp__claude_ai_Supabase__list_migrations"
     ]
   }
 }

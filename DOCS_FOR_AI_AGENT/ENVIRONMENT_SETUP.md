@@ -19,7 +19,7 @@ Complete guide for local development and environment configuration.
 NEXT_PUBLIC_ENVIRONMENT=dev
 
 # Dev Supabase
-NEXT_PUBLIC_SUPABASE_URL_DEV=https://tqeyguvxcsebzhvhzngx.supabase.co
+NEXT_PUBLIC_SUPABASE_URL_DEV=https://dxhxpfouzjlzpeazwrqo.supabase.co
 NEXT_PUBLIC_SUPABASE_ANON_KEY_DEV=[your-dev-anon-key]
 SUPABASE_SERVICE_ROLE_KEY_DEV=[your-dev-service-role-key]
 

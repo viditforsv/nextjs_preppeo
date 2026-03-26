@@ -34,7 +34,7 @@ NEXT_PUBLIC_RAZORPAY_KEY_ID=rzp_live_...
 **Preview only:**
 ```bash
 NEXT_PUBLIC_ENVIRONMENT=dev
-NEXT_PUBLIC_SUPABASE_URL_DEV=https://tqeyguvxcsebzhvhzngx.supabase.co
+NEXT_PUBLIC_SUPABASE_URL_DEV=https://dxhxpfouzjlzpeazwrqo.supabase.co
 NEXT_PUBLIC_SUPABASE_ANON_KEY_DEV=[your-dev-anon-key]
 SUPABASE_SERVICE_ROLE_KEY_DEV=[your-dev-service-role-key]
 NEXT_PUBLIC_APP_URL=https://dev.courses.preppeo.com
