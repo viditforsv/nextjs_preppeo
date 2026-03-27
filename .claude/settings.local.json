@@ -13,7 +13,13 @@
       "mcp__claude_ai_Supabase__list_projects",
       "mcp__claude_ai_Supabase__restore_project",
       "mcp__claude_ai_Supabase__execute_sql",
-      "mcp__claude_ai_Supabase__list_migrations"
+      "mcp__claude_ai_Supabase__list_migrations",
+      "mcp__claude_ai_Supabase__apply_migration",
+      "Bash(find /Users/viditvia/Documents/GitHub/2. nextjs_projects/2. SVI and Preppeo/nextjs_preppeo/src/app/api/subscriptions -type f -name *.ts)",
+      "Bash(grep -l \"sat_questions\" /Users/viditvia/Documents/GitHub/2. nextjs_projects/2. SVI and Preppeo/nextjs_preppeo/supabase/migrations/sat/*.sql)",
+      "mcp__claude_ai_Supabase__list_branches",
+      "Bash(node -e \":*)",
+      "Bash(ln:*)"
     ]
   }
 }
