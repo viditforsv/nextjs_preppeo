@@ -6,8 +6,9 @@ import { Ticket, BookOpen, Sparkles } from 'lucide-react';
 import type { ExamType, TestToken } from '@/types/test-tokens';
 
 export const metadata = {
-  title: 'Mock Hub | Preppeo',
-  description: 'Full-length adaptive mock tests for SAT, GRE, GMAT, and more.',
+  title: 'SAT Mock Tests — Full-Length Adaptive Practice | Preppeo',
+  description:
+    'Access full-length Digital SAT mock tests on Preppeo. Adaptive routing, 2,500+ questions across all domains, Desmos calculator, and detailed performance analytics.',
 };
 
 export default async function TestsHubPage() {

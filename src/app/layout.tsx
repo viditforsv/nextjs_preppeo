@@ -46,9 +46,9 @@ const lato = Lato({
 const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "https://preppeo.com";
 
 export const metadata: Metadata = {
-  title: "Preppeo LMS - Learning Management System",
+  title: "Preppeo — Digital SAT Prep & Full-Length Mock Tests",
   description:
-    "A modern learning management system built with Next.js and Supabase",
+    "Prepare for the Digital SAT with Preppeo. 5 full-length adaptive mock tests, 2,500+ questions, real College Board-style adaptive routing, and instant score reports. Start your free SAT practice test today.",
   icons: {
     icon: "/images/favicon.ico",
     apple: "/images/apple-touch-icon.png",
@@ -68,17 +68,17 @@ export const metadata: Metadata = {
     ],
   },
   openGraph: {
-    title: "Preppeo LMS - Learning Management System",
+    title: "Preppeo — Digital SAT Prep & Full-Length Mock Tests",
     description:
-      "A modern learning management system built with Next.js and Supabase",
+      "Prepare for the Digital SAT with Preppeo. 5 full-length adaptive mock tests, 2,500+ questions, real College Board-style adaptive routing, and instant score reports.",
     url: baseUrl,
-    siteName: "Preppeo LMS",
+    siteName: "Preppeo",
     images: [
       {
         url: "/images/preppeo_logo.png",
         width: 1200,
         height: 630,
-        alt: "Preppeo LMS Logo",
+        alt: "Preppeo — Digital SAT Prep",
       },
     ],
     locale: "en_US",
@@ -86,9 +86,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Preppeo LMS - Learning Management System",
+    title: "Preppeo — Digital SAT Prep & Full-Length Mock Tests",
     description:
-      "A modern learning management system built with Next.js and Supabase",
+      "5 full-length adaptive Digital SAT mock tests. Real adaptive routing, 2,500+ questions, and instant score reports.",
     images: ["/images/preppeo_logo.png"],
   },
 };

@@ -21,7 +21,8 @@
       "Bash(node -e \":*)",
       "Bash(ln:*)",
       "Bash(grep -E \"\\\\.\\(tsx?|jsx?\\)$\")",
-      "Bash(grep -E \"\\\\.\\(config|css|ts|js\\)$\")"
+      "Bash(grep -E \"\\\\.\\(config|css|ts|js\\)$\")",
+      "mcp__claude_ai_Supabase__list_tables"
     ]
   }
 }
