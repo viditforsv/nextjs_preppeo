@@ -76,6 +76,7 @@ export function Header() {
       return [
         { name: "Home", href: "/", hasDropdown: false },
         { name: "Mocks", href: "/mocks", hasDropdown: false },
+        { name: "SAT Guide", href: "/sat-guide", hasDropdown: false },
         {
           name: "Site Administration",
           href: "/admin/site-administration",
@@ -86,12 +87,14 @@ export function Header() {
       return [
         { name: "Home", href: "/", hasDropdown: false },
         { name: "Mocks", href: "/mocks", hasDropdown: false },
+        { name: "SAT Guide", href: "/sat-guide", hasDropdown: false },
         { name: "My Courses", href: "/courses/enrolled", hasDropdown: false },
       ];
     } else {
       return [
         { name: "Home", href: "/", hasDropdown: false },
         { name: "Mocks", href: "/mocks", hasDropdown: false },
+        { name: "SAT Guide", href: "/sat-guide", hasDropdown: false },
         { name: "For Institutes", href: "/for-institutes", hasDropdown: false },
         { name: "Contact", href: "/contact", hasDropdown: false },
       ];

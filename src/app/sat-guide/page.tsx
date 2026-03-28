@@ -127,7 +127,7 @@ export default function SatGuidePage() {
     <div className="min-h-screen bg-[#f5f5f0]">
 
       {/* ── Top bar: test selector ─────────────────────────────── */}
-      <div className="border-b border-gray-200 bg-white sticky top-0 z-20 shadow-sm">
+      <div className="border-b border-gray-200 bg-white sticky top-16 z-20 shadow-sm">
         <div className="max-w-6xl mx-auto px-6 flex items-center gap-0 overflow-x-auto">
           {/* Active test tab */}
           <div
