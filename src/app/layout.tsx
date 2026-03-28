@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Lato } from "next/font/google";
+import { Inter, Lato, Lora } from "next/font/google";
 import "@/design-system/globals.css";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { CartProvider } from "@/contexts/CartContext";
@@ -23,6 +23,15 @@ const inter = Inter({
     "Segoe UI",
     "sans-serif",
   ],
+});
+
+// Lora serif font for SAT passage text
+const lora = Lora({
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
+  style: ["normal", "italic"],
+  variable: "--font-lora",
+  display: "swap",
 });
 
 // Lato font for specific components
@@ -92,7 +101,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${inter.variable} ${lato.variable} ${inter.className}`}
+        className={`${inter.variable} ${lato.variable} ${lora.variable} ${inter.className}`}
         suppressHydrationWarning={true}
       >
         <AuthProvider>

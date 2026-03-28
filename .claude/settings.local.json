@@ -19,7 +19,9 @@
       "Bash(grep -l \"sat_questions\" /Users/viditvia/Documents/GitHub/2. nextjs_projects/2. SVI and Preppeo/nextjs_preppeo/supabase/migrations/sat/*.sql)",
       "mcp__claude_ai_Supabase__list_branches",
       "Bash(node -e \":*)",
-      "Bash(ln:*)"
+      "Bash(ln:*)",
+      "Bash(grep -E \"\\\\.\\(tsx?|jsx?\\)$\")",
+      "Bash(grep -E \"\\\\.\\(config|css|ts|js\\)$\")"
     ]
   }
 }

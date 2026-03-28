@@ -145,13 +145,13 @@ export default function TestQuestionView() {
           {question.passage && (
             <div className="mb-5 pb-5 border-b border-gray-200">
               <p className="text-xs font-semibold uppercase text-gray-400 mb-2 tracking-wider">Passage</p>
-              <div className="text-sm text-gray-700 leading-relaxed whitespace-pre-line">
+              <div className="text-base text-gray-700 leading-[1.7] whitespace-pre-line font-[family-name:var(--font-lora)]">
                 {renderMixedContent(question.passage)}
               </div>
             </div>
           )}
           <div className="mb-5">
-            <div className="text-base text-gray-800 leading-relaxed">
+            <div className="text-base text-gray-800 leading-[1.65] font-[family-name:var(--font-lora)]">
               {renderMixedContent(question.prompt)}
             </div>
           </div>
