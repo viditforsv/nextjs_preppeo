@@ -9,8 +9,9 @@ export interface FilterDef {
   key: string;
   label: string;
   options: FilterOption[] | 'dynamic';
-  /** When options is 'dynamic', provide a function to derive them from the full question list */
-  deriveOptions?: (questions: QCQuestion[]) => FilterOption[];
+  /** When options is 'dynamic', provide a function to derive them from the full question list.
+   *  metadata is passed when available (fetched from metadataUrl) so dropdowns can be populated before the first Apply. */
+  deriveOptions?: (questions: QCQuestion[], metadata?: Record<string, unknown[]>) => FilterOption[];
   /** Called when this filter changes – can reset dependant filters */
   onChangeSideEffect?: (value: string, setFilters: (fn: (f: Record<string, string>) => Record<string, string>) => void) => void;
 }
@@ -79,4 +80,10 @@ export interface QCPageConfig<Q extends QCQuestion = QCQuestion> {
    * The banner renders each key-value pair as "Key: N".
    */
   statsUrl?: string;
+  /**
+   * URL to fetch distinct filter values on page load.
+   * Response must be: Record<string, unknown[]>
+   * Passed as second argument to each filter's deriveOptions.
+   */
+  metadataUrl?: string;
 }

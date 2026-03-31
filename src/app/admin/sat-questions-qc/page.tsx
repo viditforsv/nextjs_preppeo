@@ -95,11 +95,14 @@ const config: QCPageConfig<SATQCQuestion> = {
       key: 'module',
       label: 'Module',
       options: 'dynamic',
-      deriveOptions: (questions) => {
-        const mods = Array.from(new Set(questions.map((q) => (q as SATQCQuestion).moduleNumber))).sort((a, b) => a - b);
+      deriveOptions: (questions, metadata) => {
+        const raw: number[] =
+          questions.length > 0
+            ? Array.from(new Set(questions.map((q) => (q as SATQCQuestion).moduleNumber)))
+            : ((metadata?.modules ?? []) as number[]);
         return [
           { value: 'all', label: 'All' },
-          ...mods.map((m) => ({ value: String(m), label: m === 0 ? 'Practice (0)' : `Module ${m}` })),
+          ...raw.sort((a, b) => a - b).map((m) => ({ value: String(m), label: m === 0 ? 'Practice (0)' : `Module ${m}` })),
         ];
       },
     },
@@ -107,11 +110,14 @@ const config: QCPageConfig<SATQCQuestion> = {
       key: 'set',
       label: 'Set',
       options: 'dynamic',
-      deriveOptions: (questions) => {
-        const sets = Array.from(new Set(questions.map((q) => (q as SATQCQuestion).setNumber))).sort((a, b) => a - b);
+      deriveOptions: (questions, metadata) => {
+        const raw: number[] =
+          questions.length > 0
+            ? Array.from(new Set(questions.map((q) => (q as SATQCQuestion).setNumber)))
+            : ((metadata?.sets ?? []) as number[]);
         return [
           { value: 'all', label: 'All' },
-          ...sets.map((s) => ({ value: String(s), label: s === 0 ? 'Practice (0)' : `Set ${s}` })),
+          ...raw.sort((a, b) => a - b).map((s) => ({ value: String(s), label: s === 0 ? 'Practice (0)' : `Set ${s}` })),
         ];
       },
     },
@@ -160,6 +166,7 @@ const config: QCPageConfig<SATQCQuestion> = {
 
   fetchOnApply: true,
   statsUrl: '/api/admin/sat-questions/stats',
+  metadataUrl: '/api/admin/sat-questions/metadata',
 
   buildServerParams: (filters) => {
     const params: Record<string, string> = {};

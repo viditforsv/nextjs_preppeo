@@ -1,8 +1,7 @@
 "use client";
 
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect } from "react";
 import { useAuth } from "@/contexts/AuthContext";
-import { createClient } from "@/lib/supabase/client";
 import {
   Card,
   CardContent,
@@ -38,7 +37,6 @@ interface EnrolledCourse {
   slug: string | null;
   price: number;
   created_at: string;
-  courses_templates?: { slug?: string } | null;
   enrollment: {
     id: string;
     enrolled_at: string;
@@ -71,126 +69,43 @@ export default function EnrolledCoursesPage() {
   });
   const [isLoading, setIsLoading] = useState(true);
 
-  // Memoize the supabase client to prevent recreation on every render
-  const supabase = useMemo(() => createClient(), []);
-
   useEffect(() => {
-    const fetchEnrolledCourses = async () => {
-      if (!user?.id) {
-        setIsLoading(false);
-        return;
-      }
-
-      try {
-        setIsLoading(true);
-
-        const { data, error } = await supabase
-          .from("courses_enrollments")
-          .select(
-            `
-            *,
-            courses (*, courses_templates (slug))
-          `
-          )
-          .eq("student_id", user.id)
-          .eq("is_active", true)
-          .order("enrolled_at", { ascending: false });
-
-        if (error) {
-          throw error;
-        }
-
-        // Transform the data and fetch progress for each course
-        const coursesWithProgress = await Promise.all(
-          (data || []).map(async (item) => {
-            const course = item.courses;
-
-            // Get lesson count for this course
-            const { count: totalLessons } = await supabase
-              .from("courses_lessons")
-              .select("*", { count: "exact", head: true })
-              .eq("course_id", course.id);
-
-            // Get completed lessons count
-            const { count: completedLessons } = await supabase
-              .from("user_progress")
-              .select("*", { count: "exact", head: true })
-              .eq("user_id", user.id)
-              .eq("course_id", course.id)
-              .eq("completed", true);
-
-            // Get real time spent from user_progress table
-            const { data: progressData } = await supabase
-              .from("user_progress")
-              .select("time_spent_minutes")
-              .eq("user_id", user.id)
-              .eq("course_id", course.id);
-
-            const timeSpent =
-              progressData?.reduce(
-                (sum, progress) => sum + (progress.time_spent_minutes || 0),
-                0
-              ) || 0;
-
-            const progressPercentage = totalLessons
-              ? Math.round(((completedLessons || 0) / totalLessons) * 100)
-              : 0;
-
-            return {
-              ...course,
-              enrollment: {
-                id: item.id,
-                enrolled_at: item.enrolled_at,
-                is_active: item.is_active,
-              },
-              totalLessons: totalLessons || 0,
-              completedLessons: completedLessons || 0,
-              progressPercentage,
-              totalTimeSpent: timeSpent,
-            };
-          })
-        );
-
-        setEnrolledCourses(coursesWithProgress);
-
-        // Calculate overall stats
-        const totalLessonsCompleted = coursesWithProgress.reduce(
-          (sum, course) => sum + (course.completedLessons || 0),
-          0
-        );
-        const totalTimeSpent = coursesWithProgress.reduce(
-          (sum, course) => sum + (course.totalTimeSpent || 0),
-          0
-        );
-        const averageProgress =
-          coursesWithProgress.length > 0
+    if (!user?.id) {
+      setIsLoading(false);
+      return;
+    }
+    setIsLoading(true);
+    fetch('/api/courses/enrolled')
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.courses) {
+          setEnrolledCourses(data.courses);
+          const total: number = data.courses.length;
+          const totalLessonsCompleted = data.courses.reduce(
+            (s: number, c: EnrolledCourse) => s + (c.completedLessons || 0), 0
+          );
+          const totalTimeSpent = data.courses.reduce(
+            (s: number, c: EnrolledCourse) => s + (c.totalTimeSpent || 0), 0
+          );
+          const averageProgress = total > 0
             ? Math.round(
-                coursesWithProgress.reduce(
-                  (sum, course) => sum + (course.progressPercentage || 0),
-                  0
-                ) / coursesWithProgress.length
+                data.courses.reduce(
+                  (s: number, c: EnrolledCourse) => s + (c.progressPercentage || 0), 0
+                ) / total
               )
             : 0;
-
-        // Calculate study streak from user activity
-        const studyStreak = await calculateStudyStreak(user.id, supabase);
-
-        setOverallStats({
-          totalCourses: coursesWithProgress.length,
-          totalLessonsCompleted,
-          totalTimeSpent,
-          studyStreak,
-          averageProgress,
-        });
-      } catch (err) {
-        console.error("Error fetching enrolled courses:", err);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchEnrolledCourses();
-  }, [user?.id, supabase]);
+          setOverallStats({
+            totalCourses: total,
+            totalLessonsCompleted,
+            totalTimeSpent,
+            studyStreak: data.studyStreak ?? 0,
+            averageProgress,
+          });
+        }
+      })
+      .catch((err) => console.error('Error fetching enrolled courses:', err.message))
+      .finally(() => setIsLoading(false));
+  }, [user?.id]);
 
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString("en-US", {
@@ -204,66 +119,6 @@ export default function EnrolledCoursesPage() {
     const hours = Math.floor(minutes / 60);
     const mins = minutes % 60;
     return hours > 0 ? `${hours}h ${mins}m` : `${mins}m`;
-  };
-
-  // Calculate study streak from user activity
-  const calculateStudyStreak = async (
-    userId: string,
-    supabase: ReturnType<typeof createClient>
-  ) => {
-    try {
-      // Get all last_accessed_at dates from user_progress
-      const { data: progressData } = await supabase
-        .from("user_progress")
-        .select("last_accessed_at")
-        .eq("user_id", userId)
-        .order("last_accessed_at", { ascending: false });
-
-      if (!progressData || progressData.length === 0) return 0;
-
-      interface ProgressItem {
-        last_accessed_at: string;
-      }
-
-      // Get unique dates (convert to date strings to group by day)
-      const uniqueDates = new Set(
-        progressData.map((item: ProgressItem) =>
-          new Date(item.last_accessed_at).toDateString()
-        )
-      );
-
-      const sortedDates = Array.from(uniqueDates)
-        .map((dateStr) => new Date(dateStr as string))
-        .sort((a, b) => b.getTime() - a.getTime());
-
-      // Calculate consecutive days from today backwards
-      let streak = 0;
-      const today = new Date();
-      today.setHours(0, 0, 0, 0);
-
-      for (let i = 0; i < sortedDates.length; i++) {
-        const checkDate = new Date(today);
-        checkDate.setDate(today.getDate() - i);
-        checkDate.setHours(0, 0, 0, 0);
-
-        const hasActivity = sortedDates.some((date) => {
-          const activityDate = new Date(date);
-          activityDate.setHours(0, 0, 0, 0);
-          return activityDate.getTime() === checkDate.getTime();
-        });
-
-        if (hasActivity) {
-          streak++;
-        } else {
-          break;
-        }
-      }
-
-      return streak;
-    } catch (error) {
-      console.error("Error calculating study streak:", error);
-      return 0;
-    }
   };
 
   if (!user) {
@@ -300,13 +155,22 @@ export default function EnrolledCoursesPage() {
     <div className="min-h-screen bg-[#fafaf8]">
       <div className="container mx-auto px-4 py-8">
         {/* Page Header */}
-        <div className="mb-8">
-          <h1 className="text-4xl font-bold text-foreground mb-2">
-            My Dashboard
-          </h1>
-          <p className="text-lg text-muted-foreground">
-            Mock tests, practice, and courses — all in one place
-          </p>
+        <div className="flex items-start justify-between gap-4 mb-8">
+          <div>
+            <h1 className="text-4xl font-bold text-foreground mb-2">
+              My Dashboard
+            </h1>
+            <p className="text-lg text-muted-foreground">
+              Mock tests, practice, and courses — all in one place
+            </p>
+          </div>
+          <Link
+            href="/mocks"
+            className="shrink-0 inline-flex items-center gap-2 px-4 py-2.5 rounded-xl border border-[#1a365d]/30 bg-[#1a365d]/5 text-[#1a365d] text-sm font-semibold hover:bg-[#1a365d]/10 transition-colors mt-1"
+          >
+            <BarChart3 className="w-4 h-4" />
+            Score History
+          </Link>
         </div>
 
         {/* Mocks + Practice Quick Actions */}
@@ -598,8 +462,7 @@ export default function EnrolledCoursesPage() {
                     <div className="flex gap-2">
                       <Link
                         href={
-                          course.courses_templates?.slug === "lms-interactive" ||
-                          (course.slug && ["sat-quant-learn"].includes(course.slug))
+                          course.slug && ["sat-quant-learn"].includes(course.slug)
                             ? `/learn/${course.slug || course.id}`
                             : `/courses/${course.slug || course.id}`
                         }

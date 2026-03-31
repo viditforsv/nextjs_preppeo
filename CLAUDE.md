@@ -90,16 +90,19 @@ Sets 1–5 fully built in both **prod and dev** (synced 2026-03-27). Both branch
 
 ## 8. Autonomy — When to Ask vs Just Do
 
-**Proceed without asking for:**
-- Reading any file
-- Running SELECT queries on dev or prod
-- Writing or editing local files (code, migrations, docs)
+**Proceed without asking for anything local or dev:**
+- Reading, writing, editing, or creating any local file (code, migrations, configs, docs)
+- Running any SELECT query on dev or prod
+- Running any INSERT/UPDATE/DELETE on the **dev branch**
 - Creating migration files and symlinks
-- Running INSERT/UPDATE/DELETE on the **dev branch**
-- Installing packages, running build/lint/type-check commands
+- Installing packages, running build/lint/type-check/test commands
+- Running any shell command that only affects the local environment
+- Creating new components, pages, API routes, or utilities
+- Refactoring or restructuring code
+- Deploying to a preview/staging environment
 
 **Stop and confirm only for:**
-- Writing to **prod** (any INSERT/UPDATE/DELETE on `ootnqmojcqnzfrtvzzec`)
-- Deleting or dropping data/tables permanently
-- Pushing to remote git or opening PRs
-- Anything that affects live users
+- Writing to **prod** (any INSERT/UPDATE/DELETE on project `ootnqmojcqnzfrtvzzec`)
+- Permanently deleting or dropping tables/data
+- Pushing to remote git or opening/merging PRs
+- Anything visible to or affecting live users

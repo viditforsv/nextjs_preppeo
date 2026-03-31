@@ -33,6 +33,7 @@ export default function QCPageTemplate<Q extends QCQuestion>({ config }: QCPageT
   const [error, setError] = useState<string | null>(null);
   const [hasFetched, setHasFetched] = useState(false);
   const [stats, setStats] = useState<Record<string, number> | null>(null);
+  const [metadata, setMetadata] = useState<Record<string, unknown[]> | null>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const initialFilters = config.getResetFilters();
@@ -87,19 +88,25 @@ export default function QCPageTemplate<Q extends QCQuestion>({ config }: QCPageT
         .then((d) => setStats(d.pending ?? null))
         .catch(() => {});
     }
+    if (config.metadataUrl) {
+      fetch(config.metadataUrl)
+        .then((r) => r.json())
+        .then((d) => setMetadata(d))
+        .catch(() => {});
+    }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // Derive dynamic filter options from the questions
+  // Derive dynamic filter options from the questions (falls back to metadata before first Apply)
   const dynamicOptions = useMemo(() => {
     const result: Record<string, FilterOption[]> = {};
     for (const fd of config.filters) {
       if (fd.options === 'dynamic' && fd.deriveOptions) {
-        result[fd.key] = fd.deriveOptions(questions);
+        result[fd.key] = fd.deriveOptions(questions, metadata ?? undefined);
       }
     }
     return result;
-  }, [questions, config.filters]);
+  }, [questions, config.filters, metadata]);
 
   const filtered = useMemo(() => {
     return questions.filter((q) => config.filterFn(q, filters)).sort(config.sortFn);

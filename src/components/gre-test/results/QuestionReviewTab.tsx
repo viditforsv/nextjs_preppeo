@@ -208,7 +208,11 @@ export default function QuestionReviewTab({ responses }: Props) {
                       </span>
                     </div>
 
-                    {r.topics.length > 0 && (
+                    {!r.prompt && !r.quantityA && !r.quantityB && !r.options && !r.explanation && (
+                      <p className="text-sm text-gray-400 text-center py-2">Question content not available for this attempt.</p>
+                    )}
+
+                    {(r.topics?.length ?? 0) > 0 && (
                       <div className="flex flex-wrap gap-1">
                         {r.topics.map((t) => (
                           <span key={t} className="text-[10px] px-1.5 py-0.5 rounded bg-gray-100 text-gray-600">

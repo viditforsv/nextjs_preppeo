@@ -209,6 +209,10 @@ export default function QuestionReviewTab({ responses }: Props) {
                       </span>
                     </div>
 
+                    {!r.passage && !r.prompt && !r.options && !r.explanation && r.questionType !== 'spr' && (
+                      <p className="text-sm text-gray-400 text-center py-2">Question content not available for this attempt.</p>
+                    )}
+
                     {/* Passage */}
                     {r.passage && (
                       <div className="bg-amber-50 border border-amber-200 rounded-lg p-3">
