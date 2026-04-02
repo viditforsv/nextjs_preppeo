@@ -29,10 +29,8 @@ Seed / migrate → dev branch → QC review → promote to prod
 
 - Every DB change must be accompanied by a migration file.
 - Location: `supabase/migrations/sat/<timestamp>_<description>.sql` for SAT work; `supabase/migrations/<timestamp>_<description>.sql` for everything else.
-- Also symlink SAT migrations to `supabase/migrations/` root so Supabase CLI picks them up:
-  ```bash
-  ln -s sat/<filename>.sql supabase/migrations/<filename>.sql
-  ```
+- **No symlinks.** Migrations are applied manually via the Supabase MCP tool, not via CLI.
+- Already-applied migrations live in `supabase/migrations/applied/` for reference.
 - Timestamp format: `YYYYMMDDHHMMSS` (e.g. `20260327110000`).
 - Include a comment header explaining what the migration does, the template it follows, and any prerequisites.
 

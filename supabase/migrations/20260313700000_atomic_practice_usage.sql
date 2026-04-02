@@ -1,1 +1,0 @@
-sat/20260313700000_atomic_practice_usage.sql

@@ -51,3 +51,4 @@ next-env.d.ts
 # dev templates (local reference only)
 .backup/dev-templates/
 scripts/node_modules/
+__pycache__/

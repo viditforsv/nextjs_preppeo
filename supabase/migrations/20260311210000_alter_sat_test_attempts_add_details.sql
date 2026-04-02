@@ -1,1 +1,0 @@
-sat/20260311210000_alter_sat_test_attempts_add_details.sql

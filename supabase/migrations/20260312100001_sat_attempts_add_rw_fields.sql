@@ -1,1 +1,0 @@
-sat/20260312100001_sat_attempts_add_rw_fields.sql
