@@ -86,7 +86,14 @@ Sets 1–5 fully built in both **prod and dev** (synced 2026-03-27). Both branch
 - Do not create helper scripts or abstractions for one-off tasks.
 - Do not add features beyond what was asked.
 
-## 8. Autonomy — When to Ask vs Just Do
+## 8. Efficiency — Be Practical
+
+- Prefer the fastest path to a quality result. If a task can be split so the human handles one part (e.g. pasting SQL in a dashboard) while you handle another (e.g. generating the SQL), do that.
+- Don't grind through hundreds of slow API calls when a human paste takes 30 seconds.
+- Involve the human when it improves efficiency, accuracy, or quality — don't treat automation as always superior.
+- Break large tasks into parallel steps: generate files, flag what needs manual action, move on to the next thing.
+
+## 9. Autonomy — When to Ask vs Just Do
 
 **Proceed without asking for anything local or dev:**
 - Reading, writing, editing, or creating any local file (code, migrations, configs, docs)
