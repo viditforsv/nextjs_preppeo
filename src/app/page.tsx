@@ -261,18 +261,43 @@ export default function HomePage() {
                 </span>
               ))}
             </div>
+
+            {/* Social proof avatars */}
+            <div className="flex items-center gap-3 mt-8">
+              <div className="flex -space-x-3">
+                {["/images/stock_images/1.png", "/images/stock_images/3.png", "/images/stock_images/2.png"].map((src, i) => (
+                  <div key={i} className="w-10 h-10 rounded-full border-2 border-white overflow-hidden shadow-sm">
+                    <Image src={src} alt="" width={40} height={40} className="w-full h-full object-cover" />
+                  </div>
+                ))}
+              </div>
+              <p className="text-sm text-gray-500">
+                <span className="font-semibold text-gray-700">500+</span> students preparing with Preppeo
+              </p>
+            </div>
           </div>
 
-          {/* Right — score report screenshot */}
-          <div className="rounded-2xl overflow-hidden shadow-2xl border border-gray-100">
-            <Image
-              src="/images/sat_report_1.png"
-              alt="SAT Score Report — 1570/1600 with R&W 790 and Math 780"
-              width={960}
-              height={900}
-              className="w-full h-auto"
-              priority
-            />
+          {/* Right — score report screenshot with student overlay */}
+          <div className="relative">
+            <div className="rounded-2xl overflow-hidden shadow-2xl border border-gray-100">
+              <Image
+                src="/images/sat_report_1.png"
+                alt="SAT Score Report — 1570/1600 with R&W 790 and Math 780"
+                width={960}
+                height={900}
+                className="w-full h-auto"
+                priority
+              />
+            </div>
+            <div className="absolute -bottom-6 -left-6 w-28 h-36 rounded-2xl overflow-hidden shadow-xl border-4 border-white hidden lg:block">
+              <Image
+                src="/images/stock_images/3.png"
+                alt="Student with books"
+                width={112}
+                height={144}
+                className="w-full h-full object-cover"
+              />
+            </div>
           </div>
 
         </div>
@@ -311,14 +336,25 @@ export default function HomePage() {
           </p>
 
           <div className="grid lg:grid-cols-2 gap-10 items-start">
-            <div className="rounded-xl overflow-hidden shadow-lg border border-gray-100">
-              <Image
-                src="/images/sat_report_4.png"
-                alt="SAT Score Report — Performance by Domain breakdown"
-                width={800}
-                height={700}
-                className="w-full h-auto"
-              />
+            <div className="relative">
+              <div className="rounded-xl overflow-hidden shadow-lg border border-gray-100">
+                <Image
+                  src="/images/sat_report_4.png"
+                  alt="SAT Score Report — Performance by Domain breakdown"
+                  width={800}
+                  height={700}
+                  className="w-full h-auto"
+                />
+              </div>
+              <div className="absolute -bottom-5 -right-5 w-24 h-32 rounded-2xl overflow-hidden shadow-xl border-4 border-white hidden lg:block">
+                <Image
+                  src="/images/stock_images/1.png"
+                  alt="Student with backpack"
+                  width={96}
+                  height={128}
+                  className="w-full h-full object-cover"
+                />
+              </div>
             </div>
 
             <div className="space-y-6">
@@ -374,6 +410,27 @@ export default function HomePage() {
             exactly across 5 full-length mock sets — not a simplified approximation.
           </p>
           <AdaptiveRoutingVisual />
+        </div>
+      </section>
+
+      {/* ══ STUDENT BANNER ═════════════════════════════════ */}
+      <section className="relative h-72 overflow-hidden">
+        <Image
+          src="/images/stock_images/2.png"
+          alt="Students studying in a classroom"
+          fill
+          className="object-cover"
+        />
+        <div className="absolute inset-0" style={{ background: `linear-gradient(to right, ${NAVY}cc, ${NAVY}55)` }} />
+        <div className="relative h-full flex items-center">
+          <div className="max-w-5xl mx-auto px-6">
+            <p className="text-white text-3xl font-bold max-w-md leading-snug">
+              Real preparation.<br />Real results.
+            </p>
+            <p className="text-white/70 mt-3 max-w-sm">
+              Join students who take their Digital SAT prep seriously — with mocks that match the real exam.
+            </p>
+          </div>
         </div>
       </section>
 
@@ -497,12 +554,21 @@ export default function HomePage() {
               </Link>
             </div>
           </div>
-          <div className="bg-white rounded-xl p-6 flex items-start gap-5" style={{ border: `1px solid ${NAVY}33` }}>
-            <div className="w-12 h-12 rounded-xl flex items-center justify-center shrink-0" style={{ background: `${NAVY}0d` }}>
-              <GraduationCap className="w-6 h-6" style={{ color: NAVY }} />
+          <div className="bg-white rounded-xl overflow-hidden" style={{ border: `1px solid ${NAVY}33` }}>
+            <div className="h-36 relative">
+              <Image
+                src="/images/stock_images/6.png"
+                alt="Group of students in a lecture hall"
+                fill
+                className="object-cover"
+              />
+              <div className="absolute inset-0" style={{ background: `linear-gradient(to top, white 5%, transparent 60%)` }} />
             </div>
-            <div>
-              <h3 className="font-bold text-gray-900 mb-1">Are You a Teacher or Institute?</h3>
+            <div className="p-6 pt-2">
+              <div className="flex items-center gap-2 mb-1">
+                <GraduationCap className="w-5 h-5" style={{ color: NAVY }} />
+                <h3 className="font-bold text-gray-900">Are You a Teacher or Institute?</h3>
+              </div>
               <p className="text-sm text-gray-600 mb-3 leading-relaxed">
                 Offer Preppeo mocks to your students. Earn commission on every purchase with zero upfront cost.
               </p>
@@ -516,29 +582,42 @@ export default function HomePage() {
 
       {/* ══ FINAL CTA ═════════════════════════════════════════ */}
       <section className="py-16" style={{ background: NAVY }}>
-        <div className="max-w-2xl mx-auto px-6 text-center">
-          <h2 className="text-3xl font-bold text-white mb-4">Ready to find out your score?</h2>
-          <p className="text-white/70 mb-8 leading-relaxed">
-            Your first full-length adaptive SAT mock is complimentary — worth ₹499. No credit card needed.
-          </p>
-          <div className="flex gap-3 justify-center flex-wrap">
-            <Button
-              size="lg"
-              className="font-bold"
-              style={{ background: AMBER, color: NAVY }}
-              onClick={() => router.push("/sat-free")}
-            >
-              Start with a Free Mock
-              <ArrowRight className="ml-2 h-4 w-4" />
-            </Button>
-            <Button
-              size="lg"
-              variant="outline"
-              className="border-2 border-white bg-transparent text-white hover:bg-white/10"
-              onClick={() => router.push("/mocks")}
-            >
-              Explore All Mocks
-            </Button>
+        <div className="max-w-5xl mx-auto px-6 grid lg:grid-cols-2 gap-12 items-center">
+          <div className="text-center lg:text-left">
+            <h2 className="text-3xl font-bold text-white mb-4">Ready to find out your score?</h2>
+            <p className="text-white/70 mb-8 leading-relaxed">
+              Your first full-length adaptive SAT mock is complimentary — worth ₹499. No credit card needed.
+            </p>
+            <div className="flex gap-3 justify-center lg:justify-start flex-wrap">
+              <Button
+                size="lg"
+                className="font-bold"
+                style={{ background: AMBER, color: NAVY }}
+                onClick={() => router.push("/sat-free")}
+              >
+                Start with a Free Mock
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
+              <Button
+                size="lg"
+                variant="outline"
+                className="border-2 border-white bg-transparent text-white hover:bg-white/10"
+                onClick={() => router.push("/mocks")}
+              >
+                Explore All Mocks
+              </Button>
+            </div>
+          </div>
+          <div className="hidden lg:flex justify-center">
+            <div className="rounded-2xl overflow-hidden shadow-xl max-w-sm">
+              <Image
+                src="/images/stock_images/5.png"
+                alt="Student celebrating with graduation cap"
+                width={400}
+                height={300}
+                className="w-full h-auto"
+              />
+            </div>
           </div>
         </div>
       </section>
