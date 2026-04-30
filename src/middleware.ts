@@ -32,6 +32,11 @@ export async function middleware(req: NextRequest) {
         persistSession: true,
         autoRefreshToken: true,
         detectSessionInUrl: true,
+        // MUST match client.ts and server.ts. Without this, the middleware
+        // reads cookies under the default `sb-<ref>-auth-token` name while
+        // the browser/server clients write `preppeo-lms-session.*`, so the
+        // middleware never sees the session and redirect-loops admin routes.
+        storageKey: "preppeo-lms-session",
       },
       cookies: {
         getAll() {
@@ -56,18 +61,23 @@ export async function middleware(req: NextRequest) {
   } = await supabase.auth.getUser();
 
   const isAuthenticated = !!user;
-  let userRole: UserRole | undefined = user?.user_metadata?.role;
+  let userRole: UserRole | undefined;
 
-  if (!userRole && user) {
+  // Always read role from profiles — user_metadata can drift out of sync
+  // (e.g. a user promoted in profiles still has the old role in metadata),
+  // which causes auth redirects to be wrong. Profile is the source of truth.
+  if (user) {
     try {
       const { data: profile } = await supabase
         .from("profiles")
         .select("role")
         .eq("id", user.id)
         .single();
-      userRole = profile?.role as UserRole;
+      userRole = profile?.role as UserRole | undefined;
     } catch (error) {
       console.error("Error fetching user role:", error);
+      // Fall back to metadata only if profile lookup fails entirely
+      userRole = user.user_metadata?.role as UserRole | undefined;
     }
   }
 
