@@ -16,6 +16,7 @@ export default [
       "out/**/*",
       ".backup/**/*",
       "next.config.ts",
+      "src/app/dev/**/*",
     ],
   },
   {
