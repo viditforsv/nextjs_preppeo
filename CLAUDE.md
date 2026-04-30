@@ -95,19 +95,27 @@ Sets 1–5 fully built in both **prod and dev** (synced 2026-03-27). Both branch
 
 ## 9. Autonomy — When to Ask vs Just Do
 
-**Proceed without asking for anything local or dev:**
-- Reading, writing, editing, or creating any local file (code, migrations, configs, docs)
+**Default: dive in. Don't ask for petty permissions.** If a step is the obvious next move and it's reversible or only affects local/dev/preview, just do it. Don't pause to ask "want me to start X next?" — start it and report back.
+
+**Proceed without asking:**
+- Reading, writing, editing, creating, or deleting any local file (code, migrations, configs, docs, scratch)
 - Running any SELECT query on dev or prod
 - Running any INSERT/UPDATE/DELETE on the **dev branch**
-- Creating migration files and symlinks
+- Creating migration files
 - Installing packages, running build/lint/type-check/test commands
 - Running any shell command that only affects the local environment
 - Creating new components, pages, API routes, or utilities
 - Refactoring or restructuring code
 - Deploying to a preview/staging environment
+- **Git: staging, committing, and pushing to non-protected branches** (`dev`, feature branches, submodule branches like `Rijay`). Including submodule commits and pointer bumps.
+- Updating `.gitignore`, `tsconfig.json`, `eslint.config.mjs`, and other config to unblock work
+- Updating `.claude/settings.local.json` allowlist entries
 
 **Stop and confirm only for:**
 - Writing to **prod** (any INSERT/UPDATE/DELETE on project `ootnqmojcqnzfrtvzzec`)
-- Permanently deleting or dropping tables/data
-- Pushing to remote git or opening/merging PRs
-- Anything visible to or affecting live users
+- Permanently deleting or dropping tables / production data
+- Pushing or force-pushing to **`main`**, opening or merging PRs, deleting remote branches
+- Bypassing pre-commit hooks (`--no-verify`) or commit signing
+- Anything visible to or affecting live users (production deploys, public announcements, shared infra)
+
+**On follow-ups:** After finishing a task, don't ask "want me to do X next?" if the next step is obvious from the task list. Just do the next item and announce it in one line. Only stop to ask when there's a real branch in the road or a confirm-only action.
