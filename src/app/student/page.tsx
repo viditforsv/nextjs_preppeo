@@ -23,7 +23,6 @@ import {
   AlertCircle,
   ChevronRight,
   GraduationCap,
-  Brain,
 } from "lucide-react";
 import Link from "next/link";
 
@@ -34,16 +33,6 @@ interface SATAttemptSummary {
   estimated_score: number | null;
   rw_estimated_score: number | null;
   total_estimated_score: number | null;
-  total_correct: number;
-  total_questions: number;
-  score_pct: number;
-  completed_at: string;
-}
-
-interface GREAttemptSummary {
-  id: string;
-  set_number: number;
-  estimated_score: number | null;
   total_correct: number;
   total_questions: number;
   score_pct: number;
@@ -108,7 +97,6 @@ export default function StudentDashboard() {
     recentProgress: [],
   });
   const [satAttempts, setSatAttempts] = useState<SATAttemptSummary[]>([]);
-  const [greAttempts, setGreAttempts] = useState<GREAttemptSummary[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -123,10 +111,9 @@ export default function StudentDashboard() {
       setIsLoading(true);
       setError(null);
 
-      const [dashboardRes, satRes, greRes] = await Promise.all([
+      const [dashboardRes, satRes] = await Promise.all([
         fetch("/api/student/dashboard"),
         fetch("/api/sat/attempts"),
-        fetch("/api/gre/attempts"),
       ]);
 
       if (!dashboardRes.ok) throw new Error("Failed to fetch dashboard data");
@@ -137,10 +124,6 @@ export default function StudentDashboard() {
       if (satRes.ok) {
         const satData = await satRes.json();
         if (Array.isArray(satData)) setSatAttempts(satData.slice(0, 3));
-      }
-      if (greRes.ok) {
-        const greData = await greRes.json();
-        if (Array.isArray(greData)) setGreAttempts(greData.slice(0, 3));
       }
     } catch (err) {
       console.error("Error loading dashboard:", err);
@@ -275,7 +258,7 @@ export default function StudentDashboard() {
         </div>
 
         {/* Mock Score History */}
-        {(satAttempts.length > 0 || greAttempts.length > 0) && (
+        {satAttempts.length > 0 && (
           <Card className="mb-8 rounded-sm">
             <CardHeader>
               <div className="flex items-center justify-between">
@@ -283,18 +266,9 @@ export default function StudentDashboard() {
                   <TrendingUp className="w-5 h-5 text-primary" />
                   Recent Mock Scores
                 </CardTitle>
-                <div className="flex gap-2">
-                  {satAttempts.length > 0 && (
-                    <Link href="/sat-test/history" className="text-xs text-primary hover:underline font-medium">
-                      SAT History →
-                    </Link>
-                  )}
-                  {greAttempts.length > 0 && (
-                    <Link href="/gre-test/history" className="text-xs text-purple-600 hover:underline font-medium ml-3">
-                      GRE History →
-                    </Link>
-                  )}
-                </div>
+                <Link href="/sat-test/history" className="text-xs text-primary hover:underline font-medium">
+                  SAT History →
+                </Link>
               </div>
               <CardDescription>Your most recent mock test results</CardDescription>
             </CardHeader>
@@ -319,29 +293,6 @@ export default function StudentDashboard() {
                       <div className="flex items-center gap-4">
                         <div className="text-right">
                           <p className="text-lg font-bold text-[#0d47a1]">{score ?? '—'}<span className="text-xs text-muted-foreground font-normal">{range}</span></p>
-                          <p className="text-xs text-muted-foreground">{a.total_correct}/{a.total_questions} correct</p>
-                        </div>
-                        <ChevronRight className="w-4 h-4 text-muted-foreground" />
-                      </div>
-                    </Link>
-                  );
-                })}
-                {greAttempts.map((a) => {
-                  const date = new Date(a.completed_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
-                  return (
-                    <Link key={a.id} href={`/gre-test/history/${a.id}`} className="flex items-center justify-between p-3 border rounded-sm hover:bg-primary/5 transition-colors">
-                      <div className="flex items-center gap-3">
-                        <div className="w-9 h-9 bg-purple-50 rounded-sm flex items-center justify-center">
-                          <Brain className="w-4 h-4 text-purple-600" />
-                        </div>
-                        <div>
-                          <p className="text-sm font-medium">GRE Mock · Set {a.set_number}</p>
-                          <p className="text-xs text-muted-foreground">{date}</p>
-                        </div>
-                      </div>
-                      <div className="flex items-center gap-4">
-                        <div className="text-right">
-                          <p className="text-lg font-bold text-purple-600">{a.estimated_score ?? '—'}<span className="text-xs text-muted-foreground font-normal">/170</span></p>
                           <p className="text-xs text-muted-foreground">{a.total_correct}/{a.total_questions} correct</p>
                         </div>
                         <ChevronRight className="w-4 h-4 text-muted-foreground" />

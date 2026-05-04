@@ -65,6 +65,10 @@ export default function AccessCodeModal({ onSuccess, onClose }: AccessCodeModalP
             Enter your access code to begin the SAT test. Get a free code from the <a href="/sat-free" className="text-[#0d47a1] underline hover:no-underline">free mock page</a>.
           </p>
 
+          <p className="text-sm text-gray-600">
+            Already purchased? <a href="/mocks/tokens?tab=my-tokens" className="text-[#0d47a1] underline hover:no-underline">View my tokens</a>.
+          </p>
+
           <input
             type="text"
             value={code}

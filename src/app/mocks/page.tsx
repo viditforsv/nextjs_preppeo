@@ -14,18 +14,13 @@ export const metadata = {
 export default async function TestsHubPage() {
   const supabase = createSupabaseApiClient();
 
-  const displayOrder = ['sat', 'gre', 'gmat', 'ashoka', 'flames', 'krea'];
-
   const { data: rawExams } = await supabase
     .from('exam_types')
     .select('*')
-    .eq('is_active', true);
+    .eq('is_active', true)
+    .eq('id', 'sat');
 
-  const exams = ((rawExams as ExamType[] | null) ?? []).sort((a, b) => {
-    const ai = displayOrder.indexOf(a.id.toLowerCase());
-    const bi = displayOrder.indexOf(b.id.toLowerCase());
-    return (ai === -1 ? 999 : ai) - (bi === -1 ? 999 : bi);
-  });
+  const exams = (rawExams as ExamType[] | null) ?? [];
 
   const { data: freeTokens } = await supabase
     .from('test_tokens')
@@ -91,14 +86,16 @@ export default async function TestsHubPage() {
         </div>
 
         {/* Exam grid */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {exams.map((exam) => (
-            <ExamCard
-              key={exam.id}
-              exam={exam}
-              freeCode={freeTokenMap[exam.id] ?? `${exam.id.toUpperCase()}-FREE-SET1`}
-            />
-          ))}
+        <div className="flex justify-center">
+          <div className="w-full max-w-md">
+            {exams.map((exam) => (
+              <ExamCard
+                key={exam.id}
+                exam={exam}
+                freeCode={freeTokenMap[exam.id] ?? `${exam.id.toUpperCase()}-FREE-SET1`}
+              />
+            ))}
+          </div>
         </div>
       </div>
     </div>

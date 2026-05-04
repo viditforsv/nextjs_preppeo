@@ -165,7 +165,7 @@ export default function EnrolledCoursesPage() {
             </p>
           </div>
           <Link
-            href="/mocks"
+            href="/sat-test/history"
             className="shrink-0 inline-flex items-center gap-2 px-4 py-2.5 rounded-xl border border-[#1a365d]/30 bg-[#1a365d]/5 text-[#1a365d] text-sm font-semibold hover:bg-[#1a365d]/10 transition-colors mt-1"
           >
             <BarChart3 className="w-4 h-4" />
@@ -177,7 +177,7 @@ export default function EnrolledCoursesPage() {
         {!isLoading && (
           <div className="mb-10">
             <h2 className="text-xl font-bold text-foreground mb-4">Mocks &amp; Practice</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <Link href="/sat-test" className="group">
                 <div className="bg-white rounded-xl border border-gray-100 p-5 hover:border-primary/40 hover:shadow-md transition-all h-full">
                   <div className="w-10 h-10 rounded-lg bg-[#1a365d]/10 flex items-center justify-center mb-3 group-hover:bg-[#1a365d]/20 transition-colors">
@@ -185,24 +185,6 @@ export default function EnrolledCoursesPage() {
                   </div>
                   <p className="font-semibold text-foreground mb-1">SAT</p>
                   <p className="text-xs text-muted-foreground">Full adaptive mock + Practice mode</p>
-                </div>
-              </Link>
-              <Link href="/gre-test" className="group">
-                <div className="bg-white rounded-xl border border-gray-100 p-5 hover:border-primary/40 hover:shadow-md transition-all h-full">
-                  <div className="w-10 h-10 rounded-lg bg-emerald-500/10 flex items-center justify-center mb-3 group-hover:bg-emerald-500/20 transition-colors">
-                    <FileEdit className="w-5 h-5 text-emerald-600" />
-                  </div>
-                  <p className="font-semibold text-foreground mb-1">GRE</p>
-                  <p className="text-xs text-muted-foreground">Quant mock + Practice mode</p>
-                </div>
-              </Link>
-              <Link href="/ashoka-test" className="group">
-                <div className="bg-white rounded-xl border border-gray-100 p-5 hover:border-primary/40 hover:shadow-md transition-all h-full">
-                  <div className="w-10 h-10 rounded-lg bg-amber-500/10 flex items-center justify-center mb-3 group-hover:bg-amber-500/20 transition-colors">
-                    <FileEdit className="w-5 h-5 text-amber-600" />
-                  </div>
-                  <p className="font-semibold text-foreground mb-1">Ashoka AAT</p>
-                  <p className="text-xs text-muted-foreground">Full-length aptitude mock</p>
                 </div>
               </Link>
               <Link href="/mocks" className="group">
@@ -343,21 +325,13 @@ export default function EnrolledCoursesPage() {
                 </div>
               </div>
               <div className="flex flex-wrap gap-2">
-                {[
-                  { label: "SAT", value: "SAT" },
-                  { label: "GRE", value: "GRE" },
-                  { label: "GMAT", value: "GMAT" },
-                  { label: "Ashoka", value: "Ashoka" },
-                ].map((exam) => (
-                  <Link
-                    key={exam.value}
-                    href={`/courses/discover?curriculum=${exam.value}`}
-                    className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full border border-primary/30 text-sm font-medium text-primary bg-primary/5 hover:bg-primary hover:text-white transition-colors"
-                  >
-                    {exam.label}
-                    <ArrowRight className="w-3.5 h-3.5" />
-                  </Link>
-                ))}
+                <Link
+                  href="/courses/discover?curriculum=SAT"
+                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full border border-primary/30 text-sm font-medium text-primary bg-primary/5 hover:bg-primary hover:text-white transition-colors"
+                >
+                  SAT
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </Link>
                 <Link
                   href="/courses/discover"
                   className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full border border-gray-200 text-sm font-medium text-muted-foreground bg-white hover:bg-gray-50 transition-colors"

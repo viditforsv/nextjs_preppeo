@@ -48,13 +48,14 @@ function loadRazorpayScript(): Promise<boolean> {
 export default function TokenStorePage() {
   const searchParams = useSearchParams();
   const examFilter = searchParams.get('exam');
+  const initialTab = searchParams.get('tab') === 'my-tokens' ? 'my-tokens' : 'store';
 
   const [allPacks, setAllPacks] = useState<TokenPackWithExam[]>([]);
   const [allSubPlans, setAllSubPlans] = useState<SubscriptionPlan[]>([]);
   const [loading, setLoading] = useState(true);
   const [purchasedTokens, setPurchasedTokens] = useState<string[] | null>(null);
   const [subSuccess, setSubSuccess] = useState<string | null>(null);
-  const [activeTab, setActiveTab] = useState<'store' | 'my-tokens'>('store');
+  const [activeTab, setActiveTab] = useState<'store' | 'my-tokens'>(initialTab);
   const [currency, setCurrency] = useState<CurrencyCode>('INR');
   const [buyingId, setBuyingId] = useState<string | null>(null);
   const [selectedExam, setSelectedExam] = useState<string | null>(examFilter);
