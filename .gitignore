@@ -52,3 +52,6 @@ next-env.d.ts
 .backup/dev-templates/
 scripts/node_modules/
 __pycache__/
+
+# Raw screen recordings (source for encoded demo clips); keep local, not in repo
+public/Videos/

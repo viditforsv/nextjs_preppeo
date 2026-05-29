@@ -45,7 +45,7 @@ export const DESMOS_GUIDES: DesmosGuide[] = [
       "Skip substitution and elimination. Type both equations into the Bluebook Desmos calculator and read the intersection. Step-by-step with a practice question.",
     intro:
       "Systems of equations are one of the most common Digital SAT Math question types — and the built-in Desmos calculator turns them into a 5-second read. Instead of grinding through substitution or elimination, you graph both equations and let Desmos find where they cross.",
-    videoReady: false,
+    videoReady: true,
     mediaAlt:
       "Typing two equations into the Bluebook Desmos calculator and clicking the intersection point to read the solution.",
     steps: [
