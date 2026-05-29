@@ -6,8 +6,12 @@ Complete guide for deploying to Vercel with dev/prod environment separation.
 
 | Branch | Environment | Domain | Supabase Project |
 |--------|------------|--------|------------------|
-| `main` | Production | `courses.preppeo.com` | Production Supabase |
-| `dev` | Preview | `dev.courses.preppeo.com` or `*.vercel.app` | Dev Supabase |
+| `main` | Production | `preppeo.com` (→ `www.preppeo.com`) | Production Supabase |
+| `dev` | Preview | `*.vercel.app` | Dev Supabase |
+
+> ⚠️ Production is `preppeo.com`, **not** `courses.preppeo.com` (that domain is not
+> on this project and 404s). See [PRODUCTION_URLS_AND_DOMAINS.md](./PRODUCTION_URLS_AND_DOMAINS.md)
+> for the canonical domain/URL reference and env-var gotchas.
 
 ## Quick Setup
 
@@ -21,7 +25,8 @@ NEXT_PUBLIC_ENVIRONMENT=prod
 NEXT_PUBLIC_SUPABASE_URL_PROD=https://ootnqmojcqnzfrtvzzec.supabase.co
 NEXT_PUBLIC_SUPABASE_ANON_KEY_PROD=[your-prod-anon-key]
 SUPABASE_SERVICE_ROLE_KEY_PROD=[your-prod-service-role-key]
-NEXT_PUBLIC_APP_URL=https://courses.preppeo.com
+NEXT_PUBLIC_APP_URL=https://preppeo.com
+NEXT_PUBLIC_SITE_URL=https://preppeo.com
 GOOGLE_CLIENT_ID=[your-google-client-id]
 GOOGLE_CLIENT_SECRET=[your-google-client-secret]
 RAZORPAY_KEY_ID=rzp_live_...
@@ -37,7 +42,7 @@ NEXT_PUBLIC_ENVIRONMENT=dev
 NEXT_PUBLIC_SUPABASE_URL_DEV=https://dxhxpfouzjlzpeazwrqo.supabase.co
 NEXT_PUBLIC_SUPABASE_ANON_KEY_DEV=[your-dev-anon-key]
 SUPABASE_SERVICE_ROLE_KEY_DEV=[your-dev-service-role-key]
-NEXT_PUBLIC_APP_URL=https://dev.courses.preppeo.com
+NEXT_PUBLIC_APP_URL=https://dev.preppeo.com
 GOOGLE_CLIENT_ID=[your-google-client-id]
 GOOGLE_CLIENT_SECRET=[your-google-client-secret]
 RAZORPAY_KEY_ID_TEST=rzp_test_...
@@ -48,12 +53,12 @@ NEXT_PUBLIC_RAZORPAY_KEY_ID=rzp_test_...
 ### 3. Configure Domains
 
 **Production:**
-- Settings → Domains → Add `courses.preppeo.com`
+- Settings → Domains → `preppeo.com` + `www.preppeo.com` (apex redirects to www)
 - Configure DNS records as shown
 
 **Preview (optional):**
-- Settings → Domains → Add `dev.courses.preppeo.com`
-- Assign to `dev` branch only
+- Preview deployments use auto-generated `*.vercel.app` URLs
+- Assign a custom preview subdomain to the `dev` branch only if needed
 
 ## Deployment Workflow
 

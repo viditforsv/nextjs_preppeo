@@ -8,7 +8,10 @@ Complete guide for local development and environment configuration.
 |------------|--------|----------|----------|--------|
 | Local Dev | `dev` | Local | Dev | `localhost:3000` |
 | Vercel Preview | `dev` | Vercel | Dev | `*.vercel.app` |
-| Vercel Production | `main` | Vercel | Production | `courses.preppeo.com` |
+| Vercel Production | `main` | Vercel | Production | `preppeo.com` (→ `www.preppeo.com`) |
+
+> ⚠️ Production is `preppeo.com`, **not** `courses.preppeo.com` (that domain 404s).
+> See [PRODUCTION_URLS_AND_DOMAINS.md](./PRODUCTION_URLS_AND_DOMAINS.md).
 
 ## Local Development Setup
 

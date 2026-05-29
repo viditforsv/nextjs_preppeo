@@ -119,3 +119,13 @@ Sets 1–5 fully built in both **prod and dev** (synced 2026-03-27). Both branch
 - Anything visible to or affecting live users (production deploys, public announcements, shared infra)
 
 **On follow-ups:** After finishing a task, don't ask "want me to do X next?" if the next step is obvious from the task list. Just do the next item and announce it in one line. Only stop to ask when there's a real branch in the road or a confirm-only action.
+
+## 10. Reference Docs (`DOCS_FOR_AI_AGENT/`)
+
+Before working in an area, check `DOCS_FOR_AI_AGENT/` for an existing guide. Keep a doc in sync when you change what it describes, and delete docs once they're obsolete.
+
+- **[`PRODUCTION_URLS_AND_DOMAINS.md`](DOCS_FOR_AI_AGENT/PRODUCTION_URLS_AND_DOMAINS.md) — READ THIS before touching any public URL, domain, `NEXT_PUBLIC_*_URL` env var, sitemap, robots, OAuth redirect, or marketing/transactional email.** The live production domain is **`https://preppeo.com`** (apex → `www.preppeo.com`), **NOT** `courses.preppeo.com` (which is not on the project and 404s). `NEXT_PUBLIC_*` vars are baked at build → redeploy prod after changing them.
+- [`ENVIRONMENT_SETUP.md`](DOCS_FOR_AI_AGENT/ENVIRONMENT_SETUP.md) / [`VERCEL_SETUP.md`](DOCS_FOR_AI_AGENT/VERCEL_SETUP.md) — local + Vercel env configuration.
+- [`DEV_PROD_WORKFLOW.md`](DOCS_FOR_AI_AGENT/DEV_PROD_WORKFLOW.md), [`SUPABASE_BRANCHING_SETUP.md`](DOCS_FOR_AI_AGENT/SUPABASE_BRANCHING_SETUP.md) — dev→prod flow + Supabase branching.
+- [`COURSE_STRUCTURE_SETUP_GUIDE.md`](DOCS_FOR_AI_AGENT/COURSE_STRUCTURE_SETUP_GUIDE.md), [`DATABASE_STRUCTURE_ANALYSIS.md`](DOCS_FOR_AI_AGENT/DATABASE_STRUCTURE_ANALYSIS.md), [`how-to-create-a-new-course.md`](DOCS_FOR_AI_AGENT/how-to-create-a-new-course.md) — course/DB structure.
+- [`GOOGLE_OAUTH_SETUP.md`](DOCS_FOR_AI_AGENT/GOOGLE_OAUTH_SETUP.md), storage + teacher/student-assignment docs — feature-specific setup.

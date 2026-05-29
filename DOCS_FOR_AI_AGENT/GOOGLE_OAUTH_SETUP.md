@@ -28,13 +28,13 @@ This guide will help you enable Google OAuth authentication in both your **Dev**
    - **Authorized JavaScript origins**:
      - `https://ootnqmojcqnzfrtvzzec.supabase.co` (Production)
      - `https://dxhxpfouzjlzpeazwrqo.supabase.co` (Dev)
-     - `https://courses.preppeo.com` (Production domain)
-     - `https://dev.courses.preppeo.com` (Dev domain, if applicable)
+     - `https://preppeo.com` + `https://www.preppeo.com` (Production domain)
+     - `https://dev.preppeo.com` (Dev domain, if applicable)
    - **Authorized redirect URIs**:
      - `https://ootnqmojcqnzfrtvzzec.supabase.co/auth/v1/callback` (Production)
      - `https://dxhxpfouzjlzpeazwrqo.supabase.co/auth/v1/callback` (Dev)
-     - `https://courses.preppeo.com/auth/callback` (Production)
-     - `https://dev.courses.preppeo.com/auth/callback` (Dev, if applicable)
+     - `https://preppeo.com/auth/callback` + `https://www.preppeo.com/auth/callback` (Production)
+     - `https://dev.preppeo.com/auth/callback` (Dev, if applicable)
 
 6. Click **Create**
 7. Copy the **Client ID** and **Client Secret**
@@ -123,7 +123,7 @@ For both Production and Dev:
    - Should redirect to Google and back successfully
 
 2. **Test on Production:**
-   - Visit `https://courses.preppeo.com`
+   - Visit `https://preppeo.com`
    - Click "Sign in with Google"
    - Should redirect to Google and back successfully
 

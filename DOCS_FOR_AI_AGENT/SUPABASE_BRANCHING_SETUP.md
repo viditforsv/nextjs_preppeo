@@ -4,7 +4,7 @@
 
 **Current Setup (completed):**
 - Single project: `ootnqmojcqnzfrtvzzec` (`preppeo_lms_prod`)
-- `main` branch → production (`courses.preppeo.com`)
+- `main` branch → production (`preppeo.com`)
 - `dev` branch → development (`dxhxpfouzjlzpeazwrqo.supabase.co`)
 
 ---
