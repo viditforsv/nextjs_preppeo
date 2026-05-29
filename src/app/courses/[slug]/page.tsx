@@ -2,7 +2,7 @@ import { CoursePageClient } from "./CoursePageClient";
 import type { Metadata } from "next";
 
 const baseUrl =
-  process.env.NEXT_PUBLIC_APP_URL || "https://courses.preppeo.com";
+  process.env.NEXT_PUBLIC_APP_URL || "https://preppeo.com";
 
 export async function generateMetadata({
   params,

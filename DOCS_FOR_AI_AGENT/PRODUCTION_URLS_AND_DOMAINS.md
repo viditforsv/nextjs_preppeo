@@ -52,12 +52,12 @@ robots, social-share previews, and post-login redirects all silently break.
    A sensitive var returns an **empty string** on `vercel env pull` — so an empty
    pulled value usually means "sensitive flag", not "unset".
 
-3. **Stale `courses.preppeo.com` fallbacks still live in code.** As of 2026-05-29
-   these hardcode it as a default and will resurface the bug if the env var is
-   ever unset:
-   - `src/app/courses/[slug]/page.tsx`
-   - `src/lib/tokens/fulfill-purchase.ts`
-   Fix opportunistically to `https://preppeo.com`.
+3. **Never reintroduce a `courses.preppeo.com` default.** All known occurrences
+   were purged on 2026-05-29 (env-var fallbacks in `courses/[slug]/page.tsx` and
+   `tokens/fulfill-purchase.ts`, hardcoded links across `lib/email/templates.ts`,
+   and proxy `Referer`/`Origin` fallbacks). Any new code that needs a base URL
+   should read `NEXT_PUBLIC_APP_URL` with a `https://preppeo.com` fallback — or,
+   for email links, hardcode `https://preppeo.com` (see gotcha #4).
 
 4. **Marketing/transactional emails should hardcode `https://preppeo.com`**, not
    read the env var — links in an inbox can't be fixed by a redeploy. The QOTD

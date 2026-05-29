@@ -126,7 +126,7 @@ export async function fulfillTokenPurchase(
 
   if (profile?.email) {
     try {
-      const appUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://courses.preppeo.com';
+      const appUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://preppeo.com';
       const examLabel = pack.exam_type.toUpperCase();
       const mockTestUrl = `${appUrl}${testRoute}`;
       const expiryStr = expiresAt.toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' });

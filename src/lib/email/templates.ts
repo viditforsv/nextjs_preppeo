@@ -19,7 +19,7 @@ function layout(body: string): string {
           ${body}
         </td></tr>
         <tr><td style="padding:16px 32px;border-top:1px solid #e5e7eb;font-size:12px;color:#6b7280;text-align:center;">
-          &copy; ${new Date().getFullYear()} Preppeo &middot; <a href="https://courses.preppeo.com" style="color:#6b7280;">courses.preppeo.com</a>
+          &copy; ${new Date().getFullYear()} Preppeo &middot; <a href="https://preppeo.com" style="color:#6b7280;">preppeo.com</a>
         </td></tr>
       </table>
     </td></tr>
@@ -36,7 +36,7 @@ export function welcomeEmail(firstName: string): EmailContent {
       <h2 style="margin:0 0 16px;font-size:22px;">Welcome, ${name}!</h2>
       <p style="margin:0 0 12px;line-height:1.6;">Your account has been created successfully. You now have access to our full catalogue of courses, mock tests, and study resources.</p>
       <p style="margin:0 0 24px;line-height:1.6;">Head over to your dashboard to get started:</p>
-      <a href="https://courses.preppeo.com/courses" style="display:inline-block;background:#2563eb;color:#ffffff;padding:12px 28px;border-radius:6px;text-decoration:none;font-weight:600;">Browse Courses</a>
+      <a href="https://preppeo.com/courses" style="display:inline-block;background:#2563eb;color:#ffffff;padding:12px 28px;border-radius:6px;text-decoration:none;font-weight:600;">Browse Courses</a>
       <p style="margin:24px 0 0;line-height:1.6;color:#6b7280;font-size:14px;">If you have any questions, reply to this email — we're happy to help.</p>
     `),
   };
@@ -50,7 +50,7 @@ export function courseEnrollmentEmail(firstName: string, courseTitle: string): E
       <h2 style="margin:0 0 16px;font-size:22px;">You're in, ${name}!</h2>
       <p style="margin:0 0 12px;line-height:1.6;">You've been enrolled in <strong>${courseTitle}</strong>.</p>
       <p style="margin:0 0 24px;line-height:1.6;">Jump in and start learning right away:</p>
-      <a href="https://courses.preppeo.com/courses/enrolled" style="display:inline-block;background:#2563eb;color:#ffffff;padding:12px 28px;border-radius:6px;text-decoration:none;font-weight:600;">Go to My Courses</a>
+      <a href="https://preppeo.com/courses/enrolled" style="display:inline-block;background:#2563eb;color:#ffffff;padding:12px 28px;border-radius:6px;text-decoration:none;font-weight:600;">Go to My Courses</a>
     `),
   };
 }
@@ -75,7 +75,7 @@ export function coursePurchaseEmail(
       <p style="margin:0 0 4px;line-height:1.6;">You now have access to:</p>
       ${courseList}
       <div style="margin:24px 0;">
-        <a href="https://courses.preppeo.com/courses/enrolled" style="display:inline-block;background:#2563eb;color:#ffffff;padding:12px 28px;border-radius:6px;text-decoration:none;font-weight:600;">Start Learning</a>
+        <a href="https://preppeo.com/courses/enrolled" style="display:inline-block;background:#2563eb;color:#ffffff;padding:12px 28px;border-radius:6px;text-decoration:none;font-weight:600;">Start Learning</a>
       </div>
       <p style="margin:0;line-height:1.6;color:#6b7280;font-size:14px;">A receipt for this transaction is available in your account.</p>
     `),
@@ -108,7 +108,7 @@ export function subscriptionEmail(
           <td style="padding:8px 0;font-weight:600;text-align:right;">${tokenCount} token${tokenCount > 1 ? 's' : ''}</td>
         </tr>` : ''}
       </table>
-      <a href="https://courses.preppeo.com/mocks" style="display:inline-block;background:#2563eb;color:#ffffff;padding:12px 28px;border-radius:6px;text-decoration:none;font-weight:600;">View Mock Tests</a>
+      <a href="https://preppeo.com/mocks" style="display:inline-block;background:#2563eb;color:#ffffff;padding:12px 28px;border-radius:6px;text-decoration:none;font-weight:600;">View Mock Tests</a>
     `),
   };
 }
@@ -130,7 +130,7 @@ export function freeTokenEmail(
         <span style="font-size:24px;font-weight:700;letter-spacing:2px;color:#0369a1;">${tokenCode}</span>
       </div>
       <p style="margin:0 0 24px;line-height:1.6;">Use this token to take a full-length practice test.</p>
-      <a href="https://courses.preppeo.com/mocks" style="display:inline-block;background:#2563eb;color:#ffffff;padding:12px 28px;border-radius:6px;text-decoration:none;font-weight:600;">Take Your Mock Test</a>
+      <a href="https://preppeo.com/mocks" style="display:inline-block;background:#2563eb;color:#ffffff;padding:12px 28px;border-radius:6px;text-decoration:none;font-weight:600;">Take Your Mock Test</a>
     `),
   };
 }

@@ -4,9 +4,9 @@ import { sendTransactionalEmail } from '@/lib/email/send';
 import { QOTD_ROTATION } from '@/lib/qotd/questions';
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-// Canonical public domain for marketing emails. Hardcoded on purpose: the
-// NEXT_PUBLIC_*_URL env vars currently point at courses.preppeo.com (which 404s),
-// so these reader-facing links must not depend on them.
+// Canonical public domain for marketing emails. Hardcoded on purpose: links
+// already sitting in someone's inbox can't be fixed by a redeploy, so they must
+// not depend on a build-time env var. See DOCS_FOR_AI_AGENT/PRODUCTION_URLS_AND_DOMAINS.md.
 const SITE_URL = 'https://preppeo.com';
 
 function welcomeEmailHtml(): string {
