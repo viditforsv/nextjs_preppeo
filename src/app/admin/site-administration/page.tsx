@@ -24,6 +24,7 @@ import {
   ClipboardList,
   ListChecks,
   Link2,
+  Filter,
 } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -79,6 +80,12 @@ export default function SiteAdministrationPage() {
           icon: Link2,
           description:
             "VA referral signups for the Question of the Day, plus the link generator",
+        },
+        {
+          name: "Free-Mock Funnel",
+          href: "/admin/analytics/free-mock",
+          icon: Filter,
+          description: "Signups and how far they progress through the free SAT mock",
         },
       ],
     },
