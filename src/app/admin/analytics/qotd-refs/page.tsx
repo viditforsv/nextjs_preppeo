@@ -7,6 +7,7 @@ import { Button } from "@/design-system/components/ui/button";
 import { Badge } from "@/design-system/components/ui/badge";
 import { Breadcrumb } from "@/design-system/components/breadcrumb";
 import { Users, Link2, MousePointerClick, Download } from "lucide-react";
+import RefLinkGenerator from "./RefLinkGenerator";
 
 interface RefRow {
   ref: string;
@@ -148,6 +149,8 @@ export default function QotdRefsPage() {
               </Button>
             </div>
           </div>
+
+          <RefLinkGenerator existingRefs={rows.map((r) => r.ref)} />
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
             <MetricCard
