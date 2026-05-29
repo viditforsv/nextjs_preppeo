@@ -6,8 +6,9 @@
 //
 // To ship a backlog page:
 //   1. Fill in `steps`, `proTip`, and `practice`.
-//   2. Record a ~20s screen GIF of the hack, save to
-//      public/images/desmos/<slug>.gif, and set `gifReady: true`.
+//   2. Record a ~20s screen capture of the hack. Hand the raw video to the
+//      encoder step, which produces public/images/desmos/<slug>.mp4 (+ .webm);
+//      then set `videoReady: true`.
 //   3. Set `published: true`. It auto-appears in the sitemap and static params.
 
 export interface DesmosStep {
@@ -24,9 +25,10 @@ export interface DesmosGuide {
   title: string;
   metaDescription: string;
   intro: string;
-  /** true once public/images/desmos/<slug>.gif exists. Until then a placeholder shows. */
-  gifReady: boolean;
-  gifAlt: string;
+  /** true once public/images/desmos/<slug>.mp4 (+ .webm) exists. Until then a placeholder shows. */
+  videoReady: boolean;
+  /** Caption / aria-label describing what the clip shows. */
+  mediaAlt: string;
   steps: DesmosStep[];
   proTip?: string;
   practice?: { question: string; answer: string; desmosWay: string };
@@ -43,8 +45,8 @@ export const DESMOS_GUIDES: DesmosGuide[] = [
       "Skip substitution and elimination. Type both equations into the Bluebook Desmos calculator and read the intersection. Step-by-step with a practice question.",
     intro:
       "Systems of equations are one of the most common Digital SAT Math question types — and the built-in Desmos calculator turns them into a 5-second read. Instead of grinding through substitution or elimination, you graph both equations and let Desmos find where they cross.",
-    gifReady: false,
-    gifAlt:
+    videoReady: false,
+    mediaAlt:
       "Typing two equations into the Bluebook Desmos calculator and clicking the intersection point to read the solution.",
     steps: [
       {
@@ -89,8 +91,8 @@ export const DESMOS_GUIDES: DesmosGuide[] = [
       "No solution, one solution, or infinitely many? Graph the system in Bluebook's Desmos calculator and read the answer off the screen. Step-by-step guide.",
     intro:
       "“How many solutions does this system have?” is a classic Digital SAT trap. Desmos makes it trivial: graph both equations and count the intersections.",
-    gifReady: false,
-    gifAlt: "Graphing a system in Desmos to count intersection points.",
+    videoReady: false,
+    mediaAlt: "Graphing a system in Desmos to count intersection points.",
     steps: [],
   },
   {
@@ -102,8 +104,8 @@ export const DESMOS_GUIDES: DesmosGuide[] = [
       "The Bluebook Desmos calculator can solve equations, graph functions, find intercepts, and more. Here's how to use it to save time on SAT Math.",
     intro:
       "The Digital SAT ships with the full Desmos graphing calculator built into Bluebook. Used well, it can shortcut a huge share of the Math section.",
-    gifReady: false,
-    gifAlt: "Overview of the Bluebook Desmos calculator features.",
+    videoReady: false,
+    mediaAlt: "Overview of the Bluebook Desmos calculator features.",
     steps: [],
   },
   {
@@ -115,8 +117,8 @@ export const DESMOS_GUIDES: DesmosGuide[] = [
       "Graph any quadratic in Bluebook's Desmos calculator to read the vertex, x-intercepts (roots), and y-intercept directly — no factoring required.",
     intro:
       "Quadratics show up everywhere on SAT Math. Desmos hands you the vertex, the roots, and the y-intercept without any factoring or the quadratic formula.",
-    gifReady: false,
-    gifAlt: "Reading a parabola's vertex and roots in Desmos.",
+    videoReady: false,
+    mediaAlt: "Reading a parabola's vertex and roots in Desmos.",
     steps: [],
   },
   {
@@ -128,8 +130,8 @@ export const DESMOS_GUIDES: DesmosGuide[] = [
       "Graph circle equations in Bluebook's Desmos calculator to find the center, radius, and intersections — even from the expanded (non-standard) form.",
     intro:
       "SAT circle questions often hide the center and radius inside an expanded equation. Desmos graphs it instantly so you can read the geometry off the screen.",
-    gifReady: false,
-    gifAlt: "Graphing a circle equation in Desmos to find center and radius.",
+    videoReady: false,
+    mediaAlt: "Graphing a circle equation in Desmos to find center and radius.",
     steps: [],
   },
   {
@@ -141,8 +143,8 @@ export const DESMOS_GUIDES: DesmosGuide[] = [
       "Set an equation equal to zero, graph it in Bluebook's Desmos calculator, and read the x-intercepts — the solutions — directly.",
     intro:
       "Stuck solving for x by hand? Move everything to one side, graph it, and the x-intercepts are your answers.",
-    gifReady: false,
-    gifAlt: "Finding x-intercepts in Desmos to solve an equation.",
+    videoReady: false,
+    mediaAlt: "Finding x-intercepts in Desmos to solve an equation.",
     steps: [],
   },
   {
@@ -154,8 +156,8 @@ export const DESMOS_GUIDES: DesmosGuide[] = [
       "Graph inequalities in Bluebook's Desmos calculator and let the overlapping shaded region show which points satisfy the system.",
     intro:
       "Inequality questions ask which point lies in a region. Desmos shades each inequality, and the overlap is your answer set.",
-    gifReady: false,
-    gifAlt: "Shaded overlap region of a system of inequalities in Desmos.",
+    videoReady: false,
+    mediaAlt: "Shaded overlap region of a system of inequalities in Desmos.",
     steps: [],
   },
   {
@@ -167,8 +169,8 @@ export const DESMOS_GUIDES: DesmosGuide[] = [
       "Drop a data table into Bluebook's Desmos calculator and run a regression to get the line of best fit — slope, intercept, and predictions.",
     intro:
       "When the SAT gives you a table of data, Desmos can fit a line (or curve) and hand you the equation in seconds.",
-    gifReady: false,
-    gifAlt: "Running a linear regression on a data table in Desmos.",
+    videoReady: false,
+    mediaAlt: "Running a linear regression on a data table in Desmos.",
     steps: [],
   },
   {
@@ -180,8 +182,8 @@ export const DESMOS_GUIDES: DesmosGuide[] = [
       "Enter a data set into Bluebook's Desmos calculator and use mean(), median(), and stdev() to compute statistics instantly.",
     intro:
       "Desmos has built-in statistics functions. Type your data into a list and call mean(), median(), or stdev() for an instant answer.",
-    gifReady: false,
-    gifAlt: "Using Desmos list functions to compute mean and median.",
+    videoReady: false,
+    mediaAlt: "Using Desmos list functions to compute mean and median.",
     steps: [],
   },
   {
@@ -193,8 +195,8 @@ export const DESMOS_GUIDES: DesmosGuide[] = [
       "Graph absolute value equations in Bluebook's Desmos calculator and read both solutions off the intersection points — no case-splitting.",
     intro:
       "Absolute value equations usually have two answers and trip students up. Graph both sides in Desmos and read off the intersections.",
-    gifReady: false,
-    gifAlt: "Graphing an absolute value equation in Desmos to find both solutions.",
+    videoReady: false,
+    mediaAlt: "Graphing an absolute value equation in Desmos to find both solutions.",
     steps: [],
   },
 ];

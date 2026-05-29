@@ -83,20 +83,26 @@ export default async function DesmosGuidePage({
         </h1>
         <p className="text-gray-600 mt-4 text-lg leading-relaxed">{guide.intro}</p>
 
-        {/* ── GIF (the hack in action) ───────────────────────────── */}
+        {/* ── Demo clip (the hack in action) ─────────────────────── */}
         <div className="mt-8">
-          {guide.gifReady ? (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img
-              src={`/images/desmos/${guide.slug}.gif`}
-              alt={guide.gifAlt}
+          {guide.videoReady ? (
+            <video
               className="w-full rounded-xl border border-gray-200 shadow-sm"
-            />
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="metadata"
+              aria-label={guide.mediaAlt}
+            >
+              <source src={`/images/desmos/${guide.slug}.webm`} type="video/webm" />
+              <source src={`/images/desmos/${guide.slug}.mp4`} type="video/mp4" />
+            </video>
           ) : (
             <div className="w-full rounded-xl border-2 border-dashed border-gray-300 bg-white px-6 py-12 text-center">
               <Calculator className="w-8 h-8 mx-auto mb-3 text-gray-400" />
               <p className="text-sm font-medium text-gray-500">
-                Demo GIF coming soon
+                Demo clip coming soon
               </p>
               <p className="text-xs text-gray-400 mt-1">
                 A 20-second screen recording of the hack will appear here.

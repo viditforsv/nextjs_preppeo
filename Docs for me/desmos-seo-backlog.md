@@ -6,8 +6,9 @@ related: "[[tasks 29-31 May 2026]]"
 # Desmos SAT — SEO landing-page backlog
 
 **Strategy:** students search Google for Desmos shortcuts to solve SAT Math in
-seconds. Each search term gets a focused landing page: hook → 20-sec GIF of the
-hack → step-by-step → practice question → CTA to a free adaptive mock.
+seconds. Each search term gets a focused landing page: hook → 20-sec looping
+demo clip of the hack → step-by-step → practice question → CTA to a free
+adaptive mock.
 
 - **Template + data:** `src/lib/seo/desmos-guides.ts` (content) +
   `src/app/sat/desmos/[slug]/page.tsx` (renders it).
@@ -16,9 +17,13 @@ hack → step-by-step → practice question → CTA to a free adaptive mock.
 
 ## To ship the next page
 1. Fill in `steps`, `proTip`, `practice` for that entry in `desmos-guides.ts`.
-2. Record a ~20s screen GIF of the hack → save as
-   `public/images/desmos/<slug>.gif` → set `gifReady: true`.
+2. Record a ~20s screen capture of the hack (Cmd+Shift+5 on Mac). Hand the raw
+   `.mov` to the assistant → it encodes `<slug>.mp4` + `<slug>.webm` into
+   `public/images/desmos/` → set `videoReady: true`.
 3. Set `published: true`. Done — sitemap + static route update automatically.
+
+The clip plays as autoplay/muted/loop video (looks like a GIF, ~5–10× smaller
+and sharper). Encode commands are in `public/images/desmos/README.txt`.
 
 ## The 10 terms
 
@@ -41,5 +46,5 @@ hack → step-by-step → practice question → CTA to a free adaptive mock.
   the example named in the original strategy doc.
 - **Higher-volume alternative** if you'd rather lead broad: "how to use Desmos
   for the SAT" (#3) — more traffic but harder to rank and lower conversion.
-- The pilot page is **live and indexable now**; only the demo GIF is outstanding
-  (a dashed placeholder shows until you drop the recording in).
+- The pilot page is **live and indexable now**; only the demo clip is outstanding
+  (a dashed placeholder shows until the encoded video is dropped in).
