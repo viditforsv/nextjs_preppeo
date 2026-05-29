@@ -47,6 +47,17 @@ const nextConfig: NextConfig = {
     unoptimized: process.env.NODE_ENV === "development",
   },
 
+  // Short, shareable QOTD link (Discord/Reddit) -> canonical SEO slug.
+  async redirects() {
+    return [
+      {
+        source: "/qotd",
+        destination: "/question-of-the-day",
+        permanent: true,
+      },
+    ];
+  },
+
   // Add headers to fix CSP issues with PDF embedding and CDN content
   async headers() {
     return [
