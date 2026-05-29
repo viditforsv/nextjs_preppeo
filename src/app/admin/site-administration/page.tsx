@@ -23,6 +23,7 @@ import {
   UserCheck,
   ClipboardList,
   ListChecks,
+  Link2,
 } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -71,6 +72,13 @@ export default function SiteAdministrationPage() {
           href: "/admin/student-progress",
           icon: Users,
           description: "Monitor student performance and tag mastery",
+        },
+        {
+          name: "QOTD Referrals",
+          href: "/admin/analytics/qotd-refs",
+          icon: Link2,
+          description:
+            "VA referral signups for the Question of the Day, plus the link generator",
         },
       ],
     },
