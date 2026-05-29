@@ -6,6 +6,7 @@ import {
   getDesmosGuide,
   getPublishedDesmosGuides,
 } from "@/lib/seo/desmos-guides";
+import DesmosVideo from "./DesmosVideo";
 
 const NAVY = "#1a365d";
 const AMBER = "#f4b400";
@@ -86,18 +87,7 @@ export default async function DesmosGuidePage({
         {/* ── Demo clip (the hack in action) ─────────────────────── */}
         <div className="mt-8">
           {guide.videoReady ? (
-            <video
-              className="w-full rounded-xl border border-gray-200 shadow-sm"
-              autoPlay
-              muted
-              loop
-              playsInline
-              preload="metadata"
-              aria-label={guide.mediaAlt}
-            >
-              <source src={`/images/desmos/${guide.slug}.webm`} type="video/webm" />
-              <source src={`/images/desmos/${guide.slug}.mp4`} type="video/mp4" />
-            </video>
+            <DesmosVideo slug={guide.slug} mediaAlt={guide.mediaAlt} />
           ) : (
             <div className="w-full rounded-xl border-2 border-dashed border-gray-300 bg-white px-6 py-12 text-center">
               <Calculator className="w-8 h-8 mx-auto mb-3 text-gray-400" />

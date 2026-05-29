@@ -137,17 +137,6 @@ export default function SatGuidePage() {
             <BookOpen className="w-4 h-4" style={{ color: AMBER }} />
             SAT
           </div>
-
-          {/* Future tests — greyed */}
-          {["ACT", "AP Exams", "GMAT", "GRE"].map((t) => (
-            <div
-              key={t}
-              className="flex items-center gap-1.5 px-5 py-4 text-sm text-gray-300 border-b-2 border-transparent whitespace-nowrap cursor-not-allowed"
-            >
-              {t}
-              <span className="text-[10px] bg-gray-100 text-gray-400 px-1.5 py-0.5 rounded-full font-medium">Soon</span>
-            </div>
-          ))}
         </div>
       </div>
 
@@ -536,6 +525,8 @@ export default function SatGuidePage() {
                   title: "Use the built-in Desmos calculator",
                   body: "The on-screen graphing calculator is powerful. For tricky algebra or geometry, graph the equation rather than solving algebraically.",
                   color: AMBER,
+                  href: "/sat/desmos/systems-of-equations",
+                  linkText: "See how to solve systems of equations in Desmos",
                 },
                 {
                   title: "Flag and come back",
@@ -559,6 +550,15 @@ export default function SatGuidePage() {
                     <div>
                       <p className="font-semibold text-sm" style={{ color: NAVY }}>{tip.title}</p>
                       <p className="text-sm text-gray-500 mt-1 leading-relaxed">{tip.body}</p>
+                      {"href" in tip && tip.href && (
+                        <Link
+                          href={tip.href}
+                          className="inline-flex items-center gap-1 mt-2 text-sm font-semibold hover:underline"
+                          style={{ color: TEAL }}
+                        >
+                          {tip.linkText} <ChevronRight className="w-4 h-4" />
+                        </Link>
+                      )}
                     </div>
                   </div>
                 </div>
