@@ -4,7 +4,10 @@ import { sendTransactionalEmail } from '@/lib/email/send';
 import { QOTD_ROTATION } from '@/lib/qotd/questions';
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://preppeo.com';
+// Canonical public domain for marketing emails. Hardcoded on purpose: the
+// NEXT_PUBLIC_*_URL env vars currently point at courses.preppeo.com (which 404s),
+// so these reader-facing links must not depend on them.
+const SITE_URL = 'https://preppeo.com';
 
 function welcomeEmailHtml(): string {
   return `
@@ -27,7 +30,7 @@ function welcomeEmailHtml(): string {
         Try a full adaptive mock →
       </a>
       <p style="margin:22px 0 0;font-size:13px;color:#6b7280;line-height:1.6;">
-        Come back tomorrow for the next one — preppeo.com/question-of-the-day
+        Come back tomorrow for the next one — <a href="${SITE_URL}/question-of-the-day" style="color:#0d47a1;text-decoration:none;">preppeo.com/question-of-the-day</a>
       </p>
     </div>
   </div>`;
