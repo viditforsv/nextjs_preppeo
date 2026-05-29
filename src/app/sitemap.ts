@@ -1,9 +1,18 @@
 import type { MetadataRoute } from 'next';
+import { getPublishedDesmosGuides } from '@/lib/seo/desmos-guides';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://preppeo.com';
 
+  const desmosGuides: MetadataRoute.Sitemap = getPublishedDesmosGuides().map((g) => ({
+    url: `${baseUrl}/sat/desmos/${g.slug}`,
+    lastModified: new Date(),
+    changeFrequency: 'monthly',
+    priority: 0.6,
+  }));
+
   return [
+    ...desmosGuides,
     {
       url: baseUrl,
       lastModified: new Date(),
