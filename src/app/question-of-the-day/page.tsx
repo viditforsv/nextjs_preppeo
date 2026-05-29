@@ -34,6 +34,16 @@ export default function QuestionOfTheDayPage() {
   const [captureError, setCaptureError] = useState('');
   const [breakdown, setBreakdown] = useState<string | null>(null);
 
+  // Marketing attribution: capture ?ref=<channel> (e.g. /qotd?ref=va) so the
+  // resulting signup is credited to whoever shared the link. Read from
+  // window.location (not useSearchParams) to avoid needing a Suspense boundary.
+  const [ref, setRef] = useState<string | null>(null);
+  useEffect(() => {
+    const raw = new URLSearchParams(window.location.search).get('ref') ?? '';
+    const cleaned = raw.trim().toLowerCase().replace(/[^a-z0-9_-]/g, '').slice(0, 40);
+    if (cleaned) setRef(cleaned);
+  }, []);
+
   useEffect(() => {
     let cancelled = false;
     fetch('/api/qotd/question')
@@ -73,7 +83,7 @@ export default function QuestionOfTheDayPage() {
       const res = await fetch('/api/qotd/capture', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, questionId: question.id }),
+        body: JSON.stringify({ email, questionId: question.id, ref }),
       });
       const body = await res.json();
       if (!res.ok) {

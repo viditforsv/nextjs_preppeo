@@ -4,6 +4,16 @@ import { sendTransactionalEmail } from '@/lib/email/send';
 import { QOTD_ROTATION } from '@/lib/qotd/questions';
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+// Marketing attribution: a referral link like /qotd?ref=va flows ?ref through
+// to here. Normalise to a safe slug (lowercase, [a-z0-9_-], max 40) so a
+// crafted query string can't write junk to the leads table. NULL when absent.
+function normaliseRef(raw: unknown): string | null {
+  if (typeof raw !== 'string') return null;
+  const cleaned = raw.trim().toLowerCase().replace(/[^a-z0-9_-]/g, '').slice(0, 40);
+  return cleaned.length > 0 ? cleaned : null;
+}
+
 // Canonical public domain for marketing emails. Hardcoded on purpose: links
 // already sitting in someone's inbox can't be fixed by a redeploy, so they must
 // not depend on a build-time env var. See DOCS_FOR_AI_AGENT/PRODUCTION_URLS_AND_DOMAINS.md.
@@ -52,6 +62,7 @@ export async function POST(request: NextRequest) {
     const body = await request.json().catch(() => null);
     const email = typeof body?.email === 'string' ? body.email.trim().toLowerCase() : '';
     const questionId = typeof body?.questionId === 'string' ? body.questionId : '';
+    const ref = normaliseRef(body?.ref);
 
     if (!EMAIL_RE.test(email) || email.length > 254) {
       return NextResponse.json({ error: 'Please enter a valid email address.' }, { status: 400 });
@@ -89,6 +100,7 @@ export async function POST(request: NextRequest) {
       question_id: questionId,
       rotation_index: rotationIndex,
       source: 'qotd',
+      ref,
       user_agent: request.headers.get('user-agent')?.slice(0, 500) ?? null,
     });
 
