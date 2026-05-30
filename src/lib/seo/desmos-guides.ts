@@ -85,14 +85,15 @@ export const DESMOS_GUIDES: DesmosGuide[] = [
   {
     slug: "number-of-solutions",
     keyword: "SAT Desmos number of solutions",
-    published: false,
+    published: true,
     title: "SAT Desmos Trick: Find the Number of Solutions Instantly",
     metaDescription:
       "No solution, one solution, or infinitely many? Graph the system in Bluebook's Desmos calculator and read the answer off the screen. Step-by-step guide.",
     intro:
       "“How many solutions does this system have?” is a classic Digital SAT trap. Desmos makes it trivial: graph both equations and count the intersections.",
-    videoReady: false,
-    mediaAlt: "Graphing a system in Desmos to count intersection points.",
+    videoReady: true,
+    mediaAlt:
+      "Graphing y = x² with a line in Desmos and changing the line's constant to show two, one, and zero intersection points.",
     steps: [
       {
         title: "Graph both equations",
@@ -127,13 +128,13 @@ export const DESMOS_GUIDES: DesmosGuide[] = [
   {
     slug: "how-to-use-desmos",
     keyword: "how to use Desmos for the SAT",
-    published: false,
+    published: true,
     title: "How to Use Desmos on the Digital SAT: The Complete Guide",
     metaDescription:
       "The Bluebook Desmos calculator can solve equations, graph functions, find intercepts, and more. Here's how to use it to save time on SAT Math.",
     intro:
       "The Digital SAT ships with the full Desmos graphing calculator built into Bluebook. Used well, it can shortcut a huge share of the Math section.",
-    videoReady: false,
+    videoReady: true,
     mediaAlt: "Overview of the Bluebook Desmos calculator features.",
     steps: [
       {
