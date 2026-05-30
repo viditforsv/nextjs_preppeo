@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import nodeCrypto from 'crypto';
 import { createSupabaseApiClient } from '@/lib/supabase/api-client';
 import { fulfillTokenPurchase } from '@/lib/tokens/fulfill-purchase';
+import { fulfillCartPurchase } from '@/lib/checkout/fulfill-cart';
 
 export async function POST(request: NextRequest) {
   try {
@@ -62,7 +63,19 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ received: true });
     }
 
-    await fulfillTokenPurchase(purchase.id, paymentId);
+    // Razorpay sends every captured payment here. Route to the right fulfiller:
+    // bundle checkouts (multiple products) have purchase_items; single mock-pack
+    // purchases have a pack_id and use the legacy token fulfiller.
+    const { count: itemCount } = await supabase
+      .from('purchase_items')
+      .select('id', { count: 'exact', head: true })
+      .eq('purchase_id', purchase.id);
+
+    if ((itemCount ?? 0) > 0) {
+      await fulfillCartPurchase(purchase.id, paymentId);
+    } else {
+      await fulfillTokenPurchase(purchase.id, paymentId);
+    }
 
     return NextResponse.json({ received: true });
   } catch (error) {

@@ -31,7 +31,8 @@ export interface TokenPack {
   exam_type: string;
   name: string;
   token_count: number;
-  price: number;
+  price: number; // INR (Razorpay charges this)
+  price_usd: number | null; // explicit USD display price; null = fall back to conversion
   is_active: boolean;
   created_at: string;
 }
