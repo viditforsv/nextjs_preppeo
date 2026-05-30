@@ -12,6 +12,14 @@ const nextConfig: NextConfig = {
     root: projectRoot,
   },
 
+  // Strip console.* from production bundles (1000+ calls across the app add
+  // runtime cost and leak internals). Keep console.error so real failures
+  // still surface to Sentry/logs. Dev keeps all logging.
+  compiler: {
+    removeConsole:
+      process.env.NODE_ENV === "production" ? { exclude: ["error"] } : false,
+  },
+
   // Handle environment variables during build
   env: {
     NEXT_PUBLIC_SUPABASE_URL: process.env.NEXT_PUBLIC_SUPABASE_URL,

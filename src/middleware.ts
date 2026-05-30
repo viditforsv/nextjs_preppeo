@@ -13,12 +13,13 @@ export async function middleware(req: NextRequest) {
   const res = NextResponse.next();
   const { pathname } = req.nextUrl;
 
-  // Skip static assets and public routes
-  if (
-    pathname.startsWith("/_next/") ||
-    pathname.startsWith("/public/") ||
-    pathname === "/favicon.ico"
-  ) {
+  // Fast path: if an anonymous, role-less user can already access this path,
+  // there is nothing for middleware to enforce — so skip the auth round-trips
+  // entirely. canAccessRoute(pathname, undefined, false) is true for public
+  // routes AND for any path with no matching rule, so this collapses every
+  // public page to zero network calls. ROUTE_ACCESS stays the single source
+  // of truth, so the matcher can never drift out of sync with the rules.
+  if (canAccessRoute(pathname, undefined, false)) {
     return res;
   }
 
@@ -55,29 +56,32 @@ export async function middleware(req: NextRequest) {
     }
   );
 
-  // Get user (more secure than getSession)
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
-  const isAuthenticated = !!user;
+  // Verify the session JWT. getClaims() verifies locally (no auth-server
+  // round-trip) when the project uses asymmetric signing keys, and falls back
+  // to a network getUser() otherwise — never less secure, just faster when
+  // available. It still refreshes/persists the session via getSession() under
+  // the hood, so cookie refresh keeps working.
+  const { data: claimsData } = await supabase.auth.getClaims();
+  const claims = claimsData?.claims;
+  const userId = claims?.sub;
+  const isAuthenticated = !!userId;
   let userRole: UserRole | undefined;
 
-  // Always read role from profiles — user_metadata can drift out of sync
-  // (e.g. a user promoted in profiles still has the old role in metadata),
+  // Always read role from profiles — JWT/user_metadata can drift out of sync
+  // (e.g. a user promoted in profiles still has the old role in the token),
   // which causes auth redirects to be wrong. Profile is the source of truth.
-  if (user) {
+  if (userId) {
     try {
       const { data: profile } = await supabase
         .from("profiles")
         .select("role")
-        .eq("id", user.id)
+        .eq("id", userId)
         .single();
       userRole = profile?.role as UserRole | undefined;
     } catch (error) {
       console.error("Error fetching user role:", error);
-      // Fall back to metadata only if profile lookup fails entirely
-      userRole = user.user_metadata?.role as UserRole | undefined;
+      // Fall back to token metadata only if the profile lookup fails entirely
+      userRole = claims?.user_metadata?.role as UserRole | undefined;
     }
   }
 
@@ -98,5 +102,8 @@ export async function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/((?!_next/static|_next/image|favicon.ico|public/).*)"],
+  // Exclude API routes (they authenticate themselves), Next internals, and
+  // static assets. Page routes still pass through, where the fast path above
+  // skips auth work for anything public.
+  matcher: ["/((?!api|_next/static|_next/image|favicon.ico|public/).*)"],
 };

@@ -1,7 +1,5 @@
-"use client";
-
-import { useState, useEffect } from "react";
-import { useAuth } from "@/contexts/AuthContext";
+import { redirect } from "next/navigation";
+import { createClient } from "@/lib/supabase/server";
 import {
   Card,
   CardContent,
@@ -21,6 +19,9 @@ import {
   Home,
 } from "lucide-react";
 import Link from "next/link";
+
+// Authed, cookie-based data fetching → this page is always dynamic.
+export const dynamic = "force-dynamic";
 
 interface Student {
   id: string;
@@ -43,39 +44,23 @@ interface Student {
   pendingSubmissions: number;
 }
 
-export default function TeacherDashboard() {
-  const { user, profile } = useAuth();
-  const [students, setStudents] = useState<Student[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+export default async function TeacherDashboard() {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
 
-  useEffect(() => {
-    if (user) {
-      loadStudents();
-    }
-  }, [user]);
+  if (!user) {
+    redirect("/auth?redirect=/teacher/dashboard");
+  }
 
-  const loadStudents = async () => {
-    try {
-      setIsLoading(true);
-      setError(null);
+  const { data: profile } = await supabase
+    .from("profiles")
+    .select("first_name, last_name, role")
+    .eq("id", user.id)
+    .single();
 
-      const response = await fetch("/api/teacher/students");
-      if (!response.ok) {
-        throw new Error("Failed to fetch students");
-      }
-
-      const data = await response.json();
-      setStudents(data.students || []);
-    } catch (err) {
-      console.error("Error loading students:", err);
-      setError(err instanceof Error ? err.message : "Failed to load students");
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  if (!user || (profile?.role !== "teacher" && profile?.role !== "admin")) {
+  if (profile?.role !== "teacher" && profile?.role !== "admin") {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
         <div className="text-center">
@@ -90,35 +75,87 @@ export default function TeacherDashboard() {
     );
   }
 
-  if (isLoading) {
-    return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#1a365d] mx-auto mb-4"></div>
-          <p className="text-muted-foreground">Loading dashboard...</p>
-        </div>
-      </div>
-    );
+  // Enrollments assigned to this teacher.
+  const { data: enrollments } = await supabase
+    .from("courses_enrollments")
+    .select(
+      `
+      id,
+      student_id,
+      course_id,
+      enrolled_at,
+      is_active,
+      user:student_id (id, email, first_name, last_name, role),
+      course:course_id (id, title, slug, curriculum, subject, grade, level)
+    `
+    )
+    .eq("assigned_teacher_id", user.id)
+    .eq("enrollment_type", "student")
+    .eq("is_active", true);
+
+  // Pending submission counts for ALL students in ONE query, tallied per
+  // (student, course) — no per-student N+1.
+  const studentIds = [
+    ...new Set((enrollments || []).map((e) => e.student_id)),
+  ];
+  const courseIds = [...new Set((enrollments || []).map((e) => e.course_id))];
+
+  const { data: pendingSubs } = await supabase
+    .from("assignment_submissions")
+    .select("user_id, course_id")
+    .in("user_id", studentIds)
+    .in("course_id", courseIds)
+    .eq("grading_status", "pending");
+
+  const pendingCountByPair = new Map<string, number>();
+  for (const sub of (pendingSubs || []) as Array<{
+    user_id: string;
+    course_id: string;
+  }>) {
+    const key = `${sub.user_id}|${sub.course_id}`;
+    pendingCountByPair.set(key, (pendingCountByPair.get(key) || 0) + 1);
   }
+
+  const students: Student[] = (enrollments || []).map((enrollment) => {
+    const userRel = Array.isArray(enrollment.user)
+      ? enrollment.user[0]
+      : enrollment.user;
+    const courseRel = Array.isArray(enrollment.course)
+      ? enrollment.course[0]
+      : enrollment.course;
+    return {
+      id: enrollment.id,
+      student_id: enrollment.student_id,
+      course_id: enrollment.course_id,
+      enrolled_at: enrollment.enrolled_at,
+      user: userRel as Student["user"],
+      course: courseRel as Student["course"],
+      pendingSubmissions:
+        pendingCountByPair.get(
+          `${enrollment.student_id}|${enrollment.course_id}`
+        ) || 0,
+    };
+  });
 
   const stats = {
     totalStudents: students.length,
     totalPending: students.reduce((sum, s) => sum + s.pendingSubmissions, 0),
-    activeCourses: new Set(students.map((s) => s.course.id)).size,
+    activeCourses: new Set(students.map((s) => s.course?.id)).size,
   };
 
   // Group students by course
-  const studentsByCourse = students.reduce((acc, student) => {
-    const courseId = student.course.id;
-    if (!acc[courseId]) {
-      acc[courseId] = {
-        course: student.course,
-        students: [],
-      };
-    }
-    acc[courseId].students.push(student);
-    return acc;
-  }, {} as Record<string, { course: Student["course"]; students: Student[] }>);
+  const studentsByCourse = students.reduce(
+    (acc, student) => {
+      const courseId = student.course?.id;
+      if (!courseId) return acc;
+      if (!acc[courseId]) {
+        acc[courseId] = { course: student.course, students: [] };
+      }
+      acc[courseId].students.push(student);
+      return acc;
+    },
+    {} as Record<string, { course: Student["course"]; students: Student[] }>
+  );
 
   const sidebarItems = [
     {
@@ -127,12 +164,14 @@ export default function TeacherDashboard() {
       icon: <LayoutDashboard className="w-5 h-5" />,
       href: "/teacher/dashboard",
       isActive: true,
+      badge: undefined as string | undefined,
     },
     {
       id: "students",
       label: "My Students",
       icon: <Users className="w-5 h-5" />,
       href: "#",
+      isActive: false,
       badge:
         stats.totalStudents > 0 ? stats.totalStudents.toString() : undefined,
     },
@@ -141,6 +180,7 @@ export default function TeacherDashboard() {
       label: "Pending",
       icon: <FileText className="w-5 h-5" />,
       href: "#",
+      isActive: false,
       badge: stats.totalPending > 0 ? stats.totalPending.toString() : undefined,
     },
   ];
@@ -284,13 +324,6 @@ export default function TeacherDashboard() {
               </CardContent>
             </Card>
           </div>
-
-          {/* Error Alert */}
-          {error && (
-            <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-sm text-red-800">
-              <strong>Error:</strong> {error}
-            </div>
-          )}
 
           {/* Students by Course */}
           {Object.keys(studentsByCourse).length === 0 ? (

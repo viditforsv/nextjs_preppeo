@@ -13,11 +13,6 @@ import { useRouter } from "next/navigation";
 import { User, Session } from "@supabase/supabase-js";
 import { createClient } from "@/lib/supabase/client";
 import {
-  getCurrentEnvironment,
-  getSupabaseAnonKey,
-  getSupabaseUrl,
-} from "@/lib/supabase/env";
-import {
   UserProfile,
   UserRole,
   RolePermissions,
@@ -52,9 +47,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [session, setSession] = useState<Session | null>(null);
   const [profile, setProfile] = useState<UserProfile | null>(null);
   const [loading, setLoading] = useState(true);
-  const [profileCache, setProfileCache] = useState<Map<string, UserProfile>>(
-    new Map()
-  );
+  // Profile cache lives in a ref, not state: it is only read inside
+  // fetchProfile (never rendered), so a Map mutation must NOT trigger a
+  // re-render — and keeping it out of state lets fetchProfile stay
+  // referentially stable, which stops the auth listener from being torn
+  // down and re-subscribed on every cache write.
+  const profileCacheRef = useRef<Map<string, UserProfile>>(new Map());
   const [isInitialized, setIsInitialized] = useState(false);
   const [isSigningOut, setIsSigningOut] = useState(false);
   const router = useRouter();
@@ -235,7 +233,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         console.log("🔵 fetchProfile - Fetching profile for user ID:", userId);
 
         // Check cache first
-        const cachedProfile = profileCache.get(userId);
+        const cachedProfile = profileCacheRef.current.get(userId);
         if (cachedProfile) {
           console.log(
             "✅ fetchProfile - Using cached profile for user:",
@@ -268,7 +266,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             );
             const newProfile = await createProfile(userId);
             if (newProfile) {
-              setProfileCache((prev) => new Map(prev).set(userId, newProfile));
+              profileCacheRef.current.set(userId, newProfile);
             }
             return newProfile;
           }
@@ -279,9 +277,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             );
             const fallbackProfile = await createFallbackProfile(userId);
             if (fallbackProfile) {
-              setProfileCache((prev) =>
-                new Map(prev).set(userId, fallbackProfile)
-              );
+              profileCacheRef.current.set(userId, fallbackProfile);
             }
             return fallbackProfile;
           }
@@ -290,11 +286,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         }
 
         const { profile: data } = await response.json();
-        console.log("Successfully fetched profile:", data);
 
-        setProfileCache((prev) =>
-          new Map(prev).set(userId, data as UserProfile)
-        );
+        profileCacheRef.current.set(userId, data as UserProfile);
 
         return data as UserProfile;
       } catch (error) {
@@ -323,12 +316,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         );
         const fallbackProfile = await createFallbackProfile(userId);
         if (fallbackProfile) {
-          setProfileCache((prev) => new Map(prev).set(userId, fallbackProfile));
+          profileCacheRef.current.set(userId, fallbackProfile);
         }
         return fallbackProfile;
       }
     },
-    [profileCache, createFallbackProfile, createProfile]
+    [createFallbackProfile, createProfile]
   );
 
   // Check if user has specific permission
@@ -530,30 +523,18 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
         // Fetch profile in background for SIGNED_IN events
         if (event === "SIGNED_IN" && session?.user && !isSigningOut) {
-          console.log(
-            "🔵 Auth state - SIGNED_IN event, fetching profile for user:",
-            session.user.id
-          );
-          console.log("🔵 Auth state - User email:", session.user.email);
-
-          // Add a small delay to ensure state is fully updated
-          setTimeout(() => {
-            fetchProfile(session.user.id)
-              .then((userProfile) => {
-                if (userProfile) {
-                  setProfile(userProfile);
-                  console.log(
-                    "✅ Auth state - Profile loaded successfully:",
-                    userProfile
-                  );
-                } else {
-                  console.warn("⚠️ Auth state - Profile is null after fetch");
-                }
-              })
-              .catch((error) => {
-                console.error("❌ Auth state - Error fetching profile:", error);
-              });
-          }, 100);
+          // Fetch immediately — the user/session state was already set above,
+          // so there is no need to delay (the old 100ms setTimeout just taxed
+          // every login).
+          fetchProfile(session.user.id)
+            .then((userProfile) => {
+              if (userProfile) {
+                setProfile(userProfile);
+              }
+            })
+            .catch((error) => {
+              console.error("Auth state - Error fetching profile:", error);
+            });
         } else if (!session?.user) {
           console.log("🔵 Auth state - No session user, clearing profile");
           setProfile(null);
@@ -577,13 +558,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     async (email: string, password: string) => {
       console.log("🔵 signIn - Starting signin for email:", email);
 
-      // #region agent log
-      {
-        const url = getSupabaseUrl();
-        const anonKey = getSupabaseAnonKey();
-        fetch('http://127.0.0.1:7462/ingest/186332eb-1487-4ab5-80d9-b66314434ea3',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'5b2e41'},body:JSON.stringify({sessionId:'5b2e41',runId:'run1',hypothesisId:'H1',location:'AuthContext.tsx:signIn:pre',message:'supabase config at signin time',data:{supabaseUrl:url,supabaseUrlHost:url?new URL(url).host:'missing',anonKeyPrefix:anonKey?.substring(0,20),env:getCurrentEnvironment(),nodeEnv:process.env.NODE_ENV,emailBeingSent:email,emailLength:email.length},timestamp:Date.now()})}).catch(()=>{});
-      }
-      // #endregion
 
       const { data, error } = await supabase.auth.signInWithPassword({
         email,
@@ -592,33 +566,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
       if (error) {
         console.error("❌ signIn - Signin failed:", error);
-        // #region agent log
-        fetch('http://127.0.0.1:7462/ingest/186332eb-1487-4ab5-80d9-b66314434ea3',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'5b2e41'},body:JSON.stringify({sessionId:'5b2e41',runId:'run1',hypothesisId:'H3-H4',location:'AuthContext.tsx:signIn:error',message:'signInWithPassword error details',data:{errorName:error.name,errorMessage:error.message,errorStatus:error.status,errorCode:(error as Error & { code?: string }).code,email,emailLength:email.length},timestamp:Date.now()})}).catch(()=>{});
-        // #endregion
-        // #region agent log
-        fetch(
-          "http://127.0.0.1:7462/ingest/186332eb-1487-4ab5-80d9-b66314434ea3",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              "X-Debug-Session-Id": "e34cb8",
-            },
-            body: JSON.stringify({
-              sessionId: "e34cb8",
-              runId: "pre-fix",
-              hypothesisId: "H4",
-              location: "AuthContext.tsx:signIn:error",
-              message: "signInWithPassword failed",
-              data: {
-                errName: error.name,
-                errMessage: error.message,
-              },
-              timestamp: Date.now(),
-            }),
-          }
-        ).catch(() => {});
-        // #endregion
         throw error;
       }
 
@@ -628,33 +575,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         hasSession: !!data.session,
       });
 
-      // #region agent log
-      {
-        const u = getSupabaseUrl();
-        fetch(
-          "http://127.0.0.1:7462/ingest/186332eb-1487-4ab5-80d9-b66314434ea3",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              "X-Debug-Session-Id": "e34cb8",
-            },
-            body: JSON.stringify({
-              sessionId: "e34cb8",
-              runId: "pre-fix",
-              hypothesisId: "H2",
-              location: "AuthContext.tsx:signIn:ok",
-              message: "signInWithPassword ok",
-              data: {
-                env: getCurrentEnvironment(),
-                supabaseHost: u ? new URL(u).host : "missing",
-              },
-              timestamp: Date.now(),
-            }),
-          }
-        ).catch(() => {});
-      }
-      // #endregion
 
       // The auth state change handler will update the state automatically
       // No need to manually update state here
@@ -764,8 +684,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       console.log("🔵 signOut - Set isSigningOut to true");
 
       // Clear profile cache first
-      setProfileCache(new Map());
-      console.log("🔵 signOut - Cleared profile cache");
+      profileCacheRef.current = new Map();
 
       // Check if there's an active session before trying to sign out
       const {
@@ -828,7 +747,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       console.log("🔄 Redirecting to /auth (fallback)");
       router.push("/auth");
     }
-  }, [supabase, setProfileCache, router, user, session, loading, profile]);
+  }, [supabase, router, user, session, loading, profile]);
 
   const signInWithGoogle = useCallback(async (nextPath?: string) => {
     // Automatically detect environment and use appropriate URL
@@ -866,29 +785,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const redirectUrl = `${siteUrl}/auth/callback${next}`;
     console.log("AuthContext - Redirect URL:", redirectUrl);
 
-    // #region agent log
-    fetch("http://127.0.0.1:7462/ingest/186332eb-1487-4ab5-80d9-b66314434ea3", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "X-Debug-Session-Id": "e34cb8",
-      },
-      body: JSON.stringify({
-        sessionId: "e34cb8",
-        runId: "pre-fix",
-        hypothesisId: "H1",
-        location: "AuthContext.tsx:signInWithGoogle",
-        message: "google oauth redirectTo built",
-        data: {
-          siteUrl,
-          redirectPath: "/auth/callback",
-          nodeEnv: process.env.NODE_ENV,
-          hasPublicAppUrl: Boolean(process.env.NEXT_PUBLIC_APP_URL),
-        },
-        timestamp: Date.now(),
-      }),
-    }).catch(() => {});
-    // #endregion
 
     const { data, error } = await supabase.auth.signInWithOAuth({
       provider: "google",
