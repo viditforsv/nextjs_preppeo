@@ -26,6 +26,27 @@ export function formatPrice(inrPrice: number, currency: CurrencyCode): string {
   return `${symbol}${value.toLocaleString(locale, { minimumFractionDigits: 0, maximumFractionDigits: 2 })}`;
 }
 
+/**
+ * The amount to display in `currency`. Uses an explicit USD price when one is
+ * provided and USD is selected (prices are set independently, not by exchange
+ * rate); otherwise falls back to a rate conversion from INR.
+ */
+export function amountIn(
+  currency: CurrencyCode,
+  inrPrice: number,
+  usdPrice?: number | null,
+): number {
+  if (currency === 'USD' && usdPrice != null) return usdPrice;
+  return convertPrice(inrPrice, currency);
+}
+
+/** Format an amount already expressed in `currency` (no conversion). */
+export function formatAmount(amount: number, currency: CurrencyCode): string {
+  const { symbol, locale } = CURRENCIES[currency];
+  if (currency === 'INR') return `${symbol}${Math.round(amount).toLocaleString(locale)}`;
+  return `${symbol}${amount.toLocaleString(locale, { minimumFractionDigits: 0, maximumFractionDigits: 2 })}`;
+}
+
 export function detectCurrency(): CurrencyCode {
   if (typeof navigator === 'undefined') return 'INR';
   const lang = navigator.language || '';

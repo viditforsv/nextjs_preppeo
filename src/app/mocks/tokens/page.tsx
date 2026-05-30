@@ -24,6 +24,7 @@ interface SubscriptionPlan {
   duration_days: number;
   mock_tokens_included: number;
   price: number;
+  price_usd: number | null;
   exam_type: string;
 }
 

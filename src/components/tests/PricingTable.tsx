@@ -2,7 +2,7 @@
 
 import { Loader2, Sparkles, BookOpen, ClipboardList, Building2 } from 'lucide-react';
 import type { CurrencyCode } from '@/lib/currency';
-import { formatPrice } from '@/lib/currency';
+import { amountIn, formatAmount } from '@/lib/currency';
 import type { TokenPackWithExam } from '@/types/test-tokens';
 
 interface SubscriptionPlan {
@@ -12,6 +12,7 @@ interface SubscriptionPlan {
   duration_days: number;
   mock_tokens_included: number;
   price: number;
+  price_usd: number | null;
   exam_type: string;
 }
 
@@ -116,7 +117,8 @@ export default function PricingTable({
                 const p = row.plan;
                 const isBundle = p.plan_type === 'bundle';
                 const months = Math.round(p.duration_days / 30);
-                const price = hasDiscount ? applyDiscount(p.price, discountRate) : p.price;
+                const base = amountIn(currency, p.price, p.price_usd);
+                const price = hasDiscount ? applyDiscount(base, discountRate) : base;
                 const isBuying = buyingId === `plan-${p.id}`;
 
                 return (
@@ -149,9 +151,9 @@ export default function PricingTable({
                     <td className="py-3 px-4 text-gray-600">{months} month{months > 1 ? 's' : ''}</td>
                     <td className="py-3 px-4 text-right">
                       {hasDiscount && (
-                        <div className="text-xs text-gray-400 line-through">{formatPrice(p.price, currency)}</div>
+                        <div className="text-xs text-gray-400 line-through">{formatAmount(base, currency)}</div>
                       )}
-                      <div className="font-bold text-gray-900">{formatPrice(price, currency)}</div>
+                      <div className="font-bold text-gray-900">{formatAmount(price, currency)}</div>
                     </td>
                     <td className="py-3 px-5 text-right">
                       <button
@@ -173,8 +175,9 @@ export default function PricingTable({
               // Pack row
               const pk = row.pack;
               const isBulk = pk.token_count >= 50;
-              const price = hasDiscount ? applyDiscount(pk.price, discountRate) : pk.price;
-              const perTest = formatPrice(Math.round(price / pk.token_count), currency);
+              const base = amountIn(currency, pk.price, pk.price_usd);
+              const price = hasDiscount ? applyDiscount(base, discountRate) : base;
+              const perTest = formatAmount(price / pk.token_count, currency);
               const isBuying = buyingId === `pack-${pk.id}`;
 
               return (
@@ -197,9 +200,9 @@ export default function PricingTable({
                   <td className="py-3 px-4 text-gray-400">—</td>
                   <td className="py-3 px-4 text-right">
                     {hasDiscount && (
-                      <div className="text-xs text-gray-400 line-through">{formatPrice(pk.price, currency)}</div>
+                      <div className="text-xs text-gray-400 line-through">{formatAmount(base, currency)}</div>
                     )}
-                    <div className="font-bold text-gray-900">{formatPrice(price, currency)}</div>
+                    <div className="font-bold text-gray-900">{formatAmount(price, currency)}</div>
                     <div className="text-[10px] text-gray-400">{perTest}/mock</div>
                   </td>
                   <td className="py-3 px-5 text-right">
@@ -246,7 +249,8 @@ export default function PricingTable({
             const p = row.plan;
             const isBundle = p.plan_type === 'bundle';
             const months = Math.round(p.duration_days / 30);
-            const price = hasDiscount ? applyDiscount(p.price, discountRate) : p.price;
+            const base = amountIn(currency, p.price, p.price_usd);
+            const price = hasDiscount ? applyDiscount(base, discountRate) : base;
             const isBuying = buyingId === `plan-${p.id}`;
 
             return (
@@ -265,8 +269,8 @@ export default function PricingTable({
                     <p className="text-xs text-gray-500">{months} month{months > 1 ? 's' : ''}</p>
                   </div>
                   <div className="text-right">
-                    {hasDiscount && <p className="text-[10px] text-gray-400 line-through">{formatPrice(p.price, currency)}</p>}
-                    <p className="font-bold text-gray-900">{formatPrice(price, currency)}</p>
+                    {hasDiscount && <p className="text-[10px] text-gray-400 line-through">{formatAmount(base, currency)}</p>}
+                    <p className="font-bold text-gray-900">{formatAmount(price, currency)}</p>
                   </div>
                 </div>
                 <div className="flex flex-wrap gap-1.5 mb-3">
@@ -294,8 +298,9 @@ export default function PricingTable({
 
           const pk = row.pack;
           const isBulk = pk.token_count >= 50;
-          const price = hasDiscount ? applyDiscount(pk.price, discountRate) : pk.price;
-          const perTest = formatPrice(Math.round(price / pk.token_count), currency);
+          const base = amountIn(currency, pk.price, pk.price_usd);
+          const price = hasDiscount ? applyDiscount(base, discountRate) : base;
+          const perTest = formatAmount(price / pk.token_count, currency);
           const isBuying = buyingId === `pack-${pk.id}`;
 
           return (
@@ -313,8 +318,8 @@ export default function PricingTable({
                   <p className="text-xs text-gray-500">{pk.token_count} mock{pk.token_count > 1 ? 's' : ''}</p>
                 </div>
                 <div className="text-right">
-                  {hasDiscount && <p className="text-[10px] text-gray-400 line-through">{formatPrice(pk.price, currency)}</p>}
-                  <p className="font-bold text-gray-900">{formatPrice(price, currency)}</p>
+                  {hasDiscount && <p className="text-[10px] text-gray-400 line-through">{formatAmount(base, currency)}</p>}
+                  <p className="font-bold text-gray-900">{formatAmount(price, currency)}</p>
                   <p className="text-[10px] text-gray-400">{perTest}/mock</p>
                 </div>
               </div>
