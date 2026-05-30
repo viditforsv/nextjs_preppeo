@@ -55,6 +55,11 @@ const nextConfig: NextConfig = {
         destination: "/question-of-the-day",
         permanent: true,
       },
+      {
+        source: "/sat-desmos-shortcuts",
+        destination: "/sat/desmos",
+        permanent: true,
+      },
     ];
   },
 

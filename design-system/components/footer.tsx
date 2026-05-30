@@ -21,7 +21,7 @@ const footerLinks: {
   ],
   resources: [
     { name: "Question of the Day", href: "/question-of-the-day" },
-    { name: "SAT Desmos Shortcuts", href: "/sat/desmos/systems-of-equations" },
+    { name: "SAT Desmos Shortcuts", href: "/sat/desmos" },
     { name: "Free Score Diagnostic", href: "/sat-free" },
     { name: "SAT Prep Blog", href: "/resources" },
   ],

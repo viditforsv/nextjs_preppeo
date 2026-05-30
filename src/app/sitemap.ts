@@ -12,6 +12,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
   }));
 
   return [
+    {
+      url: `${baseUrl}/sat/desmos`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.7,
+    },
     ...desmosGuides,
     {
       url: baseUrl,
