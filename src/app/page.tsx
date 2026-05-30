@@ -489,7 +489,7 @@ export default function HomePage() {
                     </div>
                   </div>
                 ))}
-                <Link href="/mocks/tokens" className="text-sm font-semibold hover:underline inline-flex items-center gap-1 mt-2" style={{ color: NAVY }}>
+                <Link href="/pricing" className="text-sm font-semibold hover:underline inline-flex items-center gap-1 mt-2" style={{ color: NAVY }}>
                   Buy tokens <ArrowRight className="w-3.5 h-3.5" />
                 </Link>
               </div>

@@ -263,6 +263,16 @@ export default function PricingPage() {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState<string | null>(null);
 
+  // Referral code (optional) — validated like the old store; server applies it.
+  const [referralInput, setReferralInput] = useState("");
+  const [referral, setReferral] = useState<{
+    code: string;
+    discountRate: number;
+    partnerName: string;
+  } | null>(null);
+  const [referralLoading, setReferralLoading] = useState(false);
+  const [referralError, setReferralError] = useState("");
+
   useEffect(() => {
     let active = true;
     (async () => {
@@ -320,6 +330,43 @@ export default function PricingPage() {
     };
   }, [cart]);
   const total = currency === "USD" ? totals.usd : totals.inr;
+  const discountRate = referral?.discountRate ?? 0;
+  const payable = discountRate > 0 ? total * (1 - discountRate / 100) : total;
+
+  const handleApplyReferral = async () => {
+    const code = referralInput.trim();
+    if (!code) return;
+    setReferralLoading(true);
+    setReferralError("");
+    try {
+      const res = await fetch("/api/referral/validate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ code }),
+      });
+      const data = await res.json();
+      if (data.valid) {
+        setReferral({
+          code: code.toUpperCase(),
+          discountRate: data.discount_rate,
+          partnerName: data.partner_name,
+        });
+      } else {
+        setReferralError("Invalid or expired code");
+        setReferral(null);
+      }
+    } catch {
+      setReferralError("Couldn't validate code");
+    } finally {
+      setReferralLoading(false);
+    }
+  };
+
+  const clearReferral = () => {
+    setReferral(null);
+    setReferralInput("");
+    setReferralError("");
+  };
 
   const mockLine = (pack: TokenPackWithExam): CartLine => ({
     type: "mock",
@@ -382,7 +429,10 @@ export default function PricingPage() {
       const orderRes = await fetch("/api/checkout/create-order", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ items }),
+        body: JSON.stringify({
+          items,
+          ...(referral?.code ? { referralCode: referral.code } : {}),
+        }),
       });
 
       if (orderRes.status === 401) {
@@ -588,10 +638,10 @@ export default function PricingPage() {
               ) : packs.length === 0 ? (
                 <p className="text-sm text-muted-foreground">
                   Mock packs are being updated.{" "}
-                  <Link href="/mocks/tokens" className="text-primary hover:underline">
-                    Visit the store
-                  </Link>
-                  .
+                  <Link href="/contact" className="text-primary hover:underline">
+                    Contact us
+                  </Link>{" "}
+                  if this persists.
                 </p>
               ) : (
                 <div className={OFFERING_ROW}>
@@ -869,10 +919,79 @@ export default function PricingPage() {
                   ))}
               </div>
 
+              {/* Referral code */}
+              {total > 0 && (
+                <div className="mt-4">
+                  {referral ? (
+                    <div className="flex items-center justify-between rounded-lg bg-emerald-50 px-3 py-2 text-sm">
+                      <span className="text-emerald-700">
+                        <span className="font-semibold">{referral.code}</span> ·{" "}
+                        {referral.discountRate}% off
+                      </span>
+                      <button
+                        type="button"
+                        onClick={clearReferral}
+                        className="text-emerald-700 hover:text-emerald-900"
+                        aria-label="Remove code"
+                      >
+                        <X className="h-4 w-4" />
+                      </button>
+                    </div>
+                  ) : (
+                    <div>
+                      <div className="flex gap-2">
+                        <input
+                          type="text"
+                          value={referralInput}
+                          onChange={(e) => {
+                            setReferralInput(e.target.value.toUpperCase());
+                            setReferralError("");
+                          }}
+                          onKeyDown={(e) =>
+                            e.key === "Enter" && handleApplyReferral()
+                          }
+                          placeholder="Referral code"
+                          className="flex-1 rounded-lg border border-gray-200 px-3 py-2 text-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+                        />
+                        <button
+                          type="button"
+                          onClick={handleApplyReferral}
+                          disabled={referralLoading || !referralInput.trim()}
+                          className="rounded-lg border border-primary px-3 py-2 text-sm font-semibold text-primary hover:bg-primary/5 disabled:opacity-50"
+                        >
+                          {referralLoading ? (
+                            <Loader2 className="h-4 w-4 animate-spin" />
+                          ) : (
+                            "Apply"
+                          )}
+                        </button>
+                      </div>
+                      {referralError && (
+                        <p className="mt-1 text-xs text-red-600">{referralError}</p>
+                      )}
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {discountRate > 0 && total > 0 && (
+                <div className="mt-3 flex items-center justify-between text-sm text-emerald-700">
+                  <span>Discount ({discountRate}%)</span>
+                  <span>−{money(total - payable, currency)}</span>
+                </div>
+              )}
+
               <div className="mt-4 flex items-baseline justify-between">
                 <span className="text-sm text-muted-foreground">Total</span>
-                <span className="text-2xl font-bold text-foreground">
-                  {money(total, currency)}
+                <span className="flex items-baseline gap-2">
+                  {discountRate > 0 && total > 0 && (
+                    <span className="text-sm text-muted-foreground line-through">
+                      {money(total, currency)}
+                    </span>
+                  )}
+                  <span className="text-2xl font-bold text-foreground">
+                    {money(payable, currency)}
+                  </span>
                 </span>
               </div>
 
@@ -888,7 +1007,7 @@ export default function PricingPage() {
                   "Add items to checkout"
                 ) : (
                   <>
-                    Checkout {money(total, currency)} <ArrowRight className="h-4 w-4" />
+                    Checkout {money(payable, currency)} <ArrowRight className="h-4 w-4" />
                   </>
                 )}
               </button>

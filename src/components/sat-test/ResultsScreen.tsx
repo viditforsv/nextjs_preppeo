@@ -124,7 +124,7 @@ export default function ResultsScreen() {
           ? `You scored ${totalEstimatedScore}. Students who take 3+ mocks see the biggest improvements.`
           : 'Students who take 3+ mocks see the biggest improvements. Each mock has unique questions.',
         buttonLabel: 'Unlock Premium Practice',
-        href: '/mocks/tokens?exam=sat',
+        href: '/pricing',
         gradient: 'linear-gradient(to right, #0d47a1, #1565c0)',
       },
       {

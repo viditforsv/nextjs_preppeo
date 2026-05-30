@@ -66,7 +66,7 @@ export default function AccessCodeModal({ onSuccess, onClose }: AccessCodeModalP
           </p>
 
           <p className="text-sm text-gray-600">
-            Already purchased? <a href="/mocks/tokens?tab=my-tokens" className="text-[#0d47a1] underline hover:no-underline">View my tokens</a>.
+            Already purchased? <a href="/profile/tokens" className="text-[#0d47a1] underline hover:no-underline">View my tokens</a>.
           </p>
 
           <input

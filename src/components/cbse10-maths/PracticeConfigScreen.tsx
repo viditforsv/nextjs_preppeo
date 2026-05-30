@@ -160,7 +160,7 @@ export default function PracticeConfigScreen() {
                 <p className="text-sm font-semibold text-amber-800">Your subscription has expired</p>
                 <p className="text-xs text-amber-600 mt-0.5">Renew to continue with unlimited practice questions.</p>
               </div>
-              <Link href="/mocks/tokens" className="shrink-0 inline-flex items-center gap-1 px-3 py-1.5 text-gray-900 text-xs font-semibold rounded-lg hover:brightness-95 transition-all" style={{ backgroundColor: '#d4d700' }}>
+              <Link href="/pricing" className="shrink-0 inline-flex items-center gap-1 px-3 py-1.5 text-gray-900 text-xs font-semibold rounded-lg hover:brightness-95 transition-all" style={{ backgroundColor: '#d4d700' }}>
                 <Sparkles className="w-3 h-3" />
                 Renew
               </Link>
@@ -190,7 +190,7 @@ export default function PracticeConfigScreen() {
                   </div>
                 )}
               </div>
-              <Link href="/mocks/tokens" className="shrink-0 inline-flex items-center gap-1 px-3 py-1.5 text-gray-900 text-xs font-semibold rounded-lg hover:brightness-95 transition-all" style={{ backgroundColor: '#d4d700' }}>
+              <Link href="/pricing" className="shrink-0 inline-flex items-center gap-1 px-3 py-1.5 text-gray-900 text-xs font-semibold rounded-lg hover:brightness-95 transition-all" style={{ backgroundColor: '#d4d700' }}>
                 <Sparkles className="w-3 h-3" />
                 Upgrade
               </Link>
@@ -202,7 +202,7 @@ export default function PracticeConfigScreen() {
           <div className="mb-4 bg-amber-50 border border-amber-200 rounded-xl p-5 text-center">
             <p className="font-semibold text-amber-800 mb-1">Today&apos;s free questions are used up</p>
             <p className="text-sm text-amber-600 mb-3">Come back tomorrow or upgrade for unlimited practice.</p>
-            <Link href="/mocks/tokens" className="inline-flex items-center gap-2 px-5 py-2.5 text-gray-900 font-semibold rounded-lg hover:brightness-95 transition-all text-sm" style={{ backgroundColor: '#d4d700' }}>
+            <Link href="/pricing" className="inline-flex items-center gap-2 px-5 py-2.5 text-gray-900 font-semibold rounded-lg hover:brightness-95 transition-all text-sm" style={{ backgroundColor: '#d4d700' }}>
               Unlock Unlimited Practice
               <ArrowRight className="w-4 h-4" />
             </Link>

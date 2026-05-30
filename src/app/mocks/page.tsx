@@ -43,7 +43,7 @@ export default async function TestsHubPage() {
             Premium adaptive mocks with detailed score reports.
             Your first mock is complimentary — claim it below to set realistic expectations.
           </p>
-          <Link href="/mocks/tokens" className="inline-block mt-6">
+          <Link href="/pricing" className="inline-block mt-6">
             <Button
               size="lg"
               className="bg-[#1a365d] hover:bg-[#2a4a7f] text-white shadow-md gap-2"
@@ -75,7 +75,7 @@ export default async function TestsHubPage() {
                 Try Free Practice
               </Link>
               <Link
-                href="/mocks/tokens"
+                href="/pricing"
                 className="inline-flex items-center gap-1.5 px-4 py-2.5 border border-[#0d47a1] text-[#0d47a1] text-sm font-semibold rounded-lg hover:bg-[#0d47a1]/5 transition-colors"
               >
                 <Sparkles className="w-4 h-4" />

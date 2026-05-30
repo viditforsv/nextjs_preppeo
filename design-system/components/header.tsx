@@ -14,6 +14,7 @@ import {
   Mail,
   Gift,
   ExternalLink,
+  Ticket,
 } from "lucide-react";
 import Image from "next/image";
 import { useAuth } from "@/contexts/AuthContext";
@@ -87,6 +88,7 @@ export function Header() {
         { name: "Home", href: "/", hasDropdown: false },
         { name: "Dashboard", href: "/student", hasDropdown: false },
         { name: "Mocks", href: "/mocks", hasDropdown: false },
+        { name: "Pricing", href: "/pricing", hasDropdown: false },
         { name: "SAT Guide", href: "/sat-guide", hasDropdown: false },
         { name: "My Courses", href: "/courses/enrolled", hasDropdown: false },
       ];
@@ -243,6 +245,15 @@ export function Header() {
                         >
                           <User className="w-4 h-4 mr-3 text-primary" />
                           Profile
+                        </Link>
+
+                        <Link
+                          href="/profile/tokens"
+                          className="flex items-center px-4 py-2 text-sm text-foreground hover:bg-primary/10 transition-colors"
+                          onClick={() => setIsUserDropdownOpen(false)}
+                        >
+                          <Ticket className="w-4 h-4 mr-3 text-primary" />
+                          My Tokens
                         </Link>
 
                         <Link

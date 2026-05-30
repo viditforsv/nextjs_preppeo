@@ -459,7 +459,7 @@ export default function ProfilePage() {
                     </div>
                   </div>
                   <Link
-                    href="/mocks/tokens"
+                    href="/profile/tokens"
                     className="text-sm text-[#1a365d] hover:underline flex items-center gap-1"
                   >
                     View all <ExternalLink className="w-3 h-3" />

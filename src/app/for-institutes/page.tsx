@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/design-system/components/ui/button";
 import {
   Card,
@@ -13,26 +13,26 @@ import {
   GraduationCap,
   CheckCircle,
   Shield,
+  Loader2,
 } from "lucide-react";
 import Link from "next/link";
+import type { TokenPackWithExam } from "@/types/test-tokens";
 
-const institutePacks = [
-  { mocks: 50, price: 12500, perMock: 250 },
-  { mocks: 100, price: 23750, perMock: 237.5 },
-  { mocks: 300, price: 63750, perMock: 212.5 },
-  { mocks: 500, price: 93750, perMock: 187.5 },
-];
+interface InstitutePack {
+  mocks: number;
+  price: number;
+  perMock: number;
+}
 
 function formatINR(n: number) {
   return new Intl.NumberFormat("en-IN", { style: "currency", currency: "INR", maximumFractionDigits: 0 }).format(n);
 }
 
-function EarningsCalculator() {
+function EarningsCalculator({ pricePerMock }: { pricePerMock: number }) {
   const [students, setStudents] = useState(50);
   const [mocksPerStudent, setMocksPerStudent] = useState(3);
 
   const totalMocks = students * mocksPerStudent;
-  const pricePerMock = 250;
   const commissionRate = 0.3;
   const totalRevenue = totalMocks * pricePerMock;
   const earnings = Math.round(totalRevenue * commissionRate);
@@ -99,6 +99,44 @@ function EarningsCalculator() {
 }
 
 export default function ForInstitutesPage() {
+  const [institutePacks, setInstitutePacks] = useState<InstitutePack[]>([]);
+  const [packsLoading, setPacksLoading] = useState(true);
+
+  useEffect(() => {
+    let active = true;
+    (async () => {
+      try {
+        const res = await fetch("/api/mocks/packs");
+        const json = await res.json();
+        if (!active) return;
+        // B2B bulk packs come from the DB (token_packs), deduped by size.
+        const seen = new Set<number>();
+        const packs = ((json.data as TokenPackWithExam[] | undefined) ?? [])
+          .filter(
+            (p) => p.is_active && p.exam_type === "sat" && p.token_count >= 50,
+          )
+          .sort((a, b) => a.token_count - b.token_count)
+          .filter((p) => (seen.has(p.token_count) ? false : seen.add(p.token_count)))
+          .map((p) => ({
+            mocks: p.token_count,
+            price: p.price,
+            perMock: Math.round(p.price / p.token_count),
+          }));
+        setInstitutePacks(packs);
+      } catch {
+        if (active) setInstitutePacks([]);
+      } finally {
+        if (active) setPacksLoading(false);
+      }
+    })();
+    return () => {
+      active = false;
+    };
+  }, []);
+
+  // ROI calculator uses the smallest bulk pack's per-mock rate (fallback 250).
+  const pricePerMock = institutePacks[0]?.perMock ?? 250;
+
   return (
     <div className="min-h-screen">
       {/* Hero */}
@@ -234,18 +272,32 @@ export default function ForInstitutesPage() {
             </p>
           </div>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {institutePacks.map((pack) => (
-              <Card key={pack.mocks} className="hover:shadow-md transition-shadow text-center">
-                <CardContent className="p-6">
-                  <p className="text-3xl font-bold text-foreground mb-1">{pack.mocks}</p>
-                  <p className="text-sm text-muted-foreground mb-4">Mocks</p>
-                  <p className="text-xl font-bold text-primary mb-1">{formatINR(pack.price)}</p>
-                  <p className="text-xs text-muted-foreground">{formatINR(pack.perMock)}/mock</p>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+          {packsLoading ? (
+            <div className="flex items-center justify-center py-10 text-muted-foreground">
+              <Loader2 className="mr-2 h-5 w-5 animate-spin" /> Loading pricing…
+            </div>
+          ) : institutePacks.length === 0 ? (
+            <p className="text-center text-muted-foreground">
+              Bulk pricing is being updated.{" "}
+              <Link href="/contact" className="text-primary hover:underline">
+                Contact us
+              </Link>{" "}
+              for a quote.
+            </p>
+          ) : (
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              {institutePacks.map((pack) => (
+                <Card key={pack.mocks} className="hover:shadow-md transition-shadow text-center">
+                  <CardContent className="p-6">
+                    <p className="text-3xl font-bold text-foreground mb-1">{pack.mocks}</p>
+                    <p className="text-sm text-muted-foreground mb-4">Mocks</p>
+                    <p className="text-xl font-bold text-primary mb-1">{formatINR(pack.price)}</p>
+                    <p className="text-xs text-muted-foreground">{formatINR(pack.perMock)}/mock</p>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          )}
 
           <p className="text-center text-sm text-muted-foreground mt-6">
             Need a custom pack size? <Link href="/contact" className="text-primary hover:underline">Contact us</Link>.
@@ -262,7 +314,7 @@ export default function ForInstitutesPage() {
               Drag the sliders to see your estimated earnings.
             </p>
           </div>
-          <EarningsCalculator />
+          <EarningsCalculator pricePerMock={pricePerMock} />
         </div>
       </section>
 
