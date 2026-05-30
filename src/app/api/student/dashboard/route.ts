@@ -26,11 +26,19 @@ export async function GET() {
       return NextResponse.json({ error: "Forbidden" }, { status: 403 });
     }
 
-    // Get student enrollments
-    const { data: enrollments } = await supabase
-      .from("courses_enrollments")
-      .select(
-        `
+    // These four datasets are independent — fetch them concurrently so the
+    // dashboard waits on the single slowest query rather than the sum of all four.
+    const [
+      { data: enrollments },
+      { data: assignments },
+      { data: recentProgress },
+      { data: tagMastery },
+    ] = await Promise.all([
+      // Student enrollments
+      supabase
+        .from("courses_enrollments")
+        .select(
+          `
         id,
         enrolled_at,
         is_active,
@@ -46,16 +54,16 @@ export async function GET() {
           courses_templates (slug)
         )
       `
-      )
-      .eq("student_id", user.id)
-      .eq("is_active", true)
-      .order("enrolled_at", { ascending: false });
+        )
+        .eq("student_id", user.id)
+        .eq("is_active", true)
+        .order("enrolled_at", { ascending: false }),
 
-    // Get assignment submissions (pending graded)
-    const { data: assignments } = await supabase
-      .from("assignments")
-      .select(
-        `
+      // Assignment submissions (pending graded)
+      supabase
+        .from("assignments")
+        .select(
+          `
         id,
         title,
         description,
@@ -69,16 +77,16 @@ export async function GET() {
           slug
         )
       `
-      )
-      .eq("student_id", user.id)
-      .is("graded_at", null)
-      .order("due_date", { ascending: true });
+        )
+        .eq("student_id", user.id)
+        .is("graded_at", null)
+        .order("due_date", { ascending: true }),
 
-    // Get recent progress
-    const { data: recentProgress } = await supabase
-      .from("student_performance_log")
-      .select(
-        `
+      // Recent progress
+      supabase
+        .from("student_performance_log")
+        .select(
+          `
         id,
         created_at,
         is_correct,
@@ -88,16 +96,17 @@ export async function GET() {
           total_marks
         )
       `
-      )
-      .eq("student_id", user.id)
-      .order("created_at", { ascending: false })
-      .limit(5);
+        )
+        .eq("student_id", user.id)
+        .order("created_at", { ascending: false })
+        .limit(5),
 
-    // Get tag mastery summary
-    const { data: tagMastery } = await supabase
-      .from("student_tag_mastery")
-      .select("mastery_level")
-      .eq("student_id", user.id);
+      // Tag mastery summary
+      supabase
+        .from("student_tag_mastery")
+        .select("mastery_level")
+        .eq("student_id", user.id),
+    ]);
 
     const masteryCounts = {
       red: tagMastery?.filter((m) => m.mastery_level === "red").length || 0,

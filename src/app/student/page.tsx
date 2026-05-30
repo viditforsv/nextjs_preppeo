@@ -1,7 +1,6 @@
-"use client";
-
-import { useState, useEffect } from "react";
-import { useAuth } from "@/contexts/AuthContext";
+import { redirect } from "next/navigation";
+import { createClient } from "@/lib/supabase/server";
+import { createSupabaseApiClient } from "@/lib/supabase/api-client";
 import { Button } from "@/design-system/components/ui/button";
 import {
   Card,
@@ -25,6 +24,9 @@ import {
   GraduationCap,
 } from "lucide-react";
 import Link from "next/link";
+
+// Authed, cookie-based data fetching → this page is always dynamic.
+export const dynamic = "force-dynamic";
 
 interface SATAttemptSummary {
   id: string;
@@ -85,55 +87,30 @@ interface DashboardStats {
   }>;
 }
 
-export default function StudentDashboard() {
-  const { user, profile } = useAuth();
-  const [stats, setStats] = useState<DashboardStats>({
-    totalCourses: 0,
-    pendingAssignments: 0,
-    recentActivity: 0,
-    masteryCounts: { red: 0, yellow: 0, green: 0 },
-    enrollments: [],
-    assignments: [],
-    recentProgress: [],
+const formatDate = (dateString: string) =>
+  new Date(dateString).toLocaleDateString("en-US", {
+    month: "short",
+    day: "numeric",
   });
-  const [satAttempts, setSatAttempts] = useState<SATAttemptSummary[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    if (user) {
-      loadDashboardData();
-    }
-  }, [user]);
+export default async function StudentDashboard() {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
 
-  const loadDashboardData = async () => {
-    try {
-      setIsLoading(true);
-      setError(null);
+  // Middleware already guards /student, but verify defensively.
+  if (!user) {
+    redirect("/auth?redirect=/student");
+  }
 
-      const [dashboardRes, satRes] = await Promise.all([
-        fetch("/api/student/dashboard"),
-        fetch("/api/sat/attempts"),
-      ]);
+  const { data: profile } = await supabase
+    .from("profiles")
+    .select("first_name, role")
+    .eq("id", user.id)
+    .single();
 
-      if (!dashboardRes.ok) throw new Error("Failed to fetch dashboard data");
-
-      const data = await dashboardRes.json();
-      setStats(data);
-
-      if (satRes.ok) {
-        const satData = await satRes.json();
-        if (Array.isArray(satData)) setSatAttempts(satData.slice(0, 3));
-      }
-    } catch (err) {
-      console.error("Error loading dashboard:", err);
-      setError(err instanceof Error ? err.message : "Failed to load dashboard");
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  if (!user || (profile?.role !== "student" && profile?.role !== "admin")) {
+  if (profile?.role !== "student" && profile?.role !== "admin") {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
         <div className="text-center">
@@ -148,23 +125,120 @@ export default function StudentDashboard() {
     );
   }
 
-  if (isLoading) {
-    return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#1a365d] mx-auto mb-4"></div>
-          <p className="text-muted-foreground">Loading dashboard...</p>
-        </div>
-      </div>
-    );
-  }
+  // Fetch everything the dashboard needs on the server, in parallel. The
+  // four dashboard datasets are independent, and SAT attempts come from a
+  // separate table — all fire together so the page waits on the single
+  // slowest query rather than a chain of client round-trips.
+  const serviceClient = createSupabaseApiClient();
+  const [
+    { data: enrollments },
+    { data: assignments },
+    { data: recentProgress },
+    { data: tagMastery },
+    { data: satData },
+  ] = await Promise.all([
+    supabase
+      .from("courses_enrollments")
+      .select(
+        `
+        id,
+        enrolled_at,
+        is_active,
+        courses!courses_enrollments_course_id_fkey (
+          id,
+          title,
+          slug,
+          thumbnail_url,
+          curriculum,
+          subject,
+          grade,
+          status,
+          courses_templates (slug)
+        )
+      `
+      )
+      .eq("student_id", user.id)
+      .eq("is_active", true)
+      .order("enrolled_at", { ascending: false }),
 
-  const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString("en-US", {
-      month: "short",
-      day: "numeric",
-    });
+    supabase
+      .from("assignments")
+      .select(
+        `
+        id,
+        title,
+        description,
+        due_date,
+        status,
+        graded_at,
+        grade,
+        courses!assignments_course_id_fkey (
+          id,
+          title,
+          slug
+        )
+      `
+      )
+      .eq("student_id", user.id)
+      .is("graded_at", null)
+      .order("due_date", { ascending: true }),
+
+    supabase
+      .from("student_performance_log")
+      .select(
+        `
+        id,
+        created_at,
+        is_correct,
+        time_taken_seconds,
+        question_bank!student_performance_log_question_id_fkey (
+          question_text,
+          total_marks
+        )
+      `
+      )
+      .eq("student_id", user.id)
+      .order("created_at", { ascending: false })
+      .limit(5),
+
+    supabase
+      .from("student_tag_mastery")
+      .select("mastery_level")
+      .eq("student_id", user.id),
+
+    serviceClient
+      .from("sat_test_attempts")
+      .select(
+        "id, section_type, set_number, estimated_score, rw_estimated_score, total_estimated_score, total_correct, total_questions, score_pct, completed_at"
+      )
+      .eq("user_id", user.id)
+      .order("completed_at", { ascending: false }),
+  ]);
+
+  const masteryCounts = {
+    red: tagMastery?.filter((m) => m.mastery_level === "red").length || 0,
+    yellow: tagMastery?.filter((m) => m.mastery_level === "yellow").length || 0,
+    green: tagMastery?.filter((m) => m.mastery_level === "green").length || 0,
   };
+
+  const stats: DashboardStats = {
+    totalCourses: enrollments?.length || 0,
+    pendingAssignments: assignments?.length || 0,
+    recentActivity: recentProgress?.length || 0,
+    masteryCounts,
+    // Supabase types embedded relations as arrays, but these are to-one FKs
+    // that return a single object at runtime — exactly what the render expects.
+    enrollments:
+      (enrollments as unknown as DashboardStats["enrollments"]) || [],
+    assignments:
+      (assignments as unknown as DashboardStats["assignments"]) || [],
+    recentProgress:
+      (recentProgress as unknown as DashboardStats["recentProgress"]) || [],
+  };
+
+  const satAttempts: SATAttemptSummary[] = (
+    (satData as SATAttemptSummary[]) || []
+  ).slice(0, 3);
 
   return (
     <div className="min-h-screen bg-background">
@@ -303,13 +377,6 @@ export default function StudentDashboard() {
               </div>
             </CardContent>
           </Card>
-        )}
-
-        {/* Error Alert */}
-        {error && (
-          <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-sm text-red-800">
-            <strong>Error:</strong> {error}
-          </div>
         )}
 
         {/* Mastery Status */}

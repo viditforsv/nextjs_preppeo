@@ -746,17 +746,11 @@ export default function GREStudyPage() {
         sectionId={currentSectionId || ''}
         isOpen={isReviewScreenOpen && !!currentSectionId}
         onClose={useCallback(() => {
-          // #region agent log
-          fetch('http://127.0.0.1:7242/ingest/e6346042-1cb4-4e6f-b174-4c1a9e96fc9e',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'gre-study/page.tsx:762',message:'onClose callback called',data:{isReviewScreenOpen},timestamp:Date.now(),sessionId:'debug-session',runId:'run2',hypothesisId:'F'})}).catch(()=>{});
-          // #endregion
           toggleReviewScreen();
-        }, [toggleReviewScreen, isReviewScreenOpen])}
+        }, [toggleReviewScreen])}
         onNavigateToQuestion={useCallback((idx: number) => {
-          // #region agent log
-          fetch('http://127.0.0.1:7242/ingest/e6346042-1cb4-4e6f-b174-4c1a9e96fc9e',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'gre-study/page.tsx:770',message:'onNavigateToQuestion called',data:{idx,currentIndex:currentQuestionIndex},timestamp:Date.now(),sessionId:'debug-session',runId:'run2',hypothesisId:'E'})}).catch(()=>{});
-          // #endregion
           navigateQuestion(idx);
-        }, [navigateQuestion, currentQuestionIndex])}
+        }, [navigateQuestion])}
       />
 
       {/* Study Mode Features */}

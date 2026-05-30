@@ -60,27 +60,45 @@ export async function GET() {
       [key: string]: unknown;
     }
 
-    // Get submission counts for each student
-    const enrollmentsWithSubmissions = await Promise.all(
-      (enrollments || []).map(async (enrollment: EnrollmentWithRelations) => {
-        // Count pending submissions for this student in this course
-        const { count: pendingCount } = await supabase
-          .from("assignment_submissions")
-          .select("*", { count: "exact", head: true })
-          .eq("user_id", enrollment.student_id)
-          .eq("course_id", enrollment.course_id)
-          .eq("grading_status", "pending");
+    // Pending submission counts for ALL students in ONE query (was N+1: one
+    // count query per enrollment). We fetch every pending submission for this
+    // teacher's students/courses, then tally per (student, course) in memory.
+    const studentIds = [
+      ...new Set((enrollments || []).map((e) => e.student_id)),
+    ];
+    const courseIds = [
+      ...new Set((enrollments || []).map((e) => e.course_id)),
+    ];
 
-        return {
-          ...enrollment,
-          user: Array.isArray(enrollment.user)
-            ? enrollment.user[0]
-            : enrollment.user,
-          course: Array.isArray(enrollment.course)
-            ? enrollment.course[0]
-            : enrollment.course,
-          pendingSubmissions: pendingCount || 0,
-        };
+    const { data: pendingSubs } = await supabase
+      .from("assignment_submissions")
+      .select("user_id, course_id")
+      .in("user_id", studentIds)
+      .in("course_id", courseIds)
+      .eq("grading_status", "pending");
+
+    const pendingCountByPair = new Map<string, number>();
+    for (const sub of (pendingSubs || []) as Array<{
+      user_id: string;
+      course_id: string;
+    }>) {
+      const key = `${sub.user_id}|${sub.course_id}`;
+      pendingCountByPair.set(key, (pendingCountByPair.get(key) || 0) + 1);
+    }
+
+    const enrollmentsWithSubmissions = (enrollments || []).map(
+      (enrollment: EnrollmentWithRelations) => ({
+        ...enrollment,
+        user: Array.isArray(enrollment.user)
+          ? enrollment.user[0]
+          : enrollment.user,
+        course: Array.isArray(enrollment.course)
+          ? enrollment.course[0]
+          : enrollment.course,
+        pendingSubmissions:
+          pendingCountByPair.get(
+            `${enrollment.student_id}|${enrollment.course_id}`
+          ) || 0,
       })
     );
 
