@@ -78,8 +78,24 @@ curl -sL https://www.preppeo.com/sitemap.xml | grep -c courses.preppeo.com   # m
 # Manually: log in on prod and confirm the post-login redirect lands on preppeo.com.
 ```
 
+## Dev / Preview environment
+
+- Dev domain: **`https://dev.preppeo.com`** (200), served by the `dev` git branch.
+  **`dev.courses.preppeo.com` is dead (404)** — same trap as prod's `courses.preppeo.com`.
+- Vercel **Preview (dev)** must set `NEXT_PUBLIC_APP_URL` and `NEXT_PUBLIC_SITE_URL`
+  to `https://dev.preppeo.com` (both `--no-sensitive` so they stay readable).
+- The **localhost-after-OAuth** redirect is a *Supabase* problem, not a Vercel one:
+  Supabase bounces to its **Site URL** (default `http://localhost:3000`) when the
+  `redirect_to` isn't in its **Redirect URLs** allowlist. Fix on the **dev branch**
+  Supabase project (`dxhxpfouzjlzpeazwrqo`) → Authentication → URL Configuration:
+  Site URL = `https://dev.preppeo.com`, Redirect URLs include `https://dev.preppeo.com/**`.
+
 ## History
 
+- **2026-05-30** — OAuth on `dev.preppeo.com` bounced to `http://localhost:3000`.
+  Two causes: (1) Vercel Preview(dev) `NEXT_PUBLIC_APP_URL` was `https://dev.courses.preppeo.com`
+  (404) — fixed to `https://dev.preppeo.com` + added `NEXT_PUBLIC_SITE_URL`; (2) the localhost
+  bounce itself is the dev Supabase Auth Site URL / Redirect-URL allowlist (dashboard fix).
 - **2026-05-29** — QOTD welcome email CTA pointed at `courses.preppeo.com/sat-test`
   (404). Root cause: Vercel prod `NEXT_PUBLIC_APP_URL` + `NEXT_PUBLIC_SITE_URL`
   were both set to `https://courses.preppeo.com`, a domain not on the project.
