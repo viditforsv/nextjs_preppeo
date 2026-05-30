@@ -1,26 +1,35 @@
 import Link from "next/link"
 
-const footerLinks = {
+const footerLinks: {
+  services: { name: string; href?: string; comingSoon?: boolean }[]
+  company: { name: string; href: string }[]
+  resources: { name: string; href: string }[]
+  legal: { name: string; href: string }[]
+} = {
   services: [
-    { name: "SAT Preparation", href: "/services/sat" },
-    { name: "GMAT Preparation", href: "/services/gmat" },
-    { name: "GRE Preparation", href: "/services/gre" },
-    { name: "Admissions Consulting", href: "/services/admissions" },
+    { name: "Digital SAT Mocks", href: "/mocks" },
+    { name: "Unlimited Practice Mode", href: "/sat-test" },
+    { name: "Self-Paced SAT Course", comingSoon: true },
+    { name: "Premium 1-on-1 Coaching", href: "/contact" },
   ],
   company: [
     { name: "Contact", href: "/contact" },
     { name: "For Institutes", href: "/for-institutes" },
     { name: "Help Center", href: "https://help.preppeo.com" },
     { name: "FAQ", href: "/faq" },
+    { name: "Careers", href: "/careers" },
   ],
   resources: [
-    { name: "Free Study Tools", href: "/tools" },
-    { name: "Resources / Blog", href: "/resources" },
-    { name: "Career Opportunities", href: "/careers" },
+    { name: "Question of the Day", href: "/question-of-the-day" },
+    { name: "SAT Desmos Shortcuts", href: "/sat/desmos/systems-of-equations" },
+    { name: "Free Score Diagnostic", href: "/sat-free" },
+    { name: "SAT Prep Blog", href: "/resources" },
   ],
   legal: [
     { name: "Privacy Policy", href: "/privacy-policy" },
     { name: "Terms of Service", href: "/terms-of-use" },
+    { name: "Cancellation & Refund Policy", href: "/refund-policy" },
+    { name: "Shipping & Delivery Policy", href: "/shipping-policy" },
     { name: "Cookie Policy", href: "/cookies" },
   ],
 }
@@ -64,13 +73,22 @@ export function Footer() {
                 <h3 className="text-sm font-semibold uppercase tracking-wider">Services</h3>
                 <ul className="space-y-2">
                   {footerLinks.services.map((link) => (
-                    <li key={link.href}>
-                      <Link
-                        href={link.href}
-                        className="text-sm text-white/80 hover:text-white transition-colors"
-                      >
-                        {link.name}
-                      </Link>
+                    <li key={link.name}>
+                      {link.comingSoon ? (
+                        <span className="inline-flex items-center gap-2 text-sm text-white/50">
+                          {link.name}
+                          <span className="rounded bg-white/10 px-1.5 py-0.5 text-[10px] font-medium uppercase tracking-wide">
+                            Coming soon
+                          </span>
+                        </span>
+                      ) : (
+                        <Link
+                          href={link.href!}
+                          className="text-sm text-white/80 hover:text-white transition-colors"
+                        >
+                          {link.name}
+                        </Link>
+                      )}
                     </li>
                   ))}
                 </ul>
@@ -125,9 +143,11 @@ export function Footer() {
               <div className="space-y-4 lg:col-span-2">
                 <h3 className="text-sm font-semibold uppercase tracking-wider">About Preppeo</h3>
                 <p className="text-sm text-white/80 leading-relaxed max-w-md">
-                  Preppeo is a premium exam preparation platform specializing in full-length
-                  adaptive mock tests for the Digital SAT, GRE, and GMAT. Our tests mirror
-                  real exam conditions with detailed score reports and domain-level analytics.
+                  Preppeo is a premium adaptive preparation platform specializing in
+                  full-length mock tests and AI-powered practice modules for the Digital
+                  SAT. Our engine mirrors official test parameters to deliver hyper-precise
+                  score predictions and domain-level metrics that drive real performance
+                  breakthroughs.
                 </p>
               </div>
             </div>
@@ -138,19 +158,16 @@ export function Footer() {
             <div className="max-w-7xl mx-auto">
               <div className="flex flex-col md:flex-row items-center justify-center gap-4 text-sm text-white/80">
                 <span>© {new Date().getFullYear()} Preppeo. All rights reserved.</span>
-                <div className="flex gap-4">
-                  <Link
-                    href="/privacy-policy"
-                    className="hover:text-white transition-colors"
-                  >
-                    Privacy Policy
-                  </Link>
-                  <Link
-                    href="/terms-of-use"
-                    className="hover:text-white transition-colors"
-                  >
-                    Terms of Service
-                  </Link>
+                <div className="flex flex-wrap justify-center gap-x-4 gap-y-2">
+                  {footerLinks.legal.map((link) => (
+                    <Link
+                      key={link.href}
+                      href={link.href}
+                      className="hover:text-white transition-colors"
+                    >
+                      {link.name}
+                    </Link>
+                  ))}
                 </div>
               </div>
             </div>

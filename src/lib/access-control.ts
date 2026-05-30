@@ -199,13 +199,34 @@ export const COURSE_ACCESS: Record<string, CourseAccessConfig> = {
   },
 };
 
+// Sorted copy of ROUTE_ACCESS — longest paths first so the most specific
+// rule wins (longest-prefix match). Without this, `/` matches every URL
+// because every URL starts with "/", which silently makes every protected
+// route public.
+const SORTED_ROUTES = [...ROUTE_ACCESS].sort(
+  (a, b) => b.path.length - a.path.length
+);
+
+// Match a path against a route entry. We require either an exact match or
+// a "path/" prefix so that `/admin` matches `/admin` and `/admin/foo` but
+// not `/administrator`.
+function matchesRoute(pathname: string, routePath: string): boolean {
+  if (pathname === routePath) return true;
+  if (routePath === "/") return false; // handled by the exact-match above
+  return pathname.startsWith(routePath + "/");
+}
+
+function findMatchingRoute(pathname: string): RouteAccess | undefined {
+  return SORTED_ROUTES.find((r) => matchesRoute(pathname, r.path));
+}
+
 // Helper functions to check access
 export function canAccessRoute(
   pathname: string,
   userRole?: UserRole,
   isAuthenticated?: boolean
 ): boolean {
-  const route = ROUTE_ACCESS.find((r) => pathname.startsWith(r.path));
+  const route = findMatchingRoute(pathname);
 
   if (!route) {
     // If no specific rule, allow access (you might want to default to restricted)
@@ -261,7 +282,7 @@ export function getRedirectPath(
   userRole?: UserRole,
   isAuthenticated?: boolean
 ): string | null {
-  const route = ROUTE_ACCESS.find((r) => pathname.startsWith(r.path));
+  const route = findMatchingRoute(pathname);
 
   if (!route) return null;
 
@@ -286,32 +307,3 @@ export function getRedirectPath(
       return null;
   }
 }
-
-// Navigation menu configuration
-export const NAVIGATION_MENU = {
-  public: [
-    { label: "Home", href: "/" },
-    { label: "Contact", href: "/contact" },
-    { label: "FAQ", href: "/faq" },
-  ],
-  student: [
-    { label: "Dashboard", href: "/student" },
-    { label: "My Courses & Progress", href: "/courses/enrolled" },
-    { label: "Profile", href: "/profile" },
-  ],
-  admin: [
-    { label: "My Courses", href: "/courses/enrolled" },
-    { label: "Site Administration", href: "/admin/site-administration" },
-    { label: "Question Bank", href: "/question-bank" },
-    { label: "Profile", href: "/profile" },
-  ],
-  content_manager: [
-    { label: "My Courses", href: "/courses/enrolled" },
-    { label: "Question Bank", href: "/question-bank" },
-    { label: "Profile", href: "/profile" },
-  ],
-  partner: [
-    { label: "Dashboard", href: "/partner/dashboard" },
-    { label: "Profile", href: "/profile" },
-  ],
-};

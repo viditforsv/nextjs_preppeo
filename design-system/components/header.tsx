@@ -8,7 +8,6 @@ import {
   Search,
   User,
   LogOut,
-  Settings,
   BookOpen,
   FileText,
   HelpCircle,
@@ -86,6 +85,7 @@ export function Header() {
     } else if (user) {
       return [
         { name: "Home", href: "/", hasDropdown: false },
+        { name: "Dashboard", href: "/student", hasDropdown: false },
         { name: "Mocks", href: "/mocks", hasDropdown: false },
         { name: "SAT Guide", href: "/sat-guide", hasDropdown: false },
         { name: "My Courses", href: "/courses/enrolled", hasDropdown: false },
@@ -94,6 +94,7 @@ export function Header() {
       return [
         { name: "Home", href: "/", hasDropdown: false },
         { name: "Mocks", href: "/mocks", hasDropdown: false },
+        { name: "Pricing", href: "/pricing", hasDropdown: false },
         { name: "SAT Guide", href: "/sat-guide", hasDropdown: false },
         { name: "For Institutes", href: "/for-institutes", hasDropdown: false },
         { name: "Contact", href: "/contact", hasDropdown: false },
@@ -222,17 +223,6 @@ export function Header() {
                           <BookOpen className="w-4 h-4 mr-3 text-primary" />
                           Dashboard
                         </Link>
-
-                        {profile?.role === "admin" && (
-                          <Link
-                            href="/admin/site-administration"
-                            className="flex items-center px-4 py-2 text-sm text-foreground hover:bg-primary/10 transition-colors"
-                            onClick={() => setIsUserDropdownOpen(false)}
-                          >
-                            <Settings className="w-4 h-4 mr-3 text-primary" />
-                            Site Administration
-                          </Link>
-                        )}
 
                         {(profile?.role === "admin" ||
                           profile?.role === "content_manager") && (
