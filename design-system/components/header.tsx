@@ -90,7 +90,6 @@ export function Header() {
         { name: "Mocks", href: "/mocks", hasDropdown: false },
         { name: "Pricing", href: "/pricing", hasDropdown: false },
         { name: "SAT Guide", href: "/sat-guide", hasDropdown: false },
-        { name: "My Courses", href: "/courses/enrolled", hasDropdown: false },
       ];
     } else {
       return [
