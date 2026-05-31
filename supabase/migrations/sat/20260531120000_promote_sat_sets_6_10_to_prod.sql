@@ -1,0 +1,23 @@
+-- ============================================================================
+-- PROD promotion — make SAT mock sets 6–10 live
+-- ----------------------------------------------------------------------------
+-- Target: PROD project ootnqmojcqnzfrtvzzec (run after dev QC sign-off).
+--
+-- Two parts make these sets live:
+--
+-- 1. QUESTION DATA (735 rows: 5 sets × 147) — promoted dev → prod via
+--    scripts/promote-sat-sets-6-10.mjs, NOT via this SQL. The pools had
+--    diverged (dev re-seeded R&W with fresh ids on 2026-04-03), so the script
+--    reconciles by bank_item_id (unique) rather than id, keeping prod's
+--    existing ids where a question already lived in prod's practice pool.
+--    Verified: 0 of these questions were already in prod's live sets 1–5.
+--    Post-state: sets 6–10 each have 147 rows, all qc_done=true, is_active=true.
+--
+-- 2. CONFIG (below) — mock purchases are capped by exam_types.total_sets
+--    (see src/app/api/mocks/create-order/route.ts). Prod was 5; bump to 10 so
+--    packs/bonus/referral flows can assign the new sets. Matches dev.
+--
+-- Idempotent.
+-- ============================================================================
+
+UPDATE public.exam_types SET total_sets = 10 WHERE id = 'sat' AND total_sets < 10;
