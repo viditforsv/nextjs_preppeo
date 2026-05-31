@@ -95,6 +95,9 @@ export default async function ProgressReportPage() {
       .from("practice_answers")
       .select("is_correct, domain, created_at")
       .eq("user_id", user.id)
+      // practice_answers is shared across all courses (CBSE, IBDP, SAT) — scope
+      // to SAT so the report doesn't mix in other subjects' practice.
+      .eq("course", "sat")
       .order("created_at", { ascending: false }),
   ]);
 
