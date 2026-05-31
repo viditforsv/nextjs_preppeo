@@ -25,7 +25,11 @@ export function PostHogProvider({
     const optOut = requiresConsent && consent !== "accepted";
 
     posthog.init(key, {
-      api_host: process.env.NEXT_PUBLIC_POSTHOG_HOST || "https://us.i.posthog.com",
+      // Send through our first-party reverse proxy (see next.config rewrites) so
+      // events aren't blocked by the site CSP or ad-blockers. ui_host keeps
+      // PostHog UI/toolbar links pointing at the real US dashboard.
+      api_host: "/ingest",
+      ui_host: "https://us.posthog.com",
       // Auto-capture SPA navigations in the App Router (no manual pageview wiring needed).
       capture_pageview: "history_change",
       capture_pageleave: true,

@@ -31,6 +31,10 @@ const nextConfig: NextConfig = {
     ignoreBuildErrors: false,
   },
 
+  // PostHog capture endpoints break under Next's automatic trailing-slash
+  // redirect — disable it so the /ingest reverse proxy (below) works.
+  skipTrailingSlashRedirect: true,
+
   // Configure image domains for Next.js Image component
   images: {
     remotePatterns: [
@@ -67,6 +71,27 @@ const nextConfig: NextConfig = {
         source: "/sat-desmos-shortcuts",
         destination: "/sat/desmos",
         permanent: true,
+      },
+    ];
+  },
+
+  // PostHog reverse proxy (US cloud). Routes analytics through a first-party
+  // path (preppeo.com/ingest/*) so it's same-origin: this satisfies the CSP
+  // `connect-src 'self'` AND dodges ad-blockers that block us.i.posthog.com.
+  // Order matters — the /static rule must come before the catch-all.
+  async rewrites() {
+    return [
+      {
+        source: "/ingest/static/:path*",
+        destination: "https://us-assets.i.posthog.com/static/:path*",
+      },
+      {
+        source: "/ingest/:path*",
+        destination: "https://us.i.posthog.com/:path*",
+      },
+      {
+        source: "/ingest/flags",
+        destination: "https://us.i.posthog.com/flags",
       },
     ];
   },
