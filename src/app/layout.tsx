@@ -1,11 +1,21 @@
 import type { Metadata } from "next";
 import { Inter, Lato, Lora } from "next/font/google";
+import { headers } from "next/headers";
 import "@/design-system/globals.css";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { CartProvider } from "@/contexts/CartContext";
 import { Header } from "@/design-system/components/header";
 import { Footer } from "@/design-system/components/footer";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
+import { PostHogProvider } from "@/components/analytics/PostHogProvider";
+import { CookieConsentBanner } from "@/components/analytics/CookieConsentBanner";
+import {
+  regionRequiresConsent,
+  buildConsentDefaultScript,
+} from "@/lib/consent-region";
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
+import { GoogleAnalytics } from "@next/third-parties/google";
 
 // Force dynamic rendering to prevent static generation issues
 export const dynamic = "force-dynamic";
@@ -93,28 +103,54 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // EEA/UK/Swiss visitors get default-deny consent + the banner; everyone else
+  // is unaffected. Region comes from Vercel's geo header (absent in local dev).
+  const country = (await headers()).get("x-vercel-ip-country");
+  const requiresConsent = regionRequiresConsent(country);
+
   return (
     <html lang="en">
+      <head>
+        {/* Google Consent Mode v2 defaults — native inline script so it runs
+            during HTML parse, before GA config and PostHog init. */}
+        <script
+          id="ga-consent-default"
+          dangerouslySetInnerHTML={{
+            __html: buildConsentDefaultScript(requiresConsent),
+          }}
+        />
+      </head>
       <body
         className={`${inter.variable} ${lato.variable} ${lora.variable} ${inter.className}`}
         suppressHydrationWarning={true}
       >
-        <AuthProvider>
-          <CartProvider>
-            <div className="min-h-screen bg-background flex flex-col">
-              <Header />
-              <ErrorBoundary>
-                <main className="flex-1">{children}</main>
-              </ErrorBoundary>
-              <Footer />
-            </div>
-          </CartProvider>
-        </AuthProvider>
+        <PostHogProvider requiresConsent={requiresConsent}>
+          <AuthProvider>
+            <CartProvider>
+              <div className="min-h-screen bg-background flex flex-col">
+                <Header />
+                <ErrorBoundary>
+                  <main className="flex-1">{children}</main>
+                </ErrorBoundary>
+                <Footer />
+              </div>
+            </CartProvider>
+          </AuthProvider>
+        </PostHogProvider>
+        {/* Traffic + Web Vitals (native to Vercel) */}
+        <Analytics />
+        <SpeedInsights />
+        {/* GA4 — only loads when the Measurement ID env var is set */}
+        {process.env.NEXT_PUBLIC_GA_ID && (
+          <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />
+        )}
+        {/* Consent banner — only for EEA/UK/Swiss visitors */}
+        {requiresConsent && <CookieConsentBanner />}
       </body>
     </html>
   );

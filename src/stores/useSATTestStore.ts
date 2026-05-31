@@ -17,6 +17,7 @@ import {
   routeToTierMath,
   routeToTierRW,
 } from '@/lib/sat-scoring';
+import { track, AnalyticsEvent } from '@/lib/analytics';
 
 const RW_MODULE_DURATION = 1920; // 32 min
 const MATH_MODULE_DURATION = 2100; // 35 min
@@ -294,6 +295,7 @@ export const useSATTestStore = create<SATTestState>()(
       isCalculatorOpen: false,
       isReviewOpen: false,
     });
+    track(AnalyticsEvent.MockStarted, { setNumber: setNum, section });
   },
 
   beginModule: () => {
@@ -494,6 +496,14 @@ export const useSATTestStore = create<SATTestState>()(
           isCalculatorOpen: false,
         });
 
+        track(AnalyticsEvent.MockCompleted, {
+          setNumber: sn,
+          sectionType: hasRW ? 'full' : 'math',
+          totalScore,
+          mathScore,
+          rwScore: rwEstimatedScore ?? null,
+        });
+
         fetch('/api/sat/attempts', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -632,6 +642,12 @@ export const useSATTestStore = create<SATTestState>()(
     const res = await fetch(`/api/sat/practice-questions?${params}`);
     if (!res.ok) throw new Error('Failed to fetch practice questions');
     const data = await res.json();
+
+    track(AnalyticsEvent.PracticeStarted, {
+      section: config.section,
+      questionCount: config.questionCount,
+      difficulty: config.difficulty,
+    });
 
     set({
       mode: 'practice',
