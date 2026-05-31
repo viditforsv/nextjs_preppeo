@@ -170,7 +170,7 @@ export const DESMOS_GUIDES: DesmosGuide[] = [
   {
     slug: "quadratics-and-parabolas",
     keyword: "SAT Desmos quadratic vertex",
-    published: false,
+    published: true,
     title: "Find a Parabola's Vertex & Roots on the SAT with Desmos",
     metaDescription:
       "Graph any quadratic in Bluebook's Desmos calculator to read the vertex, x-intercepts (roots), and y-intercept directly — no factoring required.",
@@ -212,7 +212,7 @@ export const DESMOS_GUIDES: DesmosGuide[] = [
   {
     slug: "circle-equations",
     keyword: "SAT Desmos circle equations",
-    published: false,
+    published: true,
     title: "SAT Circle Equations Made Easy with Desmos",
     metaDescription:
       "Graph circle equations in Bluebook's Desmos calculator to find the center, radius, and intersections — even from the expanded (non-standard) form.",
@@ -254,7 +254,7 @@ export const DESMOS_GUIDES: DesmosGuide[] = [
   {
     slug: "solving-equations",
     keyword: "SAT Desmos solve for x",
-    published: false,
+    published: true,
     title: "Solve Any SAT Equation for x Using Desmos",
     metaDescription:
       "Set an equation equal to zero, graph it in Bluebook's Desmos calculator, and read the x-intercepts — the solutions — directly.",
@@ -296,7 +296,7 @@ export const DESMOS_GUIDES: DesmosGuide[] = [
   {
     slug: "systems-of-inequalities",
     keyword: "SAT Desmos systems of inequalities",
-    published: false,
+    published: true,
     title: "SAT Systems of Inequalities: The Desmos Shading Trick",
     metaDescription:
       "Graph inequalities in Bluebook's Desmos calculator and let the overlapping shaded region show which points satisfy the system.",
@@ -339,7 +339,7 @@ export const DESMOS_GUIDES: DesmosGuide[] = [
   {
     slug: "line-of-best-fit",
     keyword: "SAT Desmos line of best fit",
-    published: false,
+    published: true,
     title: "SAT Line of Best Fit & Regression with Desmos",
     metaDescription:
       "Drop a data table into Bluebook's Desmos calculator and run a regression to get the line of best fit — slope, intercept, and predictions.",
@@ -382,7 +382,7 @@ export const DESMOS_GUIDES: DesmosGuide[] = [
   {
     slug: "statistics-mean-median",
     keyword: "SAT Desmos mean and median",
-    published: false,
+    published: true,
     title: "Mean, Median & Statistics on the SAT with Desmos",
     metaDescription:
       "Enter a data set into Bluebook's Desmos calculator and use mean(), median(), and stdev() to compute statistics instantly.",
@@ -424,7 +424,7 @@ export const DESMOS_GUIDES: DesmosGuide[] = [
   {
     slug: "absolute-value",
     keyword: "SAT Desmos absolute value equations",
-    published: false,
+    published: true,
     title: "Solve SAT Absolute Value Equations with Desmos",
     metaDescription:
       "Graph absolute value equations in Bluebook's Desmos calculator and read both solutions off the intersection points — no case-splitting.",
