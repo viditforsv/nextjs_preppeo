@@ -10,10 +10,7 @@ import {
   CardTitle,
 } from "@/design-system/components/ui/card";
 import { Breadcrumb } from "@/design-system/components/breadcrumb";
-import { Badge } from "@/design-system/components/ui/badge";
 import {
-  BookOpen,
-  FileText,
   TrendingUp,
   TrendingDown,
   Minus,
@@ -42,29 +39,6 @@ interface SATAttempt {
   total_questions: number;
   score_pct: number;
   completed_at: string;
-}
-
-interface Enrollment {
-  id: string;
-  enrolled_at: string;
-  courses: {
-    id: string;
-    title: string;
-    slug: string;
-    thumbnail_url: string;
-    curriculum: string;
-    subject: string;
-    grade: string;
-    courses_templates?: { slug?: string } | null;
-  };
-}
-
-interface Assignment {
-  id: string;
-  title: string;
-  due_date: string;
-  status: string;
-  courses: { id: string; title: string; slug: string };
 }
 
 const formatDate = (dateString: string) =>
@@ -112,63 +86,11 @@ export default async function StudentDashboard() {
     );
   }
 
-  // Fetch everything the dashboard needs on the server, in parallel. These
-  // datasets are independent — SAT attempts come from a separate table behind
-  // the service client — so they fire together and the page waits on the single
-  // slowest query rather than a chain of client round-trips.
+  // Fetch the dashboard's data on the server, in parallel. SAT attempts come
+  // from a separate table behind the service client, so both fire together and
+  // the page waits on the single slowest query rather than a chain of round-trips.
   const serviceClient = createSupabaseApiClient();
-  const [
-    { data: enrollments },
-    { data: assignments },
-    { count: questionsPracticed },
-    { data: satData },
-  ] = await Promise.all([
-    supabase
-      .from("courses_enrollments")
-      .select(
-        `
-        id,
-        enrolled_at,
-        is_active,
-        courses!courses_enrollments_course_id_fkey (
-          id,
-          title,
-          slug,
-          thumbnail_url,
-          curriculum,
-          subject,
-          grade,
-          status,
-          courses_templates (slug)
-        )
-      `
-      )
-      .eq("student_id", user.id)
-      .eq("is_active", true)
-      .order("enrolled_at", { ascending: false }),
-
-    supabase
-      .from("assignments")
-      .select(
-        `
-        id,
-        title,
-        description,
-        due_date,
-        status,
-        graded_at,
-        grade,
-        courses!assignments_course_id_fkey (
-          id,
-          title,
-          slug
-        )
-      `
-      )
-      .eq("student_id", user.id)
-      .is("graded_at", null)
-      .order("due_date", { ascending: true }),
-
+  const [{ count: questionsPracticed }, { data: satData }] = await Promise.all([
     supabase
       .from("student_performance_log")
       .select("id", { count: "exact", head: true })
@@ -184,10 +106,6 @@ export default async function StudentDashboard() {
       .order("completed_at", { ascending: false }),
   ]);
 
-  const enrollmentList =
-    (enrollments as unknown as Enrollment[] | null) || [];
-  const assignmentList =
-    (assignments as unknown as Assignment[] | null) || [];
   const attempts = (satData as SATAttempt[] | null) || [];
 
   // Full mocks carry the headline /1600 score; math-only attempts have a null
@@ -457,7 +375,7 @@ export default async function StudentDashboard() {
         )}
 
         {/* Stat strip */}
-        <div className="grid grid-cols-3 gap-4 mb-8">
+        <div className="grid grid-cols-3 gap-4">
           <StatCard
             label="Mocks completed"
             value={mocksCompleted}
@@ -474,126 +392,6 @@ export default async function StudentDashboard() {
             value={questionsPracticed ?? 0}
             icon={<Target className="w-7 h-7 text-green-600" />}
           />
-        </div>
-
-        {/* Course + assignments (demoted) */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          {/* Enrolled course */}
-          <Card className="rounded-sm">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <BookOpen className="w-5 h-5 text-primary" />
-                My Course
-              </CardTitle>
-              <CardDescription>Continue learning</CardDescription>
-            </CardHeader>
-            <CardContent>
-              {enrollmentList.length === 0 ? (
-                <div className="text-center py-8">
-                  <BookOpen className="w-12 h-12 text-muted-foreground mx-auto mb-3" />
-                  <p className="text-muted-foreground">No courses enrolled yet</p>
-                  <Link href="/courses/discover">
-                    <Button className="mt-4 rounded-sm">Browse Courses</Button>
-                  </Link>
-                </div>
-              ) : (
-                <div className="space-y-3">
-                  {enrollmentList.slice(0, 3).map((enrollment) => (
-                    <Link
-                      key={enrollment.id}
-                      href={
-                        enrollment.courses.courses_templates?.slug ===
-                          "lms-interactive" ||
-                        (enrollment.courses.slug &&
-                          ["sat-quant-learn"].includes(enrollment.courses.slug))
-                          ? `/learn/${enrollment.courses.slug}`
-                          : `/courses/${enrollment.courses.slug}`
-                      }
-                    >
-                      <div className="flex items-center gap-3 p-3 border rounded-sm hover:bg-primary/10 transition-colors cursor-pointer">
-                        <div className="w-12 h-12 bg-[#1a365d]/10 rounded-sm flex items-center justify-center">
-                          <BookOpen className="w-6 h-6 text-primary" />
-                        </div>
-                        <div className="flex-1">
-                          <p className="font-medium">
-                            {enrollment.courses.title}
-                          </p>
-                          <p className="text-sm text-muted-foreground">
-                            {enrollment.courses.curriculum} • Grade{" "}
-                            {enrollment.courses.grade}
-                          </p>
-                        </div>
-                        <ChevronRight className="w-5 h-5 text-muted-foreground" />
-                      </div>
-                    </Link>
-                  ))}
-                  {enrollmentList.length > 3 && (
-                    <Link href="/courses/enrolled">
-                      <Button
-                        variant="outline"
-                        className="w-full mt-3 rounded-sm"
-                      >
-                        View All Courses
-                      </Button>
-                    </Link>
-                  )}
-                </div>
-              )}
-            </CardContent>
-          </Card>
-
-          {/* Pending Assignments */}
-          <Card className="rounded-sm">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <FileText className="w-5 h-5 text-blue-600" />
-                Pending Assignments
-              </CardTitle>
-              <CardDescription>Submissions awaiting review</CardDescription>
-            </CardHeader>
-            <CardContent>
-              {assignmentList.length === 0 ? (
-                <div className="text-center py-8">
-                  <FileText className="w-12 h-12 text-muted-foreground mx-auto mb-3" />
-                  <p className="text-muted-foreground">No pending assignments</p>
-                </div>
-              ) : (
-                <div className="space-y-3">
-                  {assignmentList.slice(0, 3).map((assignment) => (
-                    <div
-                      key={assignment.id}
-                      className="flex items-center justify-between p-3 border rounded-sm"
-                    >
-                      <div className="flex items-center gap-3 flex-1">
-                        <div className="w-10 h-10 bg-blue-50 rounded-sm flex items-center justify-center">
-                          <FileText className="w-5 h-5 text-blue-600" />
-                        </div>
-                        <div className="flex-1">
-                          <p className="font-medium">{assignment.title}</p>
-                          <p className="text-sm text-muted-foreground">
-                            {assignment.courses.title}
-                          </p>
-                        </div>
-                      </div>
-                      <Badge variant="secondary" className="rounded-sm">
-                        {formatDate(assignment.due_date)}
-                      </Badge>
-                    </div>
-                  ))}
-                  {assignmentList.length > 3 && (
-                    <Link href="/student/graded-assignments">
-                      <Button
-                        variant="outline"
-                        className="w-full mt-3 rounded-sm"
-                      >
-                        View All Assignments
-                      </Button>
-                    </Link>
-                  )}
-                </div>
-              )}
-            </CardContent>
-          </Card>
         </div>
       </div>
     </div>
