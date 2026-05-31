@@ -132,7 +132,7 @@ export default function ResultsScreen() {
         title: 'Want to Improve Specific Areas?',
         description: 'Use Practice Mode to target your weak domains with AI explanations. 5 free questions daily.',
         buttonLabel: 'Start Practicing',
-        href: '/sat-test',
+        href: '/sat-test?mode=practice',
         gradient: 'linear-gradient(to right, #059669, #10b981)',
       },
     ],
