@@ -120,6 +120,8 @@ Sets 1–5 fully built in both **prod and dev** (synced 2026-03-27). Both branch
 
 **On follow-ups:** After finishing a task, don't ask "want me to do X next?" if the next step is obvious from the task list. Just do the next item and announce it in one line. Only stop to ask when there's a real branch in the road or a confirm-only action.
 
+**Default ship path — always dev/preview first, the user QCs:** Every change ships to `dev`/preview for the user's **manual QC** before prod. This is the standing workflow — **do not ask "should we go straight to prod?" or "verify on preview or go direct?"** The answer is always "dev/preview first." Just commit/push to `dev` (preview deploy) and report. The user runs manual QC there and triggers the prod promotion themselves; promoting `dev → main` / production deploys remain confirm-only (above), so wait for the user's explicit go-ahead on that step — but never burn a turn asking which path to take.
+
 ## 10. Reference Docs (`DOCS_FOR_AI_AGENT/`)
 
 Before working in an area, check `DOCS_FOR_AI_AGENT/` for an existing guide. Keep a doc in sync when you change what it describes, and delete docs once they're obsolete.
