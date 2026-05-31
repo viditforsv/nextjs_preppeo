@@ -18,6 +18,7 @@ import type { TokenPackWithExam } from "@/types/test-tokens";
 import { selfPacedTiers, oneOnOneTiers } from "@/config/pricing";
 import { CURRENCIES, convertPrice } from "@/lib/currency";
 import type { CurrencyCode } from "@/lib/currency";
+import { track, AnalyticsEvent } from "@/lib/analytics";
 
 // Currencies offered by the toggle (payment always settles in INR).
 const PRICING_CURRENCIES: CurrencyCode[] = ["INR", "USD"];
@@ -423,6 +424,11 @@ export default function PricingPage() {
       .map((l) => ({ type: l.type, id: l.refId }));
     if (items.length === 0) return;
 
+    track(AnalyticsEvent.CheckoutStarted, {
+      items: items.map((i) => i.type),
+      itemCount: items.length,
+    });
+
     setCheckingOut(true);
     setError("");
     try {
@@ -480,6 +486,12 @@ export default function PricingPage() {
           });
           const verifyData = await verifyRes.json();
           if (verifyData.success) {
+            track(AnalyticsEvent.PurchaseCompleted, {
+              amount: orderData.amount,
+              currency: orderData.currency,
+              purchaseId: orderData.purchaseId,
+              items: items.map((i) => i.type),
+            });
             setSuccess(
               "Payment successful! Check your email for access codes, and your dashboard for practice access.",
             );
@@ -544,6 +556,10 @@ export default function PricingPage() {
       });
       const data = await res.json();
       if (res.ok && data.success) {
+        track(AnalyticsEvent.EnquirySubmitted, {
+          product: enquiry.product,
+          tier: enquiry.tier,
+        });
         setEDone(true);
       } else {
         setEError(data.error || "Couldn't send your enquiry. Please try again.");

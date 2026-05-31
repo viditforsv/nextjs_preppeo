@@ -18,6 +18,12 @@ import {
   RolePermissions,
   ROLE_PERMISSIONS,
 } from "@/types/auth";
+import {
+  identifyUser,
+  resetUser,
+  track,
+  AnalyticsEvent,
+} from "@/lib/analytics";
 
 interface AuthContextType {
   user: User | null;
@@ -490,6 +496,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             "🚪 SIGNED_OUT event received, clearing state and redirecting"
           );
 
+          // Clear analytics identity so the next session is a fresh anon user
+          resetUser();
+
           // Reset signing out flag
           setIsSigningOut(false);
           console.log("🔵 SIGNED_OUT - Reset isSigningOut to false");
@@ -523,6 +532,19 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
         // Fetch profile in background for SIGNED_IN events
         if (event === "SIGNED_IN" && session?.user && !isSigningOut) {
+          // Tie analytics to this user (idempotent — safe on session restores).
+          identifyUser(session.user.id, { email: session.user.email });
+
+          // Capture OAuth (Google) logins exactly once: the flag is set right
+          // before the redirect to Google, and survives the round-trip.
+          if (
+            typeof window !== "undefined" &&
+            sessionStorage.getItem("preppeo_pending_oauth")
+          ) {
+            sessionStorage.removeItem("preppeo_pending_oauth");
+            track(AnalyticsEvent.LoggedIn, { method: "google" });
+          }
+
           // Fetch immediately — the user/session state was already set above,
           // so there is no need to delay (the old 100ms setTimeout just taxed
           // every login).
@@ -575,6 +597,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         hasSession: !!data.session,
       });
 
+      track(AnalyticsEvent.LoggedIn, { method: "password" });
 
       // The auth state change handler will update the state automatically
       // No need to manually update state here
@@ -625,6 +648,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         email: data.user.email,
         needsConfirmation: !data.session,
       });
+
+      // Tie analytics to the new user and record the signup. (When email
+      // confirmation is required there's no session yet, but we still know the id.)
+      identifyUser(data.user.id, { email: data.user.email });
+      track(AnalyticsEvent.SignedUp, { method: "password", role });
 
       // Create profile immediately using API route (bypasses RLS with service role)
       try {
@@ -785,6 +813,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const redirectUrl = `${siteUrl}/auth/callback${next}`;
     console.log("AuthContext - Redirect URL:", redirectUrl);
 
+
+    // Flag the pending OAuth login so we can fire LoggedIn once on return.
+    if (typeof window !== "undefined") {
+      sessionStorage.setItem("preppeo_pending_oauth", "1");
+    }
 
     const { data, error } = await supabase.auth.signInWithOAuth({
       provider: "google",

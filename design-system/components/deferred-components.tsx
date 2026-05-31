@@ -1,7 +1,6 @@
 "use client"
 
 import dynamic from "next/dynamic"
-import { GoogleAnalyticsComponent } from "@/design-system/components/google-analytics"
 
 // Defer non-critical components to reduce initial bundle size and improve TTI
 const Toaster = dynamic(() => import("@/design-system/components/ui/sonner").then(mod => ({ default: mod.Toaster })), {
@@ -17,7 +16,6 @@ export function DeferredComponents() {
     <>
       <Toaster />
       <WebVitals />
-      <GoogleAnalyticsComponent />
     </>
   )
 }

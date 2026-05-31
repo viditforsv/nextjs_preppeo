@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import { track, AnalyticsEvent } from "@/lib/analytics";
 
 interface RazorpayPaymentProps {
   orderId: string;
@@ -71,6 +72,12 @@ export function RazorpayPayment({
           razorpay_signature: string;
         }) {
           // Payment successful
+          track(AnalyticsEvent.PurchaseCompleted, {
+            amount,
+            currency,
+            orderId,
+            paymentId: response.razorpay_payment_id,
+          });
           onSuccess({
             razorpayOrderId: orderId,
             razorpayPaymentId: response.razorpay_payment_id,
@@ -86,6 +93,7 @@ export function RazorpayPayment({
       };
 
       const razorpay = new window.Razorpay(options);
+      track(AnalyticsEvent.CheckoutStarted, { amount, currency, orderId });
       razorpay.open();
     };
 
