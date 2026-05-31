@@ -3,7 +3,7 @@ import ExamCard from '@/components/tests/ExamCard';
 import { Button } from '@/design-system/components/ui/button';
 import Link from 'next/link';
 import { Ticket, BookOpen, Sparkles } from 'lucide-react';
-import type { ExamType, TestToken } from '@/types/test-tokens';
+import type { ExamType } from '@/types/test-tokens';
 
 export const metadata = {
   title: 'SAT Mock Tests — Full-Length Adaptive Practice | Preppeo',
@@ -21,17 +21,6 @@ export default async function TestsHubPage() {
     .eq('id', 'sat');
 
   const exams = (rawExams as ExamType[] | null) ?? [];
-
-  const { data: freeTokens } = await supabase
-    .from('test_tokens')
-    .select('code, exam_type')
-    .eq('is_free', true)
-    .eq('is_active', true);
-
-  const freeTokenMap: Record<string, string> = {};
-  for (const t of (freeTokens as TestToken[] | null) ?? []) {
-    freeTokenMap[t.exam_type] = t.code;
-  }
 
   return (
     <div className="min-h-screen bg-[#f5f5f0]">
@@ -89,11 +78,7 @@ export default async function TestsHubPage() {
         <div className="flex justify-center">
           <div className="w-full max-w-md">
             {exams.map((exam) => (
-              <ExamCard
-                key={exam.id}
-                exam={exam}
-                freeCode={freeTokenMap[exam.id] ?? `${exam.id.toUpperCase()}-FREE-SET1`}
-              />
+              <ExamCard key={exam.id} exam={exam} />
             ))}
           </div>
         </div>
