@@ -68,7 +68,7 @@ export default async function TestsHubPage() {
             </div>
             <div className="flex gap-3 shrink-0">
               <Link
-                href="/sat-test"
+                href="/sat-test?mode=practice"
                 className="inline-flex items-center gap-1.5 px-4 py-2.5 bg-emerald-600 text-white text-sm font-semibold rounded-lg hover:bg-emerald-700 transition-colors"
               >
                 <BookOpen className="w-4 h-4" />

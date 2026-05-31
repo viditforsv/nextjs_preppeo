@@ -1,6 +1,7 @@
 'use client';
 
 import { useSATTestStore } from '@/stores/useSATTestStore';
+import MockGuard from '@/components/sat-test/MockGuard';
 import LandingScreen from '@/components/sat-test/LandingScreen';
 import ModuleIntroScreen from '@/components/sat-test/ModuleIntroScreen';
 import TestQuestionView from '@/components/sat-test/TestQuestionView';
@@ -11,7 +12,7 @@ import PracticeConfigScreen from '@/components/sat-test/PracticeConfigScreen';
 import PracticeView from '@/components/sat-test/PracticeView';
 import PracticeSummary from '@/components/sat-test/PracticeSummary';
 
-export default function SATTestPage() {
+function PhaseScreen() {
   const phase = useSATTestStore((s) => s.phase);
 
   switch (phase) {
@@ -36,4 +37,13 @@ export default function SATTestPage() {
     default:
       return <LandingScreen />;
   }
+}
+
+export default function SATTestPage() {
+  return (
+    <>
+      <MockGuard />
+      <PhaseScreen />
+    </>
+  );
 }

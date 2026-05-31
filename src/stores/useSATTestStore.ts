@@ -170,6 +170,7 @@ interface SATTestState {
 
   // Actions
   goToLanding: () => void;
+  discardMock: () => void;
   startTestMode: (setNumber: number, tokenCode?: string) => Promise<void>;
   beginModule: () => void;
   setAnswer: (qId: string, value: string | null) => void;
@@ -246,6 +247,42 @@ export const useSATTestStore = create<SATTestState>()(
     }
     set({ ...initialState });
   },
+
+  // Abandon an in-progress, unsubmitted mock without recording an attempt.
+  // Clears only the test-mode fields (practice/UI state is left alone) so the
+  // abandoned mock no longer lingers in persisted storage. Tokens are never
+  // touched here — nothing is consumed by walking away from a mock.
+  discardMock: () =>
+    set({
+      mode: null,
+      currentSection: 'rw',
+      tokenCode: null,
+      setNumber: null,
+      module1: null,
+      module2: null,
+      currentModuleNumber: 1,
+      currentQuestionIndex: 0,
+      answers: {},
+      flags: {},
+      timeLeft: 0,
+      module1Result: null,
+      module2Result: null,
+      module2Tier: null,
+      questionTimestamps: {},
+      visitCounts: {},
+      module1QuestionResponses: [],
+      rwModule1Result: null,
+      rwModule2Result: null,
+      rwModule2Tier: null,
+      rwQuestionResponses: [],
+      rwEstimatedScore: null,
+      allQuestionResponses: [],
+      mathEstimatedScore: null,
+      totalEstimatedScore: null,
+      module2LoadError: null,
+      isCalculatorOpen: false,
+      isReviewOpen: false,
+    }),
 
   // Full test: try RW first; if no RW questions exist, fall back to Math-only
   startTestMode: async (setNum: number, tokenCode?: string) => {
