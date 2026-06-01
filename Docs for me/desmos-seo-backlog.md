@@ -37,12 +37,12 @@ soon" placeholder until their clip is recorded — recording scripts are in
 | 2 | SAT Desmos number of solutions | `number-of-solutions` | ✅ live + clip |
 | 3 | how to use Desmos for the SAT | `how-to-use-desmos` | ✅ live + clip |
 | 4 | SAT Desmos quadratic vertex | `quadratics-and-parabolas` | ✅ live + clip |
-| 5 | SAT Desmos circle equations | `circle-equations` | ✅ live · ⏳ clip pending |
-| 6 | SAT Desmos solve for x | `solving-equations` | ✅ live · ⏳ clip pending |
-| 7 | SAT Desmos systems of inequalities | `systems-of-inequalities` | ✅ live · ⏳ clip pending |
+| 5 | SAT Desmos circle equations | `circle-equations` | ✅ live + clip |
+| 6 | SAT Desmos solve for x | `solving-equations` | ✅ live + clip |
+| 7 | SAT Desmos systems of inequalities | `systems-of-inequalities` | ✅ live + clip |
 | 8 | SAT Desmos line of best fit | `line-of-best-fit` | ✅ live · ⏳ clip pending |
-| 9 | SAT Desmos mean and median | `statistics-mean-median` | ✅ live · ⏳ clip pending |
-| 10 | SAT Desmos absolute value equations | `absolute-value` | ✅ live · ⏳ clip pending |
+| 9 | SAT Desmos mean and median | `statistics-mean-median` | ✅ live + clip |
+| 10 | SAT Desmos absolute value equations | `absolute-value` | ✅ live + clip |
 
 ## Notes
 - **Pilot choice:** "systems of equations" — high intent, easy to rank long-tail,

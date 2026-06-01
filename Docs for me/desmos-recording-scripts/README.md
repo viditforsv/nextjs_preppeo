@@ -23,12 +23,12 @@ page upgrades to the real video.
 | # | Slug | Demo problem | Recorded? |
 |---|------|--------------|-----------|
 | 4 | `quadratics-and-parabolas` | min of f(x)=x²−6x+5 | ✅ done |
-| 5 | `circle-equations` | radius of x²+y²−6x+8y=0 | ☐ |
-| 6 | `solving-equations` | solve 2(x−3)=x+1 | ☐ |
-| 7 | `systems-of-inequalities` | which point fits both inequalities | ☐ |
+| 5 | `circle-equations` | radius of x²+y²−6x+8y=0 | ✅ done |
+| 6 | `solving-equations` | solve 2(x−3)=x+1 | ✅ done |
+| 7 | `systems-of-inequalities` | which point fits both inequalities | ✅ done |
 | 8 | `line-of-best-fit` | slope of best-fit line | ☐ |
-| 9 | `statistics-mean-median` | median of a data set | ☐ |
-| 10 | `absolute-value` | solve \|2x−3\|=5 | ☐ |
+| 9 | `statistics-mean-median` | median of a data set | ✅ done |
+| 10 | `absolute-value` | solve \|2x−3\|=5 | ✅ done |
 
 Tip: keep all 7 visually consistent — same zoom level, type at a steady pace,
 pause ~1s on the highlighted answer before the loop restarts.

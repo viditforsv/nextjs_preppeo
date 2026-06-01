@@ -218,7 +218,7 @@ export const DESMOS_GUIDES: DesmosGuide[] = [
       "Graph circle equations in Bluebook's Desmos calculator to find the center, radius, and intersections — even from the expanded (non-standard) form.",
     intro:
       "SAT circle questions often hide the center and radius inside an expanded equation. Desmos graphs it instantly so you can read the geometry off the screen.",
-    videoReady: false,
+    videoReady: true,
     mediaAlt: "Graphing a circle equation in Desmos to find center and radius.",
     steps: [
       {
@@ -260,7 +260,7 @@ export const DESMOS_GUIDES: DesmosGuide[] = [
       "Set an equation equal to zero, graph it in Bluebook's Desmos calculator, and read the x-intercepts — the solutions — directly.",
     intro:
       "Stuck solving for x by hand? Move everything to one side, graph it, and the x-intercepts are your answers.",
-    videoReady: false,
+    videoReady: true,
     mediaAlt: "Finding x-intercepts in Desmos to solve an equation.",
     steps: [
       {
@@ -302,7 +302,7 @@ export const DESMOS_GUIDES: DesmosGuide[] = [
       "Graph inequalities in Bluebook's Desmos calculator and let the overlapping shaded region show which points satisfy the system.",
     intro:
       "Inequality questions ask which point lies in a region. Desmos shades each inequality, and the overlap is your answer set.",
-    videoReady: false,
+    videoReady: true,
     mediaAlt: "Shaded overlap region of a system of inequalities in Desmos.",
     steps: [
       {
@@ -388,7 +388,7 @@ export const DESMOS_GUIDES: DesmosGuide[] = [
       "Enter a data set into Bluebook's Desmos calculator and use mean(), median(), and stdev() to compute statistics instantly.",
     intro:
       "Desmos has built-in statistics functions. Type your data into a list and call mean(), median(), or stdev() for an instant answer.",
-    videoReady: false,
+    videoReady: true,
     mediaAlt: "Using Desmos list functions to compute mean and median.",
     steps: [
       {
@@ -430,7 +430,7 @@ export const DESMOS_GUIDES: DesmosGuide[] = [
       "Graph absolute value equations in Bluebook's Desmos calculator and read both solutions off the intersection points — no case-splitting.",
     intro:
       "Absolute value equations usually have two answers and trip students up. Graph both sides in Desmos and read off the intersections.",
-    videoReady: false,
+    videoReady: true,
     mediaAlt: "Graphing an absolute value equation in Desmos to find both solutions.",
     steps: [
       {
