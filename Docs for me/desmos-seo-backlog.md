@@ -36,7 +36,7 @@ soon" placeholder until their clip is recorded — recording scripts are in
 | 1 | SAT Desmos systems of equations | `systems-of-equations` | ✅ live + clip |
 | 2 | SAT Desmos number of solutions | `number-of-solutions` | ✅ live + clip |
 | 3 | how to use Desmos for the SAT | `how-to-use-desmos` | ✅ live + clip |
-| 4 | SAT Desmos quadratic vertex | `quadratics-and-parabolas` | ✅ live · ⏳ clip pending |
+| 4 | SAT Desmos quadratic vertex | `quadratics-and-parabolas` | ✅ live + clip |
 | 5 | SAT Desmos circle equations | `circle-equations` | ✅ live · ⏳ clip pending |
 | 6 | SAT Desmos solve for x | `solving-equations` | ✅ live · ⏳ clip pending |
 | 7 | SAT Desmos systems of inequalities | `systems-of-inequalities` | ✅ live · ⏳ clip pending |

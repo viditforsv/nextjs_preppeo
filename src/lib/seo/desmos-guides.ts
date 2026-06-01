@@ -176,7 +176,7 @@ export const DESMOS_GUIDES: DesmosGuide[] = [
       "Graph any quadratic in Bluebook's Desmos calculator to read the vertex, x-intercepts (roots), and y-intercept directly — no factoring required.",
     intro:
       "Quadratics show up everywhere on SAT Math. Desmos hands you the vertex, the roots, and the y-intercept without any factoring or the quadratic formula.",
-    videoReady: false,
+    videoReady: true,
     mediaAlt: "Reading a parabola's vertex and roots in Desmos.",
     steps: [
       {

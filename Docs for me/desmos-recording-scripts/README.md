@@ -22,7 +22,7 @@ page upgrades to the real video.
 
 | # | Slug | Demo problem | Recorded? |
 |---|------|--------------|-----------|
-| 4 | `quadratics-and-parabolas` | min of f(x)=x²−6x+5 | ☐ |
+| 4 | `quadratics-and-parabolas` | min of f(x)=x²−6x+5 | ✅ done |
 | 5 | `circle-equations` | radius of x²+y²−6x+8y=0 | ☐ |
 | 6 | `solving-equations` | solve 2(x−3)=x+1 | ☐ |
 | 7 | `systems-of-inequalities` | which point fits both inequalities | ☐ |
