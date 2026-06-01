@@ -4,6 +4,8 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { useSATTestStore } from '@/stores/useSATTestStore';
 import { renderMixedContent } from '@/components/MathRenderer';
+import TimeAnalysisTab from '@/components/sat-test/results/TimeAnalysisTab';
+import type { SATQuestionResponse } from '@/types/sat-test';
 import {
   BarChart3,
   CheckCircle,
@@ -64,8 +66,21 @@ export default function PracticeSummary() {
 
   // Per-question time for this session (only questions that were revealed get a time).
   const timedResults = results.filter((r) => practiceTimeSpent[r.question.id] != null);
-  const totalTimeMs = timedResults.reduce((sum, r) => sum + (practiceTimeSpent[r.question.id] ?? 0), 0);
-  const avgTimeMs = timedResults.length > 0 ? totalTimeMs / timedResults.length : null;
+
+  // Map timed questions to the shape TimeAnalysisTab expects (reused from mock results).
+  const timeResponses: SATQuestionResponse[] = timedResults.map((r) => ({
+    questionId: r.question.id,
+    section: r.question.section ?? practiceConfig?.section ?? 'math',
+    answer: r.answer,
+    isCorrect: r.isCorrect,
+    isOmitted: r.isOmitted,
+    isFlagged: false,
+    timeSpentMs: practiceTimeSpent[r.question.id] ?? 0,
+    visitCount: 1,
+    domain: r.question.domain ?? null,
+    difficulty: r.question.difficulty,
+    questionType: r.question.type,
+  }));
 
   // Domain breakdown
   const domainMap = new Map<string, { correct: number; total: number }>();
@@ -124,12 +139,6 @@ export default function PracticeSummary() {
             <p className="text-sm text-gray-500 mb-1">{sectionLabel} Practice</p>
             <p className="text-5xl font-bold text-emerald-700">{pct}%</p>
             <p className="text-gray-500 mt-1">{correct} of {total} correct</p>
-            {avgTimeMs !== null && (
-              <p className="text-sm text-gray-400 mt-1 inline-flex items-center gap-1.5">
-                <Timer className="w-3.5 h-3.5" />
-                {fmtTime(avgTimeMs)} avg per question · {fmtTime(totalTimeMs)} total
-              </p>
-            )}
           </div>
 
           <div className="grid grid-cols-3 gap-4 text-center">
@@ -156,6 +165,17 @@ export default function PracticeSummary() {
             </div>
           </div>
         </div>
+
+        {/* Time per question — reuses the mock results' Time analysis */}
+        {timeResponses.length > 0 && (
+          <div>
+            <h3 className="text-sm font-semibold text-gray-700 mb-3 flex items-center gap-1.5">
+              <Timer className="w-4 h-4 text-amber-500" />
+              Time per Question
+            </h3>
+            <TimeAnalysisTab responses={timeResponses} />
+          </div>
+        )}
 
         {/* Domain breakdown */}
         {domainMap.size > 1 && (
