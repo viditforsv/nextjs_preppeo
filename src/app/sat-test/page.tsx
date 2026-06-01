@@ -1,5 +1,8 @@
 'use client';
 
+import { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import { useAuth } from '@/contexts/AuthContext';
 import { useSATTestStore } from '@/stores/useSATTestStore';
 import MockGuard from '@/components/sat-test/MockGuard';
 import LandingScreen from '@/components/sat-test/LandingScreen';
@@ -40,6 +43,23 @@ function PhaseScreen() {
 }
 
 export default function SATTestPage() {
+  const { user, loading } = useAuth();
+  const router = useRouter();
+
+  // Deep link: /sat-test?mode=practice jumps straight to the practice config
+  // screen (used by the "Practice" nav item). Only hijack a fresh landing — never
+  // an in-progress mock/practice session. Guests are sent to log in first.
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    if (new URLSearchParams(window.location.search).get('mode') !== 'practice') return;
+    if (useSATTestStore.getState().phase !== 'landing') return;
+    if (!user) {
+      if (!loading) router.replace('/auth?redirect=' + encodeURIComponent('/sat-test?mode=practice'));
+      return;
+    }
+    useSATTestStore.setState({ phase: 'practice-config', mode: 'practice' });
+  }, [user, loading, router]);
+
   return (
     <>
       <MockGuard />
