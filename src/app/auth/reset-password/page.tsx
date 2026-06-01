@@ -5,8 +5,11 @@ import { Button } from '@/design-system/components/ui/button'
 import { Input } from '@/design-system/components/ui/input'
 import { Label } from '@/design-system/components/ui/label'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/design-system/components/ui/card'
-import { Lock, Eye, EyeOff, CheckCircle, AlertCircle } from 'lucide-react'
+import { Lock, Eye, EyeOff, CheckCircle, AlertCircle, Loader2 } from 'lucide-react'
 import { useAuth } from '@/contexts/AuthContext'
+import { createClient } from '@/lib/supabase/client'
+
+type SessionStatus = 'verifying' | 'valid' | 'invalid'
 
 export default function ResetPasswordPage() {
   const [password, setPassword] = useState('')
@@ -16,20 +19,59 @@ export default function ResetPasswordPage() {
   const [isLoading, setIsLoading] = useState(false)
   const [message, setMessage] = useState('')
   const [error, setError] = useState('')
-  const [isValidSession, setIsValidSession] = useState(false)
+  const [sessionStatus, setSessionStatus] = useState<SessionStatus>('verifying')
 
-  const { updatePassword, user } = useAuth()
+  const { updatePassword, user, loading } = useAuth()
   const router = useRouter()
-  // const searchParams = useSearchParams()
 
   useEffect(() => {
-    // Check if user is authenticated (required for password reset)
     if (user) {
-      setIsValidSession(true)
-    } else {
-      setError('Invalid or expired reset link. Please request a new password reset.')
+      setSessionStatus('valid')
+      return
     }
-  }, [user])
+
+    if (typeof window === 'undefined') return
+
+    const url = new URL(window.location.href)
+    const tokenHash = url.searchParams.get('token_hash')
+    const type = url.searchParams.get('type')
+
+    // Preferred recovery path: token_hash → verifyOtp. This is stateless
+    // (no PKCE code_verifier), so it works when the email is opened on a
+    // different device/browser than where the reset was requested, and it's
+    // a POST so email-scanner prefetch (GET) can't burn the one-time token.
+    if (tokenHash && type === 'recovery') {
+      const supabase = createClient()
+      supabase.auth
+        .verifyOtp({ type: 'recovery', token_hash: tokenHash })
+        .then(({ error }) => {
+          setSessionStatus(error ? 'invalid' : 'valid')
+          // Strip the token from the address bar either way.
+          window.history.replaceState({}, '', '/auth/reset-password')
+        })
+      return
+    }
+
+    // Wait for AuthProvider to bootstrap before judging the fallback paths.
+    if (loading) return
+
+    // Fallback: legacy PKCE ?code= or implicit #access_token — detectSessionInUrl
+    // exchanges these asynchronously, so give it a few seconds before failing.
+    const hasLegacyParam =
+      url.searchParams.has('code') ||
+      url.hash.includes('access_token') ||
+      url.hash.includes('type=recovery')
+
+    if (!hasLegacyParam) {
+      setSessionStatus('invalid')
+      return
+    }
+
+    const timer = setTimeout(() => {
+      setSessionStatus((prev) => (prev === 'valid' ? prev : 'invalid'))
+    }, 6000)
+    return () => clearTimeout(timer)
+  }, [user, loading])
 
   const handlePasswordUpdate = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -65,7 +107,23 @@ export default function ResetPasswordPage() {
     }
   }
 
-  if (!isValidSession) {
+  if (sessionStatus === 'verifying') {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-[#1a365d]/5 to-[#1a365d]/10 flex items-center justify-center p-4">
+        <Card className="w-full max-w-md border-[#1a365d]/10">
+          <CardHeader className="text-center">
+            <Loader2 className="w-12 h-12 text-[#1a365d] mx-auto mb-4 animate-spin" />
+            <CardTitle className="text-xl text-[#1e293b]">Verifying reset link…</CardTitle>
+            <CardDescription>
+              Hang tight while we confirm your password reset link.
+            </CardDescription>
+          </CardHeader>
+        </Card>
+      </div>
+    )
+  }
+
+  if (sessionStatus === 'invalid') {
     return (
       <div className="min-h-screen bg-gradient-to-br from-[#1a365d]/5 to-[#1a365d]/10 flex items-center justify-center p-4">
         <Card className="w-full max-w-md border-[#1a365d]/10">
@@ -76,10 +134,17 @@ export default function ResetPasswordPage() {
               This password reset link is invalid or has expired.
             </CardDescription>
           </CardHeader>
-          <CardContent>
-            <Button 
-              onClick={() => router.push('/auth')}
+          <CardContent className="space-y-2">
+            <Button
+              onClick={() => router.push('/auth/forgot-password')}
               className="w-full bg-[#1a365d] hover:bg-[#1a365d] text-white"
+            >
+              Request a new link
+            </Button>
+            <Button
+              variant="outline"
+              onClick={() => router.push('/auth')}
+              className="w-full text-[#1a365d]"
             >
               Go to Login
             </Button>
