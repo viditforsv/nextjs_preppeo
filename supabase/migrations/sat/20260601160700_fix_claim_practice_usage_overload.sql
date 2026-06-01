@@ -1,0 +1,27 @@
+-- 20260601160700_fix_claim_practice_usage_overload.sql
+--
+-- WHAT: Drop the legacy 5-argument overload of public.claim_practice_usage so that
+--       only the course-aware 6-argument version (p_course text DEFAULT 'sat') remains.
+--
+-- WHY:  Two overloads existed simultaneously:
+--         claim_practice_usage(uuid, date, int, int, int)
+--         claim_practice_usage(uuid, date, int, int, int, text DEFAULT 'sat')
+--       The practice-questions API calls the RPC with 5 named args. Because the
+--       6-arg version defaults p_course, BOTH overloads matched and PostgREST could
+--       not choose a candidate (PGRST203). The route ignored the resulting error,
+--       so the claim returned null -> treated as "daily_limit_reached" -> HTTP 403 ->
+--       the frontend threw -> EVERY free user saw a blank practice screen regardless
+--       of filters. The legacy overload is also independently broken: its
+--       ON CONFLICT (user_id, usage_date) has no matching unique index (the table's
+--       only unique index is unique_user_day_course on (user_id, usage_date, course)).
+--
+-- EFFECT: After this drop, the 5-arg call from the API resolves unambiguously to the
+--         course-aware function via the p_course default. No application code change
+--         is required for the fix itself.
+--
+-- PREREQUISITES: The course-aware overload and the unique_user_day_course index must
+--                already exist (they do on dev/prod as of 2026-06-01).
+--
+-- TARGET: dev branch (dxhxpfouzjlzpeazwrqo) first, per project workflow.
+
+DROP FUNCTION IF EXISTS public.claim_practice_usage(uuid, date, integer, integer, integer);

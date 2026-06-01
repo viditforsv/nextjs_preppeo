@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
 import { createSupabaseApiClient } from '@/lib/supabase/api-client';
+import { getTrialStatus } from '@/lib/sat/practice-access';
 
 const FREE_LIMITS = { easy: 2, medium: 2, hard: 1 } as const;
 
@@ -26,6 +27,19 @@ export async function GET() {
 
     if (activeSub) {
       return NextResponse.json({ isPremium: true, remaining: null });
+    }
+
+    // Free trial — 7 days of full access from signup (or launch for existing users).
+    // Grants premium-equivalent access without a paid subscription.
+    const trial = getTrialStatus(user.created_at);
+    if (trial.inTrial) {
+      return NextResponse.json({
+        isPremium: true,
+        remaining: null,
+        isTrial: true,
+        trialDaysLeft: trial.daysLeft,
+        trialEndsAt: trial.endsAt.toISOString(),
+      });
     }
 
     // Check if user had a subscription that recently expired

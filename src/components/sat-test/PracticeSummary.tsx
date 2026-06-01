@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
 import { useSATTestStore } from '@/stores/useSATTestStore';
 import { renderMixedContent } from '@/components/MathRenderer';
 import {
@@ -77,6 +78,13 @@ export default function PracticeSummary() {
             <h1 className="text-lg font-bold">Practice Summary</h1>
           </div>
           <div className="flex items-center gap-2">
+            <Link
+              href="/sat-test/practice-analytics"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 text-sm bg-white/10 hover:bg-white/20 rounded-lg transition-colors"
+            >
+              <BarChart3 className="w-3.5 h-3.5" />
+              Analytics
+            </Link>
             <button
               onClick={handlePracticeAgain}
               className="inline-flex items-center gap-1.5 px-3 py-1.5 text-sm bg-white/10 hover:bg-white/20 rounded-lg transition-colors"
