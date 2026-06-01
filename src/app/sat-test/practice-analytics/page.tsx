@@ -5,10 +5,10 @@ import { useRouter } from 'next/navigation';
 import { useAuth } from '@/contexts/AuthContext';
 import Link from 'next/link';
 import {
-  BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell,
+  BarChart, Bar, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell, Legend,
 } from 'recharts';
 import {
-  BarChart3, ArrowLeft, Loader2, ClipboardList, Target, Timer, TrendingDown, BookOpen,
+  BarChart3, ArrowLeft, Loader2, ClipboardList, Target, Timer, TrendingDown, TrendingUp, BookOpen,
 } from 'lucide-react';
 
 interface DomainStat {
@@ -32,6 +32,10 @@ interface TopicStat {
   avgTimeS: number | null;
 }
 
+interface DaySummary { total: number; correct: number; pct: number; avgTimeS: number | null }
+interface TrendDay { date: string; overall: DaySummary; domains: Record<string, DaySummary> }
+interface TrendDomain { domain: string; label: string; section: 'math' | 'rw' | 'unknown' }
+
 interface Analytics {
   overall: { total: number; correct: number; pct: number; avgTimeS: number | null; totalTimeMin: number; timedCount: number };
   byDomain: DomainStat[];
@@ -39,6 +43,8 @@ interface Analytics {
   bySection: { section: 'math' | 'rw'; correct: number; total: number; pct: number }[];
   weakestTopics: TopicStat[];
   timeSinks: TopicStat[];
+  trend: TrendDay[];
+  trendDomains: TrendDomain[];
 }
 
 type SectionFilter = 'all' | 'rw' | 'math';
@@ -61,6 +67,7 @@ export default function PracticeAnalyticsPage() {
   const [data, setData] = useState<Analytics | null>(null);
   const [loading, setLoading] = useState(true);
   const [sectionFilter, setSectionFilter] = useState<SectionFilter>('all');
+  const [trendDomain, setTrendDomain] = useState<string>('all');
 
   useEffect(() => {
     if (authLoading) return;
@@ -84,6 +91,36 @@ export default function PracticeAnalyticsPage() {
       ? data.byDomain
       : data.byDomain.filter((d) => d.section === sectionFilter);
   }, [data, sectionFilter]);
+
+  // Build the progress series for the selected domain: each active day's accuracy
+  // plus a running cumulative accuracy (the trajectory), and avg time per question.
+  const trendSeries = useMemo(() => {
+    if (!data) return [];
+    let cumCorrect = 0;
+    let cumTotal = 0;
+    const out: { date: string; label: string; dayPct: number | null; cumPct: number | null; avgTimeS: number | null; total: number }[] = [];
+    for (const day of data.trend) {
+      const s = trendDomain === 'all' ? day.overall : day.domains[trendDomain];
+      const total = s?.total ?? 0;
+      if (total === 0) continue; // skip days with no data for this domain
+      cumCorrect += s!.correct;
+      cumTotal += total;
+      out.push({
+        date: day.date,
+        label: day.date.slice(5).replace('-', '/'), // MM/DD
+        dayPct: s!.pct,
+        cumPct: cumTotal > 0 ? Math.round((cumCorrect / cumTotal) * 100) : null,
+        avgTimeS: s!.avgTimeS,
+        total,
+      });
+    }
+    return out;
+  }, [data, trendDomain]);
+
+  const hasTimeTrend = trendSeries.some((d) => d.avgTimeS !== null);
+  const firstCum = trendSeries[0]?.cumPct ?? null;
+  const lastCum = trendSeries[trendSeries.length - 1]?.cumPct ?? null;
+  const cumDelta = firstCum !== null && lastCum !== null ? lastCum - firstCum : null;
 
   if (authLoading || (!user && !loading)) {
     return (
@@ -157,6 +194,97 @@ export default function PracticeAnalyticsPage() {
                 label="Time practiced"
                 value={data.overall.totalTimeMin > 0 ? `${data.overall.totalTimeMin}m` : '—'}
               />
+            </div>
+
+            {/* Progress over time — the hero */}
+            <div className="bg-white rounded-xl border border-gray-200 p-4">
+              <div className="flex items-start justify-between gap-3 mb-1">
+                <div>
+                  <h2 className="flex items-center gap-2 text-sm font-semibold text-gray-700">
+                    <TrendingUp className="w-4 h-4 text-emerald-600" />
+                    Progress over time
+                  </h2>
+                  <p className="text-xs text-gray-500 mt-0.5">
+                    Your accuracy as you practice. The bold line is your running average.
+                  </p>
+                </div>
+                {cumDelta !== null && trendSeries.length >= 2 && (
+                  <span className={`shrink-0 text-xs font-semibold px-2 py-1 rounded-full ${
+                    cumDelta > 0 ? 'bg-emerald-100 text-emerald-700'
+                      : cumDelta < 0 ? 'bg-red-100 text-red-700'
+                      : 'bg-gray-100 text-gray-600'
+                  }`}>
+                    {cumDelta > 0 ? '▲' : cumDelta < 0 ? '▼' : ''} {Math.abs(cumDelta)} pts
+                  </span>
+                )}
+              </div>
+
+              {/* Domain picker */}
+              {data.trendDomains.length > 0 && (
+                <div className="flex flex-wrap gap-2 my-3">
+                  <button
+                    onClick={() => setTrendDomain('all')}
+                    className={`text-xs font-medium px-3 py-1 rounded-full border transition-colors ${
+                      trendDomain === 'all'
+                        ? 'bg-[#0d47a1] text-white border-[#0d47a1]'
+                        : 'bg-white text-gray-600 border-gray-300 hover:border-gray-400'
+                    }`}
+                  >
+                    Overall
+                  </button>
+                  {data.trendDomains.map((d) => (
+                    <button
+                      key={d.domain}
+                      onClick={() => setTrendDomain(d.domain)}
+                      className={`text-xs font-medium px-3 py-1 rounded-full border transition-colors ${
+                        trendDomain === d.domain
+                          ? 'bg-[#0d47a1] text-white border-[#0d47a1]'
+                          : 'bg-white text-gray-600 border-gray-300 hover:border-gray-400'
+                      }`}
+                    >
+                      {d.label}
+                    </button>
+                  ))}
+                </div>
+              )}
+
+              {trendSeries.length < 2 ? (
+                <p className="text-sm text-gray-400 text-center py-8">
+                  Practice on more than one day to see your trajectory{trendDomain !== 'all' ? ' for this domain' : ''}.
+                </p>
+              ) : (
+                <>
+                  <ResponsiveContainer width="100%" height={240}>
+                    <LineChart data={trendSeries} margin={{ left: -16, right: 12, top: 8 }}>
+                      <CartesianGrid strokeDasharray="3 3" vertical={false} />
+                      <XAxis dataKey="label" tick={{ fontSize: 11 }} />
+                      <YAxis domain={[0, 100]} tickFormatter={(v) => `${v}%`} tick={{ fontSize: 11 }} />
+                      <Tooltip formatter={(v: number, name: string) => [`${v}%`, name]} />
+                      <Legend wrapperStyle={{ fontSize: 12 }} />
+                      <Line type="monotone" dataKey="dayPct" name="That day" stroke="#94a3b8" strokeWidth={1.5} strokeDasharray="4 3" dot={{ r: 2 }} />
+                      <Line type="monotone" dataKey="cumPct" name="Running avg" stroke="#16a34a" strokeWidth={2.5} dot={{ r: 3 }} />
+                    </LineChart>
+                  </ResponsiveContainer>
+
+                  {hasTimeTrend && (
+                    <div className="mt-4 pt-4 border-t border-gray-100">
+                      <h3 className="flex items-center gap-1.5 text-xs font-semibold text-gray-500 mb-2">
+                        <Timer className="w-3.5 h-3.5" />
+                        Avg time per question (lower = faster)
+                      </h3>
+                      <ResponsiveContainer width="100%" height={160}>
+                        <LineChart data={trendSeries} margin={{ left: -16, right: 12, top: 4 }}>
+                          <CartesianGrid strokeDasharray="3 3" vertical={false} />
+                          <XAxis dataKey="label" tick={{ fontSize: 11 }} />
+                          <YAxis tickFormatter={(v) => `${v}s`} tick={{ fontSize: 11 }} />
+                          <Tooltip formatter={(v: number) => `${v}s`} />
+                          <Line type="monotone" dataKey="avgTimeS" name="Avg time" stroke="#d97706" strokeWidth={2} dot={{ r: 3 }} connectNulls />
+                        </LineChart>
+                      </ResponsiveContainer>
+                    </div>
+                  )}
+                </>
+              )}
             </div>
 
             {/* Section filter */}

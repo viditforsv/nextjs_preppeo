@@ -42,7 +42,32 @@ type Row = {
   subtopic: string | null;
   difficulty_tier: string | null;
   time_spent_ms: number | null;
+  created_at: string;
 };
+
+type Bucket = { correct: number; total: number; timeMs: number; timed: number };
+
+function emptyBucket(): Bucket {
+  return { correct: 0, total: 0, timeMs: 0, timed: 0 };
+}
+
+function accumulate(b: Bucket, r: Row) {
+  b.total++;
+  if (r.is_correct) b.correct++;
+  if (typeof r.time_spent_ms === 'number' && r.time_spent_ms > 0) {
+    b.timeMs += r.time_spent_ms;
+    b.timed++;
+  }
+}
+
+function summarize(b: Bucket) {
+  return {
+    total: b.total,
+    correct: b.correct,
+    pct: pct(b.correct, b.total),
+    avgTimeS: b.timed > 0 ? Math.round(b.timeMs / b.timed / 1000) : null,
+  };
+}
 
 function sectionOf(domain: string | null): 'math' | 'rw' | 'unknown' {
   if (!domain) return 'unknown';
@@ -64,9 +89,10 @@ export async function GET() {
     const supabase = createSupabaseApiClient();
     const { data, error } = await supabase
       .from('practice_answers')
-      .select('is_correct, domain, chapter, subtopic, difficulty_tier, time_spent_ms')
+      .select('is_correct, domain, chapter, subtopic, difficulty_tier, time_spent_ms, created_at')
       .eq('user_id', user.id)
-      .eq('course', 'sat');
+      .eq('course', 'sat')
+      .order('created_at', { ascending: true });
 
     if (error) {
       console.error('Error fetching practice analytics:', error);
@@ -172,6 +198,36 @@ export async function GET() {
       .sort((a, b) => (b.avgTimeS ?? 0) - (a.avgTimeS ?? 0))
       .slice(0, 5);
 
+    // Progress over time — daily buckets (overall + per-domain) so the client can
+    // plot accuracy/speed trajectories and running averages. Rows are already
+    // ordered by created_at; bucket by UTC calendar day.
+    const dayMap = new Map<string, { overall: Bucket; domains: Map<string, Bucket> }>();
+    for (const r of rows) {
+      const day = r.created_at.slice(0, 10);
+      let entry = dayMap.get(day);
+      if (!entry) { entry = { overall: emptyBucket(), domains: new Map() }; dayMap.set(day, entry); }
+      accumulate(entry.overall, r);
+      const dKey = r.domain ?? 'unknown';
+      const db = entry.domains.get(dKey) ?? emptyBucket();
+      accumulate(db, r);
+      entry.domains.set(dKey, db);
+    }
+
+    const trend = [...dayMap.entries()]
+      .sort(([a], [b]) => a.localeCompare(b))
+      .map(([date, entry]) => ({
+        date,
+        overall: summarize(entry.overall),
+        domains: Object.fromEntries(
+          [...entry.domains.entries()].map(([d, b]) => [d, summarize(b)])
+        ),
+      }));
+
+    // Domains that have any data, in display order, for the trend's domain picker.
+    const trendDomains = DOMAIN_ORDER
+      .filter((d) => domainMap.has(d))
+      .map((d) => ({ domain: d, label: DOMAIN_LABELS[d] ?? d, section: sectionOf(d) }));
+
     return NextResponse.json({
       overall: {
         total,
@@ -186,6 +242,8 @@ export async function GET() {
       bySection,
       weakestTopics,
       timeSinks,
+      trend,
+      trendDomains,
     });
   } catch (error) {
     console.error('Error in GET /api/sat/practice-analytics:', error);

@@ -14,7 +14,15 @@ import {
   ArrowLeft,
   Sparkles,
   MinusCircle,
+  Timer,
 } from 'lucide-react';
+
+function fmtTime(ms: number): string {
+  const s = Math.round(ms / 1000);
+  if (s < 60) return `${s}s`;
+  const m = Math.floor(s / 60);
+  return `${m}m ${s % 60}s`;
+}
 
 const DOMAIN_LABELS: Record<string, string> = {
   algebra: 'Algebra',
@@ -33,6 +41,7 @@ export default function PracticeSummary() {
     practiceAnswers,
     practiceRevealed,
     practiceExplanations,
+    practiceTimeSpent,
     practiceConfig,
     goToLanding,
   } = useSATTestStore();
@@ -52,6 +61,11 @@ export default function PracticeSummary() {
   const incorrect = results.filter((r) => r.revealed && !r.isCorrect && !r.isOmitted).length;
   const unanswered = results.filter((r) => r.isOmitted).length;
   const pct = total > 0 ? Math.round((correct / total) * 100) : 0;
+
+  // Per-question time for this session (only questions that were revealed get a time).
+  const timedResults = results.filter((r) => practiceTimeSpent[r.question.id] != null);
+  const totalTimeMs = timedResults.reduce((sum, r) => sum + (practiceTimeSpent[r.question.id] ?? 0), 0);
+  const avgTimeMs = timedResults.length > 0 ? totalTimeMs / timedResults.length : null;
 
   // Domain breakdown
   const domainMap = new Map<string, { correct: number; total: number }>();
@@ -110,6 +124,12 @@ export default function PracticeSummary() {
             <p className="text-sm text-gray-500 mb-1">{sectionLabel} Practice</p>
             <p className="text-5xl font-bold text-emerald-700">{pct}%</p>
             <p className="text-gray-500 mt-1">{correct} of {total} correct</p>
+            {avgTimeMs !== null && (
+              <p className="text-sm text-gray-400 mt-1 inline-flex items-center gap-1.5">
+                <Timer className="w-3.5 h-3.5" />
+                {fmtTime(avgTimeMs)} avg per question · {fmtTime(totalTimeMs)} total
+              </p>
+            )}
           </div>
 
           <div className="grid grid-cols-3 gap-4 text-center">
@@ -194,6 +214,12 @@ export default function PracticeSummary() {
                     <span className="flex-1 text-sm text-gray-700 truncate">
                       Q{idx + 1}: {r.question.prompt.substring(0, 80)}...
                     </span>
+                    {practiceTimeSpent[r.question.id] != null && (
+                      <span className="hidden sm:inline-flex items-center gap-1 text-xs text-gray-400 shrink-0">
+                        <Timer className="w-3 h-3" />
+                        {fmtTime(practiceTimeSpent[r.question.id])}
+                      </span>
+                    )}
                     {isExpanded ? (
                       <ChevronUp className="w-4 h-4 text-gray-400 shrink-0" />
                     ) : (

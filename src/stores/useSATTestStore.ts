@@ -159,6 +159,7 @@ interface SATTestState {
   practiceTheory: Record<string, string>;
   practiceTheoryLoading: Record<string, boolean>;
   practiceQuestionStart: Record<string, number>;
+  practiceTimeSpent: Record<string, number>;
   practiceIndex: number;
 
   // Loading / error states
@@ -233,6 +234,7 @@ const initialState = {
   // Timestamp (ms) when the current practice question was last shown; used to
   // measure per-question time-on-task for analytics. Cleared as questions reveal.
   practiceQuestionStart: {} as Record<string, number>,
+  practiceTimeSpent: {} as Record<string, number>,
   practiceIndex: 0,
   module2LoadError: null as string | null,
   isCalculatorOpen: false,
@@ -703,6 +705,7 @@ export const useSATTestStore = create<SATTestState>()(
       practiceTheory: {},
       practiceTheoryLoading: {},
       practiceQuestionStart: data.questions[0]?.id ? { [data.questions[0].id]: Date.now() } : {},
+      practiceTimeSpent: {},
       practiceIndex: 0,
       isCalculatorOpen: false,
     });
@@ -728,6 +731,9 @@ export const useSATTestStore = create<SATTestState>()(
 
     const startedAt = get().practiceQuestionStart[qId];
     const timeSpentMs = startedAt ? Date.now() - startedAt : null;
+    if (timeSpentMs !== null) {
+      set((s) => ({ practiceTimeSpent: { ...s.practiceTimeSpent, [qId]: timeSpentMs } }));
+    }
 
     fetch('/api/sat/record-answer', {
       method: 'POST',
