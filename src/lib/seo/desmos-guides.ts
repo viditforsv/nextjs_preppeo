@@ -32,6 +32,16 @@ export interface DesmosGuide {
   steps: DesmosStep[];
   proTip?: string;
   practice?: { question: string; answer: string; desmosWay: string };
+  /**
+   * Pre-loads the on-page interactive Desmos calculator so the student can try
+   * this guide's example live. `expressions` are LaTeX, one per row; `table`
+   * (used by regression guides) seeds a data table.
+   */
+  tryIt?: {
+    prompt: string;
+    expressions: string[];
+    table?: { columns: { latex: string; values: string[] }[] };
+  };
 }
 
 export const DESMOS_GUIDES: DesmosGuide[] = [
@@ -39,6 +49,10 @@ export const DESMOS_GUIDES: DesmosGuide[] = [
   {
     slug: "systems-of-equations",
     keyword: "SAT Desmos systems of equations",
+    tryIt: {
+      prompt: "Graph both equations, then click where the lines cross to read the solution.",
+      expressions: ["y=3x-4", "2x+y=16"],
+    },
     published: true,
     title: "How to Solve SAT Systems of Equations with Desmos (in 5 seconds)",
     metaDescription:
@@ -85,6 +99,10 @@ export const DESMOS_GUIDES: DesmosGuide[] = [
   {
     slug: "number-of-solutions",
     keyword: "SAT Desmos number of solutions",
+    tryIt: {
+      prompt: "Graph both and count where they meet — that's the number of solutions.",
+      expressions: ["y=x^2", "y=4x-4"],
+    },
     published: true,
     title: "SAT Desmos Trick: Find the Number of Solutions Instantly",
     metaDescription:
@@ -128,6 +146,10 @@ export const DESMOS_GUIDES: DesmosGuide[] = [
   {
     slug: "how-to-use-desmos",
     keyword: "how to use Desmos for the SAT",
+    tryIt: {
+      prompt: "Graph the line and click where it crosses the x-axis.",
+      expressions: ["y=2x-7"],
+    },
     published: true,
     title: "How to Use Desmos on the Digital SAT: The Complete Guide",
     metaDescription:
@@ -170,13 +192,17 @@ export const DESMOS_GUIDES: DesmosGuide[] = [
   {
     slug: "quadratics-and-parabolas",
     keyword: "SAT Desmos quadratic vertex",
-    published: false,
+    tryIt: {
+      prompt: "Graph the parabola and click the lowest point — that's the vertex (min value).",
+      expressions: ["y=x^2-6x+5"],
+    },
+    published: true,
     title: "Find a Parabola's Vertex & Roots on the SAT with Desmos",
     metaDescription:
       "Graph any quadratic in Bluebook's Desmos calculator to read the vertex, x-intercepts (roots), and y-intercept directly — no factoring required.",
     intro:
       "Quadratics show up everywhere on SAT Math. Desmos hands you the vertex, the roots, and the y-intercept without any factoring or the quadratic formula.",
-    videoReady: false,
+    videoReady: true,
     mediaAlt: "Reading a parabola's vertex and roots in Desmos.",
     steps: [
       {
@@ -212,13 +238,17 @@ export const DESMOS_GUIDES: DesmosGuide[] = [
   {
     slug: "circle-equations",
     keyword: "SAT Desmos circle equations",
-    published: false,
+    tryIt: {
+      prompt: "Graph the circle, then click its leftmost and rightmost points to find the center and radius.",
+      expressions: ["x^2+y^2-6x+8y=0"],
+    },
+    published: true,
     title: "SAT Circle Equations Made Easy with Desmos",
     metaDescription:
       "Graph circle equations in Bluebook's Desmos calculator to find the center, radius, and intersections — even from the expanded (non-standard) form.",
     intro:
       "SAT circle questions often hide the center and radius inside an expanded equation. Desmos graphs it instantly so you can read the geometry off the screen.",
-    videoReady: false,
+    videoReady: true,
     mediaAlt: "Graphing a circle equation in Desmos to find center and radius.",
     steps: [
       {
@@ -254,13 +284,17 @@ export const DESMOS_GUIDES: DesmosGuide[] = [
   {
     slug: "solving-equations",
     keyword: "SAT Desmos solve for x",
-    published: false,
+    tryIt: {
+      prompt: "Graph each side as its own line and click the intersection — the x-value is your answer.",
+      expressions: ["y=2\\left(x-3\\right)", "y=x+1"],
+    },
+    published: true,
     title: "Solve Any SAT Equation for x Using Desmos",
     metaDescription:
       "Set an equation equal to zero, graph it in Bluebook's Desmos calculator, and read the x-intercepts — the solutions — directly.",
     intro:
       "Stuck solving for x by hand? Move everything to one side, graph it, and the x-intercepts are your answers.",
-    videoReady: false,
+    videoReady: true,
     mediaAlt: "Finding x-intercepts in Desmos to solve an equation.",
     steps: [
       {
@@ -296,13 +330,17 @@ export const DESMOS_GUIDES: DesmosGuide[] = [
   {
     slug: "systems-of-inequalities",
     keyword: "SAT Desmos systems of inequalities",
-    published: false,
+    tryIt: {
+      prompt: "Both points are plotted — see which one sits inside the double-shaded overlap.",
+      expressions: ["y>x+1", "y<-x+5", "\\left(0,4\\right)", "\\left(3,3\\right)"],
+    },
+    published: true,
     title: "SAT Systems of Inequalities: The Desmos Shading Trick",
     metaDescription:
       "Graph inequalities in Bluebook's Desmos calculator and let the overlapping shaded region show which points satisfy the system.",
     intro:
       "Inequality questions ask which point lies in a region. Desmos shades each inequality, and the overlap is your answer set.",
-    videoReady: false,
+    videoReady: true,
     mediaAlt: "Shaded overlap region of a system of inequalities in Desmos.",
     steps: [
       {
@@ -339,13 +377,23 @@ export const DESMOS_GUIDES: DesmosGuide[] = [
   {
     slug: "line-of-best-fit",
     keyword: "SAT Desmos line of best fit",
-    published: false,
+    tryIt: {
+      prompt: "The data is in the table and the y₁ ~ a x₁ + b line is fitting it. Read a (the slope) in the results.",
+      expressions: ["y_1\\sim ax_1+b"],
+      table: {
+        columns: [
+          { latex: "x_1", values: ["1", "2", "3", "4"] },
+          { latex: "y_1", values: ["2", "5", "7", "10"] },
+        ],
+      },
+    },
+    published: true,
     title: "SAT Line of Best Fit & Regression with Desmos",
     metaDescription:
       "Drop a data table into Bluebook's Desmos calculator and run a regression to get the line of best fit — slope, intercept, and predictions.",
     intro:
       "When the SAT gives you a table of data, Desmos can fit a line (or curve) and hand you the equation in seconds.",
-    videoReady: false,
+    videoReady: true,
     mediaAlt: "Running a linear regression on a data table in Desmos.",
     steps: [
       {
@@ -382,13 +430,21 @@ export const DESMOS_GUIDES: DesmosGuide[] = [
   {
     slug: "statistics-mean-median",
     keyword: "SAT Desmos mean and median",
-    published: false,
+    tryIt: {
+      prompt: "Edit the list and watch mean and median update instantly.",
+      expressions: [
+        "L=\\left[4,8,6,10,7\\right]",
+        "\\operatorname{median}\\left(L\\right)",
+        "\\operatorname{mean}\\left(L\\right)",
+      ],
+    },
+    published: true,
     title: "Mean, Median & Statistics on the SAT with Desmos",
     metaDescription:
       "Enter a data set into Bluebook's Desmos calculator and use mean(), median(), and stdev() to compute statistics instantly.",
     intro:
       "Desmos has built-in statistics functions. Type your data into a list and call mean(), median(), or stdev() for an instant answer.",
-    videoReady: false,
+    videoReady: true,
     mediaAlt: "Using Desmos list functions to compute mean and median.",
     steps: [
       {
@@ -424,13 +480,17 @@ export const DESMOS_GUIDES: DesmosGuide[] = [
   {
     slug: "absolute-value",
     keyword: "SAT Desmos absolute value equations",
-    published: false,
+    tryIt: {
+      prompt: "Graph both and click the two intersection points — the x-values are your solutions.",
+      expressions: ["y=\\left|2x-3\\right|", "y=5"],
+    },
+    published: true,
     title: "Solve SAT Absolute Value Equations with Desmos",
     metaDescription:
       "Graph absolute value equations in Bluebook's Desmos calculator and read both solutions off the intersection points — no case-splitting.",
     intro:
       "Absolute value equations usually have two answers and trip students up. Graph both sides in Desmos and read off the intersections.",
-    videoReady: false,
+    videoReady: true,
     mediaAlt: "Graphing an absolute value equation in Desmos to find both solutions.",
     steps: [
       {

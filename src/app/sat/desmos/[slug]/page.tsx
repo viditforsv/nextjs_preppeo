@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { Calculator, ChevronRight } from "lucide-react";
+import { Calculator, ChevronRight, Home } from "lucide-react";
 import {
   getDesmosGuide,
   getPublishedDesmosGuides,
 } from "@/lib/seo/desmos-guides";
 import DesmosVideo from "./DesmosVideo";
+import DesmosTryIt from "./DesmosTryIt";
 
 const NAVY = "#1a365d";
 const AMBER = "#f4b400";
@@ -52,6 +53,27 @@ export default async function DesmosGuidePage({
   const guide = getDesmosGuide(slug);
   if (!guide) notFound();
 
+  // BreadcrumbList structured data — shows the trail in search results.
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: baseUrl },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "SAT Desmos Shortcuts",
+        item: `${baseUrl}/sat/desmos`,
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: guide.title,
+        item: `${baseUrl}/sat/desmos/${guide.slug}`,
+      },
+    ],
+  };
+
   // HowTo structured data — helps this rank as a step-by-step result.
   const howToJsonLd = {
     "@context": "https://schema.org",
@@ -70,10 +92,42 @@ export default async function DesmosGuidePage({
     <div className="bg-gray-50 min-h-screen">
       <script
         type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(howToJsonLd) }}
       />
 
       <article className="max-w-2xl mx-auto px-4 py-12 sm:py-16">
+        {/* ── Breadcrumb ─────────────────────────────────────────── */}
+        <nav aria-label="Breadcrumb" className="mb-6">
+          <ol className="flex flex-wrap items-center gap-1.5 text-sm text-gray-500">
+            <li>
+              <Link
+                href="/"
+                className="inline-flex items-center hover:text-gray-700 transition-colors"
+              >
+                <Home className="w-4 h-4" />
+                <span className="sr-only">Home</span>
+              </Link>
+            </li>
+            <ChevronRight className="w-4 h-4 text-gray-300" />
+            <li>
+              <Link
+                href="/sat/desmos"
+                className="hover:text-gray-700 transition-colors"
+              >
+                SAT Desmos Shortcuts
+              </Link>
+            </li>
+            <ChevronRight className="w-4 h-4 text-gray-300" />
+            <li aria-current="page" className="font-medium text-gray-700 truncate max-w-full">
+              {guide.title}
+            </li>
+          </ol>
+        </nav>
+
         {/* ── Header ─────────────────────────────────────────────── */}
         <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wide mb-4" style={{ color: TEAL }}>
           <Calculator className="w-4 h-4" />
@@ -133,15 +187,21 @@ export default async function DesmosGuidePage({
           </div>
         )}
 
-        {/* ── Practice question ──────────────────────────────────── */}
+        {/* ── Practice question + live calculator ────────────────── */}
         {guide.practice && (
           <div className="mt-12">
-            <h2 className="text-xl font-bold mb-4" style={{ color: NAVY }}>
+            <h2 className="text-xl font-bold mb-1" style={{ color: NAVY }}>
               Try it yourself
             </h2>
-            <div className="rounded-xl border border-gray-200 bg-white p-6">
+            <p className="text-sm text-gray-500 mb-4">
+              Work the example right here in a live Desmos calculator — no Bluebook needed.
+            </p>
+            <div className="rounded-xl border border-gray-200 bg-white p-6 space-y-5">
               <p className="font-medium" style={{ color: NAVY }}>{guide.practice.question}</p>
-              <details className="mt-4 group">
+
+              {guide.tryIt && <DesmosTryIt tryIt={guide.tryIt} />}
+
+              <details className="group border-t border-gray-100 pt-4">
                 <summary
                   className="cursor-pointer text-sm font-semibold inline-flex items-center gap-1 select-none"
                   style={{ color: TEAL }}

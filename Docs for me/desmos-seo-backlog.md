@@ -27,18 +27,21 @@ and sharper). Encode commands are in `public/images/desmos/README.txt`.
 
 ## The 10 terms
 
+All 10 are **published/live with their demo clip** (set 2026-06-01). Recording
+scripts used to produce them are in `desmos-recording-scripts/`.
+
 | # | Search term | Slug | Status |
 |---|-------------|------|--------|
-| 1 | SAT Desmos systems of equations | `systems-of-equations` | ✅ **PILOT — live** (needs GIF) |
-| 2 | SAT Desmos number of solutions | `number-of-solutions` | 📝 backlog (authored stub) |
-| 3 | how to use Desmos for the SAT | `how-to-use-desmos` | 📝 backlog (broad / high volume) |
-| 4 | SAT Desmos quadratic vertex | `quadratics-and-parabolas` | 📝 backlog |
-| 5 | SAT Desmos circle equations | `circle-equations` | 📝 backlog |
-| 6 | SAT Desmos solve for x | `solving-equations` | 📝 backlog |
-| 7 | SAT Desmos systems of inequalities | `systems-of-inequalities` | 📝 backlog |
-| 8 | SAT Desmos line of best fit | `line-of-best-fit` | 📝 backlog |
-| 9 | SAT Desmos mean and median | `statistics-mean-median` | 📝 backlog |
-| 10 | SAT Desmos absolute value equations | `absolute-value` | 📝 backlog |
+| 1 | SAT Desmos systems of equations | `systems-of-equations` | ✅ live + clip |
+| 2 | SAT Desmos number of solutions | `number-of-solutions` | ✅ live + clip |
+| 3 | how to use Desmos for the SAT | `how-to-use-desmos` | ✅ live + clip |
+| 4 | SAT Desmos quadratic vertex | `quadratics-and-parabolas` | ✅ live + clip |
+| 5 | SAT Desmos circle equations | `circle-equations` | ✅ live + clip |
+| 6 | SAT Desmos solve for x | `solving-equations` | ✅ live + clip |
+| 7 | SAT Desmos systems of inequalities | `systems-of-inequalities` | ✅ live + clip |
+| 8 | SAT Desmos line of best fit | `line-of-best-fit` | ✅ live + clip |
+| 9 | SAT Desmos mean and median | `statistics-mean-median` | ✅ live + clip |
+| 10 | SAT Desmos absolute value equations | `absolute-value` | ✅ live + clip |
 
 ## Notes
 - **Pilot choice:** "systems of equations" — high intent, easy to rank long-tail,

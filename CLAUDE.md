@@ -70,9 +70,9 @@ Seed / migrate → dev branch → QC review → promote to prod
 - Math: ≥15/22 on M1 → Hard M2; <15 → Easy M2
 - R&W: ≥14/27 on M1 → Hard M2; <14 → Easy M2
 
-### Current Mock Set Status (as of 2026-03-27) — PROD only
+### Current Mock Set Status (as of 2026-05-31)
 
-Sets 1–5 fully built in both **prod and dev** (synced 2026-03-27). Both branches are identical.
+Sets **1–10** fully built and live in both **prod and dev** (147q each: 66 math + 81 R&W, all `qc_done`/`is_active`). Sets 6–10 promoted to prod 2026-05-31; `exam_types.total_sets` = 10 on both branches. SAT mock packs: 1 / 3 / 5 / 10 on both.
 
 ## 6. Seeding Scripts
 
@@ -85,6 +85,13 @@ Sets 1–5 fully built in both **prod and dev** (synced 2026-03-27). Both branch
 - Always read a file before editing it.
 - Do not create helper scripts or abstractions for one-off tasks.
 - Do not add features beyond what was asked.
+
+## 7a. Communication Style
+
+- Short and crisp. Lead with the answer.
+- Use bullet points, not paragraphs.
+- Never repeat what was already said — no recaps, no restating the question.
+- No filler or preamble. Cut hedging.
 
 ## 8. Efficiency — Be Practical
 

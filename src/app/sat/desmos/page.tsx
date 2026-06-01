@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Calculator, ChevronRight, ArrowRight } from "lucide-react";
+import { Calculator, ChevronRight, ArrowRight, Home } from "lucide-react";
 import {
   DESMOS_GUIDES,
   getPublishedDesmosGuides,
@@ -34,6 +34,21 @@ export default function DesmosHubPage() {
   const publishedSlugs = new Set(published.map((g) => g.slug));
   const comingSoon = DESMOS_GUIDES.filter((g) => !publishedSlugs.has(g.slug));
 
+  // BreadcrumbList structured data — shows the trail in search results.
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: baseUrl },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "SAT Desmos Shortcuts",
+        item: url,
+      },
+    ],
+  };
+
   // ItemList structured data — helps the hub surface its child guides in search.
   const itemListJsonLd = {
     "@context": "https://schema.org",
@@ -52,10 +67,33 @@ export default function DesmosHubPage() {
     <div className="bg-gray-50 min-h-screen">
       <script
         type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListJsonLd) }}
       />
 
       <div className="max-w-3xl mx-auto px-4 py-12 sm:py-16">
+        {/* ── Breadcrumb ─────────────────────────────────────────── */}
+        <nav aria-label="Breadcrumb" className="mb-6">
+          <ol className="flex flex-wrap items-center gap-1.5 text-sm text-gray-500">
+            <li>
+              <Link
+                href="/"
+                className="inline-flex items-center hover:text-gray-700 transition-colors"
+              >
+                <Home className="w-4 h-4" />
+                <span className="sr-only">Home</span>
+              </Link>
+            </li>
+            <ChevronRight className="w-4 h-4 text-gray-300" />
+            <li aria-current="page" className="font-medium text-gray-700">
+              SAT Desmos Shortcuts
+            </li>
+          </ol>
+        </nav>
+
         {/* ── Header ─────────────────────────────────────────────── */}
         <div
           className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wide mb-4"
