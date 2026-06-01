@@ -32,6 +32,16 @@ export interface DesmosGuide {
   steps: DesmosStep[];
   proTip?: string;
   practice?: { question: string; answer: string; desmosWay: string };
+  /**
+   * Pre-loads the on-page interactive Desmos calculator so the student can try
+   * this guide's example live. `expressions` are LaTeX, one per row; `table`
+   * (used by regression guides) seeds a data table.
+   */
+  tryIt?: {
+    prompt: string;
+    expressions: string[];
+    table?: { columns: { latex: string; values: string[] }[] };
+  };
 }
 
 export const DESMOS_GUIDES: DesmosGuide[] = [
@@ -39,6 +49,10 @@ export const DESMOS_GUIDES: DesmosGuide[] = [
   {
     slug: "systems-of-equations",
     keyword: "SAT Desmos systems of equations",
+    tryIt: {
+      prompt: "Graph both equations, then click where the lines cross to read the solution.",
+      expressions: ["y=3x-4", "2x+y=16"],
+    },
     published: true,
     title: "How to Solve SAT Systems of Equations with Desmos (in 5 seconds)",
     metaDescription:
@@ -85,6 +99,10 @@ export const DESMOS_GUIDES: DesmosGuide[] = [
   {
     slug: "number-of-solutions",
     keyword: "SAT Desmos number of solutions",
+    tryIt: {
+      prompt: "Graph both and count where they meet — that's the number of solutions.",
+      expressions: ["y=x^2", "y=4x-4"],
+    },
     published: true,
     title: "SAT Desmos Trick: Find the Number of Solutions Instantly",
     metaDescription:
@@ -128,6 +146,10 @@ export const DESMOS_GUIDES: DesmosGuide[] = [
   {
     slug: "how-to-use-desmos",
     keyword: "how to use Desmos for the SAT",
+    tryIt: {
+      prompt: "Graph the line and click where it crosses the x-axis.",
+      expressions: ["y=2x-7"],
+    },
     published: true,
     title: "How to Use Desmos on the Digital SAT: The Complete Guide",
     metaDescription:
@@ -170,6 +192,10 @@ export const DESMOS_GUIDES: DesmosGuide[] = [
   {
     slug: "quadratics-and-parabolas",
     keyword: "SAT Desmos quadratic vertex",
+    tryIt: {
+      prompt: "Graph the parabola and click the lowest point — that's the vertex (min value).",
+      expressions: ["y=x^2-6x+5"],
+    },
     published: true,
     title: "Find a Parabola's Vertex & Roots on the SAT with Desmos",
     metaDescription:
@@ -212,6 +238,10 @@ export const DESMOS_GUIDES: DesmosGuide[] = [
   {
     slug: "circle-equations",
     keyword: "SAT Desmos circle equations",
+    tryIt: {
+      prompt: "Graph the circle, then click its leftmost and rightmost points to find the center and radius.",
+      expressions: ["x^2+y^2-6x+8y=0"],
+    },
     published: true,
     title: "SAT Circle Equations Made Easy with Desmos",
     metaDescription:
@@ -254,6 +284,10 @@ export const DESMOS_GUIDES: DesmosGuide[] = [
   {
     slug: "solving-equations",
     keyword: "SAT Desmos solve for x",
+    tryIt: {
+      prompt: "Graph each side as its own line and click the intersection — the x-value is your answer.",
+      expressions: ["y=2\\left(x-3\\right)", "y=x+1"],
+    },
     published: true,
     title: "Solve Any SAT Equation for x Using Desmos",
     metaDescription:
@@ -296,6 +330,10 @@ export const DESMOS_GUIDES: DesmosGuide[] = [
   {
     slug: "systems-of-inequalities",
     keyword: "SAT Desmos systems of inequalities",
+    tryIt: {
+      prompt: "Both points are plotted — see which one sits inside the double-shaded overlap.",
+      expressions: ["y>x+1", "y<-x+5", "\\left(0,4\\right)", "\\left(3,3\\right)"],
+    },
     published: true,
     title: "SAT Systems of Inequalities: The Desmos Shading Trick",
     metaDescription:
@@ -339,6 +377,16 @@ export const DESMOS_GUIDES: DesmosGuide[] = [
   {
     slug: "line-of-best-fit",
     keyword: "SAT Desmos line of best fit",
+    tryIt: {
+      prompt: "The data is in the table and the y₁ ~ a x₁ + b line is fitting it. Read a (the slope) in the results.",
+      expressions: ["y_1\\sim ax_1+b"],
+      table: {
+        columns: [
+          { latex: "x_1", values: ["1", "2", "3", "4"] },
+          { latex: "y_1", values: ["2", "5", "7", "10"] },
+        ],
+      },
+    },
     published: true,
     title: "SAT Line of Best Fit & Regression with Desmos",
     metaDescription:
@@ -382,6 +430,14 @@ export const DESMOS_GUIDES: DesmosGuide[] = [
   {
     slug: "statistics-mean-median",
     keyword: "SAT Desmos mean and median",
+    tryIt: {
+      prompt: "Edit the list and watch mean and median update instantly.",
+      expressions: [
+        "L=\\left[4,8,6,10,7\\right]",
+        "\\operatorname{median}\\left(L\\right)",
+        "\\operatorname{mean}\\left(L\\right)",
+      ],
+    },
     published: true,
     title: "Mean, Median & Statistics on the SAT with Desmos",
     metaDescription:
@@ -424,6 +480,10 @@ export const DESMOS_GUIDES: DesmosGuide[] = [
   {
     slug: "absolute-value",
     keyword: "SAT Desmos absolute value equations",
+    tryIt: {
+      prompt: "Graph both and click the two intersection points — the x-values are your solutions.",
+      expressions: ["y=\\left|2x-3\\right|", "y=5"],
+    },
     published: true,
     title: "Solve SAT Absolute Value Equations with Desmos",
     metaDescription:
