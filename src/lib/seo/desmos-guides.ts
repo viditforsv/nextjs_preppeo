@@ -345,7 +345,7 @@ export const DESMOS_GUIDES: DesmosGuide[] = [
       "Drop a data table into Bluebook's Desmos calculator and run a regression to get the line of best fit — slope, intercept, and predictions.",
     intro:
       "When the SAT gives you a table of data, Desmos can fit a line (or curve) and hand you the equation in seconds.",
-    videoReady: false,
+    videoReady: true,
     mediaAlt: "Running a linear regression on a data table in Desmos.",
     steps: [
       {

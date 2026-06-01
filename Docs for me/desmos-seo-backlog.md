@@ -27,9 +27,8 @@ and sharper). Encode commands are in `public/images/desmos/README.txt`.
 
 ## The 10 terms
 
-All 10 are **published/live**. 1–3 have their demo clip; 4–10 show the "coming
-soon" placeholder until their clip is recorded — recording scripts are in
-`desmos-recording-scripts/`.
+All 10 are **published/live with their demo clip** (set 2026-06-01). Recording
+scripts used to produce them are in `desmos-recording-scripts/`.
 
 | # | Search term | Slug | Status |
 |---|-------------|------|--------|
@@ -40,7 +39,7 @@ soon" placeholder until their clip is recorded — recording scripts are in
 | 5 | SAT Desmos circle equations | `circle-equations` | ✅ live + clip |
 | 6 | SAT Desmos solve for x | `solving-equations` | ✅ live + clip |
 | 7 | SAT Desmos systems of inequalities | `systems-of-inequalities` | ✅ live + clip |
-| 8 | SAT Desmos line of best fit | `line-of-best-fit` | ✅ live · ⏳ clip pending |
+| 8 | SAT Desmos line of best fit | `line-of-best-fit` | ✅ live + clip |
 | 9 | SAT Desmos mean and median | `statistics-mean-median` | ✅ live + clip |
 | 10 | SAT Desmos absolute value equations | `absolute-value` | ✅ live + clip |
 

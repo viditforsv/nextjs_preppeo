@@ -26,7 +26,7 @@ page upgrades to the real video.
 | 5 | `circle-equations` | radius of x²+y²−6x+8y=0 | ✅ done |
 | 6 | `solving-equations` | solve 2(x−3)=x+1 | ✅ done |
 | 7 | `systems-of-inequalities` | which point fits both inequalities | ✅ done |
-| 8 | `line-of-best-fit` | slope of best-fit line | ☐ |
+| 8 | `line-of-best-fit` | slope of best-fit line | ✅ done |
 | 9 | `statistics-mean-median` | median of a data set | ✅ done |
 | 10 | `absolute-value` | solve \|2x−3\|=5 | ✅ done |
 
