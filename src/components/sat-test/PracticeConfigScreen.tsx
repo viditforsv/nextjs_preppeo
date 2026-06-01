@@ -10,7 +10,7 @@ import type {
   SATRWDomain,
   DifficultyTier,
 } from '@/types/sat-test';
-import { BookOpen, ArrowLeft, Loader2, Play, Crown, Sparkles, ArrowRight } from 'lucide-react';
+import { BookOpen, ArrowLeft, Loader2, Play, Crown, Sparkles, ArrowRight, BarChart3 } from 'lucide-react';
 
 const MATH_DOMAINS: { id: SATMathDomain; label: string }[] = [
   { id: 'algebra', label: 'Algebra' },
@@ -55,6 +55,8 @@ export default function PracticeConfigScreen() {
   const [remaining, setRemaining] = useState<Remaining | null>(null);
   const [usageLoading, setUsageLoading] = useState(true);
   const [subscriptionExpired, setSubscriptionExpired] = useState(false);
+  const [isTrial, setIsTrial] = useState(false);
+  const [trialDaysLeft, setTrialDaysLeft] = useState(0);
 
   const [filterData, setFilterData] = useState<FilterDomain[]>([]);
 
@@ -65,6 +67,10 @@ export default function PracticeConfigScreen() {
         setIsPremium(d.isPremium ?? false);
         if (!d.isPremium && d.remaining) setRemaining(d.remaining);
         if (d.recentlyExpired) setSubscriptionExpired(true);
+        if (d.isTrial) {
+          setIsTrial(true);
+          setTrialDaysLeft(d.trialDaysLeft ?? 0);
+        }
       })
       .catch(() => setIsPremium(false))
       .finally(() => setUsageLoading(false));
@@ -156,12 +162,25 @@ export default function PracticeConfigScreen() {
             </div>
           </div>
           <div className="flex items-center gap-2">
-            {isPremium && (
+            {isPremium && isTrial && (
+              <span className="inline-flex items-center gap-1 px-2.5 py-1 bg-emerald-100 text-emerald-700 text-xs font-bold rounded-full">
+                <Sparkles className="w-3 h-3" />
+                Free trial
+              </span>
+            )}
+            {isPremium && !isTrial && (
               <span className="inline-flex items-center gap-1 px-2.5 py-1 bg-amber-100 text-amber-700 text-xs font-bold rounded-full">
                 <Crown className="w-3 h-3" />
                 Premium
               </span>
             )}
+            <Link
+              href="/sat-test/practice-analytics"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 text-sm text-gray-600 hover:text-gray-900 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
+            >
+              <BarChart3 className="w-3.5 h-3.5" />
+              Analytics
+            </Link>
             <button
               onClick={goToLanding}
               className="inline-flex items-center gap-1.5 px-3 py-1.5 text-sm text-gray-600 hover:text-gray-900 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
@@ -188,6 +207,29 @@ export default function PracticeConfigScreen() {
               >
                 <Sparkles className="w-3 h-3" />
                 Renew
+              </Link>
+            </div>
+          </div>
+        )}
+
+        {/* Free-trial banner */}
+        {!usageLoading && isTrial && (
+          <div className="mb-4 bg-emerald-50 border border-emerald-200 rounded-xl p-4">
+            <div className="flex items-start justify-between gap-3">
+              <div>
+                <p className="text-sm font-semibold text-emerald-800">
+                  Free trial — full access{trialDaysLeft > 0 ? `, ${trialDaysLeft} day${trialDaysLeft !== 1 ? 's' : ''} left` : ''}
+                </p>
+                <p className="text-xs text-emerald-600 mt-0.5">
+                  Unlimited questions, all difficulties and filters. Upgrade any time to keep it after your trial.
+                </p>
+              </div>
+              <Link
+                href="/pricing"
+                className="shrink-0 inline-flex items-center gap-1 px-3 py-1.5 bg-[#0d47a1] text-white text-xs font-semibold rounded-lg hover:bg-[#1565c0] transition-colors"
+              >
+                <Sparkles className="w-3 h-3" />
+                Upgrade
               </Link>
             </div>
           </div>

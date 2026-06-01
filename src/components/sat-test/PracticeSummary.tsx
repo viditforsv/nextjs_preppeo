@@ -1,8 +1,11 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
 import { useSATTestStore } from '@/stores/useSATTestStore';
 import { renderMixedContent } from '@/components/MathRenderer';
+import TimeAnalysisTab from '@/components/sat-test/results/TimeAnalysisTab';
+import type { SATQuestionResponse } from '@/types/sat-test';
 import {
   BarChart3,
   CheckCircle,
@@ -13,7 +16,15 @@ import {
   ArrowLeft,
   Sparkles,
   MinusCircle,
+  Timer,
 } from 'lucide-react';
+
+function fmtTime(ms: number): string {
+  const s = Math.round(ms / 1000);
+  if (s < 60) return `${s}s`;
+  const m = Math.floor(s / 60);
+  return `${m}m ${s % 60}s`;
+}
 
 const DOMAIN_LABELS: Record<string, string> = {
   algebra: 'Algebra',
@@ -32,6 +43,7 @@ export default function PracticeSummary() {
     practiceAnswers,
     practiceRevealed,
     practiceExplanations,
+    practiceTimeSpent,
     practiceConfig,
     goToLanding,
   } = useSATTestStore();
@@ -51,6 +63,24 @@ export default function PracticeSummary() {
   const incorrect = results.filter((r) => r.revealed && !r.isCorrect && !r.isOmitted).length;
   const unanswered = results.filter((r) => r.isOmitted).length;
   const pct = total > 0 ? Math.round((correct / total) * 100) : 0;
+
+  // Per-question time for this session (only questions that were revealed get a time).
+  const timedResults = results.filter((r) => practiceTimeSpent[r.question.id] != null);
+
+  // Map timed questions to the shape TimeAnalysisTab expects (reused from mock results).
+  const timeResponses: SATQuestionResponse[] = timedResults.map((r) => ({
+    questionId: r.question.id,
+    section: r.question.section ?? practiceConfig?.section ?? 'math',
+    answer: r.answer,
+    isCorrect: r.isCorrect,
+    isOmitted: r.isOmitted,
+    isFlagged: false,
+    timeSpentMs: practiceTimeSpent[r.question.id] ?? 0,
+    visitCount: 1,
+    domain: r.question.domain ?? null,
+    difficulty: r.question.difficulty,
+    questionType: r.question.type,
+  }));
 
   // Domain breakdown
   const domainMap = new Map<string, { correct: number; total: number }>();
@@ -77,6 +107,13 @@ export default function PracticeSummary() {
             <h1 className="text-lg font-bold">Practice Summary</h1>
           </div>
           <div className="flex items-center gap-2">
+            <Link
+              href="/sat-test/practice-analytics"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 text-sm bg-white/10 hover:bg-white/20 rounded-lg transition-colors"
+            >
+              <BarChart3 className="w-3.5 h-3.5" />
+              Analytics
+            </Link>
             <button
               onClick={handlePracticeAgain}
               className="inline-flex items-center gap-1.5 px-3 py-1.5 text-sm bg-white/10 hover:bg-white/20 rounded-lg transition-colors"
@@ -128,6 +165,17 @@ export default function PracticeSummary() {
             </div>
           </div>
         </div>
+
+        {/* Time per question — reuses the mock results' Time analysis */}
+        {timeResponses.length > 0 && (
+          <div>
+            <h3 className="text-sm font-semibold text-gray-700 mb-3 flex items-center gap-1.5">
+              <Timer className="w-4 h-4 text-amber-500" />
+              Time per Question
+            </h3>
+            <TimeAnalysisTab responses={timeResponses} />
+          </div>
+        )}
 
         {/* Domain breakdown */}
         {domainMap.size > 1 && (
@@ -186,6 +234,12 @@ export default function PracticeSummary() {
                     <span className="flex-1 text-sm text-gray-700 truncate">
                       Q{idx + 1}: {r.question.prompt.substring(0, 80)}...
                     </span>
+                    {practiceTimeSpent[r.question.id] != null && (
+                      <span className="hidden sm:inline-flex items-center gap-1 text-xs text-gray-400 shrink-0">
+                        <Timer className="w-3 h-3" />
+                        {fmtTime(practiceTimeSpent[r.question.id])}
+                      </span>
+                    )}
                     {isExpanded ? (
                       <ChevronUp className="w-4 h-4 text-gray-400 shrink-0" />
                     ) : (

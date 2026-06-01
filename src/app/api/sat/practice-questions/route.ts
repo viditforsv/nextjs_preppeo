@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
 import { createSupabaseApiClient } from '@/lib/supabase/api-client';
 import type { SATQuestion, SATQuestionType, SATSection, DifficultyTier, SATDomain, SATQuestionOption } from '@/types/sat-test';
+import { getTrialStatus } from '@/lib/sat/practice-access';
 
 const FIELDS =
   'id, type, prompt, passage, options, correct_answer, explanation, domain, difficulty_tier, image_url, image_urls, section, chapter, subtopic';
@@ -133,9 +134,11 @@ export async function GET(request: NextRequest) {
     }
 
     const supabase = createSupabaseApiClient();
+    // Full access = paid subscription OR inside the 7-day free trial.
     const isPremium = await checkPremium(supabase, user.id);
+    const { inTrial } = getTrialStatus(user.created_at);
 
-    if (isPremium) {
+    if (isPremium || inTrial) {
       return handlePremium(supabase, section, domainsParam, chaptersParam, subtopicsParam, difficulty, count);
     }
 

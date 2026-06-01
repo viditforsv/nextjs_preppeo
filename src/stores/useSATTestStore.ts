@@ -158,6 +158,8 @@ interface SATTestState {
   practiceLoading: Record<string, boolean>;
   practiceTheory: Record<string, string>;
   practiceTheoryLoading: Record<string, boolean>;
+  practiceQuestionStart: Record<string, number>;
+  practiceTimeSpent: Record<string, number>;
   practiceIndex: number;
 
   // Loading / error states
@@ -229,6 +231,10 @@ const initialState = {
   practiceLoading: {} as Record<string, boolean>,
   practiceTheory: {} as Record<string, string>,
   practiceTheoryLoading: {} as Record<string, boolean>,
+  // Timestamp (ms) when the current practice question was last shown; used to
+  // measure per-question time-on-task for analytics. Cleared as questions reveal.
+  practiceQuestionStart: {} as Record<string, number>,
+  practiceTimeSpent: {} as Record<string, number>,
   practiceIndex: 0,
   module2LoadError: null as string | null,
   isCalculatorOpen: false,
@@ -698,6 +704,8 @@ export const useSATTestStore = create<SATTestState>()(
       practiceLoading: {},
       practiceTheory: {},
       practiceTheoryLoading: {},
+      practiceQuestionStart: data.questions[0]?.id ? { [data.questions[0].id]: Date.now() } : {},
+      practiceTimeSpent: {},
       practiceIndex: 0,
       isCalculatorOpen: false,
     });
@@ -721,6 +729,12 @@ export const useSATTestStore = create<SATTestState>()(
     const userAnswer = practiceAnswers[qId] ?? '';
     const isCorrect = userAnswer.trim().toLowerCase() === question.correctAnswer.trim().toLowerCase();
 
+    const startedAt = get().practiceQuestionStart[qId];
+    const timeSpentMs = startedAt ? Date.now() - startedAt : null;
+    if (timeSpentMs !== null) {
+      set((s) => ({ practiceTimeSpent: { ...s.practiceTimeSpent, [qId]: timeSpentMs } }));
+    }
+
     fetch('/api/sat/record-answer', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -732,6 +746,7 @@ export const useSATTestStore = create<SATTestState>()(
         chapter: question.chapter,
         subtopic: question.subtopic,
         difficultyTier: question.difficulty,
+        timeSpentMs,
       }),
     }).catch(() => {});
 
@@ -814,7 +829,19 @@ export const useSATTestStore = create<SATTestState>()(
       });
   },
 
-  navigatePractice: (idx) => set({ practiceIndex: idx }),
+  navigatePractice: (idx) =>
+    set((s) => {
+      const q = s.practiceQuestions[idx];
+      // Stamp a fresh start time when landing on an unrevealed question so its
+      // dwell time is measured from this view.
+      if (q && !s.practiceRevealed[q.id]) {
+        return {
+          practiceIndex: idx,
+          practiceQuestionStart: { ...s.practiceQuestionStart, [q.id]: Date.now() },
+        };
+      }
+      return { practiceIndex: idx };
+    }),
 
   finishPractice: () => set({ phase: 'practice-summary' }),
     }),
