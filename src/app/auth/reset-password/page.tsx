@@ -1,5 +1,5 @@
 'use client'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useRouter } from 'next/navigation'
 import { Button } from '@/design-system/components/ui/button'
 import { Input } from '@/design-system/components/ui/input'
@@ -23,6 +23,9 @@ export default function ResetPasswordPage() {
 
   const { updatePassword, user, loading } = useAuth()
   const router = useRouter()
+  // verifyOtp consumes a one-time token — guard so it fires exactly once even
+  // if the effect re-runs (e.g. when `loading` flips) before it resolves.
+  const recoveryAttempted = useRef(false)
 
   useEffect(() => {
     if (user) {
@@ -41,6 +44,9 @@ export default function ResetPasswordPage() {
     // different device/browser than where the reset was requested, and it's
     // a POST so email-scanner prefetch (GET) can't burn the one-time token.
     if (tokenHash && type === 'recovery') {
+      // Only attempt the one-time verification once.
+      if (recoveryAttempted.current) return
+      recoveryAttempted.current = true
       const supabase = createClient()
       supabase.auth
         .verifyOtp({ type: 'recovery', token_hash: tokenHash })
@@ -51,6 +57,10 @@ export default function ResetPasswordPage() {
         })
       return
     }
+
+    // If recovery was already kicked off, let verifyOtp's result (or the
+    // session landing) decide — never fall through to "invalid" here.
+    if (recoveryAttempted.current) return
 
     // Wait for AuthProvider to bootstrap before judging the fallback paths.
     if (loading) return
