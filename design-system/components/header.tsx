@@ -76,7 +76,7 @@ export function Header() {
   const services = [
     { name: "Mocks", href: "/mocks" },
     { name: "Practice", href: "/sat-test?mode=practice" },
-    { name: "Self-Paced Course", href: "/courses" },
+    { name: "Self-Paced Course", href: "/sat/learn" },
     { name: "Book 1-on-1 Sessions", href: "/pricing" },
     { name: "College Admissions Consultancy", href: "/services/admissions" },
   ];

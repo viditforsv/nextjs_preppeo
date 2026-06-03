@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SAT Math — Course Player</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    /* palette derived from reference */
+    --bg:#f3f2ec;
+    --surface:#ffffff;
+    --navy:#143a5e;
+    --navy-700:#0f2e4a;
+    --ink:#1d2b3a;
+    --muted:#6c7686;
+    --faint:#9aa1ac;
+    --line:#e8e7e0;
+    --line-soft:#eeede7;
+    --card-line:#e4e3dc;
+    --gold:#f0a81d;
+    --gold-ink:#5a3d00;
+    --active:#edeff6;
+    --active-line:#dfe3ef;
+    --good:#1f9d6b;
+    --good-bg:#e8f6ef;
+    --bad:#d6483b;
+    --bad-bg:#fdecea;
+
+    --r-lg:18px;
+    --r-md:13px;
+    --r-sm:9px;
+    --shadow-card:0 1px 2px rgba(20,40,60,.04), 0 12px 30px -16px rgba(20,40,60,.18);
+    --shadow-sm:0 1px 2px rgba(20,40,60,.06);
+    --font:'Plus Jakarta Sans', system-ui, sans-serif;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;height:100%;}
+  body{
+    font-family:var(--font);
+    background:var(--bg);
+    color:var(--ink);
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+  }
+
+  /* ---------------- layout shell ---------------- */
+  .player{
+    display:grid;
+    grid-template-columns:312px 1fr;
+    min-height:100vh;
+    max-width:1320px;
+    margin:0 auto;
+  }
+
+  /* ---------------- sidebar ---------------- */
+  .rail{
+    padding:30px 22px 40px;
+    border-right:1px solid var(--line);
+  }
+  .course{
+    display:flex; align-items:center; gap:11px;
+    margin-bottom:6px;
+  }
+  .course__icon{ color:var(--navy); flex:none; }
+  .course__name{ font-size:16.5px; font-weight:700; letter-spacing:-.01em; color:var(--ink); }
+
+  .course__meta{ display:flex; align-items:center; gap:9px; margin:14px 2px 4px; }
+  .pbar{ flex:1; height:6px; border-radius:99px; background:#e3e2da; overflow:hidden; }
+  .pbar__fill{ height:100%; border-radius:99px; background:var(--navy); transition:width .35s ease; }
+  .pbar__pct{ font-size:12.5px; font-weight:600; color:var(--muted); white-space:nowrap; }
+
+  .rail__section{
+    font-size:11.5px; font-weight:700; letter-spacing:.13em;
+    color:var(--faint); text-transform:uppercase;
+    margin:24px 8px 6px;
+  }
+
+  /* ---- accordion topics ---- */
+  .topic{ border-top:1px solid var(--line-soft); }
+  .topic:first-child{ border-top:none; }
+  .topic__head{
+    display:flex; align-items:center; gap:10px; width:100%; text-align:left;
+    background:none; border:none; cursor:pointer; font-family:inherit;
+    padding:13px 8px; border-radius:9px;
+  }
+  .topic__head:hover{ background:#edece5; }
+  .topic__chev{ flex:none; color:var(--faint); display:grid; place-items:center; transition:transform .22s ease; }
+  .topic.is-open .topic__chev{ transform:rotate(90deg); color:var(--navy); }
+  .topic__title{ flex:1; font-size:14px; font-weight:700; letter-spacing:-.005em; color:var(--ink); line-height:1.3; }
+  .topic__count{
+    flex:none; display:inline-flex; align-items:center; gap:4px;
+    font-size:12px; font-weight:600; color:var(--faint);
+    background:#edece5; padding:3px 9px; border-radius:99px;
+  }
+  .topic__count.is-done{ color:#15734c; background:var(--good-bg); }
+  .topic__body{ overflow:hidden; max-height:0; transition:max-height .3s ease; }
+  .topic.is-open .topic__body{ max-height:720px; }
+  .lessons{ list-style:none; margin:0; padding:0 0 8px; display:flex; flex-direction:column; gap:2px; }
+  .lesson{
+    display:flex; align-items:center; gap:11px;
+    width:100%; text-align:left;
+    padding:10px 12px; border:none; background:none; cursor:pointer;
+    border-radius:10px; font-family:inherit;
+    color:#41506180; color:var(--ink);
+    transition:background .15s ease;
+  }
+  .lesson:hover{ background:#edece5; }
+  .lesson.is-active{ background:var(--active); box-shadow:inset 0 0 0 1px var(--active-line); }
+  .lesson__ic{
+    flex:none; width:22px; height:22px; display:grid; place-items:center; color:var(--faint);
+  }
+  .lesson.is-active .lesson__ic{ color:var(--navy); }
+  .lesson__label{ flex:1; font-size:14.5px; line-height:1.3; font-weight:500; color:var(--muted); }
+  .lesson.is-active .lesson__label{ color:var(--ink); font-weight:600; }
+  .lesson__check{
+    flex:none; width:18px; height:18px; border-radius:50%;
+    border:1.5px solid #d3d2c9; display:grid; place-items:center; color:#fff;
+    transition:all .2s ease;
+  }
+  .lesson.is-done .lesson__check{ background:var(--good); border-color:var(--good); }
+  .lesson.is-done .lesson__check svg{ opacity:1; }
+  .lesson__check svg{ opacity:0; }
+  .lesson.is-done .lesson__label{ color:var(--muted); }
+
+  /* ---------------- main column ---------------- */
+  .stage{ padding:30px 40px 48px; min-width:0; display:flex; flex-direction:column; }
+
+  .panel{
+    background:var(--surface);
+    border:1px solid var(--card-line);
+    border-radius:var(--r-lg);
+    box-shadow:var(--shadow-card);
+    padding:30px 34px 34px;
+  }
+
+  .panel__head{ display:flex; align-items:flex-start; gap:18px; }
+  .panel__head .grow{ flex:1; min-width:0; }
+  .eyebrow{
+    font-size:12px; font-weight:700; letter-spacing:.13em; text-transform:uppercase;
+    color:var(--gold); margin-bottom:9px;
+  }
+  .panel__title{ font-size:27px; font-weight:700; letter-spacing:-.02em; color:var(--ink); margin:0; line-height:1.15; }
+  .panel__sub{ color:var(--muted); font-size:14.5px; margin:9px 0 0; line-height:1.5; max-width:62ch; }
+
+  /* buttons */
+  .btn{
+    display:inline-flex; align-items:center; gap:8px; justify-content:center;
+    font-family:inherit; font-size:14.5px; font-weight:600; cursor:pointer;
+    padding:11px 17px; border-radius:var(--r-md); border:1px solid transparent;
+    white-space:nowrap; transition:transform .08s ease, background .15s ease, box-shadow .15s ease;
+  }
+  .btn:active{ transform:translateY(1px); }
+  .btn--ghost{ background:var(--surface); border-color:var(--line); color:var(--ink); box-shadow:var(--shadow-sm); }
+  .btn--ghost:hover{ background:#faf9f5; }
+  .btn--navy{ background:var(--navy); color:#fff; }
+  .btn--navy:hover{ background:var(--navy-700); }
+  .btn--gold{ background:var(--gold); color:var(--gold-ink); }
+  .btn--gold:hover{ background:#e89e10; }
+  .btn--done{ background:var(--good-bg); border-color:#bfe6d4; color:#15734c; }
+  .btn[disabled]{ opacity:.4; cursor:not-allowed; }
+
+  /* ---------------- flashcards ---------------- */
+  .deckbar{ display:flex; align-items:center; justify-content:space-between; margin:26px 2px 12px; }
+  .deckbar__count{ font-size:14.5px; color:var(--muted); font-weight:500; white-space:nowrap; }
+  .deckbar__count b{ color:var(--ink); font-weight:700; }
+  .iconbtn{
+    display:inline-flex; align-items:center; gap:7px; background:none; border:none; cursor:pointer;
+    font-family:inherit; font-size:14px; color:var(--muted); font-weight:500; padding:4px 2px;
+  }
+  .iconbtn:hover{ color:var(--ink); }
+
+  .flip{ perspective:1600px; }
+  .card{
+    position:relative; width:100%; min-height:248px; cursor:pointer;
+    transform-style:preserve-3d; transform:rotateY(0deg); transition:transform .5s cubic-bezier(.4,.1,.2,1);
+  }
+  .card.is-flipped{ transform:rotateY(180deg); }
+  .face{
+    position:absolute; inset:0; backface-visibility:hidden;
+    border:1px solid var(--card-line); border-radius:var(--r-md);
+    display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center;
+    padding:34px; gap:14px;
+  }
+  .face--front{ background:#fff; }
+  .face--back{ background:#fbfaf6; transform:rotateY(180deg); }
+  .face__tag{ font-size:11.5px; font-weight:700; letter-spacing:.16em; text-transform:uppercase; color:var(--faint); }
+  .face__term{ font-size:25px; font-weight:700; letter-spacing:-.01em; color:var(--ink); }
+  .face__hint{ font-size:13.5px; color:var(--faint); }
+  .face__def{ font-size:18px; line-height:1.5; color:var(--ink); max-width:46ch; }
+  .face__formula{
+    font-family:'Plus Jakarta Sans',serif; font-size:21px; color:var(--navy); font-weight:700;
+    background:#eef1f7; padding:9px 16px; border-radius:9px;
+  }
+
+  .deck-nav{ display:flex; align-items:center; justify-content:space-between; margin-top:22px; }
+  .dots{ display:flex; gap:7px; }
+  .dot{ width:8px; height:8px; border-radius:50%; background:#dcdbd3; border:none; padding:0; cursor:pointer; transition:all .2s; }
+  .dot.is-on{ background:var(--navy); transform:scale(1.25); }
+  .dot.is-seen{ background:#b9c2cf; }
+
+  /* ---------------- video ---------------- */
+  .video{
+    position:relative; aspect-ratio:16/9; width:100%; border-radius:var(--r-md); overflow:hidden;
+    background:linear-gradient(150deg,#16385a,#0e2840); display:grid; place-items:center; margin-top:26px;
+  }
+  .video__play{
+    width:74px; height:74px; border-radius:50%; background:rgba(255,255,255,.94); border:none; cursor:pointer;
+    display:grid; place-items:center; color:var(--navy); box-shadow:0 10px 30px -8px rgba(0,0,0,.5);
+    transition:transform .12s ease;
+  }
+  .video__play:hover{ transform:scale(1.06); }
+  .video__meta{ position:absolute; left:18px; bottom:16px; color:#dfe7f0; font-size:13px; font-weight:500; }
+  .video__bar{ position:absolute; left:0; right:0; bottom:0; height:4px; background:rgba(255,255,255,.18); }
+  .video__bar i{ display:block; height:100%; width:0%; background:var(--gold); transition:width .3s; }
+
+  /* ---------------- notes ---------------- */
+  .notes{ margin-top:24px; font-size:15.5px; line-height:1.7; color:#374251; max-width:68ch; }
+  .notes h3{ font-size:17px; color:var(--ink); margin:22px 0 8px; letter-spacing:-.01em; }
+  .notes p{ margin:0 0 14px; }
+  .notes ul{ margin:0 0 14px; padding-left:20px; }
+  .notes li{ margin-bottom:7px; }
+  .notes .callout{
+    border-left:3px solid var(--gold); background:#fdf6e6; padding:13px 16px; border-radius:0 10px 10px 0;
+    color:#5a4a23; font-size:14.5px; margin:18px 0;
+  }
+  .notes code{ background:#eef1f7; color:var(--navy); padding:2px 7px; border-radius:6px; font-size:14px; font-weight:600; }
+
+  /* ---------------- pdf ---------------- */
+  .pdf{ margin-top:24px; display:flex; gap:22px; align-items:center; flex-wrap:wrap;
+    border:1px solid var(--line); border-radius:var(--r-md); padding:22px; background:#fbfaf6; }
+  .pdf__thumb{
+    width:108px; height:140px; flex:none; border-radius:8px; background:#fff; border:1px solid var(--line);
+    box-shadow:var(--shadow-sm); position:relative; overflow:hidden; padding:14px;
+  }
+  .pdf__thumb .ln{ height:5px; border-radius:3px; background:#e7eaef; margin-bottom:7px; }
+  .pdf__thumb .badge{ position:absolute; left:0; bottom:0; background:var(--bad); color:#fff; font-size:9.5px; font-weight:700; letter-spacing:.05em; padding:3px 8px; border-radius:0 8px 0 6px; }
+  .pdf__info{ flex:1; min-width:200px; }
+  .pdf__info h4{ margin:0 0 4px; font-size:17px; }
+  .pdf__info p{ margin:0 0 14px; color:var(--muted); font-size:14px; }
+
+  /* ---------------- quiz ---------------- */
+  .quiz{ margin-top:24px; }
+  .quiz__q{ font-size:18px; font-weight:600; color:var(--ink); margin-bottom:18px; line-height:1.45; }
+  .quiz__q .formula{ background:#eef1f7; color:var(--navy); padding:2px 8px; border-radius:6px; font-weight:700; }
+  .opts{ display:flex; flex-direction:column; gap:11px; }
+  .opt{
+    display:flex; align-items:center; gap:13px; text-align:left; cursor:pointer;
+    padding:15px 17px; border:1px solid var(--line); border-radius:var(--r-md); background:#fff;
+    font-family:inherit; font-size:15.5px; color:var(--ink); transition:all .14s ease;
+  }
+  .opt:hover{ border-color:#cfd6e2; background:#fafbfd; }
+  .opt__key{
+    flex:none; width:26px; height:26px; border-radius:7px; background:#f0f1ef; color:var(--muted);
+    display:grid; place-items:center; font-size:13.5px; font-weight:700;
+  }
+  .opt.is-correct{ border-color:#bfe6d4; background:var(--good-bg); }
+  .opt.is-correct .opt__key{ background:var(--good); color:#fff; }
+  .opt.is-wrong{ border-color:#f3c7c2; background:var(--bad-bg); }
+  .opt.is-wrong .opt__key{ background:var(--bad); color:#fff; }
+  .quiz__fb{ margin-top:16px; font-size:14.5px; font-weight:600; display:none; }
+  .quiz__fb.show{ display:block; }
+  .quiz__fb.ok{ color:#15734c; }
+  .quiz__fb.no{ color:#b23227; }
+
+  /* ---------------- bottom lesson nav ---------------- */
+  .pager{ display:flex; align-items:center; justify-content:space-between; margin-top:26px; }
+  .pager__btn{ display:flex; align-items:center; gap:11px; cursor:pointer; background:none; border:none; font-family:inherit; padding:8px; border-radius:12px; }
+  .pager__btn:hover{ background:#edece5; }
+  .pager__btn[disabled]{ opacity:.35; cursor:not-allowed; }
+  .pager__btn .dir{ font-size:11.5px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--faint); }
+  .pager__btn .ttl{ font-size:14.5px; font-weight:600; color:var(--ink); display:block; margin-top:2px; }
+  .pager__btn.text-r{ text-align:right; }
+
+  @media(max-width:880px){
+    .player{ grid-template-columns:1fr; }
+    .rail{ border-right:none; border-bottom:1px solid var(--line); }
+    .stage{ padding:24px 18px 40px; }
+    .panel{ padding:24px 20px; }
+  }
+</style>
+</head>
+<body>
+  <div class="player">
+
+    <!-- ============ SIDEBAR ============ -->
+    <aside class="rail">
+      <div class="course">
+        <span class="course__icon" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="7" height="7" rx="2" stroke="currentColor" stroke-width="1.7"/><rect x="14" y="3" width="7" height="7" rx="2" stroke="currentColor" stroke-width="1.7"/><rect x="3" y="14" width="7" height="7" rx="2" stroke="currentColor" stroke-width="1.7"/><rect x="14" y="14" width="7" height="7" rx="2" stroke="currentColor" stroke-width="1.7"/></svg>
+        </span>
+        <span class="course__name">SAT Math — Self-Paced</span>
+      </div>
+      <div class="course__meta">
+        <div class="pbar"><div class="pbar__fill" id="pbar"></div></div>
+        <span class="pbar__pct" id="ppct">0% complete</span>
+      </div>
+
+      <div class="rail__section">Curriculum</div>
+      <div class="rail__topics" id="rail"></div>
+    </aside>
+
+    <!-- ============ MAIN STAGE ============ -->
+    <main class="stage">
+      <section class="panel">
+        <div class="panel__head">
+          <div class="grow">
+            <div class="eyebrow" id="eyebrow">Flashcard</div>
+            <h1 class="panel__title" id="title">Linear Equations Flashcards</h1>
+            <p class="panel__sub" id="sub"></p>
+          </div>
+          <button class="btn btn--ghost" id="complete">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span id="completeLabel">Mark complete</span>
+          </button>
+        </div>
+
+        <!-- content slot -->
+        <div id="content"></div>
+      </section>
+
+      <!-- lesson-to-lesson pager -->
+      <div class="pager">
+        <button class="pager__btn" id="prevLesson">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span><span class="dir">Previous</span><span class="ttl" id="prevTitle">—</span></span>
+        </button>
+        <button class="pager__btn text-r" id="nextLesson">
+          <span><span class="dir">Next up</span><span class="ttl" id="nextTitle">—</span></span>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+    </main>
+  </div>
+
+<script>
+  /* ---------- icons ---------- */
+  const IC = {
+    video:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/><path d="M10 9l5 3-5 3V9z" fill="currentColor"/></svg>',
+    notes:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M7 3h7l4 4v14H7a2 2 0 01-2-2V5a2 2 0 012-2z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M13 3v5h5M9 13h6M9 16.5h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>',
+    pdf:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M7 3h7l4 4v14H7a2 2 0 01-2-2V5a2 2 0 012-2z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M13 3v5h5" stroke="currentColor" stroke-width="1.5"/><path d="M9.5 16.5v-4M9.5 12.5h1.2a1 1 0 010 2H9.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>',
+    cards:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M3.5 8.5l8.5-4 8.5 4-8.5 4-8.5-4z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M5 12l7 3.3L19 12M5 15.5l7 3.3 7-3.3" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>',
+    quiz:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/><path d="M9.4 9.3a2.6 2.6 0 015 .9c0 1.8-2.6 2-2.6 3.6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="12" cy="17" r="1.05" fill="currentColor"/></svg>',
+    check:'<svg width="11" height="11" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>'
+  };
+
+  /* ---------- lesson data (grouped into collapsible topics) ---------- */
+  const topics = [
+    { title:'Linear Equations', lessons:[
+      { id:'le-intro', type:'video', icon:'video', eyebrow:'Video Lesson', title:'Intro to Linear Equations',
+        sub:'A 6-minute walkthrough of what linear equations are and why they show up all over the SAT.' },
+      { id:'le-notes', type:'notes', icon:'notes', eyebrow:'Reading', title:'Slope & Intercept — Notes',
+        sub:'The core ideas behind slope and y-intercept, with worked examples you can revisit anytime.' },
+      { id:'le-pdf', type:'pdf', icon:'pdf', eyebrow:'Resource', title:'Key Formulas (PDF)',
+        sub:'A one-page formula sheet for linear equations — download it or print it for quick review.' },
+      { id:'le-cards', type:'cards', icon:'cards', eyebrow:'Flashcard', title:'Linear Equations Flashcards',
+        sub:'Five quick cards to lock in the vocabulary. Tap a card to flip between term and definition.' },
+      { id:'le-quiz', type:'quiz', icon:'quiz', eyebrow:'Practice Quiz', title:'Practice Quiz — Linear Equations',
+        sub:'Two questions to check your understanding before moving on to the next section.' },
+    ]},
+    { title:'Quadratic Functions', lessons:[
+      { id:'qf-intro', type:'video', icon:'video', eyebrow:'Video Lesson', title:'What is a Parabola?',
+        sub:'How quadratics graph as parabolas, and the three forms you’ll see on test day.' },
+      { id:'qf-notes', type:'notes', icon:'notes', eyebrow:'Reading', title:'Vertex & Factored Form — Notes',
+        sub:'Reading the vertex and roots straight off an equation, with worked examples.' },
+      { id:'qf-cards', type:'cards', icon:'cards', eyebrow:'Flashcard', title:'Quadratics Flashcards',
+        sub:'Key vocabulary for quadratic functions. Tap a card to flip.' },
+      { id:'qf-quiz', type:'quiz', icon:'quiz', eyebrow:'Practice Quiz', title:'Practice Quiz — Quadratics',
+        sub:'Check your understanding before moving on.' },
+    ]},
+    { title:'Systems of Equations', lessons:[
+      { id:'se-intro', type:'video', icon:'video', eyebrow:'Video Lesson', title:'Solving by Substitution',
+        sub:'The substitution method, step by step, on a typical SAT system.' },
+      { id:'se-notes', type:'notes', icon:'notes', eyebrow:'Reading', title:'Elimination Method — Notes',
+        sub:'When to add or subtract equations, and how to spot no-solution / infinite-solution cases.' },
+      { id:'se-pdf', type:'pdf', icon:'pdf', eyebrow:'Resource', title:'Systems Cheat Sheet (PDF)',
+        sub:'Both methods on one page for quick review.' },
+      { id:'se-quiz', type:'quiz', icon:'quiz', eyebrow:'Practice Quiz', title:'Practice Quiz — Systems',
+        sub:'Two questions to lock it in.' },
+    ]},
+    { title:'Ratios & Proportions', lessons:[
+      { id:'rp-intro', type:'video', icon:'video', eyebrow:'Video Lesson', title:'Ratios, Rates & Units',
+        sub:'Setting up and simplifying ratios, and converting between units.' },
+      { id:'rp-cards', type:'cards', icon:'cards', eyebrow:'Flashcard', title:'Proportions Flashcards',
+        sub:'Quick vocabulary review. Tap a card to flip.' },
+      { id:'rp-quiz', type:'quiz', icon:'quiz', eyebrow:'Practice Quiz', title:'Practice Quiz — Proportions',
+        sub:'Check your understanding before the next section.' },
+    ]},
+  ];
+
+  // flatten for linear navigation; tag each lesson with its topic + flat index
+  const lessons = [];
+  topics.forEach((t,ti)=>t.lessons.forEach(l=>{ l.topic=ti; l.idx=lessons.length; lessons.push(l); }));
+
+  const flashcards = [
+    { tag:'Term', term:'Slope-intercept form', def:'A way to write a line as <span class="face__formula">y = mx + b</span>, where m is the slope and b is the y-intercept.' },
+    { tag:'Term', term:'Slope (m)', def:'The steepness of a line — the change in y divided by the change in x, often called <em>rise over run</em>.' },
+    { tag:'Term', term:'y-intercept (b)', def:'The point where the line crosses the y-axis — the value of y when x = 0.' },
+    { tag:'Term', term:'x-intercept', def:'The point where the line crosses the x-axis — the value of x when y = 0.' },
+    { tag:'Term', term:'Standard form', def:'A line written as <span class="face__formula">Ax + By = C</span>, where A, B, and C are integers.' },
+  ];
+
+  const state = { current:3, done:{}, card:0, flipped:false, seen:{0:true}, expanded:{0:true} };
+
+  /* ---------- sidebar render (accordion) ---------- */
+  const rail = document.getElementById('rail');
+  const CHEV = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  function renderRail(){
+    rail.innerHTML = topics.map((t,ti)=>{
+      const dn = t.lessons.filter(l=>state.done[l.id]).length;
+      const total = t.lessons.length;
+      const allDone = dn===total;
+      const open = !!state.expanded[ti];
+      const items = t.lessons.map(l=>`
+        <li>
+          <button class="lesson ${l.idx===state.current?'is-active':''} ${state.done[l.id]?'is-done':''}" data-i="${l.idx}">
+            <span class="lesson__ic">${IC[l.icon]}</span>
+            <span class="lesson__label">${l.title}</span>
+            <span class="lesson__check">${IC.check}</span>
+          </button>
+        </li>`).join('');
+      return `
+        <div class="topic ${open?'is-open':''}" data-t="${ti}">
+          <button class="topic__head" data-toggle="${ti}" aria-expanded="${open}">
+            <span class="topic__chev">${CHEV}</span>
+            <span class="topic__title">${t.title}</span>
+            <span class="topic__count ${allDone?'is-done':''}">${allDone?IC.check:''}${dn}/${total}</span>
+          </button>
+          <div class="topic__body"><ul class="lessons">${items}</ul></div>
+        </div>`;
+    }).join('');
+    rail.querySelectorAll('.topic__head').forEach(h=>h.addEventListener('click',()=>{
+      const ti=+h.dataset.toggle; state.expanded[ti]=!state.expanded[ti]; renderRail();
+    }));
+    rail.querySelectorAll('.lesson').forEach(b=>b.addEventListener('click',()=>go(+b.dataset.i)));
+    const doneCount = Object.values(state.done).filter(Boolean).length;
+    const pct = Math.round(doneCount/lessons.length*100);
+    document.getElementById('pbar').style.width = pct+'%';
+    document.getElementById('ppct').textContent = pct+'% complete';
+  }
+
+  /* ---------- main render ---------- */
+  function go(i){
+    state.current = i;
+    state.expanded[lessons[i].topic] = true;
+    if(lessons[i].type==='cards'){ state.card=0; state.flipped=false; state.seen={0:true}; }
+    renderRail();
+    renderMain();
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+
+  function renderMain(){
+    const l = lessons[state.current];
+    document.getElementById('eyebrow').textContent = l.eyebrow;
+    document.getElementById('title').textContent = l.title;
+    document.getElementById('sub').textContent = l.sub;
+
+    // complete button
+    const done = !!state.done[l.id];
+    const cbtn = document.getElementById('complete');
+    cbtn.className = 'btn ' + (done?'btn--done':'btn--ghost');
+    document.getElementById('completeLabel').textContent = done?'Completed':'Mark complete';
+
+    // pager
+    const prev = document.getElementById('prevLesson'), next = document.getElementById('nextLesson');
+    prev.disabled = state.current===0;
+    next.disabled = state.current===lessons.length-1;
+    document.getElementById('prevTitle').textContent = state.current>0 ? lessons[state.current-1].title : '—';
+    document.getElementById('nextTitle').textContent = state.current<lessons.length-1 ? lessons[state.current+1].title : 'All done';
+
+    document.getElementById('content').innerHTML = renderContent(l);
+    wireContent(l);
+  }
+
+  function renderContent(l){
+    if(l.type==='cards') return tplCards();
+    if(l.type==='video') return tplVideo();
+    if(l.type==='notes') return tplNotes();
+    if(l.type==='pdf')   return tplPdf();
+    if(l.type==='quiz')  return tplQuiz();
+    return '';
+  }
+
+  /* ----- flashcards template ----- */
+  function tplCards(){
+    const c = flashcards[state.card];
+    const dots = flashcards.map((_,i)=>`<button class="dot ${i===state.card?'is-on':(state.seen[i]?'is-seen':'')}" data-d="${i}"></button>`).join('');
+    return `
+      <div class="deckbar">
+        <span class="deckbar__count">Card <b>${state.card+1}</b> of ${flashcards.length}</span>
+        <button class="iconbtn" id="restart">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M5 12a7 7 0 107-7c-2.5 0-4.2 1.3-5.4 2.7M5 4v4h4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Restart
+        </button>
+      </div>
+      <div class="flip">
+        <div class="card ${state.flipped?'is-flipped':''}" id="card">
+          <div class="face face--front">
+            <span class="face__tag">${c.tag}</span>
+            <span class="face__term">${c.term}</span>
+            <span class="face__hint">Tap to reveal answer</span>
+          </div>
+          <div class="face face--back">
+            <span class="face__tag">Definition</span>
+            <span class="face__def">${c.def}</span>
+          </div>
+        </div>
+      </div>
+      <div class="deck-nav">
+        <button class="btn btn--ghost" id="cPrev" ${state.card===0?'disabled':''}>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg> Prev
+        </button>
+        <div class="dots">${dots}</div>
+        <button class="btn btn--gold" id="cNext">
+          ${state.card===flashcards.length-1?'Finish':'Next'}
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>`;
+  }
+
+  function tplVideo(){
+    return `
+      <div class="video" id="video">
+        <button class="video__play" id="play" aria-label="Play video">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5L8 5.5z"/></svg>
+        </button>
+        <span class="video__meta" id="vmeta">0:00 / 6:12 · Intro to Linear Equations</span>
+        <div class="video__bar"><i id="vfill"></i></div>
+      </div>`;
+  }
+
+  function tplNotes(){
+    return `
+      <div class="notes">
+        <p>A <strong>linear equation</strong> graphs as a straight line. The most useful way to write one is
+        <strong>slope-intercept form</strong>, because you can read its two key features straight off the equation.</p>
+        <h3>Slope-intercept form</h3>
+        <p>Every line in this form looks like <code>y = mx + b</code>:</p>
+        <ul>
+          <li><strong>m</strong> is the <strong>slope</strong> — how steep the line is.</li>
+          <li><strong>b</strong> is the <strong>y-intercept</strong> — where the line crosses the y-axis.</li>
+        </ul>
+        <div class="callout">On the SAT, if a question gives you a line in <code>y = mx + b</code> form, you already know the slope and where it crosses the y-axis — no work required.</div>
+        <h3>Finding slope from two points</h3>
+        <p>Given two points, slope is the change in y over the change in x:
+        <code>m = (y₂ − y₁) / (x₂ − x₁)</code>. A positive slope rises left-to-right; a negative slope falls.</p>
+      </div>`;
+  }
+
+  function tplPdf(){
+    return `
+      <div class="pdf">
+        <div class="pdf__thumb" aria-hidden="true">
+          <div class="ln" style="width:80%"></div><div class="ln" style="width:60%"></div>
+          <div class="ln" style="width:90%"></div><div class="ln" style="width:50%"></div>
+          <div class="ln" style="width:75%"></div><div class="ln" style="width:40%"></div>
+          <span class="badge">PDF</span>
+        </div>
+        <div class="pdf__info">
+          <h4>Linear Equations — Key Formulas</h4>
+          <p>1 page · 84 KB · updated this week</p>
+          <div style="display:flex; gap:10px; flex-wrap:wrap;">
+            <button class="btn btn--navy" id="dl">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 4v10m0 0l-4-4m4 4l4-4M5 18h14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              Download PDF
+            </button>
+            <button class="btn btn--ghost" id="prev">Preview</button>
+          </div>
+        </div>
+      </div>`;
+  }
+
+  function tplQuiz(){
+    return `
+      <div class="quiz">
+        <div class="quiz__q">A line is written as <span class="formula">y = 3x − 5</span>. What is its slope?</div>
+        <div class="opts" id="opts">
+          <button class="opt" data-ok="0"><span class="opt__key">A</span> −5</button>
+          <button class="opt" data-ok="1"><span class="opt__key">B</span> 3</button>
+          <button class="opt" data-ok="0"><span class="opt__key">C</span> 5</button>
+          <button class="opt" data-ok="0"><span class="opt__key">D</span> −3</button>
+        </div>
+        <div class="quiz__fb" id="fb"></div>
+      </div>`;
+  }
+
+  /* ---------- wire up per-type interactions ---------- */
+  function wireContent(l){
+    if(l.type==='cards'){
+      const card = document.getElementById('card');
+      card.addEventListener('click',()=>{ state.flipped=!state.flipped; card.classList.toggle('is-flipped'); });
+      document.getElementById('cPrev').addEventListener('click',()=>{ if(state.card>0){ state.card--; state.flipped=false; state.seen[state.card]=true; renderCardOnly(); }});
+      document.getElementById('cNext').addEventListener('click',()=>{
+        if(state.card<flashcards.length-1){ state.card++; state.flipped=false; state.seen[state.card]=true; renderCardOnly(); }
+        else { markDone(l.id,true); }
+      });
+      document.getElementById('restart').addEventListener('click',()=>{ state.card=0; state.flipped=false; state.seen={0:true}; renderCardOnly(); });
+      document.querySelectorAll('.dot').forEach(d=>d.addEventListener('click',()=>{ state.card=+d.dataset.d; state.flipped=false; state.seen[state.card]=true; renderCardOnly(); }));
+    }
+    if(l.type==='video'){
+      const fill=document.getElementById('vfill'), meta=document.getElementById('vmeta'), play=document.getElementById('play');
+      let playing=false, t=0, timer=null, total=372;
+      play.addEventListener('click',()=>{
+        playing=!playing;
+        play.innerHTML = playing
+          ? '<svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><rect x="7" y="5" width="3.5" height="14" rx="1"/><rect x="13.5" y="5" width="3.5" height="14" rx="1"/></svg>'
+          : '<svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5L8 5.5z"/></svg>';
+        if(playing){ timer=setInterval(()=>{ t=Math.min(total,t+3); fill.style.width=(t/total*100)+'%';
+          meta.textContent=fmt(t)+' / 6:12 · Intro to Linear Equations';
+          if(t>=total){ clearInterval(timer); playing=false; markDone(l.id,true);
+            play.innerHTML='<svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5L8 5.5z"/></svg>'; } },120); }
+        else clearInterval(timer);
+      });
+      function fmt(s){ return Math.floor(s/60)+':'+String(s%60).padStart(2,'0'); }
+    }
+    if(l.type==='pdf'){
+      document.getElementById('dl').addEventListener('click',()=>markDone(l.id,true));
+    }
+    if(l.type==='quiz'){
+      const opts=document.getElementById('opts'), fb=document.getElementById('fb');
+      opts.querySelectorAll('.opt').forEach(o=>o.addEventListener('click',()=>{
+        if(opts.dataset.locked) return;
+        opts.dataset.locked='1';
+        const ok=o.dataset.ok==='1';
+        o.classList.add(ok?'is-correct':'is-wrong');
+        if(!ok) opts.querySelector('[data-ok="1"]').classList.add('is-correct');
+        fb.textContent = ok?'Correct! The coefficient of x is the slope.':'Not quite — the slope is the number multiplying x, which is 3.';
+        fb.className='quiz__fb show '+(ok?'ok':'no');
+        if(ok) markDone(l.id,true);
+      }));
+    }
+  }
+
+  function renderCardOnly(){
+    document.getElementById('content').innerHTML = tplCards();
+    wireContent(lessons[state.current]);
+  }
+
+  function markDone(id,val){
+    state.done[id]=val;
+    renderRail();
+    if(state.current===lessons.findIndex(l=>l.id===id)){
+      const cbtn=document.getElementById('complete');
+      cbtn.className='btn '+(val?'btn--done':'btn--ghost');
+      document.getElementById('completeLabel').textContent = val?'Completed':'Mark complete';
+    }
+  }
+
+  /* ---------- global controls ---------- */
+  document.getElementById('complete').addEventListener('click',()=>{
+    const id=lessons[state.current].id; markDone(id,!state.done[id]);
+  });
+  document.getElementById('prevLesson').addEventListener('click',()=>{ if(state.current>0) go(state.current-1); });
+  document.getElementById('nextLesson').addEventListener('click',()=>{ if(state.current<lessons.length-1) go(state.current+1); });
+
+  /* ---------- init ---------- */
+  renderRail();
+  renderMain();
+</script>
+</body>
+</html>
