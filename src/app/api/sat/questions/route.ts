@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createSupabaseApiClient } from '@/lib/supabase/api-client';
+import { createClient } from '@/lib/supabase/server';
+import { userHasMockAccess } from '@/lib/tokens/verify-access';
 import type { SATQuestion, SATQuestionOption } from '@/types/sat-test';
 
 function mapSatOptions(val: unknown): SATQuestionOption[] | undefined {
@@ -57,6 +59,22 @@ export async function GET(request: NextRequest) {
       return NextResponse.json(
         { error: 'difficulty is required for module 2' },
         { status: 400 }
+      );
+    }
+
+    // Gate: must be logged in AND hold a valid token for this set.
+    const authClient = await createClient();
+    const {
+      data: { user },
+    } = await authClient.auth.getUser();
+    if (!user) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+    const hasAccess = await userHasMockAccess(user.id, 'sat', setNum);
+    if (!hasAccess) {
+      return NextResponse.json(
+        { error: 'No valid access token for this test set' },
+        { status: 403 }
       );
     }
 

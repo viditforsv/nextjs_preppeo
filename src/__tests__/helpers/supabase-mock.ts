@@ -12,7 +12,7 @@ export function createChain(defaultResult: ChainResult = { data: null, error: nu
   const chain: Record<string, unknown> = {};
   const passthrough = [
     'from', 'select', 'insert', 'update', 'upsert', 'delete',
-    'eq', 'neq', 'gt', 'gte', 'lt', 'lte', 'in', 'is',
+    'eq', 'neq', 'gt', 'gte', 'lt', 'lte', 'in', 'is', 'or',
     'order', 'limit', 'range', 'filter',
   ];
 

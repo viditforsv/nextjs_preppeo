@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
 import { createSupabaseApiClient } from '@/lib/supabase/api-client';
+import { userHasMockAccess } from '@/lib/tokens/verify-access';
 
 export async function GET() {
   try {
@@ -88,6 +89,15 @@ export async function POST(request: NextRequest) {
       return NextResponse.json(
         { error: 'Missing required math module 1 fields' },
         { status: 400 }
+      );
+    }
+
+    // Gate: must hold a valid token for this set before recording an attempt.
+    const hasAccess = await userHasMockAccess(user.id, 'sat', setNumber);
+    if (!hasAccess) {
+      return NextResponse.json(
+        { error: 'No valid access token for this test set' },
+        { status: 403 }
       );
     }
 
