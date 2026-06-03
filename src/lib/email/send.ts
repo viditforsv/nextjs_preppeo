@@ -5,6 +5,8 @@ interface SendEmailParams {
   toName?: string;
   subject: string;
   htmlBody: string;
+  /** Set so recipients can reply directly to the originator (e.g. a form submitter). */
+  replyTo?: string;
 }
 
 function getTransporter() {
@@ -25,6 +27,7 @@ export async function sendTransactionalEmail({
   toName,
   subject,
   htmlBody,
+  replyTo,
 }: SendEmailParams): Promise<boolean> {
   if (!process.env.SMTP_PASS) {
     console.warn('SMTP_PASS not configured — skipping email send');
@@ -41,6 +44,7 @@ export async function sendTransactionalEmail({
     await transporter.sendMail({
       from: fromAddress,
       to: toAddress,
+      ...(replyTo ? { replyTo } : {}),
       subject,
       html: htmlBody,
     });

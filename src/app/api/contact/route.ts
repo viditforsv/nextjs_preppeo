@@ -47,6 +47,7 @@ export async function POST(req: NextRequest) {
         to: teamEmail,
         subject: `[Contact] ${subject} — from ${name}`,
         htmlBody: teamEmailHtml,
+        replyTo: email,
       }),
       sendTransactionalEmail({
         to: email,
