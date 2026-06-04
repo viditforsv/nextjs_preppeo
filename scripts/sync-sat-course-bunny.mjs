@@ -1,12 +1,12 @@
 /**
  * Sync compiled SAT-course PDFs → Bunny CDN storage.
  *
- * Walks `Docs for me/latex_with_rijay/2. Preppeo/sat_course/**.pdf`, uploads each
+ * Walks `Docs for me/latex_with_rijay/2. Preppeo/sat_maths_self_learn_course/**.pdf`, uploads each
  * to the Bunny storage zone under `sat-learn/<relative-path>`, and prints the
  * public CDN URL plus ready-to-paste SQL for `sat_learn_items.pdf_url`.
  *
  * Local → Bunny mapping (1:1):
- *   sat_course/sat-math/linear-equations/x.pdf
+ *   sat_maths_self_learn_course/sat-math/linear-equations/x.pdf
  *     → storage:  sat-learn/sat-math/linear-equations/x.pdf
  *     → url:      https://shrividhyaclasses.b-cdn.net/sat-learn/sat-math/linear-equations/x.pdf
  *
@@ -31,7 +31,7 @@ config({ path: resolve(ROOT, ".env.local") });
 
 const SOURCE_DIR = resolve(
   ROOT,
-  "Docs for me/latex_with_rijay/2. Preppeo/sat_course"
+  "Docs for me/latex_with_rijay/2. Preppeo/sat_maths_self_learn_course"
 );
 const STORAGE_PREFIX = "sat-learn"; // Bunny path root for self-paced SAT content
 const PUBLIC_BASE = "https://shrividhyaclasses.b-cdn.net";
@@ -73,18 +73,18 @@ const pdfs = findPdfs(SOURCE_DIR);
 
 if (pdfs.length === 0) {
   console.log(`No PDFs found under ${SOURCE_DIR}`);
-  console.log("Compile some .tex first (see sat_course/README.md), then re-run.");
+  console.log("Compile some .tex first (see sat_maths_self_learn_course/README.md), then re-run.");
   process.exit(0);
 }
 
 console.log(
-  `${DRY_RUN ? "[dry-run] " : ""}Found ${pdfs.length} PDF(s) under sat_course/\n`
+  `${DRY_RUN ? "[dry-run] " : ""}Found ${pdfs.length} PDF(s) under sat_maths_self_learn_course/\n`
 );
 
 const uploaded = [];
 
 for (const pdfPath of pdfs) {
-  // Relative path under sat_course/, normalised to forward slashes.
+  // Relative path under sat_maths_self_learn_course/, normalised to forward slashes.
   const rel = relative(SOURCE_DIR, pdfPath).split(sep).join("/");
   const storagePath = `${STORAGE_PREFIX}/${rel}`;
   const publicUrl = `${PUBLIC_BASE}/${storagePath}`;
