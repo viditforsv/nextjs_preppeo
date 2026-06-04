@@ -232,40 +232,40 @@ export default async function SatLearnItemPage({
                     <p className="text-sm text-gray-500">Notes coming soon.</p>
                   ))}
 
-                {/* ── PDF resource card ──────────────────────────── */}
+                {/* ── PDF preview + download ─────────────────────── */}
+                {/* The Bunny pull zone is referer-locked, so both the inline
+                    preview and the download go through same-origin /api/pdf-proxy
+                    (which injects an allowed Referer). Same-origin also satisfies
+                    the proxy's X-Frame-Options: SAMEORIGIN so the iframe renders. */}
                 {item.type === "pdf" &&
                   (item.pdfUrl ? (
-                    <div className="flex flex-wrap items-center gap-6 rounded-xl border border-gray-200 bg-[#fbfaf6] p-5">
-                      {/* faux page thumbnail */}
-                      <div className="relative h-[140px] w-[108px] flex-none overflow-hidden rounded-lg border border-gray-200 bg-white p-3.5 shadow-sm">
-                        {[80, 60, 90, 50, 75, 40].map((w, i) => (
-                          <div
-                            key={i}
-                            className="mb-[7px] h-[5px] rounded"
-                            style={{ width: `${w}%`, background: "#e7eaef" }}
-                          />
-                        ))}
+                    <div className="overflow-hidden rounded-xl border border-gray-200 bg-[#fbfaf6]">
+                      {/* header */}
+                      <div className="flex items-center gap-2.5 border-b border-gray-200 px-5 py-3">
                         <span
-                          className="absolute bottom-0 left-0 rounded-tr-lg px-2 py-0.5 text-[9.5px] font-bold tracking-wide text-white"
+                          className="rounded px-2 py-0.5 text-[10px] font-bold tracking-wide text-white"
                           style={{ background: "#d6483b" }}
                         >
                           PDF
                         </span>
-                      </div>
-                      <div className="min-w-[200px] flex-1">
-                        <h4 className="text-lg font-bold" style={{ color: NAVY }}>
+                        <h4 className="text-sm font-bold" style={{ color: NAVY }}>
                           {item.title}
                         </h4>
-                        <p className="mt-1 mb-4 text-sm text-gray-500">
-                          One-page formula sheet · open or download for quick review
-                        </p>
+                      </div>
+                      {/* inline preview */}
+                      <iframe
+                        src={`/api/pdf-proxy?url=${encodeURIComponent(item.pdfUrl)}`}
+                        title={item.title}
+                        className="h-[78vh] w-full border-0 bg-white"
+                        loading="lazy"
+                      />
+                      {/* download */}
+                      <div className="flex justify-center border-t border-gray-200 px-5 py-4">
                         <a
-                          // Bunny pull zone is referer-locked; the proxy injects
-                          // an allowed Referer so the raw CDN URL doesn't 403.
                           href={`/api/pdf-proxy?url=${encodeURIComponent(item.pdfUrl)}`}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="inline-flex items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-bold text-white"
+                          className="inline-flex items-center gap-2 rounded-xl px-5 py-2.5 text-sm font-bold text-white"
                           style={{ background: NAVY }}
                         >
                           <FileDown className="h-4 w-4" /> Download PDF
