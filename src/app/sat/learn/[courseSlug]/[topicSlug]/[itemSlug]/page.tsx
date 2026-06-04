@@ -260,7 +260,9 @@ export default async function SatLearnItemPage({
                           One-page formula sheet · open or download for quick review
                         </p>
                         <a
-                          href={item.pdfUrl}
+                          // Bunny pull zone is referer-locked; the proxy injects
+                          // an allowed Referer so the raw CDN URL doesn't 403.
+                          href={`/api/pdf-proxy?url=${encodeURIComponent(item.pdfUrl)}`}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="inline-flex items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-bold text-white"
