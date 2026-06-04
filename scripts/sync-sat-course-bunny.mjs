@@ -31,7 +31,7 @@ config({ path: resolve(ROOT, ".env.local") });
 
 const SOURCE_DIR = resolve(
   ROOT,
-  "Docs for me/latex_with_rijay/2. Preppeo/sat_maths_self_learn_course"
+  "Docs for me/latex_with_rijay/2. Preppeo/SAT/sat_maths_self_learn_course"
 );
 const STORAGE_PREFIX = "sat-learn"; // Bunny path root for self-paced SAT content
 const PUBLIC_BASE = "https://shrividhyaclasses.b-cdn.net";
