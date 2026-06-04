@@ -16,6 +16,7 @@ import {
 import { getCourseDetail } from "@/lib/sat-learn";
 import type { SatLearnItemMeta, SatLearnItemType } from "@/types/sat-learn";
 import { CourseSidebar } from "./CourseSidebar";
+import { groupTopicsByDomain } from "./segments";
 
 const NAVY = "#1a365d";
 const AMBER = "#f4b400";
@@ -63,6 +64,9 @@ export default async function SatLearnCoursePage({
   const hasAccess = (item: SatLearnItemMeta) =>
     course.isAdmin || course.isEnrolled || item.isFreePreview;
 
+  const sectionCount = new Set(
+    course.topics.map((t) => t.domain).filter(Boolean)
+  ).size;
   const totalItems = course.topics.reduce((n, t) => n + t.items.length, 0);
   const doneItems = course.topics.reduce(
     (n, t) => n + t.items.filter((i) => i.completed).length,
@@ -127,6 +131,12 @@ export default async function SatLearnCoursePage({
             )}
 
             <div className="mt-5 flex flex-wrap items-center gap-4 text-sm text-gray-500">
+              {sectionCount > 0 && (
+                <>
+                  <span>{sectionCount} sections</span>
+                  <span>·</span>
+                </>
+              )}
               <span>
                 {course.topics.length} topic{course.topics.length === 1 ? "" : "s"}
               </span>
@@ -160,8 +170,18 @@ export default async function SatLearnCoursePage({
           </div>
 
           {/* Mobile curriculum (sidebar is hidden < lg) */}
-          <div className="lg:hidden mt-6 space-y-4">
-            {course.topics.map((topic) => (
+          <div className="lg:hidden mt-6 space-y-6">
+            {groupTopicsByDomain(course.topics).map((seg) => (
+              <div key={seg.key} className="space-y-3">
+                {seg.label && (
+                  <h2
+                    className="px-1 text-xs font-bold uppercase tracking-[0.13em]"
+                    style={{ color: NAVY }}
+                  >
+                    {seg.label}
+                  </h2>
+                )}
+                {seg.topics.map((topic) => (
               <section
                 key={topic.id}
                 className="rounded-xl border border-gray-200 bg-white overflow-hidden"
@@ -217,6 +237,8 @@ export default async function SatLearnCoursePage({
                   })}
                 </ul>
               </section>
+                ))}
+              </div>
             ))}
             {course.topics.length === 0 && (
               <p className="text-center text-gray-500 py-12">Content coming soon.</p>

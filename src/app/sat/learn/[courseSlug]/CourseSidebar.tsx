@@ -14,6 +14,7 @@ import {
   LayoutGrid,
 } from "lucide-react";
 import type { SatLearnCourseDetail, SatLearnItemType } from "@/types/sat-learn";
+import { groupTopicsByDomain } from "./segments";
 
 const NAVY = "#1a365d";
 
@@ -54,6 +55,8 @@ export function CourseSidebar({
   );
   const pct = totalItems ? Math.round((doneItems / totalItems) * 100) : 0;
 
+  const segments = groupTopicsByDomain(course.topics);
+
   return (
     <div className="sticky top-20">
       {/* Course header + progress */}
@@ -85,7 +88,17 @@ export function CourseSidebar({
       </p>
 
       <div className="max-h-[calc(100vh-12rem)] overflow-y-auto pr-1">
-        {course.topics.map((topic) => {
+        {segments.map((seg) => (
+          <div key={seg.key} className="mb-1">
+            {seg.label && (
+              <p
+                className="mt-4 mb-1 px-2 text-[11px] font-bold uppercase tracking-[0.13em]"
+                style={{ color: NAVY }}
+              >
+                {seg.label}
+              </p>
+            )}
+            {seg.topics.map((topic) => {
           const isOpen = !!open[topic.id];
           const done = topic.items.filter((i) => i.completed).length;
           const total = topic.items.length;
@@ -191,7 +204,9 @@ export function CourseSidebar({
               </div>
             </div>
           );
-        })}
+            })}
+          </div>
+        ))}
       </div>
     </div>
   );
