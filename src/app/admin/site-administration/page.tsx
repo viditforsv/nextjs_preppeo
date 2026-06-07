@@ -238,6 +238,12 @@ export default function SiteAdministrationPage() {
           icon: ListChecks,
           description: "Review all IB Mathematics Applications & Interpretation SL questions",
         },
+        {
+          name: "Careers / Job Postings",
+          href: "/admin/careers",
+          icon: ClipboardList,
+          description: "Open/close roles and edit listings on the careers page",
+        },
       ],
     },
     {
