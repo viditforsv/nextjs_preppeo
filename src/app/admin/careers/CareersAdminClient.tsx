@@ -29,6 +29,8 @@ type Draft = {
   team: string;
   location: string;
   employment_type: string;
+  salary_range: string;
+  min_duration: string;
   blurb: string;
   about_role: string;
   responsibilities: string; // one per line in the editor
@@ -42,6 +44,8 @@ const EMPTY_DRAFT: Draft = {
   team: "",
   location: "Remote",
   employment_type: "Full-time",
+  salary_range: "",
+  min_duration: "",
   blurb: "",
   about_role: "",
   responsibilities: "",
@@ -56,6 +60,8 @@ function toDraft(p: JobPosting): Draft {
     team: p.team,
     location: p.location,
     employment_type: p.employment_type,
+    salary_range: p.salary_range,
+    min_duration: p.min_duration,
     blurb: p.blurb,
     about_role: p.about_role,
     responsibilities: p.responsibilities.join("\n"),
@@ -76,6 +82,8 @@ function fromDraft(d: Draft) {
     team: d.team.trim(),
     location: d.location.trim(),
     employment_type: d.employment_type.trim(),
+    salary_range: d.salary_range.trim(),
+    min_duration: d.min_duration.trim(),
     blurb: d.blurb.trim(),
     about_role: d.about_role.trim(),
     responsibilities: lines(d.responsibilities),
@@ -210,6 +218,14 @@ export default function CareersAdminClient() {
           {field("Team", "team")}
           {field("Location", "location")}
           {field("Employment type", "employment_type")}
+        </div>
+        <div className="grid sm:grid-cols-2 gap-4">
+          {field("Salary (blank = hidden)", "salary_range", {
+            hint: "e.g. ₹5,000 fixed + up to ₹5,000 incentives / month",
+          })}
+          {field("Minimum duration (blank = hidden)", "min_duration", {
+            hint: "e.g. 3-month minimum",
+          })}
         </div>
         {field("Blurb (listing card one-liner)", "blurb", {
           textarea: true,

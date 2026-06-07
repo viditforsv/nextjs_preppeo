@@ -4,6 +4,7 @@ import {
   ArrowRight,
   MapPin,
   Clock,
+  IndianRupee,
   Star,
   TrendingUp,
   Users,
@@ -39,12 +40,19 @@ export default async function CareersPage() {
   const { data } = await supabase
     .from("job_postings")
     .select(
-      "id, slug, title, team, location, employment_type, blurb"
+      "id, slug, title, team, location, employment_type, salary_range, blurb"
     )
     .order("created_at", { ascending: true });
   const roles = (data ?? []) as Pick<
     JobPosting,
-    "id" | "slug" | "title" | "team" | "location" | "employment_type" | "blurb"
+    | "id"
+    | "slug"
+    | "title"
+    | "team"
+    | "location"
+    | "employment_type"
+    | "salary_range"
+    | "blurb"
   >[];
 
   return (
@@ -172,6 +180,12 @@ export default async function CareersPage() {
                         <Clock className="w-3 h-3" />
                         {r.employment_type}
                       </span>
+                      {r.salary_range && (
+                        <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-muted-foreground bg-muted px-3 py-1 rounded-full">
+                          <IndianRupee className="w-3 h-3" />
+                          {r.salary_range}
+                        </span>
+                      )}
                     </div>
                   </div>
                   <span className="flex-none w-10 h-10 rounded-full grid place-items-center bg-amber-50 text-[#1a365d] group-hover:bg-amber-400 group-hover:text-[#5a3d00] group-hover:translate-x-1 transition-all">

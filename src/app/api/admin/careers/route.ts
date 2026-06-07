@@ -29,6 +29,8 @@ const EDITABLE_FIELDS = [
   'team',
   'location',
   'employment_type',
+  'salary_range',
+  'min_duration',
   'blurb',
   'about_role',
   'responsibilities',
