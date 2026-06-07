@@ -1,7 +1,14 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import { ArrowLeft, MapPin, Clock, CheckCircle2 } from "lucide-react";
+import {
+  ArrowLeft,
+  MapPin,
+  Clock,
+  IndianRupee,
+  CalendarClock,
+  CheckCircle2,
+} from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
 import type { JobPosting } from "@/types/careers";
 import ApplyForm from "./ApplyForm";
@@ -89,6 +96,18 @@ export default async function RolePage({
             <Clock className="w-3 h-3" />
             {posting.employment_type}
           </span>
+          {posting.salary_range && (
+            <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-muted-foreground bg-muted px-3 py-1.5 rounded-full">
+              <IndianRupee className="w-3 h-3" />
+              {posting.salary_range}
+            </span>
+          )}
+          {posting.min_duration && (
+            <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-muted-foreground bg-muted px-3 py-1.5 rounded-full">
+              <CalendarClock className="w-3 h-3" />
+              {posting.min_duration}
+            </span>
+          )}
         </div>
 
         {/* About */}

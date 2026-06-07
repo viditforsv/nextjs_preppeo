@@ -5,6 +5,8 @@ export interface JobPosting {
   team: string;
   location: string;
   employment_type: string;
+  salary_range: string;
+  min_duration: string;
   blurb: string;
   about_role: string;
   responsibilities: string[];
