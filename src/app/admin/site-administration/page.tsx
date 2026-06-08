@@ -244,6 +244,12 @@ export default function SiteAdministrationPage() {
           icon: ClipboardList,
           description: "Open/close roles and edit listings on the careers page",
         },
+        {
+          name: "Community Link Tool",
+          href: "/links",
+          icon: ListChecks,
+          description: "Create Reddit/Discord tracking links; see clicks + signups",
+        },
       ],
     },
     {
