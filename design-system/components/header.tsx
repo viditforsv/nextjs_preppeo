@@ -124,7 +124,6 @@ export function Header() {
       return [
         { name: "Home", href: "/", hasDropdown: false },
         { name: "Services", href: "#", hasDropdown: true, dropdownItems: services },
-        { name: "Pricing", href: "/pricing", hasDropdown: false },
         {
           name: "SAT Resources",
           href: "#",
@@ -132,6 +131,7 @@ export function Header() {
           dropdownItems: satResources,
         },
         { name: "For Institutes", href: "/for-institutes", hasDropdown: false },
+        { name: "Pricing", href: "/pricing", hasDropdown: false },
         { name: "Contact", href: "/contact", hasDropdown: false },
       ];
     }

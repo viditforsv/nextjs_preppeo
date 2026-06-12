@@ -87,7 +87,10 @@ export default async function SatLearnLandingPage() {
 
                 <div className="mt-6">
                   {comingSoon ? (
-                    <span className="inline-flex items-center gap-2 rounded-xl bg-gray-100 px-5 py-3 text-sm font-bold text-gray-400">
+                    <span
+                      className="inline-flex items-center gap-2 rounded-xl px-5 py-3 text-sm font-bold text-white shadow-sm"
+                      style={{ background: NAVY }}
+                    >
                       <Lock className="h-4 w-4" /> Coming soon
                     </span>
                   ) : (
