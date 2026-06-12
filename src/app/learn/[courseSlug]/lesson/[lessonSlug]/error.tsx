@@ -33,7 +33,7 @@ export default function LessonError({
             Try again
           </button>
           <Link
-            href="/courses/enrolled"
+            href="/sat/learn"
             className="px-4 py-2 border border-gray-300 text-sm rounded-sm hover:bg-gray-50 transition-colors"
           >
             Back to courses

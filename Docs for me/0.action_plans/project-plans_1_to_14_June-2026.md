@@ -1,41 +1,5 @@
 # Project Plans — June 2026
 
-Companion to `sprint 1 June to 14 June 2026.md`. One block per project: **Objective** (definition of done) · **Mission** (why it matters) · **Starting point** (current state, grounded in the codebase) · **Roadmap** (bite-size tasks). Starting points verified against the repo on 2026-05-31.
-
-> Status legend: ✅ done · 🔄 doing · ⬜ todo · ⏸️ blocked/on-hold
-
----
-
-## 1. Desmos Guides ×10
-
-- **Objective:** Publish all 10 backlog Desmos guides so the hub serves 13 live guides (3 today + 10).
-- **Mission:** Each guide is an SEO landing page on a high-intent Bluebook-Desmos keyword → organic traffic → free-mock signups. Cheap, compounding, founder-authored moat.
-- **Starting point:** `src/lib/seo/desmos-guides.ts` has **3 published** (systems-of-equations, number-of-solutions, how-to-use-desmos) + **10 stubs**. Hub at `/sat/desmos`; `getPublishedDesmosGuides()` drives hub + sitemap. Per-guide schema: `slug, title, metaDescription, intro, steps[], proTip, practice{question,answer,desmosWay}, videoReady, mediaAlt, published`.
-
-**Roadmap** (per guide ≈ 30–45 min; batch the phases):
-- ⬜ **Content pass** — for each of the 10 stubs, write `steps` + `proTip` + `practice` (Claude drafts, you edit): quadratics-and-parabolas, circle-equations, solving-equations, systems-of-inequalities, line-of-best-fit, statistics-mean-median, absolute-value, + the remaining 3 stubs.
-- ⬜ **Video pass** — record a ~20s Bluebook-Desmos screen clip per guide → encode to `public/images/desmos/<slug>.mp4` (+ `.webm`) → set `videoReady: true`.
-- ⬜ **Publish pass** — set `published: true` per guide (auto-appears on hub + sitemap).
-- ⬜ Spot-check 2–3 live pages on dev (render, video, schema), then ship to prod.
-
----
-
-## 2. Finalise 10 SAT Mocks
-
-- **Objective:** 10 complete SAT mock sets (147q each = 66 math + 81 R&W) live in **prod**, fully QC'd.
-- **Mission:** 10 mocks is the depth a serious test-prep buyer expects — it's the core paid product.
-- **Starting point:** Sets 1–5 live in prod + dev. Sets 6–10 **verified on dev** (counts + template distribution) but **on hold for prod**. Known gap: sets 9/10 M1 have **2 substituted mediums** because the easy advanced-math practice pool was exhausted (0 unused remaining). Assignment migrations exist: `20260403120000_sat_assign_math_sets_6_10.sql`, `20260403130000_sat_assign_rw_sets_6_10.sql`.
-
-**Roadmap:**
-- ⬜ Author **2 easy advanced-math** practice questions (fill the exhausted pool) — use `sat_question_sql_guide.md`.
-- ⬜ Migration (dev) to swap the 2 substituted mediums on sets 9/10 M1 for the new easy questions.
-- ⬜ Re-verify template distribution on dev (all 6 modules × 5 sets exact).
-- ⬜ Your QC sign-off on sets 6–10 (dev).
-- ⏸️ Promote sets 6–10 → **prod**: re-run the 2 assignment migrations + the backfill swap against `ootnqmojcqnzfrtvzzec`. **Confirm-before-prod.**
-- ⬜ Verify prod: 10 sets, 100% `qc_done` + `is_active`, zero pending QC.
-
----
-
 ## 3. Email Marketing with Zoho
 
 - **Objective:** Stand up a **bulk marketing-email** capability via Zoho, separate from transactional, with a clean lead list + branded template.
@@ -81,27 +45,6 @@ Companion to `sprint 1 June to 14 June 2026.md`. One block per project: **Object
 
 ---
 
-## 6. Razorpay International Payments — *verify*  ✅ mostly verified (2026-05-31)
-
-- **Objective:** Confirm whether international payments actually work end-to-end, and document the truth.
-- **Mission:** Unlock overseas students (US / Gulf NRIs) — ideally with zero engineering if it already works.
-- **Starting point / findings:**
-  - **Account: International Cards = ENABLED** (dashboard confirmed — "request to activate international card payments was successful"). Payment Gateway ACTIVE, Non-3DS enabled, txn size ₹15,00,000, settlement **T+7 in INR**. PayPal also activated (but collects in foreign currency only, *not* INR). International bank transfers not activated.
-  - **Code:** every checkout route hardcodes `currency: 'INR'` (`checkout`/`mocks`/`subscriptions` create-order, 9 spots). `config.ts` `SUPPORTED_CURRENCIES.razorpay = ["INR"]`. Pricing-page USD/AED is **display-only**.
-  - **Conclusion:** Foreign cards **can already pay** the INR orders (customer billed in INR, bank converts). This is meaning **(A) international card acceptance** — works **with no code change**. True **(B) USD presentment** (charge "$59" in USD) is *not* wired; would need PayPal routing or USD multi-currency on cards.
-
-**Roadmap:**
-- ✅ Confirm "International payments" enabled in Razorpay dashboard → **Enabled** (International Cards).
-- ✅ Trace checkout currency → all paths send **INR** (confirmed).
-- ⬜ **(Ultimate proof)** One real international-card payment end-to-end on live checkout (needs an actual foreign card; test-mode card won't reflect live enablement).
-- ⬜ *(Optional)* USD-presentment probe: create a `currency:'USD'` order via live API to see if (B) is available — only matters if you want to charge in USD.
-- ⬜ *(Decision)* Keep INR billing for intl customers (works today) **or** spin a follow-up "charge in USD via PayPal/multi-currency" project.
-
-**Follow-on: charge in USD directly (blocked on IEC)**
-- ⬜ Obtain **IEC certificate** (Import Export Code, DGFT) — required to receive foreign currency for export of services. Prerequisite for true USD collection.
-- ⬜ After IEC: enable USD presentment (PayPal and/or Razorpay multi-currency) + wire USD currency through checkout (`config.ts` + create-order routes).
-
----
 
 ## 7. Hire for Digital Presence
 

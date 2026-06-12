@@ -123,12 +123,12 @@ describe('getRedirectPath — anonymous user hits a protected route', () => {
 });
 
 describe('getRedirectPath — wrong role hits a role-restricted route', () => {
-  it('redirects signed-in non-admin away from /admin to /courses/enrolled', () => {
-    expect(getRedirectPath('/admin', 'student', true)).toBe('/courses/enrolled');
+  it('redirects signed-in non-admin away from /admin to /sat/learn', () => {
+    expect(getRedirectPath('/admin', 'student', true)).toBe('/sat/learn');
   });
 
-  it('redirects signed-in non-student away from /student to /courses/enrolled', () => {
-    expect(getRedirectPath('/student', 'admin', true)).toBe('/courses/enrolled');
+  it('redirects signed-in non-student away from /student to /sat/learn', () => {
+    expect(getRedirectPath('/student', 'admin', true)).toBe('/sat/learn');
   });
 });
 

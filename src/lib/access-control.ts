@@ -297,11 +297,11 @@ export function getRedirectPath(
       return isAuthenticated ? null : "/auth";
     case "student":
       if (!isAuthenticated) return "/auth";
-      if (userRole !== "student") return "/courses/enrolled";
+      if (userRole !== "student") return "/sat/learn";
       return null;
     case "admin":
       if (!isAuthenticated) return "/auth";
-      if (userRole !== "admin") return "/courses/enrolled";
+      if (userRole !== "admin") return "/sat/learn";
       return null;
     default:
       return null;

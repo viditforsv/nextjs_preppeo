@@ -5,7 +5,6 @@ import Link from "next/link";
 import { Button } from "./ui/button";
 import {
   ChevronDown,
-  Search,
   User,
   LogOut,
   BookOpen,
@@ -18,7 +17,6 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import { useAuth } from "@/contexts/AuthContext";
-import { ShoppingCart } from "@/components/ShoppingCart";
 
 export function Header() {
   const [isUserDropdownOpen, setIsUserDropdownOpen] = useState(false);
@@ -164,19 +162,6 @@ export function Header() {
             </div>
           </Link>
 
-          {/* Search Bar */}
-          <div className="hidden lg:flex flex-1 max-w-lg mx-4">
-            <Link href="/mocks" className="relative w-full">
-              <input
-                type="text"
-                placeholder="Search mocks..."
-                className="w-full px-4 py-2 pl-10 pr-4 border border-gray-300 rounded-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-all duration-200 bg-gray-50 text-foreground placeholder-gray-500 cursor-pointer"
-                readOnly
-              />
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-500" />
-            </Link>
-          </div>
-
           {/* Main Navigation */}
           <nav className="hidden lg:flex items-center space-x-6">
             {navigation.map((item) =>
@@ -232,9 +217,6 @@ export function Header() {
             {/* User Actions */}
             {user ? (
               <>
-                {/* Shopping Cart */}
-                <ShoppingCart />
-
                 <div className="relative user-dropdown">
                   <button
                     onClick={() => setIsUserDropdownOpen(!isUserDropdownOpen)}
@@ -290,7 +272,7 @@ export function Header() {
                         </div>
 
                         <Link
-                          href="/courses/enrolled"
+                          href="/sat/learn"
                           className="flex items-center px-4 py-2 text-sm text-foreground hover:bg-primary/10 transition-colors"
                           onClick={() => setIsUserDropdownOpen(false)}
                         >
