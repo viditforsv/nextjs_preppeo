@@ -230,7 +230,7 @@ export default function HomePage() {
               get a score report with domain breakdown, difficulty analysis, and question-level
               review — the depth that free alternatives don&apos;t offer.
             </p>
-            <div className="flex gap-3 flex-wrap mb-10">
+            <div className="flex items-center gap-5 flex-wrap mb-10">
               <Button
                 size="lg"
                 className="text-white"
@@ -240,14 +240,12 @@ export default function HomePage() {
                 Start with a Free Mock
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
-              <Button
-                size="lg"
-                variant="outline"
-                style={{ borderColor: NAVY, color: NAVY }}
+              <button
                 onClick={() => router.push("/mocks")}
+                className="text-sm font-medium text-gray-500 hover:text-[#1a365d] underline underline-offset-4 transition-colors"
               >
-                Explore All Mocks
-              </Button>
+                or explore all mocks
+              </button>
             </div>
             <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm text-gray-500">
               {[
@@ -588,7 +586,7 @@ export default function HomePage() {
             <p className="text-white/70 mb-8 leading-relaxed">
               Your first full-length adaptive SAT mock is completely free. No credit card needed.
             </p>
-            <div className="flex gap-3 justify-center lg:justify-start flex-wrap">
+            <div className="flex items-center gap-5 justify-center lg:justify-start flex-wrap">
               <Button
                 size="lg"
                 className="font-bold"
@@ -598,14 +596,12 @@ export default function HomePage() {
                 Start with a Free Mock
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
-              <Button
-                size="lg"
-                variant="outline"
-                className="border-2 border-white bg-transparent text-white hover:bg-white/10"
+              <button
                 onClick={() => router.push("/mocks")}
+                className="text-sm font-medium text-white/70 hover:text-white underline underline-offset-4 transition-colors"
               >
-                Explore All Mocks
-              </Button>
+                or explore all mocks
+              </button>
             </div>
           </div>
           <div className="hidden lg:flex justify-center">
