@@ -51,6 +51,16 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ valid: true, setNumber: token.set_number });
     }
 
+    // Paid tokens require a signed-in user. Without auth, redemption below would
+    // burn the token (is_used=true, used_by=null) — nobody could resume it and no
+    // attempt could ever be saved (the attempts API rejects anonymous requests).
+    if (!userId) {
+      return NextResponse.json({
+        valid: false,
+        message: 'Please log in or sign up to use a purchased access code.',
+      });
+    }
+
     // Check expiry for paid tokens
     if (token.expires_at && new Date(token.expires_at) < new Date()) {
       return NextResponse.json({ valid: false, message: 'This token has expired' });

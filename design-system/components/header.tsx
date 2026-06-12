@@ -81,6 +81,7 @@ export function Header() {
 
   // Items shown in the "SAT Resources" nav dropdown
   const satResources = [
+    { name: "Question of the Day", href: "/question-of-the-day" },
     { name: "Math Formulas", href: "/sat/formulas" },
     { name: "Guide", href: "/sat-guide" },
     { name: "Desmos Shortcuts", href: "/sat/desmos" },

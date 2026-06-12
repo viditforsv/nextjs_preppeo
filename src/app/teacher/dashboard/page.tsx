@@ -46,19 +46,41 @@ interface Student {
 
 export default async function TeacherDashboard() {
   const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
 
-  if (!user) {
+  // getClaims() verifies the JWT locally (no auth-server round-trip) — same fast
+  // path the middleware uses. We only need the user id (claims.sub) below.
+  const { data: claimsData } = await supabase.auth.getClaims();
+  const userId = claimsData?.claims?.sub;
+
+  if (!userId) {
     redirect("/auth?redirect=/teacher/dashboard");
   }
 
-  const { data: profile } = await supabase
-    .from("profiles")
-    .select("first_name, last_name, role")
-    .eq("id", user.id)
-    .single();
+  // profile and the teacher's enrollments are independent — fetch both at once
+  // instead of profile-then-enrollments.
+  const [{ data: profile }, { data: enrollments }] = await Promise.all([
+    supabase
+      .from("profiles")
+      .select("first_name, last_name, role")
+      .eq("id", userId)
+      .single(),
+    supabase
+      .from("courses_enrollments")
+      .select(
+        `
+      id,
+      student_id,
+      course_id,
+      enrolled_at,
+      is_active,
+      user:student_id (id, email, first_name, last_name, role),
+      course:course_id (id, title, slug, curriculum, subject, grade, level)
+    `
+      )
+      .eq("assigned_teacher_id", userId)
+      .eq("enrollment_type", "student")
+      .eq("is_active", true),
+  ]);
 
   if (profile?.role !== "teacher" && profile?.role !== "admin") {
     return (
@@ -74,24 +96,6 @@ export default async function TeacherDashboard() {
       </div>
     );
   }
-
-  // Enrollments assigned to this teacher.
-  const { data: enrollments } = await supabase
-    .from("courses_enrollments")
-    .select(
-      `
-      id,
-      student_id,
-      course_id,
-      enrolled_at,
-      is_active,
-      user:student_id (id, email, first_name, last_name, role),
-      course:course_id (id, title, slug, curriculum, subject, grade, level)
-    `
-    )
-    .eq("assigned_teacher_id", user.id)
-    .eq("enrollment_type", "student")
-    .eq("is_active", true);
 
   // Pending submission counts for ALL students in ONE query, tallied per
   // (student, course) — no per-student N+1.

@@ -44,12 +44,18 @@ export default function LandingScreen() {
 
   // Deep link from the Mock Hub: /sat-test?enterCode=1 opens the access-code
   // modal directly so a user with a purchased token can start a paid mock.
+  // Paid codes require an account (see verify-token), so a signed-out visitor is
+  // sent to log in first rather than into a modal that can only reject them.
   useEffect(() => {
-    if (searchParams.get('enterCode') === '1') {
-      setShowCodeModal(true);
-      router.replace('/sat-test');
+    if (searchParams.get('enterCode') !== '1') return;
+    if (loading) return;
+    if (!user) {
+      router.replace('/auth?redirect=' + encodeURIComponent('/sat-test?enterCode=1'));
+      return;
     }
-  }, [searchParams, router]);
+    setShowCodeModal(true);
+    router.replace('/sat-test');
+  }, [searchParams, router, user, loading]);
 
   const handleStartTest = () => {
     // Wait until auth has resolved so we don't misroute a logged-in user.

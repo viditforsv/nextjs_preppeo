@@ -54,19 +54,43 @@ interface SATAttempt {
 
 export default async function ProgressReportPage() {
   const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
 
-  if (!user) {
+  // getClaims() verifies the JWT locally (no auth-server round-trip) — same fast
+  // path the middleware uses. We only need the user id (claims.sub) below.
+  const { data: claimsData } = await supabase.auth.getClaims();
+  const userId = claimsData?.claims?.sub;
+
+  if (!userId) {
     redirect("/auth?redirect=/student/progress");
   }
 
-  const { data: profile } = await supabase
-    .from("profiles")
-    .select("first_name, role")
-    .eq("id", user.id)
-    .single();
+  // profile, mock attempts, and practice answers are all independent once we
+  // have userId, so they run in one parallel batch instead of profile-first.
+  const serviceClient = createSupabaseApiClient();
+  const [{ data: profile }, { data: satData }, { data: practiceData }] =
+    await Promise.all([
+      supabase
+        .from("profiles")
+        .select("first_name, role")
+        .eq("id", userId)
+        .single(),
+      serviceClient
+        .from("sat_test_attempts")
+        .select(
+          "section_type, estimated_score, rw_estimated_score, total_estimated_score, completed_at"
+        )
+        .eq("user_id", userId)
+        .not("completed_at", "is", null)
+        .order("completed_at", { ascending: false }),
+      serviceClient
+        .from("practice_answers")
+        .select("is_correct, domain, created_at")
+        .eq("user_id", userId)
+        // practice_answers is shared across all courses (CBSE, IBDP, SAT) — scope
+        // to SAT so the report doesn't mix in other subjects' practice.
+        .eq("course", "sat")
+        .order("created_at", { ascending: false }),
+    ]);
 
   if (profile?.role !== "student" && profile?.role !== "admin") {
     return (
@@ -80,26 +104,6 @@ export default async function ProgressReportPage() {
       </div>
     );
   }
-
-  const serviceClient = createSupabaseApiClient();
-  const [{ data: satData }, { data: practiceData }] = await Promise.all([
-    serviceClient
-      .from("sat_test_attempts")
-      .select(
-        "section_type, estimated_score, rw_estimated_score, total_estimated_score, completed_at"
-      )
-      .eq("user_id", user.id)
-      .not("completed_at", "is", null)
-      .order("completed_at", { ascending: false }),
-    serviceClient
-      .from("practice_answers")
-      .select("is_correct, domain, created_at")
-      .eq("user_id", user.id)
-      // practice_answers is shared across all courses (CBSE, IBDP, SAT) — scope
-      // to SAT so the report doesn't mix in other subjects' practice.
-      .eq("course", "sat")
-      .order("created_at", { ascending: false }),
-  ]);
 
   const attempts = (satData as SATAttempt[] | null) || [];
   const practiceRows = (practiceData as PracticeRow[] | null) || [];
