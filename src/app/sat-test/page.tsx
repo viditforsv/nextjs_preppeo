@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/contexts/AuthContext';
 import { useSATTestStore } from '@/stores/useSATTestStore';
@@ -45,6 +45,23 @@ function PhaseScreen() {
 export default function SATTestPage() {
   const { user, loading } = useAuth();
   const router = useRouter();
+  const freeMockStarted = useRef(false);
+
+  // Deep link: /sat-test?freemock=1 starts the free mock (set 1) immediately —
+  // no account or token required. Used by the anonymous "Start Your Free Mock"
+  // CTA. startTestMode resets all per-attempt state, so this safely begins a
+  // fresh mock regardless of any persisted phase from a prior session.
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    if (new URLSearchParams(window.location.search).get('freemock') !== '1') return;
+    if (freeMockStarted.current) return;
+    freeMockStarted.current = true;
+    // Clear any persisted prior session synchronously so a stale results/score
+    // doesn't flash while Module 1 questions load.
+    useSATTestStore.getState().discardMock();
+    void useSATTestStore.getState().startTestMode(1);
+    router.replace('/sat-test');
+  }, [router]);
 
   // Deep link: /sat-test?mode=practice jumps straight to the practice config
   // screen (used by the "Practice" nav item). Only hijack a fresh landing — never

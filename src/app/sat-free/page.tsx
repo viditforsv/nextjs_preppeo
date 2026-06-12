@@ -106,9 +106,12 @@ export default function SATFreeMockPage() {
 
   function handleCTAClick() {
     if (user) {
+      // Logged in — claim the free token and jump straight into the test.
       setPhase('claiming');
     } else {
-      setPhase('signup');
+      // Anonymous — start the free mock immediately, no account required.
+      // Account creation happens at the end to unlock the full report.
+      router.push('/sat-test?freemock=1');
     }
   }
 

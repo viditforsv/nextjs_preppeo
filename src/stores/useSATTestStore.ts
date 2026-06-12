@@ -111,6 +111,34 @@ function buildResponses(
   });
 }
 
+// Body posted to /api/sat/attempts. Built when the mock finishes and held in
+// state so an anonymous finisher can save it after creating an account.
+interface SATAttemptBody {
+  tokenCode: string | null;
+  setNumber: number | null;
+  sectionType: 'full' | 'math';
+  module1Correct: number;
+  module1Total: number;
+  module1TimeUsed: number;
+  module2Tier: 'hard' | 'easy';
+  module2Correct: number;
+  module2Total: number;
+  module2TimeUsed: number;
+  answersJson: Record<string, string | null>;
+  estimatedScore: number;
+  questionResponses: SATQuestionResponse[];
+  rwModule1Correct: number | null;
+  rwModule1Total: number | null;
+  rwModule1TimeUsed: number | null;
+  rwModule2Tier: 'hard' | 'easy' | null;
+  rwModule2Correct: number | null;
+  rwModule2Total: number | null;
+  rwModule2TimeUsed: number | null;
+  rwEstimatedScore: number | null;
+  rwQuestionResponses: SATQuestionResponse[];
+  totalEstimatedScore: number | null;
+}
+
 interface SATTestState {
   phase: SATAppPhase;
   mode: 'test' | 'practice' | null;
@@ -149,6 +177,12 @@ interface SATTestState {
   mathEstimatedScore: number | null;
   totalEstimatedScore: number | null;
 
+  // Deferred attempt save — body is built on finish; attemptSaved flips true
+  // once /api/sat/attempts accepts it (immediately for logged-in users, or
+  // after an anonymous finisher creates an account on the results screen).
+  pendingAttemptBody: SATAttemptBody | null;
+  attemptSaved: boolean;
+
   // Practice mode
   practiceConfig: SATPracticeConfig | null;
   practiceQuestions: SATQuestion[];
@@ -180,6 +214,7 @@ interface SATTestState {
   navigateQuestion: (idx: number) => void;
   tickTimer: () => void;
   submitModule: () => void;
+  persistAttempt: (tokenCodeOverride?: string) => Promise<void>;
   beginModule2: () => void;
   beginMathSection: () => Promise<void>;
   toggleCalculator: () => void;
@@ -223,6 +258,8 @@ const initialState = {
   allQuestionResponses: [] as SATQuestionResponse[],
   mathEstimatedScore: null as number | null,
   totalEstimatedScore: null as number | null,
+  pendingAttemptBody: null as SATAttemptBody | null,
+  attemptSaved: false,
   practiceConfig: null as SATPracticeConfig | null,
   practiceQuestions: [] as SATQuestion[],
   practiceAnswers: {} as Record<string, string | null>,
@@ -285,6 +322,8 @@ export const useSATTestStore = create<SATTestState>()(
       allQuestionResponses: [],
       mathEstimatedScore: null,
       totalEstimatedScore: null,
+      pendingAttemptBody: null,
+      attemptSaved: false,
       module2LoadError: null,
       isCalculatorOpen: false,
       isReviewOpen: false,
@@ -327,6 +366,12 @@ export const useSATTestStore = create<SATTestState>()(
       module1Result: null,
       module2Result: null,
       module2Tier: null,
+      // Reset per-question tracking — the free mock is always set 1, so without
+      // this a retake would inherit the previous attempt's timings/responses
+      // (same question IDs) and corrupt the report.
+      questionTimestamps: {},
+      visitCounts: {},
+      module1QuestionResponses: [],
       rwModule1Result: null,
       rwModule2Result: null,
       rwModule2Tier: null,
@@ -335,6 +380,8 @@ export const useSATTestStore = create<SATTestState>()(
       mathEstimatedScore: null,
       totalEstimatedScore: null,
       allQuestionResponses: [],
+      pendingAttemptBody: null,
+      attemptSaved: false,
       isCalculatorOpen: false,
       isReviewOpen: false,
     });
@@ -529,11 +576,42 @@ export const useSATTestStore = create<SATTestState>()(
         const allResponses = [...rwQuestionResponses, ...mathResponses];
         const totalScore = hasRW ? estimateTotalScore(rwEstimatedScore, mathScore) : null;
 
+        const attemptBody: SATAttemptBody = {
+          tokenCode,
+          setNumber: sn,
+          sectionType: hasRW ? 'full' : 'math',
+          // Math
+          module1Correct: module1Result!.correct,
+          module1Total: module1Result!.total,
+          module1TimeUsed: module1Result!.timeUsed,
+          module2Tier: m2Tier,
+          module2Correct: result.correct,
+          module2Total: result.total,
+          module2TimeUsed: result.timeUsed,
+          answersJson: allAnswers,
+          estimatedScore: mathScore,
+          questionResponses: mathResponses,
+          // R&W (null when math-only)
+          rwModule1Correct: rwModule1Result?.correct ?? null,
+          rwModule1Total: rwModule1Result?.total ?? null,
+          rwModule1TimeUsed: rwModule1Result?.timeUsed ?? null,
+          rwModule2Tier: rwModule2Tier ?? null,
+          rwModule2Correct: rwModule2Result?.correct ?? null,
+          rwModule2Total: rwModule2Result?.total ?? null,
+          rwModule2TimeUsed: rwModule2Result?.timeUsed ?? null,
+          rwEstimatedScore: rwEstimatedScore ?? null,
+          rwQuestionResponses: hasRW ? rwQuestionResponses : [],
+          // Combined
+          totalEstimatedScore: totalScore,
+        };
+
         set({
           module2Result: result,
           allQuestionResponses: allResponses,
           mathEstimatedScore: mathScore,
           totalEstimatedScore: totalScore,
+          pendingAttemptBody: attemptBody,
+          attemptSaved: false,
           phase: 'results',
           isReviewOpen: false,
           isCalculatorOpen: false,
@@ -547,39 +625,35 @@ export const useSATTestStore = create<SATTestState>()(
           rwScore: rwEstimatedScore ?? null,
         });
 
-        fetch('/api/sat/attempts', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            tokenCode,
-            setNumber: sn,
-            sectionType: hasRW ? 'full' : 'math',
-            // Math
-            module1Correct: module1Result!.correct,
-            module1Total: module1Result!.total,
-            module1TimeUsed: module1Result!.timeUsed,
-            module2Tier: m2Tier,
-            module2Correct: result.correct,
-            module2Total: result.total,
-            module2TimeUsed: result.timeUsed,
-            answersJson: allAnswers,
-            estimatedScore: mathScore,
-            questionResponses: mathResponses,
-            // R&W (null when math-only)
-            rwModule1Correct: rwModule1Result?.correct ?? null,
-            rwModule1Total: rwModule1Result?.total ?? null,
-            rwModule1TimeUsed: rwModule1Result?.timeUsed ?? null,
-            rwModule2Tier: rwModule2Tier ?? null,
-            rwModule2Correct: rwModule2Result?.correct ?? null,
-            rwModule2Total: rwModule2Result?.total ?? null,
-            rwModule2TimeUsed: rwModule2Result?.timeUsed ?? null,
-            rwEstimatedScore: rwEstimatedScore ?? null,
-            rwQuestionResponses: hasRW ? rwQuestionResponses : [],
-            // Combined
-            totalEstimatedScore: totalScore,
-          }),
-        }).catch((err) => console.error('Failed to persist SAT attempt:', err));
+        // Save now for logged-in users. Anonymous finishers get a 401 here and
+        // save later from the results screen after creating an account.
+        void get().persistAttempt();
       }
+    }
+  },
+
+  // Posts the finished mock to /api/sat/attempts. Idempotent via attemptSaved.
+  // tokenCodeOverride lets the results screen pass a freshly-claimed free token
+  // after an anonymous finisher signs up (the attempt was started tokenless).
+  persistAttempt: async (tokenCodeOverride?: string) => {
+    const { pendingAttemptBody, attemptSaved } = get();
+    if (!pendingAttemptBody || attemptSaved) return;
+
+    const body: SATAttemptBody = tokenCodeOverride
+      ? { ...pendingAttemptBody, tokenCode: tokenCodeOverride }
+      : pendingAttemptBody;
+
+    try {
+      const res = await fetch('/api/sat/attempts', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body),
+      });
+      if (res.ok) {
+        set({ attemptSaved: true, pendingAttemptBody: body });
+      }
+    } catch (err) {
+      console.error('Failed to persist SAT attempt:', err);
     }
   },
 
@@ -874,6 +948,8 @@ export const useSATTestStore = create<SATTestState>()(
         allQuestionResponses: state.allQuestionResponses,
         mathEstimatedScore: state.mathEstimatedScore,
         totalEstimatedScore: state.totalEstimatedScore,
+        pendingAttemptBody: state.pendingAttemptBody,
+        attemptSaved: state.attemptSaved,
       }),
     }
   )
