@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { ExternalLink, Gift } from 'lucide-react';
+import { ExternalLink, Gift, KeyRound } from 'lucide-react';
 import type { ExamType } from '@/types/test-tokens';
 
 interface ExamCardProps {
@@ -42,37 +42,45 @@ export default function ExamCard({ exam }: ExamCardProps) {
           <div className="flex items-center gap-2">
             <Gift className="w-4 h-4 text-[#1a365d]" />
             <span className="text-xs font-medium text-gray-700">
-              Your first mock is complimentary (worth ₹499)
+              Your first mock is completely free
             </span>
           </div>
         </div>
 
         {/* Actions */}
-        <div className="flex gap-2">
+        <div className="flex flex-col gap-2">
           {isReady ? (
             <>
               <Link
                 href={claimHref}
-                className="flex-1 flex items-center justify-center gap-2 py-2.5 bg-[#1a365d] text-white text-sm font-semibold rounded-lg hover:bg-[#2a4a7f] transition-colors"
+                className="flex items-center justify-center gap-2 py-2.5 bg-[#1a365d] text-white text-sm font-semibold rounded-lg hover:bg-[#2a4a7f] transition-colors"
               >
                 Start Free Mock <ExternalLink className="w-3.5 h-3.5" />
               </Link>
-              <Link
-                href="/pricing"
-                className="px-4 py-2.5 border border-gray-200 text-sm font-medium text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
-              >
-                Buy Packs
-              </Link>
+              <div className="flex gap-2">
+                <Link
+                  href="/sat-test?enterCode=1"
+                  className="flex-1 flex items-center justify-center gap-2 py-2.5 border border-[#1a365d] text-[#1a365d] text-sm font-semibold rounded-lg hover:bg-[#1a365d]/5 transition-colors"
+                >
+                  <KeyRound className="w-3.5 h-3.5" /> Enter Access Code
+                </Link>
+                <Link
+                  href="/pricing"
+                  className="px-4 py-2.5 border border-gray-200 text-sm font-medium text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
+                >
+                  Buy Packs
+                </Link>
+              </div>
             </>
           ) : (
-            <>
+            <div className="flex gap-2">
               <div className="flex-1 flex items-center justify-center gap-2 py-2.5 bg-gray-100 text-gray-400 text-sm font-semibold rounded-lg cursor-not-allowed">
                 Coming Soon
               </div>
               <div className="px-4 py-2.5 border border-gray-200 text-sm font-medium text-gray-400 rounded-lg cursor-not-allowed bg-gray-50">
                 Buy Packs
               </div>
-            </>
+            </div>
           )}
         </div>
       </div>

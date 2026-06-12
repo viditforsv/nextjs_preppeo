@@ -77,6 +77,27 @@ export default function SATTestPage() {
     useSATTestStore.setState({ phase: 'practice-config', mode: 'practice' });
   }, [user, loading, router]);
 
+  // Deep link: /sat-test?enterCode=1 (from the Mock Hub / My Tokens) opens the
+  // access-code modal so a user can redeem a token. The store is persisted, so
+  // a stale phase (e.g. a prior practice session) would otherwise resume and
+  // hide the landing screen — force back to landing unless a mock/practice is
+  // actively in progress.
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    if (new URLSearchParams(window.location.search).get('enterCode') !== '1') return;
+    const ACTIVE = [
+      'module-intro',
+      'in-module',
+      'between-modules',
+      'section-break',
+      'in-practice',
+    ];
+    if (ACTIVE.includes(useSATTestStore.getState().phase)) return;
+    if (useSATTestStore.getState().phase !== 'landing') {
+      useSATTestStore.setState({ phase: 'landing' });
+    }
+  }, []);
+
   return (
     <>
       <MockGuard />

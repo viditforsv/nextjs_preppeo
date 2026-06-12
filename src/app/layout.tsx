@@ -7,6 +7,7 @@ import { CartProvider } from "@/contexts/CartContext";
 import { Header } from "@/design-system/components/header";
 import { Footer } from "@/design-system/components/footer";
 import { FloatingWidget } from "@/design-system/components/floating-widget";
+import ChromeGate from "@/components/ChromeGate";
 import { getRegion } from "@/lib/region";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { PostHogProvider } from "@/components/analytics/PostHogProvider";
@@ -139,13 +140,19 @@ export default async function RootLayout({
           <AuthProvider>
             <CartProvider>
               <div className="min-h-screen bg-background flex flex-col">
-                <Header />
+                <ChromeGate>
+                  <Header />
+                </ChromeGate>
                 <ErrorBoundary>
                   <main className="flex-1">{children}</main>
                 </ErrorBoundary>
-                <Footer />
+                <ChromeGate>
+                  <Footer />
+                </ChromeGate>
               </div>
-              <FloatingWidget region={region} />
+              <ChromeGate>
+                <FloatingWidget region={region} />
+              </ChromeGate>
             </CartProvider>
           </AuthProvider>
         </PostHogProvider>

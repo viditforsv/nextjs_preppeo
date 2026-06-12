@@ -5,6 +5,7 @@ import { useSATTestStore } from '@/stores/useSATTestStore';
 import QuestionRenderer from './question-types/QuestionRenderer';
 import DesmosCalculator from './DesmosCalculator';
 import ReviewScreen from './ReviewScreen';
+import FullscreenToggle from './FullscreenToggle';
 import { renderMixedContent } from '@/components/MathRenderer';
 import { satPromptImageUrls } from '@/lib/sat-prompt-images';
 import {
@@ -16,6 +17,7 @@ import {
   ChevronRight,
   AlertCircle,
   EyeOff,
+  LogOut,
 } from 'lucide-react';
 
 export default function TestQuestionView() {
@@ -39,9 +41,11 @@ export default function TestQuestionView() {
     toggleCalculator,
     toggleReview,
     toggleTimerVisibility,
+    goToLanding,
   } = useSATTestStore();
 
   const [showSubmitConfirm, setShowSubmitConfirm] = useState(false);
+  const [showExitConfirm, setShowExitConfirm] = useState(false);
 
   const mod = currentModuleNumber === 1 ? module1 : module2;
   const isMathSection = currentSection === 'math';
@@ -73,6 +77,14 @@ export default function TestQuestionView() {
       {/* Top Toolbar */}
       <header className="bg-[#0d47a1] text-white px-4 py-2.5 flex items-center justify-between sticky top-0 z-30 shadow-md">
         <div className="flex items-center gap-4">
+          <button
+            onClick={() => setShowExitConfirm(true)}
+            className="inline-flex items-center gap-1.5 text-sm opacity-80 hover:opacity-100 transition-opacity"
+          >
+            <LogOut className="w-4 h-4" />
+            <span className="hidden sm:inline">Exit</span>
+          </button>
+          <span className="w-px h-5 bg-white/25" />
           <div className="text-sm font-medium">
             <span className="font-semibold">{sectionLabel}</span>{' '}
             <span className="opacity-70">Module</span>{' '}
@@ -109,6 +121,10 @@ export default function TestQuestionView() {
               <AlertCircle className="w-4 h-4 text-yellow-300" />
             )}
           </button>
+
+          <span className="w-px h-5 bg-white/25" />
+
+          <FullscreenToggle />
         </div>
       </header>
 
@@ -301,6 +317,41 @@ export default function TestQuestionView() {
                 className="px-5 py-2 text-sm font-semibold text-white bg-[#0d47a1] rounded-lg hover:bg-[#1565c0]"
               >
                 Confirm Submit
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Exit confirmation */}
+      {showExitConfirm && (
+        <div className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center p-4">
+          <div className="bg-white rounded-xl shadow-2xl max-w-sm w-full p-6">
+            <h3 className="text-lg font-bold text-gray-900 mb-2">
+              Exit test mode?
+            </h3>
+            <p className="text-sm text-gray-600 mb-1">
+              Your progress on this mock won&apos;t be saved and the attempt
+              won&apos;t be recorded.
+            </p>
+            <p className="text-sm text-amber-600 mb-4">
+              You&apos;ll return to the test home page.
+            </p>
+            <div className="flex gap-3 justify-end mt-4">
+              <button
+                onClick={() => setShowExitConfirm(false)}
+                className="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50"
+              >
+                Keep Testing
+              </button>
+              <button
+                onClick={() => {
+                  setShowExitConfirm(false);
+                  goToLanding();
+                }}
+                className="px-5 py-2 text-sm font-semibold text-white bg-red-600 rounded-lg hover:bg-red-700"
+              >
+                Exit Test
               </button>
             </div>
           </div>

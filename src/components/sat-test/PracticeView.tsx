@@ -4,6 +4,7 @@ import { useSATTestStore } from '@/stores/useSATTestStore';
 import { renderMixedContent } from '@/components/MathRenderer';
 import { satPromptImageUrls } from '@/lib/sat-prompt-images';
 import DesmosCalculator from './DesmosCalculator';
+import FullscreenToggle from './FullscreenToggle';
 import {
   BookOpen,
   ChevronLeft,
@@ -75,13 +76,17 @@ export default function PracticeView() {
             {isMath ? 'Math' : 'R&W'} · {reviewed}/{total} reviewed
           </span>
         </div>
-        <button
-          onClick={goToLanding}
-          className="inline-flex items-center gap-1.5 text-sm opacity-80 hover:opacity-100 transition-opacity"
-        >
-          <LogOut className="w-4 h-4" />
-          Exit
-        </button>
+        <div className="flex items-center gap-3">
+          <FullscreenToggle />
+          <span className="w-px h-5 bg-white/25" />
+          <button
+            onClick={goToLanding}
+            className="inline-flex items-center gap-1.5 text-sm opacity-80 hover:opacity-100 transition-opacity"
+          >
+            <LogOut className="w-4 h-4" />
+            Exit
+          </button>
+        </div>
       </header>
 
       {/* Question Area */}

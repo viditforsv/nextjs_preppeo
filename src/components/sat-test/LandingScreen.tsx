@@ -42,11 +42,26 @@ export default function LandingScreen() {
     }
   }, [searchParams, user, loading, startTestMode]);
 
+  // Deep link from the Mock Hub: /sat-test?enterCode=1 opens the access-code
+  // modal directly so a user with a purchased token can start a paid mock.
+  useEffect(() => {
+    if (searchParams.get('enterCode') === '1') {
+      setShowCodeModal(true);
+      router.replace('/sat-test');
+    }
+  }, [searchParams, router]);
+
   const handleStartTest = () => {
-    if (!user && !loading) {
-      router.push('/auth?redirect=/sat-test');
+    // Wait until auth has resolved so we don't misroute a logged-in user.
+    if (loading) return;
+    if (!user) {
+      // Signed out → straight into the free mock (set 1), no login/code needed.
+      setAutoStarting(true);
+      useSATTestStore.getState().discardMock();
+      void startTestMode(1);
       return;
     }
+    // Signed in → prompt for the access code to begin a specific mock.
     setShowCodeModal(true);
   };
 

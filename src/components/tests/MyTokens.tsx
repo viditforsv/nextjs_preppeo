@@ -114,7 +114,11 @@ export default function MyTokens() {
                 </button>
               )}
               <Link
-                href={group.testRoute}
+                href={
+                  examType === 'sat'
+                    ? '/sat-test?enterCode=1'
+                    : group.testRoute
+                }
                 className="text-xs text-[#1a365d] hover:underline flex items-center gap-1"
               >
                 Go to mock <ExternalLink className="w-3 h-3" />
