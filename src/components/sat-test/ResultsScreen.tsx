@@ -88,12 +88,46 @@ export default function ResultsScreen() {
           totalScore: totalEstimatedScore,
           mathScore: mathEstimatedScore,
           rwScore: rwEstimatedScore,
+          report: buildReportSummary(),
         }),
       });
     } catch {
       /* swallow — capture is best-effort, UX comes first */
     }
     setReportUnlocked(true);
+  }
+
+  // Compact summary emailed to the lead so the email itself IS the report
+  // (section + domain + difficulty breakdown), not just a teaser. Sent only as
+  // keys + tallies; the API resolves domain labels server-side.
+  function buildReportSummary() {
+    const responses = allQuestionResponses;
+    const tallyOf = (pred: (r: (typeof responses)[number]) => boolean) => {
+      const rs = responses.filter(pred);
+      return { correct: rs.filter((r) => r.isCorrect).length, total: rs.length };
+    };
+    const byDomain = new Map<string, { key: string; section: string; correct: number; total: number }>();
+    for (const r of responses) {
+      const key = r.domain ?? 'unknown';
+      const d = byDomain.get(key) ?? { key, section: r.section, correct: 0, total: 0 };
+      d.total += 1;
+      if (r.isCorrect) d.correct += 1;
+      byDomain.set(key, d);
+    }
+    return {
+      correct: responses.filter((r) => r.isCorrect).length,
+      answered: responses.length,
+      sections: {
+        math: tallyOf((r) => r.section === 'math'),
+        rw: tallyOf((r) => r.section === 'rw'),
+      },
+      domains: Array.from(byDomain.values()),
+      difficulty: {
+        easy: tallyOf((r) => r.difficulty === 'easy'),
+        medium: tallyOf((r) => r.difficulty === 'medium'),
+        hard: tallyOf((r) => r.difficulty === 'hard'),
+      },
+    };
   }
 
   // Once a user exists with an unsaved attempt AND the signup originated from
