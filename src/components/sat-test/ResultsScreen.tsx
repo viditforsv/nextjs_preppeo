@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useSATTestStore } from '@/stores/useSATTestStore';
 import { useAuth } from '@/contexts/AuthContext';
 import FreeMockSignupCard, { RESULTS_CLAIM_FLAG } from './FreeMockSignupCard';
@@ -18,6 +18,7 @@ import {
   Lightbulb,
   Loader2,
   CheckCircle2,
+  Mail,
 } from 'lucide-react';
 import ResultsShell from '@/components/shared-results/ResultsShell';
 import RecommendationsTab from '@/components/shared-results/RecommendationsTab';
@@ -56,6 +57,44 @@ export default function ResultsScreen() {
   } = useSATTestStore();
   const { user, loading: authLoading } = useAuth();
   const savingRef = useRef(false);
+
+  // Soft email gate for anonymous finishers: entering an email captures the lead
+  // and unlocks the full report inline (the data is already client-side). Account
+  // creation is then offered as a secondary "save your progress" upsell.
+  const [reportUnlocked, setReportUnlocked] = useState(false);
+  const [leadEmail, setLeadEmail] = useState('');
+  const [leadError, setLeadError] = useState('');
+  const [leadLoading, setLeadLoading] = useState(false);
+
+  async function handleEmailUnlock(e: React.FormEvent) {
+    e.preventDefault();
+    const email = leadEmail.trim().toLowerCase();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      setLeadError('Please enter a valid email address.');
+      return;
+    }
+    setLeadLoading(true);
+    setLeadError('');
+    // Best-effort capture — never block the unlock on the lead write.
+    try {
+      const ref =
+        (typeof window !== 'undefined' && sessionStorage.getItem('sat-free-ref')) || undefined;
+      await fetch('/api/sat-free/lead', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email,
+          ref,
+          totalScore: totalEstimatedScore,
+          mathScore: mathEstimatedScore,
+          rwScore: rwEstimatedScore,
+        }),
+      });
+    } catch {
+      /* swallow — capture is best-effort, UX comes first */
+    }
+    setReportUnlocked(true);
+  }
 
   // Once a user exists with an unsaved attempt AND the signup originated from
   // this results screen (RESULTS_CLAIM_FLAG, set by FreeMockSignupCard for both
@@ -105,9 +144,10 @@ export default function ResultsScreen() {
     );
   }
 
-  // Anonymous finisher — show the headline score for free and gate the detailed
-  // report behind account creation.
-  if (!user) {
+  // Anonymous finisher — show the headline score for free, then unlock the full
+  // report with just an email (lowest-friction lead capture). Account creation is
+  // offered afterwards as a "save your progress" upsell (see the final return).
+  if (!user && !reportUnlocked) {
     const hasRW = rwEstimatedScore !== null;
     const headline = totalEstimatedScore ?? mathEstimatedScore ?? null;
     return (
@@ -131,9 +171,10 @@ export default function ResultsScreen() {
             </p>
           </div>
 
-          <div className="bg-[#0d47a1]/5 border border-[#0d47a1]/15 rounded-xl p-4 text-sm text-gray-600">
-            <p className="font-semibold text-[#1a365d] mb-2">Create a free account to unlock:</p>
-            <ul className="space-y-1.5">
+          <div className="bg-white rounded-2xl border border-gray-200 shadow-lg p-6">
+            <p className="font-semibold text-[#1a365d] mb-1">Unlock your full report</p>
+            <p className="text-sm text-gray-500 mb-3">Enter your email to see your complete breakdown — free.</p>
+            <ul className="space-y-1.5 text-sm text-gray-600 mb-5">
               {['Domain-by-domain breakdown', 'Question-by-question review', 'Difficulty & time analysis', 'Personalized recommendations'].map((item) => (
                 <li key={item} className="flex items-start gap-2">
                   <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
@@ -141,9 +182,36 @@ export default function ResultsScreen() {
                 </li>
               ))}
             </ul>
-          </div>
 
-          <FreeMockSignupCard onSignedUp={() => { /* save runs via effect once user is set */ }} />
+            <form onSubmit={handleEmailUnlock} className="space-y-3">
+              <div className="relative">
+                <Mail className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+                <input
+                  type="email"
+                  required
+                  value={leadEmail}
+                  onChange={(e) => setLeadEmail(e.target.value)}
+                  placeholder="you@example.com"
+                  className="w-full pl-9 pr-3 py-2.5 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0d47a1]/20 focus:border-[#0d47a1]"
+                />
+              </div>
+
+              {leadError && (
+                <p className="text-sm text-red-600 bg-red-50 border border-red-200 rounded-lg p-2 text-center">{leadError}</p>
+              )}
+
+              <button
+                type="submit"
+                disabled={leadLoading}
+                className="w-full flex items-center justify-center gap-2 py-3 bg-[#0d47a1] text-white font-semibold rounded-lg hover:bg-[#1565c0] transition-colors disabled:opacity-50"
+              >
+                {leadLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : 'Show My Full Report'}
+              </button>
+              <p className="text-xs text-gray-400 text-center">
+                No spam. We&apos;ll email your report and occasional SAT tips.
+              </p>
+            </form>
+          </div>
         </div>
       </div>
     );
@@ -239,6 +307,31 @@ export default function ResultsScreen() {
       },
     ],
   };
+
+  // Unlocked anonymous finisher: full report renders below, with a secondary
+  // account upsell on top. Signing up here sets RESULTS_CLAIM_FLAG, so the effect
+  // above grants the free token and persists this attempt for their history.
+  if (!user) {
+    return (
+      <div className="min-h-screen bg-[#f5f5f0]">
+        <div className="max-w-2xl mx-auto px-4 pt-8">
+          <div className="bg-[#0d47a1]/5 border border-[#0d47a1]/15 rounded-2xl p-6 mb-2">
+            <h2 className="text-lg font-bold text-[#1a365d] mb-1">Save your report</h2>
+            <p className="text-sm text-gray-600 mb-5">
+              Create a free account to keep this report, track your score across mocks,
+              and target weak domains with adaptive practice.
+            </p>
+            <FreeMockSignupCard
+              heading="Create your free account"
+              subheading="Save your progress and unlock practice mode"
+              onSignedUp={() => { /* save runs via effect once user is set */ }}
+            />
+          </div>
+        </div>
+        <ResultsShell config={config} />
+      </div>
+    );
+  }
 
   return <ResultsShell config={config} />;
 }

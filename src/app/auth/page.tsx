@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import {
   Tabs,
@@ -28,32 +28,13 @@ export default function AuthPage() {
   const next = searchParams.get("next");
   const error = searchParams.get("error");
   const tab = searchParams.get("tab");
-  const autoClaimFree = searchParams.get("autoClaimFree");
   const redirect = searchParams.get("redirect") || searchParams.get("redirectTo");
 
   useEffect(() => {
     if (tab === "signup" || tab === "signin") {
       setActiveTab(tab);
-    } else if (autoClaimFree) {
-      setActiveTab("signup");
     }
-  }, [tab, autoClaimFree]);
-
-  const claimFreeAndRedirect = useCallback(
-    async (targetUrl: string, examType: string) => {
-      try {
-        await fetch("/api/mocks/claim-free", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ examType }),
-        });
-      } catch {
-        // Non-blocking — continue to redirect even if claim fails
-      }
-      router.push(targetUrl);
-    },
-    [router]
-  );
+  }, [tab]);
 
   // Redirect authenticated users based on role
   useEffect(() => {
@@ -67,23 +48,9 @@ export default function AuthPage() {
               ? "/admin"
               : "/sat/learn";
       const redirectUrl = redirect || next || roleBasedPath;
-
-      if (autoClaimFree) {
-        void claimFreeAndRedirect(redirectUrl, autoClaimFree);
-      } else {
-        router.push(redirectUrl);
-      }
+      router.push(redirectUrl);
     }
-  }, [
-    user,
-    profile,
-    loading,
-    redirect,
-    next,
-    autoClaimFree,
-    router,
-    claimFreeAndRedirect,
-  ]);
+  }, [user, profile, loading, redirect, next, router]);
 
   // Handle OAuth callback
   useEffect(() => {
@@ -121,12 +88,7 @@ export default function AuthPage() {
           }
 
           const redirectUrl = redirect || next || roleBasedPath;
-
-          if (autoClaimFree) {
-            await claimFreeAndRedirect(redirectUrl, autoClaimFree);
-          } else {
-            router.push(redirectUrl);
-          }
+          router.push(redirectUrl);
         } catch (err) {
           console.error("Auth page - OAuth callback exception:", err);
           router.push("/auth?error=Authentication failed");
@@ -135,7 +97,7 @@ export default function AuthPage() {
 
       handleOAuthCallback();
     }
-  }, [code, next, redirect, autoClaimFree, router, claimFreeAndRedirect]);
+  }, [code, next, redirect, router]);
 
   // Show loading state while checking authentication
   if (loading) {
@@ -173,14 +135,6 @@ export default function AuthPage() {
             Your gateway to knowledge and growth
           </p>
         </div>
-
-        {autoClaimFree && (
-          <div className="mb-4 p-4 bg-primary/10 border-l-4 border-primary rounded-lg">
-            <p className="text-primary text-sm font-medium">
-              Sign up to start your free {autoClaimFree.toUpperCase()} mock test
-            </p>
-          </div>
-        )}
 
         {error && (
           <div className="mb-4 p-4 bg-red-50 border-l-4 border-red-500 rounded-lg">
