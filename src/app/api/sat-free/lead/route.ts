@@ -4,6 +4,10 @@ import { sendTransactionalEmail } from '@/lib/email/send';
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
+// Minimum gap between report emails to the same address. Invisible to real
+// re-attempts (a full mock runs ~2h) but caps rapid/abusive resends.
+const EMAIL_THROTTLE_MS = 10 * 60 * 1000;
+
 // Server-side whitelist of domain keys → labels. The client sends domain keys
 // only; anything not in this map is dropped, so no untrusted string is ever
 // rendered into the email HTML.
@@ -194,9 +198,10 @@ function reportEmailHtml(
  *
  * Captures an anonymous free-mock finisher's email so a non-converting visitor
  * is no longer lost. Records the lead (dev/prod table per env) and emails the
- * full score-report summary (section + domain + difficulty breakdown) on every
- * capture, so a re-attempt always lands a fresh report and the visitor can track
- * progress across mocks.
+ * full score-report summary (section + domain + difficulty breakdown). The send
+ * is gated by an atomic per-address claim (see below), so a genuine re-attempt
+ * lands a fresh report while concurrent/rapid submits can't duplicate it and the
+ * public endpoint can't be used to email-bomb an address.
  *
  * Best-effort by design: the results screen unlocks the report regardless of
  * this call's outcome, so failures here never block the user.
@@ -216,6 +221,8 @@ export async function POST(request: NextRequest) {
     const mathScore = toScore(body?.mathScore);
     const rwScore = toScore(body?.rwScore);
 
+    // Ensure the lead row exists. First capture sets the referral attribution and
+    // created_at; a returning email is a no-op here (unique index → 23505).
     const { error: insertErr } = await supabase.from('free_mock_leads').insert({
       email,
       total_score: totalScore,
@@ -226,32 +233,46 @@ export async function POST(request: NextRequest) {
       user_agent: request.headers.get('user-agent')?.slice(0, 500) ?? null,
     });
 
-    if (insertErr) {
-      if (insertErr.code === '23505') {
-        // Returning finisher (unique email) — refresh just their latest scores so
-        // the lead list reflects their most recent attempt; keep the original
-        // referral attribution and created_at intact.
-        await supabase
-          .from('free_mock_leads')
-          .update({ total_score: totalScore, math_score: mathScore, rw_score: rwScore })
-          .eq('email', email);
-      } else {
-        console.error('Free-mock lead: insert failed', insertErr);
-        return NextResponse.json({ error: 'Could not save your email. Try again.' }, { status: 500 });
-      }
+    if (insertErr && insertErr.code !== '23505') {
+      console.error('Free-mock lead: insert failed', insertErr);
+      return NextResponse.json({ error: 'Could not save your email. Try again.' }, { status: 500 });
     }
 
-    // Email the report on every capture so a re-attempt always lands a fresh
-    // report and the visitor can track their progress across mocks.
-    // Awaited so the send completes on serverless before the function returns.
-    await sendTransactionalEmail({
-      to: email,
-      subject: 'Your SAT mock score report',
-      htmlBody: reportEmailHtml(
-        { total: totalScore, math: mathScore, rw: rwScore },
-        sanitizeReport(body?.report),
-      ),
-    });
+    // Atomically claim the right to email this address: flip last_emailed_at only
+    // when it's unset or older than the throttle window, refreshing scores at the
+    // same time. Concurrent/rapid submits re-evaluate this predicate against the
+    // just-updated row, so exactly one wins — no duplicate emails — and the same
+    // gate throttles abuse of this public endpoint. Genuine re-attempts (mocks run
+    // hours apart) clear the window and get a fresh report.
+    const threshold = new Date(Date.now() - EMAIL_THROTTLE_MS).toISOString();
+    const { data: claimed, error: claimErr } = await supabase
+      .from('free_mock_leads')
+      .update({
+        last_emailed_at: new Date().toISOString(),
+        total_score: totalScore,
+        math_score: mathScore,
+        rw_score: rwScore,
+      })
+      .eq('email', email)
+      .or(`last_emailed_at.is.null,last_emailed_at.lt.${threshold}`)
+      .select('id');
+
+    if (claimErr) {
+      // Non-fatal: the lead is recorded; we just don't email this time.
+      console.error('Free-mock lead: send-claim failed', claimErr);
+    }
+
+    if (claimed && claimed.length > 0) {
+      // Awaited so the send completes on serverless before the function returns.
+      await sendTransactionalEmail({
+        to: email,
+        subject: 'Your SAT mock score report',
+        htmlBody: reportEmailHtml(
+          { total: totalScore, math: mathScore, rw: rwScore },
+          sanitizeReport(body?.report),
+        ),
+      });
+    }
 
     return NextResponse.json({ success: true });
   } catch (err) {

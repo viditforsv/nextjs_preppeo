@@ -65,14 +65,19 @@ export default function ResultsScreen() {
   const [leadEmail, setLeadEmail] = useState('');
   const [leadError, setLeadError] = useState('');
   const [leadLoading, setLeadLoading] = useState(false);
+  const unlockingRef = useRef(false);
 
   async function handleEmailUnlock(e: React.FormEvent) {
     e.preventDefault();
+    // Synchronous guard: a rapid double-Enter would otherwise fire the request
+    // twice before `leadLoading` re-renders the button to disabled.
+    if (unlockingRef.current) return;
     const email = leadEmail.trim().toLowerCase();
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       setLeadError('Please enter a valid email address.');
       return;
     }
+    unlockingRef.current = true;
     setLeadLoading(true);
     setLeadError('');
     // Best-effort capture — never block the unlock on the lead write.
