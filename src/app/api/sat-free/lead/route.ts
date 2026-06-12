@@ -262,7 +262,11 @@ export async function POST(request: NextRequest) {
       console.error('Free-mock lead: send-claim failed', claimErr);
     }
 
-    if (claimed && claimed.length > 0) {
+    // emailed=false means we skipped the send because this address was emailed
+    // within the throttle window — the client surfaces that so it never looks
+    // like a silent failure.
+    const emailed = !!(claimed && claimed.length > 0);
+    if (emailed) {
       // Awaited so the send completes on serverless before the function returns.
       await sendTransactionalEmail({
         to: email,
@@ -274,7 +278,7 @@ export async function POST(request: NextRequest) {
       });
     }
 
-    return NextResponse.json({ success: true });
+    return NextResponse.json({ success: true, emailed });
   } catch (err) {
     console.error('Error in POST /api/sat-free/lead:', err);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
