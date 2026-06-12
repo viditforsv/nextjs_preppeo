@@ -194,8 +194,9 @@ function reportEmailHtml(
  *
  * Captures an anonymous free-mock finisher's email so a non-converting visitor
  * is no longer lost. Records the lead (dev/prod table per env) and emails the
- * full score-report summary (section + domain + difficulty breakdown) on the
- * first-ever capture for that address.
+ * full score-report summary (section + domain + difficulty breakdown) on every
+ * capture, so a re-attempt always lands a fresh report and the visitor can track
+ * progress across mocks.
  *
  * Best-effort by design: the results screen unlocks the report regardless of
  * this call's outcome, so failures here never block the user.
@@ -211,13 +212,6 @@ export async function POST(request: NextRequest) {
 
     const supabase = createSupabaseApiClient();
 
-    // First-ever capture for this email? Decides whether to send the report email.
-    const { count: priorCount } = await supabase
-      .from('free_mock_leads')
-      .select('id', { count: 'exact', head: true })
-      .eq('email', email);
-
-    const isNewLead = (priorCount ?? 0) === 0;
     const totalScore = toScore(body?.totalScore);
     const mathScore = toScore(body?.mathScore);
     const rwScore = toScore(body?.rwScore);
@@ -232,23 +226,32 @@ export async function POST(request: NextRequest) {
       user_agent: request.headers.get('user-agent')?.slice(0, 500) ?? null,
     });
 
-    // Duplicate email (unique index) is fine — they already captured before.
-    if (insertErr && insertErr.code !== '23505') {
-      console.error('Free-mock lead: insert failed', insertErr);
-      return NextResponse.json({ error: 'Could not save your email. Try again.' }, { status: 500 });
+    if (insertErr) {
+      if (insertErr.code === '23505') {
+        // Returning finisher (unique email) — refresh just their latest scores so
+        // the lead list reflects their most recent attempt; keep the original
+        // referral attribution and created_at intact.
+        await supabase
+          .from('free_mock_leads')
+          .update({ total_score: totalScore, math_score: mathScore, rw_score: rwScore })
+          .eq('email', email);
+      } else {
+        console.error('Free-mock lead: insert failed', insertErr);
+        return NextResponse.json({ error: 'Could not save your email. Try again.' }, { status: 500 });
+      }
     }
 
-    if (isNewLead) {
-      // Awaited so the send completes on serverless before the function returns.
-      await sendTransactionalEmail({
-        to: email,
-        subject: 'Your SAT mock score report',
-        htmlBody: reportEmailHtml(
-          { total: totalScore, math: mathScore, rw: rwScore },
-          sanitizeReport(body?.report),
-        ),
-      });
-    }
+    // Email the report on every capture so a re-attempt always lands a fresh
+    // report and the visitor can track their progress across mocks.
+    // Awaited so the send completes on serverless before the function returns.
+    await sendTransactionalEmail({
+      to: email,
+      subject: 'Your SAT mock score report',
+      htmlBody: reportEmailHtml(
+        { total: totalScore, math: mathScore, rw: rwScore },
+        sanitizeReport(body?.report),
+      ),
+    });
 
     return NextResponse.json({ success: true });
   } catch (err) {
