@@ -136,7 +136,7 @@ export default function GradedAssignmentsPage({
           <Breadcrumb
             items={[
               { label: "Home", href: "/" },
-              { label: "My Courses", href: "/courses/enrolled" },
+              { label: "My Courses", href: "/sat/learn" },
               { label: "Graded Assignments", isActive: true },
             ]}
           />

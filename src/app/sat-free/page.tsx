@@ -106,9 +106,12 @@ export default function SATFreeMockPage() {
 
   function handleCTAClick() {
     if (user) {
+      // Logged in — claim the free token and jump straight into the test.
       setPhase('claiming');
     } else {
-      setPhase('signup');
+      // Anonymous — start the free mock immediately, no account required.
+      // Account creation happens at the end to unlock the full report.
+      router.push('/sat-test?freemock=1');
     }
   }
 
@@ -178,7 +181,7 @@ export default function SATFreeMockPage() {
 
             <div className="inline-flex items-center gap-2 bg-[#0d47a1]/10 text-[#0d47a1] text-sm font-semibold px-3 py-1.5 rounded-full mb-6">
               <GraduationCap className="w-4 h-4" />
-              Complimentary Mock — Worth ₹499
+              Free Full-Length Mock
             </div>
 
             <h1 className="text-4xl lg:text-5xl font-bold text-[#1a365d] leading-tight mb-4">
@@ -392,7 +395,7 @@ export default function SATFreeMockPage() {
               <div className="bg-white rounded-2xl border border-gray-200 shadow-lg p-8">
                 <div className="flex items-center justify-between mb-4">
                   <h3 className="text-lg font-bold text-[#1a365d]">What you&apos;ll get</h3>
-                  <span className="text-xs font-bold bg-[#0d47a1]/10 text-[#0d47a1] px-2.5 py-1 rounded-full">Worth ₹499</span>
+                  <span className="text-xs font-bold bg-[#0d47a1]/10 text-[#0d47a1] px-2.5 py-1 rounded-full">Free</span>
                 </div>
                 <div className="space-y-4">
                   {[

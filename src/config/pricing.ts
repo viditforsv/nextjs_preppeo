@@ -27,10 +27,10 @@ export interface OneOnOneTier {
 
 // Self-Paced pre-recorded course — 1 / 3 / 6 / 12 months (enquiry-only)
 export const selfPacedTiers: DurationTier[] = [
-  { label: "1 month", months: 1, priceInr: 3999, priceUsd: 59 },
-  { label: "3 months", months: 3, priceInr: 8999, priceUsd: 139 },
-  { label: "6 months", months: 6, priceInr: 14999, priceUsd: 239 },
-  { label: "12 months", months: 12, priceInr: 24999, priceUsd: 399 },
+  { label: "1 month", months: 1, priceInr: 19999, priceUsd: 200 },
+  { label: "3 months", months: 3, priceInr: 24999, priceUsd: 250 },
+  { label: "6 months", months: 6, priceInr: 29999, priceUsd: 300 },
+  { label: "12 months", months: 12, priceInr: 34999, priceUsd: 350 },
 ];
 
 // 1-on-1 Package — 10 / 20 / 30 hours (enquiry-only)

@@ -5,7 +5,6 @@ import Link from "next/link";
 import { Button } from "./ui/button";
 import {
   ChevronDown,
-  Search,
   User,
   LogOut,
   BookOpen,
@@ -18,10 +17,10 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import { useAuth } from "@/contexts/AuthContext";
-import { ShoppingCart } from "@/components/ShoppingCart";
 
 export function Header() {
   const [isUserDropdownOpen, setIsUserDropdownOpen] = useState(false);
+  const [openNavDropdown, setOpenNavDropdown] = useState<string | null>(null);
   const [isMounted, setIsMounted] = useState(false);
   // Use auth context directly
   const authContext = useAuth();
@@ -60,13 +59,32 @@ export function Header() {
       if (isUserDropdownOpen && !target.closest(".user-dropdown")) {
         setIsUserDropdownOpen(false);
       }
+      if (openNavDropdown && !target.closest(".nav-dropdown")) {
+        setOpenNavDropdown(null);
+      }
     };
 
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [isUserDropdownOpen]);
+  }, [isUserDropdownOpen, openNavDropdown]);
+
+  // The 5 services shown in the "Services" nav dropdown
+  const services = [
+    { name: "Mocks", href: "/mocks" },
+    { name: "Practice", href: "/sat-test?mode=practice" },
+    { name: "Self-Paced Course", href: "/sat/learn" },
+    { name: "Book 1-on-1 Sessions", href: "/pricing" },
+    { name: "College Admissions Consultancy", href: "/services/admissions" },
+  ];
+
+  // Items shown in the "SAT Resources" nav dropdown
+  const satResources = [
+    { name: "Math Formulas", href: "/sat/formulas" },
+    { name: "Guide", href: "/sat-guide" },
+    { name: "Desmos Shortcuts", href: "/sat/desmos" },
+  ];
 
   // Get navigation based on user role
   const getNavigation = () => {
@@ -75,8 +93,13 @@ export function Header() {
     if (profile?.role === "admin") {
       return [
         { name: "Home", href: "/", hasDropdown: false },
-        { name: "Mocks", href: "/mocks", hasDropdown: false },
-        { name: "SAT Guide", href: "/sat-guide", hasDropdown: false },
+        { name: "Services", href: "#", hasDropdown: true, dropdownItems: services },
+        {
+          name: "SAT Resources",
+          href: "#",
+          hasDropdown: true,
+          dropdownItems: satResources,
+        },
         {
           name: "Site Administration",
           href: "/admin/site-administration",
@@ -88,17 +111,27 @@ export function Header() {
         { name: "Home", href: "/", hasDropdown: false },
         { name: "Dashboard", href: "/student", hasDropdown: false },
         { name: "Progress Report", href: "/student/progress", hasDropdown: false },
-        { name: "Mocks", href: "/mocks", hasDropdown: false },
+        { name: "Services", href: "#", hasDropdown: true, dropdownItems: services },
         { name: "Pricing", href: "/pricing", hasDropdown: false },
-        { name: "SAT Guide", href: "/sat-guide", hasDropdown: false },
+        {
+          name: "SAT Resources",
+          href: "#",
+          hasDropdown: true,
+          dropdownItems: satResources,
+        },
       ];
     } else {
       return [
         { name: "Home", href: "/", hasDropdown: false },
-        { name: "Mocks", href: "/mocks", hasDropdown: false },
-        { name: "Pricing", href: "/pricing", hasDropdown: false },
-        { name: "SAT Guide", href: "/sat-guide", hasDropdown: false },
+        { name: "Services", href: "#", hasDropdown: true, dropdownItems: services },
+        {
+          name: "SAT Resources",
+          href: "#",
+          hasDropdown: true,
+          dropdownItems: satResources,
+        },
         { name: "For Institutes", href: "/for-institutes", hasDropdown: false },
+        { name: "Pricing", href: "/pricing", hasDropdown: false },
         { name: "Contact", href: "/contact", hasDropdown: false },
       ];
     }
@@ -129,30 +162,54 @@ export function Header() {
             </div>
           </Link>
 
-          {/* Search Bar */}
-          <div className="hidden lg:flex flex-1 max-w-lg mx-4">
-            <Link href="/mocks" className="relative w-full">
-              <input
-                type="text"
-                placeholder="Search mocks..."
-                className="w-full px-4 py-2 pl-10 pr-4 border border-gray-300 rounded-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-all duration-200 bg-gray-50 text-foreground placeholder-gray-500 cursor-pointer"
-                readOnly
-              />
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-500" />
-            </Link>
-          </div>
-
           {/* Main Navigation */}
           <nav className="hidden lg:flex items-center space-x-6">
-            {navigation.map((item) => (
-              <Link
-                key={item.name}
-                href={item.href}
-                className="flex items-center px-3 py-2 text-sm font-medium transition-colors text-foreground hover:text-primary"
-              >
-                {item.name}
-              </Link>
-            ))}
+            {navigation.map((item) =>
+              item.hasDropdown ? (
+                <div key={item.name} className="relative nav-dropdown">
+                  <button
+                    onClick={() =>
+                      setOpenNavDropdown(
+                        openNavDropdown === item.name ? null : item.name
+                      )
+                    }
+                    className="flex items-center px-3 py-2 text-sm font-medium transition-colors text-foreground hover:text-primary"
+                  >
+                    {item.name}
+                    <ChevronDown
+                      className={`w-4 h-4 ml-1 transition-transform ${
+                        openNavDropdown === item.name ? "rotate-180" : ""
+                      }`}
+                    />
+                  </button>
+
+                  {openNavDropdown === item.name && (
+                    <div className="absolute left-0 mt-2 w-64 bg-white rounded-lg shadow-xl border border-gray-200 z-50">
+                      <div className="py-2">
+                        {item.dropdownItems?.map((sub) => (
+                          <Link
+                            key={sub.name}
+                            href={sub.href}
+                            className="block px-4 py-2 text-sm text-foreground hover:bg-primary/10 transition-colors"
+                            onClick={() => setOpenNavDropdown(null)}
+                          >
+                            {sub.name}
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              ) : (
+                <Link
+                  key={item.name}
+                  href={item.href}
+                  className="flex items-center px-3 py-2 text-sm font-medium transition-colors text-foreground hover:text-primary"
+                >
+                  {item.name}
+                </Link>
+              )
+            )}
           </nav>
 
           {/* Right Side Actions */}
@@ -160,9 +217,6 @@ export function Header() {
             {/* User Actions */}
             {user ? (
               <>
-                {/* Shopping Cart */}
-                <ShoppingCart />
-
                 <div className="relative user-dropdown">
                   <button
                     onClick={() => setIsUserDropdownOpen(!isUserDropdownOpen)}
@@ -218,7 +272,7 @@ export function Header() {
                         </div>
 
                         <Link
-                          href="/courses/enrolled"
+                          href="/sat/learn"
                           className="flex items-center px-4 py-2 text-sm text-foreground hover:bg-primary/10 transition-colors"
                           onClick={() => setIsUserDropdownOpen(false)}
                         >

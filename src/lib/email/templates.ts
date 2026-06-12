@@ -50,7 +50,7 @@ export function courseEnrollmentEmail(firstName: string, courseTitle: string): E
       <h2 style="margin:0 0 16px;font-size:22px;">You're in, ${name}!</h2>
       <p style="margin:0 0 12px;line-height:1.6;">You've been enrolled in <strong>${courseTitle}</strong>.</p>
       <p style="margin:0 0 24px;line-height:1.6;">Jump in and start learning right away:</p>
-      <a href="https://preppeo.com/courses/enrolled" style="display:inline-block;background:#2563eb;color:#ffffff;padding:12px 28px;border-radius:6px;text-decoration:none;font-weight:600;">Go to My Courses</a>
+      <a href="https://preppeo.com/sat/learn" style="display:inline-block;background:#2563eb;color:#ffffff;padding:12px 28px;border-radius:6px;text-decoration:none;font-weight:600;">Go to My Courses</a>
     `),
   };
 }
@@ -75,7 +75,7 @@ export function coursePurchaseEmail(
       <p style="margin:0 0 4px;line-height:1.6;">You now have access to:</p>
       ${courseList}
       <div style="margin:24px 0;">
-        <a href="https://preppeo.com/courses/enrolled" style="display:inline-block;background:#2563eb;color:#ffffff;padding:12px 28px;border-radius:6px;text-decoration:none;font-weight:600;">Start Learning</a>
+        <a href="https://preppeo.com/sat/learn" style="display:inline-block;background:#2563eb;color:#ffffff;padding:12px 28px;border-radius:6px;text-decoration:none;font-weight:600;">Start Learning</a>
       </div>
       <p style="margin:0;line-height:1.6;color:#6b7280;font-size:14px;">A receipt for this transaction is available in your account.</p>
     `),

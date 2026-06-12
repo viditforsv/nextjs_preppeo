@@ -6,6 +6,9 @@ import { AuthProvider } from "@/contexts/AuthContext";
 import { CartProvider } from "@/contexts/CartContext";
 import { Header } from "@/design-system/components/header";
 import { Footer } from "@/design-system/components/footer";
+import { FloatingWidget } from "@/design-system/components/floating-widget";
+import ChromeGate from "@/components/ChromeGate";
+import { getRegion } from "@/lib/region";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { PostHogProvider } from "@/components/analytics/PostHogProvider";
 import { CookieConsentBanner } from "@/components/analytics/CookieConsentBanner";
@@ -110,8 +113,12 @@ export default async function RootLayout({
 }>) {
   // EEA/UK/Swiss visitors get default-deny consent + the banner; everyone else
   // is unaffected. Region comes from Vercel's geo header (absent in local dev).
-  const country = (await headers()).get("x-vercel-ip-country");
+  const requestHeaders = await headers();
+  const country = requestHeaders.get("x-vercel-ip-country");
   const requiresConsent = regionRequiresConsent(country);
+  // IP-based region for the floating widget's geo-differentiated links.
+  // Profile-first override happens later (no country column on profiles yet).
+  const region = getRegion(null, requestHeaders);
 
   return (
     <html lang="en">
@@ -133,12 +140,19 @@ export default async function RootLayout({
           <AuthProvider>
             <CartProvider>
               <div className="min-h-screen bg-background flex flex-col">
-                <Header />
+                <ChromeGate>
+                  <Header />
+                </ChromeGate>
                 <ErrorBoundary>
                   <main className="flex-1">{children}</main>
                 </ErrorBoundary>
-                <Footer />
+                <ChromeGate>
+                  <Footer />
+                </ChromeGate>
               </div>
+              <ChromeGate>
+                <FloatingWidget region={region} />
+              </ChromeGate>
             </CartProvider>
           </AuthProvider>
         </PostHogProvider>

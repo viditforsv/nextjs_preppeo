@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createSupabaseApiClient } from '@/lib/supabase/api-client';
+import { createClient } from '@/lib/supabase/server';
+import { userHasMockAccess } from '@/lib/tokens/verify-access';
 import type { SATQuestion, SATQuestionOption } from '@/types/sat-test';
 
 function mapSatOptions(val: unknown): SATQuestionOption[] | undefined {
@@ -58,6 +60,27 @@ export async function GET(request: NextRequest) {
         { error: 'difficulty is required for module 2' },
         { status: 400 }
       );
+    }
+
+    // Set 1 is the free mock — anyone can take it without an account, so its
+    // questions are publicly fetchable (matches claim-free, which hardcodes set 1).
+    // All other sets still require login AND a valid token for that set.
+    const FREE_SAT_SET = 1;
+    if (setNum !== FREE_SAT_SET) {
+      const authClient = await createClient();
+      const {
+        data: { user },
+      } = await authClient.auth.getUser();
+      if (!user) {
+        return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+      }
+      const hasAccess = await userHasMockAccess(user.id, 'sat', setNum);
+      if (!hasAccess) {
+        return NextResponse.json(
+          { error: 'No valid access token for this test set' },
+          { status: 403 }
+        );
+      }
     }
 
     const supabase = createSupabaseApiClient();

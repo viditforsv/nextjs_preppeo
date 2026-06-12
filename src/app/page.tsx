@@ -586,7 +586,7 @@ export default function HomePage() {
           <div className="text-center lg:text-left">
             <h2 className="text-3xl font-bold text-white mb-4">Ready to find out your score?</h2>
             <p className="text-white/70 mb-8 leading-relaxed">
-              Your first full-length adaptive SAT mock is complimentary — worth ₹499. No credit card needed.
+              Your first full-length adaptive SAT mock is completely free. No credit card needed.
             </p>
             <div className="flex gap-3 justify-center lg:justify-start flex-wrap">
               <Button

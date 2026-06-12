@@ -65,7 +65,7 @@ export default function AuthPage() {
             ? "/teacher/dashboard"
             : profile.role === "admin"
               ? "/admin"
-              : "/courses/enrolled";
+              : "/sat/learn";
       const redirectUrl = redirect || next || roleBasedPath;
 
       if (autoClaimFree) {
@@ -102,7 +102,7 @@ export default function AuthPage() {
           }
 
 
-          let roleBasedPath = "/courses/enrolled";
+          let roleBasedPath = "/sat/learn";
           try {
             const meRes = await fetch("/api/profiles/me");
             if (meRes.ok) {
@@ -114,7 +114,7 @@ export default function AuthPage() {
                   ? "/teacher/dashboard"
                   : userProfile?.role === "admin"
                   ? "/admin"
-                  : "/courses/enrolled";
+                  : "/sat/learn";
             }
           } catch {
             // Fall through to default redirect

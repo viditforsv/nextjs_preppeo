@@ -42,7 +42,7 @@ export function SignInForm() {
       const redirectParam = searchParams.get("redirect") || searchParams.get("redirectTo") || searchParams.get("next");
       
       // Redirect based on parameter or role
-      let redirectPath = redirectParam || "/courses/enrolled";
+      let redirectPath = redirectParam || "/sat/learn";
       if (!redirectParam) {
       if (profile.role === "student") {
         redirectPath = "/student";

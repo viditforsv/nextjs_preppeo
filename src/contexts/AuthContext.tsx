@@ -535,6 +535,16 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           // Tie analytics to this user (idempotent — safe on session restores).
           identifyUser(session.user.id, { email: session.user.email });
 
+          // Attribute community-link signups: if a tracking cookie is present,
+          // tell the server to record it (the server only counts brand-new
+          // users, so this is harmless on returning logins). Fire-and-forget.
+          if (
+            typeof document !== "undefined" &&
+            document.cookie.includes("pp_ref=")
+          ) {
+            fetch("/api/links/attribute", { method: "POST" }).catch(() => {});
+          }
+
           // Capture OAuth (Google) logins exactly once: the flag is set right
           // before the redirect to Google, and survives the round-trip.
           if (
