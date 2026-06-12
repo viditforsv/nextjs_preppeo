@@ -12,6 +12,7 @@ import {
   FileText,
   RotateCcw,
   History,
+  Home,
   Sparkles,
   BookOpen,
   Lightbulb,
@@ -162,6 +163,7 @@ export default function ResultsScreen() {
     accentColor: '#0d47a1',
     referralPath: '/sat-free',
     headerActions: [
+      { label: 'Home', icon: Home, href: '/' },
       { label: 'Score History', icon: History, href: '/sat-test/history' },
       { label: 'New Mock', icon: RotateCcw, onClick: goToLanding },
     ],

@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { useSATTestStore } from '@/stores/useSATTestStore';
 import QuestionRenderer from './question-types/QuestionRenderer';
 import DesmosCalculator from './DesmosCalculator';
@@ -46,6 +47,7 @@ export default function TestQuestionView() {
 
   const [showSubmitConfirm, setShowSubmitConfirm] = useState(false);
   const [showExitConfirm, setShowExitConfirm] = useState(false);
+  const router = useRouter();
 
   const mod = currentModuleNumber === 1 ? module1 : module2;
   const isMathSection = currentSection === 'math';
@@ -335,7 +337,7 @@ export default function TestQuestionView() {
               won&apos;t be recorded.
             </p>
             <p className="text-sm text-amber-600 mb-4">
-              You&apos;ll return to the test home page.
+              You&apos;ll return to the homepage.
             </p>
             <div className="flex gap-3 justify-end mt-4">
               <button
@@ -348,6 +350,7 @@ export default function TestQuestionView() {
                 onClick={() => {
                   setShowExitConfirm(false);
                   goToLanding();
+                  router.push('/');
                 }}
                 className="px-5 py-2 text-sm font-semibold text-white bg-red-600 rounded-lg hover:bg-red-700"
               >
