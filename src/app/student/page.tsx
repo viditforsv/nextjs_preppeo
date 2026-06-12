@@ -56,20 +56,44 @@ const formatFullDate = (dateString: string) =>
 
 export default async function StudentDashboard() {
   const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+
+  // getClaims() verifies the JWT locally (no auth-server round-trip) when the
+  // project uses asymmetric signing keys — same fast path the middleware relies
+  // on. We only need the user id (claims.sub) to scope the queries below.
+  const { data: claimsData } = await supabase.auth.getClaims();
+  const userId = claimsData?.claims?.sub;
 
   // Middleware already guards /student, but verify defensively.
-  if (!user) {
+  if (!userId) {
     redirect("/auth?redirect=/student");
   }
 
-  const { data: profile } = await supabase
-    .from("profiles")
-    .select("first_name, role")
-    .eq("id", user.id)
-    .single();
+  // Fire every query at once. profile (role + name), the practice count, and
+  // the SAT attempts are independent once we have userId, so they run in a
+  // single parallel batch instead of profile-then-everything-else.
+  const serviceClient = createSupabaseApiClient();
+  const [{ data: profile }, { count: questionsPracticed }, { data: satData }] =
+    await Promise.all([
+      supabase
+        .from("profiles")
+        .select("first_name, role")
+        .eq("id", userId)
+        .single(),
+
+      supabase
+        .from("student_performance_log")
+        .select("id", { count: "exact", head: true })
+        .eq("student_id", userId),
+
+      serviceClient
+        .from("sat_test_attempts")
+        .select(
+          "id, section_type, set_number, estimated_score, rw_estimated_score, total_estimated_score, total_correct, total_questions, score_pct, completed_at"
+        )
+        .eq("user_id", userId)
+        .not("completed_at", "is", null)
+        .order("completed_at", { ascending: false }),
+    ]);
 
   if (profile?.role !== "student" && profile?.role !== "admin") {
     return (
@@ -85,26 +109,6 @@ export default async function StudentDashboard() {
       </div>
     );
   }
-
-  // Fetch the dashboard's data on the server, in parallel. SAT attempts come
-  // from a separate table behind the service client, so both fire together and
-  // the page waits on the single slowest query rather than a chain of round-trips.
-  const serviceClient = createSupabaseApiClient();
-  const [{ count: questionsPracticed }, { data: satData }] = await Promise.all([
-    supabase
-      .from("student_performance_log")
-      .select("id", { count: "exact", head: true })
-      .eq("student_id", user.id),
-
-    serviceClient
-      .from("sat_test_attempts")
-      .select(
-        "id, section_type, set_number, estimated_score, rw_estimated_score, total_estimated_score, total_correct, total_questions, score_pct, completed_at"
-      )
-      .eq("user_id", user.id)
-      .not("completed_at", "is", null)
-      .order("completed_at", { ascending: false }),
-  ]);
 
   const attempts = (satData as SATAttempt[] | null) || [];
 
