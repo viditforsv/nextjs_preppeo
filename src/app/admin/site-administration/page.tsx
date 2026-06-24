@@ -87,6 +87,12 @@ export default function SiteAdministrationPage() {
           icon: Filter,
           description: "Signups and how far they progress through the free SAT mock",
         },
+        {
+          name: "UTM Link Builder",
+          href: "/admin/utm-builder",
+          icon: Link2,
+          description: "Tag promo links with utm_* params for the PostHog dashboard",
+        },
       ],
     },
     {
