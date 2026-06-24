@@ -25,6 +25,7 @@ import {
   ListChecks,
   Link2,
   Filter,
+  Ticket,
 } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -92,6 +93,12 @@ export default function SiteAdministrationPage() {
           href: "/admin/utm-builder",
           icon: Link2,
           description: "Tag promo links with utm_* params for the PostHog dashboard",
+        },
+        {
+          name: "Promo Coupons",
+          href: "/admin/coupons",
+          icon: Ticket,
+          description: "Create & manage capped discount codes (e.g. PREPPEOSAT99)",
         },
       ],
     },
