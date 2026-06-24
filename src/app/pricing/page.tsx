@@ -987,6 +987,35 @@ export default function PricingPage() {
                       )}
                     </div>
                   )}
+
+                  <details className="mt-2 text-xs text-muted-foreground">
+                    <summary className="cursor-pointer select-none hover:text-foreground">
+                      Coupon terms &amp; how to use
+                    </summary>
+                    <ul className="mt-2 list-disc space-y-1 pl-4">
+                      <li>
+                        Enter your code above and tap <strong>Apply</strong> — the discount
+                        comes off your cart total before payment.
+                      </li>
+                      <li>
+                        Limited offer: valid only while slots last (e.g. the first 100
+                        students). Once the limit is reached it closes automatically.
+                      </li>
+                      <li>One use per student / account.</li>
+                      <li>
+                        Applies to the items in your current cart; can&apos;t be combined with
+                        another coupon or referral code.
+                      </li>
+                      <li>
+                        A small amount stays payable to confirm your order — the code is a
+                        discount, not free checkout.
+                      </li>
+                      <li>
+                        Non-transferable and holds no cash value. Preppeo may change or
+                        withdraw any code at any time.
+                      </li>
+                    </ul>
+                  </details>
                 </div>
               )}
 
