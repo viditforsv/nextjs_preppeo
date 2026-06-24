@@ -353,7 +353,7 @@ export default function PricingPage() {
           partnerName: data.partner_name,
         });
       } else {
-        setReferralError("Invalid or expired code");
+        setReferralError(data.error || "Invalid or expired code");
         setReferral(null);
       }
     } catch {
@@ -966,7 +966,7 @@ export default function PricingPage() {
                           onKeyDown={(e) =>
                             e.key === "Enter" && handleApplyReferral()
                           }
-                          placeholder="Referral code"
+                          placeholder="Referral or coupon code"
                           className="flex-1 rounded-lg border border-gray-200 px-3 py-2 text-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
                         />
                         <button
