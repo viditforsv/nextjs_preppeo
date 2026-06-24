@@ -11,6 +11,8 @@
  *   3. default → India
  */
 
+import { WHATSAPP_NUMBER } from "@/config/pricing";
+
 export type Region = "in" | "intl";
 
 export function getRegion(
@@ -37,13 +39,12 @@ export interface RegionLinks {
 
 // ─────────────────────────────────────────────────────────────────────────
 // TODO (you fill these in):
-//   • whatsapp — replace 91XXXXXXXXXX with the real WhatsApp business number.
 //   • book / admissions — point at the real /book and /admissions routes once
 //     built (currently routed to existing /pricing and /services/admissions).
 //   • Currency + payment rail (Razorpay/INR vs Stripe/USD) are handled on the
 //     destination pages via the ?region= param — not here.
 // ─────────────────────────────────────────────────────────────────────────
-const WA_NUMBER = "91XXXXXXXXXX"; // TODO: real WhatsApp business number
+const WA_NUMBER = WHATSAPP_NUMBER; // single source of truth: 918130711689
 const WA_TEXT = encodeURIComponent("Hi, I'm interested in SAT prep");
 
 export const REGION_LINKS: Record<Region, RegionLinks> = {

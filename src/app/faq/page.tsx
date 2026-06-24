@@ -11,6 +11,7 @@ import {
 } from "@/design-system/components/ui/card";
 import { Button } from "@/design-system/components/ui/button";
 import { Input } from "@/design-system/components/ui/input";
+import { whatsappLink } from "@/config/pricing";
 import {
   ArrowLeft,
   Search,
@@ -332,7 +333,7 @@ const FAQPage = memo(function FAQPage() {
                     className="bg-primary hover:bg-primary/90 rounded-sm"
                     onClick={() =>
                       window.open(
-                        "https://wa.me/918130711689?text=Hello! I would like to get support.",
+                        whatsappLink("Hello! I would like to get support."),
                         "_blank"
                       )
                     }
