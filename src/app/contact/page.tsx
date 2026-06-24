@@ -1,6 +1,7 @@
 "use client";
 
 import { Button } from "@/design-system/components/ui/button";
+import { whatsappLink } from "@/config/pricing";
 import {
   Card,
   CardContent,
@@ -448,7 +449,9 @@ export default function ContactPage() {
                 className="bg-white hover:bg-gray-50 text-[#25D366] border-2 border-white rounded-lg px-8 py-6 text-lg shadow-lg font-semibold"
                 onClick={() =>
                   window.open(
-                    "https://wa.me/918130711689?text=Hello! I would like to schedule a consultation.",
+                    whatsappLink(
+                      "Hello! I would like to schedule a consultation."
+                    ),
                     "_blank"
                   )
                 }
