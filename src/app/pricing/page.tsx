@@ -264,15 +264,30 @@ export default function PricingPage() {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState<string | null>(null);
 
-  // Referral code (optional) — validated like the old store; server applies it.
+  // Referral / coupon code (optional) — validated server-side, applied on the order.
   const [referralInput, setReferralInput] = useState("");
   const [referral, setReferral] = useState<{
     code: string;
     discountRate: number;
     partnerName: string;
+    terms?: string | null;
   } | null>(null);
   const [referralLoading, setReferralLoading] = useState(false);
   const [referralError, setReferralError] = useState("");
+
+  // Publicly-listed promo coupons (admin-flagged) shown as "available offers".
+  const [publicCoupons, setPublicCoupons] = useState<
+    { code: string; description: string | null; discount_percent: number; terms: string | null; remaining: number }[]
+  >([]);
+  // Terms & conditions modal for a specific code.
+  const [termsModal, setTermsModal] = useState<{ code: string; terms: string | null } | null>(null);
+
+  useEffect(() => {
+    fetch("/api/coupons/public")
+      .then((r) => r.json())
+      .then((d) => setPublicCoupons(d.coupons ?? []))
+      .catch(() => setPublicCoupons([]));
+  }, []);
 
   useEffect(() => {
     let active = true;
@@ -334,9 +349,10 @@ export default function PricingPage() {
   const discountRate = referral?.discountRate ?? 0;
   const payable = discountRate > 0 ? total * (1 - discountRate / 100) : total;
 
-  const handleApplyReferral = async () => {
-    const code = referralInput.trim();
+  const handleApplyReferral = async (codeArg?: string) => {
+    const code = (codeArg ?? referralInput).trim();
     if (!code) return;
+    setReferralInput(code.toUpperCase());
     setReferralLoading(true);
     setReferralError("");
     try {
@@ -351,6 +367,7 @@ export default function PricingPage() {
           code: code.toUpperCase(),
           discountRate: data.discount_rate,
           partnerName: data.partner_name,
+          terms: data.terms ?? null,
         });
       } else {
         setReferralError(data.error || "Invalid or expired code");
@@ -935,19 +952,33 @@ export default function PricingPage() {
                   ))}
               </div>
 
-              {/* Referral code */}
+              {/* Referral / coupon code */}
               {total > 0 && (
                 <div className="mt-4">
                   {referral ? (
-                    <div className="flex items-center justify-between rounded-lg bg-emerald-50 px-3 py-2 text-sm">
+                    <div className="flex items-center justify-between gap-2 rounded-lg bg-emerald-50 px-3 py-2 text-sm">
                       <span className="text-emerald-700">
                         <span className="font-semibold">{referral.code}</span> ·{" "}
                         {referral.discountRate}% off
+                        {referral.terms && (
+                          <>
+                            {" · "}
+                            <button
+                              type="button"
+                              onClick={() =>
+                                setTermsModal({ code: referral.code, terms: referral.terms ?? null })
+                              }
+                              className="underline underline-offset-2 hover:text-emerald-900"
+                            >
+                              Terms
+                            </button>
+                          </>
+                        )}
                       </span>
                       <button
                         type="button"
                         onClick={clearReferral}
-                        className="text-emerald-700 hover:text-emerald-900"
+                        className="shrink-0 text-emerald-700 hover:text-emerald-900"
                         aria-label="Remove code"
                       >
                         <X className="h-4 w-4" />
@@ -971,7 +1002,7 @@ export default function PricingPage() {
                         />
                         <button
                           type="button"
-                          onClick={handleApplyReferral}
+                          onClick={() => handleApplyReferral()}
                           disabled={referralLoading || !referralInput.trim()}
                           className="rounded-lg border border-primary px-3 py-2 text-sm font-semibold text-primary hover:bg-primary/5 disabled:opacity-50"
                         >
@@ -988,34 +1019,51 @@ export default function PricingPage() {
                     </div>
                   )}
 
-                  <details className="mt-2 text-xs text-muted-foreground">
-                    <summary className="cursor-pointer select-none hover:text-foreground">
-                      Coupon terms &amp; how to use
-                    </summary>
-                    <ul className="mt-2 list-disc space-y-1 pl-4">
-                      <li>
-                        Enter your code above and tap <strong>Apply</strong> — the discount
-                        comes off your cart total before payment.
-                      </li>
-                      <li>
-                        Limited offer: valid only while slots last (e.g. the first 100
-                        students). Once the limit is reached it closes automatically.
-                      </li>
-                      <li>One use per student / account.</li>
-                      <li>
-                        Applies to the items in your current cart; can&apos;t be combined with
-                        another coupon or referral code.
-                      </li>
-                      <li>
-                        A small amount stays payable to confirm your order — the code is a
-                        discount, not free checkout.
-                      </li>
-                      <li>
-                        Non-transferable and holds no cash value. Preppeo may change or
-                        withdraw any code at any time.
-                      </li>
-                    </ul>
-                  </details>
+                  {/* Available offers — admin-listed coupons, each with its own terms */}
+                  {!referral && publicCoupons.length > 0 && (
+                    <div className="mt-3 rounded-lg border border-dashed border-emerald-200 bg-emerald-50/40 p-3">
+                      <p className="mb-2 text-xs font-semibold text-emerald-800">
+                        Available offers
+                      </p>
+                      <ul className="space-y-2">
+                        {publicCoupons.map((c) => (
+                          <li
+                            key={c.code}
+                            className="flex items-center justify-between gap-2 text-xs"
+                          >
+                            <span className="min-w-0">
+                              <span className="font-mono font-semibold text-foreground">
+                                {c.code}
+                              </span>{" "}
+                              <span className="text-emerald-700">— {c.discount_percent}% off</span>
+                              {c.description && (
+                                <span className="text-muted-foreground"> · {c.description}</span>
+                              )}
+                              {c.terms && (
+                                <>
+                                  {" · "}
+                                  <button
+                                    type="button"
+                                    onClick={() => setTermsModal({ code: c.code, terms: c.terms })}
+                                    className="underline underline-offset-2 hover:text-foreground"
+                                  >
+                                    Terms
+                                  </button>
+                                </>
+                              )}
+                            </span>
+                            <button
+                              type="button"
+                              onClick={() => handleApplyReferral(c.code)}
+                              className="shrink-0 rounded-md border border-primary px-2.5 py-1 font-semibold text-primary hover:bg-primary/5"
+                            >
+                              Apply
+                            </button>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
                 </div>
               )}
 
@@ -1163,6 +1211,46 @@ export default function PricingPage() {
                 </p>
               </div>
             )}
+          </div>
+        </div>
+      )}
+
+      {/* Coupon terms & conditions */}
+      {termsModal && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4"
+          onClick={() => setTermsModal(null)}
+        >
+          <div
+            className="w-full max-w-md rounded-2xl bg-white p-6 shadow-xl"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-start justify-between gap-4">
+              <div>
+                <h3 className="text-lg font-bold text-foreground">Coupon terms</h3>
+                <p className="mt-1 font-mono text-sm font-semibold text-primary">
+                  {termsModal.code}
+                </p>
+              </div>
+              <button
+                type="button"
+                onClick={() => setTermsModal(null)}
+                className="rounded-md p-1 text-muted-foreground hover:bg-gray-100 hover:text-foreground"
+                aria-label="Close"
+              >
+                <X className="h-5 w-5" />
+              </button>
+            </div>
+            <p className="mt-4 whitespace-pre-line text-sm leading-relaxed text-muted-foreground">
+              {termsModal.terms || "No specific terms for this code."}
+            </p>
+            <button
+              type="button"
+              onClick={() => setTermsModal(null)}
+              className="mt-6 w-full rounded-lg bg-primary px-4 py-2.5 text-sm font-semibold text-white hover:bg-primary/90"
+            >
+              Got it
+            </button>
           </div>
         </div>
       )}
