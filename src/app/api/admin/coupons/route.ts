@@ -31,7 +31,7 @@ export async function GET() {
   const supabase = createSupabaseApiClient();
   const { data, error } = await supabase
     .from('coupons')
-    .select('id, code, description, discount_percent, max_redemptions, redeemed_count, is_active, expires_at, created_at')
+    .select('id, code, description, discount_percent, max_redemptions, redeemed_count, is_active, is_public, terms, expires_at, created_at')
     .order('created_at', { ascending: false });
 
   if (error) return NextResponse.json({ error: error.message }, { status: 500 });
@@ -45,9 +45,11 @@ export async function POST(request: NextRequest) {
   let body: {
     code?: string;
     description?: string;
+    terms?: string;
     discount_percent?: number;
     max_redemptions?: number;
     expires_at?: string | null;
+    is_public?: boolean;
   };
   try {
     body = await request.json();
@@ -75,11 +77,13 @@ export async function POST(request: NextRequest) {
     .insert({
       code,
       description: body.description?.trim() || null,
+      terms: body.terms?.trim() || null,
       discount_percent: discount,
       max_redemptions: maxRedemptions,
       expires_at: body.expires_at || null,
+      is_public: body.is_public === true,
     })
-    .select('id, code, description, discount_percent, max_redemptions, redeemed_count, is_active, expires_at, created_at')
+    .select('id, code, description, discount_percent, max_redemptions, redeemed_count, is_active, is_public, terms, expires_at, created_at')
     .single();
 
   if (error) {
@@ -96,23 +100,32 @@ export async function PATCH(request: NextRequest) {
   const admin = await requireAdmin();
   if (!admin) return NextResponse.json({ error: 'Admin access required' }, { status: 403 });
 
-  let body: { id?: string; is_active?: boolean };
+  let body: { id?: string; is_active?: boolean; is_public?: boolean; terms?: string };
   try {
     body = await request.json();
   } catch {
     return NextResponse.json({ error: 'Invalid request body' }, { status: 400 });
   }
 
-  if (!body.id || typeof body.is_active !== 'boolean') {
-    return NextResponse.json({ error: 'id and is_active are required' }, { status: 400 });
+  if (!body.id) {
+    return NextResponse.json({ error: 'id is required' }, { status: 400 });
+  }
+
+  const update: Record<string, unknown> = {};
+  if (typeof body.is_active === 'boolean') update.is_active = body.is_active;
+  if (typeof body.is_public === 'boolean') update.is_public = body.is_public;
+  if (typeof body.terms === 'string') update.terms = body.terms.trim() || null;
+
+  if (Object.keys(update).length === 0) {
+    return NextResponse.json({ error: 'Nothing to update' }, { status: 400 });
   }
 
   const supabase = createSupabaseApiClient();
   const { data, error } = await supabase
     .from('coupons')
-    .update({ is_active: body.is_active })
+    .update(update)
     .eq('id', body.id)
-    .select('id, is_active')
+    .select('id, is_active, is_public, terms')
     .single();
 
   if (error) return NextResponse.json({ error: error.message }, { status: 500 });

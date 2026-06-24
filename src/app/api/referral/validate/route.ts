@@ -41,7 +41,7 @@ export async function POST(request: NextRequest) {
     // create-order (which knows the user); here we only gate on cap/expiry.
     const { data: coupon } = await supabase
       .from('coupons')
-      .select('discount_percent, max_redemptions, redeemed_count, expires_at')
+      .select('discount_percent, max_redemptions, redeemed_count, expires_at, description, terms')
       .eq('code', normalized)
       .eq('is_active', true)
       .single();
@@ -57,6 +57,8 @@ export async function POST(request: NextRequest) {
         type: 'coupon',
         discount_rate: Number(coupon.discount_percent),
         partner_name: 'Promo code',
+        description: coupon.description,
+        terms: coupon.terms,
       });
     }
 

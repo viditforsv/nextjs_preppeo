@@ -9,10 +9,12 @@ interface Coupon {
   id: string;
   code: string;
   description: string | null;
+  terms: string | null;
   discount_percent: number;
   max_redemptions: number;
   redeemed_count: number;
   is_active: boolean;
+  is_public: boolean;
   expires_at: string | null;
   created_at: string;
 }
@@ -24,9 +26,11 @@ export default function AdminCouponsPage() {
   const [form, setForm] = useState({
     code: '',
     description: '',
+    terms: '',
     discountPercent: '99',
     maxRedemptions: '100',
     expiresAt: '',
+    isPublic: false,
   });
   const [formError, setFormError] = useState('');
   const [formLoading, setFormLoading] = useState(false);
@@ -59,9 +63,11 @@ export default function AdminCouponsPage() {
         body: JSON.stringify({
           code: form.code,
           description: form.description,
+          terms: form.terms,
           discount_percent: Number(form.discountPercent),
           max_redemptions: Number(form.maxRedemptions),
           expires_at: form.expiresAt ? new Date(form.expiresAt).toISOString() : null,
+          is_public: form.isPublic,
         }),
       });
       const data = await res.json();
@@ -69,7 +75,7 @@ export default function AdminCouponsPage() {
         setFormError(data.error || 'Failed to create coupon');
         return;
       }
-      setForm({ code: '', description: '', discountPercent: '99', maxRedemptions: '100', expiresAt: '' });
+      setForm({ code: '', description: '', terms: '', discountPercent: '99', maxRedemptions: '100', expiresAt: '', isPublic: false });
       setShowForm(false);
       fetchCoupons();
     } catch {
@@ -88,6 +94,26 @@ export default function AdminCouponsPage() {
         body: JSON.stringify({ id: c.id, is_active: !c.is_active }),
       });
       setCoupons((prev) => prev.map((x) => (x.id === c.id ? { ...x, is_active: !x.is_active } : x)));
+    } catch {
+      /* silent */
+    } finally {
+      setToggling((s) => {
+        const next = new Set(s);
+        next.delete(c.id);
+        return next;
+      });
+    }
+  };
+
+  const togglePublic = async (c: Coupon) => {
+    setToggling((s) => new Set(s).add(c.id));
+    try {
+      await fetch('/api/admin/coupons', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id: c.id, is_public: !c.is_public }),
+      });
+      setCoupons((prev) => prev.map((x) => (x.id === c.id ? { ...x, is_public: !x.is_public } : x)));
     } catch {
       /* silent */
     } finally {
@@ -194,6 +220,35 @@ export default function AdminCouponsPage() {
                     onChange={(e) => setForm({ ...form, expiresAt: e.target.value })}
                   />
                 </div>
+                <div className="sm:col-span-2">
+                  <label className="block text-xs font-semibold mb-1">
+                    Terms &amp; conditions{' '}
+                    <span className="font-normal text-muted-foreground">
+                      — shown to users in the &quot;Terms&quot; modal
+                    </span>
+                  </label>
+                  <textarea
+                    rows={3}
+                    className={inputCls}
+                    placeholder="99% off your entire cart. First 100 students only. One use per account…"
+                    value={form.terms}
+                    onChange={(e) => setForm({ ...form, terms: e.target.value })}
+                  />
+                </div>
+                <div className="sm:col-span-2">
+                  <label className="flex items-center gap-2 text-sm">
+                    <input
+                      type="checkbox"
+                      checked={form.isPublic}
+                      onChange={(e) => setForm({ ...form, isPublic: e.target.checked })}
+                    />
+                    <span>
+                      <span className="font-semibold">Show on site</span> — list this code
+                      publicly under &quot;Available offers&quot; on /pricing. Leave off for
+                      targeted/typed-only codes.
+                    </span>
+                  </label>
+                </div>
               </div>
               {formError && <p className="mt-3 text-xs text-red-600">{formError}</p>}
               <div className="mt-4 flex gap-2">
@@ -234,6 +289,7 @@ export default function AdminCouponsPage() {
                       <th className="px-4 py-3 font-medium">Redeemed</th>
                       <th className="px-4 py-3 font-medium">Expires</th>
                       <th className="px-4 py-3 font-medium">Status</th>
+                      <th className="px-4 py-3 font-medium">Listed</th>
                       <th className="px-4 py-3 font-medium text-right">Action</th>
                     </tr>
                   </thead>
@@ -282,6 +338,21 @@ export default function AdminCouponsPage() {
                                 Active
                               </span>
                             )}
+                          </td>
+                          <td className="px-4 py-3">
+                            <button
+                              type="button"
+                              onClick={() => togglePublic(c)}
+                              disabled={toggling.has(c.id)}
+                              title={c.is_public ? 'Listed on /pricing — click to hide' : 'Hidden — click to list publicly'}
+                              className={`text-xs rounded-full px-2 py-0.5 disabled:opacity-50 ${
+                                c.is_public
+                                  ? 'bg-blue-100 text-blue-700'
+                                  : 'bg-gray-100 text-gray-500'
+                              }`}
+                            >
+                              {c.is_public ? 'Public' : 'Hidden'}
+                            </button>
                           </td>
                           <td className="px-4 py-3 text-right">
                             <button
