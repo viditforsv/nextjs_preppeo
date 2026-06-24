@@ -34,7 +34,7 @@ export async function fulfillCartPurchase(
   // Parent purchase
   const { data: purchase, error: purchaseError } = await supabase
     .from('token_purchases')
-    .select('id, user_id, status, amount, partner_id')
+    .select('id, user_id, status, amount, partner_id, coupon_id')
     .eq('id', purchaseId)
     .single();
 
@@ -82,6 +82,21 @@ export async function fulfillCartPurchase(
       tokens_generated: allTokens.length,
     })
     .eq('id', purchase.id);
+
+  // Claim the coupon slot — atomic + idempotent (unique coupon_id/user_id).
+  // Runs only here, on a paid+completed order, so abandoned carts never
+  // consume a slot. A false return (cap hit at the boundary, or re-fulfillment)
+  // is harmless — the purchase is already honored.
+  if (purchase.coupon_id) {
+    const { error: redeemError } = await supabase.rpc('redeem_coupon', {
+      p_coupon_id: purchase.coupon_id,
+      p_user_id: purchase.user_id,
+      p_purchase_id: purchase.id,
+    });
+    if (redeemError) {
+      console.error('Coupon redemption claim failed (non-blocking):', redeemError);
+    }
+  }
 
   // Partner commission on the full bundle amount
   if (purchase.partner_id) {

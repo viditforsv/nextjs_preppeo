@@ -106,10 +106,14 @@ export async function POST(request: NextRequest) {
 
     const subtotal = resolved.reduce((sum, it) => sum + it.unit_price, 0);
 
-    // Resolve referral discount on the bundle total.
+    // Resolve a discount on the bundle total. The single code field accepts
+    // either a partner referral code or a promo coupon — partner takes
+    // precedence, then coupon. They never stack (one code field).
     let discountApplied = 0;
     let partnerId: string | null = null;
     let resolvedCode: string | null = null;
+    let couponId: string | null = null;
+    let couponCode: string | null = null;
 
     if (referralCode && typeof referralCode === 'string') {
       const code = referralCode.trim().toUpperCase();
@@ -124,11 +128,47 @@ export async function POST(request: NextRequest) {
         discountApplied = Number(((subtotal * partner.discount_rate) / 100).toFixed(2));
         partnerId = partner.id;
         resolvedCode = code;
+      } else {
+        // Not a partner — try a promo coupon.
+        const { data: coupon } = await supabase
+          .from('coupons')
+          .select('id, code, discount_percent, max_redemptions, redeemed_count, expires_at')
+          .eq('code', code)
+          .eq('is_active', true)
+          .single();
+
+        if (coupon) {
+          const expired = coupon.expires_at && new Date(coupon.expires_at) <= new Date();
+          const capReached = coupon.redeemed_count >= coupon.max_redemptions;
+          const { data: prior } = await supabase
+            .from('coupon_redemptions')
+            .select('id')
+            .eq('coupon_id', coupon.id)
+            .eq('user_id', user.id)
+            .maybeSingle();
+
+          if (expired) {
+            return NextResponse.json({ success: false, error: 'This code has expired.' }, { status: 400 });
+          }
+          if (prior) {
+            return NextResponse.json({ success: false, error: 'You have already used this code.' }, { status: 400 });
+          }
+          if (capReached) {
+            return NextResponse.json({ success: false, error: 'This code has reached its redemption limit.' }, { status: 400 });
+          }
+
+          discountApplied = Number(((subtotal * Number(coupon.discount_percent)) / 100).toFixed(2));
+          couponId = coupon.id;
+          couponCode = coupon.code;
+        }
+        // Unknown code → silently no discount (treat like a stale referral code).
       }
     }
 
-    const finalTotal = Number((subtotal - discountApplied).toFixed(2));
-    if (finalTotal <= 0) {
+    // Razorpay rejects orders below ₹1 (100 paise); a near-total discount must
+    // still leave a payable minimum.
+    const finalTotal = Math.max(Number((subtotal - discountApplied).toFixed(2)), 1);
+    if (subtotal <= 0) {
       return NextResponse.json({ success: false, error: 'Invalid order total' }, { status: 400 });
     }
 
@@ -144,6 +184,8 @@ export async function POST(request: NextRequest) {
         referral_code: resolvedCode,
         partner_id: partnerId,
         discount_applied: discountApplied,
+        coupon_id: couponId,
+        coupon_code: couponCode,
       })
       .select('id')
       .single();
@@ -185,6 +227,7 @@ export async function POST(request: NextRequest) {
         userId: user.id,
         itemCount: String(resolved.length),
         ...(partnerId ? { partnerId } : {}),
+        ...(couponCode ? { couponCode } : {}),
       },
     });
 
