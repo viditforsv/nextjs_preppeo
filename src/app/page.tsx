@@ -449,89 +449,18 @@ export default function HomePage() {
 
       {/* ══ PRICING ═══════════════════════════════════════════ */}
       <section className="py-16 bg-[#f8fafc] border-t border-gray-100">
-        <div className="max-w-5xl mx-auto px-6">
+        <div className="max-w-5xl mx-auto px-6 text-center">
           <SectionLabel>Pricing</SectionLabel>
           <h2 className="text-3xl font-bold mb-3" style={{ color: NAVY }}>Simple, Transparent Pricing</h2>
-          <p className="text-gray-600 mb-10">Start free. Pay only when you need more mocks or unlimited practice.</p>
-
-          <div className="grid md:grid-cols-2 gap-10">
-            {/* Tokens */}
-            <div>
-              <h3 className="font-bold text-base mb-4 pb-3 border-b border-gray-200 flex items-center gap-2" style={{ color: NAVY }}>
-                <ClipboardCheck className="w-4 h-4" /> Mock Tokens
-              </h3>
-              <div className="space-y-2">
-                {[
-                  { name: "1 Mock",  price: "₹499",   per: "₹499 / mock", pop: false },
-                  { name: "3 Mocks", price: "₹999",   per: "₹333 / mock", pop: true  },
-                  { name: "5 Mocks", price: "₹1,499", per: "₹300 / mock", pop: false },
-                ].map((p) => (
-                  <div
-                    key={p.name}
-                    className={`flex items-center justify-between px-4 py-3 rounded-lg border ${
-                      p.pop ? "bg-[#fffbeb]" : "bg-white border-gray-200"
-                    }`}
-                    style={p.pop ? { borderColor: AMBER } : {}}
-                  >
-                    <div>
-                      <p className="font-semibold text-gray-800 text-sm">{p.name}</p>
-                      <p className="text-xs text-gray-400">{p.per}</p>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <span className="font-bold" style={{ color: NAVY }}>{p.price}</span>
-                      {p.pop && (
-                        <span className="text-[10px] font-semibold text-white px-2 py-0.5 rounded-full" style={{ background: AMBER, color: NAVY }}>
-                          Popular
-                        </span>
-                      )}
-                    </div>
-                  </div>
-                ))}
-                <Link href="/pricing" className="text-sm font-semibold hover:underline inline-flex items-center gap-1 mt-2" style={{ color: NAVY }}>
-                  Buy tokens <ArrowRight className="w-3.5 h-3.5" />
-                </Link>
-              </div>
-            </div>
-
-            {/* Subscriptions */}
-            <div>
-              <h3 className="font-bold text-base mb-4 pb-3 border-b border-gray-200 flex items-center gap-2" style={{ color: NAVY }}>
-                <Zap className="w-4 h-4" /> Practice Subscriptions
-              </h3>
-              <div className="space-y-2">
-                {[
-                  { name: "Practice — 1 Month",       price: "₹9,999",  detail: "Unlimited questions",          pop: false },
-                  { name: "Practice — 3 Months",      price: "₹14,999", detail: "Unlimited questions",          pop: false },
-                  { name: "Complete Prep — 3 Months", price: "₹19,999", detail: "Unlimited practice + 3 mocks", pop: true  },
-                ].map((p) => (
-                  <div
-                    key={p.name}
-                    className={`flex items-center justify-between px-4 py-3 rounded-lg border ${
-                      p.pop ? "bg-[#fffbeb]" : "bg-white border-gray-200"
-                    }`}
-                    style={p.pop ? { borderColor: AMBER } : {}}
-                  >
-                    <div>
-                      <p className="font-semibold text-gray-800 text-sm">{p.name}</p>
-                      <p className="text-xs text-gray-400">{p.detail}</p>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <span className="font-bold" style={{ color: NAVY }}>{p.price}</span>
-                      {p.pop && (
-                        <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full" style={{ background: AMBER, color: NAVY }}>
-                          Best Value
-                        </span>
-                      )}
-                    </div>
-                  </div>
-                ))}
-                <Link href="/sat-test" className="text-sm font-semibold hover:underline inline-flex items-center gap-1 mt-2" style={{ color: NAVY }}>
-                  Try free practice first <ArrowRight className="w-3.5 h-3.5" />
-                </Link>
-              </div>
-            </div>
-          </div>
-          <p className="text-center text-xs text-gray-400 mt-8">Your first mock is always free. No credit card required.</p>
+          <p className="text-gray-600 mb-8 max-w-2xl mx-auto">
+            Start free. Pay only when you need more mocks or unlimited practice. Build your own plan with mock packs, practice subscriptions, and complete-prep bundles.
+          </p>
+          <Button asChild size="lg" className="text-white" style={{ background: NAVY }}>
+            <Link href="/pricing">
+              View Pricing <ArrowRight className="ml-2 h-4 w-4" />
+            </Link>
+          </Button>
+          <p className="text-xs text-gray-400 mt-6">Your first mock is always free. No credit card required.</p>
         </div>
       </section>
 

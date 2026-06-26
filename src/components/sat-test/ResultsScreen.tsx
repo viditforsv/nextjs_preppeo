@@ -65,21 +65,31 @@ export default function ResultsScreen() {
   const [leadEmail, setLeadEmail] = useState('');
   const [leadError, setLeadError] = useState('');
   const [leadLoading, setLeadLoading] = useState(false);
+  // Whether the report email actually went out: true = sent, false = throttled
+  // (already emailed recently), null = unknown (request failed).
+  const [emailSent, setEmailSent] = useState<boolean | null>(null);
+  const [sentToEmail, setSentToEmail] = useState('');
+  const unlockingRef = useRef(false);
 
   async function handleEmailUnlock(e: React.FormEvent) {
     e.preventDefault();
+    // Synchronous guard: a rapid double-Enter would otherwise fire the request
+    // twice before `leadLoading` re-renders the button to disabled.
+    if (unlockingRef.current) return;
     const email = leadEmail.trim().toLowerCase();
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       setLeadError('Please enter a valid email address.');
       return;
     }
+    unlockingRef.current = true;
     setLeadLoading(true);
     setLeadError('');
+    setSentToEmail(email);
     // Best-effort capture — never block the unlock on the lead write.
     try {
       const ref =
         (typeof window !== 'undefined' && sessionStorage.getItem('sat-free-ref')) || undefined;
-      await fetch('/api/sat-free/lead', {
+      const res = await fetch('/api/sat-free/lead', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -91,8 +101,11 @@ export default function ResultsScreen() {
           report: buildReportSummary(),
         }),
       });
+      const data = await res.json().catch(() => null);
+      setEmailSent(typeof data?.emailed === 'boolean' ? data.emailed : null);
     } catch {
-      /* swallow — capture is best-effort, UX comes first */
+      // Capture is best-effort; UX comes first. Unknown send status (null).
+      setEmailSent(null);
     }
     setReportUnlocked(true);
   }
@@ -349,6 +362,24 @@ export default function ResultsScreen() {
     return (
       <div className="min-h-screen bg-[#f5f5f0]">
         <div className="max-w-2xl mx-auto px-4 pt-8">
+          {emailSent === true && (
+            <div className="flex items-start gap-2 bg-emerald-50 border border-emerald-200 text-emerald-800 rounded-xl p-4 mb-3 text-sm">
+              <CheckCircle2 className="w-4 h-4 shrink-0 mt-0.5" />
+              <span>We&apos;ve emailed your full report to <strong>{sentToEmail}</strong>. Check your inbox (and spam).</span>
+            </div>
+          )}
+          {emailSent === false && (
+            <div className="flex items-start gap-2 bg-amber-50 border border-amber-200 text-amber-800 rounded-xl p-4 mb-3 text-sm">
+              <Mail className="w-4 h-4 shrink-0 mt-0.5" />
+              <span>We already emailed your report to <strong>{sentToEmail}</strong> in the last few minutes — check your inbox. To prevent spam, we send at most one report email every 10 minutes.</span>
+            </div>
+          )}
+          {emailSent === null && (
+            <div className="flex items-start gap-2 bg-gray-50 border border-gray-200 text-gray-600 rounded-xl p-4 mb-3 text-sm">
+              <Mail className="w-4 h-4 shrink-0 mt-0.5" />
+              <span>Your full report is below. We couldn&apos;t confirm the email just now — if it doesn&apos;t arrive, you can re-enter your email after a few minutes.</span>
+            </div>
+          )}
           <div className="bg-[#0d47a1]/5 border border-[#0d47a1]/15 rounded-2xl p-6 mb-2">
             <h2 className="text-lg font-bold text-[#1a365d] mb-1">Save your report</h2>
             <p className="text-sm text-gray-600 mb-5">
